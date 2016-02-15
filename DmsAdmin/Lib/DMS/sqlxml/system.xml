@@ -1,0 +1,225 @@
+<table name="lang">
+<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+<field name="name"      type="varchar(50)" default=""/>
+<field name="dispname"  type="varchar(50)" default=""/>
+<field name="code"      type="varchar(50)" default=""/>
+<field name="othercode" type="varchar(50)" default=""/>
+<field name="默认"      type="int(11)" default="0"/>
+<field name="生效"      type="tinyint(1)" default="0"/>
+</table>
+<table name="lang_data">
+<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+<field name="name"		type="text"	 default=""/>
+<field name="mode"		type="text"	 default=""/>
+<field name="sq_code"	type="text"	 default=""/>
+<field name="ar_code"	type="text"	 default=""/>
+<field name="bg_code"	type="text"	 default=""/>
+<field name="ca_code"	type="text"	 default=""/>
+<field name="hr_code"	type="text"	 default=""/>
+<field name="cs_code"	type="text"	 default=""/>
+<field name="da_code"	type="text"	 default=""/>
+<field name="nl_code"	type="text"	 default=""/>
+<field name="et_code"	type="text"	 default=""/>
+<field name="fa_code"	type="text"	 default=""/>
+<field name="fi_code"	type="text"	 default=""/>
+<field name="fr_code"	type="text"	 default=""/>
+<field name="de_code"	type="text"	 default=""/>
+<field name="el_code"	type="text"	 default=""/>
+<field name="he_code"	type="text"	 default=""/>
+<field name="hu_code"	type="text"	 default=""/>
+<field name="is_code"	type="text"	 default=""/>
+<field name="in_code"	type="text"	 default=""/>
+<field name="it_code"	type="text"	 default=""/>
+<field name="lv_code"	type="text"	 default=""/>
+<field name="lt_code"	type="text"	 default=""/>
+<field name="mk_code"	type="text"	 default=""/>
+<field name="ms_code"	type="text"	 default=""/>
+<field name="it_ch_code"	type="text"	 default=""/>
+<field name="no_code"	type="text"	 default=""/>
+<field name="pl_code"	type="text"	 default=""/>
+<field name="pt_code"	type="text"	 default=""/>
+<field name="rm_code"	type="text"	 default=""/>
+<field name="ro_code"	type="text"	 default=""/>
+<field name="ru_code"	type="text"	 default=""/>
+<field name="sr_code"	type="text"	 default=""/>
+<field name="sk_code"	type="text"	 default=""/>
+<field name="sl_code"	type="text"	 default=""/>
+<field name="es_code"	type="text"	 default=""/>
+<field name="sv_code"	type="text"	 default=""/>
+<field name="tr_code"	type="text"	 default=""/>
+<field name="uk_code"	type="text"	 default=""/>
+<field name="ja_code"	type="text"	 default=""/>
+<field name="ko_code"	type="text"	 default=""/>
+<field name="th_code"	type="text"	 default=""/>
+<field name="vi_code"	type="text"	 default=""/>
+<field name="en_us_code"	type="text"	 default=""/>
+<field name="zh_tw_code"	type="text"	 default=""/>
+<field name="zh_hk_code"	type="text"	 default=""/>
+<field name="zh_cn_code"	type="text"	 default=""/>
+</table>
+<table name="公告">
+<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+<field name="netname"	    type="varchar(255)"	default=""/>
+<field name="查看权限"	type="int(11)"	default="0"/>
+<field name="标题"	    type="varchar(50)"	 default=""/>
+<field name="标题特效"	type="text"  default=""/>
+<field name="内容"      type="text"	 default=""/>
+<field name="发布人"	type="varchar(50)" default=""/>
+<field name="type"		type="varchar(100)" default=""/>
+<field name="语言"   	type="varchar(50)" default=""/>
+<field name="创建时间"	type="int(11)" default="0"/>
+<field name="顺序"	type="int(11)" default="0"/>
+</table>
+<table name='银行卡'>
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='开户行' type="varchar(100)" default=""/>
+<field name='图标' type="varchar(100)" default=""/>
+<field name='卡号'  type="varchar(200)" default=""/>
+<field name='户名'  type="varchar(50)" default=""/>
+<field name='状态'  type="varchar(50)" default="有效"/>
+<field name='测试'  type="varchar(50)" default="有效"/>
+<field name='开户银行官网'  type="varchar(200)"  default=""/>
+</table>
+
+<table name="loginrs"  engine="memory">
+<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+<field name="ip"    type="varchar(15)" default=""/>
+<field name="starttime"      type="int(11)" default="0"/>
+<field name="endtime"      type="int(11)" default="0"/>
+<field name="errornum" 	type="int(11)" default="0"/>
+</table>
+
+<table name="邮件">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="发件人" type="varchar(255)" default=""/>
+<field name="发件人类型" type="varchar(255)" default="管理员"/>
+<field name="标题" type="varchar(255)" default=""/>
+<field name="内容" type="text" default=""/>
+<field name="发送时间" type="int(11)" default="0"/>
+<field name="收件人" type="varchar(255)" default=""/>
+<field name="收件人类型" type="varchar(255)" default=""/>
+<field name="状态" type="tinyint(1)" default="0" comment="0 未查看 1 已查看 2 已回复 3 已删除"/>
+<field name="回复人" type="text" default=""/>
+<field name="回复内容" type="text" default=""/>
+<field name="回复时间" type="int(11)" default="0"/>
+</table>
+<table name="站外邮件">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="发件人" type="varchar(255)" default="管理员" />
+<field name="标题" type="varchar(255)" default=""/>
+<field name="内容" type="text" default=""/>
+<field name="发送时间" type="int(11)" default="0"/>
+<field name="收件人" type="varchar(255)" default=""/>
+</table>
+<table name="短信">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="内容" type="varchar(255)" default=""/>
+<field name="发送时间" type="int(11)" default="0"/>
+<field name="待发数量" type="int(11)" default="0" comment="待发数量"/>
+<field name="已发数量" type="int(11)" default="0" comment="发送成功数量"/>
+<field name="失败数量" type="int(11)" default="0" comment="发送失败数量"/>
+</table>
+<table name="短信详细">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="d_id" type="int(11)" default="0"/>
+<field name="接收号码" type="varchar(255)" default=""/>
+<field name="接收人" type="varchar(255)" default=""/>
+<field name="内容" type="varchar(255)" default=""/>
+<field name="发送时间" type="int(11)" default="0"/>
+<field name="状态" type="tinyint(1)" default="0" comment="0 待发 1 已发 2 失败"/>
+<field name="失败原因" type="varchar(255)" default=""/>
+</table>
+<table name="短语">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="短语内容" type="varchar(255)" default=""/>
+</table>
+<table name="号码编组">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="分组名称" type="varchar(50)" default=""/>
+</table>
+<table name="号码">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="编组" type="int(11)" null="1" default="0"/>
+<field name="号码" type="varchar(50)" default=""/>
+<field name="姓名" type="varchar(50)" default=""/>
+<field name="编号" type="varchar(50)" default=""/>
+</table>
+<table name="log_user" >
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="admin_id" type="int(11)"  null="1"  default="0"/>
+<field name="user_id" type="varchar(255)"  null="1"  default=""/>
+<field name="content" type="varchar(255)" null="1"  default=""/>
+<field name="ip" type="varchar(255)"  null="0"  default=""/>
+<field name="address" type="varchar(255)"  null="1"  default=""/>
+<field name="create_time" type="int(11)" default="0"/>
+</table>
+<!--<table name="log" comment="日志记录">
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="admin_id" type="int(11)"  null="1"  default="0"/>
+<field name="user_id" type="varchar(255)"  null="1"  default=""/>
+<field name="user_type" type="varchar(255)"  null="1"  default=""/>
+<field name="target_user_id" type="varchar(255)"  null="1"  default=""/>
+<field name="target_user_type" type="varchar(255)"  null="1"  default=""/>
+<field name="application" type="varchar(255)"  null="1"  default=""/>
+<field name="module" type="varchar(255)"  null="1"  default=""/>
+<field name="action" type="varchar(255)"  null="1"  default=""/>
+<field name="old_data" type="text"  default=""/>
+<field name="new_data" type="text"  default=""/>
+<field name="post_data" type="text"  default=""/>
+<field name="get_data" type="text"  default=""/>
+<field name="ip" type="varchar(255)"  null="1"  default=""/>
+<field name="address" type="varchar(255)"  null="1"  default=""/>
+<field name="memo" type="varchar(255)"  null="1"  default=""/>
+<field name="create_time" type="int(11)" default="0"/>
+</table>
+<table name="session" engine="memory" comment="SESSION入库的数据库"> 
+<field name="id" type="int(11)" auto_increment="1" primary="1" /> 
+<field name="session_id" type="varchar(255)" comment="session在浏览器中的表示SESSIONID"  default=""/>
+<field name="session_data" type="varchar(5000)"  default=""/>
+<field name="session_expire" type="int(11)" comment="session最后修改时间" default="0" />
+</table>-->
+<table name="fundlist" comment="基金捐献列表">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="userid" type="varchar(255)" default=""/>
+<field name="money" type="decimal(13,2)" default='0'/>
+<field name="starttime" type="varchar(15)" default=""/>
+</table>
+<table name="fund" comment="基金情况">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="money" type="decimal(13,2)" default='0'/>
+<field name="left" type="decimal(13,2)" default='0'/>
+<field name="use" type="decimal(13,2)" default='0' comment="基金播出"/>
+</table>
+<table name="onlinepay" comment="在线支付">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="订单号" type="varchar(255)" default=""/>
+<field name="编号" type="varchar(255)" default=""/>
+<field name="金额" type="decimal(13,2)" default='0'/>
+<field name="支付方式" type="varchar(255)"  default=""/>
+<field name="支付时间" type="varchar(15)"  default=""/>
+<field name="备注" type="varchar(255)" default=""/>
+<field name="状态" type="tinyint(1)" default='0' />
+</table>
+<table name="apipost" comment="对接接口传输的uid存储" engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="uuid" type="varchar(255)" default=""/>
+<field name="post" type="longtext" default=""/>
+<field name="model" type="varchar(255)" default=""/>
+<field name="action" type="varchar(255)" default=""/>
+<field name="addtime" type="int(11)"  default="0"/>
+<field name="acttime" type="int(11)"  default="0"/>
+<field name="status" type="tinyint(1)" default='0' />
+<field name="trynum" type="int(11)"  default='0' />
+<field name="result" type="longtext" default=""/>
+</table>
+<table name="apiget" comment="对接接口接收的uid存储" engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="uuid" type="varchar(255)" default=""/>
+<field name="post" type="longtext" default=""/>
+<field name="model" type="varchar(255)" default=""/>
+<field name="action" type="varchar(255)" default=""/>
+<field name="addtime" type="int(11)"  default="0"/>
+<field name="acttime" type="int(11)"  default="0"/>
+<field name="status" type="tinyint(1)" default='0' />
+<field name="result" type="longtext" default=""/>
+</table>

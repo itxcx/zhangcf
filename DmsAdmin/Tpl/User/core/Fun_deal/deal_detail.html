@@ -1,0 +1,39 @@
+<php>
+function printAccount($account)
+{
+	return L($account);
+}
+</php>
+<div class="core_main Fun_deal" id="deal_detail">
+<div class="core_title">
+    	<span class="core_title_con">当前位置：{$name}管理&gt;&gt;{:L('交易明细')}</span>        
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+            <TR class="datafield">
+                <TH ><nobr>序号</nobr></TH>
+                <TH ><nobr>类型</nobr></TH>
+                <TH ><nobr>时间</nobr></TH>
+                <TH ><nobr>价格</nobr></TH>
+                <TH ><nobr>交易数量</nobr></TH>
+                <TH ><nobr>剩余数量</nobr></TH>
+            </TR>
+            <foreach name="lists" item="vo">
+            <TR class="datalist">
+                <TD ><nobr>{$vo['id']}</nobr></TD>
+                <TD ><nobr>{$vo['类型']}</nobr></TD>
+                <TD ><nobr>{$vo['时间']}</nobr></TD>
+                <TD ><nobr>{$vo['价格']}</nobr></TD>
+                <TD ><nobr>{$vo['交易量']}</nobr></TD>
+                <TD ><nobr>{$vo['剩余量']}</nobr></TD>
+            </TR>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+{$page}
+    </div>
+    
+</div>
+
+

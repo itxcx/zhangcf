@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <script src="__PUBLIC__/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/Public/directSell/area_select.js"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                text-align: left;
+                font-family: "微软雅黑";
+                font-size: 13px;
+                background-color: #f5f5f5;
+            }
+            #wrap{
+                margin: 0 auto;
+                width: 1200px;
+            }
+            .header {
+                height: 110px;
+                text-indent: 20px;
+                text-align: left;
+                background-image: url(__TMPL__Public/images/top1.jpg);
+                color: #fff;
+            }
+            .header .left {
+                margin-top: 28px;
+                width: 700px;
+                float: left;
+                overflow: hidden;
+            }
+            .header .left h1 {
+                display: inline;
+                font-size: 40px;
+                font-weight: normal;
+            }
+            .header .left h2 {
+                display: inline;
+                padding-left: 20px;
+                font-size: 30px;
+                font-weight: normal;
+            }
+            .header .right {
+                float: right;
+                margin-top: 50px;
+            }
+            .header .right h3 {
+                padding-right: 200px;
+                line-height: 20px;
+                font-size: 20px;
+                color: #fff;
+            }
+            .center {
+                margin-bottom: 50px;
+                text-align: left;
+                background: #fff;
+            }
+            .core_con {
+                padding: 0 10px;
+            }
+            .clearboth {
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="header">
+                <div class="left">
+                    <h1>{:CONFIG('SYSTEM_COMPANY')}</h1><h2>{:CONFIG('SYSTEM_MEMO')}</h2>
+                </div>
+                <div class="right">
+                    <h3>欢迎注册！</h3>
+                </div>
+            </div>
+            <div class="center">
+                <div class="core_main Saleweb" id="usereg">
+                    <div class="core_title">
+                        <span class="core_title_con">推广链接</span>
+                    </div>
+                    <div class="core_con">
+                        <div id="salereg" style="<present name='regAgreement'>display:none</present>">
+                            <form name="form1" method="post" action="__GROUP__/Saleweb/regSave:{$xpath}" id="form">
+                                <input type="hidden" name="temp1" value="haha"/><input type="hidden" name='shifoutuiguang' value='1' /><input type="hidden" name="jumpUrl" value="{$jumpUrl}"/>
+                                <table class="tablebg" id="table1">
+                                    <tr>
+                                        <td class="tbkey">{$user:name}编号：</td>
+                                        <td class="tbval">
+                                            <if condition="($user:idEdit eq true) and ($user:idAutoEdit eq true)">
+                                            <input type="text" value="{$userid}" name="userid" id="userid"/>
+                                            <elseif condition="($user:idAutoEdit eq true)"/>
+                                            {$userid}
+                                            <else/>
+                                            <input type="text" value="" name="userid" id="userid"/>
+                                            </if>
+                                            &nbsp;<span id="state_userid" class="msg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbkey">{$levels:name}：</td>
+                                        <td class="tbval">
+                                            <select name='lv' id='lv' <if condition="$zkbool eq true">onChange="user_getTotalzf('{$sale:name}','Saleweb');"</if>>
+                                                <foreach name='levelsopt' item='level'>
+                                                <notempty name="maxlv">
+                                                <if condition="$level.lv elt $maxlv">
+                                                <option value="{$level.lv}">{$level.name}</option>
+                                                </if>
+                                                <else/>
+                                                <option value="{$level.lv}">{$level.name}</option>
+                                                </notempty>
+                                                </foreach>
+                                            </select>
+                                            &nbsp;<span id="state_{$levels:name}" class="msg"></span>
+                                        </td>
+                                    </tr>
+                                    <!--基本信息-->
+                                    <if condition="in_array('name',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">姓名：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="name" /></span>&nbsp;<span id="state_name" class="msg"><if condition="in_array('name',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('sex',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">性别：</td>
+                                        <td class="tbval"><span><input type="radio" name="sex" value="男" checked/>男&nbsp;&nbsp;<input type="radio" name="sex" value="女" />女</span>&nbsp;<span id="state_sex" class="msg"><if condition="in_array('sex',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('alias',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">昵称：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="alias" /></span>&nbsp;<span id="state_alias" class="msg"><if condition="in_array('alias',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('id_card',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">证件号码：</td>
+                                        <td class="tbval"><span ><input type="text" value="" name="id_card"/></span>&nbsp;<span id="state_id_card" class="msg"><if condition="in_array('id_card',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('email',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">Email：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="email" /></span>&nbsp;<span id="state_email" class="msg"><if condition="in_array('email',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('qq',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">QQ：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="qq" /></span>&nbsp;<span id="state_qq" class="msg"><if condition="in_array('qq',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('mobile',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">移动电话：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="mobile" /></span>&nbsp;<span id="state_mobile" class="msg"><if condition="in_array('mobile',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="$haveuser eq true">
+                                    <notempty name="fun_val">
+                                    <foreach name="fun_val" item="fun" key="key">
+                                    <tr>
+                                        <td class="tbkey">{$key}：</td>
+                                        <td class="tbval"><input type="text" name="{$fun}" value="" />&nbsp;<span id="state_{$fun}" class="msg"></span></td>
+                                    </tr>
+                                    </foreach>
+                                    </notempty>
+                                    </if>
+                                    <if condition="($haveuser eq true)">
+                                    <foreach name='nets' item='net'>
+                                    <if condition="($net.type eq 'text')">
+                                    <tr>
+                                        <td class="tbkey">{$net.name}：</td>
+                                        <td class="tbval">
+                                            <if condition="$net['name'] eq '推荐人编号'">
+                                            <span style="color:#000">{$net.value}</span>
+                                            <input type="hidden" value="{$net.value}" size="20" name="{$net.inputname}"  onkeyup="getInfo(this)" id="{$net.inputname}" autocomplete="off"/>
+                                            <else />
+                                            <input type="text" value="{$net.value}" size="20" name="{$net.inputname}"  onkeyup="getInfo(this)" id="{$net.inputname}" autocomplete="off"/>
+                                            </if>
+                                            &nbsp;<span id="state_{$net.inputname}" class="msg"></span>
+                                        </td>
+                                    </tr>
+                                    </if>
+                                    <if condition="($net.type eq 'select')">
+                                    <tr>
+                                        <td class="tbkey">{$net.name}：</td>
+                                        <td class="tbval">
+                                            <select name='{$net.inputname}'  otherpost='{$net.otherpost}' id="{$net.inputname}" onchange="getInfo(this)">
+                                                <foreach name='net.Region' item='Region'>
+                                                <option value='{$Region.name}'>{$Region.name}</option>
+                                                </foreach>
+                                            </select>
+                                            &nbsp;<span id="state_{$net.inputname}" class="msg"></span>
+                                        </td>
+                                    </tr>
+                                    </if>
+                                    </foreach>
+                                    </if>
+                                    <!--所属商铺-->
+                                    <notempty name="shop">
+                                    <tr>
+                                        <td class="tbkey" >{$shop}：</td>
+                                        <td class="tbval" ><span><input type="text" value="" name="shop"  onkeyup="getInfo(this)" id="shop" autocomplete="off"/></span>&nbsp;<span id="state_shop" class="msg"><if condition="in_array('shop',$require) eq true">*</if></span></td>
+                                    </tr>
+                                    </notempty>
+                                    {//单数}
+                                    <if condition="($sale:setNumber eq true)">
+                                    <tr>
+                                        <td class="tbkey" >单数：</td>
+                                        <td class="tbval" ><input type="text" value="" name="setNumber" />&nbsp;<span id="state_setNumber" class="msg">*</span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="($sale:setMoney eq true)">
+                                    <tr>
+                                        <td class="tbkey">报单金额：</td>
+                                        <td class="tbval"><input type="text" value="" size="20" name="setMoney" /></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('area',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">国家：</td>
+                                        <td class="tbval">
+                                            <select name="country" id="country_id">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <select name="province" id="province_id" <if condition="$zkbool eq true">onChange="user_getTotalzf('{$sale:name}','Saleweb');"</if>>
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <select name="city" id="city_id">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            &nbsp;<span id="state_city" class="msg"><if condition="in_array('area',$require) eq true ">*</if></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbkey">区县：</td>
+                                        <td class="tbval">
+                                            <select name="county" style="padding:0px;width:100px" id="county_id">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            <select name="town" style="padding:0px;width:100px" id="town_id">
+                                                <option value="">请选择</option>
+                                            </select>
+                                            &nbsp;<span id="state_town" class="msg"><if condition="in_array('area',$require) eq true ">*</if></span>
+                                        </td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('address',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">地址：</td>
+                                        <td class="tbval"><span><input type="text"  value="" name="address" /></span>&nbsp;<span id="state_address" class="msg"><if condition="in_array('address',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('reciver',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">收货人：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="reciver" /></span>&nbsp;<span id="state_reciver" class="msg"><if condition="in_array('reciver',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('bank_apply_name',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">开户行：</td>
+                                        <td class="tbval">
+                                            <select name="bank_apply_name" id="bank">
+                                                <option value="">请选择</option>
+                                                <foreach name="banklist" item="bank">
+                                                <option value="{$bank.开户行}">{$bank.开户行}</option>
+                                                </foreach>
+                                            </select>
+                                            &nbsp;<span id="bank_apply_name" class="msg"><if condition="in_array('bank_apply_name',$require) eq true ">*</if></span>
+                                        </td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('bank_card',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">银行卡号：</td>
+                                        <td class="tbval" ><span ><input  type="text" value="" name="bank_card"/></span>&nbsp;<span id="state_bank_card" class="msg"><if condition="in_array('bank_card',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('bank_name',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">开户名：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="bank_name" /></span>&nbsp;<span id="state_bank_name" class="msg"><if condition="in_array('bank_name',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('bank_apply_addr',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">开户地址：</td>
+                                        <td class="tbval"><span><input type="text" value="" name="bank_apply_addr" /></span>&nbsp;<span id="state_bank_apply_addr" class="msg"><if condition="in_array('bank_apply_addr',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('pass1',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">一级密码：</td>
+                                        <td class="tbval"><span><input type="password" value="" name="pass1" /></span>&nbsp;<span id="state_pass1" class="msg"><if condition="in_array('pass1',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <if condition="in_array('pass1c',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">一级密码确认：</td>
+                                        <td class="tbval"><span><input type="password" value="" name="pass1c" /></span>&nbsp;<span id="state_pass1c" class="msg"><if condition="in_array('pass1c',$require) eq true ">*</if></span></td>
+                                    </tr>                                   
+                                    </if>
+                                    <if condition="in_array('pass2',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">二级密码：</td>
+                                        <td class="tbval"><span><input type="password" value="" name="pass2" /></span>&nbsp;<span id="state_pass2" class="msg"><if condition="in_array('pass2',$require) eq true ">*</if></span></td>
+                                    </tr>                                
+                                    </if>
+                                    <if condition="in_array('pass2c',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey">二级密码确认：</td>
+                                        <td class="tbval"><span><input type="password" value="" name="pass2c" /></span>&nbsp;<span id="state_pass2c" class="msg"><if condition="in_array('pass2c',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    <eq name="pwd3Switch" value="true">
+                                    <if condition="in_array('pass3',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey" >三级密码：</td>
+                                        <td class="tbval" ><span><input type="password" value="" name="pass3" /></span>&nbsp;<span id="state_pass3" class="msg"><if condition="in_array('pass3',$require) eq true ">*</if></span></td>
+                                    </tr> 
+                                    </if>
+                                    <if condition="in_array('pass3c',$show) eq true">
+                                    <tr>
+                                        <td class="tbkey" >三级密码确认：</td>
+                                        <td class="tbval" ><span><input type="password" value="" name="pass3c" /></span>&nbsp;<span id="state_pass3c" class="msg"><if condition="in_array('pass3c',$require) eq true ">*</if></span></td>
+                                    </tr>
+                                    </if>
+                                    </eq>
+                                </table>                           
+                                <!--基本信息结束-->
+                                <present name="productArr"><include file="product" /></present>                        
+                                <table class="tablebg" id="table3">
+                                    <tr>
+                                        <td>
+                                            <button class="button_text" type="button" onclick="regAjaxall()">确定</button> 
+                                        </td>
+                                    </tr>
+                                </table>    
+                            </form>
+                        </div>
+                        <present name='regAgreement'>
+                        <div id="regAgreement" style="display:block;">
+                            <table class="tablebg">
+                                <tr>
+                                    <td ><b>注册协议内容</b></td>
+                                </tr>
+                                <tr>
+                                    <td>{$regAgreement}</td>
+                                </tr>
+                                <tr>
+                                    <td><input class="button_text" type="button" onclick="$('#regAgreement').hide();$('#salereg').show()">同意并注册</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        </present>     	
+                    </div>
+                </div>
+                <div class="clearboth"></div>
+            </div>
+        </div>
+<script type="text/javascript">
+    $.area_default_show = true; //显示默认区域
+    $.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id' );
+    var vd;
+    var lastname;
+function getInfo(e)
+{
+
+    var thisname=e.name;
+    if(lastname == thisname){
+
+        clearTimeout(vd);
+        vd = setTimeout("regAjax('"+e.id+"')",600);
+    }else{
+        regAjax(e.id);
+        lastname=thisname;
+    }
+}
+function regAjaxall()
+{
+    var arr={$jsrequire};
+    for(var i in arr)
+    {
+        $('#state_'+arr[i]).text("*");
+    }
+    //在FROM中的ONSUBMIT事件中执行此函数
+    //查询事件所属的FROM对象下边的所有表单
+
+    //遍历当前所有表单
+    //并且把表单全部提交到regAjax中校验，如果有返回内容，则执行返回内容，并返回false,如果内容为空，则返回TRUE
+    //var inputlist	= $("input");
+    var postdata	= {};
+    $("input").each(function(i,n){
+            var postname	= n.name;
+            var value  = n.value;
+            postdata[postname]	= value;
+            });
+    $("select").each(function(i,n){
+            var postname	= n.name;
+            var value  = n.value;
+            postdata[postname]	= value;
+            });
+    $.post('__GROUP__/Saleweb/regAjax:{$xpath}',postdata,function(data){
+            if(!data)
+            {
+            $('#form').submit();
+            }
+            else
+            {
+            eval(data);
+            return false;
+            }
+            });
+}
+function regAjax(name)
+{
+    var id			= $('#'+name).val();
+    var postname	= name;
+    var otherpost	= $('#'+name).attr('otherpost');
+    var postdata = {postname:name};
+    $("input").each(function(i,n){
+            var postname	= n.name;
+            var value  = n.value;
+            postdata[postname]	= value;
+            });
+    $("select").each(function(i,n){
+            var postname	= n.name;
+            var value  = n.value;
+            postdata[postname]	= value;
+            });
+    $.ajax({
+        url:"__APP__/User/Saleweb/regAjax:{$xpath}",
+        type:"POST",
+        data:postdata,
+        dataType:"script",
+        global:false,
+        success:function(data){
+            data;
+        }  
+    });
+}
+</script>
+    </body>
+</html>

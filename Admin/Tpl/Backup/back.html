@@ -1,0 +1,45 @@
+<div class="pageContent">
+
+	<form method="post" action="" class="pageForm required-validate" onsubmit="return false;">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>备份名称：</th>
+					<td>
+						<input type="text" class="required" name="backname" id="backname" value="新数据库备份"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="button" onclick="submitback()">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script>
+function submitback()
+{
+	name = $("#backname").val();
+	postdata = {backname:name};
+	$.ajax({
+		url:"__APP__/Backup/prebackall",
+		type:"POST",
+		data:postdata,
+		dataType:"JSON",
+		global:false,
+		success:function(data){
+			/*if(data.status){
+				alertMsg.correct(data.info);
+			}else{
+				alertMsg.error(data.info);
+			}*/
+		}
+	});
+	$.pdialog.closeCurrent();
+	navTab.reload(); 
+}
+</script>

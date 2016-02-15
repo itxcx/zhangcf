@@ -1,0 +1,51 @@
+<div class="core_main Mail" id="sendbox">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    </div>
+    <div class="core_con">
+    	<table class="tablebg" onmouseover="changeto()"  onmouseout="changeback()">
+            <TR class="datafield">
+                <TH ><nobr>标题</nobr></TH>
+                <TH ><nobr>发件时间</nobr></TH>
+                <TH >{:L('状态')}</TH>
+                <TH ><nobr>基本操作</nobr></TH>
+            </TR>
+            <foreach name='data.list' item='vo'>
+            <TR class="datalist">
+                <td ><nobr>{$vo.标题}</nobr></td>
+                <td ><nobr>{:date('Y-m-d H:i:s',$vo['发送时间'])}</nobr></td>
+                <td ><eq name="vo.状态" value="2">已回复<else/>已发送</eq></td>
+                <td ><center><a href="__GROUP__/Mail/sendview/id/{$vo.id}">{:L('view')}</a>&nbsp;<a href="__GROUP__/Mail/del/id/{$vo.id}" onclick="return confirm('确定要删除吗?');">{:L('delete')}</a></center></td>
+            </TR>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
+        <else/><span>首页&nbsp;&nbsp;</span>
+        </if>
+        <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+        </if>
+        {$data.nowPage}&nbsp;&nbsp;
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+        </if>
+        <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">尾页</a>
+        <else/><span>尾页</span>
+        </if>  
+    </div>
+    
+</div>
+

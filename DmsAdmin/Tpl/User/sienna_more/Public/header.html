@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" href="__TMPL__Public/css/reset.css">
+    <link rel="stylesheet" href="__TMPL__Public/css/base.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+    <script src="__TMPL__Public/js/base.js"></script>
+    <script>
+    $(function () {
+        //主题切换
+        if (getCookie('themes')) {
+            loadStyles('__TMPL__Public/css/themes/' + getCookie('themes') + '.css');
+        } else {
+            setCookie('themes', 'default');
+            window.location.reload();
+        }
+
+        $('.themes').find('li').click(function () {
+            var themes = $(this).attr('class');
+            setCookie('themes', themes);
+            window.location.reload();
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="header">
+        <div class="center">
+            <div class="logo">
+                <h1>{$SYSTEM_TITLE}</h1>
+                <h2>{$SYSTEM_MEMO}</h2>
+            </div>
+            <ul class="themes">
+                <li class="default"></li>
+                <li class="blue"></li>
+                <li class="green"></li>
+                <li class="brown"></li>
+                <li class="mix"></li>
+            </ul>
+            <div class="nav">
+                <ul class="navlist">
+                    <li><a class="key0 cur">网站首页</a></li>
+                    <php>
+                        $step1 = 0;
+                    </php>
+                    <foreach name="menu" item="vo" key="key">
+                    <li><a class="key{++$step1}">{$key}</a></li>
+                    </foreach>
+
+                </ul>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-child show_key0 cur">
+                    <li><a href="__GROUP__/Index">主页</a></li>
+                    <li><a href="__GROUP__/Index">网站首页</a></li>
+                    <li><a href="__GROUP__/Public/logout">安全退出</a></li>
+                </ul>
+                <php>
+                $step2 = 0;
+                </php>
+                <foreach name="menu" item="vo" key="key">
+                <ul class="nav-child show_key{++$step2}">
+                <foreach name="vo" item="val">
+                <li><a  href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a></li>
+                </foreach>
+                </ul>
+                </foreach>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="center">
+        <div class="sidebar">
+            <dl class="home">
+                <dt><a href="__GROUP__/Index">主页</a></dt>
+                <dd><a href="__GROUP__/Index">网站首页</a></dd>
+                <dd><a href="__GROUP__/Public/logout">安全退出</a></dd>
+            </dl>
+
+            <php>
+                $step3 = 0;
+            </php>
+            <foreach name="menu" item="vo" key="key">
+            <dl class="show_key{++$step3}">
+                <dt><a>{$key}</a></dt>
+                <foreach name="vo" item="val">
+                <dd><a  href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a></dd>
+                </foreach>
+            </dl>
+            </foreach>
+
+            <dl class="kefu">
+                <dt><a href="#">客服</a></dt>
+                <dd><a href="#">在线客服</a></dd>
+            </dl>
+        </div>
+       

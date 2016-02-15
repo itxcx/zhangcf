@@ -1,0 +1,79 @@
+<include file="Public:header" />
+<div class="main-content">
+    <div class="content center">
+        <div class="notice">
+            <h2>最新公告：</h2>
+            <php>
+            $list = new TableListAction('公告');
+            $list->field('id,标题,创建时间')->order("id desc");
+            $list->pagenum = 4;
+            $data = $list->getData();
+            </php>
+            <ul>
+                <foreach name="data.list" item="name">
+                <li>
+                    <a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a>
+                    <span>{:date('Y-m-d',$name['创建时间'])}</span>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="info">
+            <h2>基本信息:</h2>
+            <ul>
+                <li class="baskey">{:L('user1_name_serial')}：</li>	
+                <li class="basval">{$userinfo.编号}</li>	
+                <li class="baskey">{:L('name')}：</li>	
+                <li class="basval name"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+                <foreach name="funbank" item="fun_bank" key="key">
+                <li class="baskey">{$fun_bank.name}：</li>	
+                <li class="basval">{$fun_bank.num}</li>
+                </foreach>	
+                <foreach name="userlevel" item="lv" key="key">
+                <li class="baskey">{$key}：</li>	
+                <li class="basval">{$lv.byname}</li>
+                </foreach>	
+            </ul>
+        </div>
+        <div class="mail">
+            <h2>最新邮件:</h2>
+            <ul>
+                <php>
+                $list = new TableListAction('邮件');
+                $list ->field('id,发件人,内容,标题,收件人,发送时间,状态')->where(array('收件人'=>$userinfo['编号']))->order("发送时间 desc");;
+                $list->pageCon	= 'p1';
+                $list->pagenum = 10;
+                $data = $list->getData();
+                </php>
+                <foreach name="data.list" item="name">
+                <li <if condition="$name[状态] neq 0">class="viewed"</if>><a href="__GROUP__/Mail/view/id/{$name.id}">
+                <div class="mail-title"><i class="mail-icon">&nbsp;</i><span>{$name.发件人}</span></div>
+                <div class="mail-content"><span>{$name.标题}</span>&nbsp;-&nbsp;{$name.内容}</div>
+                    <div class="mail-date">{:date('Y-m-d',$name['发送时间'])}</div>
+                </a></li>
+                </foreach>
+            </ul>
+            <div class="mail-page">
+                <ul class="page-num">
+                    <li class="row"><a href="{$data.upRow}">&lt;&nbsp;上一页</a></li>
+                    <if condition="isset($data['rollPage'][-2])">
+                    <li><a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a></li>
+                    </if>
+                    <if condition="isset($data['rollPage'][-1])">
+                    <li><a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a></li>
+                    </if>
+                    <li><a class="now-page">{$data['nowPage']}</a></li>
+                    <if condition="isset($data['rollPage'][1])">
+                    <li><a href="{$data.rollPage.1}">{$data['nowPage']+1}</a></li>
+                    </if>
+                    <if condition="isset($data['rollPage'][2])">
+                    <li><a href="{$data.rollPage.2}">{$data['nowPage']+2}</a></li>
+                    </if>
+                    <li class="row"><a href="{$data.downRow}">下一页&nbsp;&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,132 @@
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<load href="__PUBLIC__/jquery-1.9.1.min.js" />
+<div class="core_main Fun_bank" id="add_rem">
+	<div class="core_title">
+    	<span class="core_title_con">当前位置：添加汇款通知</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+        <form action="__GROUP__/Fun_bank/rem_save" method="post"  id="register" name='register' enctype="multipart/form-data">
+        <table class="tablebg">
+        <!--
+		<if condition="$hkzhxz eq select_hrzh">
+            <TR>
+              <TD class="tbkey">汇入账户:</TD>
+              <TD class="tbval">
+              <input type="text" id="tobank" name="汇入账户" value="" onkeyup='checkAjax()' > 
+					 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<span id="state_tobank"><if condition="in_array('requrie_hrzh2',$requrie) eq true ">*</if></span> 
+              </TD>
+            </TR>
+		<else/>
+		-->
+	          <TR>
+	          	<TD class="tbkey">汇入账户卡号：</TD>
+	              <TD class="tbval">
+	              <foreach name="bank" item="vo">
+	              	<input style="border:none" name="汇入账户卡号" type="text" class="required" value="{$vo.卡号}" readonly="readonly"/>
+	              </foreach>
+	              </TD>
+	          </TR>
+	          
+	          <TR>
+	          	<TD class="tbkey">汇入账户开户名：</TD>
+	              <TD class="tbval">
+	              <foreach name="bank" item="vo">
+	              		<input style="border:none" name="汇入账户开户名" type="text" class="required" value="{$vo.户名}" readonly="readonly"/>
+	              </foreach>
+	              </TD>
+	          </TR>
+	          
+	          <TR>
+	          	<TD class="tbkey">汇入账户开户行：</TD>
+	              <TD class="tbval">
+	              <foreach name="bank" item="vo">
+	              	<p><span class="bank_tb_ts"><a target="_blank" href="{$vo.开户银行官网}"><input style="border:none" name="汇入账户开户行" type="text" class="hr_khh" value="{$vo.开户行}" readonly="readonly"/></a></span><span class="bank_font_ts">*点击进入汇款银行官网</span></p>
+	              </foreach>
+	              </TD>
+	          </TR>
+			<!--</if>-->
+            <TR>
+              <TD class="tbkey">开户银行：</td>
+              <TD class="tbval"><input type="text" id="bank" name="开户银行" value="{$userinfo['开户银行']}"></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">银行卡号：</td>
+              <TD class="tbval"><input type="text" id="bank_no" name="银行卡号" value="{$userinfo['银行卡号']}"></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">开户名：</td>
+              <TD class="tbval"><input type="text" name="开户名" value="{$userinfo['开户名']}"></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">汇款金额：</td>
+              <TD class="tbval"><input type="text" name="金额" id="money" value=""></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">汇款时间：</td>
+              <TD class="tbval"><input type="text" name="汇款时间" title="点击选择汇款日期" onclick="new WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" id="giveTime" value="" /></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">备注：</td>
+              <TD class="tbval"><textarea value="" name="备注"></textarea></td>
+            </TR>
+            <TR>		
+                <TD colspan="2">
+                <input type="hidden" name="编号" value="{$userinfo.编号}"/>
+                <input class="button_text" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()"/>
+                <input class="button_text" type="button"  id="but" value="返回" name="but" onClick="history.back();"/>
+                </td>
+            </TR>
+        </TABLE> 
+        </form>
+    </div>
+    
+    <div class="core_page"></div>
+</div>
+<script type="text/javascript"> 
+function tijiao(){
+    if($('#bank').val()==''){
+        alert("请输入开户银行！");
+		$('#bank').focus();
+		return false;
+    }
+	if($('#bank_no').val()=='')
+	{
+		alert("请输入银行卡号！");
+		$('#bank_no').focus();
+		return false;
+	}
+	if($('#money').val()=='')
+	{
+		alert("请输入汇款金额！");
+		$('#money').focus();
+		return false;
+	}
+    if(isNaN($('#money').val()))
+	{
+		alert("汇款金额必须为数字！");
+		$('#money').focus();
+		return false;
+	}
+	if($('#giveTime').val()=='')
+	{
+		alert("请输入汇款时间！");
+		$('#giveTime').focus();
+		return false;
+	}
+	var ua = navigator.userAgent.toLowerCase();
+	var s;
+	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+		$('#subbut').val('确认');
+		$('#subbut').attr('disabled',false);
+	} else {
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+	}
+}
+</script>

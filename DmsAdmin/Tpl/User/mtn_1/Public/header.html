@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/netstyle.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                        }
+
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                }
+                
+                $('.tb_info').find('tr:nth-child(2n)').css('background','#6c3d20');
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="header_top">
+                <div class="header_span center">
+                    <span class="homepage"><a href="__GROUP__/Index/index"><span class="icon_home"></span>&nbsp;首页</a>&nbsp;&nbsp;{$userinfo.编号},欢迎回来！</span>
+                    <span><a href="__GROUP__/User/viewnotice">系统消息</a></span> |
+                    <span><a href="__GROUP__/Public/logout">安全退出</a></span>
+                    <span class="logo">{$SYSTEM_COMPANY}</span>
+                </div>
+            </div>
+            <div class="nav_top">
+                <div class="nav_t center">
+                    <div class="navlist navlist1"><a class="key" href="__GROUP__/Index/index">首页</a></div>
+                    <php>
+                    $p=2;
+                    </php>
+                    <foreach name="menu" item="vo" key="key">
+                    <div class="navlist navlist{$p++}"><a class="key">{$key}</a>
+                        <ul class="navul" style="display: none;">
+                            <foreach name="vo" item="val">
+                            <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                            <li>
+                            <a class="report" href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                            </li>
+                            </if>
+                            </foreach>
+                        </ul>
+                        <div style="clear: both"></div>
+                    </div>
+                    </foreach>
+                </div>
+            </div>
+            <div class="notice center"><span class="icon_notice"></span>
+                <foreach name="nownotice" item="vo">
+                <span class="p_title"><span class="p_head"><span style="color: red;">●</span><a class="p_left" href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a></span><a class="p_right" href="__GROUP__/User/viewNotice">查看更多&gt;</a></span>
+                </foreach>
+            </div>
+        </div>
+        <div class="content center">
+            <div class="content_bas">
+                <div class="bas_info">
+                    <h3 class="h3">基本信息</h3>
+                    <table class="tb_info">
+                        <tr>
+                            <td class="infokey">用户编号：</td>
+                            <td class="infoval">{$userinfo.编号}</td>
+                        </tr>
+                        <foreach name="funbank" item="fun_bank" key="key">
+                        <tr>
+                            <td class="infokey">{$fun_bank.name}：</td>
+                            <td class="infoval">{$fun_bank.num}</td>
+                        </tr>
+                        </foreach>
+                        <foreach name="userlevel" item="lv" key="key">
+                        <tr>
+                            <td class="infokey">{$key}：</td>
+                            <td class="infoval">{$lv.byname}</td>
+                        </tr>
+                        </foreach>
+                        <tr>
+                            <td class="infokey">加入日期：</td>
+                            <td class="infoval" style="color:#cd8302">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</td>
+                        </tr>
+                    </table>
+                    <br style="clear: both">
+                </div>
+                <div class="index_button"><a href="__GROUP__/Index/index"></a></div>
+            </div>

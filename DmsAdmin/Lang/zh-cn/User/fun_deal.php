@@ -1,0 +1,25 @@
+<?php
+return array(
+'stock_deal'=>'股券交易',
+'account_info'=>'账户信息',
+'today_turnover'=>'今日成交',
+'today_price'=>'今日价格',
+'yesterday_price'=>'昨日价格',
+'opening_price'=>'开盘价格',
+'equity_transaction'=>'股权交易',
+'equity_depository_transaction'=>'股权托管交易',
+'trading_pattern'=>'交易模式',
+'buy'=>'买入',
+'sell'=>'卖出',
+'deal_price'=>'交易价格',
+'deal_all_price'=>'交易总价',
+'deal_pwd'=>'交易密码',
+'confirm'=>'确认',
+'股券转入托管'=>'股券转入托管',
+'trading_pattern'=>'交易模式',
+'trading_pattern'=>'交易模式',
+'trading_pattern'=>'交易模式',
+'trading_pattern'=>'交易模式',
+'trading_pattern'=>'交易模式',
+);
+?>

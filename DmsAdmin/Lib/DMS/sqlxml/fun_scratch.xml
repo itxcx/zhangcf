@@ -1,0 +1,8 @@
+<table name='{$this->name}'>
+<field name="id"  type="int(11)" auto_increment="1" primary="1" />
+<field name="编号"     type="varchar(50)"  default=""/>
+<field name='时间' type="integer" default="0"/>
+<field name='连贯' type="integer" default="0"/>
+<field name='团队业绩'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='个人业绩'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+</table>

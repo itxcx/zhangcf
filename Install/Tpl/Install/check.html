@@ -1,0 +1,66 @@
+<style type="text/css">
+.option{font-size:12px;}
+.value{font-size:12px;color:#888888;width:180px;text-align:center}
+.green{color:green}
+.red{color:red}
+</style>
+<script type="text/javascript" src="/{$Think.APP_NAME}/Common/js/check.js"></script>
+<form method="post" id="formcheck">
+<table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+<tr>
+<td height="49"><img src="/{$Think.APP_NAME}/Common/images/Step-step2-{$lang}.gif" /></td>
+<td></td>
+</tr>
+<tr>
+<td valign="top">
+	<div id="wrapper">
+
+		<h3>{$langs['system_environment']}</h3>
+		<div class="list">
+			<table width="100%" border="1" bgcolor="white" bordercolor="#eeeeee" style="border-collapse:collapse" cellpadding="3">
+			<volist name="checkEnviro" id="enviro">
+			<tr>
+			<td class="option">{$enviro[0]}</td><td class="value <if condition='(isset($enviro[2])) and ($enviro[2] eq false)'>red</if>">{$enviro[1]}</td>
+			</tr>
+			</volist>
+			</table>
+		</div>
+
+
+		<h3>{$langs['dir_priv_checking']}</h3>
+		<div class="list">
+			<table width="100%" border="1" bgcolor="white" bordercolor="#eeeeee" style="border-collapse:collapse" cellpadding="3">
+			<volist name="checkDir" id="dir">
+			<tr>
+			<td class="option">{$dir[0]}</td><td class="value <if condition='(isset($dir[2])) and ($dir[2] eq false)'>red</if>">{$dir[1]}</td>
+			</tr>
+			</volist>
+			</table>
+		</div>
+	</div>
+</td>
+<include file="right" />
+</tr>
+
+<tr>
+	<td align="center" style="padding-top:10px;">
+		安装应用列表：
+		<volist name="app_list" id="app">
+		<input type="checkbox" checked="true" disabled="true"/> <php>echo $langs['App_'.str_replace(':','_',$app)];</php>
+		</volist>
+	</td>
+	<td></td>
+</tr>
+
+<tr>
+  <td>
+	<div id="install-btn">
+	  <input type="button" class="button" id="js-pre-step" class="button" value="{$langs['prev_step']}{$langs['welcome_page']}"  onclick="location.href='/Install/index.php?s=/Install/index/lang/' + getAddressLang() + '/step/welcome';" />
+      <input type="button" class="button" id="js-recheck" class="button" value="{$langs['recheck']}" onclick="location.href='/Install/index.php?s=/Install/index/lang/' + getAddressLang() + '/step/check/' + '/app/' + getAppList();" />
+      <input type="submit" class="button" id="js-submit"  class="button" value="{$langs['next_step']}{$langs['config_system']}" onclick="document.getElementById('formcheck').action='/Install/index.php?s=/Install/index/lang/' + getAddressLang() + '/step/setup/app/' + getAppList()" <if condition='($is_passed eq false)'>disabled</if>/>
+	  </div>
+  </td>
+  <td></td>
+</tr>
+</table>
+</form>

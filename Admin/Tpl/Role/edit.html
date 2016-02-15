@@ -1,0 +1,53 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/update/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+		<input type="hidden" name="id" value="{$vo.id}" />
+		<input type="hidden" name="submit" value="1" />
+		<input type="hidden" name="type" value="0"/>
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th width="60">名称：</th>
+					<td style="text-align:left">
+						<input type="text" class="required" name="name" value="{$vo.name}" />
+					</td>
+				</tr>
+				<!--<tr>
+					<th>类型：</th>
+					<td style="text-align:left">
+						<input type="radio" name="type" <eq name="vo.type" value="1">checked="true"</eq> value="1" id="type1" /><label for="type1">会员</label>
+
+						<input type="radio" name="type" <eq name="vo.type" value="0">checked="true"</eq> value="0" id="type0" /><label for="type0">管理员</label>
+					</td>
+				</tr>-->
+				<tr>
+					<th>状态：</th>
+					<td style="text-align:left">
+						<input type="radio" name="status" <eq name="vo.status" value="1">checked="true"</eq> value="1" id="status1" /> <label for="status1">启用</label>
+
+						<input type="radio" name="status" <eq name="vo.status" value="2">checked="true"</eq> value="2" id="status2" /> <label for="status2">禁用</label>
+					</td>
+				</tr>
+				<!--<tr>
+					<th>应用：</th>
+					<td style="text-align:left">
+						<select id="app" name="app" onchange="changeApp()">
+						<foreach name="treeList" item="app">
+						<option value="{$app.id}">{$app.title}</option>
+						</foreach>
+						</select>
+					</td>
+				</tr>-->
+				
+			</table>
+			<include file="access"/>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

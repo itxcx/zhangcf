@@ -1,0 +1,273 @@
+<div class="core_main Fun_bank" id="give">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+    	<form action="__GROUP__/Fun_bank/giveSave:__XPATH__" method="post" onSubmit="return checkform()" id="giveform">
+        <table class="tablebg">	
+          <tr>
+                <td class="tbkey">账户余额：</td>
+                <td class="tbval"><span>{$user_bank}</span></td>
+            </tr>
+             <tr>
+                <td class="tbkey">转账类型：</td>
+                <td class="tbval"><span>
+                <if condition="count($givecon) eq 1">
+                <input type="hidden" name="giveTo" value="0"/>
+                <empty name="givecon[0].giveTitle">{$givecon[0].giveTo}<else/>{$givecon[0].giveTitle}</empty>
+                <else/>
+                <select name="giveTo">
+                   <option value="">请选择转账类型</option>
+                    <foreach name="givecon" item="vo" key='key'>
+                   <option value="{$key}" isme="{$vo.isme}" comCharge="{$vo.comCharge}" leastComCharge="{$vo.leastComCharge}" limitComCharge="{$vo.limitComCharge}"><empty name="vo.giveTitle">{$vo.giveTo}<else/>{$vo.giveTitle}</empty></option>
+                    </foreach>
+                </select>
+                </if>
+                </span></td>
+            </tr>	
+
+            <tr id="hideuserid" <if condition="((count($givecon) eq 1) and ($givecon[0]['isme']==1)) or ($firstto eq true)"> style="display:none" </if> >
+                <td class="tbkey">转入人编号：</td>
+                <td class="tbval">
+                <span><input type="text" name="userid" id="userid" value="" onkeyup="getid(this)" autocomplete="off"/></span> 
+                <span id='giveidname'></span>
+                </td>
+            </tr>
+            <tr >
+                <td class="tbkey">转账金额：</td>
+                <td class="tbval"><span><input type="text" value="" name="givesum" /></span>
+                    <if condition="(count($givecon) eq 1) and ($givecon[0]['giveMoneyInt'] neq 0)">
+                        <span id="giveMoneyInt1" int="{$givecon[0].giveMoneyInt}">必须为{$givecon[0].giveMoneyInt}的整数倍</span>
+                    <else/>
+                        <span id="giveMoneyInt1" int="0"></span>
+                    </if>
+                </td>
+            </tr>
+	        <TR>
+	          <TD class="tbkey"><span>手续费</span>(<span id='givetax'>{$givecon[0].comCharge}</span>%)：</TD>
+	          <TD class="tbval">
+	          <span id="tax">0</span><span id="tax_convert" style="color:red;"></span>
+	          <input type='hidden' id='leastComCharge' value='{$givecon[0].leastComCharge}' />
+	          <input type='hidden' id='limitComCharge' value='{$givecon[0].limitComCharge}' />
+	          </TD>
+	        </TR>
+            <tr >
+                <td class="tbkey">备注：</td>
+                <td class="tbval"><span><input type="text" value="" name="memo" /></span></td>
+            </tr>
+            <if condition="($bank:giveMoneyPass2 eq true)">
+            <tr >
+            <td class="tbkey">二级密码：</td>
+            <td class="tbval"><span><input type="password" value="" name="pass2" /></span></td>
+            </tr>
+            </if>
+          <if condition="($bank:giveMoneyPass3 eq true)">
+          <tr>
+            <td class="tbkey">三级密码：</td>
+            <td class="tbval"><span><input type="password" value="" name="pass3" /></span></td>
+          </tr>
+          </if>
+          <if condition="($bank:giveMoneySmsSwitch eq true)">
+          <tr >
+            <td class="tbkey">短信验证码：</td>
+            <td class="tbval"><input name="giveSmsVerfy" type="text" id="giveSmsVerfy" >
+            <input style="margin-left:10px" type="button" id="sendMess" value="点击获取" />
+
+            </td>
+          </tr>
+          </if>
+          <tr>
+            <td colspan="2"><input class="button_text" type="button"   id="subbut" value="确定" name="but" onclick="tijiao()" />	
+            </td>
+          </tr>
+        </table>
+        </form>
+    </div>
+    
+    <div class="core_page"></div>
+</div>
+
+<script type="text/javascript">
+var vd;
+function getid(e)
+{
+	clearTimeout(vd);
+    id=e.id;
+	vd = setTimeout("giveAjax('"+e.id+"')",600);
+}
+function giveAjax(id)
+{
+	var giveTo = $('[name=giveTo]').val();
+	//alert(giveTo)
+	var userid	   = $('#'+id).val();
+	$.post('__GROUP__/Fun_bank/giveAjax:__XPATH__',{giveTo:giveTo,userid:userid},function(data){
+		//alert(data)
+		try
+		{
+			
+			eval("var json="+data);
+			
+			if( json.status == 0 )
+			{
+				$('#giveidname').html('编号不正确');
+			}
+			else
+			{
+				var userinfo = json.data;
+				$('#giveidname').html(userinfo['姓名']);
+			}
+		}
+		catch(e)
+		{
+			alert(data);
+			alert("网络异常!");
+		}
+	});
+}
+
+</script>
+
+
+<script>
+$(function(){
+    $("input[name='givesum']").keyup(function(){
+        var sum = $(this).val();
+        if(sum !="" && !isNaN(sum)){
+            var tax = sum * ($('#givetax').html()/100);
+            tax = tax.toFixed(2);
+           if(tax < parseFloat($('#leastComCharge').val())){
+                tax = parseFloat($('#leastComCharge').val());
+            }
+           if(tax > parseFloat($('#limitComCharge').val()) && $('#limitComCharge').val()!=0){
+                tax = parseFloat($('#limitComCharge').val());
+            }
+           $("#tax").html(tax);
+        }else{
+            $("#tax").html("0");
+        }
+    });
+    $("select[name='giveTo']").change(function(){
+        if($(this).val()!=""){
+            if($(this).find("option:selected").attr("isme")=="0"){
+                //$("input[name='userid']").attr("disabled",false);
+				$('#hideuserid').show();
+            }else{
+                //$("input[name='userid']").attr("disabled",true);
+				$('#hideuserid').hide();
+            }
+        }
+        $('#givetax').html($(this).find("option:selected").attr("comCharge"));
+		if($("input[name='givesum']").val()!=''){
+			tax=parseFloat($("input[name='givesum']").val())*$(this).find("option:selected").attr("comCharge")/100;
+			if(tax<parseFloat($(this).find("option:selected").attr("leastComCharge"))){
+				tax=$(this).find("option:selected").attr("leastComCharge");
+			}
+           if(tax > parseFloat($(this).find("option:selected").attr("limitComCharge")) && $(this).find("option:selected").attr("limitComCharge")!=0){
+                tax = parseFloat($(this).find("option:selected").attr("limitComCharge"));
+            }
+        	$("#tax").html(tax);
+		}else{
+        	$("#tax").html('');
+		}
+         $("#leastComCharge").val($(this).find("option:selected").attr("leastComCharge"));
+         $("#limitComCharge").val($(this).find("option:selected").attr("limitComCharge"));
+   });
+    
+});
+function checkform(){
+    var mess = "";
+    
+    if($("input[name='givesum']").val()==""){
+        mess = "转账金额不能为空！\r\n" + mess;
+        $("input[name='givesum']").focus();
+    }else if(isNaN($("input[name='givesum']").val()) || $("input[name='givesum']").val() == 0){
+        mess = "转账金额必须为大于0的数字！\r\n"+ mess;
+        $("input[name='givesum']").focus();
+    }else if($("#giveMoneyInt1").attr("int")!="0"){
+		var gint = $("#giveMoneyInt1").attr("int");
+		//alert($("input[name='givesum']").val()%parseInt(gint))
+		if($("input[name='givesum']").val()%parseInt(gint)!=0){
+			mess = "转账金额必须为"+gint+"的整数倍！\r\n"+ mess;
+		}
+	}
+    if(!$("input[name='userid']").attr("disabled") && $("input[name='userid']").val()=="" && $("#hideuserid").css("display")!='none'){
+        mess = "{$user}编号不能为空！\r\n" + mess;
+        $("input[name='userid']").focus();
+    }
+    if($("select[name='giveTo']").val()==""){
+        mess = "请选择转账类型！\r\n" + mess;
+        $("select[name='giveTo']").focus();
+    }
+     if(mess !=""){
+        alert(mess);
+        $('#subbut').attr('disabled',false);
+        $('#subbut').val('提交');
+         return false;
+    }else{
+        return true;
+    }
+}
+/*
+function sendSmsVerify(){
+	var type = '{$bank:name}转账';
+	var content = '{$bank:giveMoneySmsContent}';
+	$.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+		
+		eval('var data='+data);
+		if(data.status == 1){
+			alert('发送成功!');
+		}else{
+			alert('发送失败!');
+		}
+	});
+}*/
+var wait=300;
+var sta = true;
+function time(o) {
+    if(sta == true){
+        var type = '{$bank:name}转账';
+        var content = '{$bank:giveMoneySmsContent}';
+        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+          eval('var data='+data);
+          if(data.status == 1){
+            alert('发送成功!');
+          }else{
+            alert('发送失败!');
+          }
+        });
+        sta = false;
+    }
+    if (wait == 0) {
+      o.removeAttribute("disabled");      
+      o.value="点击获取";
+      wait = 300;
+      sta = true;
+    } else {
+      o.setAttribute("disabled", true);
+      o.value="重新发送(" + wait + ")";
+      wait--;
+      setTimeout(function() {
+        time(o)
+      },
+      1000)
+    }
+  }
+  document.getElementById("sendMess").onclick=function(){time(this);}
+	function tijiao(){
+	    	var ua = navigator.userAgent.toLowerCase();
+		var s;
+		if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+			$('#subbut').attr('disabled',true);
+			$('#subbut').val('正在提交,请等待...');
+			$('#giveform').submit();
+			$('#subbut').val('确认');
+			$('#subbut').attr('disabled',false);
+		} else {
+			$('#subbut').attr('disabled',true);
+			$('#subbut').val('正在提交,请等待...');
+			$('#giveform').submit();
+		}
+	}
+</script>

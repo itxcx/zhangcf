@@ -1,0 +1,25 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <table class="table" >
+        <tr class="datafield">
+            <th>奖品名</th>
+            <th>提示</th>
+            <th>发放状态</th>
+        </tr>
+        <tr class="datalist">
+            <td>奖品</td>
+            <td>发放</td>
+            <td>已发放</td>
+        </tr>
+        <foreach name="data" item="fuli" key="key">
+        <tr class="datalist">
+            <td>{$key}</td>
+            <td>{$fuli.msg}</td>
+            <td><if condition="$fuli.state eq '1'">已发放<else/>未发放</if></td>
+        </tr>
+        </foreach>
+   </table>
+
+</div>
+<include file="Public:footer" />
+

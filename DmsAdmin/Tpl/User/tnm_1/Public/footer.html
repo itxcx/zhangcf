@@ -1,0 +1,15 @@
+    <!--脚部-->
+    <div class="footer-box">
+        <ul>
+            <li><a href="">首页</a></li>
+            <foreach name="menu" item="vo" key="nav">
+            <li>
+            <a class="key" href='<volist name="vo" id="val" offset="0" length="1">__GROUP__/{$val.model}/{$val.action}</volist>'>{$nav}</a>
+            </li>
+            </foreach>
+        </ul>
+        <p class="copyright">Developed with instruction and approval of the client. All Rights Reserved</p>
+    </div>
+    <!--脚部结束-->
+</body>
+</html>

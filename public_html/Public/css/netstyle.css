@@ -1,0 +1,75 @@
+ /*推荐网*/
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+} 
+.topLayer {
+    margin: 0 auto;
+    width: 100px;
+    border: 1px solid #bbb;
+    background: #517dbf;
+    text-align: center;
+}
+.topLayerTd1 {
+    background: #fff;
+}
+.topLayerTb1 {
+    width: 100%;
+    border: none;
+}
+.topLayerTb1 td {
+    height: 20px;
+    line-height: 20px;
+}
+.topLayerTb1Td1 {
+    text-align: center;
+    border-bottom: 1px solid #a5d1ec;
+    color: #fff;
+}
+.currentNavTab {
+    color: #fff;
+}
+.topLayerTb1De {
+    background: #3070de;
+}
+.topLayerTb1St {
+    background: #aaa;
+}
+.topLayerTb1Td2 {
+    text-align: center;
+    background: #e7f2fb;
+}
+.topLayerTb1Td3 {
+    height: 25px;
+    text-align: center;
+    vertical-align: bottom;
+}
+.topLayerTb2 {
+    width: 100%;
+    height: 25px;
+    border: none;
+    background: url(../Images/admin/tab_05.gif);
+}
+/*注册*/
+.topReg {
+    margin: 0 auto;
+    width: 100px;
+    border: 1px solid #bbb;
+    background: #517dbf;
+    text-align: center;
+}
+.topRegTd1 {
+    text-align: center;
+    color: #fff;
+}
+.topRegTb1 {
+    width: 100%;
+    text-align: center;
+}
+.topRegTb1 td {
+    height: 20px;
+    background: #e7f2fb;
+}
+.topRegTb1 td a {
+    color: #f00;
+}

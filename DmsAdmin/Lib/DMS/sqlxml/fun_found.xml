@@ -1,0 +1,55 @@
+<table name='{$this->name}市场' engine="InnoDB">
+	<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+	<field name='出售人'   type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='购买人'   type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='类型'     type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='卖出时间' type="int(11)"  default="0"/>
+	<field name='买入时间' type="int(11)"  default="0"/>
+	<field name='交易时间'     type="int(11)"  default="0"/>
+	<field name='dataid'       type="int(11)" memo='交易所对应的ID' default="0"/>
+	<field name='卖出金额'     type="decimal(13,2)" default="0" />
+	<field name='买入金额'     type="decimal(13,2)" default="0" />
+	<field name='state'        type="int(11)" default="0" memo='0为正常,1交易完成,2撤销'/>
+	
+</table>
+<table name='会员' engine="InnoDB">
+<field name='月业绩'     type="decimal(13,2)" default="0" />
+</table>
+<table name='{$this->name}明细' engine="InnoDB">
+	<field name="id"         type="int(11)" auto_increment="1" primary="1" />
+	<field name='产品id'     type="int(11)" default="0"/>
+	<field name='产品编码'   type="varchar(50)" default=""/>
+	<field name='名称'       type="varchar(50)" default=""/>
+	<field name='分类'       type="varchar(50)" default=""/>
+	<field name='合同号'     type="varchar(20)" null="1"  default=""/>
+	<field name='编号'       type="varchar(50)" null="1"  default=""/>
+	<field name='时间'       type="int(11)" default="0"/>
+	<field name='购买额度'   type="decimal(13,2)" default="0"/>
+	<field name='递增额度'   type="decimal(13,2)" default="0"/>
+	<field name='收益率'     type="decimal(13,2)" default="0"/>
+	<field name='佣金'       type="decimal(13,2)" default="0"/>
+	<field name='辅导佣金'   type="decimal(13,2)" default="0"/>
+	<field name='期限'       type="int(11)"  default="0"/>
+	<field name='到期日'     type="int(11)" default="0"/>
+	<field name='锁定日'     type="int(11)" default="0"/>
+	<field name='解约日'     type="int(11)" default="0"/>
+	<field name='解约人'     type="int(11)" default="0"/>
+	<field name='累计收益'   type="decimal(13,2)" default="0"/>
+	<field name='累计佣金'   type="decimal(13,2)" default="0"/>
+	<field name='累计辅导佣金'   type="decimal(13,2)" default="0"/>
+	<field name='state'      type="int(11)"  default="0" memo='0为正常'/>
+	<field name='del'        type="int(1)"   default="0" memo='删除标记'/>
+	<field name='产生时间'   type="int(11)"  default="0" memo='下次奖金产生时间'/>
+	<field name='执行周期'   type="int(11)"  default="0" memo='已经结算的周期'/>
+</table>
+<table name='移民' engine="InnoDB">
+	<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+	<field name='编号'      type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='姓名'      type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='电话'      type="varchar(50)" memo='出售还是购买' default=""/>
+	<field name='证件号码'  type="varchar(50)"  default=""/>
+	<field name='护照号码'  type="varchar(50)"  default=""/>
+	<field name='联系方式'  type="varchar(50)" memo='卖出对应的数据库ID' default=""/>
+	<field name='联系地址'  type="varchar(300)" default="0" />
+	<field name='state'     type="varchar(300)" default="0" />
+</table>

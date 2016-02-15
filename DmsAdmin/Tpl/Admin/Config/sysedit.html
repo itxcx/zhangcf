@@ -1,0 +1,491 @@
+<form action="__URL__/sysupdate" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+<table class="list" style="width:700px">
+<thead>
+   <tr>
+   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台模版标题显示</th>
+   </tr>
+   </thead>
+   <tbody>
+ <tr>
+     <td width="120px" >标题文字:</td>
+     <td colspan="3" style="text-align:left">
+	  <input type="text" name="SYSTEM_TITLE" id="inpp" value="{$SYSTEM_TITLE}" style="width:300px;" />
+      </td>
+</tr>
+<tr>
+     <td width="120px" >公司名称:</td>
+     <td colspan="3" style="text-align:left">
+	  <input type="text" name="SYSTEM_COMPANY" id="inpp" value="{$SYSTEM_COMPANY}" style="width:300px;" />
+      </td>
+</tr>
+<tr>
+     <td width="120px" >公司副标题:</td>
+     <td colspan="3" style="text-align:left">
+	  <input type="text" name="SYSTEM_MEMO" id="inpp" value="{$SYSTEM_MEMO}" style="width:300px;" />
+      </td>
+</tr>
+</tbody>
+<if condition="$Complete eq true">
+<thead>
+   <tr>
+   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;QQ在线客服</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     	<td width="120px" >客服QQ:</td>
+     	<td colspan="3" style="text-align:left">
+	 		<select name="TYPE_QQ" id="TYPE_QQ">
+	 		<option value="0" <eq name="TYPE_QQ" value="0">selected</eq>>普通QQ</option>
+	 		<option value="1" <eq name="TYPE_QQ" value="1">selected</eq>>营销QQ</option>
+	 		</select>
+     	</td>
+	</tr>
+	<tr id="SERVICE_QQ_show_0" class="SERVICE_QQ_show" <if condition="$TYPE_QQ==1">style="display:none;"</if>>
+		<td width="120px" >&nbsp;</td>
+		<td colspan="3" style="text-align:left">
+			<input type="text" name="SERVICE_QQ_0" id="SERVICE_QQ_0" value="{$SERVICE_QQ_0}" style="width:300px;" /> 多个请用英文逗号','分隔
+		</td>
+	</tr>
+	<tr id="SERVICE_QQ_show_1" class="SERVICE_QQ_show" <if condition="$TYPE_QQ eq 0 || $TYPE_QQ eq ''">style="display:none;"</if>>
+		<td width="120px" >&nbsp;</td>
+		<td colspan="3" style="text-align:left">
+			<textarea name="SERVICE_QQ_1" id="SERVICE_QQ_1" style="width:555px;height:120px;resize: none;">{$SERVICE_QQ_1}</textarea><a href="" target="_blank">生成代码流程</a>（友情提示：生成的图标不要被页面覆盖）
+		</td>
+	</tr>
+</tbody>
+</if>
+<script>
+$(function(){
+	$('#TYPE_QQ').change(function(){
+		var id="SERVICE_QQ_show_"+$('#TYPE_QQ').val();
+		$('.SERVICE_QQ_show').hide();
+		$('#'+id).show();
+	});
+})
+</script>
+<if condition="$Complete eq true">
+<thead>
+   <tr>
+   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;系统维护</th>
+   </tr>
+   </thead>
+   <tbody>
+ <tr>
+     <td width="120px" >维护内容:</td>
+     <td colspan="3" style="text-align:left">
+	  <input type="text" name="SYSTEM_CLOSE_TITLE" id="SYSTEM_CLOSE_TITLE" value="{$SYSTEM_CLOSE_TITLE}"  style="width:300px;" /> 
+      </td>
+</tr>
+</tbody>
+</if>
+
+<thead>
+   <tr>
+   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;系统状态设置</th>
+   </tr>
+   </thead>
+   <tbody>
+<if condition="$Complete eq true">
+<tr>
+     <td width="120px" >选择当前的系统状态:</td>
+     <td colspan="3" style="text-align:center">
+		<select name="SYSTEM_STATE">
+		<option value="1" <eq name="SYSTEM_STATE" value="1"> selected</eq>>正常</option>
+		<option value="2" <eq name="SYSTEM_STATE" value="2"> selected</eq>>维护</option>
+		<option value="3" <eq name="SYSTEM_STATE" value="3"> selected</eq>>无法访问</option>
+		</select></td>
+</tr>
+</if>
+<tr>
+     <td width="120px" >开放时间:</td>
+     <td colspan="3" style="text-align:center">
+		<php>$weeks = array('周日','周一','周二','周三','周四','周五','周六');</php>
+		<foreach name="weeks" item="week">{$week}
+			<select name="startOpenTime[]">
+				<for start="0" end="25">
+				<option value="{$i}" <if condition="$startOpenTime[$key] eq $i">selected</if>>{$i}:00</option>
+				</for>
+			</select>  - 
+			<select name="endOpenTime[]">
+				<for start="24" end="0" step="-1" comparison="gt">
+				<option value="{$i}" <if condition="$endOpenTime[$key] eq $i">selected</if>>{$i}:00</option>
+				</for>
+			</select><br/>
+		</foreach>
+	</td>
+</tr>
+</tbody>
+</table>
+<table class="list" style="width:700px">
+  <thead>
+    <tr>
+     <th  colspan="7" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台数据设置</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+	<td width="100px">项目:</td>
+	<td width="100px">注册可见项:</td>
+	<td width="100px">注册必选项:</td>
+    <td width="100px">前台可查看项:</td>
+    <td width="100px">前台可修改项:</td>
+    <td width="100px">唯一</td>
+    <td width="100px">真实性</td>
+  </tr>
+  <tr>
+	<td>姓名:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show_name" value="name" <if condition="in_array('name',$user['show']) eq true"> checked</if>></td>
+	<td><input type="checkbox" class="show_name" name="require_name" value="name"  <if condition="in_array('name',$user['require']) eq true"> checked</if>></td>
+	<td><input type="checkbox" class="show_name" name="view_name" value="name" <if condition="in_array('name',$user['view']) eq true"> checked</if>></td>
+	<td><input type="checkbox" class="show_name" name="edit_name" value="name" <if condition="in_array('name',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>性别:</td>
+	<td><input class="inp1" type="checkbox" name="show_sex" value="sex" <if condition="in_array('sex',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_sex" type="checkbox" name="require_sex" value="sex" <if condition="in_array('sex',$user['require']) eq true"> checked</if> ></td>
+	<td><input class="show_sex" type="checkbox" name="view_sex" value="sex" <if condition="in_array('sex',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_sex" type="checkbox" name="edit_sex" value="sex" <if condition="in_array('sex',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>昵称:</td>
+	<td><input class="inp1" type="checkbox" name="show_alias" value="alias" <if condition="in_array('alias',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_alias" type="checkbox" name="require_alias" value="alias" <if condition="in_array('alias',$user['require']) eq true"> checked</if> ></td>
+	<td><input class="show_alias" type="checkbox" name="view_alias" value="alias" <if condition="in_array('alias',$user['view']) eq true"> checked</if> ></td>
+	<td><input class="show_alias" type="checkbox" name="edit_alias" value="alias" <if condition="in_array('alias',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>收货人:</td>
+	<td><input class="inp1" type="checkbox" name="show_reciver" value="reciver" <if condition="in_array('reciver',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_reciver" type="checkbox" name="require_reciver" value="reciver" <if condition="in_array('reciver',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_reciver" type="checkbox" name="view_reciver" value="reciver" <if condition="in_array('reciver',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_reciver" type="checkbox" name="edit_reciver" value="reciver" <if condition="in_array('reciver',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>QQ:</td>
+	<td><input class="inp1" type="checkbox" name="show_qq" value="qq" <if condition="in_array('qq',$user['show']) eq true"> checked</if> ></td>
+	<td><input class="show_qq" type="checkbox" name="require_qq" value="qq"  <if condition="in_array('qq',$user['require']) eq true"> checked</if> ></td>
+	<td><input class="show_qq" type="checkbox" name="view_qq" value="qq"  <if condition="in_array('qq',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_qq" type="checkbox" name="edit_qq" value="qq"  <if condition="in_array('qq',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>Email:</td>
+	<td><input class="inp1" type="checkbox" name="show_email" value="email"  <if condition="in_array('email',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_email" type="checkbox" name="require_email" value="email" <if condition="in_array('email',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_email" type="checkbox" name="view_email" value="email" <if condition="in_array('email',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_email" type="checkbox" name="edit_email" value="email" <if condition="in_array('email',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>国家代码:</td>
+	<td><input class="inp1" type="checkbox" name="show_country_code" value="country_code"                 <if condition="in_array('country_code',$user['show']) eq true"   > checked</if>></td>
+	<td><input class="show_country_code" type="checkbox" name="require_country_code" value="country_code" <if condition="in_array('country_code',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_country_code" type="checkbox" name="view_country_code" value="country_code"    <if condition="in_array('country_code',$user['view']) eq true"   > checked</if>></td>
+	<td><input class="show_country_code" type="checkbox" name="edit_country_code" value="country_code"    <if condition="in_array('country_code',$user['edit']) eq true"   > checked</if>></td>
+	<td>
+	</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>移动电话:</td>
+	<td><input class="inp1" type="checkbox" name="show_mobile" value="mobile" <if condition="in_array('mobile',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_mobile" type="checkbox" name="require_mobile" value="mobile" <if condition="in_array('mobile',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_mobile" type="checkbox" name="view_mobile" value="mobile" <if condition="in_array('mobile',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_mobile" type="checkbox" name="edit_mobile" value="mobile" <if condition="in_array('mobile',$user['edit']) eq true"> checked</if>></td>
+	<td>
+	<select name='only_mobile'>
+		<option value='0' <eq name="user.onlyMobile" value="0"> selected</eq>>不限</option>
+		<option value='1' <eq name="user.onlyMobile" value="1"> selected</eq>>1人</option>
+		<option value='2' <eq name="user.onlyMobile" value="2"> selected</eq>>2人</option>
+		<option value='3' <eq name="user.onlyMobile" value="3"> selected</eq>>3人</option>
+		<option value='4' <eq name="user.onlyMobile" value="4"> selected</eq>>4人</option>
+		<option value='5' <eq name="user.onlyMobile" value="5"> selected</eq>>5人</option>
+		<option value='6' <eq name="user.onlyMobile" value="6"> selected</eq>>6人</option>
+		<option value='7' <eq name="user.onlyMobile" value="7"> selected</eq>>7人</option>
+		<option value='8' <eq name="user.onlyMobile" value="8"> selected</eq>>8人</option>
+		<option value='9' <eq name="user.onlyMobile" value="9"> selected</eq>>9人</option>
+		<option value='10' <eq name="user.onlyMobile" value="10"> selected</eq>>10人</option>
+	</select>
+	</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>证件号码:</td>
+	<td><input class="inp1" type="checkbox" name="show_id_card" value="id_card" <if condition="in_array('id_card',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_id_card" type="checkbox" name="require_id_card" value="id_card" <if condition="in_array('id_card',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_id_card" type="checkbox" name="view_id_card" value="id_card" <if condition="in_array('id_card',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_id_card" type="checkbox" name="edit_id_card" value="id_card" <if condition="in_array('id_card',$user['edit']) eq true"> checked</if>></td>
+	<td>
+	<select name='only_id_card'>
+		<option value='0' <eq name="user.onlyIdCard" value="0"> selected</eq>>不限</option>
+		<option value='1' <eq name="user.onlyIdCard" value="1"> selected</eq>>1人</option>
+		<option value='2' <eq name="user.onlyIdCard" value="2"> selected</eq>>2人</option>
+		<option value='3' <eq name="user.onlyIdCard" value="3"> selected</eq>>3人</option>
+		<option value='4' <eq name="user.onlyIdCard" value="4"> selected</eq>>4人</option>
+		<option value='5' <eq name="user.onlyIdCard" value="5"> selected</eq>>5人</option>
+		<option value='6' <eq name="user.onlyIdCard" value="6"> selected</eq>>6人</option>
+		<option value='7' <eq name="user.onlyIdCard" value="7"> selected</eq>>7人</option>
+		<option value='8' <eq name="user.onlyIdCard" value="8"> selected</eq>>8人</option>
+		<option value='9' <eq name="user.onlyIdCard" value="9"> selected</eq>>9人</option>
+		<option value='10' <eq name="user.onlyIdCard" value="10"> selected</eq>>10人</option>
+	</select>
+	</td>
+	<td><input class="show_id_card" type="checkbox" name="truth_id_card" value="id_card" <if condition="in_array('id_card',$user['truth']) eq true"> checked</if>></td>
+	</tr>
+	<tr>
+	<td>地址:</td>
+	<td><input class="inp1" type="checkbox" name="show_address" value="address" <if condition="in_array('address',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_address" type="checkbox" name="require_address" value="address" <if condition="in_array('address',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_address" type="checkbox" name="view_address" value="address"  <if condition="in_array('address',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_address" type="checkbox" name="edit_address" value="address"  <if condition="in_array('address',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>银行卡号:</td>
+	<td><input class="inp1" type="checkbox" name="show_bank_card" value="bank_card" <if condition="in_array('bank_card',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_bank_card" type="checkbox" name="require_bank_card" value="bank_card" <if condition="in_array('bank_card',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_bank_card" type="checkbox" name="view_bank_card" value="bank_card" <if condition="in_array('bank_card',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_bank_card" type="checkbox" name="edit_bank_card" value="bank_card" <if condition="in_array('bank_card',$user['edit']) eq true"> checked</if>></td>
+	<td>
+	<select name='only_bank_card'>
+		<option value='0' <eq name="user.onlyBankCard" value="0"> selected</eq>>不限</option>
+		<option value='1' <eq name="user.onlyBankCard" value="1"> selected</eq>>1人</option>
+		<option value='2' <eq name="user.onlyBankCard" value="2"> selected</eq>>2人</option>
+		<option value='3' <eq name="user.onlyBankCard" value="3"> selected</eq>>3人</option>
+		<option value='4' <eq name="user.onlyBankCard" value="4"> selected</eq>>4人</option>
+		<option value='5' <eq name="user.onlyBankCard" value="5"> selected</eq>>5人</option>
+		<option value='6' <eq name="user.onlyBankCard" value="6"> selected</eq>>6人</option>
+		<option value='7' <eq name="user.onlyBankCard" value="7"> selected</eq>>7人</option>
+		<option value='8' <eq name="user.onlyBankCard" value="8"> selected</eq>>8人</option>
+		<option value='9' <eq name="user.onlyBankCard" value="9"> selected</eq>>9人</option>
+		<option value='10' <eq name="user.onlyBankCard" value="10"> selected</eq>>10人</option>
+	</select>
+	</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>开户名:</td>
+	<td><input class="inp1" type="checkbox" name="show_bank_name" value="bank_name"  <if condition="in_array('bank_name',$user['show']) eq true"> checked</if> ></td>
+	<td><input class="show_bank_name" type="checkbox" name="require_bank_name" value="bank_name" <if condition="in_array('bank_name',$user['require']) eq true"> checked</if> ></td>
+	<td><input class="show_bank_name" type="checkbox" name="view_bank_name" value="bank_name" <if condition="in_array('bank_name',$user['view']) eq true"> checked</if> ></td>
+	<td><input class="show_bank_name" type="checkbox" name="edit_bank_name" value="bank_name" <if condition="in_array('bank_name',$user['edit']) eq true"> checked</if> ></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>开户地址:</td>
+	<td><input class="inp1" type="checkbox" name="show_bank_apply_addr" value="bank_apply_addr" <if condition="in_array('bank_apply_addr',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_addr" type="checkbox" name="require_bank_apply_addr" value="bank_apply_addr" <if condition="in_array('bank_apply_addr',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_addr" type="checkbox" name="view_bank_apply_addr" value="bank_apply_addr" <if condition="in_array('bank_apply_addr',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_addr" type="checkbox" name="edit_bank_apply_addr" value="bank_apply_addr" <if condition="in_array('bank_apply_addr',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>开户银行:</td>
+	<td><input class="inp1" type="checkbox" name="show_bank_apply_name" value="bank_apply_name" <if condition="in_array('bank_apply_name',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_name" type="checkbox" name="require_bank_apply_name" value="bank_apply_name" <if condition="in_array('bank_apply_name',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_name" type="checkbox" name="view_bank_apply_name" value="bank_apply_name" <if condition="in_array('bank_apply_name',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_bank_apply_name" type="checkbox" name="edit_bank_apply_name" value="bank_apply_name" <if condition="in_array('bank_apply_name',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>省市区域:</td>
+	<td><input class="inp1" type="checkbox" name="show_area" value="area" <if condition="in_array('area',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_area" type="checkbox" name="require_area" value="area" <if condition="in_array('area',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_area" type="checkbox" name="view_area" value="area" <if condition="in_array('area',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_area" type="checkbox" name="edit_area" value="area" <if condition="in_array('area',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>注册时间:</td>
+	<td></td>
+	<td></td>
+	<td><input class="show_time" type="checkbox" name="view_time" value="time" <if condition="in_array('time',$user['view']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>一级密码:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass1" value="pass1" <if condition="in_array('pass1',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass1" type="checkbox" name="require_pass1" value="pass1" <if condition="in_array('pass1',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>一级密码确认:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass1c" value="pass1c" <if condition="in_array('pass1c',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass1c" type="checkbox" name="require_pass1c" value="pass1c" <if condition="in_array('pass1c',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>二级密码:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass2" value="pass2" <if condition="in_array('pass2',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass2" type="checkbox" name="require_pass2" value="pass2" <if condition="in_array('pass2',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>二级密码确认:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass2c" value="pass2c" <if condition="in_array('pass2c',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass2c" type="checkbox" name="require_pass2c" value="pass2c" <if condition="in_array('pass2c',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<eq name="pwd3Switch" value="true">
+	<tr>
+	<td>三级密码:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass3" value="pass3" <if condition="in_array('pass3',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass3" type="checkbox" name="require_pass3" value="pass3" <if condition="in_array('pass3',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>三级密码确认:</td>
+	<td><input class="inp1" type="checkbox" name="show_pass3c" value="pass3c" <if condition="in_array('pass3c',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_pass3c" type="checkbox" name="require_pass3c" value="pass3c" <if condition="in_array('pass3c',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	</eq>
+	<tr>
+	<td>微信号:</td>
+	<td><input class="inp1" type="checkbox" name="show_weixin" value="weixin"  <if condition="in_array('weixin',$user['show']) eq true"> checked</if>></td>
+	<td><input class="show_weixin" type="checkbox" name="require_weixin" value="weixin" <if condition="in_array('weixin',$user['require']) eq true"> checked</if>></td>
+	<td><input class="show_weixin" type="checkbox" name="view_weixin" value="weixin" <if condition="in_array('weixin',$user['view']) eq true"> checked</if>></td>
+	<td><input class="show_weixin" type="checkbox" name="edit_weixin" value="weixin" <if condition="in_array('weixin',$user['edit']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	<if condition="$shop eq true">
+	<tr>
+	<td>服务中心:</td>
+	<td><input class="inp1" type="checkbox" name="show_shop"  value="shop"  checked ></td>
+	<td><input class="show_shop" type="checkbox" name="require_shop" value="shop" <if condition="in_array('shop',$user['require']) eq true"> checked</if>></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	</if>
+	<if condition="$Complete eq true">
+	<tr>
+		<td>编号生成规则设置:</td>
+		<td colspan="6" style="text-align:left">
+		<p><input type="checkbox" name="idEdit" value="1" <if condition="$user.idEdit eq true"> checked</if>>编 辑<span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>在编辑状态下,会员编号可自行修改填写</span></p>
+		<p><input type="checkbox" name="idAutoEdit" value="1" <if condition="$user.idAutoEdit eq true"> checked</if>>自 动<span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>系统内部自动产生会员注册编号</span></p>
+		<p><input type="checkbox" name="idInDate" value="1" <if condition="$user.idInDate eq true"> checked</if>>日 期<span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>若自动获取会员编号时于自动获取的数字前面加上当天年月日</span></p>
+		<p><input type="checkbox" name="idRand" value="1" <if condition="$user.idRand eq true"> checked</if>>随 机<span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>若自动获取会员编号时会出现随机不规则排列的数字</span></p>
+		<p>序 号:&nbsp&nbsp<input style="width:50px;" type="text" id="inpp" name="idSerial" value="{$user.idSerial}"><span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>自动而不随机则根据此数字与位数形成注册编号</span></p>
+		<p>前 缀:&nbsp&nbsp<input style="width:50px;" type="text" id="inpp" name="idPrefix" value="{$user.idPrefix}">
+		位 数:&nbsp&nbsp<input style="width:50px" type="text" id="inpp" name="idLength" value="{$user.idLength}"><span><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>自动获取时产生前缀+设定位数数字</span></p>
+		<p><span style="color:red"><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>特别说明：若选择日期，则建议位数不为空值或选择编辑；不选择任何默认自行填写</span></p>
+		<p><span style="color:red"><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>特别说明：自动不编辑获取编号注册时以注册后的编号为准</span></p>
+		</td>
+	</tr>
+	</if>
+	<tr>
+		<td>默认密码设置</td>
+		<td colspan="6" style="text-align:left">
+			<p>一级密码：<input name="DEFAULT_USER_PASS1" value="{$DEFAULT_USER_PASS1}"></p>
+			<p>二级密码：<input name="DEFAULT_USER_PASS2" value="{$DEFAULT_USER_PASS2}"></p>
+			<eq name="pwd3Switch" value="true">
+			<p>三级密码：<input name="DEFAULT_USER_PASS3" value="{$DEFAULT_USER_PASS3}"></p>
+			</eq>
+			<p><span style="color:red"><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>密码未填写状态下，未设置状态下注册默认为编号</span></p>
+		</td>
+	</tr>
+</table>
+
+
+<table class="list" style="width:700px">
+<if condition="$Complete eq true">
+    <thead>
+    <tr>
+     <th  style="text-align:left" colspan="5"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;会员安全设置</th>
+    </tr>
+	</thead>
+    <tbody>
+	<tr>
+		<td width="150px" colspan='2'>前台登陆验证码:</td>
+		<td colspan="4" style="text-align:left">
+		<select name="USER_LOGIN_VERIFY">
+		<option value="0" <if condition="$USER_LOGIN_VERIFY eq 0"> selected</if>>关闭</option>
+		<option value="1" <if condition="$USER_LOGIN_VERIFY eq 1"> selected</if>>登陆失败三次后自动开启</option>
+		<option value="2" <if condition="$USER_LOGIN_VERIFY eq 2"> selected</if>>一直开启</option>
+		</select>
+		</td>
+	</tr>
+	</tbody>
+</if>
+    
+	<tr>
+	 <td colspan="6" style="vertical-align: middle;" >
+	   <div class="buttonActive" style="margin-left:290px;">
+			  <div class="buttonContent" >
+				<button type="submit">确定</button>
+			  </div>
+		</div>
+	 </td>
+	</tr> 
+   </tbody> 
+   
+</table>
+</div>
+<script>
+$(".inp1",navTab.getCurrentPanel()).each(function(j,m){
+	if(this.checked){
+	}else{
+	  var name=this.name;
+	  var my=this;
+	  $("."+name,navTab.getCurrentPanel()).each(function(i,n){
+	  if(my.checked){
+			$(this).attr('disabled',false);
+		}else{
+			$(this).attr('disabled',true);
+		} });
+	  }
+});
+$(".inp1",navTab.getCurrentPanel()).click(function(){
+	var my=this;
+	var name=$(this).attr('name');
+	$("."+name,navTab.getCurrentPanel()).each(function(i,n){
+		if(my.checked){
+			$(this).attr('disabled',false);
+		}else{
+			$(this).attr('disabled',true);
+		}   
+	});
+	});
+</script>
+</form>

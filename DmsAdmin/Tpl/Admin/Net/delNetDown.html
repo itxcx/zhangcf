@@ -1,0 +1,28 @@
+<form action="__URL__/delNetDowncfm" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" class="list">
+<tr>
+	<th colspan="2" style="text-align:left">&nbsp;&nbsp;删除会员及网体下所有人</th>
+</tr>
+<tbody>
+<tr >
+<td width="100" align="center">会员编号:</td>
+<td width="300" style="text-align:left"><input type="text" name="uid" id="uid" value=''/></td>
+</tr>
+<tr >
+<td width="100" align="center">管理员密码:</td>
+<td width="300" style="text-align:left"><input type="password" name="password" id="password"/></td>
+</tr>
+
+</tbody>
+<tr>
+<td colspan="2">
+  <div class="buttonActive" style="margin-left:180px;">
+          <div class="buttonContent" >
+		  <button type="submit" onclick="return confirm('确定删除?')" >确定删除</button>
+            <!-- <button type="button" onclick="edit()">确定删除</button> -->
+          </div>
+      </div>
+</td>
+</tr>
+</table>
+</form>

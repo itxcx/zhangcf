@@ -1,0 +1,43 @@
+<include file="Index:header1" /> 
+        <div class="maincontent">
+        	<div class="contentinner">
+            	<h4 class="widgettitle">{$name}</h4>
+                <!--widgetcontent-->
+              <div >
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="table table-bordered" >
+	<TR class="shuang" >
+	 <TD width="25%" style="text-align:center">{:L('时间')}</TD>
+	  <TD width="12%"  style="text-align:center">{:L('会员编号')}</TD>
+	  <TD width="12%"  style="text-align:center">{:L('原始数量')}</TD>
+	  <TD width="12%"  style="text-align:center">{:L('成交数量')}</TD>
+	  <TD width="12%"  style="text-align:center">{:L('剩余数量')}</TD>
+	  <TD width="12%" style="text-align:center">{:L('交易价格')}</TD>	 
+	</TR>
+	<foreach name="list" item="list1">
+    <TR class="shuang">
+      <td style="text-align:center">{$list1.addtime|date="Y-m-d H:i:s",###}</td>
+	  <td style="text-align:center">{$list1.编号}</td>
+	  <td style="text-align:center">{$list1.num1}</td>
+	  <td style="text-align:center">{$list1.num2}</td>
+	  <td style="text-align:center">{$list1.num}</td>
+	  <td style="text-align:center">{$list1.price}</td>	  
+	</TR>
+	</foreach>
+	<TR class="shuang">
+	  <td colspan="6" style="text-align:center">
+      {$page}
+      </td>
+	</TR>
+		<TR class="shuang">
+	  <td colspan="6" style="text-align:center">
+      <button class="btn btn-primary"   onclick="window.parent.$.colorbox.close();" >{:L('关闭')}</button> 
+      </td>
+	</TR>
+</TABLE> 
+</form>
+            </div><!--contentinner-->
+        </div><!--maincontent--> 
+    </div><!--mainright-->
+</div><!--mainwrapper-->
+</body>
+</html>

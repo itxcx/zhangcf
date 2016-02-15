@@ -1,0 +1,88 @@
+<!--<table name='会员'>
+<field name='{$this->name}'         type="decimal(12,2)" default="0"/>
+<field name='{$this->name}锁定'     type="decimal(12,2)" default="0"/>
+<field name='{$this->name}提现累计' type="decimal(12,2)" default="0"/>
+</table>-->
+<table name='{$this->name}明细'  engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='时间'    type="integer" default="0"/>
+<field name='编号'    type="varchar(50)" default=""/>
+<field name='来源'    type="varchar(50)" default=""/>
+<field name='类型'    type="varchar(50)" default=""/>
+<field name='金额'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" null="1"/>
+<field name='余额'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" null="1"/>
+<field name='备注'    type="text" />
+<field name="删除"   type="int(1)" default="0"/>
+<!--<field name="返回状态"   type="int(1)" default="0"/>-->
+<field name="tlename"     type="varchar(50)" default=""/>
+<field name="prizename"   type="varchar(50)" default=""/>
+<field name="dataid"  type="integer" default="0"/>
+<field name='adminuser'  type="varchar(50)"  default=""/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`类型`)' type="KEY"/>
+<field name='INDEX (`tlename`,`prizename`,`dataid`)' type="KEY"/>
+</table>
+<table name='提现' engine="InnoDB">
+	<field name="id"       type="int(11)" auto_increment="1" primary="1"  />
+	<field name="类型" type="varchar(50)" default=""/>
+	<field name='编号'      type="varchar(50)" default=""/>
+	<field name='提现额'   type="decimal(10,2)" default="0" null="1"/>
+	<field name='实发'     type="decimal(12,2)" default="0" null="1"/>
+	<field name='换算后实发'     type="decimal(12,2)" default="0" null="1"/>
+	<field name='手续费'   type="decimal(10,2)" default="0" null="1"/>
+	<field name='操作时间' type="integer" default="0"/>
+	<field name='审核时间' type="integer" default="0"/>
+	<field name='开户行'   type="varchar(100)" default=""/>
+	<field name='银行卡号' type="varchar(100)" default=""/>
+	<field name='开户地址' type="varchar(200)" default=""/>
+	<field name='开户名'   type="varchar(100)" default=""/>
+	<field name='状态'     type="varchar(10)" default=""/>
+	<field name='联系电话' type="varchar(100)" default=""/>
+	<field name='撤销申请' type="int(2)" default="0"/>
+	<field name='撤销理由' type="varchar(200)"  default=""/>
+</table>
+<table name='转账明细' engine="InnoDB">
+	<field name="id"       	type="int(11)" auto_increment="1" primary="1"/>
+	<field name="转出编号" 	type="varchar(50)" default=""/>
+	<field name='转出货币'      type="varchar(50)" default=""/>
+	<field name='转出金额'   	type="decimal(12,2)" default="0"/>
+	<field name='手续费'   		type="decimal(12,2)" default="0"/>
+	<field name='转入编号'   	type="varchar(50)" default=""/>
+	<field name='转入货币'   	type="varchar(50)" default=""/>
+	<field name='转入金额'   	type="decimal(12,2)" default="0"/>
+	<field name='转换比率'   	type="decimal(12,2)" default="0"/>
+	<field name='操作时间' type="integer" default="0"/>
+	<field name='审核时间' type="integer" default="0"/>
+	<field name='状态'     type="varchar(10)" default=""/>
+	<field name='备注'	   type="varchar(1000)" default=""/>
+	<field name='撤销理由' type="varchar(200)"  default=""/>
+</table>
+<table name='转账设置' engine="InnoDB">
+	<field name="id"       	type="int(11)" auto_increment="1" primary="1"/>
+	<field name="title" 	type="varchar(50)" default=""/>
+	<field name='bank'      type="varchar(50)" default=""/>
+	<field name='tobank'   	type="varchar(50)" default=""/>
+	<field name='tome'      type="tinyint(1)" default="0" comment="0 否 1 是"/>
+	<field name='toyou'     type="tinyint(1)" default="0" comment="0 否 1 是"/>
+	<field name='toyoutype' type="varchar(250)" default=""/>
+	<field name='taxfrom'   type="tinyint(1)" default="0" comment="0 否 1 是"/>
+	<field name='tax'     	type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	<field name='taxtop'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	<field name='taxlow'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	<field name='sacl'    	type="int(11)" default="0"/>
+	<field name='maxnum'   	type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	<field name='minnum' 	type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	<field name='intnum' 	type="int(11)" default="0"/>
+	<field name='nets'   	type="varchar(50)" default=""/>
+	<field name='shop'   	type="varchar(50)" default=""/>
+	<field name='time' 		type="integer" default="0"/>
+	<field name='status' 	type="tinyint(1)" default="0" comment="0 关闭 1 开启"/>
+</table>
+<table name='修改日志'>
+<field name='{$this->name}锁定'     type="tinyint(1)" default="0"/>
+</table>
+<table name='货币' engine="InnoDB">
+<field name='{$this->name}'         type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" null="1"/>
+<field name='{$this->name}锁定'     type="tinyint(1)" default="0"/>
+<field name='{$this->name}提现累计' type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" null="1"/>
+</table>

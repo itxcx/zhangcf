@@ -1,0 +1,39 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/arrangecommit" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload);">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;"  width="400" >
+			<tr>
+				<td align="right" width="100">归档货币类型:</td>
+				<td align="left"  >
+				    <select name="funname" id="funname" class="combox">
+					<volist name="banks" id="vo">
+					<option value="{$vo}">{$vo}</option>
+					</volist>
+					<!--<option value="all">全部</option>-->
+					</select>
+				</td>
+				
+			</tr>
+			<tr>
+				<td align="right" width="100">归档时间:</td>
+				<td align="left"  >
+				    <input type="text" class='date' style="float:left;" value="" name="arrangeDate" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+				归档时间前的数据将被汇总成一条记录并删除原数据<br>
+				<span style="color:red">请在进行此操作前备份数据库！！！<span>
+				</td>
+			</tr>
+			<tr>
+			<td colspan='3'>
+				<input type='submit' value='确认' >
+			</td>
+			</tr>
+		</table>
+	</form>
+
+
+</div>

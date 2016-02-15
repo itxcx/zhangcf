@@ -1,0 +1,64 @@
+<div class="pageContent">
+		<div style="border: 1px solid #ff0000;height:18px;background:#f5e3e3;"><img style="vertical-align:middle;" src="__PUBLIC__/Images/ExtJSicons/exclamation.png">
+		<span  style="vertical-align:middle;" >由于还原过程中涉及到表的重建，期间尽量不要进行其他操作!</span></div>
+
+		<div class="pageFormContent" layoutH="68">
+			<div id="progressbar"><div class="progress-label"></div>
+			<img id="proimg" src="__PUBLIC__/Images/progressBar_l.gif"/>
+			</div>
+			<input type="hidden" value="" id="status">
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close" onclick="closeme()">关闭</button></div></div></li>
+			</ul>
+		</div>
+</div>
+<script>
+setTimeout("refresh()", 100);
+function refresh()
+{
+	$.ajax({
+       url:"__APP__/Backup/getstateajax",
+       type:"POST",
+       data:null,
+       dataType:"JSON",
+       global:false,
+       success:function(data){
+	       	var ret = data.data;
+       		if(data.status>0){
+	       		flushflag =0;
+	       		if(ret['log']=='SUCCESS' || ret['log']=='ERROR'){
+       				$( ".progress-label").text(ret['op']+"完成，请关闭当前窗口");
+       				$("#proimg").hide();
+	       			$( "#status").val("1");
+	       			flushflag=1;
+       			}else{
+	       			$( ".progress-label").text(ret['op']+"进行中");
+	       		}
+	       		
+       		}else{
+       			if(ret['log']=='SUCCESS'){
+       				$( ".progress-label").text(ret['op']+"完成，请关闭当前窗口");
+       			}else{
+       				$( ".progress-label").text(ret['op']+"失败，请关闭当前窗口");
+       			}
+       			$("#proimg").hide();
+       			$( "#status").val("1");
+       			flushflag=1;
+       		}
+       }
+    });
+    if(flushflag==0){
+    	setTimeout(arguments.callee, 3000);
+    }
+}
+function closeme(){
+	clearTimeout("refresh()");
+	flushflag=1;
+	if($("#status").val()=="1"){
+		navTab.reload();
+	}
+}
+
+</script>

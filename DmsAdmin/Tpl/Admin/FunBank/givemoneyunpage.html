@@ -1,0 +1,35 @@
+<script type="text/javascript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload();
+		//navTab.reload(); //刷新节点管理
+		$.pdialog.closeCurrent(); //关闭添加节点对话框
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/givemoneyunacc" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1);">
+		<input name='id' value='{$id}' type="hidden" />
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>要撤销的转账记录数量：{$count}条</label>
+			</p>
+			<p>
+				<label>撤销理由：</label>
+				<input name="memo"  type="text" size="45" value="" alt="请输入撤销转账的原因"/>
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

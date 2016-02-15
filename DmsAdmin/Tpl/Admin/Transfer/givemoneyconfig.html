@@ -1,0 +1,98 @@
+<script language="JavaScript">
+
+function dialogAjaxDoneProductAdd(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<div class="pageContent">
+	<form action="__URL__/gmconfigsave" method="post" class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+	    <div class="pageFormContent" layoutH="58">
+		<table cellpadding="3" cellspacing="3" >
+			<tr>
+				<td style="text-align:right;width:150px">转账审核：</td>
+				<td style="text-align:left" >
+				<label><input type="radio" value="1" name="sureGiveMoney" id="sureGiveMoney1" <if condition="($sureGiveMoney eq 1) OR ($sureGiveMoney eq true)">checked</if>/>是</label>
+     			<label><input type="radio" value="0" name="sureGiveMoney" id="sureGiveMoney2" <if condition="($sureGiveMoney eq 0) OR ($sureGiveMoney eq false)">checked</if>/>否</label>
+     			</td>
+			</tr>
+			<tr>
+				<td style="text-align:right;width:150px">允许转账：</td>
+				<td style="text-align:left" >
+				<label><input type="radio" value="1" name="giveMoney" id="givemoney1" onclick="$('#hide11').show()" <if condition="($giveMoney eq 1) OR ($giveMoney eq true)">checked</if>/>是</label>
+     			<label><input type="radio" value="0" name="giveMoney" id="givemoney2" onclick="$('#hide11').hide()" <if condition="($giveMoney eq 0) OR ($giveMoney eq false)">checked</if>/>否</label>
+     			</td>
+			</tr>
+	        <tbody id="hide11" style="clear: left;<if condition="($giveMoney eq 0) OR ($giveMoney eq false)">display:none</if>" >
+			<tr>
+				<td style="text-align:right;width:150px">转账需要二级密码：</td>
+				<td style="text-align:left" >
+					<label><input type="radio" value="1" name="giveMoneyPass2" <if condition="($giveMoneyPass2 eq 1) OR ($giveMoneyPass2 eq true)">checked</if>/>是</label>
+	     			<label><input type="radio" value="0" name="giveMoneyPass2" <if condition="($giveMoneyPass2 eq 0) OR ($giveMoneyPass2 eq false)">checked</if>/>否</label>
+	     		</td>
+			</tr>
+				<eq name="pwd3Switch" value="true">
+			<tr>
+				<td style="text-align:right;width:150px">转账需要三级密码：</td>
+				<td style="text-align:left" >
+					<label><input type="radio" value="1" name="giveMoneyPass3" <if condition="($giveMoneyPass3 eq 1) OR ($giveMoneyPass3 eq true)">checked</if>/>是</label>
+	     			<label><input type="radio" value="0" name="giveMoneyPass3" <if condition="($giveMoneyPass3 eq 0) OR ($giveMoneyPass3 eq false)">checked</if>/>否</label>
+	     		</td>
+			</tr>
+				</eq>
+				<if condition="adminshow('smsSwitch') eq true">
+			<tr>
+				<td style="text-align:right;width:150px">短信验证码：</td>
+				<td style="text-align:left" >
+					<label><input type="radio" value="1" name="giveMoneySmsSwitch" <if condition="($giveMoneySmsSwitch eq 1) OR ($giveMoneySmsSwitch eq true)">checked</if>/>是</label>
+					<label><input type="radio" value="0" name="giveMoneySmsSwitch" <if condition="($giveMoneySmsSwitch eq 0) OR ($giveMoneySmsSwitch eq false)">checked</if>/>否</label>
+				</td>
+			</tr>
+			<tr style="width: 50px;height:100px;<if condition="($giveMoneySmsSwitch eq 0) OR ($giveMoneySmsSwitch eq false)">display:none</if>" id="giveMoneySmsContent">	
+				<td style="width: 150px; text-align: right;">短信内容：</td>
+				<td>
+					<textarea name="giveMoneySmsContent" cols="50" rows="3">{$giveMoneySmsContent}</textarea>
+				</td>
+			</tr>
+				</if>
+			</tbody>
+        </table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" >确认</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+</div>
+<script>
+$(function(){
+	$('input[name=giveMoneySmsSwitch]',navTab.getCurrentPanel()).change(function(){alert(1);
+		if($(this).val() == 'true'){
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).show();
+		}else{
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).hide();
+		}
+	});
+});
+function removeGivecon(key){
+	alertMsg.confirm("确定要删除该配置项吗?", {
+        okCall: function(){
+			navTab.getCurrentPanel().find('#vo_'+key).remove();
+				$.post('__URL__/deleteGiveCon:__XPATH__',{key:key},function(data){
+			});
+        }
+	});
+}
+</script>

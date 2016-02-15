@@ -1,0 +1,116 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/saveAddGive:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload);">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<div class="pageFormContent nowrap" layoutH="57">
+				<dl>
+                    <dt style="width:100px">转账目标：</dt>
+                    <dd style="width:auto"><select name="giveTo" id="giveTo" class="combox">
+					<volist name="giveTo" id="vo">
+					<option value="{$vo.name}" netset="{$vo.netset}" isme="{$vo.isme}" issave='{$vo.issave}' bankname="{$vo.bankname}" obj="{$vo.obj}"><span netset="{$vo.netset}">{$vo.name}</span></option>
+					</volist>
+					</select></dd>
+					<input type="hidden" name="issave" value="{$giveTo[0].issave}"/>					
+					<input type="hidden" name="isme" value="{$giveTo[0].isme}"/>
+					<input type="hidden" name="bankname" value="{$giveTo[0].bankname}"/>
+					<input type="hidden" name="obj" value="{$giveTo[0].obj}"/>
+                </dl>
+				<dl>
+					<dt style="width:100px">标题：</dt>
+					<dd style="width:auto"><input type="text" value="" name="giveTitle"/></dd>
+				</dl>
+                <dl>
+					<dt style="width:100px">最小转账金额：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="0" name="leastMoney"/></dd>
+				</dl>
+                <dl>
+					<dt style="width:100px">手续费：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="0" name="comCharge"/>&nbsp;%</dd>
+				</dl>
+                <dl>
+					<dt style="width:100px">手续费下限：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="0" name="leastComCharge"/></dd>
+				</dl>
+                <dl>
+					<dt style="width:100px">手续费上限：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="0" name="limitComCharge"/></dd>
+				</dl>
+				<div style='display:block;' id='normal_scale'>
+				<dl>
+					<dt style="width:100px">转换比例：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="100" name="scale"/>&nbsp;%</dd>
+				</dl>
+				</div>
+				<div style='display:none;' id='bank_scale'>
+				<dl>
+					<dt style="width:100px">转换比例：</dt>
+					<dd style="width:auto">
+						<input class="required number" type="text" value="0" name="bank_scale_day_1"/>天
+						<input class="required number" type="text" value="100" name="bank_scale_1"/>&nbsp;%<br />
+						<input class="required number" type="text" value="0" name="bank_scale_day_2"/>天
+						<input class="required number" type="text" value="100" name="bank_scale_2"/>&nbsp;%<br />
+						<input class="required number" type="text" value="0" name="bank_scale_day_3"/>天
+						<input class="required number" type="text" value="100" name="bank_scale_3"/>&nbsp;%<br />
+					</dd>
+				</dl>
+				</div>
+                <dl>
+					<dt style="width:100px">网络体系限定：</dd>
+					<dd style="width:auto"><select name="leastNet"><option value="">无</option></select></dd>
+				</dl>
+				<dl>
+					<dt style="width:100px">整数倍设置：</dt>
+					<dd style="width:auto"><input class="required digits" type="text" value="0" name="giveMoneyInt"/></dd>
+				</dl>
+                <!--<dl>
+					<dt style="width:100px">转出最低保留额：</dt>
+					<dd style="width:auto"><input class="required number" type="text" value="0" name="leastLeave"/></dd>
+				</dl>-->
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+
+	<form method="" id="addform">
+			
+		</form>
+
+</div>
+<script>
+
+$(function(){
+    netset();
+    $("select[id='giveTo']").change(netset);
+});
+function netset(){
+		$("input[name='isme']").val($("select[id='giveTo']").find("option:selected").attr("isme"));
+		$("input[name='issave']").val($("select[id='giveTo']").find("option:selected").attr("issave"));
+		$("input[name='bankname']").val($("select[id='giveTo']").find("option:selected").attr("bankname"));
+		$("input[name='obj']").val($("select[id='giveTo']").find("option:selected").attr("obj"));
+
+		if($("select[id='giveTo']").find("option:selected").attr("issave")=='1'){
+			$('#normal_scale').css('display','none');
+			$('#bank_scale').css('display','block');
+		}else{
+			$('#normal_scale').css('display','block');
+			$('#bank_scale').css('display','none');
+		}
+        var netset =$("select[id='giveTo']").find("option:selected").attr("netset");
+        var app ="<option value='无'>无</option>";
+        if(netset ==""){
+            $("select[name='leastNet']").html(app);
+        }else{
+        
+            netset = netset.split(',');
+            for(var j in netset){
+                app += '<option value="'+netset[j]+'">'+netset[j]+'</option>'
+            }
+            $("select[name='leastNet']").html(app);
+        }
+}
+</script>
+	

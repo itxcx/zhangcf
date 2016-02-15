@@ -1,0 +1,29 @@
+<div class="core_main Fun_deal" id="deal_list">
+<div class="core_title">
+    	<span class="core_title_con">当前位置：{$name}管理&gt;&gt;{:L('交易记录')}</span>        
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+            <TR class="datafield">
+                <TH ><nobr>序号</nobr></TH>
+                <TH ><nobr>数量</nobr></TH>
+                <TH ><nobr>价格</nobr></TH>
+                <TH ><nobr>时间</nobr></TH>
+                <TH ><nobr>说明</nobr></TH>
+            </TR>
+            <foreach name="lists" item="vo">
+            <TR class="datalist">
+                <TD ><nobr>{$vo['id']}</nobr></TD>
+                <TD ><nobr>{$vo['num']}</nobr></TD>
+                <TD ><nobr>{$vo['price']}</nobr></TD>
+                <TD ><nobr>{:date('Y-m-d',$vo['addtime'])}</nobr></TD>
+                <TD ><nobr>{$vo['memo']}</nobr></TD>
+            </TR>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+    	{$page}
+    </div>
+    
+</div>

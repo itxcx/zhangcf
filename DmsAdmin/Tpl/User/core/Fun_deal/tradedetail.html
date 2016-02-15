@@ -1,0 +1,36 @@
+<include file="Index:header1" /> 
+        <div class="maincontent">
+        	<div class="contentinner">
+            	<h4 class="widgettitle">{$name}</h4>
+                <!--widgetcontent-->
+              <div >
+<table width="100%" border="0" cellpadding="2" cellspacing="0" class="table table-bordered" >
+	<TR class="shuang" >
+	  <TD width="15%"  style="text-align:center">{:L('交易编号')}</TD>
+	  <TD width="15%" style="text-align:center">{:L('交易数量')}</TD>
+	  <TD width="15%" style="text-align:center">{:L('交易价格')}</TD>
+	  <TD width="15%" style="text-align:center">{:L('交易金额')}</TD>
+	  <TD width="40%" style="text-align:center">{:L('交易时间')}</TD>
+	</TR>
+	<foreach name="infos" item="info">
+    <TR class="shuang">
+	  <td style="text-align:center">{$info.name}</td>
+	  <td style="text-align:center">{$info.num}</td>
+	  <td style="text-align:center">{$info.price}</td>
+	  <td style="text-align:center">{$info.money}</td>
+	  <td style="text-align:center">{$info.time|date="Y-m-d H:i:s",###}</td>
+	</TR>
+	</foreach>
+		<TR class="shuang">
+	  <td colspan="5" style="text-align:center">
+      <button class="btn btn-primary"   onclick="window.parent.$.colorbox.close();" >{:L('关闭')}</button> 
+      </td>
+	</TR>
+</TABLE> 
+</form>
+            </div><!--contentinner-->
+        </div><!--maincontent--> 
+    </div><!--mainright-->
+</div><!--mainwrapper-->
+</body>
+</html>

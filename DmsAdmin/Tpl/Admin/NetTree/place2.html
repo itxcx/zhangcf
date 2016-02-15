@@ -1,0 +1,325 @@
+<div layoutH="0" id="treeContent">
+<div  style="padding-bottom:100px">
+<if condition="$firstUserInfo">
+<php>
+//判断是否是豪华版还是简化版 如果是简化版的话是没有缩放功能的
+if(C('VERSION_SWITCH') == '0'){
+</php>
+	<select name="changeSize" id="changeSize">
+		<option value="">缩放</option>
+		<option value="1.0">100%</option>
+		<option value="0.9">90%</option>
+		<option value="0.8">80%</option>
+		<option value="0.7">70%</option>
+		<option value="0.6">60%</option>
+		<option value="0.5">50%</option>
+		<option value="0.4">40%</option>
+		<option value="0.3">30%</option>
+		<option value="0.2">20%</option>
+		<option value="0.1">10%</option>
+	</select>
+<php>}</php>
+	<table id="contentTable" align="center" cellpadding="0" cellspacing="0" width="100%" style="zoom:100%">
+		<tr><td>
+			<table width="auto" border="0" align="center" style="margin:0 auto;">
+			<tbody><tr>
+			<td height="30" align="center">
+				{// 表单查询 }
+				<form action="__URL__/index:__XPATH__/style/ramus" method="post" name="form1" id="form1" onsubmit="return navTabSearch(this)">	
+				<!--<span id="Label1" style="float:left;height:25px;line-height:25px">{$userNode:name}编号：</span>
+				<span style="float:left;padding-right:5px"><input name="uid" type="text" id="userid" style="width:100px;" value=''/></span>
+				
+				<div class="buttonActive" style="padding-right:5px">
+				<div class="buttonContent"><button type="submit">搜索</button>--> </div></div>
+				<a class="button"  href="__URL__/place2:__XPATH__/uid/{:($firstUserInfo['上级id'])}/style/ramus"  target="navTab" rel="{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}" style="float:left;padding-right:5px" title="{$userNode:name}{$netName}网络" ><span>上一层</span></a>
+				<a class="button"  href='__URL__/place2:__XPATH__/style/ramus'  target="navTab" rel="{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}" style="float:left;padding-right:5px" title="{$userNode:name}{$netName}网络" ><span>置顶</span></a>
+				</form>
+			</td>
+			</tr></tbody>
+		</table>
+		</td></tr>
+		{// 第一层 }
+		<tr><td valign="top">
+		<table width="100" border="1" bordercolor="#BBBBBB" cellpadding="0" cellspacing="1" bgcolor="#517DBF" align="center" style="margin:0px auto 0 auto;">
+			<tbody>
+			<tr><td align="center" bgcolor="#FFFFFF">
+				<table width="100%" border="0" cellspacing="1" cellpadding="0" id="overUser_{$firstUserInfo.编号}">
+				<tbody><tr>
+					{//编号}
+					<td style="height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:#3070DE">
+					<font color="ffffff"><strong>{$firstUserInfo.编号}({$firstUserInfo.序号})
+					</strong></font></td>
+					</tr>
+					<!--
+					<tr>
+						<td style="color:#ffffff;height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:<eq name='firstUserInfo.状态' value='有效'>#3070DE<else/>#AAAAAA</eq>"><empty name="firstUserInfo.审核日期">{:date('Y-m-d',$firstUserInfo['注册日期'])}<else/>{:date('Y-m-d',$firstUserInfo['审核日期'])}</empty></td>
+					</tr>-->
+					<foreach name="levelsArr" item="level" key='levelname'>
+					<if condition="isset($firstUserInfo[$levelname])">
+						<tr><td align="center" bgcolor="#E7F2FB"style="line-height:20px">{:($level[$firstUserInfo[$levelname]])}</td></tr>
+					</if>
+					</foreach>
+					
+					<tr><td height="25" align="center" valign="bottom" >
+						<table width="100%" border="0" background="__PUBLIC__/Images/admin/tab_05.gif" >
+						<tbody><tr>
+						<td>{:isset($firstUserInfo['姓名'])?$firstUserInfo['姓名']:'暂无'}</td>
+						</tr>
+						</tbody>
+						</table>
+					</td></tr>
+					<tr><td height="25" align="center" valign="bottom" >
+						<table width="100%" border="0" background="__PUBLIC__/Images/admin/tab_05.gif" >
+						<tbody><tr>
+						<td><php>if($firstUserInfo['进网日期']){echo  date('Y-m-d',$firstUserInfo['进网日期']);}else{echo '[暂无]';}</php></td>
+						</tr>
+						</tbody>
+						</table>
+					</td></tr>					
+				</tr></tbody>
+				</table>
+				{:getfloatDiv($firstUserInfo,$netName,$levelsArr,$netPlaceName)}
+			</td></tr>
+			</tbody>
+		</table>
+		</td></tr>
+		{//第一层结束}
+		
+		<tr><td>
+		{// 向下递归遍历网络图的所有子节点 }
+		{:print_tree(0,$netTree,$netPlaceName,$firstUserInfo,$netName,$levelsArr,$showLayer,$netNode)}
+		</td></tr>
+	</table>
+<else/>
+<table class='list' style="width:500px">
+  <thead>
+  <tr><th>&nbsp;提示信息</th></tr>
+  </thead>
+  <tbody>
+  <tr style="height:150px"><td><b>该网络暂无人员！</b></td></tr>
+  </tbody>
+</table>
+</if>
+</div>
+</div>
+<php>
+/*
+* 递归遍历网络图函数
+*/
+function print_tree($layer,$netTree,$netPlaceName,$parent,$netName,$levelsArr,$showLayer,$netNode)
+{
+if($layer >= $showLayer-1) return;
+</php>
+	{//下面上下线}
+	<table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+		<tbody><tr>
+		<td align="center" style="line-height: 10px; height: 10px;"><img style="width:1px;height:20px" alt="" src="/Public/Images/admin/line.gif" border="0"></td>
+		</tr></tbody>
+	</table>
+	<table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+		
+		
+		<tbody><tr>
+		<td valign="top">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tbody><tr>
+			<php>
+			$j=count($netNode->getBranch());
+			$i = -1;
+			foreach($netNode->getBranch() as $position){
+				$userInfo = array();
+				$i++;
+				if(isset($netTree[$layer])){
+					foreach($netTree[$layer] as $val){
+					
+						if($val['上级id'] == $parent['id'] and $val['位置'] == $position){
+							$userInfo = $val;
+							break;
+						}
+					}
+				}
+			</php>
+		<notempty name="userInfo">
+		<td valign="top">
+			{//上面上下线}
+			<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin:0px auto 0 auto;">
+				<tbody><tr>
+				<td align="center" valign="top" style="height:10px;line-height:10px">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="topppppppppppppppppp">
+					<tbody><tr>
+						{// 左右轨迹条显示,这里判断是显示在 左边 还是 右边 }
+						<php>if($i>0 && $i<($j-1) && $j >2){</php>
+						<td width="50%" height="1" bgcolor="#003399"></td>
+						<td width="50%" height="1" bgcolor="#003399"></td>
+						<php>}else if($j == 1){</php>
+						<td width="50%" height="0"></td>
+						<td width="50%" height="0"></td>
+						<php>}else{</php>
+						<td width="50%" height="1" <eq name="i" value="$j-1">bgcolor="#003399"</eq> ></td>
+						<td width="50%" height="1" <eq name="i" value="0">bgcolor="#003399"</eq> ></td>
+						<php>}</php>
+					</tr></tbody>
+					</table>
+					{// 上下轨迹条显示}
+					<img style="width:1px;height:20px;line-height:20px" alt="" src="/Public/Images/admin/line.gif" border="0">
+				</td>
+				</tr></tbody>
+			</table>
+
+			{//会员信息主体}
+			<table width="100" border="1" bordercolor="#BBBBBB" cellpadding="0" cellspacing="1" bgcolor="#517DBF" align="center" style="margin:0px auto 0 auto;">
+				<tbody><tr>
+				<td align="center" bgcolor="#FFFFFF">
+					{//输出会员的相关信息 }
+					<table width="100%" border="0" cellspacing="1" cellpadding="0" id="overUser_{$userInfo['编号']}">
+						<tbody>
+						{//编号}
+						<tr>
+						    <td style="height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:#3070DE">
+						        <a class="currentNavTab" style="width: 100px; background-color: " href="__URL__/place2:__XPATH__/uid/{$userInfo['id']}/style/ramus" target='navTab' rel='{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}' title="会员{$netName}网络">
+						            <font color="ffffff">
+						                <strong>
+						                    {$userInfo['编号']}({$userInfo['序号']})
+						                </strong>
+						            </font>
+						        </a>
+						    </td>
+						</tr>
+						<tr><td height="25" align="center" valign="bottom" >
+							<table width="100%" border="0" background="__PUBLIC__/Images/admin/tab_05.gif" >
+							<tbody><tr>
+							<td>{:isset($userInfo['姓名'])?($userInfo['姓名']):'暂无'}</td>
+							</tr>
+							</tbody>
+							</table>
+						</td></tr>
+						<!--
+						{//审核日期 或 注册日期}
+						<tr><td style="color:#ffffff;height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:<eq name='userInfo.状态' value='有效'>#3070DE<else/>#AAAAAA</eq>"><empty name="userInfo.审核日期">{:date('Y-m-d',$userInfo['注册日期'])}<else/>{:date('Y-m-d',$userInfo['审核日期'])}</empty></td></tr>
+						<foreach name="levelsArr" item="level" key='levelname'>
+						<tr><td align="center" bgcolor="#E7F2FB"style="line-height:20px">{:($level[$userInfo[$levelname]])}</td></tr>
+						</foreach>
+						-->
+						<tr><td height="25" align="center" valign="bottom" >
+							<table width="100%" border="0" background="__PUBLIC__/Images/admin/tab_05.gif" >
+							<tbody><tr>
+							<td><php>if($userInfo['进网日期']){echo  date('Y-m-d',$userInfo['进网日期']);}else{echo '[暂无]';}</php></td>
+							</tr>
+							</tbody>
+							</table>
+						</td></tr>
+						</tbody>
+					</table>
+					{:getfloatDiv($userInfo,$netName,$levelsArr,$netPlaceName)}
+				</td>
+				</tr></tbody>
+			</table>
+
+			{// 向下递归遍历网络图的所有子节点 }
+			{:print_tree($layer+1,$netTree,$netPlaceName,$userInfo,$netName,$levelsArr,$showLayer,$netNode)}
+			
+	</td>
+	<else/>
+	{//显示注册框}
+	<td valign="top">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin:0px auto 0 auto;">
+			<tbody><tr>
+			<td align="center" valign="top" style="height:10px;line-height:10px">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" id="topppppppppppppppppp">
+				<tbody><tr>
+
+				{// 左右轨迹条显示,这里判断是显示在 左边 还是 右边 }
+				<php>if($i>0 && $i<($j-1) && $j >2){</php>
+				<td width="50%" height="1" bgcolor="#003399"></td>
+				<td width="50%" height="1" bgcolor="#003399"></td>
+				<php>}else if($j == 1){</php>
+					<td width="50%" height="0"></td>
+					<td width="50%" height="0"></td>
+				<php>}else{</php>
+				<td width="50%" height="1" <eq name="i" value="$j-1">bgcolor="#003399"</eq> ></td>
+				<td width="50%" height="1" <eq name="i" value="0">bgcolor="#003399"</eq> ></td>
+				<php>}</php>
+				</tr>
+				</tbody>
+				</table>
+				<img style="WIDTH: 1px; HEIGHT: 21px" alt="" src="/Public/Images/admin/line.gif" border="0">
+			</td>
+			</tr></tbody>
+		</table>
+		<table width="100" border="1" bordercolor="#BBBBBB" cellpadding="0" cellspacing="1" bgcolor="#517DBF" align="center" style="margin:0px auto 0 auto;">
+			<tbody><tr>
+			<td align="center" bgcolor="#FFFFFF">
+				<table width="100%" border="0" cellspacing="1" cellpadding="0">
+				<tr>
+				<td height="55" align="center" bgcolor="#E7F2FB">无</td>
+				</tr>
+				</tr>
+				</table>
+			</td>
+			</tr></tbody>
+		</table>
+
+	</td>
+	</notempty>
+	<php>}</php>
+	</tr></tbody>
+	</table>
+	</td></tr>
+	</tbody>
+</table>
+<php>$layer++;}</php>
+<php>
+//获得浮动层
+function getfloatDiv($userInfo,$netName,$levelsArr,$netPlaceName){
+</php>
+	
+	<div id="floatDiv_{$userInfo['编号']}" style="border:3px solid #d5dDdF;display:none;position:absolute;background:#FFFFFF;padding:10px">
+		<table>
+		<tr><td style="text-align:right;height:20px;line-height:20px">编号：</td>
+		<td style="text-align:left;height:20px;line-height:20px">{$userInfo['编号']}</td></tr>
+		<tr><td style="text-align:right;height:20px;line-height:20px">姓名：</td>
+		<td style="text-align:left;height:20px;line-height:20px"><empty name="userInfo.姓名">[暂无]<else/>{$userInfo['姓名']}</empty></td></tr>
+		<empty name="$userInfo.审核日期">
+			<tr><td style="text-align:right;height:20px;line-height:20px">注册日期：</td>
+			<td style="text-align:left;height:20px;line-height:20px"><if condition="$userInfo['注册日期']">{$userInfo.注册日期|date='Y-m-d H:i:s',###}</if></td></tr>
+		<else/>
+			<tr><td style="text-align:right;height:20px;line-height:20px">审核日期：</td>
+			<td style="text-align:left;height:20px;line-height:20px"><if condition="$userInfo['审核日期']">{$userInfo.审核日期|date='Y-m-d H:i:s',###}</if></td></tr>
+		</empty>
+		{//级别}
+		<foreach name="levelsArr" item="level" key='levelname'>
+		<tr>
+		<td style="text-align:right;height:20px;line-height:20px">{$levelname}：</td>
+		<td style="text-align:left;height:20px;line-height:20px">{:($level[$userInfo[$levelname]])}</td>
+		</tr>
+		</foreach>
+		
+		<tr><td colspan='2'>
+			<foreach name="netPlaceName" item="placeNames" key="ky">
+			<table border="0" cellpadding="3" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">
+			<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+			<td style="border-width:1px;border-style:solid;border-color:#B9D8F3;">{$ky}</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">新增</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">结转</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">累计</td>
+			</tr>
+			<foreach name="placeNames" item="placeName">
+			<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+				<td style="border-width:0 1px 1px 1px;border-style:solid;border-color:#B9D8F3;">
+				{$placeName}区
+				</td>
+				<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+				{:$userInfo[$ky.'_'.$placeName.'区本日业绩']}
+				</td>
+				<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+				{:$userInfo[$ky.'_'.$placeName.'区结转业绩']}
+				</td>
+				<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+				{:$userInfo[$ky.'_'.$placeName.'区累计业绩']}
+				</td>
+			</tr>
+			</foreach>
+			</table>
+			</foreach>
+		</td></tr>
+		</table>
+	</div>
+<php>}</php>
+

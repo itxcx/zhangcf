@@ -1,0 +1,86 @@
+<script language="JavaScript">
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id' );
+function dialogAjaxDonestockTrend(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		$.pdialog.closeCurrent();
+		navTab.reload('__URL__/stockTrend:__XPATH__');
+	
+	}
+}
+</script>
+<div layoutH="0">
+<form action="__URL__/stockTrendsave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDonestockTrend)">
+<input type="hidden" name="id" value="{$vo.id}" />
+	<table width="300"  class="list">
+	<tbody>
+	<tr>
+	<td width="30%" >价格:</td>
+	<td width="70%" ><input type="text" name="价格" value="{$vo.价格}" /></td>
+	</tr>
+	<tr>
+	<td >成交量:</td>
+	<td  ><input type="text" name="成交量" value="{$vo.成交量}" /></td>
+	</tr>
+	<tr>
+	<td >认购量:</td>
+	<td  ><input type="text" name="认购量" value="{$vo.认购量}" /></td>
+	</tr>
+	<tr>
+	<td  >成交金额:</td>
+	<td ><input type="text" name="成交金额" value="{$vo.成交金额}" /></td>
+	</tr>
+	<tr>
+<td colspan="2">
+<div class="buttonActive" style="margin-top:5px;">
+          <div class="buttonContent" >
+            <button type="submit">保存修改</button>
+          </div>
+      </div>
+  <div class="button" style="margin-top:5px;">
+  <div class="buttonContent" >  
+  <button type="button" class="close">取消返回</button>
+  </div>   
+  </div>  
+</td>
+</tr>
+	</tbody>
+	</table>
+</form>
+</div>
+<script type="text/javascript">
+var country		= "{$vo['国家']}";
+var province	= "{$vo['省份']}";
+var city		= "{$vo['城市']}";
+var county		= "{$vo['地区']}";
+
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id' );
+
+
+
+if(country!='')
+{
+	$("#country_id option[value='{$vo['国家']}']").attr('selected',true);
+	$("#country_id").change();
+}
+if(province!='')
+{
+	$("#province_id option[value='{$vo['省份']}']").attr('selected',true);
+	//触发省份的 change事件
+	$("#province_id").change();
+}
+if( city!='' )
+{
+	//触发城市的 change事件
+	$("#city_id option[value='{$vo['城市']}']").attr('selected',true);
+	$("#city_id").change();
+}
+if(county!='')
+{
+	$("#county_id option[value='{$vo['地区']}']").attr('selected',true);
+}
+
+</script>

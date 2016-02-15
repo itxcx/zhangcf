@@ -1,0 +1,9 @@
+﻿<table name='radio'>
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='编号'     type="varchar(50)" null="1"  default=""/>
+<field name='时间'     type="int(11)" default="0"/>
+<field name='领取ID'   type="tinyint(3)"  default="0"/>
+<field name='领取类型' type="varchar(50)"  default=""/>
+<field name='obj'      type="varchar(50)"  default=""/>
+<field name='objname'  type="varchar(50)"  default=""/>
+</table>

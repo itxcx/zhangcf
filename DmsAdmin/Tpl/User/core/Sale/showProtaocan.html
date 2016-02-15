@@ -1,0 +1,60 @@
+<style>
+    .productSelect {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    #state_productCountMoney {
+        margin: 5px;
+        font-size: 14px;
+        color: red;
+    }
+</style>
+<div class="core_main Sale" id="product">
+    <div class="core_conp">
+        <div id="state_productCountMoney"></div>
+        <table class="tablebg" id="table1" style="background:white">
+            <thead>
+                <tr>
+                    <td colspan="8"  style="text-align:left">{$proinfo.名称}套餐详情</td>
+                </tr>
+                <tr>
+                    <td >序号</td>
+                    <td >产品名称</td>
+                    <td >图片</td>
+                    <td >价格</td>
+                    <td >数量</td>
+                </tr>
+            </thead>
+            <php>$ii=1;</php>
+            <foreach name="list" item="vo" >
+            <tbody >
+                <tr>
+                    <td>{$ii}</td>
+                    <td>
+                      <a href="__URL__/showProinfo/id/{$vo.id}/name/obj">{$vo.名称}</a>
+                    </td>
+                    <td>
+                        <php>$imgstr=$vo['图片'];</php>
+                        <if condition="(strlen($imgstr) eq 0)" >
+                            无
+                        <php> $productimg='无'; </php>
+                        <else/>
+                        <img src="{$vo.图片}" width='120px' />
+                        <php>
+                        $productimg="<img src='".$vo['图片']."' width='120px'/>"; 
+                        </php>
+                        </if>
+                    </td>
+                    <td>{$vo['价格']}</td>
+                    <td>{$vo['数量']}</td>
+                </tr>
+          
+            </tbody>
+            <php>$ii++;</php>
+            </foreach>
+           <tr >
+            <td class="backbtn" colspan="8"  style="text-align:center"><INPUT class="button_text" type="button"  id="but" value="返回" name="but" onClick="history.back();"/>	</td>
+        </tr>
+        </table>
+    </div>
+</div>	

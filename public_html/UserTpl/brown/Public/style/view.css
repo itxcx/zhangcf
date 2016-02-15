@@ -1,0 +1,268 @@
+body {
+    font-size: 12px;
+    background:#330d00;
+}
+input,select,textarea{ 
+    margin:0; 
+    padding:0;
+}
+table{
+    font-size: 12px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    text-align:center;
+}
+a {
+    color: #b28383;
+}
+/*common #toubu*/
+.core_main .core_title{
+    height: 34px;
+
+    margin-left: 21px;
+    padding-top: 15px;
+    color: #FF0000;
+}
+.core_main .core_title .core_title_con {
+    width: auto;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 40px;
+    color: #FFCC00;
+    font-weight:bold;
+}
+.core_main .core_title_edit a{}
+/*common table*/
+.core_main .core_con .tablebg{
+    width:99%;
+    margin-top:2px;	
+}
+.core_main .core_con #table2,.core_main .core_con #table3,.core_main .core_con #table4{ margin-top:-1px;}
+.core_main .core_con .tablebg td {
+    color: #e4cc9c;	
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #47261a;
+}
+.core_main .core_con .tablebg th{
+    height: 20px;
+    line-height: 20px;
+    color: #FFCC00;
+    border: 1px solid #BDA870;
+    font-weight:bold;
+}
+.core_main .core_con .tablebg .tbkey{ 
+    width:32%;
+    text-align: right;
+}
+.core_main .core_con .tablebg .tbval{ 
+    text-align: left;
+}
+.core_main .core_con .tablebg .datafield td,.core_main .core_con .tablebg .datafield th{
+    color: #BBCC80;
+    border: 1px solid #BDA870;
+    font-weight:bold;
+    height: 20px;
+    line-height: 20px;	
+}
+.core_main .core_con .tablebg .datalist td{
+    border: 1px solid #BDA870;
+}
+.core_main .core_page{
+    padding-top:5px;	
+    text-align: right;	
+    color: #e4cc9c;
+}
+.backbtn{
+    clear: both;
+    height: 26px;
+    text-align: center;
+    margin-top: 5px;
+}
+.button_text,.button_onmouseout,.button_onmouseover,.button_onmouseup,.button_onmousedown,.button_text#but,.button_onmouseout#but {
+    font-weight: bold;
+    font-size: 9pt;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    background: #ccc;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 8px;
+    color: #000;
+}
+.msg{
+    color:red;	
+}
+#state_shop,#state_net_11,#state_country,#state_province,#state_city,#state_county{ color:red;}	
+#bank,#country_id,#province_id,#city_id,#county_id{
+    width:100px;
+}
+.address input{ 	
+    width:200px;
+}
+
+/*.PrizeSplit#index*/
+.PrizeSplit#index .pageWidth {
+    background-image: none;
+    margin: 0px auto;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: auto;
+    width:100%;
+}
+.PrizeSplit#index #box_root {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+.PrizeSplit#index .cont {	
+    overflow:auto;
+}
+.PrizeSplit#index .mbx {
+    width:100%;
+    height:48px;
+    border-bottom:1px solid #e6e6e6;
+}
+.PrizeSplit#index .mbx p {
+    line-height:47px;
+    font-size:14px;
+    text-align:center;
+    border-bottom:1px solid #fff;
+}
+.PrizeSplit#index .mbx span {
+    color:#fff;
+    padding:0px 6px;
+    background:#18a32a;
+    border-radius:2px;
+    -o-border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    margin:0 10px;
+}
+.PrizeSplit#index .mbx a {
+    color:#18a32a;
+    text-decoration:underline;
+}
+.PrizeSplit#index .cont_detail {
+    width:100%;
+    margin:0 auto;
+}
+.PrizeSplit#index .detail_first, .detail_second {
+    width:100%;
+    overflow:auto;
+    padding:10px 0;
+    margin:0 auto;
+}
+.PrizeSplit#index .detail_first ul, .detail_second ul{
+    margin: 0 auto;
+    text-align:center;
+}
+.PrizeSplit#index .detail_first ul{
+    width:760px;
+    margin:0 auto;
+}
+.PrizeSplit#index .detail_second ul{
+    width:800px;
+    margin:0 auto;
+}
+.PrizeSplit#index .detail_first ul li,.PrizeSplit#index .detail_second ul li {
+    width:90px;
+    background:#fff;
+    float:left;
+    box-shadow:0 0 2px #8c8c8c;
+    display:inline;
+}
+.PrizeSplit#index .detail_first ul li{
+    margin:0 4px;
+}
+.PrizeSplit#index .detail_second ul li{
+    margin:0 4px;
+}
+.PrizeSplit#index .detail_first ul li h4,.detail_second ul li h4 {
+    font-size:14px;
+    color:#fff;
+    width:88px;
+    height:26px;
+    line-height:28px;
+    text-align:center;
+}
+.PrizeSplit#index .detail_first ul li h4{
+    background:#1bbb30;
+    border:1px solid #148b24;
+}
+.PrizeSplit#index .detail_second ul li h4{
+    background:#e0232a;
+    border:1px solid #b41d22;
+}
+.PrizeSplit#index .detail_first ul li table,.PrizeSplit#index .detail_second ul li table{
+    width:90px;
+    border-left:1px solid #a8a8a8;
+    border-right:1px solid #a8a8a8;
+    border-bottom:1px solid #a8a8a8;
+}
+.PrizeSplit#index .detail_first ul li table td,.PrizeSplit#index .detail_second ul li table td{
+    width:100%;
+    font-size:12px;
+    color:#545454px;
+    text-align:center;
+    line-height:28px;
+}
+/*Tle#prizeForm*/
+.Tle#prizeForm .core_con{ margin-top:5px;}
+#prizeForm .tablebg .datafield .source{
+    width:200px;
+}
+.Tle#prizeForm .tablebg .datafield .number{
+    width:100px;
+}
+.Tle#prizeForm .tablebg .datafield .calcul{
+    width:300px;
+}
+.Tle#prizeForm .tablebg .datafield .layers{
+    width:80px;
+}
+.Tle#prizeForm .tablebg .datafield .tights{
+    width:80px;
+}
+/*Fun_bank#rem*/
+.Fun_bank#rem .core_con .add {
+    padding: 10px 0;
+    text-align: left;
+    background-position: 90% 25%;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.Fun_bank#rem .core_con .add a{ color:#666;}	
+/*Fun_bank#add_rem*/
+.Fun_bank#add_rem .core_con .tablebg .tbval #bank,.Fun_bank#add_rem .core_con .tablebg .tbval #bank_no{ 
+    width:200px;
+}
+.Fun_bank#add_rem .core_con .tablebg .tbval textarea{
+    width:320px;
+    height:90px;	
+}
+/*Mail#send*/
+.Mail#send{}
+.Mail#send .tablebg{
+    width: 99.5%;
+}
+.Mail#send .core_con .tablebg .tbkey{width:10%;}
+.Mail#send .core_con .tablebg .tbval{}
+.Mail#send .core_con .tablebg .tbval #title{width:250px;}
+.Mail#send .core_con .tablebg .tbval #content_1{width:540px;}
+.Mail#send .core_con .tablebg .tbval .ke-container td{
+    border-right:0;
+    border-bottom:0;
+    padding:0;	
+}
+.white {
+    color: #e4cc9c;
+}
+.datalist .td a {
+    color: #fff;
+}
+

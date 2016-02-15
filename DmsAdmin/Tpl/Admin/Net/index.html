@@ -1,0 +1,80 @@
+<form action="__URL__/view" method="post">
+<table bordercolor="#cccccc" border="1" style="border-collapse:collapse;">
+<tr>
+	<th colspan="2" align="center" style="padding:10px">网络图显示</th>
+</tr>
+
+<tr>
+<td width="100" align="center">类型:</td>
+<td width="300">
+	<select name="type" id="type">
+	<option value="">请选择</option>
+	<foreach name="userTypeList" item="userType">
+	<option value="{$userType}">{$userType}</option>
+	</foreach>
+	</select>
+</td>
+</tr>
+
+<tr>
+<td align="center">网体:</td>
+<td>
+	<select name="net" id="net">
+	<option value="">请选择类型</option>
+	</select>
+</td>
+</tr>
+
+<tr>
+<td align="center">显示:</td>
+<td>
+	<select name="style" id="style">
+	<option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
+	<option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+	</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+	<input type="submit" value="下一步" id="submit" style="display:none"/>
+</td>
+</tr>
+
+</table>
+</form>
+
+
+<script type="text/javascript">
+var userTypeList	= {:json_encode($userTypeList)};
+
+var userNetList		= {:json_encode($userNetList)};
+
+
+
+
+
+$('#type').bind('change',function()
+{
+	var type = $(this).children("[selected='true']").val();
+	if( type == '' ) return;
+	//alert(type);
+	eval("var userNets = userNetList."+ type);
+	//alert( userNets );
+	if( userNets && userNets.length > 0 )
+	{
+		$('#net').empty();
+		$('#submit').show();
+
+		for( i = 0; i < userNets.length; i++ )
+		{
+			$('#net').append("<option value='"+userNets[i].name+","+userNets[i].tag+"'>"+userNets[i].name+"</option>");	
+		}
+		
+	}
+	else
+	{	
+		$('#submit').hide();
+		$('#net').html("<option value=''>暂无网体</option>");	
+	}
+});
+</script>

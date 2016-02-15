@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+    <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+    <script src="__TMPL__Public/js/fastclick.js"></script>
+    <script src="__TMPL__Public/js/basic.js"></script>
+    <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+    <script>
+    function change_lang()
+			{
+				var type=1;
+				var lang_selected = $("select[id='js_lang']").val(); //已选中的
+				if(type==1){
+					if(lang_selected=='zh-cn') jianti();
+					else if(lang_selected=='en-us') English();
+					else if(lang_selected=='zh-fi') fanti();
+					return true;
+				}else{
+					$.get('__GROUP__/Index/change_lang/lang/'+lang_selected,function(data){
+						try
+						{
+							eval("var json="+data);
+							if(json['status']==1)
+							{
+								window.location.reload();
+							}
+						}
+						catch(e)
+						{
+							alert("{:L('网络异常!')}");
+						}
+					})
+				}
+			}
+		</script>
+</head>
+<body>
+    <div class="wrapper">
+        <header id="header">
+            <a class="back" href="javascript:history.go(-1);">{:L('返回')}</a>
+            <a class="reload" href="javascript:location.reload();">{:L('刷新')}</a>
+            <h1 ><a class="atitle" href="__GROUP__/Index"><div style="font-size:15px;text-align:right">{$SYSTEM_COMPANY}</div></a></h1>
+			<a class="logout" href="__GROUP__/Public/logout">{:L('退出')}</a>
+        </header>
+        <php>
+           //获取funbank节点
+           $fun_banks = X('fun_bank');
+           $count = count($fun_banks);
+           if($count>2){
+              $bank1 = $fun_banks[0];
+              $bank2 = $fun_banks[1];
+              $bankname1 = $bank1->byname;
+              $bankname2 = $bank2->byname;
+              $path1 = $bank1->xpath;
+              $path2 = $bank2->xpath;
+           }else{
+             $bank1 = $fun_banks[0];
+             $bank2 = '';
+             $bankname1 = $bank1->byname;
+             $path1 = $bank1->xpath;
+           }
+        </php> 
+        <article id="content">

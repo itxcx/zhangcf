@@ -1,0 +1,96 @@
+@charset "utf-8";
+* { margin:0; padding:0;}
+body { font-family:"宋体-PUA",Verdana, Geneva, sans-serif; font-size:12px; font-weight:normal;overflow-x:hidden;overflow-y:auto;}
+h1,h2,h3,h4,h5,h6 { font-family:Verdana, Geneva, sans-serif; font-size:12px; font-weight:normal;}
+ul,ol,dl { list-style:none;}
+a { color:#656565; text-decoration:none;}
+a:hover { color:#bf2724; text-decoration:underline; color:green}
+a img { border:0;}
+.clear { clear:both;}
+table,tr,td{ font-size:12px;}
+
+/***************公共整个*********************/
+
+.body_main{ width:1210px; height:auto; margin:0 auto;}
+.body_main_left{ float:left; width:200px; height:auto;}
+.body_main_right{ float:right; width:1010px; height:auto; overflow:auto;}
+
+
+/************提交后提示页面 样式****************/
+.message{ width:500px; height:auto; line-height:26px;border-left:1px solid #c3ddf4;  border-top:1px solid #c3ddf4;color:#666; margin:0 auto; margin-top:50px; }
+.message td{border-right:1px solid #c3ddf4;  border-bottom:1px solid #c3ddf4; padding:3px 10px;}
+.message th.tCenter_space{background:url(../images/botton.jpg) top repeat-x; color:#666; text-align:center;border-right:1px solid #c3ddf4;border-bottom:1px solid #c3ddf4;}
+
+
+/***************  left 导航样式  **********************/
+.menu_d_top{ width:200px; height:32px; background:url(../images/menu_topgreen.gif);}
+.menu_div{ width:190px; height:auto; background:#f0f0f0; padding:10px 5px;}
+.menu_div .menu_text{ }
+.menu_div .menu_text h2{ height:28px; width:190px; background:url(../images/menu_tbggreen.gif); font-weight:bold; line-height:28px;color:#FFF; text-indent:15px; text-align:left; cursor:pointer;}
+.menu_div .menu_text ul{ list-style-type:none; height:auto;}
+.menu_div .menu_text ul li{ height:27px;  background:url(../images/menu_cbg_a.jpg); line-height:27px; text-indent:25px; color:#656565;}
+.menu_div .menu_text ul li.menu_b{ height:27px;  background:url(../images/menu_cbg_a.jpg); line-height:27px; text-indent:25px; color:#656565;}
+.menu_div .menu_text ul li.menu_a{ background:url(../images/menu_cbg.jpg); cursor:pointer;}
+.menu_div .menu_text ul dl{list-style-type:none; height:auto;}
+.menu_div .menu_text ul dl li{ height:27px;  background:url(../images/menu_cbg_b.jpg) left; line-height:27px; text-indent:35px; color:#656565;}
+
+
+/*******************详细内容 样式****************************/
+.body_title{ width:780px; height:30px; border-bottom:1px solid #dbdbdb;}
+.body_title span{ 
+	display:block; 
+	width:auto; 
+	height:28px;
+	margin-left:10px;
+	padding:0 10px;   
+	float:left; 
+	position:relative; 
+	top:1px; 
+	line-height:26px; 
+	font-size:14px; 
+	font-weight:bold;
+	color:#333;
+	border-left:1px solid #dbdbdb;
+	border-right:1px solid #dbdbdb; 
+	border-top:2px solid #060;	
+	background:#CFC;	
+}
+.body_title span.curr{background:#9FC;}
+
+.body_content{ width:758px; height:auto;border:1px solid #dbdbdb; border-top:none; padding:10px; }
+
+/***table**/
+.table{ width:758px; line-height:28px;border-left:1px solid #dbdbdb;border-top:1px solid #dbdbdb;}
+.table .t_left{ text-align:left;border-right:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb; padding:0px 5px;}
+.table .t_right{ text-align:right;border-right:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb; padding:0px 5px;}
+.table .tLeft{ text-align:left;border-right:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb; padding:0px 5px;}
+.table .tRight{ text-align:right;border-right:1px solid #dbdbdb;border-bottom:1px solid #dbdbdb; padding:0px 5px;}
+.table tr.hover{ background:#F9F9F9;}
+.table tr.curr{ background:#f6f6f6; cursor:pointer;}
+.table button{ background:url(../images/botton.jpg) bottom repeat-x; width:auto; height:20px; line-height:20px; border:1px solid #8ac9f4; padding:0px 5px; color:#125fcb; margin:8px 0;}
+.table textarea{ margin:8px 0px;}
+.table input{ background-color:#FFF; border:1px solid #dbdbdb; }
+.table select{ border:1px solid #dbdbdb;   }
+
+
+
+
+/*************查询 样式********************/
+.page_form{ width:740px; height:auto; border:1px solid #fbcc98; background:#fffbe9; padding:8px;}
+.page_form label{ color:#333;}
+.page_form input{ border:1px solid #f5c352; margin-right:10px;height:18px; line-height:18px; }
+.page_form select{ border:1px solid #f5c352; margin-right:10px;height:18px; line-height:18px; }
+.page_form button{ background:url(../images/botton.jpg) bottom repeat-x; width:auto; height:20px; line-height:20px; border:1px solid #8ac9f4; padding:0px 5px; color:#125fcb}
+
+
+/************内容列表 样式*************************/
+.pageContent{ width:auto; height:auto; margin-top:10px;color:#666;}
+.pageContent .page_table{ border-left:1px solid #c3ddf4;  border-top:1px solid #c3ddf4; color:#666; height:24px; line-height:24px;}
+.pageContent .page_table th{ background:url(../images/botton.jpg) top repeat-x; color:#666; font-weight:400; text-align:center;border-right:1px solid #c3ddf4;border-bottom:1px solid #c3ddf4;}
+.pageContent .page_table td{border-right:1px solid #c3ddf4;border-bottom:1px solid #c3ddf4; padding:0px 5px;}
+.pageContent .page_table tr.hover{ background:#fdfdff;}
+.pageContent .page_table tr.curr{ background:#f6fbff; cursor:pointer;}
+.pageContent .page_pages{ width:auto; height:28px; line-height:28px; text-align:right; padding:0px 10px;color:#666;}
+.pageContent .page_pages .current{ font-weight:bold;}
+.pageContent .formBar{ width:auto; height:26px; line-height:26px; padding:10px 10px 0px 0px;text-align:right;}
+.pageContent .formBar button{ background:url(../images/botton.jpg) bottom repeat-x; width:auto; height:20px; line-height:20px; border:1px solid #8ac9f4; padding:0px 5px; color:#125fcb; margin-left:5px;}

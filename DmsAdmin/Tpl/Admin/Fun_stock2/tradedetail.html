@@ -1,0 +1,55 @@
+<script language="JavaScript">
+function dialogAjaxDoneTradeDetail(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/index:__XPATH__');
+		$.pdialog.closeCurrent(); 
+	}
+}
+</script>
+<div class="pageContent">
+		<div class="pageFormContent nowrap" layoutH="57">
+		<table class="list">
+		<tr>
+		<th width="15%">交易编号</th>
+		<th width="15%">交易数量</th>
+		<th width="15%">交易价格</th>
+		<th width="15%">交易金额</th>
+		<th width="40%">交易时间</th>
+		</tr>
+		<foreach name="info" item="list">
+		<tr>
+		<td>{$list.name}</td>
+		<td>{$list.num}</td>
+		<td>{$list.price}</td>
+		<td>{$list.money}</td>
+		<td>{$list.time|date="Y-m-d H:i:s",###}</td>
+		</tr>
+		</foreach>
+		</table>
+		</div>
+
+<script>
+function dialogAjaxDone(json){
+
+      DWZ.ajaxDone(json);
+
+      if (json.statusCode == DWZ.statusCode.ok){
+            //if (json.navTabId){
+
+            navTab.reload('__URL__/banks', {}, json.navTabId);
+
+            //}
+
+            $.pdialog.closeCurrent();
+
+      }
+
+}
+
+</script>
+	
+</div>

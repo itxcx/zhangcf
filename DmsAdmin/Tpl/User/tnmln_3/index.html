@@ -1,0 +1,82 @@
+<include file="Public:header" />
+<table class="basic-table">
+    <tr>
+        <th>基本信息</th>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <li class="baskey">{:L('user1_name_serial')}：</li>	
+                <li class="basval">{$userinfo.编号}</li>	
+                <li class="baskey">{:L('name')}：</li>	
+                <li class="basval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <foreach name="funbank" item="fun_bank" key="key">
+                <li class="baskey">{$fun_bank.name}：</li>	
+                <li class="basval">{$fun_bank.num}</li>
+                </foreach>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <ul>
+                <foreach name="userlevel" item="lv" key="key">
+                <li class="baskey">{$key}：</li>	
+                <li class="basval">{$lv.byname}</li>
+                </foreach>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <li class="baskey">{:L('join_date')}：</li>	
+                <li class="basval" style="border-right: 1px solid #ebebeb;">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<php>       
+$list = new TableListAction('公告');
+$list->field('id,标题,创建时间')->order("id desc");
+$list->pagenum = 5;
+$data = $list->getData();
+//邮件
+$list = new TableListAction('邮件');
+$list ->field('id,标题,收件人,发送时间')->where(array('收件人'=>$userinfo['编号']))->order("发送时间 desc");;
+$list->pageCon	= 'p1';
+$list->pagenum = 5;
+$datam = $list->getData();
+</php>
+<table class="notice-tb">
+    <tr>
+        <th class="th" colspan="2">最新公告<a class="more" href="__GROUP__/User/viewNotice">more<span style="color: #515567;">&nbsp;＞</span></a></th>
+    </tr>
+    <foreach name="data.list" item="name">
+    <tr>
+        <td class="tdtit"><a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a></td>
+        <td class="tddate"><span class="date">{:date('Y-m-d',$name['创建时间'])}</span></td>
+    </tr>
+    </foreach>
+</table>
+<table class="notice-tb">
+    <tr>
+        <th class="th" colspan="2">最新邮件<a class="more" href="__GROUP__/Mail/index">more<span style="color: #515567;">&nbsp;＞</span></a></th>
+    </tr>
+    <foreach name="datam.list" item="name">
+    <tr>
+        <td class="tdtit"><a href="__GROUP__/Mail/view/id/{$name.id}">{$name.标题}</a></td>
+        <td class="tddate"><span class="date">{:date('Y-m-d',$name['发送时间'])}</span></td>
+    </tr>
+    </foreach>
+</table>
+<br>
+<br>
+<include file="Public:footer" />

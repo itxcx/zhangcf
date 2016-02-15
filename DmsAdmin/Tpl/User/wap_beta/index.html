@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{$SYSTEM_TITLE}"/>
+	<title>{$SYSTEM_TITLE}</title>
+	<link rel="stylesheet" href="__TMPL__Public/css/reset.css">
+	<link rel="stylesheet" href="__TMPL__Public/fonts/iconfont.css">
+	<link rel="stylesheet" href="__TMPL__Public/css/animations.css">
+	<link rel="stylesheet" href="__TMPL__Public/css/public.css">
+	<link rel="stylesheet" href="__TMPL__Public/css/style.css">
+    <script src="__TMPL__Public/js/jquery-2.1.4.min.js"></script>
+    <script src="__TMPL__Public/js/public.js"></script>
+</head>
+<body>
+<div class="js-index">
+    <!--头部-->
+    <header id="header" class="content-box">
+        <a class="tools float-left js-goback" href="javascript:void(0)"><i class="icon iconfont">&#xe611;</i></a>
+        <a class="tools float-right js-home" href="__GROUP__/Public/logout"><i class="icon iconfont">&#xe6bb;</i></a>
+        <h2 class="text-align-center">首 页</h2>
+    </header>
+    <!--头部结束-->
+
+    <!--首页会员信息-->
+    <section id="userinfo" class="content-box">
+        <h1 class="none">会员信息</h1>
+        <figure>
+            <a class="userview" href="__GROUP__/User/view"><i class="iconfont">&#xe669;</i></a>
+            <a class="userpass" href="__GROUP__/User/setPass"><i class="iconfont">&#xe6cd;</i></a>
+            <img src="__TMPL__Public/img/face.png" alt="头像">
+            <figcaption class="text-align-center">
+                <p>{$userinfo.姓名}</p>
+                <p>ID: {$userinfo.编号}</p>
+            </figcaption>
+        </figure>
+    </section>
+    <!--首页会员信息结束-->
+
+    <!--导航列表-->
+    <div id="view" class="content-box index">
+        <ul class="list">
+            <li><a href="javascript:void(0)">
+                <i class="list-icon iconfont icon-bg-0">&#xe672;</i>
+                资料管理<i class="list-icon-next iconfont">&#xe655;</i>
+            </a></li>
+            <li><a href="javascript:void(0)">
+                <i class="list-icon iconfont icon-bg-1">&#xe68a;</i>
+                业务管理<i class="list-icon-next iconfont">&#xe655;</i>
+            </a></li>
+            <li><a href="javascript:void(0)">
+                <i class="list-icon iconfont icon-bg-2">&#xe6dd;</i>
+                财务管理<i class="list-icon-next iconfont">&#xe655;</i>
+            </a></li>
+            <li><a href="javascript:void(0)">
+                <i class="list-icon iconfont icon-bg-3">&#xe650;</i>
+                信息管理<i class="list-icon-next iconfont">&#xe655;</i>
+            </a></li>
+        </ul>
+    </div>
+    <!--导航列表结束-->
+</div>
+
+<!--导航内容列表-->
+    <!--图标代码在fonts文件夹中-->
+<php>
+    $navstep = 0;
+    $icons = array(             //列表图标
+        array('&#xe661;','&#xe6b1;','&#xe6cd;'),    //资料管理
+        array('&#xe618;','&#xe6fb;','&#xe738;','&#xe6b7;','&#xe70a;','&#xe616;',
+              '&#xe70a;','&#xe616;','&#xe6f9;','&#xe697;','&#xe64b;','&#xe64b;',
+              '&#xe64b;'),    //业务管理
+        array('&#xe64a;','&#xe6a7;','&#xe675;','&#xe70b;','&#xe718;','&#xe6f5;',
+              '&#xe718;','&#xe6f5;','&#xe718;','&#xe6f5;','&#xe6d4;',
+              '&#xe6a7;'),    //财务管理
+        array('&#xe650;','&#xe735;','&#xe657;','&#xe6d3;'),    //信息管理
+    );
+</php>
+<foreach name="menu" item="vo" key="key">
+<if condition="($key eq '资料管理') OR ($key eq '业务管理') OR ($key eq '财务管理') OR ($key eq '信息管理')"> 
+<div class="navlist navlist{$navstep++}">
+    <header class="header content-box">
+        <a class="tools float-left js-back" href="javascript:void(0)"><i class="icon iconfont">&#xe611;</i></a>
+        <a class="tools float-right js-home" href="__GROUP__/Index"><i class="icon iconfont">&#xe630;</i></a>
+        <h2 class="text-align-center">{$key}</h2>
+    </header>
+
+    <php>
+        $liststep = 0;
+    </php>
+    <ul class="list">
+        <foreach name="vo" item="val">
+        <li><a href="__GROUP__/{$val.model}/{$val.action}">
+            <i class="list-icon iconfont icon-bg-{$liststep}">{$icons[$navstep-1][$liststep++]}</i>
+            {$val.title}<i class="list-icon-next iconfont">&#xe655;</i>
+        </a></li>
+        </foreach>
+    </ul>
+</div>
+</if>
+</foreach>
+<!--导航内容结束-->
+<include file="Public:footer" />
+

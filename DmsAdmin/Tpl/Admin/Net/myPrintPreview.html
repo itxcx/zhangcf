@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="renderer" content="ie-comp"/>
+<script language="javascript" src="__PUBLIC__/js/jquery-1.5.1.js"></script>
+</head>
+
+<body style="margin:0 auto; padding:0;" id="print"  onload="printview();">
+<style media="print" >
+.Noprint{display:none;}
+.PageNext{page-break-after: always;}
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" height="0" width="0"> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" pluginspage="install_lodop32.exe" height="0" width="0">
+</object> 
+<style id="print_style">
+.sallist {border-collapse:collapse;border:1px solid #000000;margin-top:7px;}
+.sallist td{border:1px solid #000000;font-size:14px;}
+.tdborder{padding:0px;border:1px solid #000000} 
+.STYLE1 {font-size: 25px;font-weight: bold;text-decoration: underline;}
+</style>
+<script language="javascript" src="__PUBLIC__/js/lodop_print.js"></script>
+
+<script language="javascript">
+	function CreateNewLodopObject() { 
+		if (navigator.appVersion.indexOf("MSIE")>=0){ 
+			var Result=new ActiveXObject("Lodop.LodopX"); 
+			return Result; 
+		} else{ 
+			var Result=document.createElement("embed");   
+			Result.setAttribute("width",0); 
+			Result.setAttribute("height",0); 
+			Result.type="application/x-print-lodop";   
+			document.documentElement.appendChild(Result); 
+			return Result; 
+		}; 
+	}; 
+var LODOP=CreateNewLodopObject();
+
+function printnow()
+{
+stylestr="<style>"+document.getElementById('print_style').innerHTML+"</style>"
+
+LODOP.PRINT_INIT("sale_print");
+LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "A4")
+LODOP.ADD_PRINT_HTM(0,15,916,800,stylestr+pagetable.innerHTML)
+LODOP.SET_PRINTER_INDEX(-1);
+LODOP.PRINTA()
+}
+function printview(){
+
+
+	try{ 
+			if ((LODOP!=null)&&(typeof(LODOP.VERSION)!="undefined"))
+			{
+				CreatePrintPage();
+				LODOP.PREVIEW(); //打印预览
+
+			 }
+		}
+		 catch(err){ 
+			$("#errordiv").show();
+			$("#printdiv").hide();
+ 		 } 
+}
+function CreatePrintPage(){
+	
+	LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));
+	stylestr="<style>"+document.getElementById('print_style').innerHTML+"</style>"
+	LODOP.SET_LICENSES("中国辽宁紫龙直销软件开发QQ104978","851626882738788847981789091626","","");
+	LODOP.PRINT_INIT("sale_print");
+	LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "A4")
+//	LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4");
+	
+
+//	LODOP.ADD_PRINT_HTM(0,0,916,1200,stylestr+pagetable.innerHTML)
+
+	LODOP.SET_PRINT_STYLE("Bold",0);
+	LODOP.SET_PRINT_STYLE("FontSize",16.6);
+
+	LODOP.ADD_PRINT_HTM(60,100,590,990,'<!DOCTYPE><body margin=0 style=\"background-color:transparent;\" >'+document.getElementById('neirong').innerHTML); 
+	LODOP.SET_PRINTER_INDEX(-1);
+}
+</script>
+
+<div id='neirong' >
+	<body style='background-color:transparent'>
+
+<style>
+.left_5{float:left;border-right:1px solid;width:19.1%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:19px;}
+.left_6{float:left;border-right:1px solid;width:15.8%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:17px;}
+.left_7{float:left;border-right:1px solid;width:13.4%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:15px;}
+.left_8{float:left;border-right:1px solid;width:11.5%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:14px;}
+.left_9{float:left;border-right:1px solid;width:10.2%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:13px;}
+.left_10{float:left;border-right:1px solid;width:9.1%;height:40px;line-height:40px;text-align:left;padding-left:5px;font-size:13px;}
+.top{width:100%; height: 40px;}
+.center{overflow:hidden;border-bottom:1px solid;border-top:1px solid}
+.left_money{float:left;width:100%;font-size:16px;}
+.left_downuser{float:left;width:100%;font-size:14px;}
+.left{float:left;width:24.0%;border-right:1px solid;height: 40px;line-height:40px;padding-left:5px;border-bottom:1px solid}
+.left_center{float:left;width:11.5%;border-right:1px solid;height: 40px;line-height:40px;padding-left:5px;border-bottom:1px solid}
+.left_prize{float:left;width:49.0%;border-right:1px solid;height: 40px;line-height:40px;padding-left:5px;border-bottom:1px solid;}
+.bottom{display:inline;margin-top:20px}
+</style>
+
+<div style="width:650px;border:1px solid;overflow:hidden;">
+       <!----------------------------信息开始------------------------------------>
+		<div style="width:100%;border-bottom:1px solid;font-size:13px;" class='STYLE1'>
+		   <h1 style="font-size:20px;width:100%;margin-left:40%;padding-top:10px;">会员工作网络图</h1>
+		   <div><span style="float:left;padding-left:20px;">打印员:{$account}</span><span style="float:right;padding-right:20px;">打印时间:{$systemTime}</span></div>
+		   	<br><br>
+		</div>
+		 <!----------------------------信息结束------------------------------------>
+		  <div style="clear:both"></div>
+       <!----------------------------首个会员的信息------------------------------------>
+        <div class="top">
+           <div class="left_{$ii}">会员卡号</div><div class="left_{$ii}">{$user.编号}</div><div class="left_{$ii}">会员名字</div><div class="left_{$ii}"><if condition="$user['姓名']">{$user.姓名}<else />[暂无]</if></div>
+           <foreach name="level" item="lv" key="key">
+             <div class="left_{$ii}">{$lv.byname}</div>
+             <foreach name="lv.con" item="con" key="k">
+               <eq name="k" value="$user[$key]">
+                 <div class="left_{$ii}">{$con}</div>
+                </eq>
+             </foreach>
+           </foreach>
+         </div>
+         <!----------------------------首个会员的级别信息结束------------------------------------>
+          <div style="clear:both"></div>
+         <!----------------------------首个会员的奖金钱包信息------------------------------------>
+        {//会员的钱包奖金信息}
+        <div class="center">
+          {//会员的钱包}
+           <div class="left_money">
+           <php>
+           	$funbank=array();
+			foreach(X('fun_bank') as $fun_bank){
+           </php>
+             <div class="left"><php> echo $fun_bank->byname;</php>:</div>
+             <div class="left"><php> echo $user[$fun_bank->name];</php></div>
+           <php>}</php> 
+            {//会员的奖金信息}
+           <php>
+             $prize = array();  
+             foreach(X('prize_*') as $prize_per){
+             if(get_class($prize_per)!='prize_sql'){
+           </php>
+             <div class="left"><php> echo $prize_per->byname;</php>:</div>
+             <div class="left"><php> echo $user[$prize_per->name.'累计'];</php></div>
+           <php>}}</php>    
+           </div>
+        </div>
+        <!----------------------------首个会员的奖金钱包信息结束------------------------------------>
+         <div style="clear:both"></div>
+         <!----------------------------下线会员的奖金钱包信息------------------------------------>
+         <div calss="bottom">
+        {//下线会员的信息}
+        <foreach name="downusers" item="alluser" key="key">
+	         <div style="width:100%;border-bottom:1px solid;border-top:1px solid" >
+			   <h1 style="font-size:20px;width:100%;text-align:center;padding-top:10px;">第{$key}代会员信息</h1>
+
+			</div>
+			<div style="clear:both"></div>
+			   {//下线会员的会员信息}
+				<foreach name="alluser" item="voss">
+					  <div class="top">
+			           <div class="left_{$ii}">会员卡号</div><div class="left_{$ii}">{$voss.编号}</div><div class="left_{$ii}">会员名字</div><div class="left_{$ii}"><if condition="$voss['姓名']">{$voss.姓名}<else />[暂无]</if></div>
+			           <php>
+			              foreach($level as $key1=>$v1){
+			           </php>
+			            <div class="left_{$ii}">{$v1.byname}</div>
+			            <php>
+			              foreach($v1['con'] as $key2=>$v2){
+			               if($key2==$voss[$key1]){
+			            </php>
+			              <div class="left_{$ii}">{$v2}</div>
+			            <php>}}}</php>
+			         </div> 
+			         	<div style="clear:both"></div>
+			    {//下级会员的钱包和奖金信息}
+				  <div class="center">
+		          {//会员的钱包}
+		           <div class="left_downuser">
+		             <div class="left_center">电话号码:</div>
+		             <div class="left_center"><if condition="$voss['移动电话']">{$voss['移动电话']}<else />[暂无]</if></div>
+		             <div class="left_center">直推个数:</div>
+		             <div class="left_center">{$voss['推荐_推荐人数']}</div>
+		             <div class="left_center">电话号码:</div>
+		             <div class="left_center"><if condition="$voss['移动电话']">{$voss['移动电话']}<else />[暂无]</if></div>
+		             <div class="left_center">所属第一代:</div>
+		             <div class="left_center"><if condition="$voss['推荐_上级编号']">{$voss['推荐_上级编号']}<else />[暂无]</if></div>
+		           </div>
+		        </div>
+		         <div style="clear:both"></div>
+				{//下级会员的钱包和奖金信息结束}
+				</foreach>
+				{//下线会员的会员信息结束}
+        </foreach>
+        </div>
+        <!----------------------------下线会员的奖金钱包信息结束------------------------------------>
+
+</div>
+</body>
+</div>
+<div id='printdiv'>正在进行打印，请稍后</div>
+<div id='errordiv' style="display:none">您没有安装打印控件，请点击<a href="__PUBLIC__/Lodop/install_lodop.exe">下载</a></div>
+<img src="./Tpl/User/admin_template1_sj/Public/img/bgg.png" style="width:210mm;height:297mm;display:none"  style=''>
+
+
+
+<script>
+
+</script></div></body></html>
+

@@ -1,0 +1,119 @@
+<div class="pageContent" layoutH="0">
+	<form method="post" action="__URL__/saveNetSet" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+
+<foreach name="net" item="vo"><div style="margin-bottom:5px"> 
+<div class="pageFormContent" style="margin:15px;border:1px solid #B8D0D6;width:500px;background-color:#E5EDEF;padding:3px">
+
+  <table style="border:1px solid #B8D0D6;width:100%;background-color:#FFF;padding:0;border-collapse:collapse">
+  <tr bgcolor="#E5EDEF" style="margin:0;padding:0;border:0">
+    <td colspan="2" style="margin:0;padding:0;border:0;height:25px">{$key}网络设置</td>
+  </tr>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right">前台网络显示<if condition="$shop">(会员)</if>：</td>
+    <td style="height:20px;padding-left:5px;border-top:1px #EDEDED solid;vertical-align: middle;text-align:left">
+		<input type="radio" name="userNetDisp[{$key}]" <if condition="$vo:userNetDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="userNetDisp[{$key}]" <if condition="$vo:userNetDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  <if condition="$shop">
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right">前台网络显示(店铺)：</td>
+    <td style="height:20px;padding-left:5px;border-top:1px #EDEDED solid;vertical-align: middle;text-align:left">
+		<input type="radio" name="shopNetDisp[{$key}]" <if condition="$vo:shopNetDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="shopNetDisp[{$key}]" <if condition="$vo:shopNetDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  </if>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right">前台网络姓名显示：</td>
+    <td style="height:20px;padding-left:5px;border-top:1px #EDEDED solid;vertical-align: middle;text-align:left">
+		<input type="radio" name="userNameDisp[{$key}]" <if condition="$vo:userNameDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="userNameDisp[{$key}]" <if condition="$vo:userNameDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr> 
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right">前台网络昵称显示：</td>
+    <td style="height:20px;padding-left:5px;border-top:1px #EDEDED solid;vertical-align: middle;text-align:left">
+		<input type="radio" name="userAnotherNameDisp[{$key}]" <if condition="$vo:userAnotherNameDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="userAnotherNameDisp[{$key}]" <if condition="$vo:userAnotherNameDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr> 
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台列表显示<if condition="$shop">(会员)</if>：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="radio" name="userListDisp[{$key}]" <if condition="$vo:userListDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="userListDisp[{$key}]" <if condition="$vo:userListDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  <if condition="$shop">
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台列表显示(店铺)：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="radio" name="shopListDisp[{$key}]" <if condition="$vo:shopListDisp eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="shopListDisp[{$key}]" <if condition="$vo:shopListDisp eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  </if>
+  <php>$treeDisp=$vo->treeDisp;</php>
+  <foreach name="treenumArr" item="treenum" key="treenet">
+  <if condition="$treenet eq $key">
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台{$treenum}显示：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="radio" name="treeDisp[{$key}][{$treenum}]" <if condition="in_array($treenum,$treeDisp)">checked="true"</if> value="true"/>是
+		<input type="radio" name="treeDisp[{$key}][{$treenum}]" <if condition="!in_array($treenum,$treeDisp)">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  </if>
+  </foreach>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台网络默认显示：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="radio" name="userauto[{$key}]" <if condition="$vo:userauto eq true">checked="true"</if> value="true"/>分支节点
+		<input type="radio" name="userauto[{$key}]" <if condition="$vo:userauto eq false">checked="true"</if> value="false"/>树形目录
+    </td>
+  </tr>
+   <if condition = "$key eq '管理'">
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台网络表格显示：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="radio" name="userBgxs[{$key}]" <if condition="$vo:userBgxs eq true">checked="true"</if> value="true"/>是
+		<input type="radio" name="userBgxs[{$key}]" <if condition="$vo:userBgxs eq false">checked="true"</if> value="false"/>否
+    </td>
+  </tr>
+  </if>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;border-top:1px #EDEDED solid;vertical-align: middle;text-align:right">后台网络显示层数：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="text" class="digits" name="adminNetLayer[{$key}]" value="{$vo:adminNetLayer}"/>
+    </td>
+  </tr> 
+  <tr>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">前台网络显示层数：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="text" name="userNetLayer[{$key}]" class="digits" value="{$vo:userNetLayer}"/>
+    </td>
+  </tr>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">店铺前台显示层数：</td>
+    <td style="height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="text" name="shopNetLayer[{$key}]" class="digits" value="{$vo:shopNetLayer}"/>
+    </td>
+  </tr>  
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">查看深度：</td>
+    <td style="height:20px;line-height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="text" class="digits" name="userLookLayer[{$key}]" value="{$vo:userLookLayer}"/>注：0表示无限制
+    </td>
+  </tr>
+  <tr>
+    <td width="180" style="height:20px;border-right:1px #EDEDED solid;vertical-align: middle;text-align:right;border-top:1px #EDEDED solid;">店铺查看深度：</td>
+    <td style="height:20px;line-height:20px;padding-left:5px;vertical-align: middle;border-top:1px #EDEDED solid;text-align:left">
+		<input type="text" class="digits" name="shopLookLayer[{$key}]" value="{$vo:shopLookLayer}"/>注：0表示无限制
+    </td>
+  </tr>
+  </table>
+ </div></foreach>
+ <div style="padding-left:280px;padding-top:2px;"><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></div>
+</form>

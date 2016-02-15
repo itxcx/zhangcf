@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" href="__TMPL__Public/style/style.css">
+    <link rel="stylesheet" href="__TMPL__Public/style/reset.css">
+</head>
+<body>
+    <div class="header center">
+        <div class="logo">
+            <!--<img src="" alt="">-->
+            <h1>结算系统</h1>
+        </div>
+        <ul class="log-info">
+            <li class="icon"><img src="__TMPL__Public/images/top-icon.gif" alt="top-icon"></li>
+            <li>编号：{$userinfo.编号}</li>
+            <li>姓名：{$userinfo.姓名}</li>
+            <foreach name="userlevel" item="lv" key="k">
+            <li>{$k}：{$lv.byname}</li>
+            </foreach>
+            <li><a href="__GROUP__/Public/logout">安全退出</a></li>
+        </ul>
+        <div class="clear"></div>
+        <ul class="user-info">
+            <li><a href="__GROUP__/Index"><img src="__TMPL__Public/images/home.png" alt="home"></a></li>
+            <li>欢迎您！</li>
+            <li>编号：{$userinfo.编号}</li>
+            <foreach name="funbank" item="fun_bank" key="key">
+            <li>|&nbsp;&nbsp;{$fun_bank.name}：{$fun_bank.num}￥</li>
+            </foreach>
+            <li>|&nbsp;&nbsp;确认日期：<if condition="$userinfo['审核日期']">{$userinfo.审核日期|date='Y-m-d H:i:s',###}<else />未审核</if></li>
+            <li>|&nbsp;&nbsp;注册时间：{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>
+        </ul>
+    </div>
+
+    <div class="content center">
+        <div class="aside">
+            <ul class="nav">
+                <li>
+                    <a href="__GROUP__/Index" class="key"><img src="__TMPL__Public/images/nav1.png" alt="首页"></a>
+                </li>
+                <assign name="listep" value="2" />
+                <foreach name="menu" item="vo" key="key">
+                <li>
+                    <a href="javascript:void(0);" class="key"><img src="__TMPL__Public/images/nav{$listep++}.png" alt="{$key}"></a>
+                    <ul class="navlist">
+                        <li class="nav-head">{$key}</li>
+                        <foreach name="vo" item="val">
+                        <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                        <li><a href="__GROUP__/{$val.model}/{$val.action}" target="section">{$val.title}</a></li>
+                        </if>
+                        </foreach>
+                    </ul>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="section">
+            <div class="section-banner"></div>
+            <iframe class="section-main" name="section" src="__GROUP__/Index/welcome" frameborder="0"></iframe>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="footer center">
+        <p class="copyright">Developed with instruction and approval of the client. All Rights Reserved</p>
+    </div>
+    <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+    <script src="__TMPL__Public/js/basic.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+<table name='会员'  engine="InnoDB">
+<field name='{$this->name}信誉'         type="decimal(13,2)" default="0" memo='信誉评级'/>
+<field name='{$this->name}累计出售'     type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='累计出售的总货币数'/>
+<field name='{$this->name}累计购买'     type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='累计购买的总货币数'/>
+<field name='{$this->name}授权额'       type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='授权额度'/>
+</table>
+<table name='{$this->name}挂单'  engine="InnoDB" memo='所以挂单出售货币的记录'>
+<field name="id"         type="int(11)" auto_increment="1" primary="1" />
+<field name='时间'       type="integer"      memo='挂单时间' default="0"/>
+<field name='编号'       type="varchar(50)"  default=""/>
+<field name='数量'       type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='出售货币的数量'/>
+<field name='撤销数量'   type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='销出售货币的数量'/>
+<field name='未成交数量' type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='未出售的数量，可以购买部分挂单情况下会使用此字段'/>
+<field name='成交中数量' type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='包括已经完成的，或者正在成交当中的'/>
+<field name='已成交数量' type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='已经完成出售的数量，可以购买部分挂单情况下会使用此字段'/>
+<field name='购买数据'   type='longtext' />
+<field name='手续费'     type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='以货币数量单位作为的手续费'/>
+<field name='单价'       type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='出售金额'/>
+<field name='状态'       type="varchar(50)"   memo='有效,撤销,完成' default=""/>
+<field name='撤销时间'   type="integer"   memo='执行撤销操作的时间' default="0"/>
+<!--卖家的具体信息-->
+<field name='开户银行'   type="varchar(50)" default=""/>
+<field name='银行卡号'   type="varchar(50)" default=""/>
+<field name='开户名'     type="varchar(50)" default=""/>
+<field name='电话'       type="varchar(50)" default=""/>
+</table>
+<table name='{$this->name}购买'  engine="InnoDB" memo='所以挂单出售货币的记录'>
+<field name="id"		type="int(11)" auto_increment="1" primary="1" />
+<field name='pid'		type="integer"       memo='挂单记录的ID' default="0"/>
+<field name='编号'		type="varchar(50)"   memo='购买人编号' default=""/>
+<field name='卖家编号'	type="varchar(50)"   memo='卖家编号，用于维护时减少联查' default=""/>
+<field name='单价'		type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='出售金额'/>
+<field name='数量'		type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0" memo='购买的数量'/>
+<field name='状态'		type="varchar(10)"   memo='待付,已付,完成,取消,仲裁,仲裁卖家,仲裁买家' default=""/>
+<field name='买家删除'	type="int(11)" default="0"/>
+<field name='卖家删除'	type="int(11)" default="0"/>
+<!--汇款信息-->
+<field name='汇款金额'	type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='开户银行'	type="varchar(50)"  default=""/>
+<field name='银行卡号'	type="varchar(50)"  default=""/>
+<field name='开户名'	type="varchar(50)" default=""/>
+<field name='电话'		type="varchar(50)" default=""/>
+<!--状态说明
+待付：等待付款，买家可取消，或到期定时取消。
+已付：买家已付款，卖家可以选择收到款，转为完成，或选择仲裁，进行公司仲裁。
+完成：卖家收到款，完成。
+仲裁：公司仲裁中，不再有倒计时，直至仲裁完成
+仲裁卖家：此订单仲裁给卖家货币退回给卖家，包括手续费
+仲裁买家，此订单仲裁给买家，完成交易。
+如果目前在已付状态，卖家可以发起仲裁-->
+<field name='买家凭据'	type="varchar(500)"  memo='买家上传的凭据' default=""/>
+<field name='卖家申请说明'	type="text"  memo='卖家申请仲裁的说明' />
+
+<field name='购买时间'	type="integer"       memo='执行购买操作之后的时间' default="0"/>
+<field name='汇款时间'	type="integer"       memo='实际汇款存单上的时间,由买家在付款确认时填写' default="0"/>
+<field name='付款时间'	type="varchar(50)"   memo='付款完成操作的时间' default=""/>
+<field name='确认时间'	type="integer"       memo='执行确认的时间' default="0"/>
+<field name='仲裁说明'	type="varchar(500)"  memo='如果发生仲裁，公司的处理说明' default=""/>
+<field name='仲裁扣分'	type="integer"       memo='如果发生仲裁，具体扣除分数' default="0"/>
+</table>

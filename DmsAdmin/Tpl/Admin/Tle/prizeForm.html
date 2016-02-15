@@ -1,0 +1,84 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="58">
+
+
+<if condition="!$data">
+<div style="margin:20px;font-size:16px">无奖金明细记录</div>
+</if>
+<foreach name="data" item="prize" >
+<table class="list">
+	<tr>
+	    <td bgcolor="#ced9e7" style="border:none;" colspan="5">&nbsp;{$prize.name}&nbsp;
+	    <notempty name="prize.PK">
+			<span style="color:#a33031">（奖金K值:{$prize['PK']['val']}%）</span>
+		</notempty>
+		<notempty name="prize.KW">
+			<span style="color:#a33031">（奖金K值:{$prize['KW']['val']}%）</span>
+		</notempty>
+		<notempty name="prize.TK">
+			<span style="color:#a33031">（总K值:{$prize['TK']['val']}%）</span>
+		</notempty>
+	    </td>
+    </tr>
+	<tr><td align='center' width="200px">{$prize.list.0.lvname}<td align='center' width="200px">来源</td><td align='center'  width="100px">奖金额</td><td align='center' width="300">计算方式</td><td align='center' width="80">层数</td><!--<td align='center' width="80">紧缩</td>--></tr>
+	<foreach name="prize.list" item="list" >
+		<tr>
+			<td align='center' width="200px"><!--{$list.lvname}--->{$list.lv}</td>
+			<td align='center' width="200px">{$list.编号}</td>
+			<td align='center'  width="100px">
+			{$list.val}
+			<if condition="$list['val'] neq $list['trueval']">
+			<br><b><font color='#a33031'>封:{$list.trueval}</font></b>
+			</if>
+			</td>
+			<td align='center' width="300">
+			<if condition="$list.memo eq ''">-----<else/>
+				<if condition="strlen($list['memo']) GT 4 and substr($list['memo'],0,4)=='url:'">
+					<a target="dialog" rel="splitForm" mask="true" title='奖金构成详情' width="870" height="450" href='__GROUP__/{$list.memo|substr=4}'>查看详情</a>
+				<else/>
+					{$list.memo}
+				</if>
+			</if>
+			</td>
+			<td align='center' width="80">{$list.layer}</td><!--<td align='center' width="80">{$list.tighten}</td>-->
+		</tr>
+	</foreach>
+</table>
+</foreach>
+<foreach name="undata" item="prize" >
+<table class="list">
+	<tr>
+		<td bgcolor="#ffcccc" style="border:none;" colspan="5">&nbsp;{$prize.name}(给别人产生的收益)</td>
+	</tr>
+	<tr><td align='center' width="200px">获奖人</td><td align='center'  width="100px">奖金额</td><td align='center' width="300">计算方式</td><td align='center' width="80">层数</td></tr>
+	<foreach name="prize.list" item="list" >
+	<tr>
+		<td align='center' width="200px">{$list.编号}</td>
+		<td align='center'  width="100px">
+			{$list.val}
+			<if condition="$list['val'] neq $list['trueval']">
+			<br><b><font color='#a33031'>封:{$list.trueval}</font></b>
+			</if>
+		</td>
+		<td align='center' width="300">
+		<if condition="$list.memo eq ''">-----<else/>
+		<if condition="strlen($list['memo']) GT 4 and substr($list['memo'],0,4)=='url:'">
+			<a target="dialog" rel="splitForm" mask="true" title='奖金构成详情' width="870" height="450" href='__GROUP__/{$list.memo|substr=4}'>查看详情</a>
+		<else/>
+			{$list.memo}
+		</if>
+		</if>
+		</td>
+		<td align='center' width="80">{$list.layer}</td>
+	</tr>
+	</foreach>
+</table>
+</foreach>
+
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+</div>

@@ -1,0 +1,47 @@
+<form action="__URL__/prizeEditSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+<table class="list" width="500px">
+<foreach name="data" item='prizes' key="username">
+ <thead>
+   <tr>
+   <th colspan="4" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;{$username}</th>
+   </tr>
+ </thead>
+ <tbody>
+  <tr>
+ <td>奖金名称</td>
+ <td>启用开关</td>
+ <td>开始时间</td>
+ <td>结束时间</td>
+ </tr>
+
+<foreach name='prizes' item='prize'>
+  <tr>
+ <td>{$prize.name}</td>
+ <if condition="$prize['class'] eq 'prize_layer'">
+ <td colspan='3'>
+ 	层碰类型奖金不能够进行关闭.如暂时停发奖金.请设置奖金参数为0.
+ </td>
+ <else/>
+ <td> 
+ <select name="{$prize.xpathmd5}_use" >
+      <option value='true'  <if condition="$prize['use']">selected</if> >开启</option>
+      <option value='false' <if condition="!$prize['use']">selected</if>>关闭</option>
+ </select>
+ </td>
+ <td><input style="margin-left:5px;width:2cm"  type="text" class="date" name="{$prize.xpathmd5}_start" <neq name="prize['startDate']" value="0" > value="{$prize['startDate']|date='Y-m-d',###}"></neq></td>
+ <td><input style="margin-left:5px;width:2cm"  type="text" class="date" name="{$prize.xpathmd5}_end" <neq name="prize['endDate']" value="0" > value="{$prize['endDate']|date='Y-m-d',###}"></neq></td>
+</if>
+ </tr>
+
+</foreach>
+   </tbody>
+
+</foreach></table>
+ <div class="buttonActive" style="margin-left:350px;margin-top:5px;">
+          <div class="buttonContent" >
+            <button type="submit">提交</button>
+          </div>
+    </div>
+ </div>
+</form>

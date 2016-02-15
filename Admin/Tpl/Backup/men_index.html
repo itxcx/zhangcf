@@ -1,0 +1,193 @@
+<div class="pageContent">
+	<div class="panelBar" style="height:30px;">
+		<ul class="toolBar">
+			
+			<li><a class="edit" href="__APP__/DbRevise/index" target="ajaxTodo" title="确定修正数据库？"><span>修正数据库</span></a></li>
+			<if condition="$logstate eq 'ON'"> 
+				<li><a class="edit" href="__APP__/DbRevise/logonoff" target="ajaxTodo" ><span>关闭日志</span></a></li>
+			<else /> 
+				<li><a class="edit" href="__APP__/DbRevise/logonoff" target="ajaxTodo" ><span>启动日志</span></a></li>
+			</if>
+			<li><a class="edit" href="__APP__/DbRevise/outlog" target="dwzExport" ><span>导出日志</span></a></li>
+			<li><a class="edit" href="__APP__/DbRevise/clearlog" target="ajaxTodo" ><span>清除日志</span></a></li>
+			<!--
+			<li><a class="edit" href="__URL__/backConfig" target="ajaxTodo"><span>备份配置信息</span></a></li>
+			<if condition="file_exists(ROOT_PATH.'Admin/Common/dbbackup/sysconfig.sql')"><li><a class="edit" href="__URL__/recoverConfig" target="ajaxTodo"><span>恢复配置信息</span></a></li></if>
+			<present name="product_reset">
+			<li><a class="edit" href="__URL__/project_data_reset" target="dialog" mask="true" width="300" height="400"><span>项目数据重置</span></a></li>
+			</present>
+			-->
+		</ul>
+	</div>
+</div>
+<style>
+#a table td{ border:1px solid #99BBE8; border-left:none;border-bottom:none;padding:0 5px 0 5px;}
+</style>
+<script language="JavaScript">
+
+/**
+* dialog上的表单提交回调函数
+* 服务器转回navTabId，可以重新载入指定的navTab. statusCode=DWZ.statusCode.ok表示操作成功, 自动关闭当前dialog
+* 
+* form提交后返回json数据结构,json格式和navTabAjaxDone一致
+*/
+$(document).ready(function(){
+$("#sqls").click(function(){
+	var a=$('#sql').val();
+	var b = new Base64(); 
+	$.post("__URL__/querysql/sql/", {"sql":b.encode(a)},
+   function(data){
+      $("#a").html(data);
+   },'html');
+
+})
+
+$("#close").click(function(){
+	var a=$('#sql').val('');
+
+
+})
+
+});
+</script>
+<div style="width:100%; height:250px;">
+		<div class="">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>输入SQL语句：</th>
+					<td>
+						<textarea name="sql" id="sql" value="" cols="70" rows="10"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="width:37%;" >
+			<div  style="float:right;" id="close"><button type="button" onclick="">取消</button></div>
+			<div style="float:right;" id="sqls"><button  type="button" onclick="">确定</button></div>
+		</div>
+		<div class="button"><div class="buttonContent"><button id="submit" type="button" onclick="excel()">导出EXCEL</button></div></div>
+</div>
+<!--输出显示-->
+<div id="a" style="width:80%;  height:500px; overflow:scroll;">
+</div>
+<script>
+function navTabAjaxDone(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload();
+	}
+}
+function Base64() {  
+   
+    // private property  
+    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";  
+   
+    // public method for encoding  
+    this.encode = function (input) {  
+        var output = "";  
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;  
+        var i = 0;  
+        input = _utf8_encode(input);  
+        while (i < input.length) {  
+            chr1 = input.charCodeAt(i++);  
+            chr2 = input.charCodeAt(i++);  
+            chr3 = input.charCodeAt(i++);  
+            enc1 = chr1 >> 2;  
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
+            enc4 = chr3 & 63;  
+            if (isNaN(chr2)) {  
+                enc3 = enc4 = 64;  
+            } else if (isNaN(chr3)) {  
+                enc4 = 64;  
+            }  
+            output = output +  
+            _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +  
+            _keyStr.charAt(enc3) + _keyStr.charAt(enc4);  
+        }  
+        return output;  
+    }  
+   
+    // public method for decoding  
+    this.decode = function (input) {  
+        var output = "";  
+        var chr1, chr2, chr3;  
+        var enc1, enc2, enc3, enc4;  
+        var i = 0;  
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");  
+        while (i < input.length) {  
+            enc1 = _keyStr.indexOf(input.charAt(i++));  
+            enc2 = _keyStr.indexOf(input.charAt(i++));  
+            enc3 = _keyStr.indexOf(input.charAt(i++));  
+            enc4 = _keyStr.indexOf(input.charAt(i++));  
+            chr1 = (enc1 << 2) | (enc2 >> 4);  
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);  
+            chr3 = ((enc3 & 3) << 6) | enc4;  
+            output = output + String.fromCharCode(chr1);  
+            if (enc3 != 64) {  
+                output = output + String.fromCharCode(chr2);  
+            }  
+            if (enc4 != 64) {  
+                output = output + String.fromCharCode(chr3);  
+            }  
+        }  
+        output = _utf8_decode(output);  
+        return output;  
+    }  
+   
+    // private method for UTF-8 encoding  
+    _utf8_encode = function (string) {  
+        string = string.replace(/\r\n/g,"\n");  
+        var utftext = "";  
+        for (var n = 0; n < string.length; n++) {  
+            var c = string.charCodeAt(n);  
+            if (c < 128) {  
+                utftext += String.fromCharCode(c);  
+            } else if((c > 127) && (c < 2048)) {  
+                utftext += String.fromCharCode((c >> 6) | 192);  
+                utftext += String.fromCharCode((c & 63) | 128);  
+            } else {  
+                utftext += String.fromCharCode((c >> 12) | 224);  
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);  
+                utftext += String.fromCharCode((c & 63) | 128);  
+            }  
+   
+        }  
+        return utftext;  
+    }  
+   
+    // private method for UTF-8 decoding  
+    _utf8_decode = function (utftext) {  
+        var string = "";  
+        var i = 0;  
+        var c = c1 = c2 = 0;  
+        while ( i < utftext.length ) {  
+            c = utftext.charCodeAt(i);  
+            if (c < 128) {  
+                string += String.fromCharCode(c);  
+                i++;  
+            } else if((c > 191) && (c < 224)) {  
+                c2 = utftext.charCodeAt(i+1);  
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));  
+                i += 2;  
+            } else {  
+                c2 = utftext.charCodeAt(i+1);  
+                c3 = utftext.charCodeAt(i+2);  
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));  
+                i += 3;  
+            }  
+        }  
+        return string;  
+    }  
+}  
+function excel(){
+	var b = new Base64(); 
+	var a=$('#sql').val();
+	//console.log(a);
+	//$('#execlForm').submit();
+	location.href="__URL__/querysql2/sql/"+b.encode(a)
+}
+</script>

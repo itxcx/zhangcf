@@ -1,0 +1,19 @@
+<table name='{$this->name}'   engine="InnoDB">
+<field name="id"     type="int(11)" auto_increment="1" primary="1" />
+<field name='time'   type='int(11)' default='0'/>
+<field name='userid' type='int(11)' default='0'/>
+<field name='编号'   type="varchar(50)" default=""/>
+<field name='上级'   type='int(11)' default='0'/>
+<field name='网体数据'  type='longtext'/>
+<field name='网体'  type='int(11)' default='0'/>
+<field name='排序'  type='int(11)' default='0'/>
+<field name='序号'  type='int(11)' default='0'/>
+<field name='状态'  type='int(1)' default='0'/>
+<field name='出局时间'   type='int(11)' default='0'/>
+<field name='INDEX (`time`)' type="KEY"/>
+<field name='INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`上级`)' type="KEY"/>
+<field name='INDEX (`网体`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>

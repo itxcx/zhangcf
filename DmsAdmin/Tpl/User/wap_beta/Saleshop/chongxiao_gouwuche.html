@@ -1,0 +1,84 @@
+<php>
+$nowtitle = $buycar;
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <if condition="count($list) elt 0">
+    <div class="no-data text-align-center margin-b-1"><h1>购物车中暂无商品</h1></div>
+    </if>
+
+    <form name="form1" method="post" action="__GROUP__/Saleshop/buygouwu_chongxiao:__XPATH__" id="form">
+
+        <foreach name="list" item="vo" key="key">
+        <dl class="shopping dl">
+            <dt>
+                <h1>
+                    <span>商品名称：</span>{$vo.名称}
+                    <a class="delete" href="__GROUP__/Saleshop/buygouwuchongxiao_del:__XPATH__/id/{$vo.wuliuid}" onclick="return confirm('您确定要移除购物车里的商品吗')">移除</a>
+                </h1>
+            </dt>
+            <dd>
+                <div class="title float-left text-align-center">
+                    <a href="javascript:void(0);">
+                        <img class="product-show" src="{$vo.图片}" alt="{$vo.名称}">
+                    </a>
+                </div>
+
+                <div class="info float-left">
+                    <table>
+                        <tr>
+                            <td class="shopkey">零售价：</td>
+                            <td class="shopval">{$vo[$sale:productMoney]}</td>
+                        </tr>
+                        <tr>
+                            <td class="shopkey">PV：</td>
+                            <td class="shopval">{$vo.可订购数量}</td>
+                        </tr>
+                        <tr>
+                            <td class="shopkey">可订购库存：</td>
+                            <td class="shopval">{$vo.可订购数量}</td>
+                        </tr>
+                        <tr>
+                            <td class="shopkey">购买数量：</td>
+                            <td class="shopval"><input class="input-num" type="text" name="buynum[{$vo['wuliuid']}]" onkeyup="getnum(this.value,{$vo[$sale:productMoney]},this)"></td>
+                        </tr>
+                        <tr>
+                            <td class="shopkey">购买金额：</td>
+                            <td class="shopval allsum">{$vo.sum_price}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="clearfix"></div>
+            </dd>
+        </dl>
+        </foreach>
+
+        <div class="content-box margin-t-1 text-align-center">
+            <button class="btn btn-default btn-third btn-small" type="button" onclick="see_back()">继续浏览商品</button>
+            <button class="btn btn-default btn-third btn-small" type="button" onclick="delall()">清空购物车</button>
+            <button class="btn btn-default btn-third btn-small" type="submit">下一步</button>
+        </div>
+    </form>
+
+    <div class="page">
+        {$page}
+    </div>   
+</div>
+<script>
+    function getnum(num,price,e){
+        price_all = num*price;
+        $(e).parents('table').find(".allsum").html(price_all);
+    }
+    function see_back(){
+        location.href='__GROUP__/Saleshop/buy_shop:__XPATH__';
+    }
+    function delall(){
+        reg = confirm('您真的要清空购物车里的所有商品吗');
+        if(reg==true){
+            location.href='__GROUP__/Saleshop/gouwuchechongxiao_del:__XPATH__';
+        }
+    }
+</script>
+<inclue file="Public:footer" />
+

@@ -1,0 +1,224 @@
+@charset "utf-8";
+body {
+    background-color: #f7f6f0;
+}
+.center {
+    margin: 0 auto;
+    width: 1000px;
+}
+.clearfix {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+#header {
+    margin-bottom: 50px;
+    height: 150px;
+}
+#header .center {
+    position: relative;
+    height: 100%;
+}
+
+.logo {
+    z-index: 9;
+    position: absolute;
+    top: 35px;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+}
+.logo h1, .logo h2 {
+    float: left;
+}
+.logo h1 {
+    font-size: 18px;
+}
+.logo h2 {
+    margin: 3px 0 0 10px;
+    font-size: 14px;
+}
+
+.themes {
+    z-index: 9999;
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+}
+.themes li {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    width: 20px;
+    height: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.themes li:hover {
+    border: 1px dashed #ff0;
+}
+.default {
+    background-color: #bd3f09;
+}
+.blue {
+    background-color: #375b91;
+}
+.green {
+    background-color: #d0e0b8;
+}
+.brown {
+    background-color: #654322;
+}
+.mix {
+    background-color: #294145;
+}
+
+.nav {
+    z-index: 99;
+    position: relative;
+    top: 120px;
+    height: 30px;
+}
+.navlist li {
+    float: left;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    font: 13px/30px 微软雅黑;
+    text-align: center;
+}
+.navlist a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-container {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+}
+.nav-child {
+    display: none;
+}
+.nav-child.cur {
+    display: block;
+}
+.nav-child li {
+    float: left;
+    padding: 0 5px 0 25px;
+    height: 25px;
+    line-height: 25px;
+    background: url(../img/list.png) no-repeat 5px center;
+}
+
+/*content*/
+#content {
+    min-height: 300px;
+    background: #fff;
+}
+.sidebar {
+    float: left;
+    margin-left: 5px;
+    width: 150px;
+    overflow: hidden;
+}
+.sidebar dl {
+    display: none;
+}
+.sidebar dl.home,.sidebar dl.kefu,.sidebar dl.cur {
+    display: block;
+}
+.sidebar dl dt {
+    padding-left: 40px;
+    height: 30px;
+    background: url(../img/home.png) no-repeat 18px center;
+}
+.sidebar .kefu dt {
+    background: url(../img/kefu.png) no-repeat 18px center;
+}
+.sidebar dl dt a {
+    text-decoration: none;
+    font: bold 14px/30px 'Microsoft Yahei';
+}
+.sidebar dl dd {
+    padding-left: 30px;
+    height: 30px;
+    background: url(../img/list.png) no-repeat 10px;
+    overflow: hidden;
+}
+.sidebar dl dd a {
+    font: normal 12px/30px 'Microsoft Yahei';
+}
+.sidebar .kefu dd {
+    background: url(../img/qq.png) no-repeat 10px;
+}
+
+.main {
+    padding: 0 10px;
+    margin-left: 155px;
+}
+.index.main dt {
+    height: 35px;
+    text-indent: 10px;
+    font: bold 14px/35px 'Microsoft Yahei';
+}
+.index.main table {
+    table-layout: auto;
+}
+.index.main td,
+.index.main th {
+    min-width: 25%;
+    max-width: 68%;
+    height: 25px;
+}
+.main .tbkey {
+    text-align: right;
+}
+.main .tbval {
+    text-indent: 5px;
+    text-align: left;
+}
+.main .base-info {
+    margin-bottom: 10px;
+}
+.index.main table {
+    width: 100%;
+}
+
+.index.main .news {
+    float: left;
+    width: 410px;
+}
+.index.main .mails {
+    float: right;
+    width: 410px;
+}
+.index.main .news .title,
+.index.main .mails .title {
+    width: 300px;
+}
+.index.main .time {
+    text-align: center;
+}
+.index.main .news td.title,
+.index.main .mails td.title {
+    width: 300px;
+    text-align: left; 
+    text-indent: 5px;
+}
+
+#footer {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+}
+

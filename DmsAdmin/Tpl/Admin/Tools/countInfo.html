@@ -1,0 +1,85 @@
+<div layoutH="0">
+<div style="width:300px;float:left;">
+	<table width="300" class="list">
+		<thead>
+		<tr>
+			<th colspan="2" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;会员信息</th>
+		</tr>
+		</thead>
+		<tbody>
+		<foreach name="userinfo" key="title" item="val">
+		<tr>
+			<td style="text-align:right;width:100px;">{$title}</td>
+			<td style="text-align:left">{$val}</td>
+		</tr>
+		</foreach>
+		</tbody>
+	</table>
+	<table width="300" class="list">
+		<thead>
+		<tr>
+			<th colspan="2" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;订单信息</th>
+		</tr>
+		</thead>
+		<tbody>
+		<foreach name="saleinfo" key="title" item="val">
+		<tr>
+			<td style="text-align:right;width:100px;">{$title}</td>
+			<td style="text-align:left">
+				<table>
+				<tr>
+					<td style="text-align:right;width:60px;">本日统计</td>
+					<td style="text-align:left;width:140px;">{$val.day}</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;width:60px;">累计统计</td>
+					<td style="text-align:left;width:140px;">{$val.all}</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</foreach>
+		</tbody>
+	</table>
+</div>
+<div style="width:300px;float:left;">
+	<table width="300" class="list">
+		<thead>
+		<tr>
+			<th colspan="2" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;财务信息</th>
+		</tr>
+		</thead>
+		<tbody>
+		<foreach name="funbankinfo" key="title" item="val">
+		<tr>
+			<td style="text-align:right;width:100px;">{$title}</td>
+			<td style="text-align:left">{$val}</td>
+		</tr>
+		</foreach>
+		</tbody>
+	</table>
+	<table width="300" class="list">
+		<thead>
+		<tr>
+			<th colspan="2" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;奖金信息&nbsp;（金额（总奖金比例））</th>
+		</tr>
+		</thead>
+		<tbody>
+			<foreach name="prizeinfo" item="info" key="title">
+			<tr>
+				<td style="text-align:right;width:100px;">{$title}</td>
+				<td style="text-align:left"><egt name="info['num']" value="0"><span style="color:#5ec404"><else/><span style="color:#ff0000"></egt>{$info['num']}（{$info['rate']}）</span></td>
+			</tr>
+			</foreach>
+			<tr>
+				<td style="text-align:right;width:100px;">总奖金</td>
+				<td style="text-align:left">{$prizenumall}</td>
+			</tr>
+			<tr>
+				<td style="text-align:right;width:100px;">总拨出</td>
+				<td style="text-align:left">{$tlenum}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>

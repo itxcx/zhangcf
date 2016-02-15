@@ -1,0 +1,348 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+
+<div class="core_main Fun_bank" id="get">
+     <div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+        
+    </div>
+    <div class="core_con">
+      <form action="__GROUP__/Fun_bank/getSave:__XPATH__" method="post"  id="register" >
+      <table class="tablebg">
+        <if condition="($bank:getMoneyBank eq 1) OR ($bank:getMoneyBank eq true)">
+       <TR class="datalist">
+        <TD class="tbkey">银行卡号：</TD>
+        <TD class="tbval">
+         <span><input type="text" value="" name="cardnumble" /></span>
+        </TD>
+      </TR>  
+      <TR class="datalist">
+        <TD class="tbkey">开户行：</TD>
+        <TD class="tbval">
+         <span><input type="text" value="" name="bankname" /></span>
+         <span></span>
+        </TD>
+      </TR>
+      <TR class="datalist">
+        <TD class="tbkey">开户地址：</TD>
+        <TD class="tbval">
+         <span><input type="text" value="" name="cardaddress" /></span>
+        </TD>
+      </TR>
+      <TR class="datalist">
+        <TD class="tbkey">开户名：</TD>
+        <TD class="tbval">
+         <span><input type="text" value="" name="cardname" /></span>
+        </TD>
+      </TR>
+      <else/>
+        <TR class="datalist">
+          <TD class="tbkey">开户银行：</TD>
+          <TD class="tbval">{$userinfo['开户银行']}</TD>
+        </TR>
+        <TR class="datalist">
+          <TD class="tbkey">银行卡号：</TD>
+          <TD class="tbval">{$userinfo.银行卡号}</TD>
+        </TR>
+        <TR class="datalist">
+          <TD class="tbkey">开户名：</TD>
+          <TD class="tbval">{$userinfo.开户名}</TD>
+        </TR>
+      </if>	
+        <TR class="datalist">
+          <TD class="tbkey">可提现余额：</TD>
+          <TD class="tbval">{:$funbank[$bank->byname]['num']}</TD>
+        </TR>
+        <TR class="datalist">
+          <TD class="tbkey">提现金额：</TD>
+          <TD class="tbval">
+            <span><input type="text" value="" name="getsum" /></span>
+            <span id="getsum_convert" style="color:red;"></span>
+            <if condition="$bank:getMoneyInt neq 0">必须为{$bank:getMoneyInt}的整数倍</if>
+          </TD>
+        </TR>
+        <TR class="datalist">
+          <TD class="tbkey"><span>手续费</span>({$bank:getMoneyTax}%)：</TD>
+          <TD class="tbval"><span id="tax">0</span><span id="tax_convert" style="color:red;"></span></TD>
+        </TR>
+      <if condition="($bank:getMoneyPass2 eq true)">
+      <TR class="datalist">
+        <TD class="tbkey">二级密码：</TD>
+        <TD class="tbval">
+         <span><input type="password" value="" name="pass2" /></span>
+        </TD>
+      </TR>
+      </if>
+      <if condition="($bank:getMoneyPass3 eq true)">
+      <TR class="datalist">
+        <TD class="tbkey">三级密码：</TD>
+        <TD class="tbval">
+         <span><input type="password" value="" name="pass3" /></span>
+        </TD>
+      </TR>
+      </if>
+      <if condition="($bank:getMoneySmsSwitch eq true)">
+      <tr class="datalist">
+        <TD class="tbkey">短信验证码：</td>
+        <TD class="tbval"><input name="getSmsVerfy" type="text" id="getSmsVerfy" ><input style="margin-left:10px" type="button" id="sendMess" value="点击获取" /></td>
+      </tr>
+      </if>
+      <if condition="(($reg_safe eq true) and ($bank:getSecretSafe eq true))">
+	  <tr>
+	    <td class="tbkey">{:L('密保问题')}：</td>
+	    <td class="tbval">{:L($userinfo['密保问题'])}
+	    </td>
+	  </tr>
+	  <tr>
+	    <td class="tbkey">{:L('密保答案')}：</td>
+	    <td class="tbval"><input type="text" value="" name="getsafeanswer" />
+	    </td>
+	  </tr>
+	  </if>
+      <tr>
+        <td colspan="2">
+        <if condition="(isset($onlyLock))">
+	        您有一笔未审核的提现记录，暂不能继续提现
+		<else/>
+			<input class="button_text" onMouseDown="this.className='button_onmousedown'" onMouseOver="this.className='button_onmouseover'" onMouseOut="this.className='button_onmouseout'" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()" />
+		</if>
+        </td>
+      </tr>
+    </table>
+    {__TOKEN__}
+    </form>
+     </div>
+    <div class="title">
+    	<span class="core_title_con">{$name}列表</span>
+        <if condition="isset($data['edit'])">
+      	<span class="core_title_edit"><a href="#" onclick="ShowDialog('{$data.edit}',330);return false;">编辑</a></span>
+      	</if>        
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+        <TR class="datafield">
+            <foreach name='data.field' item='name'>
+            <TH >{$name}</TH>
+            </foreach>
+        </TR>
+        <foreach name='data.list' item='name'>
+        <TR class="datalist">
+            <foreach name="name" item='value' key='name1'>
+            <TD><nobr>{$name.$name1}</nobr></TD>
+            </foreach>
+        </TR>
+        </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+<script>
+$(function(){
+    $("input[name='getsum']").focus();
+    $("input[name='getsum']").keyup(function(){
+        var sum = $(this).val();
+        if(sum !="" && !isNaN(sum)){
+            var tax = sum * ({$bank:getMoneyTax}/100);
+            tax = tax.toFixed(2);
+            if(tax < {$bank:getMoneyTaxMin}){
+                tax = {$bank:getMoneyTaxMin};
+            }else if({$bank:getMoneyTaxMax}!=0 && tax > {$bank:getMoneyTaxMax}){
+                tax = {$bank:getMoneyTaxMax};
+            }
+            $("#tax").html(tax);
+        }else{
+            $("#tax").html("0");
+        }
+        <php>if($bank->getMoneyRatio!=1){</php>
+	        var rmb=sum * ({$bank:getMoneyRatio});
+	        rmb = rmb.toFixed(2);
+	        $("#getsum_convert").html(rmb+"人民币");
+	        var rmbt=tax*({$bank:getMoneyRatio});
+	        rmbt = rmbt.toFixed(2);
+	        $("#tax_convert").html("&nbsp;&nbsp;&nbsp;("+rmbt+"人民币)");
+        <php>}</php>
+    });
+});
+function tijiao(){
+var mess = "";
+   /* <if condition="($bank:getMoneyBank eq 1) OR ($bank:getMoneyBank eq true)">
+    if($("input[name='cardname']").val()==""){
+        mess = "开户名不能为空！\\r\\n" + mess;
+        $("input[name='cardname']").focus();
+    }
+    if($("input[name='cardaddress']").val()==""){
+        mess = "开户地址不能为空！\\r\\n" + mess;
+        $("input[name='cardaddress']").focus();
+    }
+    if($("input[name='bankname']").val()==""){
+        mess = "开户行不能为空！\\r\\n" + mess;
+        $("input[name='bankname']").focus();
+    }
+    if($("input[name='cardnumble']").val()==""){
+        mess = "银行卡号不能为空！\\r\\n" + mess;
+        $("input[name='cardnumble']").focus();
+    }else if(isNaN($("input[name='cardnumble']").val())){
+        mess = "银行卡号必须为数字！\\r\\n"+ mess;
+        $("input[name='cardnumble']").focus();
+    }
+    </if>*/
+    if($("input[name='cardaddress']").val()==""){
+        mess = "{:L('金币钱包不能为空！')}" + mess;
+        $("input[name='cardaddress']").focus();
+    }
+    if($("input[name='getsum']").val()==""){
+        mess = "{:L('提现金额不能为空！')}\r\n" + mess;
+        $("input[name='getsum']").focus();
+    }else if(isNaN($("input[name='getsum']").val())){
+        mess = "{:L('提现金额必须为数字！')}\r\n"+ mess;
+        $("input[name='getsum']").focus();
+    }
+    <if condition="$bank:getMoneyInt neq 0">
+        else if($("input[name='getsum']").val()%{$bank:getMoneyInt}!=0){
+            mess = "{:L('提现金额必须为')}{$bank:getMoneyInt}{:L('的整数倍！')}\\r\\n"+ mess;
+            $("input[name='getsum']").focus();
+        }
+    </if>
+    if(mess !=""){
+        alert(mess);
+        $('#subbut').attr('disabled',false);
+        $('#subbut').val('{:L('提交')}');
+        return false;
+
+    }else{
+    	$('#subbut').attr('disabled',true);
+	    $('#subbut').val('{:L('正在提交,请等待...')}');
+	    $('#register').submit();
+      //  return true;
+    }
+
+}
+
+/*function checkform(){
+    var mess = "";
+    <if condition="($bank:getMoneyBank eq 1) OR ($bank:getMoneyBank eq true)">
+    if($("input[name='cardname']").val()==""){
+        mess = "开户名不能为空！\\r\\n" + mess;
+        $("input[name='cardname']").focus();
+    }
+    if($("input[name='cardaddress']").val()==""){
+        mess = "开户地址不能为空！\\r\\n" + mess;
+        $("input[name='cardaddress']").focus();
+    }
+    if($("input[name='bankname']").val()==""){
+        mess = "开户行不能为空！\\r\\n" + mess;
+        $("input[name='bankname']").focus();
+    }
+    if($("input[name='cardnumble']").val()==""){
+        mess = "银行卡号不能为空！\\r\\n" + mess;
+        $("input[name='cardnumble']").focus();
+    }else if(isNaN($("input[name='cardnumble']").val())){
+        mess = "银行卡号必须为数字！\\r\\n"+ mess;
+        $("input[name='cardnumble']").focus();
+    }
+    </if>
+    if($("input[name='getsum']").val()==""){
+        mess = "提现金额不能为空！\r\n" + mess;
+        $("input[name='getsum']").focus();
+    }else if(isNaN($("input[name='getsum']").val())){
+        mess = "提现金额必须为数字！\r\n"+ mess;
+        $("input[name='getsum']").focus();
+    }
+    <if condition="$bank:getMoneyInt neq 0">
+        else if($("input[name='getsum']").val()%{$bank:getMoneyInt}!=0){
+            mess = "提现金额必须为{$bank:getMoneyInt}的整数倍！\\r\\n"+ mess;
+            $("input[name='getsum']").focus();
+        }
+    </if>
+    if(mess !=""){
+        alert(mess);
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function sendSmsVerify(){
+	var type = '{$bank:name}提现';
+	var content = '{$bank:getMoneySmsContent}';
+	$.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+		
+		eval('var data='+data);
+		if(data.status == 1){
+			alert('发送成功!');
+		}else{
+			alert('发送失败!');
+		}
+	});
+}*/
+var wait=300;
+var sta = true;
+function time(o) {
+    if(sta == true){
+        var type = '{$bank:name}提现';
+        var content = '{$bank:getMoneySmsContent}';
+        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+          eval('var data='+data);
+          if(data.status == 1){
+            alert('发送成功!');
+          }else{
+            alert('发送失败!');
+          }
+        });
+        sta = false;
+    }
+    if (wait == 0) {
+      o.removeAttribute("disabled");      
+      o.value="点击获取";
+      wait = 300;
+      sta = true;
+    } else {
+      o.setAttribute("disabled", true);
+      o.value="重新发送(" + wait + ")";
+      wait--;
+      setTimeout(function() {
+        time(o)
+      },
+      1000)
+    }
+  }
+document.getElementById("sendMess").onclick=function(){time(this);}
+
+</script>

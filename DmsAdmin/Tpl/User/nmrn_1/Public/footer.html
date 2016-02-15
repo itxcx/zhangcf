@@ -1,0 +1,58 @@
+    <div class="base-info">
+        <div class="tit1">
+            HI！您好！欢迎您！
+        </div>
+        <div class="tit2">
+            开通日期：{$userinfo.注册日期|date='Y年m月d日',###}
+        </div>
+        <div class="tit3">
+            <a href="__GROUP__/Index" class="home">首页</a>
+            <a href="__GROUP__/Public/logout" class="logout">退出</a>
+        </div>
+        <h3 class="h3">会员信息</h3>
+        <ul class="ul-left">
+            <li class="infokey">{:L('user1_name_serial')}：</li>	
+            <li class="infoval">{$userinfo.编号}</li>	
+            <li class="infokey">{:L('name')}：</li>	
+            <li class="infoval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>
+            <foreach name="userlevel" item="lv" key="key">
+            <li class="infokey">{$key}：</li>	
+            <li class="infoval">{$lv.byname}</li>
+            </foreach>	    
+            <li class="infokey">{:L('join_date')}：</li>	
+            <li class="infoval">{$userinfo.注册日期|date='Y-m-d',###}</li>
+            <foreach name="funbank" item="fun_bank" key="key">
+            <li class="infokey">{$key}：</li>
+            <li class="infoval">{$fun_bank.num}</li>
+            </foreach>	
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="footer">
+    <p>版权所有：天地人集团投资有限公司&nbsp;&nbsp;Copyright © 2015-2018</p>
+</div>
+<!--在线QQ-->		
+<link rel="stylesheet" href="__TMPL__Public/style/floatqq.css">
+<script src="__TMPL__Public/js/floatqq.js"></script>
+<if condition="count($SERVICE_QQ) gt 0">
+<div id="floatTools" class="lanrenzhijia-cs" style="position:fixed;top:200px;right:0px;">
+    <div class="floatL"> <a style="display: block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show();kf_setCookie('RightFloatShown', 0, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" href="javascript:void(0);">展开</a> <a style="display: none" id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide();kf_setCookie('RightFloatShown', 1, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" href="javascript:void(0);"> 收缩</a> </div>
+    <div id="divFloatToolsView" class="floatR" style="display: none">
+        <div class="cn">
+
+            <h3 class="titZx">在线客服</h3>
+            <foreach name="SERVICE_QQ" item="v">
+            <ul>
+                <li> <a style="margin:10px 0 0 10px;" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v}&site=qq&menu=yes"><img src="__TMPL__Public/images/SERVICE_QQ.gif" border="0" alt="点击咨询" title="点击咨询" style='display:inline;'></a>  </li>
+                </li>
+            </ul>
+            </foreach>
+        </div>
+    </div>
+</div>
+</if>
+<!--end-->
+</body>
+</html>

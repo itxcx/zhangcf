@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'Ezybonds', 1 => 'Huanxun', 2 => 'HuiChao', 3 => 'Huifu', 4 => 'Kuaiqian', 5 => 'Lefu', 6 => 'PayPal', 7 => 'PerfectMoney', 8 => 'RongPay', 9 => 'ShengPay', 10 => 'WangYin', 11 => 'YeePay', 12 => 'YunBao', 13 => 'ZhiFu', 14 => 'ZhiFuBao', ); ?>

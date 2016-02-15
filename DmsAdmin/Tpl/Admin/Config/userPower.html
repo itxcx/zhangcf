@@ -1,0 +1,52 @@
+<form action="__URL__/userPowerSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+<table class="table" width="1000">
+<foreach name="menu" item="users" key="key">
+   <thead>
+    <tr>
+     <th  style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;{$key}前台使用权限设置</th>
+    </tr>
+ </thead>
+ <tbody>
+  <foreach name="users" item="user" key="head">
+  <tr>
+	<td width="120px">{$head}:</td>
+     <foreach name="user" item="detail" key="k"><td style="text-align:left">
+		<input type="checkbox" name="{$detail.model}-{$detail.action}-{$detail.xpath}#level" value="1" <if condition="($userPower eq 'all') OR (in_array($detail['model'].'-'.$detail['action'].'-'.$detail['xpath'],$userPower) eq true)">checked </if>>{$detail.title}</td>
+		</foreach>
+		
+     </td>
+</tr>
+</foreach>
+</foreach>
+   <thead>
+    <tr>
+     <th  style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;{$key}前台二级密码设置</th>
+    </tr>
+ </thead>
+ <tbody>
+  <foreach name="users" item="user" key="head">
+  <tr>
+	<td width="120px">{$head}:</td>
+     <foreach name="user" item="detail" key="k"><td style="text-align:left">
+		<input type="checkbox" name="{$detail.model}-{$detail.action}-{$detail.xpath}#secPwd" value="true" <if condition="in_array($detail['model'].'-'.$detail['action'].'-'.$detail['xpath'],$userSec) eq true">checked </if>>{$detail.title}</td>
+		</foreach>
+		
+     </td>
+</tr>
+</foreach>
+<tfoot>
+  <tr>
+ <td style="vertical-align: middle;" >
+   <div class="buttonActive">
+          <div class="buttonContent" >
+            <button type="submit">确定</button>
+          </div>
+    </div>
+ </td>
+  </tr> 
+  </tfoot>
+   </tbody> 
+</table>
+</div>
+</form>

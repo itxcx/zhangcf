@@ -1,0 +1,209 @@
+<div layoutH="0">
+<form action="__URL__/upSave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)" >
+<input type="hidden" name="callbackType" value="forward" />
+<table width="700px" class="list">
+<thead>
+  <tr>
+    <th colspan="3"  style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ruby_get.png" />&nbsp;&nbsp;{$sale:byname}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td width="20%" style="height:25px;vertical-align: middle;">{$user:name}编号：</td>
+    <td width="75%" style="height:25px;text-align:left;">
+    <input type="text" value="" size="20" name="userid" id="userid" onmouseout="getid(this)" onkeyup="getid(this)" autocomplete="off"/>	<span id='upidstate'></span>
+    </td>
+  </tr>
+    <tr>
+    <td style="height:25px;vertical-align: middle;">当前{$levels:name}：</td>
+    <td style="height:25px;text-align:left;"><span id="old_level_name"></span>
+    </td>
+  </tr>
+  <!--levels-->
+  <tr>
+    <td style="height:25px;vertical-align: middle;">新{$levels:name}：</td>
+    <td style="height:25px;text-align:left;">
+	<select name='lv' id="lv" onchange="showinfo()">
+	<option value="">请选择新级别</option>
+	<foreach name="levelsopt" item="level">
+		<option value="{$level.lv}">{$level.name}</option>
+	</foreach>
+	</select>
+	<span id="lvshowinfo"></span>
+    </td>
+  </tr>
+  <notempty name="sale:fromNoName">
+    <tr>
+		<td align="right" valign="middle"  >{$sale:fromNoName}：</td>
+		<td style="height:25px;text-align:left;" >
+		 <input type="text" value="" name="shop"/><span id="state_shop" ><if condition="$sale:fromNoinnull eq false">*</if></span> 
+		</td>
+	</tr>
+   </notempty>
+    <if condition="count($area) gt 0">
+    <tr>
+		<td style="height:25px;vertical-align: middle;">代理区域：</td>
+		<td style="height:25px;text-align:left;">
+			<select name="country1" id="country_id1">
+			<option value="">国家</option>
+			</select>
+			<select name="province1" id="province_id1" >
+			<option value="">省份</option>
+			</select>
+			<if condition="isset($area['city']) and $area['city'] neq ''">
+				<select name="city1"  id="city_id1" >
+				<option value="">城市</option>
+				</select>
+			</if>
+			<if condition="isset($area['county']) and $area['county'] neq ''">
+				<select name="county1"  id="county_id1" >
+				<option value="">区县</option>
+				</select>
+			</if>
+			<if condition="isset($area['town']) and $area['town'] neq ''">
+				<select name="town1"  id="town_id1" >
+				<option value="">乡镇街道</option>
+				</select>
+			</if>
+		</td>
+	</tr>
+	</if>
+    <if condition="$sale:unuse eq true"> 
+	    <tr id="tr1">
+	    <td style="height:25px;vertical-align: middle;">产生业绩：</td>
+	    <td style="height:25px;text-align:left;">
+	    <span><input type="radio" name="point" value="0" id="point1" <eq name="sale:point" value="0">checked</eq>/>&nbsp;是&nbsp;<input type="radio" name="point" value="1" id="point2" <eq name="sale:point" value="1">checked</eq>/>&nbsp;否</span>
+	    </td>
+	  	</tr>
+  	<else />
+	  	<input type="hidden" name="point" value="1" id="point2" />
+	</if>
+	<if condition="$sale:accBank neq ''">
+	    <tr id="tr2">
+	    <td style="height:25px;vertical-align: middle;">扣除货币：</td>
+	    <td style="height:25px;text-align:left;">
+	    <span><input type="radio" name="deduct_acc" value="0" id="acc1" <eq name="sale:deduct_acc" value="0">checked</eq>/>&nbsp;是&nbsp;<input type="radio" name="deduct_acc" value="1" id="acc2" <eq name="sale:deduct_acc" value="1">checked</eq>/>&nbsp;否</span>
+	    </td>
+	  	</tr>
+  	<else />
+	  	<input type="hidden" name="deduct_acc" value="1" id="acc2" />
+	 </if>
+  {//是否启用回填}
+  <if condition="$haveBackFill eq true">
+  <tr>
+	<td style="height:25px;vertical-align: middle;">回填：</td>
+	<td style="height:25px;text-align:left;">
+    <span><input type="radio" name="backFill" value="1"/>&nbsp;是&nbsp;<input type="radio" name="backFill" value="0" checked/>&nbsp;否</span>&nbsp;&nbsp;&nbsp;<font color='red'>如果回填请不要选择'产生业绩'或'扣除货币'</font>
+    </td>
+  </tr>
+  </if>
+    </tbody>
+</table>
+	<present name="productArr">
+		<include file="product" />
+	</present>
+	<div class="buttonActive" style="margin-left:290px;margin-top:5px;">
+          <div class="buttonContent">
+            <button type="submit">确定</button>
+          </div>
+    </div>
+ </form>
+</div>
+<script type="text/javascript">
+var vd;
+function getid(e)
+{
+	clearTimeout(vd);
+    id=e.id;
+	vd = setTimeout("upAjax('"+e.id+"')",600);
+}
+function upAjax(name){
+	var postname	= name;
+	var postdata = {postname:name};
+	postdata[name]	= navTab.getCurrentPanel().find('#'+name).val();;
+	 
+    $.ajax({
+       url:"__APP__/Admin/Sale/upAjax:__XPATH__",
+       type:"GET",
+       data:postdata,
+       dataType:"JSON",
+       global:false,
+       success:function(data){
+			if( data.status == 0 )
+			{
+				$('#upidstate',navTab.getCurrentPanel()).html('编号不正确');
+				$('#old_level_name',navTab.getCurrentPanel()).html('');
+			}
+			else
+			{
+				var userinfo = data.data;
+				$('#upidstate',navTab.getCurrentPanel()).html(userinfo['姓名']);
+				$('#old_level_name',navTab.getCurrentPanel()).html(userinfo['name']);
+			}
+       }
+    });
+}
+
+function showinfo(){
+	var level	= $('#lv',navTab.getCurrentPanel()).val();
+	var userid	= navTab.getCurrentPanel().find('#userid').val();
+	var postdata = {userid:userid};
+	 
+    $.ajax({
+       url:"__APP__/Admin/Sale/showinfo:__XPATH__",
+       type:"GET",
+       data:postdata,
+       dataType:"JSON",
+       global:false,
+       success:function(data){
+			if(data.status==1)
+			{
+				var old_lv	= data.data;
+				if(level=="")
+				{
+					$('#lvshowinfo',navTab.getCurrentPanel()).html('');
+					$('#tr1',navTab.getCurrentPanel()).css('background-color','');
+					$('#tr2',navTab.getCurrentPanel()).css('background-color','');
+				}
+				if(old_lv==level)
+				{
+					<if condition="count($area) gt 0">
+					$('#lvshowinfo',navTab.getCurrentPanel()).html('<font color="red">该会员级别与选择的级别一致，如果是代理的可以更改代理区域</font>');
+					<else />
+					$('#lvshowinfo',navTab.getCurrentPanel()).html('<font color="red">该会员级别与选择的级别一致</font>');
+					</if>
+					$('#tr1',navTab.getCurrentPanel()).css('background-color','');
+					$('#tr2',navTab.getCurrentPanel()).css('background-color','');
+					$('#acc1',navTab.getCurrentPanel()).removeAttr('disabled');
+					$('#point1',navTab.getCurrentPanel()).removeAttr('disabled');
+				}
+				if(parseInt(old_lv)>parseInt(level))
+				{
+					<if condition="count($area) eq 0">
+					$('#lvshowinfo',navTab.getCurrentPanel()).html('降级选择，不产生业绩、不扣除货币');
+					</if>
+					$('#tr1',navTab.getCurrentPanel()).css('background-color','grey');
+					$('#tr2',navTab.getCurrentPanel()).css('background-color','grey');
+					$('#point2',navTab.getCurrentPanel()).attr('checked','true');
+					$('#point1',navTab.getCurrentPanel()).attr('disabled','true');
+					$('#acc2',navTab.getCurrentPanel()).attr('checked','true');
+					$('#acc1',navTab.getCurrentPanel()).attr('disabled','true');
+				}
+				if(parseInt(old_lv)<parseInt(level))
+				{
+					$('#lvshowinfo',navTab.getCurrentPanel()).html('');
+					$('#tr1',navTab.getCurrentPanel()).css('background-color','');
+					$('#tr2',navTab.getCurrentPanel()).css('background-color','');
+					$('#acc1',navTab.getCurrentPanel()).removeAttr('disabled');
+					$('#point1',navTab.getCurrentPanel()).removeAttr('disabled');
+				}
+			}
+       }
+    });
+}
+</script>
+<if condition="count($area) gt 0">
+<script type="text/javascript">
+	$.area_select_bind( 'country_id1' , 'province_id1' , 'city_id1' , 'county_id1', 'town_id1' );
+</script>
+</if>

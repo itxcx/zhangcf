@@ -1,0 +1,5 @@
+<?php if (!defined('THINK_PATH')) exit();?><div class="pageContent" layoutH="0"><table class="list" width="500px" style="margin:5px;"><thead><tr><th colspan="2" style="text-align:left;">系统文件操作</th></tr></thead><tfoot><tr><td style="text-align:center;border-bottom:1px solid #EDEDED" width="20%"><a class="edit" href='__URL__/lock' target="ajaxTodo" title="是否确认进行加密操作"><span>系统加密</span></a></td><td style="text-align:left;border-bottom:1px solid #EDEDED">自动将文件加密并覆盖到当前的文件，操作后不可还原！！！</td></tr><tr><td style="text-align:center;border-bottom:1px solid #EDEDED"><a class="edit" href='__URL__/compress' target="ajaxTodo" title="要将系统文件进行打包？"><span>打包压缩</span></a></td><td style="text-align:left;width:150px;border-bottom:1px solid #EDEDED">
+					将系统文件复制打包压缩成zip文件，保存在跟目录下。
+				 </td></tr><tr><td style="text-align:center;border-bottom:1px solid #EDEDED"><a class="edit" href='__URL__/compress/encode/1' target="ajaxTodo" title="要将系统进行加密并打包？"><span>加密打包</span></a></td><td style="text-align:left;border-bottom:1px solid #EDEDED">
+					将系统文件进行复制加密，然后将加密的文件的打包压缩，保存在根目录下。
+				 </td></tr></tfoot></table></div>

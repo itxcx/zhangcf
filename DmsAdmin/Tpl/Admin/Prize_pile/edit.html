@@ -1,0 +1,92 @@
+<script>window.onload=showtime;</script>
+<form action="__URL__/editSave:__XPATH__" method="post">
+<div style="width:600px;margin-top:5px;">
+<table width="100%" border="0px" cellspacing="0" cellpadding="0">
+ <tr>
+    <td width="5" height="5" class="top_left"></td>
+    <td height="5" colspan="5" class="top_middle"></td>
+    <td width="5" height="5" class="top_right"></td>
+    </tr>
+    <tr>
+    <td width="5" class="middle_left"></td>
+    <td colspan="5"><div class="tab2">
+<table width="100%" border="0" bgcolor="#d8e4f2" cellspacing="0" cellpadding="0" id="checkList" class="list1">
+<tr>
+     <th height="30px"  colspan="2" bgcolor="#ced9e7" >
+     {$name}
+     </th>		 
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	会员编号
+	</td>
+     <td >
+		<input type="text" name="userid" value="{$info.编号}" readonly="readonly" /> 
+	 </td>
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	开始时间
+	</td>
+     <td >
+	<input type="text" name="starttime" value="{$info.开始时间|date='Y-m-d',###}" /> 
+     </td>
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	截止时间
+	</td>
+     <td >
+		<input type="text" name="endtime" value="{$info.截止时间|date='Y-m-d',###}" /> 
+     </td>
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	投资金额
+	</td>
+     <td >
+		<input type="text" name="prize" value="{$info.金额}"> 
+     </td>
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	累计奖金
+	</td>
+     <td >
+		<input type="text" name="allmoney" value="{$info.累计奖金}"> 
+     </td>
+</tr>
+<tr>
+	<td width="150" class="tab2_border2">
+	奖励比例
+	</td>
+     <td >
+		<input type="text" name="tax" value="{$info.比例}"> 
+     </td>
+</tr>
+<input type="hidden" name="id" value="{$info.id}"> 
+<tr>
+	<td width="150" class="tab2_border2">
+	产生次数
+	</td>
+     <td >
+		<input type="text" name="num" value="{$info.产生次数}"> 
+     </td>
+</tr>
+  <tr>
+ <td colspan="6"  style="vertical-align: middle;text-align:center;border-right:1px #99bbe8 solid;">
+ <input type="submit" value="确定" />
+ </td>
+  </tr>  
+</table>
+</div>
+    </td>
+    <td width="5" class="middle_right"></td></tr>
+ <tr>
+    <td width="5" height="5" class="buttom_left"></td>
+    <td height="5" colspan="5" class="buttom_middle"></td>
+    <td width="5" height="5" class="buttom_right"></td>
+    </tr>
+</table>
+</div>
+</form>

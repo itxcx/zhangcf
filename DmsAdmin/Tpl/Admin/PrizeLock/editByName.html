@@ -1,0 +1,44 @@
+<script>
+$(document).ready(function (){
+	$("#name",$.pdialog.getCurrent()).focus().select()
+	$('#addsubmit').click(function (){
+		$("#value",$.pdialog.getCurrent()).val('1');
+	});
+	$('#movesubmit').click(function (){
+		$("#value",$.pdialog.getCurrent()).val('0');
+	});
+});
+	function dialogAjaxDoneReload(json)
+	{
+		DWZ.ajaxDone(json);
+
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			//关闭当前窗口
+			$.pdialog.closeCurrent(); 
+	        navTab.reload();
+		}
+	}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/editByNameRun" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload);">
+	<input type='hidden' id='value' name='value'/>
+		<div class="pageFormContent" layoutH="56">
+			<dl >
+				<dt>编号：</dt>
+				<dd>	<textarea name='name' id='name' style="width:200px;height:350px"></textarea></dd>
+			</dl>
+			注:您可以填写多个会员编号,使用换行分隔
+		</div>
+		<div class="formBar">
+			<ul>
+				<!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id='addsubmit'>加入黑名单</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id='movesubmit'>移除黑名单</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,9 @@
+﻿<table name='会员'>
+<field name='{$this->name}_上级编号'   type="varchar(50)" default=""/>
+<field name='{$this->name}_推荐人数'   type='integer' default="0"/>
+<field name='{$this->name}_被推荐数'   type='integer' default="0"/>
+<field name='{$this->name}_团队人数'   type='integer' default="0"/>
+<field name='{$this->name}_团队总人数' type='integer' default="0"/>
+<field name='{$this->name}_层数'       type='integer' default="0"/>
+<field name='{$this->name}_网体数据'   type='integer' default="0"/>
+</table>

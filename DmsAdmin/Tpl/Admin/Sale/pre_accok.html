@@ -1,0 +1,56 @@
+<script language="JavaScript">
+function accok(){
+	$('#submit').attr("disabled", true); 
+	$('#submit').css("color", 'gray');
+	var post_str = "ids="+$("#ids").val();
+	var url = "__URL__/accok";
+	var ajax = {url:url, data:post_str, type: 'POST', dataType: 'text', cache: false,success: function(html){
+		var data = eval('('+html+')');
+		$("#tblok tr").each(function(){
+			if($(this).index()==0)return true;
+			$(this).children("td").eq(5).text(data[$(this).children("td").eq(0).text()]['msg']);
+		});	
+		navTab.reload();          //刷新列表	
+	}};
+	jQuery.ajax(ajax);
+}
+</script>
+<div class="pageContent">
+	<form id="form1" action="" method="post" class="pageForm required-validate" onsubmit="return false">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+		<input type="hidden" id="ids" name="ids" value="{$ids}"/>
+	    <div class="pageFormContent" layoutH="58">
+	    <div class="grid">
+		<div class="gridHeader">
+		<table id="tblok" cellpadding="3" cellspacing="3" class="list">
+			<tr>
+				<th style="display:none;">ID</th>
+				<th width="110px;">会员编号</th>
+				<th width="150px;">购买日期</th>
+				<th width="110px;">报单金额</th>
+				<th width="110px;">购物金额</th>
+				<th width="110px;">处理结果</th>
+			</tr>
+			<foreach name="sdata" item="vo" key='k'>
+				<tr>
+				<td style="border:1px solid #aaa;display:none;">{$k}</td>
+				<td style="border:1px solid #aaa;">{$vo.编号}</td>
+				<td style="border:1px solid #aaa;">{$vo.购买日期|date="Y-m-d H:i:s",###}</td>
+				<td style="border:1px solid #aaa;">{$vo.报单金额}</td>
+				<td style="border:1px solid #aaa;">{$vo.购物金额}</td>
+				<td style="border:1px solid #aaa;">{$vo.报单状态}</td>
+				</tr>
+			</foreach>
+        </table>
+        </div>
+        </div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" onclick="accok()">确认</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+	
+</div>

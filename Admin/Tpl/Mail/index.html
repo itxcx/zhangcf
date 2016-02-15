@@ -1,0 +1,131 @@
+<form action="__URL__/mailupdate" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+<table class="list" style="width:600px">
+<thead>
+   <tr>
+   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;邮件设置</th>
+   </tr>
+   </thead>
+   <tbody>
+ <tbody>
+ <tr>
+     <td width="120px" >邮箱地址:</td>
+     <td width="160px" style="text-align:left;"><input type="text" name="add"  value="{$add}">&nbsp;&nbsp;例:888@163.com</td>	    
+ </tr>	
+ <tr>
+	<td width="120px">邮箱SMTP服务器:</td>
+     <td width="160px" style="text-align:left;"><input type="text" name="smpt"  value="{$smpt}">&nbsp;&nbsp;例:smtp.163.com</td>
+ </tr>
+ <tr>
+	<td width="120px">邮箱登录帐号:</td>
+     <td width="160px" style="text-align:left;"><input type="text" name="log"  value="{$log}">&nbsp;&nbsp;例:888</td>
+ </tr>
+  <tr>
+	<td width="120px">邮箱密码:</td>
+     <td width="160px" style="text-align:left;"><input type="password" name="pass" value="{$pass}"></td>
+ </tr>
+  <tr>
+	<td width="120px">发件人名字:</td>
+     <td width="160px" style="text-align:left;"><input type="text" name="fname" value="{$fname}">&nbsp;&nbsp;会员收到的邮件标题</td>
+ </tr>
+ <tr>
+     <td colspan="2" style="color:red;text-align:left;padding-left:50px;">
+     1.发件人名字，有时会失效，可以进入邮箱设置自己邮箱的别名<br />
+     2.邮箱地址和SMTP服务器的后缀要一致，目前smtp.qq.com的不好用<br />
+     3.邮箱的SMTP的密码和邮箱登入密码要一致,SMTP的密码需要在邮箱管理中单独设置
+     </td>  
+ </tr>	
+ </table>
+ <table class="list" width="700px" style="margin-bottom:5px;margin-left:5px">
+	 <thead>
+	     <tr>
+			 <th  colspan="4" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;自动发送内容设置</th>
+	     </tr>
+	 </thead>
+	 <tfoot>
+		 <tr>
+			 <td style="padding:5px;text-align:right;width:100px;border-bottom:1px solid #EDEDED">类型</td>
+			 <td style="padding:5px;text-align:left;width:50px;border-bottom:1px solid #EDEDED" >邮件开关</td>
+			 <td style="padding:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" >邮件内容 (注: [编号] 替换为用户编号等用户信息,[验证码]替换为发送的验证码)</td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" ></td>
+		 </tr>
+		 <tr style="margin-top:10px">
+			 <td style="padding:5px;text-align:right;width:100px;border-bottom:1px solid #EDEDED">注册：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED"><input type="checkbox" name="Switch[]" value="regmailSwitch" <eq name="vo.regmailSwitch" value="1">checked</eq>/></td>
+			 <td style="padding:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><textarea cols="50" rows="2" name="regmailContent" id='regmailContent'>{$vo.regmailContent}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style=";margin-top:5px;">
+			 <div class="buttonContent" ><button type="button" onclick="mailtest('__URL__/testinputmail/msg/'+$('#regmailContent').val(),'注册测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+		 <tr>
+			 <td style="padding:5px;text-align:right;width:100px;border-bottom:1px solid #EDEDED">审核：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED"><input type="checkbox" name="Switch[]" value="exammailSwitch" <eq name="vo.exammailSwitch" value="1">checked</eq>/></td>
+			 <td style="padding:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><textarea cols="50" rows="2" name="exammailContent" id='exammailContent'>{$vo.exammailContent}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style=";margin-top:5px;">
+			 <div class="buttonContent" ><button type="button"  onclick="mailtest('__URL__/testinputmail/msg/'+$('#exammailContent').val(),'审核测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+		 <tr>
+			 <td style="padding:5px;text-align:right;width:100px">修改密码：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED"><input type="checkbox" name="Switch[]" value="changePwdmailSwitch"  id='changePwdmailSwitch' <eq name="vo.changePwdmailSwitch" value="1">checked</eq>/></td>
+			 <td style="padding:5px;text-align:left;width:350px" ><textarea cols="50" rows="2"  name="changePwdmailContent" id='changePwdmailContent'>{$vo.changePwdmailContent}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style="margin-top:5px;">
+			 <div class="buttonContent" ><button type="button"  onclick="mailtest('__URL__/testinputmail/msg/'+$('#changePwdmailContent').val(),'修改密码测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+		  <tr>
+			 <td style="padding:5px;text-align:right;width:100px">修改密码验证码：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED" ><input type="checkbox" name="Switch[]" value="changePwdmailSwitchyanzheng"  id='changePwdmailSwitchyanzheng' <eq name="vo.changePwdmailSwitchyanzheng" value="1">checked</eq>/></td>	
+			 <td style="padding:5px;text-align:left;width:350px" ><textarea cols="50" rows="2"  name="changePwdmailContentyanzheng" id='changePwdmailContentyanzheng'>{$vo.changePwdmailContentyanzheng}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style="margin-top:5px;">
+			 <div class="buttonContent" ><button type="button"  onclick="mailtest('__URL__/testinputmail/msg/'+$('#changePwdmailContent').val(),'修改密码验证码测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+		 			<!---->
+		 <tr>
+			 <td style="padding:5px;text-align:right;width:100px;border-bottom:1px solid #EDEDED">会员转账：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED"><input type="checkbox" name="Switch[]" value="zhzhmmailSwitch" <eq name="vo.zhzhmmailSwitch" value="1">checked</eq>/></td>
+			 <td style="padding:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><textarea cols="50" rows="2" name="zhzhmmailContent" id='zhzhmmailContent'>{$vo.zhzhmmailContent}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style=";margin-top:5px;">
+			 <div class="buttonContent" ><button type="button"  onclick="mailtest('__URL__/testinputmail/msg/'+$('#zhzhmmailContent').val(),'转账测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+		 
+		 
+		 
+		 <tr>
+			 <td style="padding:5px;text-align:right;width:100px;border-bottom:1px solid #EDEDED">会员提现：</td>
+			 <td style="padding:5px;text-align:right;width:30px;border-bottom:1px solid #EDEDED"><input type="checkbox" name="Switch[]" value="txmmailSwitch" <eq name="vo.txmmailSwitch" value="1">checked</eq>/></td>
+			 <td style="padding:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><textarea cols="50" rows="2" name="txmmailContent" id='txmmailContent'>{$vo.txmmailContent}</textarea></td>
+			 <td style="padding:5px;border-bottom:1px solid #EDEDED" >
+			 <div class="buttonActive" style=";margin-top:5px;">
+			 <div class="buttonContent" ><button type="button"  onclick="mailtest('__URL__/testinputmail/msg/'+$('#txmmailContent').val(),'提现测试',500,200)">测试</button></div>
+			 </div>
+			 </td>
+		 </tr>
+	 </tfoot>
+  </table>
+   <div class="buttonActive" style="margin-left:290px;margin_top:10px">
+          <div class="buttonContent" >
+          	<button type="submit">保存设置</button>
+          </div>
+    </div>
+
+
+<script>
+function mailtest(url,title,width,height){
+	$.pdialog.open(url,'newdialog',title,{width:width,height:height,mask:true,mixable:true,minable:true,resizable:true,drawable:true});
+}
+</script>
+</form>
+ 

@@ -1,0 +1,44 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/edit/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="submit" value="1" />
+		<input type="hidden" name="payment" value="{$payment}" />
+		<div class="pageFormContent" layoutH="58">
+		  <foreach name="data" item="vo" key='key'>
+		      <foreach name="data.pay_amount" item="vo1" key='key1'>
+			<table>
+			<foreach name="configList" item="vo">
+			<tr>
+			<td style="text-align:left">{$vo.name}：</td>
+			<td style="text-align:left">
+			<switch name="vo.type" >
+			<case value="radio">
+				
+				<foreach name="vo.options" key="op_val" item="op_name">
+				<input type="radio" name="attr[{$vo.config_name}]" id="{$vo.config_name}{$op_val}" value="{$op_val}" <eq name="op_val" value="$vo[config_value]">checked=true</eq>/><label for="{$vo.config_name}{$op_val}">{$op_name}</label>&nbsp;
+				</foreach>
+			</case>
+
+			<case value="text">
+				<input type="text" name="attr[{$vo.config_name}]" value="{$vo.config_value}" style="{$vo.style}"/>
+				<present name="vo.memo"><label>{$vo.memo}</label></present>
+			</case>
+
+			</switch>
+			</td>
+			</tr>
+			</foreach>
+			</table>
+			   </foreach>
+			</foreach>
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

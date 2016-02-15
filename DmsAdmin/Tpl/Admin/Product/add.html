@@ -1,0 +1,144 @@
+<script language="JavaScript">
+function dialogAjaxDoneProductAdd(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<div class="pageContent">
+	<form action="__URL__/addSave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+	    <div class="pageFormContent" layoutH="58">
+		<table cellpadding="3" cellspacing="3" >
+           <tr>
+               <td style="text-align:right;width:150px">分类：</td>
+               <td style="text-align:left" ><select name="category"  class="required"  id="category" >
+                    <foreach name="CategoryList" item="vo">
+						<option value="{$vo.名称}">{$vo.名称}</option>
+					</foreach>
+                    </select>
+                </td>
+            </tr>
+            <if condition="$pro_count gt 0">
+             <tr>
+               <td style="text-align:right;width:80px">产品所属功能：</td>
+               <td style="text-align:left" >
+               <foreach name="pro_gong" item="vos">
+                    <input type="checkbox"  name="pro_gong[]" value="{$vos.id}" />{$vos.名称}
+                </foreach>
+                </td>
+            </tr>
+            </if>
+            <tr>
+                <td style="text-align:right;width:80px">产品编码：</td>
+                <td style="text-align:left" ><input type="text"  name="itemid" size="40" value="" /></td>
+            </tr>            
+            <tr>
+                <td style="text-align:right;width:80px">名称：</td>
+                <td style="text-align:left" ><input type="text" class="required" name="name" size="40" value="" /></td>
+            </tr>
+            <eq name="image" value="true">
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">图片：</td>
+                <td class="tLeft"  style="text-align:left" ><div>
+                    <input type="text" name="image" id="image_0"  size="40" value="" />
+                  &nbsp; <span style="height:20px;line-height:20px"><a href="__URL__/UploadPhoto:__XPATH__/id/0"  target="dialog" mask="true" width="500" height="200">上传</a></span></div>
+                    <div id="upload_panel">
+                      <ul style="clear:both;float:left">
+                      </ul>
+                    </div></td>
+            </tr>
+            </eq>
+            <!--开启显示数量，数量验证，出入库-->
+            <if condition="($stock eq true) or ($numCheck eq true) or (adminshow('prostock') eq true)">
+			<tr>
+                <td class="tRight" style="text-align:right;">数量：</td>
+                <td class="tLeft" style="text-align:left"  ><input type="text" class="required number" name="number" value="100"  size="40"/>&nbsp;<font color='red'>大于等于0</font></td>
+            </tr>
+            </if>
+            <eq name="cost" value="true">
+			<tr>
+                <td style="text-align:right;">成本价：</td>
+                <td style="text-align:left"><input type="text" class="number" name="costprice" value=""  size="40"/></td>
+            </tr>
+            </eq>
+			<tr>
+                <td class="tRight" style="text-align:right;">价格：</td>
+                <td class="tLeft"  style="text-align:left" ><input type="text" class="required number" name="price" value=""  size="40"/></td>
+            </tr>
+
+			<eq name="productPV" value="true">
+			<tr>
+                <td class="tRight" style="text-align:right;">PV值：</td>
+                <td class="tLeft"  style="text-align:left" ><input type="text" class="number" name="pv" value=""  size="40"/></td>
+            </tr>
+			</eq>
+			 <foreach name="fields" item="field">
+			<tr>
+                <td class="tRight" style="text-align:right;">{$field.name}：</td>
+                <td class="tLeft" style="text-align:left"  ><input type="text" class="number" name="{$field.name}" value=""  size="40"/>&nbsp;<font color='red'>有功能使用此价格的，请填写</font></td>
+            </tr>
+			</foreach>
+		 	<tr>
+                <td class="tRight" style="text-align:right;">重量：</td>
+                <td class="tLeft"  style="text-align:left" ><input type="text" class="number" name="wight" value=""  size="40"/>&nbsp;KG</td>
+            </tr>
+            <tr>
+                <td class="tRight" style="text-align:right;">规格：</td>
+                <td class="tLeft"  style="text-align:left" ><input type="text" class="text" name="guige" value=""  size="40"/>&nbsp;个/箱/件/套/(5瓶/件)等</td>
+            </tr>
+                <tr>
+				  <td class="right">状态：</td>
+				  <td class="left">
+				    <select class="required combox"  name="status">
+                        <option value="使用">上架</option>
+                        <option  value="不使用">下架</option>
+			      </select>
+				  </td>
+			  </tr>
+            <tr>
+                <td class="tRight" style="text-align:right;">描述：</td>
+                <td class="tLeft" style="text-align:left"  >
+                <textarea id="description11232" name="description" style="width:700px;height:300px;"></textarea>
+           </td>
+            </tr>
+        </table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" name='submitnext'>确认并继续添加</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" >确认</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+	
+</div>
+<script type="text/javascript">
+//指定当前组模块URL地址 
+var URL = '__URL__';
+$(function(){
+KindEditor.create($("#description11232",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+})
+//图片上传
+function upload()
+{
+	$.pdialog.open(URL+'/UploadPhoto:__XPATH__','UploadPhoto', "产品图片添加",{width:'500',height:'150',mask:true,mixable:true,minable:true,resizable:true,drawable:true,fresh:true});
+}
+//删除这个图片上传
+function delete_upload()
+{
+	$('#upload_li_0', navTab.getCurrentPanel()).remove();
+}
+</script>

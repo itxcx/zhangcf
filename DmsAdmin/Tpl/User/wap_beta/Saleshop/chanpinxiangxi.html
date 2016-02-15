@@ -1,0 +1,52 @@
+<php>
+$nowtitle = $product['名称'].'产品详情';
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form name="form1" method="post" action="__GROUP__/Saleshop/buygouwu:__XPATH__" id="form">
+        <table class="table" id="table1">
+            <tr>
+                <td class="productimg" colspan="2">
+                    <img src="{$product.图片}">
+                </td>
+            </tr>
+            <tr>
+                <td class="tbkey" >产品描述：</td>
+                <td class="tbval" > <p style=" text-indent:2em;letter-spacing:2px;font-size:13px;padding:6px;color:#006DCC"><if condition="$product['描述']">{$product.描述}<else />暂无</if></p></td>
+            </tr>
+            <tr>
+                <td class="tbkey" >零售价：</td>
+                <td class="tbval" ><php>echo $product[$sale->productMoney];</php></td>
+            </tr>
+            <eq name="sale:productPV" value="true">
+            <tr>
+                <td class="tbkey" >PV：</td>
+                <td class="tbval" >{$product.PV}</td>
+            </tr>
+            </eq>
+            <tr>
+                <td class="tbkey" >可订购库存：</td>
+                <td class="tbval" >{$product['可订购数量']}</td>
+            </tr>
+            <tr>
+                <td class="tbkey" >购买数量：</td>
+                <td class="tbval" >
+                    <input type="text" name="buynum" id="shuliang"style="width:50px" value="1">&nbsp;件</td>
+            </tr>
+        </table>
+        <input type="hidden" name="proid" value="{$product.id}" />
+        <div class="content-box margin-t-2">
+            <button class="btn btn-default btn-half float-left" type="submit">加入购物车</button>
+            <button class="btn btn-default btn-half float-right" type="button" onclick="back();">返回</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function back(){
+        location.href='__GROUP__/Saleshop/buy_shop:__XPATH__';
+    }
+</script>
+
+<include file="Public:footer" />
+

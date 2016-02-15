@@ -1,0 +1,61 @@
+body {
+    background: center top no-repeat #154A7B;
+    margin: 0 auto;
+    font-family: "微软雅黑";
+}
+.content {
+    width: 760px;
+    margin: 100px auto 0;
+}
+.logo {
+    width: 400px;
+    height: 95px;
+    margin: 6px auto;
+    font-size: 36px;
+    line-height: 95px;
+    font-weight: 400;
+    color: #ffffff;
+}
+.name {
+    width: 80px;
+    font-family: "微软雅黑";
+    font-size: 18px;
+    color: #FFFFFF;
+    float: left;
+    margin: 0 0 0 10px;
+}
+label {
+    float: left;
+    margin: 0 10px 0 10px;
+    width: 200px;
+}
+.input_name {
+    width: 200px;
+    height: 30px;
+    background: #FFFFFF;
+    border: none;
+    line-height: 30px;
+}
+.btn {
+    background: url(../images/login.jpg);
+    height: 37px;
+    width: 96px;
+    border: none;
+    cursor: pointer;
+}
+.con_left {
+    float: left;
+    width: 650px;
+    margin-left: 80px;
+}
+.con_right {
+    float: right;
+    width: 100px;
+    margin-right: 40px;
+}
+#nologin {
+    position: relative;
+    top: -8px;
+    font-size: 14px;
+    color: #fff;
+}

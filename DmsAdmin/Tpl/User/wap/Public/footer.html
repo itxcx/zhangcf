@@ -1,0 +1,70 @@
+<notempty name="menu"> 
+<nav id="index">
+                <ul>
+                    <li><a href="__GROUP__/User/view">
+                        <img src="__TMPL__Public/images/newpage7.png">
+                        <span>{:L('资料管理')}</span>
+                    </a></li>
+                    <if condition="$bank2">
+                    <li><a href="__GROUP__/Fun_bank/index:{$path2}">
+                        <img src="__TMPL__Public/images/newpage15.png">
+                        <span>{:L($bankname2)}{:L('明细')}</span>
+                    </a></li>
+                    </if>
+                    <if condition="$bank1">
+                    <li><a href="__GROUP__/Fun_bank/index:{$path1}">
+                        <img src="__TMPL__Public/images/newpage14.png">
+                        <span>{:L($bankname1)}{:L('明细')}</span>
+                    </a></li>
+                    </if>
+                    <li><a href="__GROUP__/Mail/index/args/">
+                        <img src="__TMPL__Public/images/newpage16.png">
+                        <span>{:L('邮件查询')}</span>
+                    </a></li>
+                    <li><a href="__GROUP__/Tle/index:tle">
+                        <img src="__TMPL__Public/images/newpage17.png">
+                        <span>{:L('销售奖金')}</span>
+                    </a></li>
+                    <li><a href="__GROUP__/Fun_bank/rem">
+                        <img src="__TMPL__Public/images/newpage12.png">
+                        <span>{:L('汇款通知')}</span>
+                    </a></li>
+                    <div class="clear"></div>
+                </ul>
+            </nav>
+            <php>$navi=1;</php>
+            <foreach name="menu" item="thismenu" key='thiskey'>
+            <nav id='cd{$navi}' style='display:none;' >
+                <ul>
+                    <foreach name="thismenu" item="nowmenu" key='nowkey'>
+	                    <if condition="!$userMenuPower or in_array($nowmenu['model'].'-'.$nowmenu['action'],$userMenuPower)">
+		                    <if condition="$nowmenu.pin neq 'tglj' and $nowmenu.pin neq 'tgljsh'">
+			                    <li><a href='__GROUP__/{$nowmenu.model}/{$nowmenu.action}'>
+			                    	<php>$nowmenu['action']=str_replace(':','_',$nowmenu['action']);</php>
+			                        <img src='__TMPL__Public/images/{$nowmenu.model}_{$nowmenu.action}.png'>
+			                        <span>{:L($nowmenu['title'])}</span>
+			                    </a></li>
+		                    </if>
+	                    </if>
+                    </foreach>
+                    <div class="clear"></div>
+                </ul>
+            </nav>
+            <php>$navi++;</php>
+            </foreach>
+        </article>
+        <footer id="footer">
+            <nav>
+                <ul>
+                    <li><a href="javascript:showNav('1')">{:L('资料')}</a></li>
+                    <li><a href="javascript:showNav('2')">{:L('业务')}</a></li>
+                    <li><a href="javascript:showNav('4')">{:L('财务')}</a></li>
+                    <li><a href="javascript:showNav('5')">{:L('信息')}</a></li>
+                </ul>
+            </nav>
+        </footer>
+</notempty>
+    </div>
+</body>
+</html>
+

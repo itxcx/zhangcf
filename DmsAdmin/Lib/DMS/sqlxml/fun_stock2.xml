@@ -1,0 +1,80 @@
+<table name='会员' >
+	<field name='{$this->name}' type="numeric(13,2)" default="0"/>
+</table>
+<table name='{$this->name}设置'  engine="InnoDB">
+	<field name="id"         type="int(11)"       auto_increment="1" primary="1" />
+	<field name='交易量'     type="decimal(12)"   default="0"/>
+	<field name='涨价额'     type="decimal(12)"   default="0"/>
+	<field name='涨价幅度'   type="decimal(10,4)" default="0.001"/>
+	<field name='当前价格'   type="decimal(10,4)" default="0.100"/>
+	<field name='交易量结转' type="decimal(12)"   default="0"/>
+	<field name='stockAllNum'  type="decimal(12,0)" default="0"/>
+</table>
+<table name='{$this->name}流水' comment="股票变动明细表"  engine="InnoDB">
+	<field name="id"       type="int(11)"        auto_increment="1" primary="1" />
+	<field name='编号'     type="varchar(50)"     default=""/>
+	<field name='num'      type="int(11)"         default="0"/>
+	<field name='price'    type="decimal(15,4)"   default="0"/>
+	<field name='addtime'  type="varchar(15)"     default=""/>
+	<field name='memo'     type="text" />
+	<field name="tleid"   type="integer" default="0"/>
+	<field name="dataid"   type="integer" default="0"/>
+	<field name='type'     type="tinyint(3)"  default="2"  comment="是否回购"/>
+</table>
+
+<table name='{$this->name}持有' comment="股票数量变动明细"  engine="InnoDB">
+	<field name="id"       type="int(11)"        auto_increment="1" primary="1" />
+	<field name='编号'     type="varchar(50)"     default=""/>
+	<field name='num'      type="int(11)"         default="0"/>
+	<field name='nownum'   type="int(11)"        comment="拆分之后的数量" default="0"/>
+	<field name='price'    type="decimal(15,4)"  comment="买入时股票价格" default="0"/>
+	<field name='addtime'  type="varchar(15)"     default=""/>
+	<field name='memo'     type="text"        />
+	<field name='splitnum' type="tinyint(3)"  default="0"/>
+	<field name='isSell'    type="tinyint(3)"  default="0"  comment="是否回购"/>
+</table>
+
+<table name='{$this->name}拆股'  engine="InnoDB">
+	<field name="id"            type="int(11)" auto_increment="1" primary="1" />
+	<field name='price'         type="decimal(15,4)" default="0"/>
+	<field name='price1'        type="decimal(15,4)" default="0"/>
+	<field name='addtime'       type="varchar(15)"  default=""/>
+	<field name='拆分增加'  type="decimal(12)" default="0"/>
+	<field name='memo'       type="varchar(100)"  default=""/>
+</table>
+<table name='{$this->name}走势'  engine="InnoDB">
+	<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+	<field name='价格'  type="decimal(15,4)" default="0"/>
+	<field name='成交量'  type="decimal(13,2)" default="0"/>
+	<field name='认购量'  type="decimal(13,2)" default="0"/>
+	<field name='成交金额'  type="decimal(15,4)" default="0"/>
+	<field name='计算日期'  type="varchar(15)"  default=""/>
+</table>
+<table name='{$this->name}交易'  engine="InnoDB">
+	<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+	<field name='价格'      type="decimal(15,4)" default="0"/>
+	<field name='编号'      type="varchar(50)" default="0"/>
+	<field name='挂单量'    type="decimal(13,2)" default="0"/>
+	<field name='交易量'    type="decimal(13,2)" default="0"/>
+	<field name='剩余量'    type="decimal(13,2)" default="0"/>
+	<field name='类型'      type="varchar(15)"    default=""/>
+	<field name='时间'      type="varchar(15)" default=""/>
+</table>
+<table name='{$this->name}交易明细'  engine="InnoDB">
+	<field name="id"        type="int(11)" auto_increment="1" primary="1" />
+	<field name='pid'       type="int(11)" default="0"/>
+	<field name='数量'      type="decimal(15,4)" default="0"/>
+	<field name='编号'      type="varchar(15)" default=""/>
+	<field name='时间'      type="varchar(15)" default=""/>
+</table>
+<table name='{$this->name}价格变更明细' comment="股票变动明细表"  engine="InnoDB">
+	<field name="id"       type="int(11)"        auto_increment="1" primary="1" />
+	<field name='编号'     type="varchar(50)"     default=""/>
+	<field name='num'      type="int(11)"        default="0" />
+	<field name='price'    type="decimal(15,4)"   default="0"/>
+	<field name='addtime'  type="varchar(15)"     default=""/>
+	<field name='memo'     type="text"           />
+	<field name="tleid"   type="integer" default="0"/>
+	<field name="dataid"   type="integer" default="0"/>
+	<field name='type'     type="tinyint(3)"  default="2"  comment="是否回购"/>
+</table>

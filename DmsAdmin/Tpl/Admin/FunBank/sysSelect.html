@@ -1,0 +1,106 @@
+<form action="__URL__/syshk:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+
+<table class="list" style="width:600px">
+
+
+   <thead>
+    <tr>
+     <th  colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台汇款数据设置</th>
+    </tr>
+ </thead>
+ <tbody>
+  <tr>
+	<td width="100px">项目:</td>
+	<td width="100px">前台可见项:</td>
+	<td width="100px">前台必选项:</td>
+	<td width="100px"></td>
+    </tr>
+    </tr>
+	<tr>
+	<td>汇入账户:</td>
+	<td id="che"><input class="inp1"    type="checkbox" name="show[]" value="show_hrzh" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_hrzh2" ></td>
+	<td><input type="checkbox" class="" name="select_hrzh" value="select_hrzh" ></td>
+	</tr><tr>
+	<td>开户银行	:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_khyh" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_khyh2" ></td>
+	</tr><tr>
+	<td>银行卡号:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_yhkh" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_yhkh2" ></td>
+	</tr><tr>
+	<td>开户名:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_khh" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_khh2" ></td>
+	</tr><tr>
+	<td>汇款金额:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_hkje" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_hkje2" ></td>
+	</tr><tr>
+	<td>汇款时间:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_hksj" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_hksj2" ></td>
+	</tr><tr>
+	<td>备注:</td>
+	<td id="che"><input class="inp1" type="checkbox" name="show[]" value="show_bz" checked="checked"></td>
+	<td><input type="checkbox" class="" name="requrie[]" value="requrie_bz2" ></td>
+	</tr>
+
+	
+</table>
+<table class="list" style="width:600px; margin-top:10px;" >
+<tr><td><td></tr>
+<tr><td colspan="4" style=" text-align:left;padding-left:30px; ">选择汇款进入钱包类型</td></tr>
+<tr>
+	<td style=" text-align:left; padding-left:30px; ">	
+		
+		<dl>
+			<dt style="width:150px;text-align:left"><label><input type="radio" name="addMoney" value="0" <eq name="USER_REMIT_INBANK" value="0">checked</eq>>汇款不进入钱包</label></dt>
+		</dl>
+		<foreach name="bank" item="vo">
+		<dl>
+			<dt style="width:150px;text-align:left"><label><input type="radio" name="addMoney" value="{$vo}" <eq name="USER_REMIT_INBANK" value="$vo">checked</eq>>汇款进入{$vo}</label></dt>
+	</dl></foreach></td>
+</tr>
+<tr>
+ <td colspan="4" style="vertical-align: middle;" >
+   <div class="buttonActive" style="margin-left:290px;">
+          <div class="buttonContent" >
+            <button type="submit">确定</button>
+          </div>
+    </div>
+ </td>
+  </tr> 
+ 
+   
+</table>
+</div>
+<script>
+$(".inp1").each(function(j,m){
+	if(this.checked){
+	}else{
+	  var name=this.name;
+	  var my=this;
+	  $("."+name).each(function(i,n){
+	  if(my.checked){
+			$(this).attr('disabled',false);
+		}else{
+			$(this).attr('disabled',true);
+		}   });
+	  }
+});
+$(".inp1").click(function(){
+	var my=this;
+	var name=$(this).attr('name');
+	$("."+name).each(function(i,n){
+		if(my.checked){
+			$(this).attr('disabled',false);
+		}else{
+			$(this).attr('disabled',true);
+		}   
+	})
+	});
+</script>
+</form>

@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<div class="section">
+    <div class="base-info">
+        <h3 class="h3">基本信息</h3>
+        <ul class="ul-left">
+            <li class="infokey">{:L('user1_name_serial')}：</li>	
+            <li class="infoval">{$userinfo.编号}</li>	
+            <li class="infokey">{:L('name')}：</li>	
+            <li class="infoval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>
+            <foreach name="userlevel" item="lv" key="key">
+            <li class="infokey">{$key}：</li>	
+            <li class="infoval">{$lv.byname}</li>
+            </foreach>	    
+            <li class="infokey">{:L('join_date')}：</li>	
+            <li class="infoval">{$userinfo.注册日期|date='Y-m-d',###}</li>
+        </ul>
+        <ul class="ul-right">
+            <foreach name="funbank" item="fun_bank" key="key">
+            <li class="infokey">{$fun_bank.name}：</li>	
+            <li class="infoval">{$fun_bank.num}</li>
+            </foreach>	
+        </ul>
+    </div>
+    <php>       
+    //邮件
+    $list = new TableListAction('邮件');
+    $list ->field('id,标题,收件人,发送时间')->where(array(收件人=>$userinfo[编号]))->order("发送时间 desc");;
+    $list->pagenum = 5;
+    $datam = $list->getData();
+    </php>
+    <table class="notice-mail">
+        <tr>
+            <th class="th" colspan="2"><span>最新邮件</span></th>
+        </tr>
+        <foreach name="datam.list" item="name">
+        <tr>
+            <td class="tdtit"><a href="__GROUP__/Mail/view/id/{$name.id}">{$name.标题}</a></td>
+            <td class="tddate"><span class="date">{:date('Y-m-d',$name['发送时间'])}</span></td>
+        </tr>
+        </foreach>
+    </table>
+</div>
+<include file="Public:footer" />

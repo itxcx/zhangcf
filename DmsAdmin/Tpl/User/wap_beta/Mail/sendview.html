@@ -1,0 +1,31 @@
+<php>
+$nowtitle = "当前位置&gt;&gt;查看邮件";
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <article class="article">
+        <header>
+            <h1 class="title">{$list.标题}</h1>
+            <h2 class="author">　发件人：{$list.发件人}</h2>
+            <h3 class="date">发件时间：{$list.发送时间|date="Y-m-d H:i:s",###}</h3>
+        </header>
+        <div class="content">
+            {$list.内容}
+        </div>
+        <eq name="list.状态" value="2">
+        <hr class="article-hr">
+        <header>
+            <h1 class="title">回复内容</h1>
+            <h3 class="date">{:L('response_time')}：{$list.回复时间|date="Y-m-d H:i:s",###}</h3>
+        </header>
+        <div class="content">
+            {$list.回复内容}
+        </div>
+        </eq>
+    </article>
+    <div class="content-box margin-t-4">
+        <button class="btn btn-default js-goback">返　回</button>
+    </div>
+</div>
+<include file="Public:footer" />
+

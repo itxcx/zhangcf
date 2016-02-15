@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'name', 2 => 'group', 3 => 'title', 4 => 'args', 5 => 'remark', 6 => 'sort', 7 => 'pid', 8 => 'level', 9 => 'status', 10 => 'is_sync_node', 11 => 'is_sync_menu', 12 => 'is_quick_search', 13 => 'type', 14 => 'parent', 15 => 'setParent', '_autoinc' => true, '_pk' => 'id', ); ?>

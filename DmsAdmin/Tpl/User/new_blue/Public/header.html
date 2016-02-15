@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" type="text/css" href="__TMPL__Public/style/style.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__Public/style/view.css" />
+    <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+    <script src="__TMPL__Public/js/basic.js" type="text/javascript"></script>
+    <script src="/Public/Js/transfer.js"></script> 
+</head>
+<body>
+    <div class="header">
+        <div class="header-top center">
+            <div class="logo">
+                <a href="__GROUP__/Index/index">
+                    <!--<img src="#" alt="公司标题">-->
+                    <h1>{$SYSTEM_COMPANY}</h1>
+                </a>
+            </div>
+            <div class="top-right">
+                <a href="__GROUP__/Public/logout">安全退出</a>
+            </div>
+        </div>
+        <div class="header-bottom center"></div>
+        <div class="header-nav">
+            <ul class="nav-list center">
+                <li><a href="__GROUP__/Index/index" class="nav-key">系统首页</a></li>
+                <foreach name="menu" item="vo" key="key">
+                <li><a class="nav-key">{$key}</a>
+                <ul class="nav-li">
+                    <foreach name="vo" item="val">
+                    <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                    <li>
+                    <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}">{$val.title}</a>
+                    </li>
+                    </if>
+                    </foreach>
+                    <div class="clear"></div>
+                    </ul>
+                </li>
+                </foreach>
+            <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-main center">
+            <div class="main-top">
+                <span class="part-tit">系统公告</span>
+                <foreach name="nownotice" item="vo">
+                <a href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a>
+                </foreach>
+            </div>
+

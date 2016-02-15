@@ -1,0 +1,101 @@
+<script>
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload();
+		//navTab.reload(); //刷新节点管理
+		//$.pdialog.closeCurrent(); //关闭添加节点对话框
+	}
+}
+
+</script>
+<form action="__URL__/saveconfig:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<div layoutH="0">
+<table class="list" style="width:600px">
+
+<thead>
+   <tr>
+   <th colspan="2" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;货币交易设置</th>
+   </tr>
+   </thead> 
+   <tr>
+   <td width="20%" align="right">出售比例</td>
+   <td style="text-align:left;"><input name="eqScale" value="{$eqScale}" size="7">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;<font color='red'>1货币以多少价格倍数朝外出售，默认为1(原价出售)</font></td>
+   </tr>
+   <tr>
+   <td width="20%" align="right">交易费</td>
+   <td style="text-align:left;"><input name="eqCost" value="{$eqCost}" size="7">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;<font color='red'>卖家交易费（小于1时按出售量*这个数值；大于1以上按固定值）</font></td>
+   </tr>
+   <tr>
+   <td width="20%" align="right">买卖涨幅</td>
+   <td style="text-align:left;"><input name="eqRise" value="{$eqRise}" size="7">%&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;<font color='red'>0代表不涨，如果设置此项，会员前台将开启自己出价功能</font></td>
+   </tr>
+   <tr>
+   <td width="20%" align="right">买卖跌幅</td>
+   <td style="text-align:left;"><input name="eqDrop" value="{$eqDrop}" size="7">%&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;<font color='red'>0代表不跌，如果设置此项，会员前台将开启自己出价功能</font></td>
+   </tr>
+   <tr>
+   <td>出售数量倍数</td>
+   <td style="text-align:left;"><input name="eqMultiple" value="{$eqMultiple}" size="7">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />;&nbsp;<font color='red'>的整数倍</font></td>
+   </tr>
+   <tr>
+   <td>最低出售额度</td>
+   <td style="text-align:left;"><input name="eqLow" value="{$eqLow}" size="7">&nbsp;&nbsp;&nbsp;<font color='red'>0代表不限制</font></td>
+   </tr>
+   <tr>
+   <td>最高出售额度</td>
+   <td style="text-align:left;"><input name="eqHigh" value="{$eqHigh}" size="7">&nbsp;&nbsp;&nbsp;<font color='red'>0代表不限制</font></td>
+   </tr>
+
+   <tr>
+   <td>最多卖出记录</td>
+   <td style="text-align:left;"><input name="eqSellnum" value="{$eqSellnum}" size="7">&nbsp;&nbsp;&nbsp;<font color='red'>最多可卖出未成交记录，0代表不限制</font></td>
+   </tr>
+    <thead>
+  <tr>
+   <th colspan="2" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;交易配置</th>
+   </tr>
+   </thead>
+    <tr>
+   <td>出售信息填写</td>
+   <td style="text-align:left;"><input name="eqSellInput" type="checkbox" value="true" <if condition="$eqSellInput eq true">checked</if>>开启&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;选中后，出售时将出现账户信息填写，如未选中，默认会员资料</td>
+   </tr>
+   <tr>
+   <td>出售信息验证</td>
+   <td style="text-align:left;"><input name="eqSellInputChk" type="checkbox" value="true" <if condition="$eqSellInputChk eq true">checked</if>>开启&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;如“出售信息填写”未选中，出售时验证会员资料账户信息</td>
+   </tr>
+
+  <!--  <tr>
+   <td>汇款后自动确认</td>
+   <td style="text-align:left;"><input name="eqAutoOk" type="checkbox" value="true" <if condition="$eqAutoOk eq true">checked</if>>开启</td>
+   </tr>
+   <tr>
+   <td>汇款后自动确认时间</td>
+   <td style="text-align:left;"><input name="eqAutoTime" type="text" value="{$eqAutoTime}" size="7">小时</td>
+   </tr>
+   <tr>
+   <td>购买后自动中止时间</td>
+   <td style="text-align:left;"><input name="eqRemTime" type="text" value="{$eqRemTime}" size="7">小时</td>
+   </tr>
+    <tr>
+   <td>购买后手动中止时间</td>
+   <td style="text-align:left;"><input name="eqBuyEndTime" type="text" value="{$eqBuyEndTime}" size="7">小时</td>
+   </tr>
+    <tr>
+   <td>汇款后手动中止时间</td>
+   <td style="text-align:left;"><input name="eqTrmedEndTime" type="text" value="{$eqTrmedEndTime}" size="7">小时</td>
+   </tr>-->
+ <td colspan="2" style="vertical-align: middle;" >
+   <div class="buttonActive" style="margin-left:290px;">
+          <div class="buttonContent" >
+            <button type="submit">确定</button>
+          </div>
+    </div>
+ </td>
+  </tr> 
+</table>
+</div>
+</form>

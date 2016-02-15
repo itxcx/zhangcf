@@ -1,0 +1,36 @@
+<script language="JavaScript">
+
+/**
+* dialog上的表单提交回调函数
+* 服务器转回navTabId，可以重新载入指定的navTab. statusCode=DWZ.statusCode.ok表示操作成功, 自动关闭当前dialog
+* 
+* form提交后返回json数据结构,json格式和navTabAjaxDone一致
+*/
+function query()
+{
+	var sql	= $('#sql').val();
+	navTab.reload('__URL__/querysql/sql/'+sql);
+	$.pdialog.closeCurrent(); 
+}
+
+</script>
+<div class="pageContent">
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>输入SQL语句：</th>
+					<td>
+						<textarea name="sql" id="sql" value="" cols="70" rows="15"> 
+						</textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button  type="button" onclick="query()">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	
+</div>

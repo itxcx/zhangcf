@@ -1,0 +1,68 @@
+<include file="Public:header" />
+    <div class="main-bottom">
+        <div class="main-bottom-left">
+            <h2 class="cont-tit">基本资料</h2>
+            <table width="240" class="tab-type-a">
+                <tr class="ds-bgcolor">
+                    <th>用户编号</th>
+                    <td><p class="tit-color">{$userinfo.编号}</p></td>
+                </tr>
+                <tr>
+                    <th>用户姓名</th>
+                    <td><p class="tit-color">{$userinfo.姓名}</p></td>
+                </tr>
+                <foreach name="funbank" item="fun_bank" key="key">
+                <tr>
+                    <th>{$fun_bank.name}</th>
+                    <td><p class="tit-color">{$fun_bank.num}</p></td>
+                </tr>
+                </foreach>
+                <foreach name="userlevel" item="lv" key="key">
+                <tr>	
+                    <th>{$key}</th>
+                    <td><p class="tit-color">{$lv.byname}</p></td>
+                </tr>
+                </foreach>
+
+                <tr class="ds-bgcolor">
+                    <th>注册日期</th>
+                    <td>{:date('Y-m-d',$userinfo['注册日期'])}</td>
+                </tr>
+                <tr>
+                    <th>确认日期</th>
+                    <td><if condition="$userinfo['审核日期'] gt 0">{:date('Y-m-d',$userinfo['审核日期'])}</if></td>
+                </tr>
+                <if condition="isset($SERVICE_QQ) and count($SERVICE_QQ) gt 0">
+                <tr>     
+                    <td colspan="2">
+                        <foreach name="SERVICE_QQ" item="v">
+                        <div style="text-align:CENTER; padding:5px">       
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v}&site=qq&menu=yes"><img src="/Public/Images/SERVICE_QQ.gif" border="0" alt="点击咨询" title="点击咨询"></a></div>
+                        </foreach>
+                    </td>
+                </tr>
+                </if>
+            </table>
+        </div>
+        <div class="main-bottom-right">
+            <h2 class="cont-tit">最新公告</h2>
+            <div class="mail-list-type-a">
+                <ul>
+                    <php>
+                    $list = new TableListAction('公告');
+                    $list->field('id,标题,创建时间')->where('')->order("id desc");
+                    $list->pagenum = 8;
+                    $data = $list->getData();
+                    </php>
+                    <foreach name="data.list" item="name">
+                    <li>
+                    <!--  <input type="checkbox" />  -->
+                    <a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a><span class="date">{:date('Y-m-d',$name['创建时间'])}</span></li>
+                    </foreach>
+                </ul>
+            </div>
+            <br>
+        </div>
+        <div class="clear"></div>
+    </div>
+<include file="Public:footer" />

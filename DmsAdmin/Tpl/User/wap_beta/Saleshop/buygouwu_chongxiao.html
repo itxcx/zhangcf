@@ -1,0 +1,169 @@
+<php>
+$nowtitle = '当前位置：确认支付';
+</php>
+<include file="Public:header" />
+<script src="__PUBLIC__/directSell/area_select.js" type="text/javascript"></script>
+<if condition="$logistic eq true"><script language="javascript" src="__PUBLIC__/js/cal.js"></script></if>
+<div id="view" class="content-box">
+    <form name="form1" method="post" action="__GROUP__/Saleshop/buySave:__XPATH__" id="form">
+        <div class="content-box pay-info">
+            <table class="pay-table">
+                <tr>
+                    <td class="paykey">购物金额：</td>
+                    <td class="payval">￥{$buymoneys}</td>
+                </tr>
+
+                <if condition="$discount lt 1">
+                <tr>
+                    <td class="paykey">折扣：</td>
+                    <td class="payval">&nbsp;{$discount*10}&nbsp;折</td>
+                </tr>
+                <tr>
+                    <td class="paykey">折后总价：</td>
+                    <td class="payval">￥{$all_price}</td>
+                </tr>
+                </if>
+
+                <if condition="$sale:productPV eq true">
+                <tr>
+                    <td class="paykey">总PV：</td>
+                    <td class="payval">￥{$all_price}</td>
+                </tr>
+                </if>
+
+                <if condition="$sale:accBank neq ''">
+                <foreach name="banks" item="bank">
+                <tr>
+                    <td class="paykey">现有{$bank:byname}余额：</td>
+                    <td class="payval">￥{$userinfo[$bank:name]}</td>
+                </tr>
+                </foreach>
+                </if>
+
+                <if condition="$logistic eq true">
+                <tr>
+                    <td class="paykey">总重量：</td>
+                    <td class="payval">{$all_zongliang}kg</td>
+                </tr>
+                <tr>
+                    <td class="paykey">物流费：</td>
+                    <td class="payval">￥0.00</td>
+                </tr>
+                </if>
+
+                <tr class="total">
+                    <td class="paykey">共需支付：</td>
+                    <td class="payval">￥{$all_price}</td>
+                </tr>
+            </table>
+        </div>
+        <if condition="$sale:extra eq true">
+        <table class="table margin-t-1" id="table2">
+            <tr>
+                <td colspan="2"><strong>&nbsp;物流信息</strong></TD>
+            </tr>
+            <if condition="adminshow('sale_sendtype') eq true">
+            <td class="tbkey" >发货方式：</td>
+            <td class="tbval" >
+                <select name="sendtype">
+                    <option value="物流发货">物流发货</option>
+                    <option value="公司自提">公司自提</option>
+                    <option value="专卖店自提">专卖店自提</option>
+                </select>
+            </td>
+            </if>
+            <tr>
+                <td class="tbkey">国家：</td>
+                <td class="tbval">
+                    <select name="country" id="country_id" class="select" data-role="none">
+                        <option value="">请选择</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tbkey">省份：</td>
+                <td class="tbval">
+                    <select name="province" id="province_id" class="select" data-role="none" <if condition="$logistic eq true">onchange="user_getTotalzf('{$sale:name}')"</if>>
+                        <option value="">请选择省</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tbkey">城市：</td>
+                <td class="tbval">
+                    <select name="city" id="city_id" class="select" data-role="none">
+                        <option value="">请选择城市</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tbkey">区县：</td>
+                <td class="tbval"><select name="county" id="county_id" class="select" data-role="none" >
+                        <option>请选择</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tbkey">街道：</td>
+                <td>
+                    <select name="town" id="town_id" class="select" data-role="none" >
+                        <option>请选择街道</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="tbkey"><span><span class="msg">*</span>收货人：</span></td>
+                <td class="tbval"><input name="reciver" id="reciver" class="input" type="text" value="{$userinfo.收货人}"> </TD>
+
+            </tr>
+            <tr>
+                <td class="tbkey"><span><span class="msg">*</span>联系电话：</span></td>
+                <td class="tbval"><input name="mobile" id="mobile" class="input" type="text" value="{$userinfo.移动电话}"></td>
+
+            </tr>
+            <tr>
+                <td class="tbkey"><span><span class="msg">*路况信息及门牌号等</span>收货地址：</span></td>
+                <td class="tbval"><input name="address" id="address" class="input" type="text" value="{$userinfo.地址}"></td>
+
+            </tr>
+            <notempty name="shop">
+            <tr>
+                <td class="tbkey"><span><span id="state_shop">*</span>{$shop}：</span></td>
+                <td class="tbval"><input type="text" value="{$userinfo['服务中心编号']}" name="shop" id="shop" class="input"></td>
+            </tr>
+            </notempty>
+            <tr>
+                <td colspan=2><textarea name="beizhu" class="textarea" placeholder="&para;&nbsp;备注..."></textarea></td>
+            </tr>
+        </table>
+        </if>
+
+        <div class="content-box margin-t-1 text-align-center">
+            <button class="btn btn-default btn-third btn-small" type="button" onclick="back()">返回</button>
+            <button class="btn btn-default btn-third btn-small" type="reset">重置</button>
+            <button class="btn btn-default btn-third btn-small" type="submit" name="subbut" id="subbut" onclick="tijiao()">确认支付</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript"> 
+    function back(){
+        path='';
+        location.href='__GROUP__/Saleshop/chongxiao_gouwuche:__XPATH__';
+    }
+function tijiao(){
+    $('#form').submit();
+}
+
+$.area_default_show = true; //显示默认区域
+$.area_default_country="{$userinfo['国家']}";
+$.area_default_province="{$userinfo['省份']}";
+$.area_default_city="{$userinfo['城市']}";
+$.area_default_county="{$userinfo['地区']}";
+$.area_default_town="{$userinfo['街道']}";
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id' );
+</script>
+<include file="Public:footer" />
+

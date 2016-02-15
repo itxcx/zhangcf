@@ -1,0 +1,32 @@
+<form method="post" action="__URL__/authorize" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<input type="hidden" name="submit" value="1" />
+<input type="hidden" name="role_id" value="{$roleInfo.id}" />
+<p style="margin:10px">选定的管理员组: <span style="color:blue">{$roleInfo.name}</span></p>
+<div id="authorize" style="float:left; display:block; margin:10px; overflow:auto; width:370px; height:450px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+	<ul class="tree treeCheck expand">
+		<foreach name="treeList" item="app">
+		<li>
+			<a tname="node[]" tvalue="{$app.id}_{$app.pid}_{$app.level}" <if condition="(in_array($app['id'],$accessList))">checked</if>>{$app.title}</a>
+			<ul>
+				<foreach name="app['childs']" item="module">
+				<li>
+					<a tname="node[]" tvalue="{$module.id}_{$module.pid}_{$module.level}" <if condition="(in_array($module['id'],$accessList))">checked</if>>{$module.title}</a>
+					<ul>
+					<foreach name="module['childs']" item="action">
+					<li><a tname="node[]" tvalue="{$action.id}_{$action.pid}_{$action.level}" <if condition="(in_array($action['id'],$accessList))">checked</if>>{$action.title}</a></li>
+					</foreach>
+					</ul>
+				</li>
+				</foreach>
+			</ul>
+		</li>
+		</foreach>
+	</ul>
+</div>
+<div class="formBar">
+	<ul>
+		<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+		<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+	</ul>
+</div>
+</form>

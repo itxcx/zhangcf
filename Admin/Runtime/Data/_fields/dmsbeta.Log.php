@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'admin_id', 2 => 'user_id', 3 => 'user_type', 4 => 'target_user_id', 5 => 'target_user_type', 6 => 'application', 7 => 'group', 8 => 'module', 9 => 'action', 10 => 'content', 11 => 'old_data', 12 => 'new_data', 13 => 'post_data', 14 => 'get_data', 15 => 'ip', 16 => 'address', 17 => 'memo', 18 => 'create_time', '_autoinc' => true, '_pk' => 'id', ); ?>

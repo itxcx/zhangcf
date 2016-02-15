@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/iconfont.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.click').removeClass('click');
+                            $('.navlist' + i).addClass('click');
+                            $('.click').find('.navul').show();
+                        }
+                    }
+                }
+
+
+                //
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('click');
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="left-content">
+            <div class="header">
+                <!--<span class="logo">{$SYSTEM_COMPANY}</span>-->
+                <span class="logo1">企业信息管理系统</span>
+                <br>
+                <span class="logo2">INFORMATION MANAGEMENT SYSTEM</span>
+            </div>
+            <div class="left-nav">
+                <div class="navlist navlist1">
+                    <a class="key" href="__GROUP__/Index/index">
+                        <div class="icons">
+                            <i class="icon iconfont">&#xe602;</i>
+                        </div>
+                        <div class="tits">
+                            <span class="tits1">首页</span>
+                            <br>
+                            <span class="tits2">Home</span>
+                        </div>
+                    </a>
+                </div>
+                <php>
+                $p=2;
+                $ar=0;
+                $aren=0;
+                $arr=array('&#xe604;','&#xe606;','&#xe605;','&#xe601;','&#xe608;','&#xe603;','&#xe607;','&#xe600;');
+                $arren=array('Data management','Business administration','Network management','Financial management', 'Information management','现加')
+                </php>
+                <foreach name="menu" item="vo" key="key">
+                <div class="navlist navlist{$p++}">
+                    <a class="key">
+                        <div class="icons">
+                            <i class="icon iconfont">{$arr[$ar++]}</i>
+                        </div>
+                        <div class="tits">
+                            <span class="tits1">{$key}</span>
+                            <br>
+                            <if condition="isset($arren[$aren++])">
+                            <span class="tits2">{$arren[$aren++]}</span>
+                            </if>
+                        </div>
+                    </a>
+                    <ul class="navul">
+                        <foreach name="vo" item="val">
+                        <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                        <li>
+                        <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}" >
+                            <span class="dot-tit"><b class="dot">●</b>{$val.title}</span>
+                        </a>
+                        </li>
+                        </if>
+                        </foreach>
+                    </ul>
+                    <div style="clear: both"></div>
+                </div>
+                </foreach>
+            </div>
+        </div>
+        <div class="right-content">
+            <div class="content-top">
+                <span class="top1">Welcome To Information Management System<a href="__GROUP__/Public/logout">退出</a></span>
+                <span class="top2">欢迎来到企业信息管理系统，<span>{$userinfo.编号}</span>&nbsp;请及时登录查看最新信息！</span>
+            </div>
+

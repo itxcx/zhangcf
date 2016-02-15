@@ -1,0 +1,4 @@
+﻿<table name='会员'>
+<field name='{$this->name}'         type="int(11)" default="0"/>
+<field name='{$this->name}剩余'     type="int(11)" default="0"/>
+</table>

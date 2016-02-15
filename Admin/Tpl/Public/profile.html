@@ -1,0 +1,112 @@
+<tagLib name="sql" />
+<include file="Public:header" />
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/change/navTabId/__MODULE__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}">
+		<div class="pageFormContent" layoutH="58">
+			<table  border="0" bordercolor="#dddddd" style="border-collapse:collapse" align="left">
+				<tr>
+					<td>昵称：</td>
+					<td><input type="text" name="nickname" value="{$vo.nickname}"/></td>
+				</tr>
+
+				<tr>
+					<td>性别:</td>
+					<td>
+						<input type="radio" <eq name="vo.sex" value="男" >checked</eq> name="sex" value="男" id="sex1"/> <label for="sex1">男</label>
+						<input type="radio" <eq name="vo.sex" value="女" >checked</eq> value="女" id="sex0"/> <label for="sex0">女</label>
+					</td>
+				</tr>
+
+				<tr>
+					<td>手机:</td>
+					<td><input type="text" class="medium bLeft" name="mobile" value="{$vo.mobile}" /></td>
+				</tr>
+
+				<tr>
+					<td>邮箱:</td>
+					<td><input type="text" class="medium bLeft" name="email" value="{$vo.email}" /></td>
+				</tr>
+				
+				<tr>
+					<td>QQ:</td>
+					<td><input type="text" class="medium bLeft" name="qq" value="{$vo.qq}" /></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><hr></td>
+				</tr>
+
+				<tr>
+					<td>省份：</td>
+					<td>
+						<select class="medium bLeftRequire" name="province" id="province">
+						<sql:query model="AreaProvince" order="provinceID asc" result="area3">
+						<option value="{$area3.provinceID}" <eq name="vo.province" value="$area3['provinceID']">selected="true"</eq>>{$area3.province}</option>
+						</sql:query>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>城市：</td>
+					<td>
+						<select class="medium bLeftRequire" name="city" id="city" style="margin-top:10px">
+						<sql:query sql="select * from area_city where father=$vo[province] order by cityID asc" result="area4">
+						<option value="{$area4.cityID}" <eq name="vo.city" value="$area4['cityID']">selected="true"</eq>>{$area4.city}</option>
+						</sql:query>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>县区：</td>
+					<td>
+						<select class="medium bLeftRequire" name="county" id="county" style="margin-top:10px">
+						<sql:query sql="select * from area_county where father=$vo[city] order by countyID asc" result="area5">
+						<option value="{$area5.countyID}" <eq name="vo.county" value="$area5['countyID']">selected="true"</eq>>{$area5.county}</option>
+						</sql:query>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>乡镇：</td>
+					<td>
+						<select class="medium bLeftRequire" name="town" id="town" style="margin-top:10px">
+						<sql:query sql="select * from area_town where father=$vo[county] order by townID asc" result="area6">
+						<option value="{$area6.townID}" <eq name="vo.town" value="$area6['townID']">selected="true"</eq>>{$area6.town}</option>
+						</sql:query>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						<div style="margin-top:30px;">
+							<ul>
+								<li style="float:left"><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+
+								<li style="margin-left:10px;float:left"><div class="button"><div class="buttonContent"><button type="button" onclick="parent.navTab.closeTab('editUserInfo')" class="close">关闭</button></div></div></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+//绑定省select
+bind_province('province','city','county','town');
+
+//绑定市select
+bind_city('city','county','town');
+
+//绑定县select
+bind_county('county','town');
+
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link href="__TMPL__Public/style/basic.css" rel="stylesheet" type="text/css">
+        <link href="__TMPL__Public/style/view.css" rel="stylesheet" type="text/css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+    </head>
+    <body>
+                        <div id="top">
+                            <div id="header">
+                                <span class="hed_r">
+                                    <a href="#" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://127.0.0.1/');">设为首页</a>
+                                    <a href="javascript:void(0);" onclick="window.external.AddFavorite(document.location.href,document.title)">加入收藏</a>
+                                </span>
+                                <?php
+                                $maillist = new TableListAction('邮件');
+                                $mnum = count($maillist ->field('id,标题,收件人,发送时间')->where(array('收件人'=>$userinfo['编号'],'状态'=>0))->select()); ?>
+                                <span><a>您好，{$userinfo.编号}，欢迎登录</a><!-- 基金交易系统 --> !&nbsp;&nbsp;留言提示功能：<a href="__APP__/User/Mail/index">（您有{$mnum}封未读邮件）</a></span>
+                            </div>
+                            <div id="maintop">
+                                <div class="logo">
+                                    SIC CAPITAL LIMTED 基金会员管理系统
+                                    <!-- <if condition="$SYSTEM_COMPANY neq ''"> -->
+                                    <!--  <span class="logo1" style="font-size:25px;padding-top:50px;">{$SYSTEM_COMPANY}<span style="font-size:11px;display:block;padding-top:5px;">{$SYSTEM_MEMO}</span></span> -->
+                                    <!-- <else /> 
+                                    <a href="#"> <img src="__TMPL__Public/images/logo.jpg" class="logo" /></a>
+                                    </if>  -->
+                                </div>
+                                <div class="title">
+                                    <!--/ 会员界面 -->
+                                </div>
+                                <div class="search">
+                                    <div class="skew" style="font-size:12px;">
+                                        <a><font color="#ffffff">{:L('user1_name_serial')}：{$userinfo.编号}&nbsp;
+                                                <foreach name="userlevel" item="lv" key="key">
+                                                {$key}：{$lv.byname}&nbsp;
+                                                </foreach>
+                                        </font></a>
+                                    </div>
+                                    <div class="skew">
+                                        <a><font color="#ffffff">
+                                                <foreach name="funbank" item="fun_bank" key="key">
+                                                {$fun_bank.name}：{$fun_bank.num}&nbsp;
+                                                </foreach></font></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="navmenu">
+                                    <div class="menuleft">
+                                        <a href="__APP__/User/Index/index">全部栏目分类</a>
+                                    </div>
+                                    <ul class="menuright">
+                                        <a href="__APP__/User/Index/index">首页</a>
+                                        <a href="__APP__/User/User/viewNotice">系统公告</a>
+                                        <a href="__APP__/User/Sale/usereg:sale_reg[1]">会员注册</a>
+                                        <a href="__APP__/User/Fun_pay/index">汇款通道二</a>
+                                        <a href="__APP__/User/Tle/index:tle">奖金明细</a>
+                                        <a href="__APP__/User/Fun_bank/get:fun_bank[1]">提款登记</a>
+                                        <a href="__APP__/User/Mail/send">留言管理</a>
+                                        <a href="__APP__/User/Fun_pay/paylist">转账管理</a>
+                                        <a href="__GROUP__/Public/logout">退出系统</a>
+                                    </ul>
+                                </div>
+                                <div class="nav_menu_box">
+
+                                    <div class="nav_box">
+                                        <div class="newPriceLinks" id="newPriceLinks">
+                                            <ul>
+                                                <?php $p = 9; ?>
+                                                <volist name="menu" id="vo" key="key">   <!-- 全部栏目分类 -->
+                                                <li id="{$key}">
+                                                <p class="tit"><img src="__TMPL__Public/images/icon{$p--}.gif">
+                                                <a>{$key}</a>
+                                                </p>
+                                                <div>
+                                                    <foreach name="vo" item="val">
+                                                    <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                                                    <dl>
+                                                        <a href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                                                    </dl>
+                                                    </if>
+                                                    </foreach>
+                                                </div>
+                                                </li>
+                                                </volist>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>

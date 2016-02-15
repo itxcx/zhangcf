@@ -1,0 +1,126 @@
+<div class="pageContent">
+<script type="text/javascript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload();
+		//navTab.reload(); //刷新节点管理
+		//$.pdialog.closeCurrent(); //关闭添加节点对话框
+	}
+}
+</script>
+<form action="__URL__/remitSetSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<div layoutH="0">
+<!--
+<table class="list" style="width:600px">
+ <thead>
+    <tr>
+     <th  colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台汇款数据设置</th>
+    </tr>
+    <tr>
+	<td width="100px">项目</td>
+	<td width="100px">汇款账户填写</td>
+    </tr>
+ </thead>
+ <tbody>
+ 
+    </tr>
+	<tr>
+	<td>汇入账户:</td>
+	<td style="width:10px;"><input type="checkbox" class="" name="select_hrzh" value="select_hrzh"  <if condition="in_array('select_hrzh',$hkzhxz) eq true"> checked</if>></td>
+	</tr>
+</table>
+-->
+<table class="list" style="width:600px; margin-top:10px;" >
+ <thead>
+    <tr>
+     <th  colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;选择汇款进入钱包类型</th>
+    </tr>
+ </thead>
+ <tbody>
+	<tr>
+	<td style=" text-align:left; padding:7px 0 10px 45px; ">	
+		<dl>
+			<dt style="width:150px;text-align:left"><label><input type="radio" name="USER_REMIT_INBANK" value="0" <eq name="USER_REMIT_INBANK" value="0">checked</eq>>汇款不进入钱包</label></dt>
+		</dl>
+		<foreach name="bank" item="vo">
+		<dl>
+			<dt style="width:150px;text-align:left"><label><input type="radio" name="USER_REMIT_INBANK" value="{$key}" <eq name="USER_REMIT_INBANK" value="$key">checked</eq>>汇款进入{$vo}</label></dt>
+	</dl></foreach></td>
+	</tr>
+  <tbody>
+</table>
+<table class="list" style="width:600px; margin-top:10px;" >
+ <thead>
+    <tr>
+     <th  colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;汇款汇率设置</th>
+    </tr>
+ </thead>
+ <tbody>
+	<tr>
+		<td style=" text-align:left; padding-left:10px; width:15%;">是否换算
+		</td>
+		<td style=" text-align:left; padding-left:10px;">
+		<label><input type="radio" name="USER_REMIT_RATIO_USE" value="true"  <eq name="USER_REMIT_RATIO_USE" value="true">checked</eq> onclick="$('#setrem').css('display','');"/>是</label>
+	    <label><input type="radio" name="USER_REMIT_RATIO_USE" value="false" <neq name="USER_REMIT_RATIO_USE" value="true">checked</neq> onclick="$('#setrem').css('display','none');"/>否</label>
+		</td>
+		<td style=" text-align:left; padding-left:10px;"></td>
+	</tr>
+	<tr id="setrem" style="display:<neq name='USER_REMIT_RATIO_USE' value='true'>none</neq>">
+		<td style="text-align:left; padding-left:10px;">汇款换算比
+		</td>
+		<td style="text-align:left; padding-left:10px;"><p style="position:relative;margin-left:-180px;padding-left:180px;padding-top:5px; ">
+			<input type="text" value="{$USER_REMIT_RATIO}" name="USER_REMIT_RATIO" class="number"/></p>
+		</td>
+		<td style="width:25%;text-align:left;padding-left:10px;">汇款金额/汇款换算比</td>
+	</tr>
+  <tbody>
+</table>
+
+<table class="list" style="width:600px; margin-top:10px;" >
+ <thead>
+    <tr>
+     <th  colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;汇款额最大最小值设置</th>
+    </tr>
+ </thead>
+ <tbody>
+	<tr>
+		<td style=" text-align:left; padding-left:10px; width:20%;">汇款额最少限制：
+		</td>
+		<td style=" text-align:left; padding-left:10px;">
+			<input type="text" name="USER_REMIT_MIN" value='{$USER_REMIT_MIN}'> 元
+		</td>
+	</tr>
+	<tr>
+		<td style=" text-align:left; padding-left:10px; width:20%;">汇款额最多限制：
+		</td>
+		<td style=" text-align:left; padding-left:10px;">
+			<input type="text" name="USER_REMIT_MAX" value='{$USER_REMIT_MAX}'> 元
+		</td>
+	</tr>
+  <tbody>
+</table>
+
+<div class="buttonActive" style="margin-left:290px;">
+      <div class="buttonContent" >
+        <button type="submit">确定</button>
+      </div>
+</div>
+</div>
+<script>
+$(".inp1").click(function(){
+	var my=this;
+	var name=$(this).attr('name');
+	$("."+name).each(function(i,n){
+		if(my.checked){
+			$(this).attr('disabled',false);
+		}else{
+			$(this).attr('disabled',true);
+		}   
+	})
+	});
+</script>
+</form>
+</div>

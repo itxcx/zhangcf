@@ -1,0 +1,92 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+	<if condition="count($data['list']) elt 0">
+    <div class="no-data text-align-center"><h1>暂无数据</h1></div>
+    </if>
+
+    <foreach name='data.list' item='vo'>
+    <dl class="mail dl">
+        <dt>
+            <h1>
+                <span>编号：</span>{$vo.编号}
+                &nbsp;&nbsp;<span>状态</span>：{$vo.报单状态}
+                <span class="delete" href="javascript:void(0);">{$vo.操作}</span>
+            </h1>
+        </dt>
+        <dd>
+            <div class="title float-left text-align-center">
+                <a href="javascript:void(0);">
+                    <span class="money">{$vo.报单金额}</span>
+                    <br>
+                    <span class="text-color-gray">报单金额(元)</span>
+                </a>
+            </div>
+
+            <div class="info float-left">
+                <a href="javascript:void(0);">
+                    <p>金额：<span>{$vo.金额}</span></p>
+                    <p>购买日期：<span>{$vo.购买日期}</span></p>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </dd>
+        <dd class="award-info">
+            <div class="title float-left text-align-center">
+                姓名：{$vo.姓名}
+            </div>
+            <div class="info float-left">
+                <span class="more down"><i class="iconfont">&#xe67e;</i></span>
+                <span class="more up"><i class="iconfont">&#xe67f;</i></span>
+                级别：{$vo.级别}&nbsp;&nbsp;
+            </div>
+        </dd>
+        <dl class="award-list">
+            <dd>
+            <div class="title float-left text-align-center">报单类别: {$vo.报单类别}</div>
+            <div class="info float-left"></div>
+            </dd>
+        </dl>
+    </dl>
+    </foreach>
+
+    <div class="page">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">&laquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&laquo;</a>
+        </if>
+
+        <a href="{$data.upRow}">&lt;</a>
+
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+
+        <a href="javascript:void(0)">{$data.nowPage}/{$data.totalPages}</a>
+
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+
+        <a href="{$data.downRow}">&gt;</a>
+
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&raquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&raquo;</a>
+        </if>  
+    </div>   
+</div>
+
+<include file="Public:footer" />
+
+
+

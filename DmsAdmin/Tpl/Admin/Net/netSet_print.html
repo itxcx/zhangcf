@@ -1,0 +1,73 @@
+ <div layoutH="0">
+<form action="__URL__/myPrintPreview" id="form11" method="post"  target= "_blank">
+<table bordercolor="#eeeeee" border="0" style="border-collapse:collapse;" class="list">
+<tr>
+	<th colspan="2" style="text-align:left">&nbsp;&nbsp;网络打印设置</th>
+</tr>
+<tbody>
+<tr>
+    <td  align="center">会员编号:(不填写默认第一个)</td>
+	<td  style="text-align:left">
+	    <input type="text" name="userid" />
+	</td>
+</tr>
+<tr>
+    <td  align="center">时间:</td>
+	<td  style="text-align:left">
+	<input type="text" value="" name='startTime' class='date' id='startTime' /> - 
+	<input type="text" value="" name='endTime' class='date' id='endTime' />
+	</td>
+</tr>
+<tr >
+	<td width="200" align="center">选择打印网络:</td>
+	<td width="500" style="text-align:left">
+	 <select name="wangluo" id="wangluo">
+	     <option value="">请选择打印网络</option>
+	    <foreach name="net" item="vo">
+	     <option value="{$vo}">{$vo}</option>
+	    </foreach>
+	 </select>
+	</td>
+</tr>
+<tr >
+	<td  align="center">选择打印代数(层数):</td>
+	<td  style="text-align:left">
+	从<input type="text" name="netstart" style="width:50px;margin-left:5px;margin-right:5px;" id="daishu1" />代(层)<span style="color:red;padding:0px 10px">至</span><input type="text" name="netend" style="width:50px;margin-left:5px;margin-right:5px;" id="daishu2" />代(层)
+	</td>
+</tr>
+<tr >
+	<td  align="center">&nbsp;</td>
+	<td  style="text-align:left">
+      <span style="color:red;">(为选填 如果填写则按照填写的代数打印,如果不填写则默认无限)</span>
+	</td>
+</tr>
+<input type="hidden" name="act" value="" id="act" />
+</tbody>
+<tr>
+<td colspan="2">
+  <div  style="margin-left:20px;padding:10px">
+         <input type='button' id="dy" value='打 印' onclick="preview()"   style='padding:0 10px 0 10px;margin:0 10px 0 10px;cursor:pointer'/>
+          </div>
+      </div>
+      	<iframe src="" id="print_frame" width="760" height="500" style="display:none;">
+	</iframe>
+</td>
+</tr>
+</table>
+</form>
+<script>
+//打印预览
+function preview(){
+
+    //获取网络的值
+     $wangluo = $("#wangluo").val();
+     $daishu1 = $("#daishu1").val();
+     $daishu2 = $("#daishu2").val();
+     if(!$wangluo){
+        alert("请选择要打印的网络");
+        return false;
+     }
+    $("#form11").submit();
+}
+
+</script>

@@ -1,0 +1,171 @@
+<div class="pageContent">
+	<form method="post" action="__URL__/saveSet:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+		<div class="pageFormContent" style="margin:15px;border:1px solid #B8D0D6;width:600px;background-color:#E5EDEF;padding:3px">
+            <table style="border:1px solid #B8D0D6;width:100%;background-color:#FFF;padding-bottom:10px">
+                <tr>
+                    <td style="text-align:right">日期范围：</td>
+                    <td style="text-align: right;padding-left:50px">
+                    <span>
+                    <input type="text" name="startDate" class="date" style="width: 100px;float:left;"/>
+                    <a class="inputDateButton" href="javascript:;"></a>
+                    </span>
+                    <span class="unit" style="float: left;">至</span>
+                    <span>
+                    <input type="text" name="endDate"   class="date" style="width: 100px;float:left;"/>
+                    <a class="inputDateButton" href="javascript:;"></a></td>
+                    </span>
+				</tr>
+                <tr>
+                    <td style="text-align:right">星期范围：</td>
+                    <td><input type="checkbox" name="week" value="周一"/><span>周一</span>
+                        <input type="checkbox" name="week" value="周二"/><span>周二</span>
+                        <input type="checkbox" name="week" value="周三"/><span>周三</span>
+                        <input type="checkbox" name="week" value="周四"/><span>周四</span>
+                        <input type="checkbox" name="week" value="周五"/><span>周五</span>
+                        <input type="checkbox" name="week" value="周六"/><span>周六</span>
+                        <input type="checkbox" name="week" value="周日"/><span>周日</span>
+                    </td>
+                </tr>
+                <tr>
+                        <td style="padding-left:20px;width: 50px;vertical-align: top;text-align:right;">
+                            <a class="button" href="javascript:addfun();"><span>增加</span></a>
+                            <a class="button" href="javascript:editfun();"><span>修改</span></a>
+                            <a class="button" href="javascript:delfun();"><span>删除</span></a>
+                        </td>
+                        <td>
+                        <select style="width: 420px;border:1px solid #B8D0D6;padding:0;margin:0" size="8" name="dateSet" id="dateSet" onchange="changeSet(this)">
+                        <foreach name="data" item="vo">
+                            <option value="{$vo[0]}">{$vo[1]}</option>
+                        </foreach>
+                        </select>
+                        <input type="hidden" value="{$dateValue}" name="dateValue"/>
+                        </td>
+                </tr>
+                <!--<tr>
+                    <td colspan="2" style="padding-left:200px;padding-top:10px;">
+                        <div class="buttonActive">
+                            <div class="buttonContent"><button type="submit">保存</button></div>
+                        </div>
+                    </td>
+                </tr>--> 
+            </table>  
+			<div style="padding-left:280px;padding-top:2px;"><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></div>
+        </div>
+	</form>
+</div>
+<script>
+    function addfun(){
+        var chk_value = "";
+        $("input[name='week']:checked").each(function(){    
+           chk_value +=$(this).val()+',';
+        });
+        chk_value = chk_value.substr(0,chk_value.lastIndexOf(','));
+        var startDate = $("input[name='startDate']").val();
+        var endDate =  $("input[name='endDate']").val();
+        if(startDate!=""||endDate!=""){
+            if(startDate==""){startDate="任意时间"}
+            if(endDate==""){endDate="以后"}
+            //判断截至时间不能在开始时间之前
+            if(startDate!="" && endDate!="")
+            {
+            	sdate=new Date(startDate);
+            	edate=new Date(endDate);
+            	if(sdate.getTime()-edate.getTime()>0)
+            	{
+            		alertMsg.error('起始日期不能大于终止日期！');
+            		return;
+            	}
+            }
+            newOPtion =startDate+'至'+endDate+'   '+chk_value;
+        }else{
+            newOPtion =chk_value;
+        }
+        if(newOPtion == ""){
+            alertMsg.error('请选择添加范围！');
+        }else{
+            var value=startDate+';'+endDate+';'+chk_value;
+            if($("#dateSet option[value='"+value+"']").length>0){
+                alertMsg.error('该数据已经存在！');
+            }else{
+                $("#dateSet").append('<option value="'+value+'">'+newOPtion+'</option>');
+                $("input[name='week']").attr("checked",false);
+                $("input[name='startDate']").val("");
+                $("input[name='endDate']").val("");
+            }
+            var dateValue="";
+            $("#dateSet option").each(function(){
+                dateValue += $(this).val()+'|';
+            });
+            $("input[name='dateValue']").val(dateValue);
+        }
+        
+    }
+    function delfun(){
+        var removeOption = $("#dateSet").val();
+        if(removeOption==null){
+            alertMsg.error('请先选择要删除的数据！');
+        }else{
+            $("#dateSet option:selected").remove();
+            var dateValue="";
+            $("#dateSet option").each(function(){
+                dateValue += $(this).val()+'|';
+            });
+            $("input[name='dateValue']").val(dateValue);
+            $("input[name='week']").attr("checked",false);
+            $("input[name='startDate']").val("");
+            $("input[name='endDate']").val("");
+        }
+    }
+    function editfun(){
+        var removeOption = $("#dateSet").val();
+        if(removeOption==null){
+            alertMsg.error('请先选择修改的数据！');
+        }else{
+            var chk_value = "";
+            $("input[name='week']:checked").each(function(){    
+               //chk_value.push($(this).val());
+                 chk_value +=$(this).val()+',';
+            });
+            chk_value = chk_value.substr(0,chk_value.lastIndexOf(','));
+            //alert(chk_value);
+            var startDate = $("input[name='startDate']").val();
+            var endDate =  $("input[name='endDate']").val();
+            //alert(startDate);
+            //alert(endDate)
+            if(startDate!=""||endDate!=""){
+                if(startDate==""){startDate="任意时间"}
+                if(endDate==""){endDate="以后"}
+                newOption =startDate+'至'+endDate+'   '+chk_value;
+                
+            }else{
+                newOption =chk_value;
+            }
+            
+            $("#dateSet option:selected").html(newOption);
+            $("#dateSet option:selected").attr("value",startDate+';'+endDate+';'+chk_value);
+            var dateValue="";
+            $("#dateSet option").each(function(){
+                dateValue += $(this).val()+'|';
+            });
+            $("input[name='dateValue']").val(dateValue);
+        }
+    }
+    function changeSet(obj){
+        $("input[name='week']").attr("checked",false);
+        $("input[name='startDate']").val("");
+        $("input[name='endDate']").val("");
+        var thisval = $(obj).val();
+        var s1=thisval.split(';');
+        //alert(s10)
+        if(s1[0] == "任意时间"){s1[0]=""}
+        if(s1[1] == "以后"){s1[1]=""}
+        $("input[name='startDate']").val(s1[0]);
+        $("input[name='endDate']").val(s1[1]);
+        //alert(s1[1]);
+        s12 = s1[2].split(',');
+        for(var i=0;i<s12.length;i++){
+            //alert(s11[i]);
+            $("input[name='week'][value='"+s12[i]+"']").attr("checked",true);
+        }
+    }
+</script>

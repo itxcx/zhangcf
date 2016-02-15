@@ -1,0 +1,231 @@
+    </div>
+    <!-- Make page fluid-->
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="__TMPL__Public/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="__TMPL__Public/js/vendor/bootstrap/bootstrap-dropdown-multilevel.js"></script>
+<script src="__TMPL__Public/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script src="__TMPL__Public/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script src="__TMPL__Public/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="__TMPL__Public/js/vendor/animate-numbers/jquery.animatenumbers.js"></script>
+<script src="__TMPL__Public/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script src="__TMPL__Public/js/vendor/blockui/jquery.blockui.js"></script>
+
+<script src="__TMPL__Public/js/vendor/flot/jquery.flot.min.js"></script>
+<script src="__TMPL__Public/js/vendor/flot/jquery.flot.time.min.js"></script>
+<script src="__TMPL__Public/js/vendor/flot/jquery.flot.selection.min.js"></script>
+<script src="__TMPL__Public/js/vendor/flot/jquery.flot.animator.min.js"></script>
+<script src="__TMPL__Public/js/vendor/flot/jquery.flot.orderbars.js"></script>
+<script src="__TMPL__Public/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+
+<script src="__TMPL__Public/js/vendor/morris/morris.min.js"></script>
+<script src="__TMPL__Public/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+<script src="__TMPL__Public/js/vendor/summernote/summernote.min.js"></script>
+<script src="__TMPL__Public/js/vendor/chosen/chosen.jquery.min.js"></script>
+<script src="__TMPL__Public/js/minimal.min.js"></script>
+<script src="__TMPL__Public/js/jquery.cookie.js"></script>
+
+<script>
+    $(function(){
+
+        // Initialize card flip
+        $('.card.hover').hover(function(){
+            $(this).addClass('flip');
+            },function(){
+            $(this).removeClass('flip');
+        });
+
+        
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+        [2, 985],
+        [3, 1525],
+        [4, 1254],
+        [5, 1861],
+        [6, 2621],
+        [7, 1987],
+        [8, 2136],
+        [9, 2364],
+        [10, 2851],
+        [11, 1546],
+        [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+        [2, 578],
+        [3, 327],
+        [4, 984],
+        [5, 1268],
+        [6, 1684],
+        [7, 1425],
+        [8, 1233],
+        [9, 1354],
+        [10, 1200],
+        [11, 1260],
+        [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        // flot chart generate
+        var plot = $.plotAnimator($("#statistics-chart"),
+        [
+        {
+            label: '',
+            data: d1,
+            lines: {lineWidth:3},
+            shadowSize:0,
+            color: '#ffffff'
+        },
+        { label: "",
+            data: d2,
+            animator: {steps: 99, duration: 500, start:200, direction: "right"},
+            lines: {
+                fill: .15,
+                lineWidth: 0
+            },
+            color:['#ffffff']
+            },{
+            label: '',
+            data: d1,
+            points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+            color: '#fff',
+            shadowSize:0
+        },
+        { label: "",
+            data: d2,
+            points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+            color: '#fff',
+            shadowSize:0
+        }
+        ],{
+
+            xaxis: {
+
+                tickLength: 0,
+                tickDecimals: 0,
+                min:1,
+                ticks: [[1,"1"], [2, "2"], [3, "3"], [4, "4"], [5, "5"], [6, "6"], [7, "7"], [8, "8"], [9, "9"], [10, "10"], [11, "11"], [12, "12"]],
+
+                font :{
+                    lineHeight: 24,
+                    weight: "300",
+                    color: "#ffffff",
+                    size: 14
+                }
+            },
+
+            yaxis: {
+                ticks: 4,
+                tickDecimals: 0,
+                tickColor: "rgba(255,255,255,.3)",
+
+                font :{
+                    lineHeight: 13,
+                    weight: "300",
+                    color: "#ffffff"
+                }
+            },
+
+            grid: {
+                borderWidth: {
+                    top: 0,
+                    right: 0,
+                    bottom: 1,
+                    left: 1
+                },
+                borderColor: 'rgba(255,255,255,.3)',
+                margin:0,
+                minBorderMargin:0,
+                labelMargin:20,
+                hoverable: true,
+                clickable: true,
+                mouseActiveRadius:6
+            },
+
+            legend: { show: false}
+        });
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+        "opened.mm",
+        function()
+        {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        }
+        );
+
+        $('#mmenu').on(
+        "closed.mm",
+        function()
+        {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                .css({top: item.pageY-30, left: item.pageX+5})
+                .fadeIn(200);
+                } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+        position: "absolute",
+        //display: "none",
+        padding: "10px 20px",
+        "background-color": "#ffffff",
+        "z-index":"99999"
+    }).appendTo("body");
+
+    });
+</script>
+<!--在线QQ-->		
+<link rel="stylesheet" href="__PUBLIC__/css/floatqq.css">
+<script src="__PUBLIC__/js/floatqq.js"></script>
+<style>
+.lanrenzhijia-cs .btnOpen, .lanrenzhijia-cs .btnCtn {
+    width: 40px!important;
+}
+</style>
+<if condition="count($SERVICE_QQ) gt 0">
+<div id="floatTools" class="lanrenzhijia-cs" style="position:fixed;top:200px;right:0px;">
+    <div class="floatL"> <a style="display: block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show();kf_setCookie('RightFloatShown', 0, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" href="javascript:void(0);">展开</a> <a style="display: none" id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide();kf_setCookie('RightFloatShown', 1, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" href="javascript:void(0);"> 收缩</a> </div>
+    <div id="divFloatToolsView" class="floatR" style="display: none">
+        <div class="cn">
+
+            <h3 class="titZx">在线客服</h3>
+            <foreach name="SERVICE_QQ" item="v">
+            <ul>
+                <li> <a style="margin:10px 0 0 10px;" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v}&site=qq&menu=yes"><img src="/Public/Images/SERVICE_QQ.gif" border="0" alt="点击咨询" title="点击咨询" style='display:inline;'></a>  </li>
+                </li>
+            </ul>
+            </foreach>
+        </div>
+    </div>
+</div>
+</if>
+<!--end-->
+</body>
+</html>
+

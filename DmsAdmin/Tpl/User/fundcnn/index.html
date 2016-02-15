@@ -1,0 +1,72 @@
+<include file="Public:header" />
+    <div id="wrapper">
+        <table class="biao" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="center" background="__TMPL__Public/images/contop_bg.jpg" height="40"><span class="core_title_con">新闻查询&nbsp;</span></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="news" align="center" width="98%" cellpadding="0" cellspacing="1">
+            <tbody>
+                <tr>
+                    <td class="title" align="center" bgcolor="#CCCCCC" height="35">新闻标题</td>
+                    <td class="title" align="center" bgcolor="#CCCCCC" height="35">新闻类别</td>
+                    <td class="title" align="center" bgcolor="#CCCCCC" height="35">新闻部门</td>
+                    <td class="title" align="center" bgcolor="#CCCCCC" height="35">发布时间</td>
+                    <td class="title" align="center" bgcolor="#CCCCCC" height="35">操作</td>
+                </tr>
+                <php>
+                    $list = new TableListAction('公告');
+                    $list->field('id,标题,type,创建时间')->order("id desc");
+                    $list->pagenum = 10;
+                    $data = $list->getData();
+                </php>
+                <foreach name="data.list" item="name">
+                <tr onmouseover="this.style.backgroundColor='#F7F7F7'" onmouseout="this.style.backgroundColor=''" bgcolor="FFFFFF">
+                    <td class="content" align="center" height="35">{$name.标题}</td>
+                    <td class="content" align="center" height="25" valign="middle"> {$name.type} </td>
+                    <td class="content" align="center" height="25" valign="middle">市场部</td>
+                    <td class="content" align="center" height="25" valign="middle">{$name.创建时间|date='Y/m/d',###}</td>
+                    <td class="content" align="center" height="25" valign="middle"><a href="__GROUP__/User/showNotice/id/{$name.id}">详细</a></td>
+                </tr>
+                </foreach>
+                
+                
+            </tbody>
+        </table>
+        <br>
+        <div class="core_page">
+            共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;
+            <if condition="$data['nowPage'] neq 1">
+            <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
+            <else/>首页&nbsp;&nbsp;
+            </if>
+            <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
+            <if condition="isset($data['rollPage'][-2])">
+            <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+            </if>
+            <if condition="isset($data['rollPage'][-1])">
+            <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+            </if>
+            {$data.nowPage}&nbsp;&nbsp;
+            <if condition="isset($data['rollPage'][1])">
+            <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+            </if>
+            <if condition="isset($data['rollPage'][2])">
+            <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+            </if>
+            <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
+            <if condition="$data['nowPage'] lt $data['totalPages']">
+            <a href="{$data.theEndRow}">尾页</a>
+            <else/>尾页
+            </if>
+        </div>
+    </div>
+
+<!--中间结束-->
+
+<include file="Public:footer" />

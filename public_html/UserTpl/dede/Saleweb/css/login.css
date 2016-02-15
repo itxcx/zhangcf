@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+
+.login{ width:462px; height:335px;overflow:hidden; margin-top: -34px;margin-left: 233px;}
+.user_name,.user_pw,.user_yzm,.user_btn,.notice{ width:100%; overflow:hidden; margin:10px 0;}
+.user_tit{ font-size:16px; color:#fff; text-align:right; float:left;  display:block; width:72px; line-height:40px;}
+.inpt{ width:310px; height:38px; float:left; background:#fff; border:1px solid #8c3d3d; text-indent:10px; color:#4e4e4e; line-height:40px;	font-family: "Microsoft Yahei", "宋体", arial;}
+.yz{ width:120px; margin-right:10px;}
+.yzm_pic{ width:77px; height:27px; vertical-align:middle; float:left; line-height:42px; margin-top:6px; margin-right:10px;}
+.lk{font-size:16px; color:#fff; text-align:left; float:left; line-height:40px;}
+.lk:hover{ text-decoration:underline;}
+
+.btn{ width:144px; height:34px; float:left; margin-right:10px; text-align:center; font-size:16px; line-height:36px; cursor:pointer; border-radius:3px; -o-border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; border: 0 none; font-weight:bold;font-family: "Microsoft Yahei", "宋体", arial;}
+.orange{ background:url(../images/or_bg.jpg) repeat-x 0 0; border:1px solid #e47916; color:#6a0000;}
+.white{ background:url(../images/wh_bg.jpg) repeat-x 0 0; border:1px solid #bbbbbb; color:#4d4d4d;}
+.orange:hover{ background:url(../images/or_bg_h.jpg) repeat-x 0 0}
+.white:hover{background:url(../images/wh_bg_h.jpg) repeat-x 0 0}
+.notice p{ width:100%; color:#fff; text-align:center; height:42px; line-height:42px; font-size:14px;}
+.date{ font-family:Arial, Helvetica, sans-serif;}
+.not_ok{ color:#3F0;}
+.tablebg{
+	padding: 20px 60px;
+	margin-bottom:10px;
+	font-size:14px;
+	color:#333333;
+}
+input {
+	height:22px;line-height:22px;
+}
+
+.tablebg tr{
+	line-height:32px;
+	min-height:32px;
+	zoom:1;
+	margin-top: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	overflow:hidden;
+}
+.tablebg .tbkey{
+	width:25%;
+	color:#333333;
+	vertical-align:top;	
+	font-weight:bold;
+}
+.tablebg .tbval{
+	color:#333333;
+	width:150px;
+	text-align:left;
+}
+.button_text{
+	margin:0px;padding:0px;border:none;
+	background:url(../images/regbut.jpg) repeat-x 0 0;
+	width:63px;height:28px;
+}

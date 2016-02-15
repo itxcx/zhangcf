@@ -1,0 +1,111 @@
+<form action="__URL__/userMenuUpdate" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+
+<table class="list" style="width:600px">
+   
+   <thead>
+    <tr>
+     <th  style="text-align:left" colspan="6"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台菜单设置</th>
+    </tr>
+	</thead>
+	<tbody>
+	<tr>
+     <td>一级菜单</td><td>二级菜单</td><td>查看权限</td><td>验证二级密码</td><eq name="pwd3Switch" value="true"><td>验证三级密码</td></eq><php>if(adminshow('systemcai')){</php><td>快捷菜单中显示(部分模版有效)</td><php>}</php>
+    </tr>
+	<foreach name="menu" item="vo" key="head">
+		<foreach name="vo" item="detail" key="k">
+		<tr>
+			<if condition="$k eq 0">
+			<td rowspan="{:(count($vo))}" style="width:15%;border-top:1px solid #ddd">{$head}</td>
+			<td style="text-align:left;width:15%;border-top:1px solid #ddd">&nbsp;&nbsp;&nbsp;&nbsp;{$detail.title}</td>
+			<else/>
+			<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;{$detail.title}</td>
+			</if>
+			<td>
+			<input class="levelinput" type="checkbox" name="level[]" value="{$detail.model}-{$detail.action}" <if condition="!$userMenuPower or  in_array($detail['model'].'-'.$detail['action'],$userMenuPower)">checked </if>>
+			</td>
+			<td>
+			<input type="checkbox" name="secPwd[]" value="{$detail.model}-{$detail.action}" <if condition="(($NoSecnum gt 0) and !in_array($detail['model'].'-'.$detail['action'],$userNoSecPwd) eq true) or ($NoSecnum eq 0)">checked </if>>
+			</td>
+			<eq name="pwd3Switch" value="true">
+			<td>
+			<input type="checkbox" name="secPwd3[]" value="{$detail.model}-{$detail.action}" <if condition="$userNoSecPwd3 and !in_array($detail['model'].'-'.$detail['action'],$userNoSecPwd3) eq true">checked </if>>
+			</td>
+			</eq>
+			<php>if(adminshow('systemcai')){</php>
+			<td>
+			<input type="checkbox" name="shortcut[{$head}][{$detail.title}]" value="/{$detail.model}/{$detail.action}" <if condition="isset($userShortcutMenu[$head][$detail['title']]) && $userShortcutMenu[$head][$detail['title']]">checked </if>>
+			</td>
+			<php>}</php>
+		</tr>
+		</foreach>
+	</foreach>
+	<tr>
+		<td width="150px" colspan='2'>会员高级密码失效:</td>
+		<td colspan="4" style="text-align:left">
+		<input name='USER_PASS_TIMEOUT' type="text" value="{$USER_PASS_TIMEOUT}" size="8" />分钟<font color='red'>(0代表即时失效，打开每一项都输入)</font>
+		</td>
+	</tr>
+	</tbody>
+		<thead>
+		   <tr>
+		   <th colspan="6" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;前台功能开关</th>
+		   </tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td width="200px" style="padding:5px 0" colspan="2" >显示产生奖金明细：</td>
+				<td width="400px" style="text-align:left"  colspan="4">
+					<input type="radio" name="USER_PRIZE_SWITCH" value="1" <if condition="$USER_PRIZE_SWITCH eq 1">checked</if>/>开启
+					<input type="radio" name="USER_PRIZE_SWITCH" value="0" <if condition="$USER_PRIZE_SWITCH eq 0">checked</if>/>关闭
+				</td>	
+			</tr>
+			<if condition="($shop eq true) and ($SHOW_SHOPSET)">
+				<tr>
+				<td width="200px" style="padding:5px 0" colspan="2" >是否只有服务中心才可以报单：</td>
+				<td width="400px" style="text-align:left"  colspan="4">
+					<input type="radio" name="USER_SHOP_SALEONLY" value="1" <if condition="$USER_SHOP_SALEONLY eq 1">checked</if>/>开启
+					<input type="radio" name="USER_SHOP_SALEONLY" value="0" <if condition="$USER_SHOP_SALEONLY eq 0">checked</if>/>关闭
+				</td>	
+			</tr>
+			</if>
+		</tbody>
+	<tr>
+	 <td colspan="6" style="vertical-align: middle;border-top:1px solid #ddd" >
+	   <div class="buttonActive" style="margin-left:290px;">
+			  <div class="buttonContent" >
+				<button type="submit">确定</button>
+			  </div>
+		</div>
+	 </td>
+	</tr> 
+   </tbody> 
+   
+</table>
+</div>
+<script>
+$(function(){
+$(".levelinput").each(function(){
+	if(!$(this).attr('checked')){
+		$(this).parent().siblings().find('input').each(function(){
+			$(this).attr('checked',false);
+			$(this).attr('disabled',true);
+		});
+	}
+});
+$(".levelinput",navTab.getCurrentPanel()).click(function(){
+	var ischecked = !!$(this).attr('checked');
+	if(ischecked){
+		$(this).parent().siblings().find('input').each(function(){
+			$(this).attr('disabled',false);
+		});
+	}else{
+		$(this).parent().siblings().find('input').each(function(){
+			$(this).attr('checked',false);
+			$(this).attr('disabled',true);
+		});
+	}
+});
+});
+</script>
+</form>

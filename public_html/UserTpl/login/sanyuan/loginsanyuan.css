@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, a, blockquote, table, th, td, img { margin:0; padding:0; }
+ol, ul, li { list-style:none; }
+img { border:none; }
+body { font:12px/20px Verdana, Arial; }
+a:link, a:visited { color:#fff; text-decoration:none; }
+a:focus { outline:none; }
+a:hover { color: #f60; }
+input[type="button"], input[type="submit"], input[type="reset"] { cursor:pointer; }
+html, body { height:100%; }
+
+.login-body { background:#330d00; }
+#login_wrapper {  }
+#login_main { width:792px; height:390px; padding:180px 0 0 168px; position:absolute; top:50%; left:50%; margin:-285px 0 0 -480px; background:url(/DmsAdmin/Tpl/User/login/sanyuan/login-bg.jpg) no-repeat; }
+
+.logo { width:321px; height:80px; float:left; margin:60px 55px 0 0; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/DmsAdmin/Tpl/User/login/sanyuan/login-logo.png" ,sizingMethod="crop"); }
+.logo img { _visibility:hidden; }
+
+.login-form { width:290px; float:left; font-family:Arial; padding:5px 0 0 0; }
+.login-form table { width:290px; }
+.login-form td { padding:6px 0; }
+.login-form td.td1 { width:70px; padding-left:20px; color:#7b7b7b; font:bold 14px/14px Arial; white-space:nowrap; vertical-align:middle; }
+
+.login-form .login-inp { width:180px; height:30px; line-height:28px; padding:0 10px; color:#333; border:none; background:url(/DmsAdmin/Tpl/User/login/sanyuan/login-inp1.gif) no-repeat; }
+.login-form .val-inp { width:67px; float:left; margin-right:16px; background:url(/DmsAdmin/Tpl/User/login/sanyuan/login-inp2.gif) no-repeat; }
+.login-form img {  vertical-align:top; padding-top:1px; }
+
+.login-form .btns { padding:12px 0 0; }
+.login-form .btn-login { float:left; width:81px; height:36px; color:#434343; text-align:center; font-weight:bold; font-family:"微软雅黑"; vertical-align:middle; border:none; background:url(/DmsAdmin/Tpl/User/login/sanyuan/login-btn1.gif) no-repeat; }
+.login-form .btn-login:hover { background:url(/DmsAdmin/Tpl/User/login/sanyuan/login-btn2.gif) no-repeat; }
+.login-form .btn1 { margin-right:5px;  padding: 10px 0 0px 0;}
+
+.login-form .link { padding:10px 0 0; }
+.login-form .link a { color:#ae6000; padding:0 3px; margin:0 3px; text-decoration:underline; }
+.login-form .link a.first { padding:0 3px 0 0; margin:0 3px 0 0; }
+.login-form .link a:hover { color:#f60; }
+
+#footer { clear:both; color:#7795BE; text-align:center; padding:50px 0 0; }
+
+

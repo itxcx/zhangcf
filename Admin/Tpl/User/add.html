@@ -1,0 +1,45 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/insert/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="submit" value="1" />
+		<input type="hidden" name="args" value="{$args}" />
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>帐号：</th>
+					<td>
+						<input type="text" class="required alphanumeric" name="account" value="" />
+					</td>
+				</tr>
+				<tr>
+					<th>邮箱：</th>
+					<td>
+						<input type="text" class="required email" style="width:200px" name="email" value="" />
+					</td>
+				</tr>
+				<tr>
+					<th>密码：</th>
+					<td>
+						<input type="text" class="required alphanumeric" minlength="1" maxlength="20" id="password" name="password" value="" />
+					</td>
+				</tr>
+				<tr>
+					<th>状态：</th>
+					<td style="text-align:left">
+						<input type="radio" name="status" checked="true" value="1" id="status1" /> <label for="status1">启用</label>
+
+						<input type="radio" name="status" value="2" id="status2" /> <label for="status2">禁用</label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

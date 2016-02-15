@@ -1,0 +1,18 @@
+<notempty name="errs">
+<foreach name='errs' item='err' key='errkey'>
+	<php>if(strstr($errkey,'product')!='') $errkey="productCountMoney";</php>
+	$('#state_{$errkey}',navTab.getCurrentPanel()).html('{$err}');
+</foreach>
+</notempty>
+<notempty name="RegionSet">
+<php>
+$Regionname=$RegionSet[0];
+$Regiondata=$RegionSet[1];
+
+</php>
+$('#{$Regionname}',navTab.getCurrentPanel()).html("<foreach name='RegionSet[1]' item='Region'>
+
+<option value='{$Region.name}' <PHP> if($posselect==$Region['name']) echo 'selected';</PHP>>{$Region.name}</option>
+
+</foreach>");
+</notempty>

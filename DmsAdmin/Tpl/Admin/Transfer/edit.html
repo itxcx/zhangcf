@@ -1,0 +1,162 @@
+<script language="JavaScript">
+
+function dialogAjaxDoneProductAdd(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+
+<div class="pageContent">
+	<form action="__URL__/editSave" method="post" class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+		<input type="hidden" name="id" value="{:$bankdata['id']}"/>
+	    <div class="pageFormContent" layoutH="58">
+		<table cellpadding="3" cellspacing="3" >
+           <tr>
+               <td style="text-align:right;width:150px">标题：</td>
+               <td style="text-align:left" >
+               		<span>{:$bankdata['title']}</span>
+                </td>
+            </tr>
+             <tr>
+               <td style="text-align:right;width:80px">转出货币：</td>
+               <td style="text-align:left" >
+              		<span id='outbank'>{:$bankdata['bankname']}</span>
+                </td>
+            </tr>
+           <tr>
+               <td style="text-align:right;width:80px">转入货币：</td>
+               <td style="text-align:left" >
+              		<span id='tobank'>{:$bankdata['tobankname']}</span>
+                </td>
+            </tr>       
+            <tr>
+                <td style="text-align:right;width:80px">转账类型：</td>
+                <td style="text-align:left">
+					<input id='toyou' type='checkbox' name='toyou' value='true' onclick="changeto(this)" <if condition="$bankdata['toyou'] eq 1">checked</if>>转给其他人
+					<input id='tome'  type='checkbox' name='tome' value='true' <if condition="$bankdata['tome'] eq 1">checked</if> disabled>转给自己
+                </td>
+            </tr>
+            <tr id="transtype" <if condition="$bankdata['toyou'] neq 1">style="display:none;"</if>>
+                <td style="text-align:right;width:80px">转给他人选择：</td>
+                <td>
+                  <input type="checkbox" name="toyoutype[]" <if condition="in_array('0-0',$toyoutype)"> checked</if> value="0-0">会员转给会员
+                  <input type="checkbox" name="toyoutype[]" <if condition="in_array('0-1',$toyoutype)"> checked</if> value="0-1">会员转给店铺<br/>
+                  <input type="checkbox" name="toyoutype[]" <if condition="in_array('1-1',$toyoutype)"> checked</if> value="1-1">店铺转给店铺
+                  <input type="checkbox" name="toyoutype[]" <if condition="in_array('1-0',$toyoutype)"> checked</if> value="1-0">店铺转给会员
+                </td>
+            </tr>
+            <tr>
+            	<td style="text-align:right;width:80px">手续费来源：</td>
+            	<td style="text-align:left" >
+            		<input name="taxfrom" value="0" type="radio" <eq name="bankdata['taxfrom']" value="0">checked</eq>/>额外货币
+            		<input name="taxfrom" value="1" type="radio" <eq name="bankdata['taxfrom']" value="1">checked</eq>/>转出金额
+            	</td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:80px">转账手续费：</td>
+                <td style="text-align:left" >
+                	<input class="required number" size='5' type='text' name='tax' value="{$bankdata['tax']}"/>%
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:80px">转账手续费上限：</td>
+                <td style="text-align:left" >
+                	<input class="required number" type='text' name='taxtop' value="{$bankdata['taxtop']}"/>
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;width:80px">转账手续费下限：</td>
+                <td style="text-align:left" >
+                	<input class="required number" type='text' name='taxlow' value="{$bankdata['taxlow']}"/>
+                </td>
+            </tr>
+             <tr>
+                <td style="text-align:right;width:80px">转换比率：</td>
+                <td style="text-align:left" >
+                	<input class="required number" size='5' type='text' name='sacl' value="{$bankdata['sacl']}"/>%
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:80px">转账允许最大金额：</td>
+                <td style="text-align:left" >
+                	<input class="required number" type='text' name='max' value="{$bankdata['maxnum']}"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:80px">转账允许最小金额：</td>
+                <td style="text-align:left" >
+                	<input class="required number" type='text' name='min' value="{$bankdata['minnum']}"/>
+                </td>
+            </tr>
+             <tr>
+               <td style="text-align:right;width:80px">网络体系限定：</td>
+               <td style="text-align:left" >
+              		<select name="nets" id="nets" >
+              			<option value="{:$bankdata['nets']}"><empty name="bankdata['bynets']">无<else/>{:$bankdata['bynets']}</empty></option>
+	                    <foreach name="netsets" item="netsets" key='netset'>
+							<if condition="$netset neq $bankdata['nets']"><option value="{$netset}">{$netsets}</option></if>
+						</foreach>
+                    </select>
+                </td>
+            </tr>   
+            <tr>
+                <td style="text-align:right;width:80px">转账整数额：</td>
+                <td style="text-align:left" >
+                	<input class="required digits" type='text' name='intnum' value="{$bankdata['intnum']}"/>
+                </td>
+            </tr>
+            <tr>
+               <td style="text-align:right;width:80px">服务中心限定：</td>
+               <td style="text-align:left" >
+              		<select name="shop" id="shop" >
+              			<option value="{:$bankdata['shop']}">{:$bankdata['shop']}</option>
+              			<if condition="'无' eq $bankdata['shop']"><option value="仅限服务中心">仅限服务中心</option>
+              			<else/><option value="无">无</option></if>
+                    </select>
+                </td>
+            </tr>     
+            <tr>
+            	<td style="text-align:right;width:80px">状态：</td>
+            	<td style="text-align:left">	
+            		<input type="radio" value="1"  name="status" <eq name="bankdata['status']" value="1">checked</eq>/>开启
+					<input type="radio" value="0" name="status" <eq name="bankdata['status']" value="0">checked</eq>/>关闭
+            	</td>
+            </tr>      
+        </table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" >确认</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+</div>
+<script>
+	var outbank = $("#outbank").html();
+	var tobank = $('#tobank').html();
+	if(outbank == tobank)
+	{
+		$('#tome').attr("disabled",true);
+	}else{
+		$('#tome').attr("disabled",false);
+	}
+	function changeto(e){
+		var val=$(e).attr("checked");
+		if(val=='checked'){
+		  $("#transtype").show();
+		}else{
+		  $("#transtype").hide();
+		}
+	}
+</script>

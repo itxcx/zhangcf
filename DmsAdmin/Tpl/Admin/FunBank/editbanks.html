@@ -1,0 +1,47 @@
+<script>
+	function dialogAjaxDoneReload(json)
+	{
+		DWZ.ajaxDone(json);
+
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			//关闭当前窗口
+			$.pdialog.closeCurrent(); 
+	        navTab.reload();
+		}
+	}
+</script>
+<div class="pageContent">
+
+	<form method="post" action="__URL__/saveEditBanks" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload);">
+		<input name="id" value="{$bankinfo.id}" type="hidden">
+		<div class="pageFormContent nowrap" layoutH="57">
+				<dl>
+					<dt>开户银行:</dt>
+					<dd style="width:auto"><input style="border:none" name="开户行" type="text" class="required" value="{$bankinfo.开户行}" readonly="readonly"/></dd>
+				</dl>
+				<dl>
+					<dt>银行卡号:</dt>
+					<dd style="width:auto"><input name="卡号" type="text"  value="{$bankinfo.卡号}" /></dd>
+				</dl>
+				<dl>
+					<dt>户主姓名:</dt>
+					<dd style="width:auto"><input name="户名" type="text"  value="{$bankinfo.户名}" /></dd>
+				</dl>
+				<dl>
+					<dt>状态:</dt>
+					<dd style="width:auto">
+						<input name="状态" type="radio" value="有效" <eq name="bankinfo['状态']" value="有效">checked</eq>>有效
+						<input name="状态" type="radio" value="无效" <eq name="bankinfo['状态']" value="无效">checked</eq>>禁用
+					</dd>
+				</dl>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" name="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+
+</div>

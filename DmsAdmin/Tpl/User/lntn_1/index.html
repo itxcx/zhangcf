@@ -1,0 +1,67 @@
+<include file="Public:header" />
+    <div class="content">
+        <div class="baseinfo">
+            <div class="c-tit">
+                <h2>基本资料</h2>
+                <h3>BASISC INFORMATION</h3>
+            </div>
+            <ul>
+                <li class="infokey">{:L('user1_name_serial')}：</li>	
+                <li class="infoval">{$userinfo.编号}</li>	
+                <li class="infokey">{:L('name')}：</li>	
+                <li class="infoval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>
+                <foreach name="userlevel" item="lv" key="key">
+                <li class="infokey">{$key}：</li>	
+                <li class="infoval">{$lv.byname}</li>
+                </foreach>	    
+                <li class="infokey">{:L('join_date')}：</li>	
+                <li class="infoval">{$userinfo.注册日期|date='Y-m-d',###}</li>
+                <foreach name="funbank" item="fun_bank" key="key">
+                <li class="infokey">{$fun_bank.name}：</li>	
+                <li class="infoval">{$fun_bank.num}</li>
+                </foreach>	
+            </ul>
+        </div>
+        <php>       
+        $list = new TableListAction('公告');
+        $list->field('id,标题,创建时间')->order("id desc");
+        $list->pagenum = 14;
+        $data = $list->getData();
+        //邮件
+        $list = new TableListAction('邮件');
+        $list ->field('id,标题,收件人,发送时间')->where(array('收件人'=>$userinfo['编号']))->order("发送时间 desc");;
+        $list->pagenum = 20;
+        $datam = $list->getData();
+        </php>
+        <div class="newmail">
+            <div class="c-tit">
+                <h2>最新邮件</h2>
+                <h3>NEW MAILS</h3>
+            </div>
+            <ul>
+                <foreach name="datam.list" item="name">
+                <li>
+                <a href="__GROUP__/Mail/view/id/{$name.id}">{$name.标题}</a>
+                <span class="date">{:date('Y-m-d',$name['发送时间'])}</span>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="lastest">
+            <div class="c-tit">
+                <h2>最新公告</h2>
+                <h3>LASTEST ANNOUNCEMENT</h3>
+            </div>
+            <ul>
+                <foreach name="data.list" item="name">
+                <li>
+                    <a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a>
+                    <span class="date">{:date('Y-m-d',$name['创建时间'])}</span>
+                </li>
+                </foreach>
+            </ul>
+        </div> 
+        <div class="clear"></div>
+    </div>
+<include file="Public:footer" />
+

@@ -1,0 +1,76 @@
+<div layoutH="0">
+<table width="500px" class="list">
+<thead>
+  <tr>
+    <th colspan="2" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/coins.png
+" />&nbsp;&nbsp;业绩分析</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+	<td colspan='2' style="height:25px;vertical-align: middle;text-align:left;border-bottom:1px solid #ededed">
+		&nbsp;&nbsp;&nbsp;&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/information.png
+" />&nbsp;此功能表示查询某{$name}在某时间段内的业绩
+	</td>
+  </tr>
+  <tr>
+    <td width="30%" style="height:25px;vertical-align: middle;text-align:right;border-bottom:1px solid #ededed">
+	{$name}编号：
+	</td>
+    <td width="70%" style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+    <input type="text" value="" size="20" name="userid" id='userid'/>
+    </td>
+  </tr>
+  <tr>
+	<td style="height:25px;text-align:right;border-bottom:1px solid #ededed">日期：</td>
+	<td style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+	<input type="text" value="" name='startTime' class='date' id='startTime'/> - 
+	<input type="text" value="" name='endTime' class='date' id='endTime'/>
+	</td>
+	
+  </tr>
+  <tr>
+	<td colspan='2' style="height:25px;border-bottom:1px solid #ededed;padding-left:200px"><a href='javascript:getAchieve()' class='button'><span>分析</span></a></td>
+  </tr>
+  </tfoot>
+</table>
+<table width="500px" class="list">
+<thead>
+  <tr>
+    <th colspan="{:count($branch)}" style="text-align:left">&nbsp;分析结果<font style="font-weight:none;color:#15428B">(如果删除产生业绩会员,会导致管理网体的业绩和业绩分析对不上!)</font></th>
+  </tr>
+  <tr>
+	<foreach name='branch' item='vo'>
+    <th>{$net_place:showregion($vo)}</th>
+	</foreach>
+  </tr>
+</thead>
+<tfoot>
+  
+  <tr>
+	<foreach name='branch' item='vo'>
+    <td id='{$vo}' style="height:25px;vertical-align: middle;border-bottom:1px solid #ededed">
+	
+	</td>
+    </foreach>
+  </tr>
+</tfoot>
+</table>
+</div>
+<script>
+function getAchieve(){
+	var userid=$('#userid',navTab.getCurrentPanel()).val();
+	var startTime=$('#startTime',navTab.getCurrentPanel()).val();
+	var endTime=$('#endTime',navTab.getCurrentPanel()).val();
+	$.post('__URL__/achieve:__XPATH__',{userid:userid,startTime:startTime,endTime:endTime},function(data){
+		eval("var data="+data);
+		if(data.status==0){
+			alertMsg.error(data.info);
+		}else{
+			for(i in data.data){
+				$('#'+i,navTab.getCurrentPanel()).html(data.data[i]);
+			}
+		}
+	});
+}
+</script>

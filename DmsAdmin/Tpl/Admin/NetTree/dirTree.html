@@ -1,0 +1,218 @@
+<div layoutH="0"  id="dirtreecontent">
+<select name="changeStyle" id="changeStyle">
+	<option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
+	   <php>
+		//判断是否是豪华版还是简化版 如果是简化版的话是没属性目录功能和列表功能的
+		if(C('VERSION_SWITCH') == '0'){
+		</php>
+			<option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+			<option value="lists" <eq name="style" value="lists">selected="true"</eq>>列表形式</option>
+		<php>}</php>
+</select>
+<table width="100%" border="0">
+<tbody>
+<tr>
+<td height="30" align="center">
+	
+</td>
+</tr>
+</tbody>
+</table>
+<div style="float:left;padding-left:10px">
+<form action="__ACTION__/style/{$style}" method="post" name="form1" onsubmit="return navTabSearch(this)">
+	<span style="float:left;height:20px;line-height:20px">{$userNode:name}编号：</span>
+	<span style="float:left;"><input type="text" name="uid"  value="{$firstUserInfo.编号}" /></span>
+	<div class="buttonActive" style="padding-right:5px">
+		<div class="buttonContent"><button type="submit">搜索</button></div>
+	</div>
+</form>
+</div>
+{// 浮动层}
+<div id="dfloatDiv" style="border:3px solid #d5dDdF;display:none;position:absolute;background:#FFFFFF;padding:10px">
+</div>
+<div style="margin-left:50px;float:left;clear:both;" id="doverUser_{$firstUserInfo.编号}" info={$firstUserInfo.floatStr}>
+{// 最上面的会员资料 }
+<img border=0  src="/Public/Images/admin/treeimgs/tree_diropen.gif" width="16" height="16" />
+{$firstUserInfo.编号}
+<foreach name="levelsArr" item="levels" key="levelName">[{:$levels[$firstUserInfo[$levelName]]}]</foreach>
+<empty name="firstUserInfo.审核日期">
+	[注册日期:{:date('Y-m-d',$firstUserInfo['注册日期'])}]
+<else/>
+	[审核日期:{:date('Y-m-d',$firstUserInfo['审核日期'])}]
+</empty>
+</div>
+<foreach name="downUsers" key="k" item="downUser">
+<php>$downUsersTotal=count($downUsers)-1;</php>
+<div style="margin-left:50px;display:inline-block;float:left;clear:both" id="doverUser_{$downUser.编号}" info={$downUser.floatStr}>
+
+{// 判定输出 + 、- 图标 }
+<eq name="downUser.haveChild" value="true">
+<img border=0 id="img_{$downUser.编号}" disrc="<eq name='k' value='$downUsersTotal'>plusl<else />plus</eq>" src="/Public/Images/admin/treeimgs/<eq name='k' value='$downUsersTotal'>tree_plusl.gif<else />tree_plus.gif</eq>"  onclick="get_child('{$downUser.编号}',1);" style="cursor:pointer" />
+<else/>
+<img border=0 id="img_{$downUser.编号}" disrc="<eq name='k' value='$downUsersTotal'>blankl<else />blank</eq>"  src="/Public/Images/admin/treeimgs/<eq name='k' value='$downUsersTotal'>tree_blankl.gif<else />tree_blank.gif</eq>"  />
+</eq>
+
+{// 输出循环中的会员资料 }
+{$downUser.编号}[第2层]
+<foreach name="levelsArr" item="levels" key="levelName">[{:$levels[$downUser[$levelName]]}]</foreach>
+<empty name="downUser.审核日期">
+	[注册日期:{:date('Y-m-d',$downUser['注册日期'])}]
+<else/>
+	[审核日期:{:date('Y-m-d',$downUser['审核日期'])}]
+</empty>
+</div>
+
+<div id="d_{$downUser.编号}" style="margin-left:50px;display:none" dis="0"></div>
+
+</foreach>
+</div>
+<script language="javascript">
+$(function(){
+	navTab.getCurrentPanel().find('#changeStyle').bind('change',function(){
+		navTab.reload('',{data:{style:$(this).val()}});
+	});
+
+	navTab.getCurrentPanel().find("[id^='doverUser_']").bind('mousemove',function(e){
+		showFloat(e,this);
+	});
+});
+function showFloat(e,obj){
+		var info = $(obj).attr('info');
+		eval('info='+info);
+		var infoStr = '<table><tr><td style="text-align:right;height:20px;line-height:20px">编号：</td>';
+		infoStr += '<td style="text-align:left;height:20px;line-height:20px">'+info.编号+'</td></tr>';
+		//alert(infoStr);
+		infoStr += '<tr><td style="text-align:right;height:20px;line-height:20px">姓名：</td>';
+		if(!info.姓名){
+			info.姓名 = '[暂无]';
+		}
+		infoStr += '<td style="text-align:left;height:20px;line-height:20px">'+info.姓名+'</empty></td></tr>';
+		if(info.审核日期 != undefined){
+			infoStr += '<tr><td style="text-align:right;height:20px;line-height:20px">审核日期：</td>';
+			infoStr += '<td style="text-align:left;height:20px;line-height:20px">'+info.审核日期.replace('$',':').replace('$',':').replace('%',' ')+'</td></tr>';
+		}else{
+			infoStr += '<tr><td style="text-align:right;height:20px;line-height:20px">注册日期：</td>';
+			infoStr += '<td style="text-align:left;height:20px;line-height:20px">'+info.注册日期.replace('$',':').replace('$',':').replace('%',' ')+'</td></tr>';
+		}
+		
+		for(var key in info.levels){
+			infoStr += '<tr><td style="text-align:right;height:20px;line-height:20px">'+key+'：</td>';
+			infoStr += '<td style="text-align:left;height:20px;line-height:20px">'+info.levels[key]+'</td></tr>';
+		}
+		//判断网体是否是管理网络 如果是管理网络的话才显示业绩 
+		if('{$jiedian}'=='net_place'){
+		infoStr += '<tr><td colspan="2">';
+			for(var key in info.网体业绩){
+			infoStr += '<table border="0" cellpadding="3" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">';
+			//判断该系统是否是
+			if('{$is_bump}'==1){
+			infoStr += '<tr style="text-align: center; color:#5A4B24; background-color: #F4FAFF;"><td style="border-width:1px;border-style:solid;border-color:#B9D8F3;">'+key+'</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">新增</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">结转</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">累计</td></tr>';
+			}else{
+				infoStr += '<tr style="text-align: center; color:#5A4B24; background-color: #F4FAFF;"><td style="border-width:1px;border-style:solid;border-color:#B9D8F3;">'+key+'</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">新增</td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">累计</td></tr>';
+			}
+				for(var k in info.网体业绩[key]){
+				infoStr += '<tr style="text-align: center; color:#5A4B24; background-color: #F4FAFF;"><td style="border-width:0 1px 1px 1px;border-style:solid;border-color:#B9D8F3;">'+k+'</td>';
+				for(var i in info.网体业绩[key][k]){
+				if('{$is_bump}'==1){
+				   infoStr += '<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">'+info.网体业绩[key][k][i]+'</td>';
+				}else{
+				  	if(i!=1){
+				   infoStr += '<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">'+info.网体业绩[key][k][i]+'</td>';
+				}
+				}
+				}
+			}
+		}
+		infoStr += '</table>';
+		infoStr += '</td></tr>';
+		}
+		infoStr += '</table>';
+		var $dfloatDiv = navTab.getCurrentPanel().find("#dfloatDiv");
+		$dfloatDiv.html(infoStr);
+		var xx = e.pageX-navTab.getCurrentPanel().find("#dirtreecontent").offset().left;
+		var yy = e.pageY-navTab.getCurrentPanel().find("#dirtreecontent").offset().top;
+		var idArr = $(obj).attr('id').split('_');
+		var width = $dfloatDiv.width();
+		var height = $dfloatDiv.height();
+		if(xx > (navTab.getCurrentPanel().width()-width-60)){
+			xx = xx - width - 40;
+		}else{
+			xx = xx + 20;
+		}
+		if(yy > (navTab.getCurrentPanel().height()-height-60)){
+			yy = yy - height -30;
+		}else{
+			yy = yy + 25;
+		}
+		//alert(idArr[1])
+		$dfloatDiv.show();
+		$dfloatDiv.css('left',xx);
+		$dfloatDiv.css('top',yy);
+		$(obj).mouseout(function(){
+			$dfloatDiv.css('display','none');
+		});
+}
+
+//获取子节点
+function get_child(uid,depth){
+	//var dobj	= document.getElementById("d_"+uid);
+	//var imgobj	= document.getElementById("img_"+uid);
+	var dobj	= navTab.getCurrentPanel().find("#d_"+uid);
+	var imgobj	= navTab.getCurrentPanel().find("#img_"+uid);
+	
+	if (dobj.attr('dis') == '1'){
+		dobj.css('display',"none");
+		dobj.attr('dis','0');
+		if (imgobj.attr("disrc")=="minus"){
+			imgobj.attr("src","/Public/Images/admin/treeimgs/tree_plus.gif");
+			imgobj.attr("disrc","plus");
+		}else{
+			imgobj.attr("src","/Public/Images/admin/treeimgs/tree_plusl.gif");
+			imgobj.attr("disrc","plusl");
+		}
+	}else{
+		var line = '1';
+		//alert($("#img_"+uid).attr('src'));
+		dobj.css('display',"block");
+		dobj.attr('dis','1');
+		//if(imgobj.attr("src") == "/Public/Images/admin/treeimgs/tree_minus.gif"){
+		//	imgobj.attr("src","/Public/Images/admin/treeimgs/tree_minusl.gif");
+		//}else{
+		if(imgobj.attr('disrc')=="plusl"){
+			line = '0';
+			imgobj.attr("src","/Public/Images/admin/treeimgs/tree_minusl.gif");
+			imgobj.attr("disrc","minusl");
+		}else{
+			imgobj.attr("src","/Public/Images/admin/treeimgs/tree_minus.gif");
+			imgobj.attr("disrc","minus");
+		}
+		var spanImg = '';
+		imgobj.prevAll().each(function(i,v){
+			//ii = console.log($(v).get(0).tagName);
+			if($(v)[0].tagName.toLocaleLowerCase() == 'span'){
+				spanImg ='0,' + spanImg;
+			}else{
+				spanImg = '1,' + spanImg;
+			}
+		});
+		spanImg += line;
+		//}
+		//dobj.innerHTML="载入中.........";
+		$.post('__URL__/getChild:__XPATH__/rn/'+Math.random(),{uid:uid,depth:depth,spanImg:spanImg},function(data){
+			try{
+				eval("var json="+data);
+				if( json.status )
+				{
+					dobj.html(json.data);
+					navTab.getCurrentPanel().find("[id^='doverUser_']").bind('mousemove',function(e){
+						showFloat(e,this);
+					});
+				}
+			}catch(e){
+				alert("数据异常");
+			}
+
+		});
+	}
+}
+</script>

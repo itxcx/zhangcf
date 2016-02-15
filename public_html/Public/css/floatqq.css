@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* 代码整理：懒人之家 www.lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	text-align:left;
+	font-size:12px;
+}
+.lanrenzhijia-cs {
+	background:rgba(51, 51, 51, 0.9);
+	position: fixed;
+	top: 130px;
+	right: 1px;
+	_position: absolute;
+	z-index: 999;
+filter:progid:DXImageTransform.Microsoft.gradient(enabled='true', startColorstr='#E5333333', endColorstr='#E5333333');
+}
+.lanrenzhijia-cs a {
+	color: #00A0E9;
+}
+.lanrenzhijia-cs a:hover {
+	color: #ff8100;
+	text-decoration: none;
+}
+.lanrenzhijia-cs .floatL {
+	width: 36px;
+	float:left;
+	position: relative;
+	z-index:1;
+}
+.lanrenzhijia-cs .floatL a {
+	font-size:0;
+	text-indent: -999em;
+	display: block;
+}
+.lanrenzhijia-cs .floatR {
+	width: 130px;
+	float: left;
+	padding: 5px;
+	overflow:hidden;
+}
+.lanrenzhijia-cs .floatR .cn {
+	background: #F7F7F7;
+}
+.lanrenzhijia-cs .cn h3 {
+	font-size: 14px;
+	color: #333;
+	font-weight:600;
+	line-height: 24px;
+	padding: 5px
+}
+.lanrenzhijia-cs .cn ul {
+	padding: 0 0 0 8px;
+}
+.lanrenzhijia-cs .cn ul li {
+	line-height: 38px;
+	height:38px;
+	border-bottom: solid 1px #E6E4E4;
+	overflow: hidden;
+}
+.lanrenzhijia-cs .cn ul li span {
+	color: #777;
+}
+.lanrenzhijia-cs .cn ul li img {
+	vertical-align: middle;
+}
+.lanrenzhijia-cs .btnOpen, .lanrenzhijia-cs .btnCtn {
+	position: relative;
+	z-index:9;
+	top:0;
+	left: 0;
+	background: url(../Images/floatqq.png);
+	background-repeat: no-repeat;
+	display:block;
+	width: 20px;
+	height: 146px;
+	padding: 8px;
+}
+.lanrenzhijia-cs .btnOpen {
+	background-position: 0px 0;
+}
+.lanrenzhijia-cs .btnCtn {
+	background-position: -35px 0;
+}
+.lanrenzhijia-cs ul li.top {
+	border-bottom: solid #ACE5F9 1px;
+}
+.lanrenzhijia-cs ul li.bot {
+	border-bottom: none;
+}
+/* 代码整理：懒人之家 www.lanrenzhijia.com */

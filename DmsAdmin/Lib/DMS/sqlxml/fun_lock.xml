@@ -1,0 +1,7 @@
+﻿<table name='会员'>
+<field name='{$this->name}'         type="numeric(1)" default="{$this->default}"/>
+</table>
+
+<table name='修改日志'>
+<field name='{$this->name}'         type="numeric(1)" default="0"/>
+</table>

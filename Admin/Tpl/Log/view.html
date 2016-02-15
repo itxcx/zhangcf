@@ -1,0 +1,237 @@
+<style type="text/css">
+td{word-wrap:break-word;word-break:break-all;}
+</style>
+<div style="overflow-y:scroll;height:100%">
+{/*新旧数据显示*/}
+<if condition="($oldData neq '') and ($newData neq '') ">
+<table style="text-align:center;width:100%">
+<tr style="height:40px">
+<td align="center"><h1>修改前</h1></td>
+<td></td>
+<td align="center"><h1>修改后</h1></td>
+</tr>
+
+<tr>
+<td style="text-align:center;width:45%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" cellspacing="10" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="oldData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+<td>
+&nbsp;<span style="color:red">===</span>&nbsp;
+</td>
+<td style="text-align:center;width:45%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="newData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+<tr style="height:40px">
+<td colspan="3"><hr /></td>
+</tr>
+
+<tr style="height:40px">
+<td align="center"><h1>POST数据</h1></td>
+<td></td>
+<td align="center"><h1>GET数据</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:45%" valign="top">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="postData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+<td>
+&nbsp;<span style="color:red"></span>&nbsp;
+</td>
+<td style="text-align:center;width:45%" valign="top">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="getData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+</table>
+<elseif condition="$oldData eq '' and ($newData eq '')"/>
+<table style="text-align:center;width:100%">
+<tr style="height:40px">
+<td align="center"><h1>POST数据</h1></td>
+<td></td>
+<td align="center"><h1>GET数据</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:45%" valign="top">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="postData" item="vo">
+	<tr>
+	<th width="30%">{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+<td>
+&nbsp;<span style="color:red"></span>&nbsp;
+</td>
+<td style="text-align:center;width:45%" valign="top">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="getData" item="vo">
+	<tr>
+	<th width="30%">{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+</table>
+{/*旧数据显示*/}
+<elseif condition=" $oldData neq '' "/>
+
+<table style="text-align:center;width:50%">
+
+<tr style="height:40px">
+<td align="center"><h1>详情</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="oldData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+
+
+<tr style="height:40px">
+<td align="center"><h1>POST数据</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="postData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+<tr style="height:40px">
+<td align="center"><h1>GET数据</h1></td>
+</tr>
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="getData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+</table>
+
+{/*新数据显示*/}
+<elseif condition=" $newData neq '' "/>
+
+<table style="text-align:center;width:50%">
+
+<tr style="height:40px">
+<td align="center"><h1>详情</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="newData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+
+
+<tr style="height:40px">
+<td align="center"><h1>POST数据</h1></td>
+</tr>
+
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="postData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+<tr style="height:40px">
+<td align="center"><h1>GET数据</h1></td>
+</tr>
+
+<tr>
+<td style="text-align:center;width:100%">
+	<table border="1" cellpadding="4" bordercolor="#aaaaaa" style="border-collapse:collapse;text-align:center;width:100%" >
+	<foreach name="getData" item="vo">
+	<tr>
+	<th>{$key}</th>
+	<td><if condition="is_array($vo)">{:json_encode($vo)}<else />{$vo}</if></td>
+	</tr>
+	</foreach>
+	</table>
+</td>
+</tr>
+
+</table>
+
+</if>
+</div>

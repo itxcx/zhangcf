@@ -1,0 +1,55 @@
+<div class="core_main Mail" id="sendview">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+    	<table class="tablebg" >
+            <tr>
+                <td >&nbsp;&nbsp;邮件详情</td>
+            </tr>
+            <tr>
+                <td >
+                    <table style='width:100%;' >
+                        <tr>
+                            <td style='width:20%;' >发件时间：</td>
+                            <td style='width:80%;'  >&nbsp;{$list.发送时间|date="Y-m-d H:i:s",###}</td>
+                        </tr>
+                        <tr >
+                            <td >收件人：</td>
+                            <td >&nbsp;{$list.收件人}</td>  
+                        </tr>
+                        <tr >
+                            <td >标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</td>
+                            <td >&nbsp;{$list.标题}</td>  
+                        </tr>
+                        <tr >
+                            <td >内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容：</td>
+                            <td >&nbsp;{:htmlspecialchars_decode($list['内容'])}</td>
+                        </tr>                
+                        <eq name="list.状态" value="2">
+                        <tr >
+                            <td >{:L('response_time')}：</td>
+                            <td>&nbsp;{$list.回复时间|date="Y-m-d H:i:s",###}</td>
+                        </tr>
+                        <tr >
+                            <td >{:L('response_content')}：</td>
+                            <td>&nbsp;{$list.回复内容}</td>
+                        </tr>			                 
+                        </eq>
+                        <tr>
+                            <td colspan="2" >
+                                <center><input class="button_text" type="button" onClick="history.back();" value="{:L('back')}"/></center></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>     
+        </table>
+    </div>
+    
+    <div class="core_page"></div>
+</div>
+
+
+

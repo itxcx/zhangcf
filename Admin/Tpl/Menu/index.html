@@ -1,0 +1,58 @@
+<include file="Public:pagerForm" />
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+	<div class="searchBar">
+		<ul class="searchContent">
+			<li>
+				<label>菜单名称：</label>
+				<input type="text" name="name" style="width:90px" />
+			</li>
+		</ul>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="__URL__/add" rel="role_add" target="dialog" mask="true"><span>添加菜单</span></a></li>
+			<li><a class="edit" href="__URL__/edit/id/{admin_id}" rel="role_edit" target="dialog" mask="true"><span>修改菜单</span></a></li>
+			<li><a class="delete" href="__URL__/delete/id/{admin_id}" rel="role_del" target="ajaxTodo"><span>删除菜单</span></a></li>
+			<li><a class="edit" href="__URL__/authorize/id/{admin_id}" rel="role_access" target="dialog" mask="true" width="400" height="430"><span>角色授权</span></a></li>
+		</ul>
+	</div>
+
+		<ul class="tree expand">
+			
+			<li><a tname="name" tvalue="test1" checked="true">Test 1</a>
+			<ul>
+				<li>
+					<a tname="name" tvalue="test1.1">Test 1.1</a>
+					<ul>
+						<li><a tname="name" tvalue="test1.1.1" checked="true">Test 1.1.1</a></li>
+						<li><a tname="name" tvalue="test1.1.2" checked="false">Test 1.1.2</a></li>
+					</ul>
+				</li>
+				<li><a tname="name" tvalue="test1.2" checked="true">Test 1.2</a></li>
+			</ul>
+			</li>
+			<li><a tname="name" tvalue="test2" checked="true">Test 2</a></li>
+		</ul>
+
+</div>
+<php>
+function getParentName($id) {
+	if ($id == 0) {
+		return '无上级';
+	}
+	
+	$Menu			= M( "Menu" );
+	$where['id']	= $id;
+	return $Menu->where($where)->getField('name');
+}
+</php>

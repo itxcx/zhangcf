@@ -1,0 +1,174 @@
+<style type="text/css">
+tr,td{vertical-align:top;padding-top:3px;}
+</style>
+<link rel="stylesheet" href="__PUBLIC__/stock/css/demo.css" type="text/css" media="screen">
+<script src="__PUBLIC__/stock/js/raphael.js"></script>
+<script src="__PUBLIC__/stock/js/popup.js"></script>
+<!--浮动的线条和数字-->
+<!-- <script src="__PUBLIC__/stock/js/jquery.js"></script> -->
+<script src="__PUBLIC__/stock/js/analytics.js"></script>
+<style type="text/css" media="screen">
+    #holder {
+        height: 250px;
+        position:relative;
+        padding-top:100px;        
+        width: 800px;
+    }
+</style>
+<div class="core_main Fun_pay" id="paylist">
+<div class="core_title"> <span class="core_title_con">当前位置：{$name}管理&gt;&gt;大厅</span> <span class="core_title_edit"></span> </div>
+<div class="core_con">
+<div style="height:285px;overflow:hidden">
+  <table class="tablebg">
+    <div style="text-align:center"><font style='font-size:18px;color:#000000'>欢迎访问{$name}交易大厅</font></div>
+    <TR class="datafield" style="height:256px">
+      <td width="50%" colspan="2" align="center"><div style="width:100%;padding-left:3px;height:265px;">
+          <div style="width:880px; height:265px;padding:0px;">
+            <table id='rowset'>
+              <tfoot>
+                <tr>
+                <!--js自动获取下面2个值，最小最大-->
+                <input type="hidden" id="maxrate" value="{$maxprice}">
+                <input type="hidden" id="minrate" value="{$minprice}"><!--最小值请和getxml内对应-->
+                <php>
+                for($i=10;$i>=0;$--){
+                </php>
+                  <th>{:($minprice+$addprice*$i)}</th>
+                <php>
+                }
+                </php>
+                </tr>
+              </tfoot>
+            </table>
+            <table id="data">
+              <tfoot>
+                <tr>
+				  <foreach name="list" item="v" key="key">
+	                 <th  title='{:date("Y-m-d",$list[$key]["计算日期"])}'>{:date("d",$list[$key]["计算日期"])}</th>
+	              </foreach>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr >
+				   <foreach name="list" item="vo" key="k">
+                  		<td>{$list[$k]['价格']}</td>
+	                </foreach>
+                </tr>
+              </tbody>
+            </table>
+            <div id="holder"></div>
+          </div>
+        </div></td>
+  </table>
+</div>
+<div>
+<table width="100%">
+<TR class="datalist">
+  <TD width="50%">
+  <form id="form_buy" name="form1" method="post" action="">
+    <input type="hidden" id="model_buy" name="model" value="buy">
+    <table class="tablebg">
+      <TR class="datafield">
+        <td colspan="2" >购买{$name}</td>
+      </TR>
+      <TR class="datalist">
+        <TD ><nobr>股权数目：</nobr></TD>
+        <TD style="text-align:left;padding-left:20px;"><nobr>
+          <input id="inp1_buy" type="text" name="num" style="width:40%;height:16px;" onkeyup="SumNum('buy')">
+          </nobr></TD>
+      </TR>
+      <TR class="datalist">
+        <TD ><nobr>每股价：</nobr></TD>
+        <TD style="text-align:left;padding-left:20px;"><nobr>
+          <input type="text" id="inp2_buy" name="price" readonly="readonly" style="width:40%;height:16px;"  value="{$price}">
+      </TR>
+      <TR class="datalist">
+        <TD ><nobr>总买入价：</nobr></TD>
+        <TD style="text-align:left;padding-left:20px;"><nobr>
+          <input type="text"  id="inp3_buy"  name="money" readonly="readonly" style="width:40%;height:15px;"  value="0" />
+          </nobr></TD>
+      </TR>
+      <TR class="datalist">
+        <TD colspan="2" ><nobr>&nbsp;</nobr><nobr>
+          <input class="button_text" type="button" value="立即购买" onclick="sh('buy');" id="regsubbutton">
+          </nobr></TD>
+      </TR>
+    </table>
+    </TD>
+  </form>
+  <table width="100%">
+    <TD ><table class="tablebg">
+          <tr class="datafield">
+            <td colspan="2" align="center" width="100%">我的{$name}信息</td>
+          </tr>
+          <TR class="datalist">
+            <TD ><nobr>{$name}当前价格：</nobr></TD>
+            <TD style="text-align:left;padding-left:20px;"><nobr> {$price} </nobr></TD>
+          </TR>
+          <TR class="datalist">
+            <TD ><nobr>持有{$name}总数量：</nobr></TD>
+            <TD style="text-align:left;padding-left:20px;">{$nums}</TD>
+          </TR>
+          <TR class="datalist">
+            <TD ><nobr>持有{$name}总价值：</nobr></TD>
+            <TD style="text-align:left;padding-left:20px;"><nobr> {$zongjia} </nobr></TD>
+        </table></td>
+    </TR>
+  </table>  
+               
+</div>
+</div>
+</div>
+<script type="text/javascript">
+function SumNum(type){
+	var sumValue;
+	a=$("#inp1_"+type).val();
+	b=$("#inp2_"+type).val();
+	if (isNaN(a))
+	{a=0}
+	if (isNaN(b))
+	{b=0}
+	sumValue = a*b;
+	$('#inp3_'+type).val(sumValue.toFixed({$decimalLen})) ;	
+}
+
+function sh(type){
+	var startprice={$price};
+//	var highprice={$highprice};
+//	var lowprice={$lowprice};
+	var num=$("#inp1_"+type).val();
+	var price=$("#inp2_"+type).val();
+	var model=$("#model_"+type).val();
+	var con=true;
+	if((num<0 || num=='') && type!='sell'){
+		con=false;
+		alert("{:L('交易数量')}{:L('不合法')}");
+		return;
+	}
+	if(price<startprice  && type!='sell'){
+    con=false;
+	alert("{:L('交易价格')}{:L('不能低于')}"+startprice);
+	return;
+	}
+	if(con){
+		if(model =='buy'){
+			var url="__APP__/User/Fun_deal/stock_buy:__XPATH__";
+		}
+		if(model =='sell'){
+			var url="__APP__/User/Fun_deal/stock_sell:__XPATH__";
+		}
+		$("#form_"+type).attr("action",url);
+		$('#form_'+type).submit();
+	}
+}
+function alls(types){
+      if(types =='buy'){
+			var url="__APP__/User/Fun_deal/buy_all:__XPATH__";
+		}
+		if(types =='sell'){
+			var url="__APP__/User/Fun_deal/sell_all:__XPATH__";
+		}
+		$("#form_"+types).attr("action",url);
+		$('#form_'+types).submit();
+}
+</script>

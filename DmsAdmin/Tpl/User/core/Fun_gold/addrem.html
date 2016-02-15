@@ -1,0 +1,103 @@
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<div class="core_main Fun_ep_deal" id="deal_list">
+     <div class="core_title">
+    	<span class="core_title_con">当前位置：{$nowtitle}</span>
+    </div>
+    <div class="core_con">
+    <form method="post" id="form1" action="">
+    	<input name="id" type="hidden" value="{$buyinfo['id']}"/>
+      <table class="tablebg">
+          <TR class="datafield">
+          	<TH ><nobr>卖家编号</nobr></TH>
+          	<TH ><nobr>开户银行</nobr></TH>
+          	<TH ><nobr>银行卡号</nobr></TH>
+          	<TH ><nobr>开户名</nobr></TH>
+          	<TH ><nobr>联系电话</nobr></TH>
+          </TR>
+          <TR class="datalist">
+          	<TD ><nobr>{$sellinfo.编号}</nobr></TD>
+          	<TD ><nobr>{$sellinfo.开户银行}</nobr></TD>
+          	<TD ><nobr>{$sellinfo.银行卡号}</nobr></TD>
+          	<TD ><nobr>{$sellinfo.开户名}</nobr></TD>
+          	<TD ><nobr>{$sellinfo.电话}</nobr></TD>
+          </TR>
+      </table>
+      <table class="tablebg">
+          <notempty name="buyInput">
+	          <if condition="in_array('开户银行',$buyInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('开户银行')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('开户银行',$epbuyInput) || $user['开户银行']==''">
+					<input type="text" id="bank" name="bank" style="width:160px;" value="{$user.开户银行}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.开户银行}<input type="hidden" id="bank" name="bank" style="width:160px;" value="{$user.开户银行}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('银行卡号',$buyInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('银行卡号')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('银行卡号',$epbuyInput) || $user['银行卡号']==''">
+					<input type="text" id="zhanghao" name="zhanghao" style="width:160px;" value="{$user.银行卡号}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>{$user.银行卡号}
+					<input type="hidden" id="zhanghao" name="zhanghao" style="width:160px;" value="{$user.银行卡号}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('开户名',$buyInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('开户名')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('开户名',$epbuyInput) || $user['开户名']==''">
+					<input type="text" id="huzhu" name="huzhu" style="width:160px;" value="{$user.开户名}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.开户名}<input type="hidden" id="huzhu" name="huzhu" style="width:160px;" value="{$user.开户名}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('联系电话',$buyInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('联系电话')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('联系电话',$epbuyInput) || $user['移动电话']==''">
+					<input type="text" id="mobile" name="mobile" style="width:160px;" value="{$user.移动电话}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.移动电话}<input type="hidden" id="mobile" name="mobile" style="width:160px;" value="{$user.移动电话}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+          </notempty>
+          <TR>
+              <TD class="tbkey">汇款金额：</td>
+              <TD class="tbval">{$buyinfo['数量']*$buyinfo['单价']}<input type="hidden" name="money" id="money" value="{$buyinfo['数量']*$buyinfo['单价']}"></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">汇款时间：</td>
+              <TD class="tbval"><input type="text" name="remtime" title="点击选择汇款日期" onclick="new WdatePicker({dateFmt:'yyyy-M-d'})" id="giveTime" value="" /></td>
+            </TR>
+          <tr>
+            <td colspan="2" align="center">
+            	<button id="rem_btn" type="button" class="input_button" onclick="remsave();" >{:L('确定汇款')}</button>
+            	<button id="rem_btn" type="button" class="input_button" onClick="history.back();">{:L('返回')}</button>
+            </td>
+          </tr>
+     </table>
+     </form> 
+  </div>
+</div>
+<script language="javascript">
+	function remsave(){
+		$("#rem_btn").attr({"disabled":"disabled"});
+		var url="__URL__/remsave:__XPATH__";
+		$("#form1").attr("action",url);
+		$('#form1').submit();
+	}
+</script>
+</body>
+</html>

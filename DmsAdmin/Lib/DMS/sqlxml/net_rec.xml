@@ -1,0 +1,17 @@
+﻿<table name='会员'>
+	<field name='{$this->name}_上级编号'   type="varchar(50)" default=""/>
+	<field name='{$this->name}_推荐人数'   type='int' default="0"/>
+	<field name='{$this->name}_被推荐数'   type='int' default="0"/>
+	<field name='{$this->name}_团队人数'   type='int' default="0"/>
+	<field name='{$this->name}_团队总人数' type='int' default="0"/>
+	<field name='{$this->name}_层数'       type='int' default="0"/>
+	<field name='{$this->name}_深度'       type='int' default="0"/>
+	<field name='{$this->name}_网体数据'   type='longtext'/>
+	<field name='{$this->name}网络显示'   type='varchar(255)' default='自动'/>
+	<field name='INDEX (`{$this->name}_层数`)' type="KEY"/>
+	<field name='INDEX (`{$this->name}_上级编号`)' type="KEY"/>
+	<field name='INDEX (`{$this->name}_网体数据`(200))' type="KEY"/>
+</table>
+<table name='修改日志'>
+<field name='{$this->name}网络显示'   type='varchar(255)' default='自动'/>
+</table>

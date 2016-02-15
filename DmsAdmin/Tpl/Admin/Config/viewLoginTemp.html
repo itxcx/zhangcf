@@ -1,0 +1,13 @@
+<div class="pageContent">
+	<form method="post" action="__URL__/tempChange/number/{$_GET['number']}" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload);">
+		<div class="pageFormContent" layoutH="58">
+			<img src="{:base64_decode($_GET['imgurl'])}" style="width:800px;height:500px"/>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">立即使用</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

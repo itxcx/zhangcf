@@ -1,0 +1,46 @@
+<div class="pageContent">
+	<form  action="__APP__/UpdateUser/update" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload)">
+		<input type="hidden" name="id" value="{$vo.id}" />
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th width="80">帐号：</th>
+					<td style="text-align:left" width="300">
+                    <input type="text" class="required" name="account" value="{$vo.account}" style="border:0px" readonly />
+					</td>
+				</tr>
+				<tr>
+					<th >昵称：</th>
+					<td style="text-align:left" >
+						<input type="text" class="required" name="nickname" value="{$vo.nickname}" style="border:0px" readonly />
+					</td>
+				</tr>
+				<tr>
+					<th>旧密码：</th>
+					<td style="text-align:left" >
+						<input type="password" class="required alphanumeric" minlength="1" maxlength="20" id="oldpassword" name="oldpassword" value="" />
+					</td>
+				</tr>
+				<tr>
+					<th>新密码：</th>
+					<td style="text-align:left" >
+						<input type="password" class="required" minlength="1" maxlength="20" id="password1" name="password1" value="" />
+					</td>
+				</tr>
+				<tr>
+					<th>确认新密码：</th>
+					<td style="text-align:left" >
+						<input type="password" class="required" minlength="1" maxlength="20" id="password2" name="password2" value="" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

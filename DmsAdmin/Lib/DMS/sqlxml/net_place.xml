@@ -1,0 +1,44 @@
+<table name='会员'>
+	<field name='{$this->name}_上级编号'   type="varchar(50)" null="1" default=""/>
+	<field name='{$this->name}_位置'   type="varchar(10)" default=""/>
+	<field name='{$this->name}_团队人数'   type='int' default='0'/>
+	<field name='{$this->name}_团队总人数' type='int' default='0'/>
+	<field name='{$this->name}_层数'       type='int' default='0'/>
+	<field name='{$this->name}_网体数据' type='longtext' default=''/>
+	<field name='{$this->name}网络显示'   type='varchar(255)' default='自动'/>
+	<foreach name="{$this->getBranch()}" item="vo">
+		<field name='{$this->name}_{$vo}区'  type='varchar(50)' default=''/>
+		<field name='{$this->name}_{$vo}区层深'  type='int' default='0'/>
+		<field name='{$this->name}_{$vo}区本期业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+		<field name='{$this->name}_{$vo}区本日业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+		<field name='{$this->name}_{$vo}区累计业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+		<field name='{$this->name}_{$vo}区结转业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+	</foreach>
+	<field name='INDEX (`{$this->name}_层数`)' type="KEY"/>
+	<field name='INDEX (`{$this->name}_上级编号`)' type="KEY"/>
+	<field name='INDEX (`{$this->name}_网体数据`(200))' type="KEY"/>
+</table>
+<foreach name="{X('tle')}" item="vo">
+<table name="{$vo.name}"  engine="InnoDB">
+	<foreach name="{$this->getBranch()}" item="vo2">
+		<field name="{$this->name}_{$vo2}区本日业绩" type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+		<field name="{$this->name}_{$vo2}区累计业绩" type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+		<field name="{$this->name}_{$vo2}区结转业绩" type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+	</foreach>
+</table>
+</foreach>
+<table name='修改日志'>
+<field name='{$this->name}网络显示'   type='varchar(255)' default='自动'/>
+</table>
+<table name='{$this->name}_业绩'  engine="InnoDB">
+	<field name="id"     type="int(11)" auto_increment="1" primary="1" />
+	<field name="pid"    type="int(11)" default='0'/>
+	<field name='time'   type='int(11)' default='0'/>
+	<field name='userid' type='int(8)' default='0'/>
+	<field name='fromid' type="int(8)" default='0'/>
+	<field name='val'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+	<field name='region' type="int(2)" default='0'/>
+	<field name='saleid' type="int(11)" default='0'/>
+	<field name='INDEX (`region`,`time`,`pid`)' type="KEY"/>
+	<field name='INDEX (`region`,`pid`)' type="KEY"/>
+</table>

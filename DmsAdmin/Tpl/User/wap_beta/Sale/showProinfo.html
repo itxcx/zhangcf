@@ -1,0 +1,22 @@
+<php>
+$nowtitle = '当前位置：产品详情';
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <table class="table">
+        <tr>
+            <th>
+                <div style="font-size:.18rem;height:.5rem;line-height:.5rem;">{$list.名称}</div>
+                <div style="margin:0 auto;width:3rem"><img src="{$list.图片}" style='height: 2.6rem;' /></div>
+            </th>
+        </tr>
+        <tr>
+            <td  style="text-align:left; word-break:break-all;padding: .1rem .2rem;">{$list.描述}&nbsp;</td>
+        </tr>
+    </table>
+    <div class="content-box">
+        <button class="btn btn-default js-goback">返　回</button>
+    </div>
+</div>
+<include file="Public:footer" />
+

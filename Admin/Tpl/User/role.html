@@ -1,0 +1,48 @@
+<form method="post" action="__URL__/role" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<input type="hidden" name="submit" value="1" />
+<input type="hidden" name="args" value="{$args}" />
+<input type="hidden" name="user_id" value="{$userInfo.id}" />
+
+<table>
+<tr>
+<td width="80">会员帐号:</td>
+<td style="text-align:left"><span style="color:blue">{$userInfo.account}</span></td>
+</tr>
+<tr>
+<td>权限组:</td>
+<td style="text-align:left">
+<div id="authorize" style="float:left;margin-bottom:22px;display:block; overflow:auto; width:200px; height:200px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+	<ul class="tree treeCheck expand">
+		<foreach name="roleList" item="role">
+		<li>
+			<a tname="role[]" tvalue="{$role.id}" <if condition="(in_array($role['id'],$adminRoleIndexList))">checked</if>>{$role.name}</a>
+		</li>
+		</foreach>
+	</ul>
+</div>
+</td>
+</tr>
+</table>
+
+<div class="formBar">
+	<ul>
+		<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+		<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+	</ul>
+</div>
+</form>
+
+<script type="text/javascript">
+//处理提交事件
+function onsubmit()
+{
+	var checkedList = $("#authorize input:checkbox[name='node[]']:checked");
+	var ids			= '';
+	for( i=0; i<checkedList.length; i++ )
+	{
+		if( ids !='' ) ids += ',';
+		ids += checkedList[i].value;
+	}
+	$('#power').val(ids);
+}
+</script>

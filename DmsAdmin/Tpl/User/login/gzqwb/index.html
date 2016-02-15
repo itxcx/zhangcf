@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员登录</title>
+<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
+<link  rel="stylesheet"  type="text/css"  href="UserTpl/login/gzqwb/css/ez.css">
+<link  rel="stylesheet"  type="text/css"  href="UserTpl/login/gzqwb/css/comm.css">
+<script  type="text/javascript"  src="UserTpl/login/gzqwb/css/oolite.js"></script>
+<style  type="text/css"  media="print">
+div{display:none}
+div.right_mid{display:block}
+table{display:block}
+</style>
+
+<style  type="text/css">
+body{
+	overflow:hidden;
+	background-color: #FF9900;
+}
+.login_main{
+	width:863px;
+	background:url("UserTpl/login/gzqwb/images/login.jpg") center center no-repeat;
+	height:565px
+}
+.login_div{
+	color:#FFF;
+	margin-top: 265px;
+	margin-right: 270px;
+ 	_margin-top: 210px;
+	_margin-right: 210px;
+	
+ }
+ 
+.login_info{color:#FFF; font-weight:bolder;}
+.login_div div{
+	margin-top:5px
+}
+input.m{
+	border:1px solid #889aa8;
+	width:120px;
+	height: 22px;
+}
+input.s{border:1px solid #889aa8;width:50px;height: 22px; }
+.subclass{ background:url("UserTpl/login/gzqwb/images/denglu.jpg") no-repeat; width:54px; height:25px; margin-right:10px;}
+.resetclass{ background:url("UserTpl/login/gzqwb/images/chongzhi.jpg") no-repeat; width:54px; height:25px;}
+</style>
+
+<script type="text/javascript">
+<!--
+function fleshVerify(type){ 
+	//重载验证码
+	var timenow = new Date().getTime();
+	if (type){
+		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
+	}else{
+		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+	}
+}
+//-->
+</script>
+</head>
+<body  huaban_collector_injected="true"  youdao="bind"  ryt11110="1">
+    <div  class="login_main">
+    	<div  class="login_div ez-20 ez-fr">
+        	<form  action="__URL__/check"  method="post"  id="loginform">
+            	<div>
+				<input type="text" id="username" class="m" value="" name="username"/>
+				<input type="hidden" name="act" value="verify" /></div>
+            	<div style="margin:15px 0;">
+				<input type="password" id="password" class="m" value="" name="password"/></div>
+            	<div style="margin:15px 0;">
+                <input type="text" name="captcha" id="captcha" maxlength="4" value="" class="s"><span style="padding-left:12px;">	<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </span>
+				</div>
+            	<div><input  type="submit"  value=" "  class="subclass"><input  type="reset"  value=" "  class="resetclass"></div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

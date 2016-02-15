@@ -1,0 +1,25 @@
+@charset "utf-8";
+/**------------整体布局-----------**/
+html{width:100%;height:100%;}
+body{margin:0px auto;padding:0px;height:100%;font-family: '宋体';}
+/**------------列表项样式-----------**/
+ul{-webkit-padding-start:0px;-moz-padding-start:0px;overflow:hidden;}
+li{list-style:none;float:left;}
+
+/**------------a标签样式-----------**/
+a{cursor:pointer;text-decoration:none;color:black;}
+a:link{}
+a:hover{text-decoration:underline;}
+a:visited{}
+
+em{font-style:normal;}
+
+h3{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:700;
+}
+.bankcon li{
+    width: 100% !important;
+}
+

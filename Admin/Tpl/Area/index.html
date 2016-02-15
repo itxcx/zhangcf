@@ -1,0 +1,1702 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="p" value="1"/>
+	<input type="hidden" name="_order" value="sort"/>
+	<input type="hidden" name="_sort" value="1"/>
+</form>
+<style type="text/css">
+#area_div input{width:100px!important}
+#area_div .align_right{text-align:right!important}
+#area_div .area_div{height: 400px;overflow-y: auto;}
+#area_div .area_div span{color:red;font-size:12px;cursor:pointer}
+#area_div .area_div tr{background-color:white}
+#area_div .area_div td{cursor:default}
+#area_div .left_div{text-align:left;float:left;line-height:150%}
+#area_div .right_div{text-align:right;float:right;display:none;position: relative;top: 0px;left: 1px;}
+#area_div .right_div img{}
+#area_div .right_div img[class='default']{}
+#area_div .right_div img[class='del']{}
+#area_div ul{list-style-type: none; margin: 0; padding: 0; margin-top:10px}
+#area_div li{ clear:left; margin: 0 3px 3px 3px; padding: 5px; padding-left: 0.5em; font-size: 1.4em; height: 20px; cursor:pointer }
+#area_div span{color:blue;font-size:12px}
+</style>
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+	<input type="hidden" name="pid" value="" />
+	</form>
+</div>
+<div class="pageContent">
+	<div style="padding:10px" id="area_div">
+		<form method="post" action="__URL__/update/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+		<input type="hidden" name="default_country" id="default_country" value="{$default_country}" />
+		<input type="hidden" name="default_province" id="default_province" value="{$default_province}" />
+		<input type="hidden" name="default_city" id="default_city" value="{$default_city}" />
+		<input type="hidden" name="default_county" id="default_county" value="{$default_county}" />
+		<input type="hidden" name="default_town" id="default_town" value="{$default_town}" />
+		<textarea id="content" name="content" rows="5" cols="70" style="display:none"></textarea>
+		<table align="left">
+		<tr>
+		<td colspan="4" align="center">
+			当前默认区域:
+			<span id="country_span" >{$default_country}</span> - 
+			<span id="province_span" >{$default_province}</span> - 
+			<span id="city_span" >{$default_city}</span> - 
+			<span id="county_span">{$default_county}</span> -
+			<span id="town_span">{$default_town}</span>
+		</td>
+		</tr>
+		<tr>
+		<td valign="top" align="left">
+			<table width="250" border="0" cellspacing="0" cellpadding="0" class="search" style="border:1px #99bbe8 solid">
+			<tbody>
+			<tr>
+			<td  align="left" valign="middle"><b>国家</b></td>
+			</tr>
+			<tr>
+				<td width="100%" class="search_1" style="border-right:none;">
+					<div style="height:30px;">
+						<div style="float:left;margin-left:20px;margin-right:5px">
+						<input type="text" id="country_add_input" style="height:20px" />
+						</div>
+						<div class="buttonActive">
+						<div class="buttonContent"><button onclick="country_add_save()" type="button">添加</button></div>
+						</div>
+					</div>
+					<ul class="area_div" id="country" width="100%" style="clear:left;margin-top:10px">
+					</ul>
+				</td>
+			</tr>
+			</tbody>
+			</table>
+		</td>
+		<td valign="top"  align="left" style="padding-left:8px">
+			<table width="250" border="0" cellspacing="0" cellpadding="0" class="search" style="border:1px #99bbe8 solid">
+			<tbody>
+			<tr>
+			<td colspan="4" align="left" valign="middle"><b>省/州</b></td>
+			</tr>
+			<tr>
+			<td width="100%" class="search_1" style="border-right:none;">
+				<div style="height:30px;">
+					<div style="float:left;margin-left:20px;margin-right:5px">
+					<input type="text" id="province_add_input" style="height:20px" />
+					</div>
+					<div class="buttonActive">
+					<div class="buttonContent"><button onclick="province_add_save()" type="button">添加</button></div>
+					</div>
+				</div>
+				<ul class="area_div" id="province" width="100%" style="clear:left;margin-top:10px">
+				</ul>
+			</td>
+			</tr>
+			<tr>
+			</tbody>
+			</table>
+		</td>
+		<td valign="top" align="left" style="padding-left:8px">
+			<table width="250" border="0" cellspacing="0" cellpadding="0" class="search" style="border:1px #99bbe8 solid">
+			<tbody>
+			<tr>
+			<td colspan="4" align="left" valign="middle"><b>城市</b></td>
+			</tr>
+			<tr>
+			<td width="100%" class="search_1" style="border-right:none;">
+				<div style="height:30px;">
+					<div style="float:left;margin-left:20px;margin-right:5px">
+					<input type="text" id="city_add_input" style="height:20px" />
+					</div>
+					<div class="buttonActive">
+					<div class="buttonContent"><button onclick="city_add_save()" type="button">添加</button></div>
+					</div>
+				</div>
+				<ul class="area_div" id="city" width="100%" style="clear:left;margin-top:10px">
+				</ul>
+			</td>
+			</tr>
+			<tr>
+			</tbody>
+			</table>
+		</td>
+		<td valign="top" align="left" style="padding-left:8px">
+			<table width="250" border="0" cellspacing="0" cellpadding="0" class="search" style="border:1px #99bbe8 solid">
+			<tbody>
+			<tr>
+			<td colspan="4" align="left" valign="middle"><b>区县</b></td>
+			</tr>
+			<tr>
+			<td width="100%" class="search_1" style="border-right:none;">
+				<div style="height:30px;">
+					<div style="float:left;margin-left:20px;margin-right:5px">
+					<input type="text" id="county_add_input" style="height:20px" />
+					</div>
+					<div class="buttonActive">
+					<div class="buttonContent"><button onclick="county_add_save()" type="button">添加</button></div>
+					</div>
+				</div>
+				<ul class="area_div" id="county" width="100%" style="clear:left;margin-top:10px">
+				</ul>
+			</td>
+			</tr>
+			<tr>
+			</tbody>
+			</table>
+		</td>
+		<td valign="top" align="left" style="padding-left:8px">
+			<table width="250" border="0" cellspacing="0" cellpadding="0" class="search" style="border:1px #99bbe8 solid">
+			<tbody>
+			<tr>
+			<td colspan="4" align="left" valign="middle"><b>乡镇街道</b></td>
+			</tr>
+			<tr>
+			<td width="100%" class="search_1" style="border-right:none;">
+				<div style="height:30px;">
+					<div style="float:left;margin-left:20px;margin-right:5px">
+					<input type="text" id="town_add_input" style="height:20px" />
+					</div>
+					<div class="buttonActive">
+					<div class="buttonContent"><button onclick="town_add_save()" type="button">添加</button></div>
+					</div>
+				</div>
+				<ul class="area_div" id="town" width="100%" style="clear:left;margin-top:10px">
+				</ul>
+			</td>
+			</tr>
+			<tr>
+			</tbody>
+			</table>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="4" style="text-align:center;padding-top:10px">
+			<div class="buttonActive" style="margin-top:10px;width:91px;margin:auto;float:none"><div class="buttonContent"><button onclick="return checkForm()" id="submit" type="submit">保存修改</button></div></div>
+		</td>
+		</tr>
+		</table>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+//国家开启拖动
+$( "#country" , navTab.getCurrentPanel() ).sortable({
+	/* 重新排序时,*/
+	update: function( event, ui ) 
+	{
+		//保存对象
+		country_sort( ui.item.attr('country') );
+	}
+});
+
+//省份开启拖动
+$( "#province" , navTab.getCurrentPanel() ).sortable({
+	/* 重新排序时,*/
+	update: function( event, ui ) 
+	{
+		//保存对象
+		province_sort( ui.item.attr('country'),ui.item.attr('province') );
+	}
+});
+
+//城市开启拖动
+$( "#city" , navTab.getCurrentPanel() ).sortable({
+	/* 重新排序时,*/
+	update: function( event, ui ) 
+	{
+		//保存对象
+		city_sort( ui.item.attr('country'),ui.item.attr('province'),ui.item.attr('city') );
+	}
+});
+
+
+//区县开启拖动
+$( "#county" , navTab.getCurrentPanel() ).sortable({
+	/* 重新排序时,*/
+	update: function( event, ui ) 
+	{
+		//保存对象
+		county_sort( ui.item.attr('country'),ui.item.attr('province'),ui.item.attr('city'),ui.item.attr('county') );
+	}
+});
+
+
+//乡镇开启拖动
+$( "#town" , navTab.getCurrentPanel() ).sortable({
+	/* 重新排序时,*/
+	update: function( event, ui ) 
+	{
+		//保存对象
+		town_sort( ui.item.attr('country'),ui.item.attr('province'),ui.item.attr('city'),ui.item.attr('county'),ui.item.attr('town') );
+	}
+});
+
+var area_json= eval({$data});
+
+var default_country		= '{$default_country}'; //默认国家
+var default_province	= '{$default_province}'; //默认省份
+var default_city		= '{$default_city}'; //默认城市
+var default_county		= '{$default_county}'; //默认区县
+var default_town		= '{$default_town}';//默认乡镇
+
+//初始化显示国家
+function country_init()
+{
+	$('#country' , navTab.getCurrentPanel() ).empty();
+
+
+	//初始化国家
+	for( var country in area_json )
+	{
+
+		var c = '';
+		c += '<li style="background-color:white" country="' + country + '" onclick="country_click($(this , navTab.getCurrentPanel()))" onmouseover="country_over($(this, navTab.getCurrentPanel()))" onmouseout="country_out($(this, navTab.getCurrentPanel()))">';
+
+		if( default_country == country )
+		{
+			c += '<div class="left_div">' + country + '<span style="color:blue">[默认]</span></div>';
+		}
+		else
+		{
+			c += '<div class="left_div">' + country + '</div>';
+		}
+
+		c += '<div class="right_div">';
+		c += '<img title="设为默认" class="default" src="/Public/Images/ok.gif" onclick="country_default(\'' + country  + '\')" /> ';
+		c += '<img title="删除" class="del" src="/Public/Images/del.gif" onclick="country_del(\'' + country  + '\')" /> ';
+		c += '</div>';
+		c += '</li>';
+
+		$('#country', navTab.getCurrentPanel()).append(c);
+	}
+}
+
+//显示国家
+country_init();
+
+
+//记忆上一次选择的国家 tr 
+var country_tr = '';
+
+//绑定国家 tr 点击事件
+function country_click(ob)
+{
+	//取消上一次选中的背景
+	if( country_tr != '' && ob.attr('country') != country_tr )
+	{
+		$("#country li[country='"+country_tr+"']" , navTab.getCurrentPanel() ).css('background-color','white');
+		$("#country li[country='"+country_tr+"'] input" , navTab.getCurrentPanel() ).blur(); //强制上次修改的国家失去焦点
+	}
+	//取出国家名称
+	var country = ob.attr('country');
+	//记住本次选择
+	country_tr = country;
+	//设置背景色
+	ob.css('background-color','#cccccc');
+	//加载之前先清空 省份、城市、县区
+	$('#province' , navTab.getCurrentPanel()).empty();
+	$('#city' , navTab.getCurrentPanel()).empty();
+	$('#county' , navTab.getCurrentPanel()).empty();
+	//清除已记录的当前选中的省市区县乡镇
+	province_tr = '';
+	city_tr		= '';
+	county_tr	= '';
+	town_tr		= '';
+	//加载国家对应的省
+	for( var province in area_json[ country ] )
+	{
+		var c = '';
+		c += '<li style="background-color:white" country="'+country+'" province="'+province+'" ondblclick="province_edit(\'' + country  + '\',\'' + province  + '\')" onclick="province_click($(this , navTab.getCurrentPanel()))" onmouseover="province_over($(this , navTab.getCurrentPanel()))" onmouseout="province_out($(this , navTab.getCurrentPanel()))">';
+		
+		if( default_country == country  && default_province == province )
+		{
+			c += '<div class="left_div">' + province + '<span style="color:blue">[默认]</span></div>';
+		}
+		else
+		{
+			c += '<div class="left_div">' + province + '</div>';
+		}
+		c += '<div class="right_div">';
+		c += '<span class="sure"></span>';
+		c += '<img title="设为默认" class="default" src="/Public/Images/ok.gif" onclick=\'province_default("' + country  + '","' + province + '")\' /> ';
+		c += '<img title="删除" class="del" src="/Public/Images/del.gif" onclick=\'province_del("' + country  + '","' + province + '")\' /> ';
+		c += '</div>';
+		c += '</li>';
+		$('#province' , navTab.getCurrentPanel() ).append(c); //插入到省table里面
+	}
+}
+
+/*
+* 国家鼠标移入
+* country 当前鼠标移入的国家li对象
+*/
+function country_over(country)
+{
+	//如果当前鼠标移入的国家不是已选中的国家
+	if( country.attr('country') != country_tr )
+	{
+		//设置背景色
+		country.css('background-color','#eeeeee');
+	}
+	//显示按钮
+	country.children('.right_div').show();
+}
+
+/*
+* 国家鼠标移出
+* country 当前鼠标移出的国家li对象
+*/
+function country_out(country)
+{
+	//如果当前鼠标移出的国家不是已选中的国家
+	if( country.attr('country') != country_tr )
+	{
+		//设置背景色
+		country.css('background-color','white');
+	}
+	//隐藏按钮
+	country.children('.right_div').hide();
+}
+//记忆上一次选择的省 tr 
+var province_tr = '';
+//绑定省 tr 点击事件
+function province_click(ob)
+{
+	//取消上一次选中的背景
+	if( province_tr != '' && ob.attr('province') != province_tr )
+	{
+		$("#province li[province='"+province_tr+"']" , navTab.getCurrentPanel() ).css('background-color','white');
+		$("#province li[province='"+province_tr+"'] input" , navTab.getCurrentPanel() ).blur(); //强制上次修改的省份失去焦点
+	}
+	//取出国家、省名称
+	var country		= ob.attr('country');
+	var province	= ob.attr('province');
+	//记住本次选择
+	province_tr = province;
+	//设置背景色
+	ob.css('background-color','#cccccc');
+	//加载之前先清空 城市、县区
+	$('#city' , navTab.getCurrentPanel() ).empty();
+	$('#county' , navTab.getCurrentPanel() ).empty();
+	//清除已记录的当前选中的城市、县区、乡镇
+	city_tr		= '';
+	county_tr	= '';
+	town_tr		= '';
+	//加载国家、省对应的城市
+	for( var city in area_json[ country ][ province ] )
+	{
+		var c = '';
+		c += '<li style="background-color:white" country="'+country+'" province="'+province+'" city="'+city+'" ondblclick="city_edit(\'' + country  + '\',\'' + province  + '\',\'' + city  + '\')" onclick="city_click($(this , navTab.getCurrentPanel()))" onmouseover="city_over($(this , navTab.getCurrentPanel()))" onmouseout="city_out($(this , navTab.getCurrentPanel()))">';
+		
+		if( default_country == country  && default_province == province && default_city == city )
+		{
+			c += '<div class="left_div">' + city + '<span style="color:blue">[默认]</span></div>';
+		}
+		else
+		{
+			c += '<div class="left_div">' + city + '</div>';
+		}
+		c += '<div class="right_div">';
+		c += '<span class="sure"></span>';
+		c += '<img title="设为默认" class="default" src="/Public/Images/ok.gif" onclick=\'city_default("' + country  + '","' + province + '","' + city + '")\' /> ';
+		c += '<img title="删除" class="del" src="/Public/Images/del.gif" onclick=\'city_del("' + country  + '","' + province + '","' + city + '")\' /> ';
+		c += '</div>';
+		c += '</li>';
+		$('#city' , navTab.getCurrentPanel() ).append(c); //插入到城市table里面
+	}
+}
+/*
+* 省鼠标移入
+* province 当前鼠标移入的省li对象
+*/
+function province_over(province)
+{
+	//如果当前鼠标移入的省不是已选中的省
+	if( province.attr('province') != province_tr )
+	{
+		//设置背景色
+		province.css('background-color','#eeeeee');
+	}
+	//显示按钮
+	province.children('.right_div').show();
+}
+/*
+* 省鼠标移出
+* province 当前鼠标移出的省li对象
+*/
+function province_out(province)
+{
+	//如果当前鼠标移出的省不是已选中的省
+	if( province.attr('province') != province_tr )
+	{
+		//设置背景色
+		province.css('background-color','white');
+	}
+	//隐藏按钮
+	province.children('.right_div').hide();
+}
+//记忆上一次选择的市 tr 
+var city_tr = '';
+//绑定市 tr 点击事件
+function city_click(ob)
+{
+	//取消上一次选中的背景
+	if( city_tr != '' && ob.attr('city') != city_tr )
+	{
+		$("#city li[city='"+city_tr+"']" , navTab.getCurrentPanel() ).css('background-color','white');
+		$("#city li[city='"+city_tr+"'] input" , navTab.getCurrentPanel() ).blur(); //强制上次修改的城市失去焦点
+	}
+	//取出国家、省、城市名称
+	var country		= ob.attr('country');
+	var province	= ob.attr('province');
+	var city		= ob.attr('city');
+	//记住本次选择
+	city_tr			= city;
+	//设置背景色
+	ob.css('background-color','#cccccc');
+	//加载之前先清空 县区
+	$('#county' , navTab.getCurrentPanel()).empty();
+	//清除已记录的当前选中的县区、乡镇
+	county_tr	= ''
+	town_tr		= '';
+	//加载国家、省、城市对应的区县
+	for( var county in area_json[ country ][ province ][ city ] )
+	{
+		var c = '';
+		c += '<li style="background-color:white" country="'+country+'" province="'+province+'" city="'+city+'" county="'+county+'" ondblclick="county_edit(\'' + country  + '\',\'' + province  + '\',\'' + city  + '\',\'' + county  + '\')" onclick="county_click($(this , navTab.getCurrentPanel()))" onmouseover="county_over($(this , navTab.getCurrentPanel()))" onmouseout="county_out($(this , navTab.getCurrentPanel()))">';
+		if( default_country == country  && default_province == province && default_city == city && default_county == county )
+		{
+			c += '<div class="left_div">' + county + '<span style="color:blue">[默认]</span></div>';
+		}
+		else
+		{
+			c += '<div class="left_div">' + county + '</div>';
+		}
+		c += '<div class="right_div">';
+		c += '<span class="sure"></span>';
+		c += '<img title="设为默认" class="default" src="/Public/Images/ok.gif" onclick=\'county_default("' + country  + '","' + province + '","' + city + '","' + county + '")\' /> ';
+		c += '<img title="删除" class="del" src="/Public/Images/del.gif" onclick=\'county_del("' + country  + '","' + province + '","' + city + '","' + county + '")\' /> ';
+		c += '</div>';
+		c += '</li>';
+		$('#county' , navTab.getCurrentPanel() ).append(c); //插入到城市table里面
+	}
+}
+/*
+* 城市鼠标移入
+* city 当前鼠标移入的城市li对象
+*/
+function city_over(city)
+{
+	//如果当前鼠标移入的省不是已选中的省
+	if( city.attr('city') != city_tr )
+	{
+		//设置背景色
+		city.css('background-color','#eeeeee');
+	}
+	//显示按钮
+	city.children('.right_div').show();
+}
+
+/*
+* 城市鼠标移出
+* city 当前鼠标移出的城市li对象
+*/
+function city_out(city)
+{
+	//如果当前鼠标移出的城市不是已选中的城市
+	if( city.attr('city') != city_tr )
+	{
+		//设置背景色
+		city.css('background-color','white');
+	}
+	//隐藏按钮
+	city.children('.right_div').hide();
+}
+
+//记忆上一次选择的区县
+var county_tr = '';
+
+//绑定区县 tr 点击事件
+function county_click(ob)
+{
+	//取消上一次选中的背景
+	if( county_tr != '' && ob.attr('county') != county_tr )
+	{
+		$("#county li[county='"+county_tr+"']" , navTab.getCurrentPanel() ).css('background-color','white');
+		$("#county li[county='"+county_tr+"'] input" , navTab.getCurrentPanel() ).blur(); //强制上次修改的区县失去焦点
+	}
+	//取出国家、省、城市名称
+	var country		= ob.attr('country');
+	var province	= ob.attr('province');
+	var city		= ob.attr('city');
+	var county		= ob.attr('county');
+	//记住本次选择
+	county_tr		= county;
+
+	//设置背景色
+	ob.css('background-color','#cccccc');
+
+	//加载之前先清空 乡镇
+	$('#town' , navTab.getCurrentPanel()).empty();
+
+	//清除已记录的当前选中的乡镇
+	town_tr	= ''
+
+	//加载国家、省、城市、区县对应的乡镇
+	for( var town in area_json[ country ][ province ][ city ][ county ] )
+	{
+		var c = '';
+		c += '<li style="background-color:white" country="'+country+'" province="'+province+'" city="'+city+'" county="'+county+'" town="'+town+'" ondblclick="town_edit(\'' + country  + '\',\'' + province  + '\',\'' + city  + '\',\'' + county  + '\',\'' + town  + '\')" onclick="town_click($(this , navTab.getCurrentPanel()))" onmouseover="town_over($(this , navTab.getCurrentPanel()))" onmouseout="town_out($(this , navTab.getCurrentPanel()))">';
+
+		if( default_country == country  && default_province == province && default_city == city && default_county == county && default_town == town )
+		{
+			c += '<div class="left_div">' + town + '<span style="color:blue">[默认]</span></div>';
+		}
+		else
+		{
+			c += '<div class="left_div">' + town + '</div>';
+		}
+
+		c += '<div class="right_div">';
+		c += '<span class="sure"></span>';
+		c += '<img title="设为默认" class="default" src="/Public/Images/ok.gif" onclick=\'town_default("' + country  + '","' + province + '","' + city + '","' + county + '","' + town + '")\' /> ';
+		c += '<img title="删除" class="del" src="/Public/Images/del.gif" onclick=\'town_del("' + country  + '","' + province + '","' + city + '","' + county + '","' + town + '")\' /> ';
+		c += '</div>';
+		c += '</li>';
+
+		$('#town' , navTab.getCurrentPanel() ).append(c); //插入到城市table里面
+	}
+
+}
+
+
+/*
+* 区县鼠标移入
+* county 当前鼠标移入的区县li对象
+*/
+function county_over(county)
+{
+	//如果当前鼠标移入的区县不是已选中的区县
+	if( county.attr('county') != county_tr )
+	{
+		//设置背景色
+		county.css('background-color','#eeeeee');
+	}
+	//显示按钮
+	county.children('.right_div').show();
+}
+
+/*
+* 区县鼠标移出
+* country 当前鼠标移出的区县li对象
+*/
+function county_out(county)
+{
+	//如果当前鼠标移出的区县不是已选中的区县
+	if( county.attr('county') != county_tr )
+	{
+		//设置背景色
+		county.css('background-color','white');
+	}
+	//隐藏按钮
+	county.children('.right_div').hide();
+}
+
+//记忆上一次选择的乡镇
+var town_tr = '';
+
+//绑定乡镇 tr 点击事件
+function town_click(ob)
+{
+	//取消上一次选中的背景
+	if( town_tr != '' && ob.attr('town') != town_tr )
+	{
+		$("#town li[town='"+town_tr+"']" , navTab.getCurrentPanel() ).css('background-color','white');
+
+		$("#town li[town='"+town_tr+"'] input" , navTab.getCurrentPanel() ).blur(); //强制上次修改的乡镇失去焦点
+	}
+
+	//取出国家、省、城市名称
+	var country		= ob.attr('country');
+	var province	= ob.attr('province');
+	var city		= ob.attr('city');
+	var county		= ob.attr('county');
+	var town		= ob.attr('town');
+
+	//记住本次选择
+	town_tr			= town;
+
+	//设置背景色
+	ob.css('background-color','#cccccc');
+}
+
+
+/*
+* 乡镇鼠标移入
+* county 当前鼠标移入的乡镇li对象
+*/
+function town_over(town)
+{
+	//如果当前鼠标移入的区县不是已选中的乡镇
+	if( town.attr('town') != town_tr )
+	{
+		//设置背景色
+		town.css('background-color','#eeeeee');
+	}
+	//显示按钮
+	town.children('.right_div').show();
+}
+
+/*
+* 乡镇鼠标移出
+* country 当前鼠标移出的乡镇li对象
+*/
+function town_out(town)
+{
+	//如果当前鼠标移出的区县不是已选中的乡镇
+	if( town.attr('town') != town_tr )
+	{
+		//设置背景色
+		town.css('background-color','white');
+	}
+	//隐藏按钮
+	town.children('.right_div').hide();
+}
+
+/*
+* 国家添加保存
+*/
+function country_add_save()
+{
+	var country		= $('#country_add_input' , navTab.getCurrentPanel() ).val();
+	if( country == '' )
+	{
+		alertMsg.info('请输入国家名称!');
+		return false;
+	}
+	//遍历国家,检查是否存在相同的
+	for( _country in area_json )
+	{
+		if( _country == country  )
+		{
+			alertMsg.info( "国家 " + country + " 已经存在,不可重复添加!");
+			return false;
+		}
+	}
+	//保存到导数据
+	$.post('__URL__/country_add_save',{name:country,upname:'',lv:1},function(data){
+		eval("var json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}
+		//重建全部国家数据
+		var new_country_object	= new Object();
+		//更新到json中
+		area_json[country]		= new_country_object;
+		//重刷新 - 国家
+		country_init();
+		//重刷新 - 省
+		country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+		//清空输入框值
+		$('#country_add_input' , navTab.getCurrentPanel() ).val('');
+		alertMsg.correct(json.info);
+	})
+}
+/*
+* 省份添加保存
+*/
+function province_add_save()
+{
+	var country				= country_tr;
+	var province			= $('#province_add_input' , navTab.getCurrentPanel() ).val();
+	if( country == '' )
+	{
+		alertMsg.info('请选择国家!');
+		return;
+	}
+	if( province == '' )
+	{
+		alertMsg.info('请输入省份名称!');
+		return;
+	}
+	//遍历省,检查是否存在相同的
+	for( var _province in area_json[ country ] )
+	{
+		if( _province == province  )
+		{
+			alertMsg.info( "省份 " + _province + " 已经存在,不可重复添加!");
+			return;
+		}
+	}
+	//保存到导数据
+	$.post('__URL__/country_add_save',{name:province,upname:country,lv:2},function(data){
+		eval("var json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}
+		//更新到json中
+		area_json[ country ][ province ]	= new Object();
+		//重刷新 - 省份
+		country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+		//重刷新 - 城市
+		province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+		//清空输入框值
+		$('#province_add_input' , navTab.getCurrentPanel() ).val('');
+		alertMsg.correct(json.info);
+	})
+}
+
+/*
+* 城市添加保存
+*/
+function city_add_save()
+{
+	var country				= country_tr;
+	var province			= province_tr;
+	var city				= $('#city_add_input' , navTab.getCurrentPanel() ).val();
+	if( country == '' )
+	{
+		alertMsg.info('请选择国家!');
+		return;
+	}
+	if( province == '' ) 
+	{
+		alertMsg.info('请选择省!');
+		return;
+	}
+	if( city == '' )
+	{
+		alertMsg.info('请输入城市名称!');
+		return;
+	}
+	//遍历城市,检查是否存在相同的
+	for( var _city in area_json[ country ][ province ] )
+	{
+		if( _city == city  )
+		{
+			alertMsg.info( "城市 " + _city + " 已经存在,不可重复添加!");
+			return;
+		}
+	}
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:city,upname:province,country:country,lv:3},function(data){
+		eval("var json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}
+		//更新到json中
+		area_json[ country ][ province ][ city ] = new Object();
+		//重刷新 - 城市
+		province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+		//重刷新 - 县区
+		city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+		//清空输入框值
+		$('#city_add_input' , navTab.getCurrentPanel() ).val('');
+		alertMsg.correct(json.info);
+	})
+}
+
+/*
+* 区县添加保存
+*/
+function county_add_save()
+{
+	var country				= country_tr;
+	var province			= province_tr;
+	var city				= city_tr;
+	var county				= $('#county_add_input' , navTab.getCurrentPanel() ).val();
+	if( country == '' )
+	{
+		alertMsg.info('请选择国家!');
+		return;
+	}
+	if( province == '' ) 
+	{
+		alertMsg.info('请选择省!');
+		return;
+	}
+	if( city == '' ) 
+	{
+		alertMsg.info('请选择城市!');
+		return;
+	}
+	if( county == '' )
+	{
+		alertMsg.info('请输入区县名称!');
+		return;
+	}
+	//遍历区县,检查是否存在相同的
+	for( var _county in area_json[ country ][ province ][ city ] )
+	{
+		if( _county == county  )
+		{
+			alertMsg.info( "区县 " + _county + " 已经存在,不可重复添加!");
+			return;
+		}
+	}
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:county,upname:province+'_'+city,country:country,lv:4},function(data){
+		eval("var json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}
+		//更新到json中
+		area_json[ country ][ province ][ city ][ county ] = new Object();
+		//重刷新 - 城市
+		city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel()) );
+		//重刷新 - 街道
+		county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+		//清空输入框值
+		$('#county_add_input' , navTab.getCurrentPanel() ).val('');
+		alertMsg.correct(json.info);
+	})
+}
+
+/*
+* 乡镇添加保存
+*/
+function town_add_save()
+{
+	var country				= country_tr;
+	var province			= province_tr;
+	var city				= city_tr;
+	var county				= county_tr;
+	var town				= $('#town_add_input' , navTab.getCurrentPanel() ).val();
+	if( country == '' )
+	{
+		alertMsg.info('请选择国家!');
+		return;
+	}
+	if( province == '' ) 
+	{
+		alertMsg.info('请选择省!');
+		return;
+	}
+	if( city == '' ) 
+	{
+		alertMsg.info('请选择城市!');
+		return;
+	}
+	if( county == '' ) 
+	{
+		alertMsg.info('请选择区县!');
+		return;
+	}
+	if( town == '' )
+	{
+		alertMsg.info('请输入乡镇街道名称!');
+		return;
+	}
+	for( var _town in area_json[ country ][ province ][ city ][ county ] )
+	{
+		if( _town == town  )
+		{
+			alertMsg.info( "乡镇街道 " + _town + " 已经存在,不可重复添加!");
+			return;
+		}
+	}
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:town,upname:province+'_'+city+'_'+county,country:country,lv:5},function(data){
+		eval("var json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}
+		//更新到json中
+		area_json[ country ][ province ][ city ][ county ][ town ] = '';
+		//重刷新 - 乡镇
+		county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel()) );
+		//清空输入框值
+		$('#town_add_input' , navTab.getCurrentPanel() ).val('');
+		alertMsg.correct(json.info);
+	})
+}
+function cross(name,value){
+	$("#"+name+" li["+name+"='"+value+"'] .left_div" , navTab.getCurrentPanel() ).html(value);
+	$("#"+name+" li["+name+"='"+value+"'] .sure" , navTab.getCurrentPanel() ).html('');
+}
+/*
+* 省份修改
+*/
+function province_edit(country,province)
+{
+	$("#province li[province='"+province+"'] .left_div" , navTab.getCurrentPanel() ).html('<input type="text" value="'+province+'" />');
+	$("#province li[province='"+province+"'] .sure" , navTab.getCurrentPanel() ).html('<img title="取消修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/cross.png" onclick="cross(\'province\',\''+province+'\')"/><img title="确认修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/arrow_refresh.png" onclick="province_edit_save(\''+country+'\',\''+province+'\')"/>');
+	//取消上级的 click 事件绑定
+	$("#province li[province='"+province+"'] input" , navTab.getCurrentPanel() ).select();
+}
+
+/*
+* 省份修改保存
+*/
+function province_edit_save(country,old_province)
+{
+	var country				= country;
+	var province			= old_province;
+	var position_length		= 0;			//获取总数
+	var index_object_array	= new Array(); 	//保存索引和对象的关联
+	var province_name		= $("#province li[province='"+province+"']",navTab.getCurrentPanel()).find("input").val();	//该省的新名字
+	if( province_name == '' )
+	{
+		alertMsg.info('请输入省份名称!');
+		return;
+	}
+	//遍历省,检查是否存在相同的
+	//遍历对象
+	for( var _province in area_json[ country ] )
+	{
+		if( _province == province_name && $("#province li[province='"+_province+"']",navTab.getCurrentPanel()).find("input").val()==undefined)
+		{
+			alertMsg.info( "省份 " + _province + " 已经存在,不可重复添加!");
+			return;
+		}
+		index_object_array[position_length] = _province;
+		position_length++;
+	}
+	//重建全部省数据
+	var new_province_object = new Object();
+	//保存到导数据
+	$.post('__URL__/country_add_save',{name:province_name,oldname:province,upname:country,lv:2},function(data){
+		eval("json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}else{
+			for(i=0; i<index_object_array.length; i++){
+				if(index_object_array[i]==province){
+					new_province_object[ province_name ] = area_json[ country ][ index_object_array[i] ];
+				}else{
+					new_province_object[ index_object_array[i] ] = area_json[ country ][ index_object_array[i] ];
+				}
+			}
+			//更新到json中
+			area_json[ country ]	= new_province_object;
+			//重刷新 - 省份
+			country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel()) );
+			//重刷新 - 城市
+			province_click( $("#province li[province='"+province_name+"']" , navTab.getCurrentPanel()) );
+			alertMsg.correct(json.info);
+		}
+	})
+}
+
+/*
+* 城市修改
+*/
+function city_edit(country,province,city)
+{
+	$("#city li[city='"+city+"'] .left_div" , navTab.getCurrentPanel() ).html('<input type="text" value="'+city+'" />');
+	$("#city li[city='"+city+"'] .sure" , navTab.getCurrentPanel() ).html('<img title="取消修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/cross.png" onclick="cross(\'city\',\''+city+'\')"/><img title="确认修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/arrow_refresh.png" onclick="city_edit_save(\''+country+'\',\''+province+'\',\''+city+'\')"/>');
+	//文本选中
+	$("#city li[city='"+city+"'] input" , navTab.getCurrentPanel() ).select();
+}
+
+/*
+* 城市修改保存
+*/
+function city_edit_save(country,province,old_city)
+{
+	var country				= country;
+	var province			= province;
+	var city				= old_city;
+	var position_length		= 0;		//获取总数
+	var index_object_array	= new Array(); //保存索引和对象的关联
+	var city_name			= $("#city li[city='"+city+"']",navTab.getCurrentPanel()).find("input").val();//该城市的新名字
+	if( city_name == '' )
+	{
+		alertMsg.info('请输入城市名称!');
+		return;
+	}
+	//遍历对象
+	for( var _city in area_json[ country ][ province ] )
+	{
+		if( _city == city_name && $("#province li[province='"+_province+"']",navTab.getCurrentPanel()).find("input").val()==undefined)
+		{
+			alertMsg.info( "城市 " + _city + " 已经存在,不可重复添加!");
+			return;
+		}
+		index_object_array[position_length] = _city;
+		position_length++;
+	}
+	//重建对应国家、省下面全部城市数据
+	var new_city_object = new Object();
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:city_name,oldname:city,country:country,upname:province,lv:3},function(data){
+		eval("json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}else if(json.status == 1){
+			for(i=0; i<index_object_array.length; i++){
+				if(index_object_array[i]==city){
+					//以新名称接收之前的子元素
+					new_city_object[ city_name ] = area_json[ country ][ province ][ index_object_array[i] ];
+				}else{
+					new_city_object[ index_object_array[i] ] = area_json[ country ][ province ][ index_object_array[i] ];
+				}
+			}
+			//更新到json中
+			area_json[ country ][ province ]	= new_city_object;
+			//重刷新 - 城市
+			province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+			//重刷新 - 县区
+			city_click( $("#city li[city='"+city_name+"']" , navTab.getCurrentPanel() ) );
+			alertMsg.correct(json.info);
+		}
+	})
+}
+
+/*
+* 区县修改
+*/
+function county_edit(country,province,city,county)
+{
+	$("#county li[county='"+county+"'] .left_div" , navTab.getCurrentPanel() ).html('<input type="text" value="'+county+'" />');
+	$("#county li[county='"+county+"'] .sure" , navTab.getCurrentPanel() ).html('<img title="取消修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/cross.png" onclick="cross(\'county\',\''+county+'\')"/><img title="确认修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/arrow_refresh.png" onclick="county_edit_save(\''+country+'\',\''+province+'\',\''+city+'\',\''+county+'\')"/>');
+	//文本选中
+	$("#county li[county='"+county+"'] input" , navTab.getCurrentPanel() ).select();
+}
+
+/*
+* 区县修改保存
+*/
+function county_edit_save(country,province,city,old_county)
+{
+	var country				= country;
+	var province			= province;
+	var city				= city;
+	var county				= old_county;
+	var position_length		= 0;		//获取总数
+	var index_object_array	= new Array(); //保存索引和对象的关联
+	var county_name			= $("#county li[county='"+county+"']",navTab.getCurrentPanel()).find("input").val();//该区县的新名字
+	if( county_name == '' )
+	{
+		alertMsg.info('请输入区县名称!');
+		return;
+	}
+	//遍历区县,检查是否存在相同的
+	//遍历对象
+	for( var _county in area_json[ country ][ province ][ city ] )
+	{
+		if( _county == county_name && $("#country li[country='"+_county+"']",navTab.getCurrentPanel()).find("input").val()==undefined)
+		{
+			alertMsg.info( "区县 " + _county + " 已经存在,不可重复添加!");
+			return;
+		}
+		index_object_array[position_length] = _county;
+		position_length++;
+	}
+	//重建对应国家、省、城市下面全部区县数据
+	var new_county_object = new Object();
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:county_name,oldname:county,country:country,upname:city,lv:4},function(data){
+		eval("json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}else if(json.status == 1){
+			for(i=0; i<index_object_array.length; i++){
+				if(index_object_array[i]==county){
+					//以新名称接收之前的子元素
+					new_county_object[ county_name ] = area_json[ country ][ province ][ city ][ index_object_array[i] ];
+				}else{
+					new_county_object[ index_object_array[i] ] = area_json[ country ][ province ][ city ][ index_object_array[i] ];
+				}
+			}
+			//更新到json中
+			area_json[ country ][ province ][ city ]	= new_county_object;
+			//重刷新 - 县区
+			city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+			//重刷新 - 街道
+			county_click( $("#county li[county='"+county_name+"']" , navTab.getCurrentPanel() ) );
+			alertMsg.correct(json.info);
+		}
+	})
+}
+
+
+/*
+* 乡镇修改
+*/
+function town_edit(country,province,city,county,town)
+{
+	$("#town li[town='"+town+"'] .left_div" , navTab.getCurrentPanel() ).html('<input type="text" value="'+town+'" />');
+	$("#town li[town='"+town+"'] .sure" , navTab.getCurrentPanel() ).html('<img title="取消修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/cross.png" onclick="cross(\'town\',\''+town+'\')"/><img title="确认修改" style="margin:0 5px;float:right;" src="/Public/Images/ExtJSicons/arrow/arrow_refresh.png" onclick="town_edit_save(\''+country+'\',\''+province+'\',\''+city+'\',\''+county+'\',\''+town+'\')"/>');
+	//文本选中
+	$("#town li[town='"+town+"'] input" , navTab.getCurrentPanel() ).select();
+}
+
+/*
+* 乡镇修改保存
+*/
+function town_edit_save(country,province,city,county,old_town)
+{
+	var country				= country;
+
+	var province			= province;
+	var city				= city;
+	var county				= county;
+	var town				= old_town;
+	var position_length		= 0;		//获取总数
+	var index_object_array	= new Array(); //保存索引和对象的关联
+	var town_name			= $("#town li[town='"+town+"']",navTab.getCurrentPanel()).find("input").val();//该乡镇的新名字
+	if( town_name == '' )
+	{
+		alertMsg.info('请输入乡镇街道名称!');
+		return;
+	}
+	//遍历对象
+	for( var _town in area_json[ country ][ province ][ city ][ county ] )
+	{
+		if( _town == town_name && $("#country li[country='"+_county+"']",navTab.getCurrentPanel()).find("input").val()==undefined)
+		{
+			alertMsg.info( "乡镇街道 " + _town + " 已经存在,不可重复添加!");
+			return;
+		}
+		index_object_array[position_length] = _town;
+		position_length++;
+	}
+	//重建对应国家、省、城市、区县下面全部乡镇数据
+	var new_town_object = new Object();
+	//保存到导数据
+	$.post('__URL__/area_add_save',{name:town_name,oldname:town,country:country,upname:county,lv:5},function(data){
+		eval("json = "+data);
+		if(json.status == 0){
+			alertMsg.info(json.info);
+			return false;
+		}else if(json.status == 1){
+			for(i=0; i<index_object_array.length; i++){
+				if(index_object_array[i]==town){
+					//以新名称接收之前的子元素
+					new_town_object[ town_name ] = area_json[ country ][ province ][ city ][ county ][ index_object_array[i] ];
+				}else{
+					new_town_object[ index_object_array[i] ] = area_json[ country ][ province ][ city ][ county ][ index_object_array[i] ];
+				}
+			}
+			//更新到json中
+			area_json[ country ][ province ][ city ][ county ]	= new_town_object;
+			//重刷新 - 县区
+			county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+			alertMsg.correct(json.info);
+		}
+	})
+}
+/**
+* 国家删除
+*/
+function country_del(country)
+{
+	alertMsg.confirm("确定删除"+country+"?",{
+		okCall: function(){
+			var position_length	= 0;		//获取总数
+			var index_object_array = new Array(); //保存索引和对象的关联
+			//遍历国家删除
+			for( var _country in area_json )
+			{
+				//找到当前选中的国家
+				if( _country == country )
+				{
+					//遍历省删除
+					for( var _province in area_json[ _country ] )
+					{
+						//遍历城市删除
+						for( var _city in area_json[ country ][ _province ] )
+						{
+							//遍历区县删除
+							for( var _county in area_json[ country ][ _province ][ _city ] )
+							{
+								delete area_json[ country ][ _province ][ _city ][ _county ];
+							}
+							delete area_json[ country ][ _province ][ _city ];
+						}
+						delete area_json[ country ][ _province ];
+					}
+					continue;
+				}
+				else
+				{
+					index_object_array[position_length] = _country;
+					position_length++;
+				}
+			}
+			//重建全部国家数据
+			var new_country_object = new Object();
+			for( i=0; i<index_object_array.length; i++ )
+			{
+				new_country_object[ index_object_array[i] ] = area_json[ index_object_array[i] ];
+			}
+			//更新到json中
+			area_json	= new_country_object;
+			//重刷新 - 国家
+			country_init();
+			//重刷新 - 省
+			country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+			$('#province' , navTab.getCurrentPanel()).empty();
+			//删除数据库以及json文件中的数据库
+			$.post('__URL__/area_delete',{name:country,lv:1},function(data){
+				eval("json = "+data);
+				if(json.status == 0){
+					alertMsg.info(json.info);
+					return false;
+				}else{
+					alertMsg.correct(json.info);
+				}
+			})
+		}
+	})
+}
+
+/**
+* 省份删除
+*/
+function province_del(country , province)
+{
+	alertMsg.confirm("确定删除"+province+"?",{
+		okCall: function(){
+			var position_length	= 0;		//获取总数
+			var index_object_array = new Array(); //保存索引和对象的关联
+			//遍历对象
+			for( var _province in area_json[ country ] )
+			{
+				if( _province == province )
+				{
+					//遍历城市删除
+					for( var _city in area_json[ country ][ _province ] )
+					{
+						//遍历区县
+						for( var _county in area_json[ country ][ _province ][ _city ] )
+						{
+							delete area_json[ country ][ _province ][ _city ][ _county ];
+						}
+						delete area_json[ country ][ _province ][ _city ];
+					}
+					delete area_json[ country ][ _province ];
+					continue;
+				}
+				else
+				{
+					index_object_array[position_length] = _province;
+					position_length++;
+				}
+			}
+			//重建当前国家下面 全部 省份 的数据
+			var new_province_object = new Object();
+			for( i=0; i<index_object_array.length; i++ )
+			{
+				new_province_object[ index_object_array[i] ] = area_json[ country ][ index_object_array[i] ];
+			}
+			//更新到json中
+			area_json[ country ]	= new_province_object;
+			//重刷新 - 省
+			country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+			//重刷新 - 城市
+			//province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+			$('#city' , navTab.getCurrentPanel()).empty();
+			//删除数据库以及json文件中的数据库
+			$.post('__URL__/area_delete',{name:province,country:country,lv:2},function(data){
+				eval("json = "+data);
+				if(json.status == 0){
+					alertMsg.info(json.info);
+					return false;
+				}else{
+					alertMsg.correct(json.info);
+				}
+			})
+		}
+	})
+}
+
+/**
+* 城市删除
+*/
+function city_del(country , province , city)
+{
+	alertMsg.confirm("确定删除"+city+"?",{
+		okCall: function(){
+			var position_length	= 0;		//获取总数
+			var index_object_array = new Array(); //保存索引和对象的关联
+			//遍历城市删除
+			for( var _city in area_json[ country ][ province ] )
+			{
+				if( _city == city )
+				{
+					//遍历区县
+					for( var _county in area_json[ country ][ province ][ _city ] )
+					{
+						delete area_json[ country ][ province ][ _city ][ _county ];
+					}
+					delete area_json[ country ][ province ][ _city ];
+					continue;
+				}
+				else
+				{
+					index_object_array[position_length] = _city;
+					position_length++;
+				}
+			}
+			//重建当前国家、省份下的 全部 城市 数据
+			var new_city_object = new Object();
+			for( i=0; i<index_object_array.length; i++ )
+			{
+				new_city_object[ index_object_array[i] ] = area_json[ country ][ province ][ index_object_array[i] ];
+			}
+			//更新到json中
+			area_json[ country ][ province ]	= new_city_object;
+			//重刷新 - 城市
+			province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+			//重刷新 - 县区
+			//city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+			$('#county' , navTab.getCurrentPanel()).empty();
+			//删除数据库以及json文件中的数据库
+			$.post('__URL__/area_delete',{name:city,country:country,province:province,lv:3},function(data){
+				eval("json = "+data);
+				if(json.status == 0){
+					alertMsg.info(json.info);
+					return false;
+				}else{
+					alertMsg.correct(json.info);
+				}
+			})
+		}
+	})
+}
+
+/**
+* 区县删除
+*/
+function county_del(country , province , city , county)
+{
+	alertMsg.confirm("确定删除"+county+"，将随带删除下级?",{
+		okCall: function(){
+			var position_length	= 0;		//获取总数
+			var index_object_array = new Array(); //保存索引和对象的关联
+			//遍历城市删除
+			for( var _county in area_json[ country ][ province ][ city ] )
+			{
+				if( _county == county )
+				{
+					delete area_json[ country ][ province ][ city ][ _county ];
+					continue;
+				}
+				else
+				{
+					index_object_array[position_length] = _county;
+					position_length++;
+				}
+			}
+			//重建当前国家、省份、城市下的 区县 数据
+			var new_county_object = new Object();
+			for( i=0; i<index_object_array.length; i++ )
+			{
+				new_county_object[ index_object_array[i] ] = area_json[ country ][ province ][ city ][ index_object_array[i] ];
+			}
+			//更新到json中
+			area_json[ country ][ province ][ city ]	= new_county_object;
+			//重刷新 - 县区
+			city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+			//重刷新 - 街道
+			//county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+			$('#town' , navTab.getCurrentPanel()).empty();
+			//删除数据库以及json文件中的数据库
+			$.post('__URL__/area_delete',{name:county,country:country,province:province,city:city,lv:4},function(data){
+				eval("json = "+data);
+				if(json.status == 0){
+					alertMsg.info(json.info);
+					return false;
+				}else{
+					alertMsg.correct(json.info);
+				}
+			})
+		}
+	})
+}
+/**
+* 乡镇删除
+*/
+function town_del(country , province , city , county , town )
+{
+	alertMsg.confirm("确定删除"+town+"?",{
+		okCall: function(){
+			var position_length	= 0;		//获取总数
+			var index_object_array = new Array(); //保存索引和对象的关联
+			//遍历乡镇街道删除
+			for( var _town in area_json[ country ][ province ][ city ][ county ] )
+			{
+				if( _town == town )
+				{
+					delete area_json[ country ][ province ][ city ][ county ][ _town ];
+					continue;
+				}
+				else
+				{
+					index_object_array[position_length] = _town;
+					position_length++;
+				}
+			}
+			//重建当前国家、省份、城市、区县下的 乡镇 数据
+			var new_town_object = new Object();
+			for( i=0; i<index_object_array.length; i++ )
+			{
+				new_town_object[ index_object_array[i] ] = area_json[ country ][ province ][ city ][ county ][ index_object_array[i] ];
+			}
+			//更新到json中
+			area_json[ country ][ province ][ city ][ county ]	= new_town_object;
+			//重刷新 - 县区
+			county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+			//删除数据库以及json文件中的数据库
+			$.post('__URL__/area_delete',{name:town,country:country,province:province,city:city,county:county,lv:5},function(data){
+				eval("json = "+data);
+				if(json.status == 0){
+					alertMsg.info(json.info);
+					return false;
+				}else{
+					alertMsg.correct(json.info);
+				}
+			})
+		}
+	});
+}
+/*
+* 设置默认国家
+* country 要设置为默认的国家
+*/
+function country_default(country)
+{
+	default_country = country;
+	$('#default_country' , navTab.getCurrentPanel() ).val(country);
+	$('#country_span' , navTab.getCurrentPanel() ).html(country);
+	country_init();
+	
+	//处理默认显示
+	var list = Array('province','city','county');
+	for( var i=0;i<list.length;i++ )
+	{
+		eval("default_" + list[i] + "='';");
+		$('#default_' + list[i] , navTab.getCurrentPanel() ).val( '' );
+		$('#' + list[i] + '_span' , navTab.getCurrentPanel() ).html( '' );
+	}
+}
+/*
+* 设置默认省份
+* province 要设置为默认的省份
+*/
+function province_default(country,province)
+{
+	country_default(country);
+	default_province = province;
+	$('#default_province' , navTab.getCurrentPanel() ).val(province);
+	$('#province_span' , navTab.getCurrentPanel() ).html(province);
+	//重刷新 - 省份
+	country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+	//处理默认显示
+	var list = Array('city','county');
+	for( var i=0;i<list.length;i++ )
+	{
+		eval("default_" + list[i] + "='';");
+		$('#default_' + list[i] , navTab.getCurrentPanel() ).val( '' );
+		$('#' + list[i] + '_span' , navTab.getCurrentPanel() ).html( '' );
+	}
+}
+/*
+* 设置默认城市
+* city 要设置为默认的城市
+*/
+function city_default(country,province,city)
+{
+	country_default(country);
+	province_default(country,province);
+	default_city = city;
+	$('#default_city' , navTab.getCurrentPanel() ).val(city);
+	$('#city_span' , navTab.getCurrentPanel() ).html(city);
+	//重刷新 - 城市
+	province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+	//处理默认显示
+	var list = Array('county');
+	for( var i=0;i<list.length;i++ )
+	{
+		eval("default_" + list[i] + "='';");
+		$('#default_' + list[i] , navTab.getCurrentPanel() ).val( '' );
+		$('#' + list[i] + '_span' , navTab.getCurrentPanel() ).html( '' );
+	}
+}
+/*
+* 设置默认区县
+* county 要设置为默认的区县
+*/
+function county_default(country,province,city,county)
+{
+	country_default(country);
+	province_default(country,province);
+	city_default(country,province,city);
+	default_county = county;
+	$('#default_county' , navTab.getCurrentPanel() ).val(county);
+	$('#county_span' , navTab.getCurrentPanel() ).html(county);
+	//重刷新 - 区县
+	city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+}
+/*
+* 设置默认乡镇
+* county 要设置为默认的区县
+*/
+function town_default(country,province,city,county,town)
+{
+	country_default(country);
+	province_default(country,province);
+	city_default(country,province,city);
+	county_default(country,province,city,county);
+	default_town = town;
+	$('#default_town' , navTab.getCurrentPanel() ).val(town);
+	$('#town_span' , navTab.getCurrentPanel() ).html(town);
+	//重刷新 - 乡镇
+	county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+}
+/**
+* 国家重新排序
+* country	当前拖动的国家
+*/
+function country_sort(country)
+{
+	var new_country_object	= new Object(); //新的国家json
+
+	//根据,li的顺序重新排序
+	var country_list	= $('#country li' , navTab.getCurrentPanel() );
+	for( var i=0; i<country_list.length; i++  )
+	{
+		var country_name = country_list[i].getAttribute('country');
+		new_country_object[ country_name ] = area_json[ country_name ];
+	}
+	
+	area_json = null;
+	//更新到json中
+	area_json	= new_country_object;
+
+	//重刷新 - 国家
+	country_init();
+
+	//当前选中国家高亮显示
+	$("#country li[country='"+country+"']" , navTab.getCurrentPanel() ).css('background-color','#cccccc');
+}
+
+/**
+* 省份重新排序
+* country	所属国家
+* province	移动的省份
+*/
+function province_sort(country , province)
+{
+	var new_province_object	= new Object(); //新的省份json
+
+	//根据,li的顺序重新排序
+	var province_list	= $('#province li' , navTab.getCurrentPanel() );
+	for( var i=0; i<province_list.length; i++  )
+	{
+		var province_name = province_list[i].getAttribute('province');
+		new_province_object[ province_name ] = area_json[ country ][ province_name ];
+	}
+	
+	//清空
+	area_json[ country ] = null;
+
+	//更新到json中
+	area_json[ country ]	= new_province_object;
+
+	//重刷新省
+	country_click( $("#country li[country='"+country+"']" , navTab.getCurrentPanel() ) );
+
+	//当前选中省高亮显示
+	$("#province li[province='"+province+"']" , navTab.getCurrentPanel() ).css('background-color','#cccccc');
+}
+
+/**
+* 城市重新排序
+* country	所属国家
+* province	移动的省份
+* city		移动的城市
+*/
+function city_sort(country , province , city)
+{
+	var new_city_object	= new Object(); //新的城市json
+
+	//根据,li的顺序重新排序
+	var city_list	= $('#city li' , navTab.getCurrentPanel() );
+	for( var i=0; i<city_list.length; i++  )
+	{
+		var city_name = city_list[i].getAttribute('city');
+		new_city_object[ city_name ] = area_json[ country ][ province ][ city_name ];
+	}
+	
+	//清空
+	area_json[ country ][ province ]	= null;
+
+	//更新到json中
+	area_json[ country ][ province ]	= new_city_object;
+
+	//重刷新 - 市
+	province_click( $("#province li[province='"+province+"']" , navTab.getCurrentPanel() ) );
+
+	//当前选中市高亮显示
+	$("#city li[city='"+city+"']" , navTab.getCurrentPanel() ).css('background-color','#cccccc');
+}
+
+/**
+* 区县重新排序
+* country	所属国家
+* province	移动的省份
+* city		移动的城市
+* county	移动的区县
+*/
+function county_sort(country , province , city , county)
+{
+	var new_county_object	= new Object(); //新的县区json
+	//根据,li的顺序重新排序
+	var county_list	= $('#county li' , navTab.getCurrentPanel() );
+	for( var i=0; i<county_list.length; i++  )
+	{
+		var county_name = county_list[i].getAttribute('county');
+		new_county_object[ county_name ] = area_json[ country ][ province ][ city ][ county_name ];
+	}
+	
+	//清空
+	area_json[ country ][ province ][ city ]	= null;
+	//更新到json中
+	area_json[ country ][ province ][ city ]	= new_county_object;
+	//重刷新 - 县区
+	city_click( $("#city li[city='"+city+"']" , navTab.getCurrentPanel() ) );
+	//当前选中 区县 高亮显示
+	$("#county li[county='"+county+"']" , navTab.getCurrentPanel() ).css('background-color','#cccccc');
+}
+/**
+* 乡镇重新排序
+* country	所属国家
+* province	移动的省份
+* city		移动的城市
+* county	移动的区县
+* town		移动的乡镇
+*/
+function town_sort(country , province , city , county , town)
+{
+	var new_town_object	= new Object(); //新的乡镇json
+	//根据,li的顺序重新排序
+	var town_list	= $('#town li' , navTab.getCurrentPanel() );
+	for( var i=0; i<town_list.length; i++  )
+	{
+		var town_name = town_list[i].getAttribute('town');
+		new_town_object[ town_name ] = area_json[ country ][ province ][ city ][ county ][ town_name ];
+	}
+	//清空
+	area_json[ country ][ province ][ city ][ county ]	= null;
+	//更新到json中
+	area_json[ country ][ province ][ city ][ county]	= new_town_object;
+	//重刷新 - 乡镇
+	county_click( $("#county li[county='"+county+"']" , navTab.getCurrentPanel() ) );
+	//当前选中 乡镇 高亮显示
+	$("#town li[town='"+town+"']" , navTab.getCurrentPanel() ).css('background-color','#cccccc');
+}
+/*
+* 表单提交
+*/
+function checkForm()
+{
+	return true;
+}
+</script>

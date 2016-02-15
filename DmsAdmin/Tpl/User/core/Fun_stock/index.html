@@ -1,0 +1,133 @@
+<style type="text/css">
+tr,td{vertical-align:top;padding-top:3px;}
+</style>
+<link rel="stylesheet" href="__PUBLIC__/stock/css/demo.css" type="text/css" media="screen">
+<script src="__PUBLIC__/stock/js/raphael.js"></script>
+<script src="__PUBLIC__/stock/js/popup.js"></script>
+<!--浮动的线条和数字-->
+<!-- <script src="__PUBLIC__/stock/js/jquery.js"></script> -->
+<script src="__PUBLIC__/stock/js/analytics.js"></script>
+<style type="text/css" media="screen">
+    #holder {
+        height: 250px;
+        position:relative;
+        padding-top:100px;        
+        width: 570px;
+    }
+</style>
+<div class="core_main Fun_stock" id="index">
+<div class="core_title"> 
+<span class="core_title_con" style="width:100%;padding-left:0px;">&nbsp;&nbsp;当前位置：{$stockName}管理&gt;&gt;大厅</span>
+</div>
+<div class="core_con">
+<div class="widgetcontent" style="width:100%;margin-top:10px;">
+  <table class="tablebg" style="width:100%;">
+    <div style="text-align:center"><font style='font-size:18px;color:#000000'>欢迎访问{$stockName}交易大厅</font></div>
+    <TR class="datafield" style="height:256px">
+      <td width="100%" colspan="2" align="center"><div style="width:100%;padding-left:1px;height:265px;">
+          <div style="width:800px; height:265px;padding:0px;">
+            <table id='rowset'>
+              <tfoot>
+                <tr>
+                <!--js自动获取下面2个值，最小最大-->
+                <input type="hidden" id="maxrate" value="{$maxprice}">
+                <input type="hidden" id="minrate" value="{$minprice}"><!--最小值请和getxml内对应-->
+                <php>$i=10;while($i>=0){</php>
+                	<th>{:($minprice+$addprice*$i)}</th>
+                <php>$i--;}</php>
+                </tr>
+              </tfoot>
+            </table>
+            <table id="data">
+              <tfoot>
+                <tr>
+				  <foreach name="list" item="v" key="key">
+	                 <th  title='{:date("Y-m-d",$list[$key]["日期"])}'>{:date("d",$list[$key]["日期"])}</th>
+	              </foreach>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr >
+				   <foreach name="list" item="vo" key="k">
+                  		<td>{$list[$k]['价格']}</td>
+	                </foreach>
+                </tr>
+              </tbody>
+            </table>
+            <div id="holder"></div>
+          </div>
+        </div></td>
+     </TR>
+  </table>
+</div>
+<div class="widgetcontent" style="width:100%;margin-top:10px;">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0"  class="tablebg">
+		<tr><td style="width:20%;text-align:center;"><table style="width:100%;">
+        	<tr>
+        		<td style="text-align:left;border:none;">今开：<span style="color:red;">{$MAXS}</span></td>
+        		<td style="text-align:left;border:none;">昨收：<span style="color:red;">{$MINE}</span></td>
+        	</tr>
+        	<tr>
+        		<td style="text-align:left;border:none;">最高：<span style="color:red;">{$MAXP}</span></td>
+        		<td style="text-align:left;border:none;">最低：<span style="color:red;">{$MINP}</span></td>
+        	</tr>
+        </table></td>
+     </tr>
+	 </table>
+</div>
+<div class="widgetcontent" style="width:100%;margin-top:10px;">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0"  class="tablebg">
+		<tr><td style="width:20%;text-align:center;"><table style="width:100%;">
+        	<tr>
+        		<neq name="tradeName" value=""><td style="text-align:left;border:none;">{$tradeName}：<span style="color:red;">{$trade}</span></td></neq>
+        		<td style="text-align:left;border:none;">当前价格：<span style="color:red;">{$price}</span></td>
+        		<td style="text-align:left;border:none;"><span style="color:red;"></span></td>
+        	</tr>
+        	<tr>
+        		<td style="text-align:left;border:none;">持有总数量：<span style="color:red;">{$stockTotal}</span></td>
+        		<td style="text-align:left;border:none;">待出售数量：<span style="color:red;">{$stockTotal-$stockSale}</span></td>
+        		<td style="text-align:left;border:none;">出售中数量：<span style="color:red;">{$stockSale}</span></td>
+        	</tr>
+        </table></td>
+     </tr>
+	 </table>
+</div>
+<div class="title" style="position: relative;z-index: 1000;">
+	<span class="core_title_con" style="width:87%;float:left;margin-left:0px;padding-left:0px;">买卖列表</span><if condition='$fun_stock:sellDisp eq false || $fun_stock:buyDisp eq false'><a href="__URL__/trade:__XPATH__"><span class="core_title_con" style="width:13%;float:right;color:red;margin-left:0px;padding-left:0px;" title="点击查看"><if condition="$fun_stock:buyDisp eq false">买入</if>&nbsp;&nbsp;<if condition="$fun_stock:sellDisp eq false">卖出</if></span> </a></if>
+</div>
+<div class="widgetcontent" style="width:100%;margin-top:10px;">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0"  class="tablebg">
+	<tr class="datafield">
+		<th><center>{:L('类型')}</center></th>
+		<th><center>{:L('时间')}</center></th>
+		<th><center>{:L('价格')}</center></th>
+		<th><center>{:L('挂单总量')}</center></th>
+		<th><center>{:L('已成交量')}</center></th>
+		<th><center>{:L('剩余数量')}</center></th>
+		<th><center>{:L('总价')}</center></th>
+		<th><center>{:L('状态')}</center></th>
+		<th><center>{:L('操作')}</center></th>
+	</tr>
+	<tbody>
+	<notempty name="lists">
+	<foreach name="lists" item="list">
+	<tr style="text-align:center;" >
+		<td class="center">{$list.类型}</td>
+		<td class="center nbo">{$list.挂单时间|date="Y-m-d H:i:s",###}</td>
+		<td class="center nbo">{:(number_format($list['挂单价'],$decimalLen))}</td>
+		<td class="center nbo">{$list.挂单总量}</td>
+		<td class="center nbo">{$list.成交量}</td>
+		<td class="center nbo">{$list.剩余量}</td>
+		<td class="center nbo">{:(number_format($list['挂单总量']*$list['挂单价'],$decimalLen))}</td>
+		<td class="center nbo">{$list.状态}</td>
+		<td class="center nbo"><!-- AND ($list['type'] eq 2) AND ($list['type'] eq 1)-->
+		<if condition="($list['剩余量'] gt 0) AND ($list['状态'] eq 0) AND ($stockBuycancel eq true)"><button class="button_orange_c" onclick="if(confirm('{:L('确定撤销该订单吗')}')) window.location.href='__GROUP__/Fun_stock/stockcancel:__XPATH__/id/{$list.id}'">{:L('撤销')}</button></if>
+		</td>
+	</tr>
+	</foreach>
+	</notempty >
+	</tbody>
+	</table>
+</div>
+</div>
+</div>

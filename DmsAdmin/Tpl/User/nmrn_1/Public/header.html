@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+    <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+    <script src="__TMPL__Public/js/basic.js"></script>
+     <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                if ('{$menu_jsons}') {
+                    var data = '{$menu_jsons}';
+                    var action = '{$now_action}';
+                    var model = '{$now_model}';
+                    var title = '';
+                    data_arr = {};
+                    data_arr = eval('(' + data + ')');
+                    i = 1;
+                    j = 1;
+                    for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                        i++;
+                        for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                            j++;
+                            if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                                $('.selected').removeClass('selected');
+                                $('.navlist' + i).addClass('selected');
+                            }
+                        }
+                    }
+                    //
+                    if(action=='index' && model=='Index'){
+                        $('.navlist1').addClass('selected');
+                    }
+                }
+
+            });
+        </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content center">
+            <div class="logo">
+                <a href="__GROUP__/Index">
+                    <img src="__TMPL__Public/images/logo.png" alt="城市水产">
+                    <span class="tips">钛币交易系统</span>
+                </a>
+            </div>
+            <div class="header-nav">
+                <php>
+                    $p=2;
+                </php>
+                <div class="navlist navlist1"><a href="__GROUP__/Index">网站首页</a></div>
+                <foreach name="menu" item="vo" key="key">
+                <div class="navlist  navlist{$p++}"><a class="key">{$key}</a>
+                    <ul class="navul">
+                        <foreach name="vo" item="val">
+                        <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                        <li>
+                        <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}">{$val.title}</a>
+                        </li>
+                        </if>
+                        </foreach>
+                    </ul>
+                    <div style="clear: both"></div>
+                </div>
+                </foreach>
+            </div>
+        </div>
+        <div class="header-img">
+            <img src="__TMPL__Public/images/header.jpg" alt="图片">
+        </div>
+    </div>
+    <div class="content center">
+        <div class="menu">
+            <h3>快捷菜单</h3>
+            <ul class="menu-ul">
+                <li><a href="__GROUP__/User/view">
+                    <img src="__TMPL__Public/images/icon1.png" alt="">
+                    <span class="link_name">会员资料</span>
+                </a></li>
+                <li><a href="__GROUP__/Sale/reg:{$sale_reg}">
+                    <img src="__TMPL__Public/images/icon2.png" alt="">
+                    <span class="link_name">开通新会员</span>
+                </a></li>
+                <li><a href="__GROUP__/Fun_bank/add_rem">
+                    <img src="__TMPL__Public/images/icon3.png" alt="">
+                    <span class="link_name">货币充值</span>
+                </a></li>
+                <!--<li><a href="__GROUP__/Fun_gold/sendgold">
+                    <img src="__TMPL__Public/images/icon4.png" alt="">
+                    <span class="link_name">钛币转帐</span>
+                </a></li>-->
+                <li class="last"><a href="__GROUP__/Tle/index:tle">
+                    <img src="__TMPL__Public/images/icon5.png" alt="">
+                    <span class="link_name">销售奖金</span>
+                </a></li>
+            </ul>
+        </div>
+

@@ -1,0 +1,97 @@
+<div layoutH="0">
+<form method="post" action="__URL__/rechargeSave:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDoneOpen);">
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/FunBank/index:'.__XPATH__)}"/>
+<input type="hidden" name="forwardUrl" value="__APP__/Admin/FunBank/index:__XPATH__"/>
+<input type="hidden" name="navTabTitle" value="{$name}明细"/>
+<table width="600px" class="list">
+<thead>
+  <tr>
+    <th colspan="3" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/coins_add.png" />&nbsp;&nbsp;{$name}</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+    <td width="20%" style="height:25px;vertical-align: middle;border-bottom:1px solid #ededed">{$user}编号：</td>
+    <td width="75%" style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+    <input type="text" name="userid" id='userid' class="required" value="{$userid}" onkeyup="giveAjax()"/> <span id='realname'></span>
+    </td>
+  </tr>
+ 	<tr>
+ 	<td  style="height:25px;vertical-align: middle;">充值金额：</td>
+    <td  style="height:25px;text-align:left;"><input type="text" name="chargeSum" class="required number" value=""/></td>
+  </tr>
+  <tr>
+    <td width="20%" style="height:25px;vertical-align: middle;border-bottom:1px solid #ededed">充值类型：</td>
+    <td width="75%" style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+	<input type="text" name="type" value="后台入款"/>
+						<span class="info">注：建议使用四个中文表示</span>
+    </td>
+  </tr>
+  <tr>
+ 	<td  style="height:25px;vertical-align: middle;">备注：</td>
+    <td  style="height:25px;text-align:left;"><input type="text" name="remark" value=""/></td>
+  </tr>
+    <tr>
+    <td colspan="3"style="height:25px;vertical-align: middle;">
+      <div class="buttonActive" style="margin-left:290px;margin-top:5px;">
+          <div class="buttonContent" >
+            <button type="submit">确定</button>
+          </div>
+      </div>
+    </td>
+  </tr>  
+  </tfoot>
+</table>
+ </form>
+</div>
+<script>
+function checkform(){
+    var mess = "";
+    if($("input[name='chargeSum']").val()==""){
+        mess = "充值金额不能为空！\r\n" + mess;
+        $("input[name='chargeSum']").focus();
+    }else if(isNaN($("input[name='chargeSum']").val())){
+        mess = "充值金额必须为数字！\r\n"+ mess;
+        $("input[name='chargeSum']").focus();
+    }
+    if($("input[name='userid']").val()==""){
+        mess = "{$user}编号不能为空！\r\n" + mess;
+        $("input[name='userid']").focus();
+    }
+    if(mess !=""){
+        alert(mess);
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function giveAjax()
+{
+	var userid	   = $('#userid',navTab.getCurrentPanel()).val();
+	$.post('__URL__/realnameAjax:__XPATH__',{userid:userid},function(data){
+		//alert(data)
+		try
+		{
+			
+			eval("var json="+data);
+			
+			if( json.status == 0 )
+			{
+				$('#realname').html('编号不正确');
+			}
+			else
+			{
+				var userinfo = json.data;
+				$('#realname').html(userinfo['姓名']);
+			}
+		}
+		catch(e)
+		{
+			alert(data);
+			alert("网络异常!");
+		}
+	});
+}
+</script>

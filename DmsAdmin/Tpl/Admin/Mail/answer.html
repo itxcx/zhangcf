@@ -1,0 +1,36 @@
+<div class="pageContent">
+<form action="__URL__/answerSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDoneOpen)">
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/Mail/index')}"/>
+<input type="hidden" name="forwardUrl" value="__APP__/Admin/Mail/index"/>
+<input type="hidden" name="navTabTitle" value="站内邮件列表"/>
+<div class="pageFormContent" layoutH="58">
+  <input name="id" value="{$list.id}" type="hidden"/>
+  <table>
+		<tr>  
+			<td  style="width:100px;">回复邮件：</td>
+			<td  style="width:100px;text-align:left">{$list.标题}</td>
+		</tr>
+		<tr align="left">
+			<td height="100" valign="top">回复内容：</td>
+			<td style="text-align:left;width:560px">
+			<textarea id="answerContent" name="answerContent" style="width:560px;height:300px;"></textarea>
+			</td>
+       </tr>
+	   <tr>
+			<td  colspan="2" style="padding-left:300px;padding-top:5px">
+				<div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">发表回复</button></div></div>
+			</td>
+	   </tr>
+	</table>
+</div>
+</form>
+</div>
+<script type="text/javascript"> 
+$(function(){
+KindEditor.create($("#answerContent",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+});
+</script>

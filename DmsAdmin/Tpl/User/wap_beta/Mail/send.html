@@ -1,0 +1,45 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form id="sendform" action="__GROUP__/Mail/send_email" method="post" onsubmit="return form_check()">
+        <table class="table" >
+            <if condition="$mailset eq true">
+            <tr>
+                <td class="tbkey">{:L('收件人：')}</td>
+                <td class="tbval"><input type="text" name="receiver" id="receiver" class="input" placeholder="默认空则发送给管理员"></td>
+            </tr>
+            </if>
+            <tr>
+                <td class="tbkey">标题：</td>
+                <td class="tbval"><input type="text" name="title" id="title" class="input" placeholder="填写标题"></td>
+            </tr>
+            <tr>
+                <td colspan=2><textarea id="content_1" name="center" class="textarea" placeholder="&para;&nbsp;邮件内容..."></textarea></td>
+            </tr>
+        </table>
+
+        <div class="content-box margin-t-4">
+            <button class="btn btn-default" type="submit">发送邮件</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+function form_check()
+{
+	if($('#title').val()=='')
+	{
+		alert('请输入标题！');
+		$('#title').focus();
+		return false;
+	}
+	if($('#content_1').val()=='')
+	{
+		alert('请输入内容！');
+		$('#content_1').focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<include file="Public:footer" />
+

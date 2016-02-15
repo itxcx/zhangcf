@@ -1,0 +1,21 @@
+<div class="pageContent">
+<form method="post" action="__URL__/do_addgroup" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload);">
+  <input type="hidden" name="callbackType" value="closeCurrent"/>
+  <div class="pageFormContent" layoutH="58">
+	   <table cellpadding=3 cellspacing=3>
+		<tr>
+			<td class="tRight">分组名称：</td>
+			<td class="tLeft">
+				<input id="groupname" type="text" class="medium bLeftRequire" name="分组名称" value="" autofocus="autofocus"><span id='tishi'></span>
+			</td>
+		</tr>
+	   </table>
+  </div>
+  <div class="formBar">
+		<ul>
+			<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+		</ul>
+  </div>
+</form>
+</div>

@@ -1,0 +1,56 @@
+			<table>
+			<foreach name="payInfo" item="vo">
+			<assign name="radio_i" value="1" />
+			<tr>
+			<if condition="$vo.name eq '支付方式名称' ">
+			<td style="text-align:left"></td>
+			<else />
+			<td style="text-align:left">{$vo.name}：</td>
+			</if>
+			<td style="text-align:left">
+			<switch name="vo.type" >
+			<case value="radio">
+				<foreach name="vo.options" key="op_val" item="op_name">
+				<input type="radio" name="attr[{$vo.config_name}]" id="{$vo.config_name}{$op_val}" value="{$op_val}" <eq name="radio_i" value="0">checked=true</eq>/><label for="{$vo.config_name}{$op_val}">{$op_name}</label>&nbsp;
+				<assign name="radio_i" value="$radio_i-1" />
+				</foreach>
+			</case>
+
+			<case value="text">
+				<if condition="$vo.name eq '支付方式名称' ">
+				<input type="hidden" name="attr[{$vo.config_name}]" value="{$vo.config_value}"/>
+				<else />
+				<input type="text" name="attr[{$vo.config_name}]" value="{$vo.config_value}" style="{$vo.style}"/>
+				</if>
+				<present name="vo.memo"><label>{$vo.memo}</label></present>
+			</case>
+			</switch>
+			<input type="hidden" name="name[]" value="{$vo.name}" style="{$vo.style}"/>
+			</td>
+			</tr>
+			</foreach>
+			<tr><td style="text-align:left">是否生效</td><td style="text-align:left"><input name="state" type="radio" value="1" checked="checked">生效  <input name="state" type="radio" value="2">失效</td></tr>
+			</table>
+			<if condition="$credit neq 'No'">
+			<div>
+				<select name="secondSelect[]" id='second' multiple='multiple' size='8' >
+					<foreach name="credit" key="ke" item="val">
+					<option value="{$ke}">{$val}</option>
+					</foreach>
+				</select>
+			</div>
+			<script type="text/javascript">
+				$().ready(function() {
+					$('#second').multiselect2side({
+						selectedPosition: 'right',
+						moveOptions: false,
+						labelsx: '',
+						labeldx: '',
+						autoSort: true,
+						labelsx: ' 可选直连银行 ',
+						labeldx: ' 生效银行列表 ',
+						autoSortAvailable: true
+						});
+				});
+			</script>
+			</if>

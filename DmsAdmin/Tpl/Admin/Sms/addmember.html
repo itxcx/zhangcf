@@ -1,0 +1,147 @@
+<div class="pageContent">
+  <div class="pageFormContent" layoutH="58">
+	<table style="width:100%;" class="list" >
+		<thead>
+		<tr>
+			<th colspan="3" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/user_add.png" />&nbsp;&nbsp;添加号码</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td width="20%" style="text-align:right;">选择会员类别：</td>
+			<td width="50%" style="text-align:left;">
+				<ul>
+					<!--<li style="float:left;"><select name="leve" id='leve'>
+					<foreach name="levels" item="level">
+						<option value="{$level.name}">{$level.name}</option>
+					</foreach>
+					</select></li>-->
+					<li style="float:left;"><select name="leve" id="leve" class="combox">
+						<option value="">全部</option>
+						<foreach name="levelsArr" item="opt">
+							<foreach name="opt" item="vo">
+								<option value="{$vo.lv}">{$vo.name}</option>
+							</foreach>
+						</foreach>
+					</select></li>
+				</ul>
+			</td>
+			<td width="30%" style="text-align:center;">
+				<input id="add_all" type="button" name="add_all" onclick="add_all()" value="全部添加">
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">编号添加：</td>
+			<td style="text-align:left;">
+				<input id="userid" type="text" class="medium bLeftRequire" name="编号" value="">
+			</td>
+			<td style="text-align:center;">
+				<input id="add_num" type="button" name="add_num" onclick="add_num()" value="添加">
+			</td>
+		</tr>
+		<!--<tr>
+			<td style="text-align:right;height:90px;" valign="top">查询添加：</td>
+			<td style="text-align:left;" valign="top">
+				<p style="width:auto;">注册时间:<input name="regtime" id="regtime1" type="text" class="date textInput" size="8"> - <input name="regtime" id="regtime2" type="text" class="date textInput" size="8"> </p>
+				<p style="width:auto;vertical-align:middle;"><span style="float:left;">管理级别:</span><select name="managelevel" id="managelevel" class="combox"><option value="">请选择</option></select></p>
+			</td>
+			<td style="text-align:center;">
+				<input id="add_sql" type="button" name="add_sql" value="添加">
+			</td>
+		</tr>
+		</tr>
+				<tr>
+			<td style="text-align:right;">团队添加：</td>
+			<td style="text-align:left;">
+				<ul>
+					<li style="float:left;"><input id="u_member" name="member" type="text" name="编号" value=""></li>
+					<li style="float:left;"><select name="team" id="team">
+						<foreach name="nets" item="net">
+						<option value="{$net.path}">{$net.name}</option>
+						</foreach>
+					</select></li>
+				</ul>
+			</td>
+			<td style="text-align:center;">
+				<input id="add_team" type="button" name="add_team" onclick="add_team()" value="添加">
+			</td>
+		</tr>-->
+		<tbody>
+	</table>
+  </div>
+</div>
+<script type="text/javascript">
+//级别添加
+function add_all(){
+	var leve=document.getElementById("leve").value;
+	$.post('__URL__/add_all',{leve:leve},function(data){
+		eval("var json = "+data);
+		add_do(json);
+	})
+}
+//编号添加
+function add_num(){
+	var userid=document.getElementById("userid").value;
+	$.post('__URL__/add_num',{userid:userid},function(data){
+		eval("var json = "+data);
+		add_do(json);
+	})
+}
+//团队添加
+function add_team(){
+	var hyid=document.getElementById("u_member").value;
+	var team=document.getElementById("team").value;
+	if(hyid){
+	$.post('__URL__/add_team',{userid:hyid,team:team},function(data){
+		eval("var json = "+data);
+		add_do(json);
+	})
+	}else{
+		alert("编号不能为空");return false;
+	}
+}
+//添加操作函数
+function add_do(json){
+	if(json){
+		var l=json.length;
+		for(var i=0;i<l;i++){
+			var num=json[i].num;var name=json[i].name;var hyid=json[i].id;
+			var find=false;
+			if(num!=''){
+				var h=document.getElementById("numlist").length;
+				for(var j=0;j<h;j++){
+					if(document.getElementById("numlist").options[j].value==num){
+						find=true;
+						if(document.getElementById("numlist").options[j].name!=name && name!=''){
+							document.getElementById("numlist").options[j].text=num+" [ "+name+" ]"
+							document.getElementById("numlist").options[j].name=name
+							document.getElementById("numlist").options[j].id=hyid
+						}
+					}
+				}
+				//将为加入的号码加入
+				if(find == false){
+					var oOption  = document.createElement("OPTION");
+						oOption.text  = num+" [ "+name+" ] ";
+						oOption.value = num;
+						oOption.name  = name;
+						oOption.id	  = hyid;
+					var x=document.getElementById("numlist");
+					try
+					{
+						x.add(oOption,null); //standards compliant
+					}
+					catch(ex)
+					{
+						x.add(oOption); //IE only
+					}
+				}
+			}
+			var nums=document.getElementById("numlist").length;
+			document.getElementById("send_num").innerHTML=nums+'条';
+		}
+	}else{
+		alert("没有可添加会员");return false;
+	}
+}
+</script>

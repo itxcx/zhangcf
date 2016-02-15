@@ -1,0 +1,42 @@
+<script>
+function dialogAjaxDoneReloadq(json)
+{
+	if(json.error == 0)
+	{
+		//显示消息框
+		//DWZ.ajaxDone('上传成功!');
+		alertMsg.correct('选择完成！');
+		$('#image_1').val(json.url);
+		$.pdialog.closeCurrent();
+	}else{
+		DWZ.ajaxDone(json.message);
+	}
+}
+</script>
+<div class="pageContent">
+	<form action="__URL__/UploadPhotoSave:__XPATH__" method="post" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReloadq);">
+		<input type="hidden" name="id" value="{$id}" />
+        <input type="hidden" name="save" value="1" />
+	  <div class="pageFormContent" layoutH="58">
+		<table cellspacing="0" cellpadding="0" border="0" align="center">
+		<tbody>
+			<tr>
+			<td valign="middle" style="padding-left:20px;">
+				<ul>
+				<li><input name="img_src" type="radio" value="/Public/Images/xinyu/lever.png" <if condition="$gold:creditStyle eq '/Public/Images/xinyu/lever.png'">checked</if>><img src="__PUBLIC__/Images/xinyu/lever.png">
+				<input name="img_src" type="radio" value="/Public/Images/xinyu/lever1.png" <if condition="$gold:creditStyle eq '/Public/Images/xinyu/lever1.png'">checked</if>><img src="__PUBLIC__/Images/xinyu/lever1.png">
+				<input name="img_src" type="radio" value="/Public/Images/xinyu/lever2.png" <if condition="$gold:creditStyle eq '/Public/Images/xinyu/lever2.png'">checked</if>><img src="__PUBLIC__/Images/xinyu/lever2.png"></li>
+				</ul>
+			</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+		</form> 
+</div>

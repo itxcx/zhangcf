@@ -1,0 +1,7 @@
+<table name='{$this->name}购物车'  engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="产品id"    type="int(11)"  default="0"/>
+<field name='数量'      type="int(4)" default="0"/>
+<field name='编号'      type="varchar(50)" default=""/>
+<field name='操作时间'  type="int(11)" default="0"/>
+</table>

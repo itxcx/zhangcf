@@ -1,0 +1,105 @@
+<div class="pageContent">
+	<form action="__URL__/setprosSave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+		<input type="hidden" name="id" value="{$_GET['id']}"/>
+	    <div class="pageFormContent" layoutH="58">
+		<table cellpadding="3" cellspacing="3" >
+		  <tr>
+                <td class="tRight" style="text-align:right;width:120px">所属产品套餐：</td>
+                <td style="text-align:left" >
+                {$productInfo.名称}
+                </td>
+            </tr>
+            <tr>
+                <td class="tRight" style="text-align:right;width:120px">分类：</td>
+                <td style="text-align:left" ><select name="category"  class="required"  id="category" >
+                    <foreach name="CategoryList" item="vo">
+						<option value="{$vo.名称}">{$vo.名称}</option>
+					</foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">名称：</td>
+                <td style="text-align:left"><input type="text" class="required" name="name" size="40" value="" />
+                <input type="hidden" name="proid" value="{$productInfo.id}" />
+                </td>
+            </tr>
+      
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">价格：</td>
+                <td style="text-align:left"><input type="text" class="required" name="price" size="40" value="" /></td>
+            </tr>
+            
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">图片：</td>
+                <td style="text-align:left"><div>
+                    <input type="text" name="image" id="image_0"  size="40" value="" />
+                  &nbsp; <span style="height:20px;line-height:20px"><a href="__URL__/UploadPhoto:__XPATH__/id/0"  target="dialog" mask="true">上传</a></span></div>
+                    <div id="upload_panel">
+                      <ul style="clear:both;float:left">
+                      </ul>
+                    </div></td>
+            </tr>
+            
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">数量：</td>
+                <td style="text-align:left"><input type="text" class="required" name="number" size="40" value="" /></td>
+            </tr>
+            
+            <tr>
+                <td class="tRight" style="text-align:right;width:80px">规格：</td>
+                <td style="text-align:left"><input type="text" class="text" name="guige" value=""  size="40"/>&nbsp;个/箱/件/套/(5瓶/件)等</td>
+            </tr>
+            
+         
+            <tr>
+				  <td class="right">状态：</td>
+				  <td class="left">
+				    <select class="required combox"  name="status">
+                        <option  value="使用" >上架</option>
+                        <option  value="不使用" >下架</option>
+			      </select>
+				  </td>
+			  </tr>
+            <tr>
+                <td style="text-align:right;">描述：</td>
+                <td style="text-align:left">
+                <textarea id="description" name="description" style="width:700px;height:300px;"></textarea>
+                </td>
+            </tr>
+        </table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+	
+</div>
+
+<script type="text/javascript">
+//指定当前组模块URL地址 
+var URL = '__URL__';
+
+var upload_id = 1;
+
+//图片上传
+function upload(upload_id)
+{
+	$.pdialog.open(URL+'/UploadPhoto/id/'+upload_id,'UploadPhoto', "产品图片添加",{width:'580',height:'300',mask:true,mixable:true,minable:true,resizable:true,drawable:true,fresh:true});
+}
+//删除这个图片上传
+function delete_upload( upload_id )
+{
+	$('#upload_li_' + upload_id, navTab.getCurrentPanel()).remove();
+}
+$(function(){
+KindEditor.create($("#description",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+})
+</script>

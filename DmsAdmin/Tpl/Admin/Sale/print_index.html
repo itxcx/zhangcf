@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>销售订单</title>
+</head>
+<style id="print_style">
+.sallist {border-collapse:collapse;border:1px solid #000000;margin-top:7px;}
+.sallist td{border:1px solid #000000;font-size:14px;}
+.tdborder{padding:0px;border:1px solid #000000} 
+.STYLE1 {font-size: 25px;font-weight: bold;text-decoration: underline;}
+</style>
+<php> if($_REQUEST['act']=='printview'){</php>
+<body onload="printview()">
+<php>}elseif($_REQUEST['act']=='printnow'){</php>
+<body onload="printnow()">
+<php>}</php>
+<style media=print>
+.Noprint{display:none;}
+.PageNext{page-break-after: always;}
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
+</object>
+
+<script language="javascript" src="__PUBLIC__/js/lodop_print.js"></script>
+
+<script language="javascript">
+var LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));
+function printnow()
+{
+CreatePrintPage();
+stylestr="<style>"+document.getElementById('print_style').innerHTML+"</style>"
+
+LODOP.PRINT_INIT("sale_print");
+LODOP.SET_PRINT_PAGESIZE(1,"25cm","14cm","")
+LODOP.ADD_PRINT_HTM(0,15,916,800,stylestr+pagetable.innerHTML)
+LODOP.SET_PRINTER_INDEX(-1);
+LODOP.PRINTA()
+}
+function printview(){
+	CreatePrintPage();
+	LODOP.PREVIEW(); //打印预览
+}
+function CreatePrintPage(){
+	LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));
+	stylestr="<style>"+document.getElementById('print_style').innerHTML+"</style>"
+	LODOP.SET_LICENSES("中国辽宁紫龙直销软件开发QQ104978","851626882738788847981789091626","","");
+	LODOP.PRINT_INIT("sale_print");
+	LODOP.SET_PRINT_PAGESIZE(1,"25cm","14cm","")
+	LODOP.ADD_PRINT_HTM(0,15,916,800,stylestr+pagetable.innerHTML)
+	LODOP.SET_PRINTER_INDEX(-1);
+}
+</script>
+<div id="pagetable">
+<table width="750">
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-weight:bold;font-size:25px">会员产品订单</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	会员编号：{$vo.编号}	&nbsp;&nbsp;&nbsp;电话：{$vo.联系电话}&nbsp;&nbsp;&nbsp;地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;发货日期：<if condition="$vo['发货日期']">{$vo.发货日期|date='Y-m-d H:i:s',###}<else />未发货</if>
+	</td>
+</tr>
+<tr>
+<notempty name='productdata'>
+<!--列表-->
+<td style="margin:0 auto;margin-bottom:5px;"><table width="730" align="center" class="sallist" cellpadding="1" cellspacing="1" >
+<tr>
+    <td  align="center"  class= "tdborder">序号</td>
+	<td  align="center"  class= "tdborder">品名</td>
+	<td  align="center"  class= "tdborder">单位</td>
+	<td align="center"  class= "tdborder">单价</td>
+	<td  align="center"  class= "tdborder">数量</td>
+	<td  align="center"  class= "tdborder">重量（kg）</td>
+	<php>
+	if(adminshow('sale_pv')){
+	</php>
+	<td  align="center"  class= "tdborder">pv</td>
+	<php>}</php>
+	<td  align="center"  class= "tdborder">合计金额</td>
+	<php>if(adminshow('sale_pv')){</php>
+	<td  align="center"  class= "tdborder">合计pv</td>
+	<php>}</php>
+</tr>
+<php>
+$i=1;
+$shuliang=0;
+$zhongliang=0;
+</php>
+<foreach name="productdata" item="paydata">
+
+<tr>
+    <td  align="center"  class= "tdborder">{$i}</td>
+	<td  align="center"  class= "tdborder">{$paydata['名称']}</td>
+	<if condition="$paydata['规格']">
+	<td  align="center"  class= "tdborder">{$paydata['规格']}</td>
+	<else />
+	<td  align="center"  class= "tdborder">无</td>
+	</if>
+	<td  align="center"  class= "tdborder">{$paydata['价格']}</td>
+	<td  align="center"  class= "tdborder">{$paydata['数量']}</td>
+	<td  align="center"  class= "tdborder">{$paydata['总重量']}</td>
+	<php>if(adminshow('sale_pv')){</php>
+	<td  align="center"  class= "tdborder">{$paydata['PV']}</td>
+    <php>}</php>
+	<td  align="center"  class= "tdborder">{$paydata['总价']}</td>
+	<php>if(adminshow('sale_pv')){</php>
+	<td  align="center"  class= "tdborder">{$paydata['总PV']}</td>
+    <php>}</php>
+</tr>
+<php>
+$zhongliang+=$paydata['总重量'];
+$shuliang+=$paydata['数量'];
+$i++;
+</php>
+</foreach>
+<tr>
+	     <td colspan="<php>if(adminshow('sale_pv')){</php>6<php>}else{</php>4<php>}</php>" style="text-align:right">实付款：{$vo.实付款}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇总：</td>
+	            <td align="center">{$shuliang}</td>
+	            <td align="center" >{$zhongliang}</td>
+				<td align="center" >{$vo.购物金额}</td>
+				<php>if(adminshow('sale_pv')){</php>
+				<td align="center">{$vo.购物PV}</td>
+				<php>}</php>
+</tr>
+</table></td>
+</notempty>
+</tr>
+
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;font-size:16px">发货信息：</span>
+	
+	</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	&nbsp;&nbsp;&nbsp;收货人：{$vo.收货人}&nbsp;&nbsp;&nbsp;收货地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;<php>//判断该系统是简化版还是豪华版 如果是简化版的话 则默认没有打印产品订单的功能
+   if(C('VERSION_SWITCH') == '0'){	 
+	</php>快递公司:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
+	无</if>
+	<php>}</php>
+	</td>
+</tr>
+</table>
+
+</div>
+</body>
+</html>

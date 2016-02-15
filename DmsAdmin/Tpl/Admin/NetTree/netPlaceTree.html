@@ -1,0 +1,430 @@
+<php>
+define('regXpath',$regXpath);
+define('placePvNodeDisp',$placePvNodeDisp);
+</php>
+<script>
+	var disop = 0;
+	var X = 0;
+	var Y = 0;
+	var button = 0;
+	var right = 0;
+    var is_treeimg = '{$is_treeimg}';
+    //判断是否要开启网络图拖拽
+    if(is_treeimg=='true'){
+    
+		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mousedown",function(e){
+			disop = 1;
+			X = e.clientX;
+			Y = e.clientY;
+		});
+		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mousemove",function(e){
+			if(disop==1){
+				var Y2 = e.clientY;
+				var X2 = e.clientX;
+				button = $('[name="placetreeContent{$firstUserInfo['id']}"]').scrollTop();
+				right = $('[name="placetreeContent{$firstUserInfo['id']}"]').scrollLeft();
+				Ys = Y - Y2;
+				Xs = X - X2;
+				$('[name="placetreeContent{$firstUserInfo['id']}"]').scrollTop(button + Ys);
+				$('[name="placetreeContent{$firstUserInfo['id']}"]').scrollLeft(right + Xs);
+			}
+		});
+		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mouseup",function(e){
+			disop = 0;
+		});
+   }	
+</script>
+<div layoutH="0" id="treeContent" name="placetreeContent{$firstUserInfo['id']}" style="overflow:scroll; min-height:472px;">
+<div style="padding-bottom:100px;">
+<if condition="$users">
+<div id="selectplacediv{$firstUserInfo['id']}" style="width:200px;">
+<select name="changeStyle" id="changeStyle">
+	<option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
+	<php>
+		//判断是否是豪华版还是简化版 如果是简化版的话是没属性目录功能和列表功能的
+		if(C('VERSION_SWITCH') == '0'){
+		</php>
+			<option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+			<option value="lists" <eq name="style" value="lists">selected="true"</eq>>列表形式</option>
+		<php>}</php>
+</select>
+<php>
+//判断是否是豪华版还是简化版 如果是简化版的话是没有缩放功能的
+if(C('VERSION_SWITCH') == '0'){
+</php>
+<select name="changeSize" id="changeSize">
+	<option value="">缩放</option>
+	<option value="1.0">100%</option>
+	<option value="0.9">90%</option>
+	<option value="0.8">80%</option>
+	<option value="0.7">70%</option>
+	<option value="0.6">60%</option>
+	<option value="0.5">50%</option>
+	<option value="0.4">40%</option>
+	<option value="0.3">30%</option>
+	<option value="0.2">20%</option>
+	<option value="0.1">10%</option>
+</select>
+<php>}</php>
+</div>
+<table id="contentTable" align="center" cellpadding="0" cellspacing="0" width="100%" style="zoom:100%">
+	<tr><td>
+		<table width="250px" align="center" style="margin:0px auto 0 auto;">
+		<tbody><tr>
+		{// 输出会员状态颜色定义 }
+		<td align="right" bgcolor="#3070DE" width="60" height="25px"><font color="#FFFFFF">有效会员</font></td>
+		<td align="right" bgcolor="#cc6633" width="60" height="25px"><font color="#FFFFFF">有效店铺</font></td>
+		<td align="right" bgcolor="#aaaaaa" width="60" height="25px"><font color="#FFFFFF">无效</font></td>
+		</tr></tbody>
+		</table>
+		<table width="auto" border="0" align="center" style="margin:0 auto;">
+		<tbody><tr>
+		<td height="30" align="center">
+			{// 表单查询 }
+			<form action="__URL__/index:__XPATH__/style/ramus" method="post" name="form1" id="form1" onsubmit="return navTabSearch(this)">
+			<span id="Label1" style="float:left;height:25px;line-height:25px">{$userNode:name}编号：</span>
+			<span style="float:left;padding-right:5px"><input name="uid" type="text" id="userid" style="width:100px;" value=''/>
+			 业绩日期：<input name="pvtime" value="{$pvtime}" type="text" class="date textInput" style="width:90px"/></span>
+			
+			<div class="buttonActive" style="padding-right:5px">
+			<div class="buttonContent"><button type="submit">搜索</button> </div></div>
+			<a class="button"  href="__URL__/index:__XPATH__/uid/{:($firstUserInfo[$netTrueName.'_上级编号'])}/style/ramus/pvtime/{$pvtime}"  target="navTab" rel="{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}" style="float:left;padding-right:5px" title="{$userNode:name}{$netName}网络" ><span>上一层</span></a>
+			<a class="button"  href='__URL__/index:__XPATH__/style/ramus/pvtime/{$pvtime}'  target="navTab" rel="{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}" style="float:left;padding-right:5px" title="{$userNode:name}{$netName}网络" ><span>置顶</span></a>
+			</form>
+		</td>
+		</tr></tbody>
+	</table>
+	</td></tr>
+	<tr><td>
+	<php>
+	</php>
+	{// 向下递归遍历网络图的所有子节点 }
+	{:print_tree(1,current($users),$levelsArr,$netNode,$users,$pvtime)}
+	</td></tr>
+</table>
+<else/>
+<table class='list' style="width:500px">
+  <thead>
+  <tr><th>&nbsp;提示信息</th></tr>
+  </thead>
+  <tbody>
+  <tr style="height:150px"><td><b>该网络暂无人员！</b></td></tr>
+  </tbody>
+</table>
+</if>
+</div>
+</div>
+
+
+
+<php>
+/*
+* 递归遍历网络图函数
+*/
+function print_tree($layer,$userInfo,$levelsArr,$netNode,$users,$pvtime)
+{
+</php>
+	<table width="100" border="1" bordercolor="#BBBBBB" cellpadding="0" cellspacing="1" bgcolor="#517DBF" align="center" style="margin:0px auto 0 auto;">
+		<tbody><tr>
+		<td align="center" bgcolor="#FFFFFF">
+			{//输出会员的相关信息 }
+			<table width="100%" border="0" cellspacing="1" cellpadding="0" id="overUser_{$userInfo['编号']}">
+				<tbody>
+				{//编号}
+				<tr><td style="height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:<eq name='userInfo.状态' value='有效'>#3070DE<else/>#AAAAAA</eq>"><a class="currentNavTab" style="width: 100px; background-color: " href="__URL__/index:__XPATH__/uid/{$userInfo['编号']}/style/ramus/pvtime/{$pvtime}" target='navTab' rel="{:md5(__GROUP__.'/Admin/NetTree/index:'.__XPATH__)}" title="{$netNode:name}网络" rSelect='true' ><font color="ffffff"><strong>{$userInfo['编号']}</strong></font></a><if condition="$userInfo['空点'] eq 1"><span style="color:#ffffff">(空)</span></if></td></tr>
+				{//姓名}
+				<tr><td style="height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:<eq name='userInfo.状态' value='有效'>#3070DE<else/>#AAAAAA</eq>"><font color="ffffff"><strong><empty name="userInfo.姓名">[暂无]<else/>{$userInfo['姓名']}</empty></strong></font></td></tr>
+				{//审核日期 或 注册日期}
+				<tr><td style="color:#ffffff;height:20px;line-height:20px;text-align:center;border-bottom:1px solid #A5D1EC;background-color:<eq name='userInfo.状态' value='有效'>#3070DE<else/>#AAAAAA</eq>"><empty name="userInfo.审核日期">{:date('Y-m-d',$userInfo['注册日期'])}<else/>{:date('Y-m-d',$userInfo['审核日期'])}</empty></td></tr>
+				<foreach name="levelsArr" item="level" key='levelname'>
+				<tr><td align="center" bgcolor="#E7F2FB"style="line-height:20px">{:($level[$userInfo[$levelname]])}</td></tr>
+				</foreach>
+				<tr><td height="25" align="center" valign="bottom" >
+					<table width="100%" border="0" background="__PUBLIC__/Images/admin/tab_05.gif" >
+					<tbody><tr>
+					<!--<td>总:{:$userInfo[$netNode->name.'_团队总人数']}/{:$userInfo[$netNode->name.'_团队人数']}</td>-->
+					<td colspan="2" align="center">层:{:$userInfo[$netNode->name.'_层数']}</td>
+					</tr>
+					</tbody>
+					</table>
+				</td></tr>
+				<if condition="$netNode:pvFun && placePvNodeDisp">
+				<tr><td colspan='2'>
+					<table border="0" cellpadding="3" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">
+					<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+					<td style="border-width:1px;border-style:solid;border-color:#B9D8F3;"></td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;"><nobr>新增</nobr></td><if condition="X('prize_bump')"><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;"><nobr>结转</nobr></td></if><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;"><nobr>累计</nobr></td>
+					</tr>
+					<foreach name="netNode:getRegion()" item="region">
+					<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+						<td style="border-width:0 1px 1px 1px;border-style:solid;border-color:#B9D8F3;">
+						<nobr>
+						{$region.byname}
+						</nobr>
+						</td>
+						<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+						{:number_format($userInfo[$netNode->name.'_'.$region['name'].'区本日业绩'],$netNode->decimal)}
+						</td>
+						<if condition="X('prize_bump')">
+							<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+							{:number_format($userInfo[$netNode->name.'_'.$region['name'].'区结转业绩'],$netNode->decimal)}
+							</td>
+					    </if>
+						<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+						{:number_format($userInfo[$netNode->name.'_'.$region['name'].'区累计业绩'],$netNode->decimal)}
+						</td>
+					</tr>
+					</foreach>
+					</table>
+				</td></tr>
+				</if>
+				</tbody>
+			</table>
+			{:getfloatDiv($userInfo,$levelsArr,$netNode)}
+		</td>
+		</tr></tbody>
+	</table>
+	<if condition="$netNode:adminNetLayer ELT $layer">
+	<php>return;</php>
+	</if>
+	<php>
+		//判断不进网
+		if(regXpath=='')
+		{
+			$notdisp=true;
+			foreach($netNode->getBranch() as $position)
+			{
+				$regionrow = $netNode->name.'_'.$position.'区';
+				if($userInfo[$regionrow]!='')
+				{
+					$notdisp=false;
+				}
+			}
+			if($notdisp)
+			{
+				return;
+			}
+		}
+	</php>
+	{//下面上下线}
+	<table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+		<tbody><tr>
+		<td align="center" style="line-height: 10px; height: 10px;"><img style="width:1px;height:20px" alt="" src="/Public/Images/admin/line.gif" border="0"></td>
+		</tr></tbody>
+	</table>
+	<table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+		<tbody><tr>
+		<td valign="top">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tbody><tr>
+			<php>
+			//dump($userInfo['region']);
+			$region    = $netNode->getBranch();
+			//得到总数
+			$j=0;
+			foreach($region as $position)
+			{
+				$regionrow = $netNode->name.'_'.$position.'区';
+				if($userInfo[$regionrow]=='' && (!in_array($position,$userInfo['region']) || regXpath == ''))
+				{
+					continue;
+				}
+				$j++;
+			}
+			
+			$i = -1;
+			foreach($region as $position){
+				$regionrow = $netNode->name.'_'.$position.'区';
+				if($userInfo[$regionrow]=='' && (!in_array($position,$userInfo['region']) || regXpath == ''))
+				{
+					continue;
+				}
+				$i++;
+			</php>
+		<td valign="top">
+			{//上面上下线}
+			<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin:0px auto 0 auto;">
+				<tbody><tr>
+				<td align="center" valign="top" style="height:10px;line-height:10px">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="topppppppppppppppppp">
+					<tbody><tr>
+						{// 左右轨迹条显示,这里判断是显示在 左边 还是 右边 }
+						<php>if($i>0 && $i<($j-1) && $j >2){</php>
+						<td width="50%" height="1" bgcolor="#003399"></td>
+						<td width="50%" height="1" bgcolor="#003399"></td>
+						<php>}else if($j == 1){</php>
+						<td width="50%" height="0"></td>
+						<td width="50%" height="0"></td>
+						<php>}else{</php>
+						<td width="50%" height="1" <eq name="i" value="$j-1">bgcolor="#003399"</eq> ></td>
+						<td width="50%" height="1" <eq name="i" value="0">bgcolor="#003399"</eq> ></td>
+						<php>}</php>
+					</tr></tbody>
+					</table>
+					{// 上下轨迹条显示}
+					<img style="width:1px;height:20px;line-height:20px" alt="" src="/Public/Images/admin/line.gif" border="0">
+				</td>
+				</tr></tbody>
+			</table>
+<if condition="$userInfo[$regionrow] eq '' ">
+		<!--注册-->
+		<table width="100" border="1" bordercolor="#BBBBBB" cellpadding="0" cellspacing="1" bgcolor="#517DBF" align="center" style="margin:0px auto 0 auto;">
+			<tbody><tr>
+			<td align="center" bgcolor="#FFFFFF">
+				<table width="100%" border="0" cellspacing="1" cellpadding="0">
+				<tr>
+				<td height="20" align="center" bgcolor="#E7F2FB"></td>
+				</tr>
+				<tr>
+				<td height="20" align="center" bgcolor="#E7F2FB"></td>
+				</tr>
+				
+				<tr>
+				
+				<td height="20" align="center" bgcolor="#E7F2FB" style="padding-left:24px">
+					<a href="__APP__/Admin/Sale/reg:{:constant('regXpath')}/pid/{$userInfo['编号']}/position/{$i}" class="button" target="navTab" title="注册单" style="color:red" rel="{:MD5(__APP__.'/Admin/Sale/reg:'.constant('regXpath'))}" ><span>注册</span></a>
+				</td>
+				</tr>
+				<tr>
+				<td height="26" align="center" bgcolor="#E7F2FB"></td>
+				</tr>
+				</tr>
+				</table>
+			</td>
+			</tr></tbody>
+		</table>
+			{// 向下递归遍历网络图的所有子节点}
+			<else/>
+			<php>
+			if(isset($users[$userInfo[$regionrow]]))
+			{
+			</php>
+				{:print_tree($layer+1,$users[$userInfo[$regionrow]],$levelsArr,$netNode,$users,$pvtime)}
+			<php>
+			}
+			</php>
+			</if>
+	</td>
+	<php>}</php>
+	</tr>
+	</tbody>
+	</table>
+	</td></tr>
+	</tbody>
+</table>
+<php>$layer++;}</php>
+<php>
+//获得浮动层
+function getfloatDiv($userInfo,$levelsArr,$netNode){
+	//判断该系统是否有对碰奖金
+	$bump = X('prize_bump');
+	if($bump){
+	  $is_jiezhuan = true;
+	}else{
+	 $is_jiezhuan = false;
+	}
+</php>
+	
+	<div id="floatDiv_{$userInfo['编号']}" style="border:3px solid #d5dDdF;display:none;position:absolute;background:#FFFFFF;padding:10px">
+		<table>
+		<tr><td style="text-align:right;height:20px;line-height:20px">编号：</td>
+		<td style="text-align:left;height:20px;line-height:20px">{$userInfo['编号']}</td></tr>
+		<tr><td style="text-align:right;height:20px;line-height:20px">姓名：</td>
+		<td style="text-align:left;height:20px;line-height:20px"><empty name="userInfo.姓名">[暂无]<else/>{$userInfo['姓名']}</empty></td></tr>
+		<empty name="$userInfo.审核日期">
+			<tr><td style="text-align:right;height:20px;line-height:20px">注册日期：</td>
+			<td style="text-align:left;height:20px;line-height:20px"><if condition="$userInfo['注册日期']">{$userInfo.注册日期|date='Y-m-d H:i:s',###}</if></td></tr>
+		<else/>
+			<tr><td style="text-align:right;height:20px;line-height:20px">审核日期：</td>
+			<td style="text-align:left;height:20px;line-height:20px"><if condition="$userInfo['审核日期']">{$userInfo.审核日期|date='Y-m-d H:i:s',###}</if></td></tr>
+		</empty>
+		{//级别}
+		<foreach name="levelsArr" item="level" key='levelname'>
+		<tr>
+		<td style="text-align:right;height:20px;line-height:20px">{$levelname}：</td>
+		<td style="text-align:left;height:20px;line-height:20px">{:($level[$userInfo[$levelname]])}</td>
+		</tr>
+		</foreach>
+		<if condition="$netNode:pvFun && !placePvNodeDisp">
+		<tr><td colspan='2'>
+			<table border="0" cellpadding="3" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">
+			<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+			<td style="border-width:1px;border-style:solid;border-color:#B9D8F3;"></td><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">新增</td><if condition="$is_jiezhuan"><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">结转</td></if><td style="border-width:1px 1px 1px 0;border-style:solid;border-color:#B9D8F3;">累计</td>
+			</tr>
+			<foreach name="netNode:getRegion()" item="region">
+			<tr style="text-align: center; color:#5A4B24; BACKGROUND-COLOR: #F4FAFF;">
+				<td style="border-width:0 1px 1px 1px;border-style:solid;border-color:#B9D8F3;">
+				{$region.byname}
+				</td>
+				<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+				    {:number_format($userInfo[$netNode->name.'_'.$region['name'].'区本日业绩'],$netNode->decimal)}
+				</td>
+				<if condition="$is_jiezhuan">
+					<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+					{:number_format($userInfo[$netNode->name.'_'.$region['name'].'区结转业绩'],$netNode->decimal)}
+					</td>
+			    </if>
+				<td style="border-width:0 1px 1px 0;border-style:solid;border-color:#B9D8F3;">
+				    {:number_format($userInfo[$netNode->name.'_'.$region['name'].'区累计业绩'],$netNode->decimal)}
+				</td>
+			</tr>
+			</foreach>
+			</table>
+		</td></tr>
+		</if>
+		</table>
+	</div>
+<php>}</php>
+<if condition="$users">
+<script>
+$(function(){
+	navTab.getCurrentPanel().find('#changeStyle').bind('change',function(){
+		navTab.reload('__URL__/index:__XPATH__',{data:{style:$(this).val()}});
+	});
+	navTab.getCurrentPanel().find("#changeSize").change(function(){
+		//alert($(this).val())
+		var zoom = $(this).val();
+		navTab.getCurrentPanel().find("#contentTable").css({'zoom':zoom,'-moz-transform':'scale('+zoom+')','-moz-transform-origin':'top left'});
+		showscroll();
+	})
+	navTab.getCurrentPanel().find("[id^='overUser_']").bind('mousemove',function(e){
+		var xx = e.pageX-$("#treeContent",navTab.getCurrentPanel()).offset().left;
+		var yy = e.pageY-$("#treeContent",navTab.getCurrentPanel()).offset().top;
+		var idArr = $(this).attr('id').split('_');
+		var width = $('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).width();
+		var height = $('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).height();
+		if(xx > (navTab.getCurrentPanel().width()-width-60)){
+			xx = xx - width - 40;
+		}else{
+			xx = xx + 20;
+		}
+		if(yy > (navTab.getCurrentPanel().height()-height-60)){
+			yy = yy - height -30;
+		}else{
+			yy = yy + 25;
+		}
+		//alert(idArr[1])
+		$("#treeContent",navTab.getCurrentPanel()).offset({top:118,left:211});
+		var ss=$("#treeContent",navTab.getCurrentPanel()).scrollTop();
+		$('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).show();
+		$('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).css('left',xx);
+		$('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).css('top',yy+ss);
+		//$('#gfloatDiv_'+idArr[1]).show();
+		$(this).mouseout(function(){
+			$('#floatDiv_'+idArr[1],navTab.getCurrentPanel()).css('display','none');
+		});
+	});
+});
+showscroll();
+function showscroll(){
+	/*if("{$firstUserInfo['id']}"!=""){
+		var left=(document.getElementsByName("placetreeContent{$firstUserInfo['id']}")[0].scrollWidth-document.getElementsByName("placetreeContent{$firstUserInfo['id']}")[0].offsetWidth)/2;
+		if(left<0){
+			left=0;
+		}
+		document.getElementsByName("placetreeContent{$firstUserInfo['id']}")[0].scrollLeft=left;
+		document.getElementById("selectplacediv{$firstUserInfo['id']}").style.margin="0 "+left+"px";
+	}*/
+}
+</script>
+</if>
+

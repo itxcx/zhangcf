@@ -1,0 +1,50 @@
+<tagLib name="sql"/>
+<div class="pageContent">
+
+	<form method="post" action="__URL__/insert/navTabId/system_menu" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="submit" value="1" />
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>名称：</th>
+					<td>
+						<input type="text" class="required" name="name" />
+					</td>
+				</tr>
+				<tr>
+					<th>上级：</th>
+					<td>
+						<select name="pid" id="app_node">
+						<option value="">请选择</option>
+						<foreach name="optionList" item="menu">
+						<option value="{$menu.value}">{$menu.name}</option>
+						</foreach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>状态：</th>
+					<td style="text-align:left">
+						<input type="radio" name="status" checked="true" value="1" id="status1" /> <label for="status1">启用</label>
+
+						<input type="radio" name="status" value="2" id="status2" /> <label for="status2">禁用</label>
+					</td>
+				</tr>
+				<tr>
+					<th>描 述：</th>
+					<td>
+						<TEXTAREA class="large bLeft" name="remark"  ROWS="5" COLS="57"></TEXTAREA>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

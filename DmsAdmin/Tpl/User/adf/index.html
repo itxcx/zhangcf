@@ -1,0 +1,64 @@
+<include file="Public:header" />
+    <div  id="content"  class="span10"  style="min-height: 929px;">
+      <div  class="home-banner">
+        <div  class="banner-text">主页</div>
+      </div>
+      <br>
+      <table  width="100%">
+        <tbody>
+          <tr>
+            <td><div  style="font-weight:200; font-size:large;"><b>欢迎再次登入</b>,</div></td>
+            <td  align="right"  style="text-align:right"><div  style="margin-right: 10px;font-size:medium; text-align:right;"><a href="__GROUP__/Public/logout">退出请记得登出</a><!--<img  src="__TMPL__Public/images/cs.jpg">--></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <div  class="row-fluid">
+        <div  class="box span12">
+          <div  class="box-header">
+            <h2><i  class="icon-money"></i>你的电子银行的数据</h2>
+          </div>
+          <div  class="box-content">
+            <div  class="circleStats">
+            <foreach name="funbank" item="fun_bank" key="key">
+              <div  class="span3 smallstat mobileHalf box"  ontablet="span6"  ondesktop="span3"> <i  class="icon-money darkGreen"></i> <span  class="ctitle">{$fun_bank.name}</span> <span  class="value">{$fun_bank.num}</span> </div>
+            </foreach>
+            </div>
+            <div  class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+      <div  class="row-fluid">
+        <div  class="box span12">
+          <div  class="box-header">
+            <h2><i  class="icon-user"></i>公告</h2>
+          </div>
+          <div  class="box-content">
+            <table  border="0"  width="100%"  class="table">
+              <thead>
+                <tr>
+                  <th  width="15%">日期</th>
+                  <th  width="65%">标题</th>
+                  <th  width="20%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="notice" item="name">
+                <tr>
+                    <td width="15%">
+                    <p><a href="__GROUP__/User/shownotice/id/{$name.id}">{$name.标题}</a></p>
+                  <!-- <p>{$vo.内容}</p> -->
+                    </td>
+                    <td  width="65%">
+                        {$name.创建时间|date='Y-m-d',###}
+                    </td>
+                </tr>
+                </foreach>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<include file="Public:footer" />

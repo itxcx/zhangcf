@@ -1,0 +1,36 @@
+<script type="text/javascript">
+function dialogAjaxDone(json)
+{
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		//显示与隐藏系统维护菜单
+		$("#sysmenu").toggle();
+		//navTab.reload();
+		//navTab.reload(); //刷新节点管理
+		$.pdialog.closeCurrent(); //关闭添加节点对话框
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/login_pass2/callbackType/closeCurrent" class="pageForm" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+		<table cellpadding="5" cellspacing="5">
+				
+				<tr>
+					<th>密码：</th>
+					<td><input type="password" name="password" size="20" class="required" /></td>
+				</tr>
+		</table>
+		</div>
+		<input type="hidden" name="account" size="20" class="required" value="{$_SESSION.loginAdminAccount}" />
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>
+

@@ -1,0 +1,76 @@
+<SCRIPT LANGUAGE="JavaScript">
+function checkbom(){
+	$.post("__URL__/check",function(data){
+      $("#bom").html(data);
+   },'html');
+}
+function checkAll(str)    
+{
+    var a = document.getElementsByName(str);    
+    var n = a.length;
+    for (var i=0; i<n; i++){
+		a[i].checked = window.event.srcElement.checked;
+	}
+}
+function checkItem(str)    
+{    
+    var e = window.event.srcElement;    
+    var all = eval("document.all."+ str);    
+    if (e.checked)    
+    {    
+        var a = document.getElementsByName(e.name);    
+        all.checked = true;    
+        for (var i=0; i<a.length; i++)    
+        {    
+            if (!a[i].checked)   
+            {    
+                all.checked = false; break;   
+            }    
+        }   
+    }    
+    else    
+        all.checked = false;    
+} 
+</script>
+<style type="text/css">
+td span {width:50px;height:20px;line-height:20px;font-size:16px;}
+</style>
+<div class="pageContent" layoutH="0">
+	<table class="list" width="600px" style="margin:5px;">
+		 <thead>
+			 <tr>
+				 <th style="width:130px;text-align:left;">文件检查BOM头操作</th>
+				 <th style="text-align:center;"></th>
+			 </tr>
+		 </thead>
+		 <tfoot>
+			 <tr>
+			 <td style="border-bottom:1px solid #EDEDED">
+			 <a href="javascript:;" class="edit" id="do_act" onclick="checkbom()"><span>检查BOM头</span></a>
+			 </td>
+				 <td style="width:150px;border-bottom:1px solid #EDEDED">
+					此操作可检查系统中文件是否含有BOM头，若有则会并将BOM头删除。
+				 </td>
+			 </tr>
+		 </tfoot>
+	</table>
+	
+	<form action="__URL__/filediff" method="post" name="form1" id="form1" onsubmit="return navTabSearch(this)">	
+	<table class="list" width="600px" style="margin:5px;">
+		 <thead>
+			 <tr>
+				 <th style="width:130px;text-align:left;">与目标站点对比</th>
+				 <th style="text-align:center;"></th>
+			 </tr>
+		 </thead>
+		 <tfoot>
+			 <tr>
+				 <td colspan="2"  style="text-align:left;width:150px;border-bottom:1px solid #EDEDED">
+					网址:<input type='text' name='url' value='' size='30'/>
+					<button type="submit">确定</button>
+				 </td>
+			 </tr>
+		 </tfoot>
+	</table>
+	</form>
+</div>

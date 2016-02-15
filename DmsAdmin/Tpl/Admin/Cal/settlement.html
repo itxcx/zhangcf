@@ -1,0 +1,189 @@
+<form action="__URL__/presettlementExecute" method="post" target="execute" id='settlementform'>
+<input type="hidden" name="test" id='test' value=""> 
+<table width="600px" class="list">
+  <thead>
+	<tr>
+	  <th colspan="5" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/calculator.png" />&nbsp;&nbsp;奖金结算</th>
+	</tr>
+     </thead>
+     <tfoot>
+		<tr><td style="width:100px;border-bottom:1px solid #ededed;text-align:right" >结算起始日：</td><td style="text-align:left;border-bottom:1px solid #ededed" id="startTime">{$CAL_START_TIME|date="Y-m-d",###}</td><td style="width:120px;border-bottom:1px solid #ededed">结算终止日:</td><td style="text-align:left;border-bottom:1px solid #ededed" id="endTime">
+		<eq name="diffday" value="0" >已结算</eq>
+		<neq name="diffday" value="0" >
+		<select name='caltime'>
+		<foreach name='selectday' item='sday'>
+		<option value='{$sday}'>{$sday|date="Y-m-d",###}</option>
+		</foreach>
+		</select>
+		</neq>
+		</td></tr>
+		<if condition="$if_exec eq true">
+		  <php>
+		  if($is_autojisuan>0){
+		  </php>
+			<tr>
+			<td style="width:120px;border-bottom:1px solid #ededed;text-align:right" class="tab2_border2" >自动结算模式：</td>
+			<td style="text-align:left;border-bottom:1px solid #ededed" >
+			<if condition="$is_runing">
+				<font>正在运行</font>
+			<else/>
+				<font>停止运行</font>
+			</if>
+			</td>
+			<td style="text-align:left;border-bottom:1px solid #ededed"  colspan="2"> 
+			<select name='runset' id='runset'>
+				<option value='1' <if condition="$is_runing">selected</if>>开启</option>
+				<option value='0' <if condition="!$is_runing">selected</if>>关闭</option>
+			</select> <button type="button" onclick="runsetajax()">保存设置</button>
+			</td>
+			</tr>
+			<php>}</php>
+		</if>
+		<foreach name="tles" item='tle'>
+		<tr>
+		<td style="width:120px;border-bottom:1px solid #ededed;text-align:right" class="tab2_border2" >{$tle.name}：</td><td style="text-align:left;border-bottom:1px solid #ededed"  colspan="3">{$tle.modename}</td>
+		</tr>
+		</foreach>
+
+		<tr>
+		<td style="width:120px;border-bottom:1px solid #ededed;text-align:right" class="tab2_border2" >结算前备份数据库：</td>
+		<td style="text-align:left;border-bottom:1px solid #ededed"  colspan="3">
+			<input type="checkbox" name="backupdb" <if condition="strpos($ips,'127.0.0') === false"> checked</if>/>
+		</td>
+		</tr>
+		<tr style="border-bottom:1px solid #ededed" >
+		
+			<td style="text-align:center;height:25px"  colspan="5" id="buttonSatus">
+			<ELT name="diffday" value="0" >
+			目前不能结算
+			</ELT>
+			<GT name="diffday" value="0" >
+				<div class="buttonActive" style="margin-left:230px;" id="calbutton">
+		          <div class="buttonContent" >
+		          	<!--js锁定操作按钮-->
+		            <button id="settlementbutton" type="button" onclick="startsettlement('')">开始结算</button>
+		          </div>
+				</div>
+		        <if condition="strpos($ips,'127.0.0') !== false">
+					 <div class="buttonActive" style="margin-left:5px;float:left">
+			          <div class="buttonContent" >
+    		        	<button id="settlementbutton" type="button" onclick="startsettlement('1')">测试性结算</button>
+			          </div>
+					</div>
+		        </if>				
+			</GT>
+			<EGT name="diffday" value="0" >
+				<if condition="strpos($ips,'127.0.0') !== false"> 
+					 <div class="buttonActive" style="margin-left:5px;float:left">
+			          <div class="buttonContent" >
+			            <button type="submit" name="geri" onclick="$('#test').val('');$('#calmemo').html('');$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled')">隔日结算</button>
+			          </div>
+					</div>
+				</if>
+			</EGT>
+			</td>
+		</tr>
+</tfoot>
+</table>
+</form>
+<!--滚动条-->
+<table width="600px" class="list">
+  <thead>
+	<tr>
+	  <th colspan="5" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/application/application_view_detail.png" />&nbsp;&nbsp;计算明细</th>
+	</tr>
+     </thead>
+     <tfoot>
+		<tr>
+		<td style="border-bottom:1px solid #ededed" >
+			<DIV align=left style="width: 581; height: 300px; overflow-y:scroll;overflow:yes;margin:5px 5px 5px 5px;border: 1px solid #aaaaaa;line-height:18px;padding: 4px" id='caldiv'>
+				<table width='100%' id='calmemo'>
+				</table>
+			</div>
+		</td></tr>
+</tfoot>
+</table>
+<script>
+function runsetajax()
+{
+	ajaxTodo('__URL__/runset/val/'+$('#runset').val());
+}
+function startsettlement(test){
+	$('#test').val(test);
+	$('#calmemo').html('');
+	$('#settlementbutton').html('正在结算中请等候');
+	//结算操作按钮不可操作
+	$('#settlementbutton').attr('disabled','true');
+	$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled');
+	$("#settlementform").submit();
+	if({$if_cli})
+		navTab.reload();
+}
+function addexemsg(title,time,icon)
+{
+	$("<tr><td width='18'><img src='"+icon+"'></td><td align='left' style='text-align: left'>"+title+"...</td><td width='80'>("+time+")</td></tr>").appendTo('#calmemo');
+	$('#caldiv').scrollTop(1000000);
+	if(icon.indexOf('tick')>0){
+		$.ajax({
+			type: "POST",
+			url:'__URL__/ExecuteAjax',
+			global:false,
+			success:function(data){
+				eval('var data='+data);
+				$('#startTime').html(data.data[0]);
+				if(data.data[2] == 0){
+					$('#endTime').html('已结算');
+					$('#buttonSatus').html('目前不能结算');
+				}else{
+					var optionStr = '';
+					for(i in data.data[1]){
+						optionStr +='<option value="'+data.data[1][i][0]+'">'+data.data[1][i][1]+'</option>';
+					}
+					$('select[name=caltime]').html(optionStr);
+					$('#settlementbutton').html('开始结算');
+					$('#settlementbutton').removeAttr('disabled');
+					$('#calbutton').removeClass('buttonDisabled').addClass('buttonActive');
+				}
+			}	
+		});
+	}
+}
+var flushflag = 0;
+getcalstate();
+function getcalstate()
+{
+	$.ajax({
+       url:"__APP__/Cal/getcalstateajax",
+       type:"POST",
+       data:null,
+       dataType:"JSON",
+       global:false,
+       success:function(data){
+       		if(data.status>0){
+ 	       		flushflag =0;
+      			$('#calmemo').html('');
+	       		var ret =data.data;
+	       		for(i in ret){
+	       			addexemsg(ret[i][1],ret[i][2],ret[i][3]);
+				}
+	       		//结算操作按钮不可操作
+				$('#settlementbutton').attr('disabled','true');
+				$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled');
+       		}else{
+       			flushflag=1;
+       			if($('#settlementbutton').attr('disabled')=='disabled'){
+       				$('#calmemo').html('');
+       				var ret =data.data;
+		       		for(i in ret){
+		       			addexemsg(ret[i][1],ret[i][2],ret[i][3]);
+					}
+       			}
+       		}
+       }
+    });
+    if(flushflag==0){
+    	setTimeout(arguments.callee, 3000);
+    }
+}
+</script>
+<iframe src="" width="600" height="310" frameBorder="0" scrolling="auto" name='execute'></iframe>

@@ -1,0 +1,47 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/stockAdd:__XPATH__');
+	}
+}
+</script>
+<form action="__URL__/stockAddSave:__XPATH__" method="post"  class="pageForm required-validate" >
+<table width="650px" class="list">
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;股票添加</th></tr></thead>
+<tbody>
+<tr>
+<td  style="text-align:right;width:20%">会员编号:</td>
+<td  style="text-align:left;width:20%"><input type="text" id="userid" name="userid" value="" size="15"></td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">账户类型:</td>
+<td  style="text-align:left;width:20%">
+<select name='account'>
+<option value='股票账户'>股票账户</option>
+<option value='股票托管'>股票托管</option>
+</select>
+</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">添加数量:</td>
+<td  style="text-align:left;width:20%"><input type='input' name='num' size='10'/>
+</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">备注:</td>
+<td  style="text-align:left;width:20%"><input type='input' name='memo' size='20'/>
+</td>
+</tr>
+<tr>
+<td ></td><td><div class="buttonActive"><div class="buttonContent"><button type="submit">确定</button></div></div>
+</div></td>
+<td ></td>
+</tr>
+</tbody>
+</table>
+</form>

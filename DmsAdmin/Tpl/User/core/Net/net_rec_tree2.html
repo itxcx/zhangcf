@@ -1,0 +1,118 @@
+<section id="widget-grid" class="">
+	<div class="row">
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+		<div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="position: relative; opacity: 1;">
+				<header role="heading">
+					<span class="widget-icon"> <i class="fa fa-lg fa-fw fa-sitemap"></i> </span>
+					<h2>{$netName}网络</h2>				
+				<span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+				<div role="content">
+                    <div class="tree smart-form" id="sponsor_tree">
+                        <ul role="tree">
+                            <li id="leader" class="parent_li" role="treeitem">
+                               
+                                <span title="Collapse this branch"><i class="fa fa-lg fa-minus-circle"></i> <b>{$firstUserInfo.编号}</b> <b class="txt-color-teal">{$firstUserInfo.编号}</b></span>
+                                <br> - <small style="color:#3276b1"><if condition="$firstUserInfo['姓名']" >{$firstUserInfo.姓名}<else/>暂无</if></small>
+	                                {// 向下递归遍历网络图的所有子节点 }
+						            {:print_tree(0,$netTree,$netPlaceName,$firstUserInfo,$netName,$levelsArr,$thisUser,$netNode)}
+	                            </li>
+                        </ul>
+                    </div>
+				</div>
+			</div></article>
+	</div>
+	<div class="row">
+	</div>
+</section>
+        <php>
+        /*
+        * 递归遍历网络图函数
+        */
+        function print_tree($layer,$netTree,$netPlaceName,$parent,$netName,$levelsArr,$thisUser,$netNode)
+        {
+        $j = M('会员')->where(array($netName.'_上级编号'=>$parent['编号']))->count();
+        if(empty($netTree[$layer]) || $j == 0) return;
+			</php>
+		<ul role="group">	
+			<php>
+        $i=0;
+        //$j= $parent[$netName.'_推荐人数'];
+        foreach($netTree[$layer] as $key=>$val){
+            if($val[$netName.'_上级编号'] === $parent['编号']){
+                $userInfo = $val;
+            }else{
+                continue;
+            }
+            $i++;
+        </php> 
+
+        <notempty name="userInfo">
+    
+		<li id="tree_{$userInfo['编号']}" style="display: list-item;"><span data-id="{$userInfo['编号']}" class="open_tree"><i class="fa fa-lg fa-minus-circle"></i>  <b>{$userInfo['编号']}</b>  <b class="txt-color-teal">{$userInfo['编号']}</b></span><br> - <small style="color:#3276b1"><if condition="$userInfo['姓名']" >{$userInfo.姓名}<else/>暂无</if></small>
+	    {// 向下递归遍历网络图的所有子节点 }
+        {:print_tree($layer+1,$netTree,$netPlaceName,$userInfo,$netName,$levelsArr,$thisUser,$netNode)}</li>
+        </notempty>  
+        <php>}</php> 
+         </ul>
+        <php>$layer++;}</php>
+        
+
+
+<script type="text/javascript">
+	// DO NOT REMOVE : GLOBAL FUNCTIONS!
+	pageSetUp();
+
+	var tree_id = "";
+	
+	var Get_tree_data = function(id , e)
+	{
+		Set_tree(1, id , e);
+
+	}
+	
+	function Set_tree(data, u_id , e)
+	{
+		var tree_obj = $("#sponsor_tree");
+		//var li_str = '';
+		var html = "";
+	
+		$(e).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+		network_init(e);
+	}
+
+
+	// PAGE RELATED SCRIPTS
+
+	var network_init = function(e)
+	{
+		$('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
+		$(e).parent('li').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function(e) {
+			
+			var children = $(this).parent('li.parent_li').find(' > ul > li');
+			if (children.is(':visible')) {
+				children.hide('fast');
+				$(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+			} else {
+				children.show('fast');
+				$(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+			}
+			e.stopPropagation();
+		});
+		
+	}
+
+$(document).on("click", ".open_tree", function()
+{
+	var id = $(this).data("id");
+
+	Get_tree_data(id , this);
+})
+
+$("#Back_tree_view").click(function()
+{	
+alert(11);
+	Get_tree_data(tree_id);
+})
+
+Get_tree_data("",$("#leader > span"));
+</script>

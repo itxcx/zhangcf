@@ -1,0 +1,328 @@
+<div layoutH="0">
+<table align="left">
+<tr>
+<td valign="top" align="left">
+	<table width="300"  class="list" style="float:left">
+	<thead>
+	<tr>
+	<th colspan="4" align="left" valign="middle">{$name}资料</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td width="50%" >编号:</td>
+	<td width="50%" >{$vo.编号}</td>
+	</tr>
+
+	<tr>
+	<td width="50%">
+	<if condition="in_array('name',$require) eq true ">*</if>姓名:</td>
+	<td width="50%" style="text-align:left">
+	{$vo.姓名}
+	</td>
+	</tr>
+
+	<tr>
+	<td width="40%">
+	<if condition="in_array('alias',$require) eq true ">*</if>昵称</td>
+	<td width="60%" style="text-align:left">
+   {$vo.昵称}
+	</td>
+	</tr>
+
+	<tr>
+	<td width="40%" >
+	<if condition="in_array('sex',$require) eq true ">*</if>性别</td>
+	<td width="60%" style="margin-left:5px">
+   {$vo.性别}
+	</td>
+	</tr>
+
+	<tr>
+	<td width="40%" >
+	<if condition="in_array('id_card',$require) eq true ">*</if>证件号码:</td>
+	<td width="60%" style="border-right:none;text-align:left">
+	 
+	{$vo.证件号码}
+	</td>
+	</tr>
+
+	<tr>
+	<td width="40%" >
+	<if condition="in_array('bank_apply_name',$require) eq true ">*</if>开户银行:</td>
+	<td width="60%" style="border-right:none;">
+	 {$vo.开户银行}
+	  </td>
+	</tr>
+   
+	
+	<tr>
+	<td width="40%">
+	<if condition="in_array('bank_card',$require) eq true ">*</if>银行卡号:</td>
+	<td width="60%"style="border-right:none;text-align:left">
+	{$vo.银行卡号}	
+	</td>
+	</tr>
+    
+	 
+	<tr>
+	<td width="40%">
+	<if condition="in_array('bank_name',$require) eq true ">*</if>开户名:</td>
+	<td width="60%" style="border-right:none;text-align:left">
+	 {$vo.开户名}	 
+	</td>
+	</tr>
+    
+
+	<tr>
+	<td width="40%" >
+	<if condition="in_array('bank_apply_addr',$require) eq true ">*</if>开户地址:</td>
+	<td width="60%" style="border-right:none;text-align:left">
+	{$vo.开户地址}  
+	</td>
+	</tr>
+
+
+	<tr>
+	<td>密保问题</td>
+	<td style="border-right:none;text-align:left">
+	{$vo.密保问题}
+	</td>
+	</tr>
+	<tr>
+	<td>密保答案</td>
+	<td style="border-right:none;text-align:left">
+	{$vo.密保答案}
+	</td>
+	</tr>
+
+	<volist name="funval" id="fun">
+	<tr>
+	<td width="50%" >{$fun}</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$vo[$fun]}</td>
+	</tr>	
+	</volist>
+	</tbody>
+	</table>
+
+	<table width="300"  class="list" style="float:left">
+	<thead>
+	<tr>
+	<th colspan="4" align="left" valign="middle">通讯资料</th>
+	</tr>
+	</thead>
+	<tbody>
+	 
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('area',$require) eq true ">*</if>国家:</td>
+		<td width="60%" style="border-right:none;text-align:left" >
+		 {$vo.国家}		
+		</td>
+		</tr>
+		<tr>
+		<td width="40%">
+		<if condition="in_array('area',$require) eq true ">*</if>省/州:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.省份}
+		</td>
+		</tr>
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('area',$require) eq true ">*</if>城市:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.城市}	
+		</td>
+		</tr>
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('area',$require) eq true ">*</if>地区:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.地区}
+		</td>
+		</tr>
+		<tr>
+		<td width="40%" >
+		街道:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.街道}
+		</td>
+		</tr>
+		
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('weixin',$require) eq true ">*</if>微信账号:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.微信账号}	
+		</td>
+		</tr>
+		<!--
+		<tr>
+		<td width="50%" class="search_1 align_right">出生日期:</td>
+		<td width="50%" class="search_1" style="border-right:none;"><input type="text" name="生日" value="{$vo.生日}" onClick="WdatePicker({maxDate:'%y-%M-%d'})" class="Wdate" value="" style="width:90px"></td>
+		</tr>
+		-->
+		<if condition="in_array('country_code',$show) eq true ">
+			<tr>
+			<td width="40%" >
+			<if condition="in_array('country_code',$require) eq true ">*</if>国家代码:</td>
+			<td width="60%" style="border-right:none;text-align:left">
+				{$vo.国家代码}
+			</td>
+			</tr>
+		</if>
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('mobile',$require) eq true ">*</if>移动电话:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.移动电话}
+		</td>
+		</tr>
+			<tr>
+		<td width="40%" ><if condition="in_array('email',$require) eq true ">*</if>Email:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.email}		
+		</td>
+		</tr>
+		 	<tr>
+		<td width="40%" >
+		<if condition="in_array('qq',$require) eq true ">*</if>QQ:</td>
+		<td width="60%"  style="border-right:none;text-align:left">
+	   {$vo.QQ}
+		</td>
+		</tr>
+		<tr>
+		<td width="40%" >
+		<if condition="in_array('reciver',$require) eq true ">*</if>收货人:</td>
+		<td width="60%" style="border-right:none;text-align:left">
+		{$vo.收货人}
+		</td>
+		</tr>
+		<tr>
+		<td width="40%" ><if condition="in_array('address',$require) eq true ">*</if>地址:</td>
+		<td width="60%"  style="border-right:none;text-align:left">
+		{$vo.地址}
+		</td>
+		</tr>
+	
+	</tbody>
+	</table>
+
+	<foreach name="netPlaceName" item="placeNames" key="ky">
+	<table border="0" cellpadding="3" cellspacing="1" width="90%" align="center" style="float:left;clear:both;margin:15px" class='list'>
+	<thead>
+	<tr>
+		<th colspan="4" align="left" valign="middle">{$ky}业绩</th>
+	</tr>
+	</thead>
+	<tr>
+		<td>{$ky}</td>
+		<td>新增</td>
+		<td>结转</td>
+		<td>累计</td>
+	</tr>
+	<foreach name="placeNames" item="placeName">
+	<tr>
+		<td>{$placeName}区</td>
+		<td>{:$vo[$ky.'_'.$placeName.'区本日业绩']}</td>
+		<td>{:$vo[$ky.'_'.$placeName.'区结转业绩']}</td>
+		<td>{:$vo[$ky.'_'.$placeName.'区累计业绩']}</td></tr>
+	</foreach>
+	</table>
+	</foreach>
+
+
+</td>
+
+<td valign="top" align="left" style="padding-left:8px">
+	<table width="300" class="list">
+	<thead>
+	<tr>
+	<th colspan="4" align="left" valign="middle" class="tab_12">级别资料</th>
+	</tr>
+	</thead>
+	<tbody>
+	<foreach name="level" item="lv" key="key">
+	<tr>
+	<td width="50%" >{$key}</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$lv.lv}
+	</td>
+	</tr>
+	<tr>
+	<td width="50%" >申请{$key}</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$lv.applylv}
+	</td>
+	</tr>
+	<tr>
+	<td width="50%" >赠送{$key}</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$lv.givelv}	
+	</td>
+	</tr>
+	</foreach>
+	<tr>
+	<th colspan="2" align="left" valign="middle" class="tab_12">其他信息</th>
+	</tr>
+	<tr>
+	<td width="50%" >{$name}状态</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$vo.状态}</td>
+	</tr>
+
+	<tr>
+	<th colspan="4" align="left" valign="middle" class="tab_12">奖金比例</th>
+	</tr>
+	<foreach name="rewardMoneys" item="reward">
+	<tr>
+	<td width="50%" >{$key}</td>
+	<td width="50%"style="border-right:none;text-align:left">&nbsp;{$vo[$reward]}%</td>
+	</tr>	
+	</foreach>
+
+	</tbody>
+	</table>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+
+  <div class="button" style="margin-left:290px;margin-top:5px;">
+  <div class="buttonContent" >  
+  <button type="button" onclick="navTab.closeCurrentTab('{:md5(__APP__.'/Admin/User/index')}')">返回</button>
+  </div>   
+  </div>  
+</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript">
+var country		= "{$vo['国家']}";
+var province	= "{$vo['省份']}";
+var city		= "{$vo['城市']}";
+var county		= "{$vo['地区']}";
+
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id' );
+
+
+
+if(country!='')
+{
+	$("#country_id option[value='{$vo['国家']}']").attr('selected',true);
+	$("#country_id").change();
+}
+if(province!='')
+{
+	$("#province_id option[value='{$vo['省份']}']").attr('selected',true);
+	//触发省份的 change事件
+	$("#province_id").change();
+}
+if( city!='' )
+{
+	//触发城市的 change事件
+	$("#city_id option[value='{$vo['城市']}']").attr('selected',true);
+	$("#city_id").change();
+}
+if(county!='')
+{
+	$("#county_id option[value='{$vo['地区']}']").attr('selected',true);
+}
+
+</script>

@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+html {
+    background: #313d4a;
+}
+body {
+    font-family: 微软雅黑;
+    font-size: 13px;
+    background: url(../images/content-bg.png);
+}
+.center {
+    margin: 0 auto;
+    width: 1200px;
+}
+.header-t {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+}
+.header-top {
+    padding-right: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+}
+.nav-top {
+    height: 90px;
+    line-height: 90px;
+    text-align: right;
+    background: #313d4a;
+}
+.nav-t {
+    height: 90px;
+}
+.logo {
+    width: 260px;
+    text-align: left;
+    text-indent: 20px;
+    font-size: 30px;
+    color: #fff;
+    float: left;
+}
+.nav-t .navlist {
+    display: inline-block;
+    *display:inline;
+    *zoom:1;
+    width: 112px;
+    text-align: center;
+    cursor: pointer;
+}
+.nav-t .selected,.nav-t .navlist:hover {
+    background: #1c2229;
+}
+.nav-t .navlist1 {
+    margin-right: -5px;
+}
+.nav-t .navlist a {
+    font-size: 18px;
+    color: #fff;
+}
+.nav-t .key {
+    display: block;
+    *display: inline;
+    width: 112px;
+}
+.nav-t .navul {
+    *margin: 57px 0 0 -95px;
+    width: 110px;
+    background: #fff;
+    position: absolute;
+    z-index: 9999;
+    border: 1px solid #cecdcd;
+}
+.nav-t .navul li {
+    line-height: 40px;
+    border-bottom: 1px dashed #91979d;
+}
+.nav-t .navul li a {
+    display: block;
+    height: 40px;
+    color: #000;
+    font-size: 13px;
+    overflow: hidden;
+}
+.nav-t .navul li:first-child a {
+    margin-top: -1px;
+    height: 60px;
+    line-height: 80px;
+    background: url(../images/navul-bg.png) no-repeat;
+}
+.nav-t .navul li:last-child {
+    margin-bottom: 20px;
+    border: none;
+}
+.nav-t .navul li:hover a {
+    color: #d23241;
+}
+.header-img {
+    height: 300px;
+    background: url(../images/header-bg.png) no-repeat;
+    background-color: #fefdfc;
+    background-position: center;
+}
+/*content*/
+.content {
+}
+    /*left nav*/
+.nav-left {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 380px;
+    float: left;
+    background: #faf8f4;
+    border-top: 25px solid #941e29;
+    border-radius: 5px 0 0 0;
+    box-shadow: -5px 10px 10px #999;
+}
+.nav-left .navlist {
+    margin: 0 auto;
+    width: 320px;
+    height: 50px;
+    text-indent: 40px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid #d9d3c7;
+}
+.nav-left .navlist .icon {
+    font-size: 20px;
+}
+.nav-left ul li a {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    text-indent: 150px;
+    font-size: 16px;
+}
+.nav-left .selected,.nav-left ul li a:hover {
+    text-indent: 129px;
+    color: #941e29;
+    background: url(../images/nav-bg.png);
+    cursor: pointer;
+}
+.nav-left .selected .icon,.nav-left ul li a:hover .icon {
+    display: inline;
+}
+.navul-left .icon {
+    display: none;
+}
+    /*section*/
+.section {
+    margin-top: 15px;
+    margin-bottom: 40px;
+    width: 820px;
+    min-height: 698px;
+    background: #fff;
+    color: #515567;
+    float: left;
+    box-shadow: 0 0 20px #000;
+}
+.section a {
+    color: #515567;
+}
+.basic-table,.notice-tb {
+    margin: 20px 40px;
+    width: 739px;
+}
+.basic-table tr th {
+    height: 40px;
+    font-size: 16px;
+    text-align: left;
+    border-left: none;
+    border-bottom: 1px solid #ebebeb;
+}
+.basic-table tr td {
+    border-left: 1px solid #ebebeb;
+}
+.basic-table ul li {
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #777;
+    border-right: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    float: left;
+}
+.baskey {
+    width: 120px;
+    font-weight: bold;
+    text-align: right;
+}
+.basval {
+    text-indent: 40px;
+    width: 247px;
+}
+.notice-tb td,.th {
+    height: 40px;
+}
+.notice-tb .th {
+    text-align: left;
+    font-size: 16px;
+    position: relative;
+}
+.notice-tb .more {
+    display: inline-block;
+    color: #515567;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+}
+.notice-tb td {
+    border: 1px solid #ebebeb;
+}
+.notice-tb .tdtit {
+    text-indent: 10px;
+    border-right: none;
+}
+.notice-tb .tdtit a:hover {
+    color: #f25b46;
+}
+.notice-tb .tddate {
+    width: 90px;
+    border-left: none;
+}
+/*footer*/
+.footer {
+    padding: 30px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background: #313d4a;
+}

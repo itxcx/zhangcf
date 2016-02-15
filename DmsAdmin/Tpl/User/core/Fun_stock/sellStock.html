@@ -1,0 +1,36 @@
+<div class="core_main Fun_stock" id="sellStock">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+    <iframe id="iframe1" name="iframe1" src="" style="display:none "></iframe>
+    <form name="form1" method="post" action="__APP__/User/Fun_stock/sellSave:__XPATH__" id="form">
+    <input type="hidden" name="temp1" value="haha" />
+    <table class="tablebg" >
+        <TR>
+              <TD class="tbkey">会员编号：</TD>
+              <TD class="tbval">{$user.编号}<input type="hidden" value="{$user.编号}" size="20" name="编号" id="userid"/>&nbsp;<span id="state_userid"></span></TD>
+              
+        </TR>
+        <tr>
+            <td class="tbkey">股票价格：</td>
+            <td class="tbval">{$price}<input type="hidden" name="price" value="{$price}" /></td>
+            
+       </tr>
+       <tr>
+            <td class="tbkey">出售数量：</td>
+            <td class="tbval"><input type="text" name="num" value="" />&nbsp;<span id="state_shop"> *</span></td>
+            
+       </tr>
+       <TR>
+          <TD colspan="2"><input class="button_text" type="submit" value="确定" /> 
+          </TD>
+       </TR>
+    </table>
+    </form>    
+    </div>
+    
+    <div class="core_page"></div>
+</div>

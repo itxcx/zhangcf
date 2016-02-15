@@ -1,0 +1,256 @@
+/*2014-12-15*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+html {
+    /*background: url(../images/bg.png);*/
+    background: #b0c79d;
+}
+body {
+    width: 100%;
+    min-width: 1024px;
+    font-family: 微软雅黑;
+    font-size: 14px;
+}
+/*header*/
+.header {
+    height: 120px;
+    background: url(../images/bg.png);
+}
+.logo {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 120px;
+    line-height: 120px;
+    font-size: 35px;
+    color: #fff;
+    text-indent: 20px;
+    float: left;
+}
+.tips {
+    padding-right: 10px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 120px;
+    line-height: 210px;
+    float: right;
+}
+.tips a {
+    font-size: 14px;
+    color: #c2d3b3;
+}
+/*left-nav*/
+.left-nav {
+    width: 300px;
+    background: url(../images/bg.png);
+    float: left;
+}
+.info-tips {
+    width: 100%;
+    color: #d2e2c4;
+}
+.info-tips .h1 {
+    margin-bottom: 10px;
+    height: 60px;
+    line-height: 70px;
+    font-weight: normal;
+    text-align: center;
+    background: url(../images/tip-bg.png) no-repeat;
+}
+.info-tips table {
+    margin: 0 auto;
+    width: 240px;
+    border: 1px solid #668f2f;
+}
+.info-tips table td {
+    height: 30px;
+}
+.info-tips table .tiptit {
+    text-align: right;
+}
+.left-nav .navlist .key {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+.left-nav .navlist .navul {
+    display: none;
+    background: #57812d;
+    border-top: 2px solid #385d1f;
+    border-bottom: 2px solid #879f70;
+}
+.left-nav .navlist.selected .navul {
+    display: block;
+}
+.navul li,.navul li a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 120px;
+    font-size: 16px;
+}
+.navul li a {
+    color: #c2d3b3;
+}
+.navul .navul-a,.navul li a:hover {
+    background: #6e963f;
+    color: #213d0b;
+}
+.left-nav .navlist .icon {
+    font-size: 22px;
+}
+.left-nav .navlist li .icon {
+    font-size: 15px;
+}
+/*content*/
+.content {
+    padding: 0 20px 20px 20px;
+    margin-left: 300px;
+    background: #b0c79d;
+}
+    /*notice-h*/
+.notice-h {
+    margin: 0 -20px;
+    height: 60px;
+    line-height: 60px;
+    font-weight: normal;
+    color: #fff;
+    text-indent: 1em;
+    background: url(../images/notice-h.png) repeat-x;
+}
+.notice-h span {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    *float: left;
+}
+.notice-h a {
+    font-size: 15px;
+    color: #fff;
+}
+.notice-h .icon {
+    font-size: 20px;
+}
+.notice-h .more {
+    margin-right: 30px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    font-size: 14px;
+    float: right;
+}
+.notice-h .more .icon {
+    font-size: 14px;
+}
+    /*top-nav*/
+.top-nav {
+    text-align: center;
+}
+.top-nav .navlist {
+    margin: 30px 0 30px 20px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 160px;
+    height: 120px;
+    line-height: 40px;
+    background: #d8e9c7;
+    font-size: 20px;
+    box-shadow: 5px 5px 5px #859c72;
+}
+.top-nav .navlist .icon {
+    font-size: 40px;
+}
+.top-nav .navlist a {
+    padding-top: 20px;
+    display: block;
+    width: 160px;
+    height: 100px;
+    color: #94b65d;
+}
+.top-nav .navlist a:hover,.top-nav .selected a {
+    background: #e9f4dc;
+    color: #345618;
+}
+    /*section*/
+.section {
+    width: 100%;
+    background: #eaf0eb;
+}
+.base-info .h3,.th {
+    height: 40px;
+    line-height: 40px;
+    background: #90b356;
+    font-size: 20px;
+    font-weight: normal;
+    text-indent: 1em;
+    color: #fff;
+}
+.base-info ul li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+.ul-left {
+    width: 49.5%;
+    border-bottom: 1px solid #dfe9d7;
+    float: left;
+}
+.infokey {
+    width: 25%;
+    min-width: 80px;
+    text-align: center;
+    float: left;
+}
+.base-info li:nth-child(4n),.base-info li:nth-child(4n+3) {
+    background: #dfebd6;
+}
+.infoval {
+    text-indent: 5%;
+    margin-left: 25%;
+}
+.ul-left .infoval {
+    border-left: 1px solid #dfe9d7;
+    border-right: 1px solid #dfe9d7;
+}
+.ul-right {
+    width: 50%;
+    border-bottom: 1px solid #dfe9d7;
+    float: left;
+}
+.ul-right .infoval {
+    border-left: 1px solid #dfe9d7;
+}
+    /*邮件*/
+.notice-mail {
+    margin-top: 20px;
+    width: 100%;
+}
+.notice-mail tr:nth-child(2n+1) {
+    background: #dfebd6;
+}
+.notice-mail td {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+.tdtit {
+    text-indent: 2em;
+}
+.tddate {
+    width: 90px;
+    float: right;
+}

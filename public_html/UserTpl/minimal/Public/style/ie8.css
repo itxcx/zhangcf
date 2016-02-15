@@ -1,0 +1,100 @@
+BODY.bg-1 {
+    background-image: url(../images/backgrounds/1.jpg);
+}
+body.bg-1 {
+  background-image: url(../images/backgrounds/1.jpg);
+}
+body.bg-2 {
+  background-image: url(../images/backgrounds/2.jpg);
+}
+body.bg-3 {
+  background-image: url(../images/backgrounds/3.jpg);
+}
+body.bg-4 {
+  background-image: url(../images/backgrounds/4.jpg);
+}
+body.bg-5 {
+  background-image: url(../images/backgrounds/5.jpg);
+}
+body.bg-6 {
+  background-image: url(../images/backgrounds/6.jpg);
+}
+input, select, textarea {
+    color: #eee;
+    background: url(ie8img/bg03.png);
+}
+input:focus,textarea:focus {
+    background: url(ie8img/bg05.png);
+}
+input[type="radio"] {
+    background: none;
+}
+body input {
+    padding-top: .7em!important;
+}
+body select {
+    min-height: 0;
+}
+select option {
+    background: #5a5a5a;
+}
+.navbar.navbar-transparent-black {
+    background: url(ie8img/bg01.png);
+}
+.navbar-transparent-black.navbar .navbar-header {
+    background: url(ie8img/bg01.png);
+}
+.navbar .navbar-nav > LI > A {
+    color: #eee;
+}
+.side-nav.navbar-nav > LI > A.sidebar-toggle {
+    color: #777;
+}
+.side-nav.navbar-nav > LI.navigation .menu > LI > A {
+    color: #eee;
+}
+.side-nav.navbar-nav > LI.navigation .menu > LI.active .dropdown-toggle {
+    background: url(ie8img/bg02.png)!important;
+}
+.side-nav.navbar-nav > LI.navigation .menu > LI.hovered  .dropdown-toggle {
+    background: url(ie8img/bg02.png);
+}
+.side-nav.navbar-nav > LI.navigation .menu  LI .dropdown-menu li.hovered {
+    background: none;
+}
+.side-nav.navbar-nav > LI.navigation .menu  LI .dropdown-menu li a {
+    color: #eee;
+}
+.side-nav.navbar-nav > LI.navigation .menu  LI .dropdown-menu li i {
+    margin: 0 10px 0 5px;
+}
+.side-nav.navbar-nav > LI.navigation .menu  LI .dropdown-menu li.hovered a {
+    background: none;
+    color: #418bca;
+}
+.side-nav.navbar-nav > LI.navigation .menu > LI > A > B.dropdown-plus {
+    float: right;
+    line-height: 40px;
+    color: #666;
+}
+.tile [class^='tile-'].transparent-black.color {
+    background: url(ie8img/bg03.png);
+}
+.core_main {
+    background: url(ie8img/bg03.png);
+}
+.tablebg td, .tablebg th {
+    border: 1px solid #999;
+}
+.canvas {
+    display: none;
+}
+.nav.nav-tabs.tabdrop a {
+    color: #ddd;
+}
+.nav.nav-tabs.tabdrop a:hover {
+    color: #fff;
+}
+.card-container .card .front {
+    min-height: 123px;
+}

@@ -1,0 +1,190 @@
+@charset "utf-8";
+
+.menu_area a:hover{color:#fff!important;}
+.menu_shortcut a:hover span{color:green!important;}
+.content_box a:hover{color:#000!important;}
+body{BACKGROUND: url(../images/bg-body.gif) #f0f0f0 repeat-y left top;}
+.body_wraper{width:100%;height:100%;}
+.menu_area{
+	POSITION: absolute;
+	WIDTH: 230px;
+	BACKGROUND: url(../images/bg-sidebar.gif) no-repeat left top;
+	HEIGHT: 100%;
+	COLOR: #888;
+	TOP: 0px;
+	LEFT: 0px;
+}
+.menu_area .logo{float:right;margin:38px 38px 0px 0px;}
+.menu_area .func_links{float:right;margin-right:57px;font-size:12px; color:#888;}
+.menu_area .func_links a{color:#ccc}
+.content{}
+
+.nav_bar{clear:both;padding-top:6px;WIDTH: 209px;padding-left:21px;}
+.nav_bar>ul{padding:0px;}
+.nav-list-1{
+	width:90%;
+	text-align:right;
+	margin-left:10%;
+	margin-bottom:3px;
+}
+.nav-list-1 span{
+	height:34px;
+	cursor:default;
+	/*background-color:#0087b5;*/
+	font-size:14px;
+	padding:8px;
+	line-height:32px;
+}
+.nav-list-1>div{
+	/*background-color:#0087b5;*/
+	background: url(../images/bg-menu-item-red.gif) no-repeat;
+	border-top-left-radius:6px;
+	border-bottom-left-radius:6px;
+	margin-bottom: 3px;
+}
+.nav-list-1 ul{
+	padding:0px;
+	-webkit-padding-start: 0px;
+	padding-top: 12px;
+	font-size:12px;
+	overflow:inherit;
+	/*height:50px;*/
+}
+.nav-list-1 span{color:#fff;}
+.nav-list-2{
+	float:none;
+	margin-bottom:12px;
+	margin-right:12px;
+	height:14px;
+}
+.nav-list-2 a{
+	color:#aaa;
+}
+.list-title>span{cursor:pointer!important;}
+.content{height:100%;margin:0px 30px 0px 260px;padding-top:20px;}
+.content .menu_shortcut ul{height:auto;zoom:1;overflow:hidden;-webkit-padding-start:0px;}
+.content .menu_shortcut ul>li{
+	width:100px;
+	-moz-border-radius:6px;
+	-webkit-border-rdius:6px;
+	border-radius:6px;
+	margin-right:36px;
+}
+/*.content .menu_shortcut a{text-decoration:underline;}*/
+.content .menu_shortcut ul>li a{
+	width: 120px;
+	display: block;
+	margin: 0px 0px 20px;
+	padding-bottom: 18px;
+	/*border: #ccc 1px solid;*/
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+}
+.content .menu_shortcut ul>li a:hover{background: url(../images/shortcut-button-bg.gif) #f7f7f7 no-repeat left top;}
+
+.content .menu_shortcut ul>li a img{margin:15px 36px 10px;}
+.content .menu_shortcut ul>li a span{
+	margin: 0px 34px 14px;
+	font-size: 13px;
+	color: #555;
+	text-align: center;
+}
+
+.content .content_box{
+	width:100%;
+	height:auto;
+	background-color:#fff;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+}
+.core_title{
+	height:40px;
+	line-height:40px;
+	padding-left:16px;font-weight:bold;
+	border-left:#ccc 1px solid;
+	border-right:#ccc 1px solid;
+	border-top:#ccc 1px solid;
+	border-top-left-radius:6px;
+	border-top-right-radius:6px;
+	background:url(../images/bg-content-box.gif) repeat-x
+	
+}
+.content .content_box .content_box_content{
+	padding:20px;
+	border:1px solid #ccc;
+	border-bottom-left-radius:6px;
+	border-bottom-right-radius:6px;
+}
+.content_box_content_image>a{
+	color:#29A5C9;
+	font-size:12px;
+	text-decoration:underline;
+	margin-right:4px;
+}
+.content .content_box .content_box_content .content_box_content_info{
+	display:inline-block;
+	position:relative;
+	top:-40px;
+	width:85%
+}
+.content_box_content_info .info_title{
+	font-family:monospace;
+	border-bottom:1px dashed #ddd;
+}
+.content_box_content_info .info_title .username
+{
+	font-size:22px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#555;
+}
+.content_box_content_info .info_detail{
+	background:url(../images/bg_homeInput_house.png) no-repeat;
+	position:relative;
+	top:20px;
+	left:15px;
+	padding-left:15px;
+	width:600px;
+	height:63px;
+}
+.content_box_content_info .info_detail>span{
+	line-height: 20px;
+	font-size: 12px;
+	font-family: monospace;
+	color: #555;
+}
+.content_box_content_info .info_detail>span>a{
+	vertical-align:bottom;
+	color:green;
+	font-size:14px;
+}
+
+.footer{
+	width: 85%;
+	border-top: 1px solid #ddd;
+	margin-top: 20px;
+	margin-left: 8%;
+	padding-top: 8px;
+	color:#555;
+	font-size: 12px;
+	font-family: '微软雅黑';
+}
+/*Sale/usereg*/
+.Sale#usereg .tablebg .tbkey {
+    width: 200px;
+}
+.Sale#usereg .tablebg .tbval {
+    width: 300px;
+}
+.Sale#usereg .tablebg .msg {
+    width: 50px;
+}
+.Sale#usereg #table3, .Sale#usereg #table3 td {
+    border: 0;
+}
+tbody[id^="productTbody"] a {
+    color: #d3663e;
+}
+.Sale#usereg tbody[id^='productTbody'] input {
+    width: 50px;
+}

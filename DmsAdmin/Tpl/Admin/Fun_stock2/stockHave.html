@@ -1,0 +1,11 @@
+{$list}
+<script>
+function navTabAjaxDone(json)
+{
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/index:__XPATH__',{navTabId:json.navTabId});
+	}
+}
+</script>

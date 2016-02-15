@@ -1,0 +1,105 @@
+<include file="Public:pagerForm" />
+<script language="JavaScript">
+
+//删除管理员回调处理
+function delete_done(json)
+{
+	//显示消息框
+	DWZ.ajaxDone(json);
+	var navTabId = "{:md5(__URL__.'/index')}";
+	navTab.reload("__URL__/index",{navTabId:navTabId});
+}
+
+
+</script>
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="__ACTION__" method="post">
+	<input type="hidden" name="args" value="{$args}" />
+	<div class="searchBar">
+		
+		<div class="subBar">
+			<ul class="searchContent" style="float:left">
+				<li>
+					<label>登录帐号：</label>
+					<input type="text" name="account" style="width:90px" />
+				</li>
+			</ul>
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" title="添加会员帐号" href="__URL__/add" rel="user_add" target="dialog" mask="true" width="550" height="330"><span>添加</span></a></li>
+			<li><a class="edit" title="修改会员帐号" href="__URL__/edit/id/{user_id}" rel="user_edit" target="dialog" mask="true" width="550" height="330"><span>修改</span></a></li>
+			<li><a class="delete" href="__URL__/delete/id/{admin_id}" rel="admin_del" callback="delete_done" target="ajaxTodo"><span>删除</span></a></li>
+			<li><a class="edit" title="设置会员所属权限组" href="__URL__/role/id/{user_id}" rel="user_role" target="dialog" mask="true" width="360" height="330"><span>设置所属权限组</span></a></li>
+		</ul>
+	</div>
+
+	<table class="table" width="100%" layoutH="112">
+		<thead>
+		<tr>
+			<th width="50">编号</th>
+			<th>登录帐号</th>
+			<th>邮箱</th>
+			<th>注册时间</th>
+			<th>注册IP</th>
+			<th>登录次数</th>
+			<th>最近登录时间</th>
+			<th>最近登录IP</th>
+			<th>状态</th>
+		</tr>
+		</thead>
+		<tbody>
+		<volist id="vo" name="list">
+			<tr target="user_id" rel="{$vo['id']}">
+				<td>{$vo.id}</td>
+				<td>{$vo.account}</td>
+				<td>{$vo.email}</td>
+				<td><neq name="vo.reg_time" value="0">{:date('Y-m-d',$vo['reg_time'])}</neq></td>
+				<td>{$vo.reg_ip}</td>
+				<td>{$vo.login_count}</td>
+				<td><neq name="vo.last_login_time" value="0">{:date('Y-m-d H:i:s',$vo['last_login_time'])}</neq></td>
+				<td>{$vo.last_login_ip}</td>
+				<td>
+				<eq name="vo.status" value='0'>待审</eq>
+				<eq name="vo.status" value='1'>正常</eq>
+				<eq name="vo.status" value='2'>禁用</eq>
+				</td>
+			</tr>
+		</volist>
+		</tbody>
+	</table>
+
+	<div class="panelBar">
+		<div class="pages">
+			<span>共{$totalCount}条</span>
+		</div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+
+</div>
+<php>
+function getGroupName($id) {
+	if ($id == 0) {
+		return '无上级';
+	}
+	if ($list = F ( 'groupName' )) {
+		return $list [$id];
+	}
+	$dao = D ( "Role" );
+	$list = $dao->field('id,name')->select();
+	foreach ( $list as $vo ) {
+		$nameList [$vo ['id']] = $vo ['name'];
+	}
+	$name = $nameList [$id];
+	F ( 'groupName', $nameList );
+	return $name;
+}
+</php>

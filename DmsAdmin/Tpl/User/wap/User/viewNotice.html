@@ -1,0 +1,71 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+
+<div class="core_main User" id="viewNotice">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>:{:L($nowtitle)}</span>
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+            <foreach name='data.list' item='name'>
+            <tr class="tbtr">
+                <td class="btkey">
+                    <table>
+                        <tr><td><nobr>{:L('标题')}</nobr></td></tr>
+                        <tr><td><nobr>{:L('创建时间')}</nobr></td></tr>
+                        <tr><td><nobr>{:L('操作')}</nobr></td></tr>
+                    </table>
+                </td>
+                <td class='btval'>
+                    <table>
+                    <tr><td><nobr>{$name.标题}</nobr></td></tr>
+                    <tr><td><nobr>{$name.创建时间|date='Y-m-d H:i:s',###}</nobr></td></tr>
+                    <tr><td><nobr><a href="__URL__/showNotice/id/{$name.id}">{:L('查看')}</a></nobr></td></tr>
+                    </table>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+
+
+

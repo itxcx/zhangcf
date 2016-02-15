@@ -1,0 +1,85 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form method="post" action="__URL__/pay_confirm" target="_self">
+        <table class="table">
+            <tr>
+                <td class="tbkey">支付货币类型：</td>
+                <td class="tbval">
+                <if condition="count($type) eq 1">
+                    {$type[0]}
+                    <input name="type" id="type" type="hidden" value="{$type[0]}">
+                <else/>
+                    <select name="type" id="type" onChange="calScale()">
+                        <foreach name="type" item="vo">
+                         <option value="{$vo}">{$vo}</option>
+                        </foreach>
+                    </select>
+                </if>
+                </td>
+            </tr>  
+            <tr>
+                <td class="tbkey">支付方式：</td>
+                <td class="tbval">
+                    <select name="payment" onchange="inputname()" id="test" class="select">
+                        <option value="" class='3333'>请选择支付方式</option>
+                        <foreach name="list" item="payInfo" >
+                            <present name="payInfo.banklist">
+                                <foreach name="payInfo.banklist" key="bank_code" item="bank_name">
+                                <option value="{$key}:{$bank_code}" class="{$key}" >{$bank_name}</option>
+                                </foreach>
+                            <else />
+                                <option value="{$key}" class="{$key}">{$payInfo.name}</option>
+                            </present>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <input type="hidden" value="" name='banknames' id="banknames">
+            <tr>
+                <td class="tbkey">支付金额：</td>
+                <td class="tbval"><input type="text" name="money" id="money" class="input" onKeyup="calScale()" placeholder="单位：元"></td>
+            </tr>
+        </table>
+        <div class="content-box margin-t-4">
+            <button class="btn btn-default" type="submit">确认支付</button>
+        </div>
+    </form>
+</div>
+<script language="javascript">
+function inputname(){
+    var test = document.getElementById('test');
+	for(var i = 0; i < test.options.length; i++){
+        var opt = test.options[i];
+        if (opt.selected) {
+            var payname = opt.className;
+            $("#banknames").val(payname);
+        };
+
+    }
+}
+function calScale(){
+	var money=$("#money").val();
+	var banktype=$("#type").val();
+	var postdata={};
+	postdata['money']	= money;
+	postdata['banktype']	= banktype;
+	if(money>=0){
+		$.ajax({
+	       url:"__APP__/User/Fun_pay/scaleAjax",
+	       type:"POST",
+	       data:postdata,
+	       dataType:"text",
+	       global:false,
+	       success:function(data){
+			   if(data == ''){
+				  $("#scale_notice").html('');
+			   }else{
+				  $("#scale_notice").html(data);
+			   }
+	       }  
+	    });
+	}
+}
+</script>
+<include file="Public:footer" />
+

@@ -1,0 +1,24 @@
+<div class="core_main User" id="showNotice">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{:L('产品详情')}</span>
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+        <tr>
+            <TH>
+            <div style="font-size:18px;height:30px;line-height:30px;">{$list.名称}</div>
+            <div style="margin:0 auto;width:300px;"><img src="{$list.图片}" height='260px' /></div></TH>
+        </tr>
+        <tr >
+            <TD  style="text-align:left; word-break:break-all;padding:10px 20px;">
+            	{:htmlspecialchars_decode($list['描述'])}&nbsp;</TD>
+        </tr>
+        <tr >
+            <td class="backbtn"><INPUT class="button_text" type="button"  id="but" value="返回" name="but" onClick="history.back();"/>	</td>
+        </tr>
+        </table>
+	</div>
+    <div class="core_page"></div>
+</div>
+
+

@@ -1,0 +1,68 @@
+<div class="core_main Saleshop" id="chongxiao_gouwuche">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$buycar}</span>
+    </div>
+    <div class="core_con">
+    <form name="form1" method="post" action="__GROUP__/Saleshop/buygouwu_chongxiao:__XPATH__" id="form">
+        <table class="tablebg">
+            <tr class="datafield">
+                <th width="10%"><nobr>图片</nobr></th>
+                <!--<th width="7%"><nobr>商品编码</nobr></th>-->
+                <th width="23%"><nobr>商品名称</nobr></th>
+                <th width="7%"><nobr>零售价</nobr></th>
+                <eq name="sale:productPV" value="true">
+                <th width="7%"><nobr>PV</nobr></th>
+                </eq>
+                <th width="10%"><nobr>可订购库存</nobr></th>
+                <th width="10%"><nobr>购买数量</nobr></th>
+                <th width="10%"><nobr>购买金额</nobr></th>
+                <th width="8%"><nobr>操作</nobr></th>
+            </tr>
+            <foreach name="list" item="vo" key="key">
+            <tr class="datalist" id="tr{$key}">
+                <td  ><nobr><img src="{$vo.图片}" width="100" height="100" /></nobr></td>
+                <!--<td  >{$vo.产品编码}</td>-->
+                <td  >{$vo.名称}</td>
+                <td  ><nobr>{$vo[$sale:productMoney]}</nobr></td>
+                 <eq name="sale:productPV" value="true">
+                    <td  ><nobr>{$vo.PV}</nobr></td>
+                 </eq>
+                <td  ><nobr>{$vo.可订购数量}</nobr></td>
+                <td  ><nobr>
+                 <input type="text" style="width:50px;text-align:center" value="{$vo.buynum}"  name="buynum[{$vo['wuliuid']}]" onkeyup="getnum(this.value,{$vo[$sale:productMoney]},this)"  />
+                </nobr></td>
+                <td  ><nobr><span class="allsum">{$vo.sum_price}</span></td>
+                <td  ><nobr><a href="__GROUP__/Saleshop/buygouwuchongxiao_del:__XPATH__/id/{$vo.wuliuid}" onclick="return confirm('您确定要移除购物车里的商品吗')">移除</a></nobr></td>
+            </tr>
+            </foreach>
+        </table>
+        <table class="tablebg" id="table3" style="clear:both">
+            <TR>
+                <td colspan="9" align="right">
+                <input class=button_text  type="button"  value="继续浏览商品" onclick="see_back()" />
+                <input class=button_text  type="button"  value="清空购物车" onclick="delall()"/>
+                <INPUT class=button_text type="submit" value="下一步" > 
+                </TD>
+            </TR>
+        </table>
+     </form>
+    </div>
+    <div class="core_page">
+       {$page}
+    </div>
+</div>
+<script>
+	function getnum(num,price,e){
+		price_all = num*price;
+		$(e).parents('tr').find(".allsum").html(price_all);
+	}
+	function see_back(){
+		location.href='__GROUP__/Saleshop/buy_shop:__XPATH__';
+	}
+	function delall(){
+		reg = confirm('您真的要清空购物车里的所有商品吗');
+		if(reg==true){
+			location.href='__GROUP__/Saleshop/gouwuchechongxiao_del:__XPATH__';
+		}
+	}
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>会员登录</title>
+    <link rel="stylesheet" href="/UserTpl/login/23/style/basic.css">
+    <script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    <!--
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        if (type){
+            $('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
+        }else{
+            $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+        }
+    }
+    //-->
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="logo"></div>
+        <div class="login"></div>
+        <div class="logform">
+            <h2>{$openTimeStr}</h2>
+            <form class="form" action="__URL__/check" method="post">
+                <input type="hidden" name="act" value="verify" />
+                <table class="formTable">
+                    <tr>
+                        <td class="title">用户账号：</td>
+                        <td class="value">
+                            <input type="text" name="username" size="20" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">登录密码：</td>
+                        <td class="value">
+                            <input type="password" name="password" size="20">
+                        </td>
+                    </tr>
+	                <if condition="isset($dispCode) and ($dispCode eq true)">
+                    <tr>
+                        <td class="title">验证编码：</td>
+                        <td class="value">
+                            <input type="text" maxlength="4" name="captcha" size="8">
+                            <img id="verifyImg" src="__URL__/verify/" onClick="fleshVerify()" alt="点击刷新验证码">
+                        </td>
+                    </tr>
+                    </if>
+                    <tr>
+                        <td colspan="2" class="subbtn">
+                            <eq name="isOpenTime" value="0">
+                            <span>对不起，该时间段暂不可访问！</span>
+                            <else/>
+                            <input type="submit" value="登录" class="sub">
+                            <input type="reset" value="取消" class="res">
+			                </eq>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

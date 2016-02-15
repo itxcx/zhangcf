@@ -1,0 +1,71 @@
+<script>
+$(document).ready(function ()
+{
+	$('#VoiceTestBut').click(function (){
+		account_sid =$('#account_sid').val();
+		auth_token  =$('#auth_token').val();
+		app_id      =$('#app_id').val();
+		phone_number=$('#phone_number').val();
+		$('#VoiceTestBut').attr('href','__URL__/VoiceTest/type/voice/account_sid/'+account_sid+'/auth_token/'+auth_token+'/app_id/'+app_id+'/phone_number/'+phone_number);
+	});
+	$('#SmsTestBut').click(function (){
+		account_sid =$('#account_sid').val();
+		auth_token  =$('#auth_token').val();
+		app_id      =$('#app_id').val();
+		phone_number=$('#phone_number').val();
+		temp_id_check     =$('#temp_id_check').val();
+		$('#SmsTestBut').attr('href','__URL__/VoiceTest/type/sms/account_sid/'+account_sid+'/auth_token/'+auth_token+'/app_id/'+app_id+'/phone_number/'+phone_number+'/temp_id_check/'+temp_id_check);
+	});
+});
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/VoiceSave" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input name="callbackType" type="hidden" value="closeCurrent"/>
+		<input type="hidden" name="navTabId" value="1cd9de70cbbe5970a92b08a7be94c1aa">
+		<input type="hidden" name="forwardUrl" value="__URL__/index">		
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label class='oldlabel' style='text-align:right;'>状态：</label>
+				<select name='status'>
+				<option value='1' <eq name='status' value='1'>selected</eq>>开启</option>
+				<option value='0' <eq name='status' value='0'>selected</eq>>关闭</option>
+				</select>
+			</p>
+			<p>
+				<label class='oldlabel' style='text-align:right;'>ACCOUNT SID：</label>
+				<input name="account_sid" id='account_sid' type="text" size="40" value="{$account_sid}"/>
+			</p>
+			<p>
+				<label class='oldlabel'>AUTH TOKEN：</label>
+				<input name="auth_token" id='auth_token' class="required" type="text" size="40" value="{$auth_token}"/>
+			</p>
+			<p>
+				<label class='oldlabel'>APP ID：</label>
+				<input name="app_id" id='app_id' class="required" type="text" size="40" value="{$app_id}"/>
+			</p>
+			<p>
+				<label class='oldlabel'>验证码模板ID：</label>
+				<input name="temp_id_check" id='temp_id_check' class="required" type="text" size="40" value="{$temp_id_check}"/>
+			</p>
+			<span style="float:left;margin-left:36px;height:23px;line-height:23px;padding:0 0 0 20px;background: url('/Public/Images/ExtJSicons/information.png') no-repeat 2px 3px"> 如不使用短信验证功能,请设置模板ID为0</span>
+			<div class="divider"></div>
+			<p style='width:500px'>
+				<label class='oldlabel'>测试手机号码：</label>
+				<input style='float:left' name="phone_number" id='phone_number' type="text" size="14" value=""/>
+				<a  href="" id='SmsTestBut' target="ajaxTodo" class='button' style='margin-left:10px'><span>短信测试发送</span></a>
+				<a  href="" id='VoiceTestBut' target="ajaxTodo" class='button' style='margin-left:10px'><span>语音测试发送</span></a>
+			</p>
+			<p>
+			<span style="float:left;margin-left:23px;height:23px;line-height:23px;padding:0 0 0 20px;background: url('/Public/Images/ExtJSicons/information.png') no-repeat 2px 3px"> 如测试成功，您会接到来电，并提示验证码为123456</span>
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

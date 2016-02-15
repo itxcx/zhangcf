@@ -1,0 +1,182 @@
+<php>
+$nowtitle = "添加汇款通知";
+</php>
+<include file="Public:header" />
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<div id="view" class="content-box">
+    <form action="__GROUP__/Fun_bank/rem_save_two" method="post"  id="register" name='register' enctype="multipart/form-data">
+        <table class="table">
+            <if condition="$hkzhxz eq 'select_hrzh'">
+            <tr>
+                <td class="tbkey"><span><span id="state_tobank"><if condition="in_array('requrie_hrzh2',$requrie) eq true ">*</if></span>汇入账户：</span></td>
+                <td class="tbval">
+                    <input type="text" id="tobank" class="input"  name="汇入账户" value="" onkeyup='checkAjax()' > 
+                </td>
+            </tr>
+            <else/>
+            <tr>
+                <td class="tbkey">汇入账户：</td>
+                <td class="tbval">
+                    <select name="汇入账户" id="tobank" class="select">
+                        <foreach name="bank" item="vo">
+                        <option <eq name="userinfo.开户银行" value="$vo.开户行"> selected="true" </eq>>{$vo.卡号}(<span>{$vo.开户行}</span>,<span>{$vo.户名}</span>)</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            </if>
+            <tr>
+                <td class="tbkey">汇款银行：</td>
+                <td class="tbval"><input type="text" id="bank" class="input" name="开户银行" value="{$userinfo['开户银行']}"></td>
+            </tr>
+            <tr>
+                <td class="tbkey">汇款卡号：</td>
+                <td class="tbval"><input type="text" id="bank_no" class="input"  name="银行卡号" value="{$userinfo['银行卡号']}"></td>
+            </tr>
+            <tr>
+                <td class="tbkey">汇款开户名：</td>
+                <td class="tbval"><input type="text" name="开户名" class="input"  value="{$userinfo['开户名']}"></td>
+            </tr>
+            <tr>
+                <td class="tbkey"><span><span id='hkts' style='color:red'></span>汇款金额：</span></td>
+                <td class="tbval"><input type="text" name="金额" id="money" class="input"></td>
+            </tr>
+            <tr>
+                <td class="tbkey">汇款时间：</td>
+                <td class="tbval"><input type="text" class="input"  name="汇款时间" title="点击选择汇款日期" onclick="new WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" id="giveTime"></td>
+            </tr>
+            <tr>
+                <td colspan=2><textarea name="备注" class="textarea" placeholder="&para;&nbsp;备注..."></textarea></td>
+            </tr>
+        </table> 
+        <input type="hidden" name="编号" value="{$userinfo.编号}">
+        <div class="content-box margin-t-4">
+            <input class="btn btn-half float-left" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()">
+            <input class="btn btn-half float-right"  type="button"  id="but" value="返回" name="but" onclick="history.back();">
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript"> 
+function tijiao(){
+	if($('#tobank').val()=='' || $('#tobank').val()==null)
+	{
+		alert("请选择汇入账户！");
+		return false;
+	}
+    if($('#bank').val()==''){
+        alert("请输入开户银行！");
+		$('#bank').focus();
+		return false;
+    }
+	if($('#bank_no').val()=='')
+	{
+		alert("请输入银行卡号！");
+		$('#bank_no').focus();
+		return false;
+	}
+	if($('#money').val()=='')
+	{
+		alert("请输入汇款金额！");
+		$('#money').focus();
+		return false;
+	}
+    if(isNaN($('#money').val()))
+	{
+		alert("汇款金额必须为数字！");
+		$('#money').focus();
+		return false;
+	}
+	if($('#giveTime').val()=='')
+	{
+		alert("请输入汇款时间！");
+		$('#giveTime').focus();
+		return false;
+	}
+	var ua = navigator.userAgent.toLowerCase();
+	var s;
+    $('#register').submit();
+}
+$(function(){
+	$('#money').keyup(function(){
+		var str=$(this).val();
+		if({$USER_REMIT_MIN} != 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)<parseInt({$USER_REMIT_MIN})){
+				$('#hkts').html('填写金额小于最低汇款金额限制'+{$USER_REMIT_MIN}+'元');
+				$('#subbut').attr('disabled',true);
+			}else{
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if({$USER_REMIT_MIN} == 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)>parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('填写金额大于最高汇款金额限制'+{$USER_REMIT_MAX}+'元');
+				$('#subbut').attr('disabled',true);
+			}else{
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if({$USER_REMIT_MIN} != 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)<parseInt({$USER_REMIT_MIN})){
+				$('#hkts').html('填写金额小于最低汇款金额限制'+{$USER_REMIT_MIN}+'元');
+				$('#subbut').attr('disabled',true);
+			}
+			if(parseInt(str)>parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('填写金额大于最高汇款金额限制'+{$USER_REMIT_MAX}+'元');
+				$('#subbut').attr('disabled',true);
+			}
+			if(parseInt(str)>=parseInt({$USER_REMIT_MIN}) && parseInt(str)<parseInt({$USER_REMIT_MAX}) || parseInt(str)>parseInt({$USER_REMIT_MIN}) && parseInt(str)<=parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if(str==''){
+			$('#hkts').html('');
+			$('#subbut').attr('disabled',false);
+		}
+	});
+	$('#money').blur(function(){
+		var str=$(this).val();
+		if({$USER_REMIT_MIN} != 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)<parseInt({$USER_REMIT_MIN})){
+				$('#hkts').html('填写金额小于最低汇款金额限制'+{$USER_REMIT_MIN}+'元');
+				$('#subbut').attr('disabled',true);
+			}else{
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if({$USER_REMIT_MIN} == 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)>parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('填写金额大于最高汇款金额限制'+{$USER_REMIT_MAX}+'元');
+				$('#subbut').attr('disabled',true);
+			}else{
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if({$USER_REMIT_MIN} != 0 && {$USER_REMIT_MAX}!=0){
+			if(parseInt(str)<parseInt({$USER_REMIT_MIN})){
+				$('#hkts').html('填写金额小于最低汇款金额限制'+{$USER_REMIT_MIN}+'元');
+				$('#subbut').attr('disabled',true);
+			}
+			if(parseInt(str)>parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('填写金额大于最高汇款金额限制'+{$USER_REMIT_MAX}+'元');
+				$('#subbut').attr('disabled',true);
+			}
+			if(parseInt(str)>=parseInt({$USER_REMIT_MIN}) && parseInt(str)<parseInt({$USER_REMIT_MAX}) || parseInt(str)>parseInt({$USER_REMIT_MIN}) && parseInt(str)<=parseInt({$USER_REMIT_MAX})){
+				$('#hkts').html('');
+				$('#subbut').attr('disabled',false);
+			}
+		}
+		if(str==''){
+			$('#hkts').html('');
+			$('#subbut').attr('disabled',false);
+		}
+	});
+})
+</script>
+
+<include file="Public:footer" />

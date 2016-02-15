@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理系统登录</title>
+<load href='{$Think.COMMON_PATH}admin.css' />
+<load href="__PUBLIC__/jquery-1.4.2.min.js" />
+<load href="__PUBLIC__/jquery-1.4.2.util.js" />
+<script language="JavaScript">
+<!--
+var PUBLIC	 =	 '__PUBLIC__';
+
+function do_login()
+{
+	$('#result').html('<span style="color:blue"><img SRC="{$Think.COMMON_PATH}Images/loading2.gif" WIDTH="20" HEIGHT="20" BORDER="0" ALT="" align="absmiddle" > 登录中～</span>');
+
+	var account = $('#account').val();
+	var passwd	= $('#password').val();
+	var verify  = $('#verify').val();
+
+	$.post('__URL__/checkLogin/',{account:account,password:passwd,verify:verify},function(data)
+	{
+		eval("var json = "+data);
+
+		if( json.status == 1 )
+		{
+			$('#result').html('<span style="color:blue"><img SRC="{$Think.COMMON_PATH}Images/ok.gif" WIDTH="20" HEIGHT="20" BORDER="0" ALT="" align="absmiddle" > 登录成功！3 秒后跳转～</span>');
+			window.top.location = '__URL__';
+		}
+		else
+		{
+			$('#result').html('<span style="color:blue">'+json.info+'</span>');
+		}
+	});
+}
+function keydown(e)
+{
+	var e = e || event;
+	if (e.keyCode==13)
+	{
+		do_login();
+	}
+}
+
+function freshVerify(type)
+{
+	//重载验证码
+	var timenow = new Date().getTime();
+	if (type)
+	{
+		$('#verifyImg').attr('src', '__URL__/verify/adv/1/'+timenow);
+	}else{
+		$('#verifyImg').attr('src', '__URL__/verify/'+timenow);
+	}
+}
+//-->
+</script>
+</head>
+<body onLoad="document.login.account.focus()" >
+<form method='post' name="login" id="form1" >
+<div class="tCenter hMargin">
+<table id="checkList" class="login shadow" cellpadding=0 cellspacing=0 >
+<tr><td height="5" colspan="2" class="topTd" ></td></tr>
+<tr class="row" >
+<th colspan="2" class="tCenter space" >
+<img src="{$Think.COMMON_PATH}Images/preview_f2.png" width="32" height="32" border="0" alt="" align="absmiddle"> 管理系统登录</th>
+</tr>
+<tr>
+<td height="5" colspan="2" class="topTd" ></td>
+</tr>
+<tr class="row" >
+<td colspan="2" class="tCenter">
+<div id="result" class="result">请登录</div>
+</td>
+</tr>
+<tr class="row" >
+<td class="tRight" width="25%">帐 号：</td>
+<td><input type="text" class="medium bLeftRequire" name="account" id="account" onKeyDown="keydown(event)" />
+</td>
+</tr>
+<tr class="row" >
+<td class="tRight">密 码：</td>
+<td><input type="password" class="medium bLeftRequire" name="password" id="password" onKeyDown="keydown(event)" />
+</td>
+</tr>
+<tr class="row" >
+<td class="tRight">验证码：</td>
+<td><input id="verify" type="text" onKeyDown="keydown(event)" class="small bLeftRequire" name="verify"> <img id="verifyImg" SRC="__URL__/verify/" onClick="freshVerify()" BORDER="0" ALT="点击刷新验证码" style="cursor:pointer" align="absmiddle">
+</td>
+</tr>
+<tr class="row" >
+<td class="tCenter" align="justify" colspan="2">
+<input type="hidden" name="ajax" value="1">
+<input type="button" value="登 录" onClick="do_login()" class="submit medium hMargin">
+</td>
+</tr>
+<tr>
+<td height="5" colspan="2" class="bottomTd" >
+</td>
+</tr>
+</table>
+<div style="padding:5px;color:red">
+测试账号:admin
+测试密码:admin 
+</div>
+</div>
+</form>
+</body>
+</html>

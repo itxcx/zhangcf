@@ -1,0 +1,466 @@
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Run XSS Behavior [ RunTime:0.002570s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_init ] --END-- [ RunTime:0.008920s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003213s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003292s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Run SaveConfig Behavior [ RunTime:0.003789s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php | INFO: Tag[ app_end ] --END-- [ RunTime:0.003888s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Run XSS Behavior [ RunTime:0.002390s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_init ] --END-- [ RunTime:0.002520s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Run CheckRoute Behavior [ RunTime:0.002878s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ route_check ] --END-- [ RunTime:0.002952s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002642s ]
+[ 2016-01-19T08:27:02+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002702s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_template ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run LocationTemplate Behavior [ RunTime:0.008195s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_template ] --END-- [ RunTime:0.008276s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_parse ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run ParseTemplate Behavior [ RunTime:0.036604s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_parse ] --END-- [ RunTime:0.036662s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_filter ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run ContentReplace Behavior [ RunTime:0.002454s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run TokenBuild Behavior [ RunTime:0.002275s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002251s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run ShowRuntime Behavior [ RunTime:0.002659s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_filter ] --END-- [ RunTime:0.009791s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_end ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run ShowPageTrace Behavior [ RunTime:0.004230s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ view_end ] --END-- [ RunTime:0.004298s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Run SaveConfig Behavior [ RunTime:0.004310s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/index | INFO: Tag[ app_end ] --END-- [ RunTime:0.004383s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run XSS Behavior [ RunTime:0.003571s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_init ] --END-- [ RunTime:0.003898s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run CheckRoute Behavior [ RunTime:0.002726s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ route_check ] --END-- [ RunTime:0.002777s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002326s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002375s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_template ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run LocationTemplate Behavior [ RunTime:0.010630s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_template ] --END-- [ RunTime:0.010733s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_parse ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run ParseTemplate Behavior [ RunTime:0.079079s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.079155s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_filter ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run ContentReplace Behavior [ RunTime:0.002770s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run TokenBuild Behavior [ RunTime:0.002694s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002229s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run ShowRuntime Behavior [ RunTime:0.002201s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.010048s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_end ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run ShowPageTrace Behavior [ RunTime:0.004341s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ view_end ] --END-- [ RunTime:0.004421s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Run SaveConfig Behavior [ RunTime:0.003907s ]
+[ 2016-01-19T08:27:03+08:00 ] /xsinst.php?s=/Install/setup/lang/zh_cn&1453163223284284 | INFO: Tag[ app_end ] --END-- [ RunTime:0.003951s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Run XSS Behavior [ RunTime:0.003360s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_init ] --END-- [ RunTime:0.003579s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Run CheckRoute Behavior [ RunTime:0.003030s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ route_check ] --END-- [ RunTime:0.003079s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002617s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002652s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Run SaveConfig Behavior [ RunTime:0.003350s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_config_file | INFO: Tag[ app_end ] --END-- [ RunTime:0.003428s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Run XSS Behavior [ RunTime:0.001836s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_init ] --END-- [ RunTime:0.001976s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Run CheckRoute Behavior [ RunTime:0.002510s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ route_check ] --END-- [ RunTime:0.002560s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002213s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002256s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW TABLES  [ RunTime:0.061218s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `admin` [ RunTime:0.031943s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `admin` [ RunTime:0.006882s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `admin` ; [ RunTime:0.010333s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `admin_access` [ RunTime:0.031930s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `admin_access` [ RunTime:0.004691s ]
+[ 2016-01-19T08:27:05+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `admin_access` ; [ RunTime:0.007601s ]
+[ 2016-01-19T08:27:06+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `area` [ RunTime:0.146229s ]
+[ 2016-01-19T08:27:06+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `area` [ RunTime:0.053177s ]
+[ 2016-01-19T08:27:06+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `area` ; [ RunTime:0.144562s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `config` [ RunTime:0.019745s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `config` [ RunTime:0.005242s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `config` ; [ RunTime:0.009722s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_一级店消费购物车` [ RunTime:0.019431s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_一级店消费购物车` [ RunTime:0.005304s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_一级店消费购物车` ; [ RunTime:0.007776s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_二级店消费购物车` [ RunTime:0.013013s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_二级店消费购物车` [ RunTime:0.005352s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_二级店消费购物车` ; [ RunTime:0.007683s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品` [ RunTime:0.034599s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品` [ RunTime:0.005294s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品` ; [ RunTime:0.007879s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品套餐` [ RunTime:0.021608s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品套餐` [ RunTime:0.005414s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品套餐` ; [ RunTime:0.007570s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品库存` [ RunTime:0.031857s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品库存` [ RunTime:0.006153s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品库存` ; [ RunTime:0.007755s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品物流管理` [ RunTime:0.024675s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品物流管理` [ RunTime:0.004868s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品物流管理` ; [ RunTime:0.007562s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品订单` [ RunTime:0.026107s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品订单` [ RunTime:0.005318s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品订单` ; [ RunTime:0.010720s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品_分类` [ RunTime:0.082199s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品_分类` [ RunTime:0.004727s ]
+[ 2016-01-19T08:27:07+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品_分类` ; [ RunTime:0.008985s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_产品_功能` [ RunTime:0.307324s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_产品_功能` [ RunTime:0.005041s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_产品_功能` ; [ RunTime:0.007654s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_会员` [ RunTime:0.007698s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_会员` [ RunTime:0.006698s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_会员` ; [ RunTime:0.009874s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_修改日志` [ RunTime:0.031333s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_修改日志` [ RunTime:0.004584s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_修改日志` ; [ RunTime:0.007384s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_公告` [ RunTime:0.040620s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_公告` [ RunTime:0.005715s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_公告` ; [ RunTime:0.007623s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_号码` [ RunTime:0.023344s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_号码` [ RunTime:0.004615s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_号码` ; [ RunTime:0.008974s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_号码编组` [ RunTime:0.028689s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_号码编组` [ RunTime:0.005742s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_号码编组` ; [ RunTime:0.008672s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_商城产品` [ RunTime:0.034384s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_商城产品` [ RunTime:0.005345s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_商城产品` ; [ RunTime:0.008793s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_商城产品套餐` [ RunTime:0.018584s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_商城产品套餐` [ RunTime:0.005239s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_商城产品套餐` ; [ RunTime:0.007485s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_商城产品_分类` [ RunTime:0.025207s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_商城产品_分类` [ RunTime:0.004639s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_商城产品_分类` ; [ RunTime:0.007360s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_密保` [ RunTime:0.032598s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_密保` [ RunTime:0.004773s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_密保` ; [ RunTime:0.007457s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_层碰奖` [ RunTime:0.032684s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_层碰奖` [ RunTime:0.006391s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_层碰奖` ; [ RunTime:0.007818s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_快递` [ RunTime:0.046765s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_快递` [ RunTime:0.005096s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_快递` ; [ RunTime:0.008423s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_报单` [ RunTime:0.036233s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_报单` [ RunTime:0.009872s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_报单` ; [ RunTime:0.009279s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_报单回填明细` [ RunTime:0.033943s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_报单回填明细` [ RunTime:0.005271s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_报单回填明细` ; [ RunTime:0.010271s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_提现` [ RunTime:0.021527s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_提现` [ RunTime:0.005637s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_提现` ; [ RunTime:0.007601s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_汇款方式` [ RunTime:0.025790s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_汇款方式` [ RunTime:0.004650s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_汇款方式` ; [ RunTime:0.008450s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_汇款通知` [ RunTime:0.029724s ]
+[ 2016-01-19T08:27:08+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_汇款通知` [ RunTime:0.004582s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_汇款通知` ; [ RunTime:0.007495s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_消费货币明细` [ RunTime:0.017085s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_消费货币明细` [ RunTime:0.005392s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_消费货币明细` ; [ RunTime:0.007464s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_游戏钱包明细` [ RunTime:0.023063s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_游戏钱包明细` [ RunTime:0.005549s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_游戏钱包明细` ; [ RunTime:0.007688s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_申请回填` [ RunTime:0.023354s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_申请回填` [ RunTime:0.005152s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_申请回填` ; [ RunTime:0.007690s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_电子货币明细` [ RunTime:0.011763s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_电子货币明细` [ RunTime:0.005315s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_电子货币明细` ; [ RunTime:0.007546s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_短信` [ RunTime:0.022320s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_短信` [ RunTime:0.005393s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_短信` ; [ RunTime:0.007741s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_短信详细` [ RunTime:0.015483s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_短信详细` [ RunTime:0.005699s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_短信详细` ; [ RunTime:0.008278s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_短语` [ RunTime:0.019634s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_短语` [ RunTime:0.004627s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_短语` ; [ RunTime:0.007571s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_福利奖` [ RunTime:0.011499s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_福利奖` [ RunTime:0.005115s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_福利奖` ; [ RunTime:0.008489s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_站外邮件` [ RunTime:0.027611s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_站外邮件` [ RunTime:0.005078s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_站外邮件` ; [ RunTime:0.010469s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_管理_业绩` [ RunTime:0.016158s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_管理_业绩` [ RunTime:0.006103s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_管理_业绩` ; [ RunTime:0.008040s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_货币` [ RunTime:0.019595s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_货币` [ RunTime:0.005262s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_货币` ; [ RunTime:0.008429s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_转账明细` [ RunTime:0.036023s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_转账明细` [ RunTime:0.005135s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_转账明细` ; [ RunTime:0.007508s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_转账设置` [ RunTime:0.021337s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_转账设置` [ RunTime:0.005432s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_转账设置` ; [ RunTime:0.008289s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_邮件` [ RunTime:0.029706s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_邮件` [ RunTime:0.004625s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_邮件` ; [ RunTime:0.007467s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_银行卡` [ RunTime:0.022226s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_银行卡` [ RunTime:0.004766s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_银行卡` ; [ RunTime:0.010871s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_销售奖金` [ RunTime:0.020876s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_销售奖金` [ RunTime:0.005671s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_销售奖金` ; [ RunTime:0.008802s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_销售奖金总账` [ RunTime:0.026242s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_销售奖金总账` [ RunTime:0.005752s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_销售奖金总账` ; [ RunTime:0.008052s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_销售奖金构成` [ RunTime:0.026993s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_销售奖金构成` [ RunTime:0.005507s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_销售奖金构成` ; [ RunTime:0.008215s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_首页图片` [ RunTime:0.032299s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_首页图片` [ RunTime:0.005102s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_首页图片` ; [ RunTime:0.008110s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_apiget` [ RunTime:0.033395s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_apiget` [ RunTime:0.005517s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_apiget` ; [ RunTime:0.007489s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_apipost` [ RunTime:0.025369s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_apipost` [ RunTime:0.005307s ]
+[ 2016-01-19T08:27:09+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_apipost` ; [ RunTime:0.008625s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_fund` [ RunTime:0.024938s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_fund` [ RunTime:0.004643s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_fund` ; [ RunTime:0.007400s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_fundlist` [ RunTime:0.024879s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_fundlist` [ RunTime:0.004302s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_fundlist` ; [ RunTime:0.007748s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_lang` [ RunTime:0.035539s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_lang` [ RunTime:0.005105s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_lang` ; [ RunTime:0.009253s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_lang_data` [ RunTime:0.017099s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_lang_data` [ RunTime:0.005373s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_lang_data` ; [ RunTime:0.007669s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_log` [ RunTime:0.024611s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_log` [ RunTime:0.005217s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_log` ; [ RunTime:0.008873s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_log_user` [ RunTime:0.022539s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_log_user` [ RunTime:0.005167s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_log_user` ; [ RunTime:0.007642s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_loginrs` [ RunTime:0.020137s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_loginrs` [ RunTime:0.004632s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_loginrs` ; [ RunTime:0.007904s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_lvlog` [ RunTime:0.039976s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_lvlog` [ RunTime:0.005641s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_lvlog` ; [ RunTime:0.008135s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_onlinepay` [ RunTime:0.021555s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_onlinepay` [ RunTime:0.004601s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_onlinepay` ; [ RunTime:0.008181s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `dms_session` [ RunTime:0.012615s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `dms_session` [ RunTime:0.004907s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `dms_session` ; [ RunTime:0.007731s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `log` [ RunTime:0.021951s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `log` [ RunTime:0.004796s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `log` ; [ RunTime:0.018456s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `node` [ RunTime:0.034384s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `node` [ RunTime:0.004752s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `node` ; [ RunTime:0.023336s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `pay_event` [ RunTime:0.037620s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `pay_event` [ RunTime:0.005311s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `pay_event` ; [ RunTime:0.008343s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `pay_onlineaccount` [ RunTime:0.021167s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `pay_onlineaccount` [ RunTime:0.005106s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `pay_onlineaccount` ; [ RunTime:0.007454s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `pay_order` [ RunTime:0.019472s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `pay_order` [ RunTime:0.005130s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `pay_order` ; [ RunTime:0.007386s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `role` [ RunTime:0.024151s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `role` [ RunTime:0.005089s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `role` ; [ RunTime:0.007626s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `role_access` [ RunTime:0.026008s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `role_access` [ RunTime:0.004500s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `role_access` ; [ RunTime:0.007467s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `role_admin` [ RunTime:0.031418s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `role_admin` [ RunTime:0.004619s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `role_admin` ; [ RunTime:0.007427s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `xtable_set` [ RunTime:0.021459s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `xtable_set` [ RunTime:0.004709s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `xtable_set` ; [ RunTime:0.014720s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW CREATE TABLE `yubicloud` [ RunTime:0.018346s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SHOW index FROM `yubicloud` [ RunTime:0.007305s ]
+[ 2016-01-19T08:27:10+08:00 ] /xsinst.php?s=/Install/create_database | SQL: SELECT * INTO OUTFILE 'C:/WWW/dmsbeta/public_html/dbbackup/table.txt' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '
+'  FROM `yubicloud` ; [ RunTime:0.009260s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Run SaveConfig Behavior [ RunTime:0.004097s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/create_database | INFO: Tag[ app_end ] --END-- [ RunTime:0.004168s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Run XSS Behavior [ RunTime:0.002401s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_init ] --END-- [ RunTime:0.002538s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Run CheckRoute Behavior [ RunTime:0.004300s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ route_check ] --END-- [ RunTime:0.004369s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Run ReadHtmlCache Behavior [ RunTime:0.004899s ]
+[ 2016-01-19T08:27:11+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_begin ] --END-- [ RunTime:0.004962s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.015030s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('ADMIN_SHOW','s:39:\"baodan_wuliu_pro,kuaidi_pro,admin_blank\";') [ RunTime:0.007288s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('AUTOBACKUP','i:0;') [ RunTime:0.006808s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('TIMEMOVE_HOUR','i:0;') [ RunTime:0.006799s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('TIMEMOVE_DAY','i:0;') [ RunTime:0.006097s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('CAL_START_TIME','i:1453132800;') [ RunTime:0.007622s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('XMLMD5','s:0:\"\";') [ RunTime:0.007409s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DIFFTIME','i:1453132800;') [ RunTime:0.026486s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SHOW_WORLD_MOBILE','i:0;') [ RunTime:0.006657s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SHOW_TIMESET','i:0;') [ RunTime:0.006539s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SHOW_SHOPSET','i:0;') [ RunTime:0.006179s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SHOW_BULKREG','i:0;') [ RunTime:0.006229s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DEFAULT_USER_PASS1','s:0:\"\";') [ RunTime:0.006549s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DEFAULT_USER_PASS2','s:0:\"\";') [ RunTime:0.009221s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DEFAULT_USER_PASS3','s:0:\"\";') [ RunTime:0.008151s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SERVICE_QQ','s:0:\"\";') [ RunTime:0.007985s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SYSTEM_TITLE','s:0:\"\";') [ RunTime:0.007523s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SYSTEM_COMPANY','s:0:\"\";') [ RunTime:0.006601s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SYSTEM_MEMO','s:0:\"\";') [ RunTime:0.006156s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REMIT_INBANK','s:0:\"\";') [ RunTime:0.006193s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REMIT_RATIO_USE','b:0;') [ RunTime:0.006272s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REMIT_RATIO','i:1;') [ RunTime:0.006113s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REMIT_MIN','i:0;') [ RunTime:0.006779s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REMIT_MAX','i:0;') [ RunTime:0.006275s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_PRIZE_SWITCH','b:0;') [ RunTime:0.006288s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DEFAULT_THEME','b:0;') [ RunTime:0.008548s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('DEFAULT_LOGIN_THEME','s:0:\"\";') [ RunTime:0.007493s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_USE_PASS3','i:0;') [ RunTime:0.007584s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_PASS_TIMEOUT','i:0;') [ RunTime:0.006773s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_LOGIN_URL','s:0:\"\";') [ RunTime:0.007048s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_LOGIN_VERIFY','i:0;') [ RunTime:0.006644s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_SHOP_SALEONLY','i:0;') [ RunTime:0.006525s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REG_REQUIRED','s:0:\"\";') [ RunTime:0.007233s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_REG_SHOW','s:140:\"name,sex,alias,reciver,pv,qq,email,mobile,address,bank_card,bank_name,bank_apply_addr,bank_apply_name,area,id_card,pass1,pass1c,pass2,pass2c\";') [ RunTime:0.008620s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_EDIT_SHOW','s:135:\"name,sex,alias,reciver,pv,qq,email,0,address,bank_card,bank_name,bank_apply_addr,bank_apply_name,area,id_card,pass1,pass1c,pass2,pass2c\";') [ RunTime:0.007117s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_VIEW_SHOW','s:109:\"name,sex,alias,reciver,pv,qq,email,0,address,bank_card,bank_name,bank_apply_addr,bank_apply_name,area,id_card\";') [ RunTime:0.006173s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('USER_TRUTH','s:0:\"\";') [ RunTime:0.006264s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('MAIL_ADDRESS','s:0:\"\";') [ RunTime:0.006145s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('MAIL_SMTP','s:0:\"\";') [ RunTime:0.006147s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('MAIL_LOGINNAME','s:0:\"\";') [ RunTime:0.008807s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('MAIL_PASSWORD','s:0:\"\";') [ RunTime:0.007388s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('MAIL_FROMNAME','s:0:\"\";') [ RunTime:0.008231s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SYSTEM_SERVICE','i:0;') [ RunTime:0.008152s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('lv1money','s:1:\"0\";') [ RunTime:0.007135s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('lv2money','s:4:\"1920\";') [ RunTime:0.005957s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('lv3money','s:4:\"6400\";') [ RunTime:0.006772s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('lv4money','s:5:\"12800\";') [ RunTime:0.006112s ]
+[ 2016-01-19T08:27:17+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('pljffd1','s:4:\"3000\";') [ RunTime:0.006212s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('pljffd2','s:4:\"5000\";') [ RunTime:0.006469s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('pljffd3','s:5:\"10000\";') [ RunTime:0.006654s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('pljffd4','s:5:\"10000\";') [ RunTime:0.006788s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('zrxfjf','s:2:\"10\";') [ RunTime:0.006350s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('zrxfjffd','s:4:\"2000\";') [ RunTime:0.006191s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | SQL: INSERT INTO `config` (`name`,`data`) VALUES ('SYSTEM_PASS_KEY','s:32:\"64ac1fc06037fd787326b590d898f5b0\";') [ RunTime:0.007654s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Run SaveConfig Behavior [ RunTime:0.001737s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/install_base_data | INFO: Tag[ app_end ] --END-- [ RunTime:0.001783s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Run XSS Behavior [ RunTime:0.001766s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_init ] --END-- [ RunTime:0.001891s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Run CheckRoute Behavior [ RunTime:0.001949s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ route_check ] --END-- [ RunTime:0.001983s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Run ReadHtmlCache Behavior [ RunTime:0.001757s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001791s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.023179s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | SQL: INSERT INTO `admin` (`nickname`,`account`,`admin_status`,`password`,`email`,`create_time`,`status`) VALUES ('超级管理�\�','admin',1,'ebec28d12beee51f504a97f7ecb92eca','',1453163238,1) [ RunTime:0.006365s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Run SaveConfig Behavior [ RunTime:0.002025s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/create_admin_passport | INFO: Tag[ app_end ] --END-- [ RunTime:0.002097s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_init ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Run XSS Behavior [ RunTime:0.002308s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_init ] --END-- [ RunTime:0.002509s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ route_check ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Run CheckRoute Behavior [ RunTime:0.002655s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ route_check ] --END-- [ RunTime:0.002727s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_begin ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002019s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002057s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | SQL: SHOW COLUMNS FROM `node` [ RunTime:0.022789s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | SQL: INSERT INTO `node` (`name`,`group`,`title`,`level`,`status`,`sort`,`is_sync_node`,`is_sync_menu`,`is_quick_search`) VALUES ('Admin','','系统设置',1,1,'9999','1','1','0') [ RunTime:0.007969s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | SQL: INSERT INTO `node` (`name`,`group`,`title`,`level`,`status`,`sort`,`is_sync_node`,`is_sync_menu`,`is_quick_search`) VALUES ('DmsAdmin','Admin','结算管理',1,1,1,'1','1','1') [ RunTime:0.008067s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.016455s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | SQL: SELECT `name`,`data` FROM `config`  [ RunTime:0.006825s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Run SaveConfig Behavior [ RunTime:0.037458s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_end ] --START--
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Run SaveConfig Behavior [ RunTime:0.000011s ]
+[ 2016-01-19T08:27:18+08:00 ] /xsinst.php?s=/Install/do_others | INFO: Tag[ app_end ] --END-- [ RunTime:0.000052s ]

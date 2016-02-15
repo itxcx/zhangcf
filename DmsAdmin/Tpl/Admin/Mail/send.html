@@ -1,0 +1,45 @@
+<div class="pageContent">
+<form id="sendform" action="__URL__/send_email" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneOpen)">
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/Mail/index')}"/>
+<input type="hidden" name="forwardUrl" value="__APP__/Admin/Mail/index"/>
+<input type="hidden" name="navTabTitle" value="站内邮件列表"/>
+<div class="pageFormContent" layoutH="58">
+  <table style="width:900px">
+		<tr>  
+			<td  style="width:100px;">收&nbsp;件&nbsp;人：</td>
+			<td style="text-align:left;"><input id="receiver" name="receiver" type="text" value=""/>
+			<select name='type'>
+			<foreach name='sendto' item='to'>
+				<option value='{$to.path}'>{$to.name}</option>
+			</foreach>
+			</select>
+			</td>  
+		</tr>
+		<tr align="left">
+			<td >标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</td>
+			<td style="text-align:left;"><input id="title" name="title" type="text" style="width:580px; background:#FFF;"/></td>  
+		</tr>
+		<tr align="left">
+			<td height="100" valign="top">内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容：</td>
+			<td style="text-align:left;width:560px">
+			<textarea id="mailContent" name="content" style="width:700px;height:500px;"></textarea>       
+			</td>
+       </tr>
+	   <tr>
+			<td  colspan="2" style="padding-left:480px;padding-top:5px">
+				<div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">发送邮件</button></div></div>
+			</td>
+	   </tr>
+	</table>
+</div>
+</form>
+</div>
+<script type="text/javascript"> 
+$(function(){
+KindEditor.create($("#mailContent",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+})
+</script>

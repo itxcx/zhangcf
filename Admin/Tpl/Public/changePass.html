@@ -1,0 +1,41 @@
+<script language="JavaScript">
+function dialogAjaxDoneCheckps(json)
+{
+	DWZ.ajaxDone(json);
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/changePassSave/callbackType/closeCurrent" class="pageForm" onsubmit="return validateCallback(this, dialogAjaxDoneCheckps)">
+		<div class="pageFormContent" layoutH="58">
+		<table cellpadding="5" cellspacing="5">
+			<notempty name="SYSTEM_PASS_KEY">
+			<tr>
+				<th>原密码：</th>
+				<td><input type="password" name="password" size="20" class="required" /></td>
+			</tr>
+			</notempty>
+			<tr>
+				<th>新密码：</th>
+				<td><input type="password" name="newpass1" size="20" class="required" /></td>
+			</tr>
+			<tr>
+				<th>确认密码：</th>
+				<td><input type="password" name="newpass2" size="20" class="required" /></td>
+			</tr>
+		</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

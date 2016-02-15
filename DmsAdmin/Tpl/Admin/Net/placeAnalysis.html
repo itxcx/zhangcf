@@ -1,0 +1,37 @@
+
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" class="list">
+<tr>
+	<th colspan="2" style="text-align:left">&nbsp;&nbsp;网体业绩分析</th>
+</tr>
+<tbody>
+<tr >
+<td width="100" align="center">编号:</td>
+<td style="text-align:left">
+<input type="text" name="uid" id="uid"/></td>
+</tr>
+<tr>
+<td align="center">时间范围:</td>
+<td style="text-align:left">
+<input style="width:2cm"  type="text" class="date" name="sdate" value="">-
+<input style="width:2cm"  type="text" class="date" name="edate" value="">
+</td>
+</tr>
+</tbody>
+<tr>
+<td colspan="2">
+  <div class="buttonActive" >
+          <div class="buttonContent" >
+            <button type="button" onclick="edit()">下一步</button>
+          </div>
+      </div>
+</td>
+</tr>
+</table>
+<script>
+function edit(){
+	var userid = $('#uid').val();
+	var sdate  = $("#sdate").val();
+	var edate  = $("#edate").val();
+	navTab.reload('__URL__/placeAnalysisExecute/uid/'+sdate+'/sdate/'+sdate+'/edate/'+edate);
+}
+</script>

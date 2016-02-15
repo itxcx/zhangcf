@@ -1,0 +1,48 @@
+<script type="text/javascript" src="/{$Think.APP_NAME}/Common/js/welcome.js"></script>
+<form method="post">
+<table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+<tr>
+ <td height="49"><img src="/{$Think.APP_NAME}/Common/images/Step-step1-{$lang}.gif" /></td>
+ <td></td>
+</tr>
+<tr>
+<td valign="top">
+
+	<div id="wrapper" style="padding:0px 0 30px 0;">
+	<div class="OnLine">{$langs['version_msg']}</div>
+	  <iframe id="iframe" src="__URL__/license/lang/{$lang}" width="730" height="350"></iframe>
+	</div></td>
+
+	<include file="right" />
+
+</tr>
+<tr>
+<td align="center" style="padding-top:10px;"><input type="checkbox" id="js-agree" class="p" checked/>
+  <label for="js-agree"> {$langs['agree_license']}</label><br />
+</td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td align="center" style="padding-top:10px;">
+	<input type="hidden" name="app[]" value="Admin" />
+	{$langs['select_setup_app']}:
+	<input type="checkbox" id="app_Admin" checked="true" disabled="true"/> 应用中心
+
+	<input type="checkbox" name="app[]" id="app_Shop" value="Shop:Admin" /> <label for="app_Shop">商城</label>
+
+	<input type="checkbox" name="app[]" id="app_Company" value="Company:Admin" />
+	<label for="app_Company">企业站</label>
+
+	<input type="checkbox" name="app[]" id="app_DmsAdmin" value="DmsAdmin:Admin"  checked/> <label for="app_DmsAdmin">结算系统</label>
+
+	<input type="checkbox" name="app[]" id="app_Work" value="Work" /> <label for="app_Work">派单</label>	
+	<br /><br />
+
+	<span id="install-btn"><input class="button" type="submit" id="js-submit" class="p" value="{$langs['next_step']}{$langs['setup_environment']}" /></span>
+</td>
+<td>&nbsp;</td>
+</tr>
+
+</table>
+</form>

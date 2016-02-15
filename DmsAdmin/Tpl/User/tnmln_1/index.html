@@ -1,0 +1,97 @@
+<include file="Public:header" />
+<div class="basic_title"><span class="info_cn">基本信息&nbsp;<span class="info_en">The basic information</span></span><span class="space"></span></div>
+<table class="basic_table">
+    <tr>
+        <td>
+            <ul>
+                <li class="baskey">{:L('user1_name_serial')}：</li>	
+                <li class="basval">{$userinfo.编号}</li>	
+                <li class="baskey">{:L('name')}：</li>	
+                <li class="basval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <foreach name="funbank" item="fun_bank" key="key">
+                <li class="baskey">{$fun_bank.name}：</li>	
+                <li class="basval">{$fun_bank.num}</li>
+                </foreach>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <ul>
+                <foreach name="userlevel" item="lv" key="key">
+                <li class="baskey">{$key}：</li>	
+                <li class="basval">{$lv.byname}</li>
+                </foreach>	
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <li class="baskey" style="border:none;">{:L('join_date')}：</li>	
+                <li class="basval" style="border:none;">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>
+
+            </ul>
+        </td>
+    </tr>
+</table>
+<div class="basic_title">
+    <span class="info_cn">系统公告&nbsp;<span class="info_en">System notices</span></span>
+    <span class="space"></span>
+</div>
+<div class="mail_list">
+    <ul>
+        <php>
+        $list = new TableListAction('公告');
+        $list->field('id,标题,创建时间')->where('')->order("id desc");
+        $list->pagenum = 8;
+        $data = $list->getData();
+        </php>
+        <li class="mail_title">
+        <a>系统公告</a>
+        <span style="margin-right: 28px;float: right">发送时间</span>
+        </li>
+        <foreach name="data.list" item="name">
+            <li>
+            <a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a>
+            <span class="date">{:date('Y-m-d',$name['创建时间'])}</span>
+            </li>
+        </foreach>
+    </ul>
+    <div class="page">
+        <span>
+            <if condition="$data['nowPage'] neq 1">
+            <a href="{$data.firstRow}" class="page_link"><img src="__TMPL__Public/images/top.gif" class="page_pic" /></a>&nbsp;&nbsp;
+            <else/><a class="page_link top_n"><img src="__TMPL__Public/images/top_n.gif" class="page_pic" /></a>&nbsp;&nbsp;
+            </if>
+            <a href="{$data.upRow}" class="page_link"><img src="__TMPL__Public/images/up.png" class="page_pic" /></a>&nbsp;&nbsp;
+            <if condition="isset($data['rollPage'][-2])">
+            <a href="{$data.rollPage.-2}" class="page_link">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+            </if>
+            <if condition="isset($data['rollPage'][-1])">
+            <a href="{$data.rollPage.-1}" class="page_link">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+            </if>
+            <a class="now_page">{$data['nowPage']}</a>&nbsp;&nbsp;
+            <if condition="isset($data['rollPage'][1])">
+            <a href="{$data.rollPage.1}" class="page_link">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+            </if>
+            <if condition="isset($data['rollPage'][2])">
+            <a href="{$data.rollPage.2}" class="page_link">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+            </if>
+            <a href="{$data.downRow}" class="page_link"><img src="__TMPL__Public/images/next.gif" class="page_pic" /></a>&nbsp;&nbsp;
+            <if condition="$data['nowPage'] lt $data['totalPages']">
+            <a href="{$data.theEndRow}" class="page_link"><img src="__TMPL__Public/images/end.gif" class="page_pic" /></a>
+            <else/><a class="page_link end_n"><img src="__TMPL__Public/images/end_n.gif" class="page_pic" /></a>
+            </if>
+        </span>
+    </div>
+    <br>
+</div>
+<include file="Public:footer" />

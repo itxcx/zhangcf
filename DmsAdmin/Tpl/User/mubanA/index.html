@@ -1,0 +1,46 @@
+<tagLib name="Sql"/> 
+<include file="Public:header" />
+<div class="container_cont_right fr mr16  mt30">
+		  <p id='positiondiv' style="color:#F6E6AB; line-height:64px;font-size:16px;margin-left:220px;">&nbsp;{:CONFIG('SYSTEM_TITLE')}&nbsp;</p>
+		  <div style="margin:0 auto;text-align:right;margin-left:18%">
+		   <table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="6" rowspan="5"><table width="500" border=0 align="center" cellpadding=0 cellspacing=0 class=Table_xthome1>
+        <tbody>
+          <tr>
+            <td height="20" align="left" ><table width="100%" height="291" border="0" align="center" cellpadding="3" cellspacing="0">
+                 <!--会员编号-->
+                <tr>
+                  <td  height="38" align="left" valign="middle" ><span style=" color:#FFF;">欢迎您</span><span class="STYLE17">：</span><strong> <span style="color:#FF0000 ">{$userinfo.编号}</span></strong><span style="color:#FF0000 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span></td>
+                </tr>
+                 <!--钱包-->
+               <tr>
+               <td colspan="2"  height="38" >
+                <foreach name="funbank" item="fun_bank" key="key">
+                 <span style=" color:#FFF;float:left;padding:10px 10px 20px 0px;">{$fun_bank.name}<span class="STYLE17">：</span><strong> <span style="color:#FF0000 ">{$fun_bank.num}</span></strong></span>
+                  </foreach>
+                  </td>
+                </tr>
+                 <tr>
+                  <td  height="38" align="left" valign="middle"><span style=" color:#FFF;">今天新增留言<span class="STYLE17">：</span><strong> <span style="color:#FF0000 ">{$mailcount_new}</span></strong>&nbsp;&nbsp;条</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FF0000 ">
+                  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="__GROUP__/Mail/index" class="button_text41" style="float:right;margin-right:20%"><a></td>
+                </tr>
+                <tr>
+                  <td  height="38" align="left" valign="middle" ><span style=" color:#FFF;">今天新增公告<span class="STYLE17">：</span><strong> <span style="color:#FF0000 ">{$notice_count}</span></strong>&nbsp;&nbsp;条</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FF0000 ">
+                  </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="__GROUP__/User/viewNotice" class="button_text41" style="float:right;margin-right:20%"><a></td>
+                </tr>
+            </table></td>
+          </tr>
+    </table></td>
+  </tr>
+  <tr> </tr>
+  <tr> </tr>
+  <tr> </tr>
+  <tr> </tr>
+</table>
+		   </div>
+</div>
+  <div class="clear"></div>
+
+<include file="Public:footer" />

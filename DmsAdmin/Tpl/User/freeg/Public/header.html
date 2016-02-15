@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"  class="hb-loaded">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>香港中鑫游戏玩家首页</title>
+
+<script  type="text/javascript"  src="__TMPL__Public/js/jquery.js"></script>
+<script  type="text/javascript"  src="__TMPL__Public/js/Menu.js"></script>
+<script  type="text/javascript"  src="__TMPL__Public/js/ValidateCommon.js"></script>
+<script  type="text/javascript"  src="__TMPL__Public/js/Common.js"></script>
+<script  type="text/javascript"  src="__TMPL__Public/js/DialogJS.js"></script>
+<link  href="__TMPL__Public/css/Style.css"  type="text/css"  rel="stylesheet">
+<link  href="__TMPL__Public/css/GridView.css"  type="text/css"  rel="stylesheet">
+<script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+</head>
+<body  huaban_collector_injected="true"  youdao="bind"  ryt11110="1">
+  <div  id="wrap">
+    <div  id="header">
+      <div  id="top">
+          <div  id="logo">
+              <img src="__TMPL__Public/images/headbg.png" alt="logo">
+          </div>
+        <div  id="loginInfo"><a href="DmsAdmin/Tpl/User/freeg/error.html" style="background: #694C1F;padding: 2px 5px;font-size: 14px">进入--- 好想购★网上商城</a><span  id="ctl00_lblUserName">&nbsp;{$userinfo.编号}</span> 欢迎登陆系统平台！ <a  href="__APP__/User/Mail/index">我的消息</a></div>
+      </div>
+      <div  class="clear"></div>
+      <div  id="menu">
+        <ul  id="jsddm">
+          <li><a  href="__GROUP__/Index/index">玩家首页</a></li>
+          <li><a  href="/index.php?s=/User/User/viewNotice">玩家公告</a></li>
+          <foreach name="menu" item="vo" key="key">
+          <li>
+            <a href="#">{$key}</a><!--/index.php?s=/User/{$vo[0]['model']}/xianshi/id/{$key}-->
+            <ul>
+              <foreach name="vo" item="val">	
+              	 <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower) and $val['level'] eq 1">
+              		<li><a href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a></li>
+              	 </if>
+              </foreach>
+            </ul>
+          </li>
+          </foreach>
+          <li><a  href="#" onclick="if(confirm('确认安全退出吗?')){window.location.href = '__APP__/User/Public/logout';}">安全退出</a></li>
+        </ul>
+      </div>
+    </div>
+    <div  id="mainbody">
+      <div  id="adminICO">
+        <ul>
+          <li><a  href="/index.php?s=/User/User/viewNotice/type/ann"  class="nav1">
+            <div>玩家公告</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/Tle/index:tle"  class="nav2">
+            <div>游戏奖金</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/Sale/reg:sale_reg[1]"  class="nav3">
+            <div>注册账号</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/User/myzh"  class="nav4">
+            <div>帐号管理</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/Mail/index"  class="nav7">
+            <div>私人信箱</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/User/newPerson"  class="nav9">
+            <div>新手入门</div>
+            </a></li>
+            <!--
+          <li><a  href="/index.php?s=/User/Help/index"  class="nav5">
+            <div>帮助中心</div>
+            </a></li>-->
+     <!--      <li>
+            <a  href="#" onclick="alert('该功能正在开发中,敬请期待')"  class="nav5">
+            <div>帮助中心</div>
+            </a>
+          </li>-->
+          <li><a  href="/index.php?s=/User/User/passSafe"  class="nav6">
+            <div>帐号安全</div>
+            </a></li>
+          <li><a  href="/index.php?s=/User/Sys/index" class="nav8">
+            <div>系统设置</div>
+            </a></li>
+        </ul>
+      </div>

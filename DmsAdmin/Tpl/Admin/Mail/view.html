@@ -1,0 +1,57 @@
+<div class="pageContent">
+	<div layoutH="58">
+    <table width="95%" cellpadding="5" cellspacing="0" class="view_list">
+		<tr>
+            <td colspan="4" style="text-align:left;padding-left:20px"><b>邮件详情</b></td>
+		</tr>
+		<tr>  
+			<td style="width:20%;text-align:right;">发件人：</td>
+			<td style="width:30%;text-align:left;padding-left:5px">{$list.发件人}</td>
+			<td style="width:20%;text-align:right">发件人类型：</td>
+			<td style="width:30%;text-align:left;padding-left:5px">{$list.发件人类型}</td>
+		</tr>
+		<tr>  
+			<td style="text-align:right;">收件人：</td>
+			<td style="text-align:left;padding-left:5px">{$list.收件人}</td>
+			<td style="text-align:right;">收件人类型：</td>
+			<td style="text-align:left;padding-left:5px">{$list.收件人类型}</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">发送时间：</td>
+			<td colspan="3" style="text-align:left;padding-left:5px">{$list.发送时间|date="Y-m-d H:i:s",###}</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">标题：</td>
+			<td colspan="3" style="text-align:left;padding-left:5px">{$list.标题}</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">内容：</td>
+			<td colspan="3" style="text-align:left;padding:15px 5px">{:htmlspecialchars_decode($list['内容'])}</td>
+		</tr>
+		
+		<eq name="list.状态" value="2">
+		<tr>
+            <td colspan="4" style="text-align:left;padding-left:20px"><b>回复内容</b></td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">回复人：</td>
+			<td colspan="3" style="text-align:left;padding-left:5px">{$list.回复人}</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">回复时间：</td>
+			<td colspan="3" style="text-align:left;padding-left:5px">{$list.回复时间|date="Y-m-d H:i:s",###}</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">回复内容：</td>
+			<td colspan="3" style="text-align:left;padding:15px 5px">{$list.回复内容}</td>
+		</tr>
+		</eq>
+	</table>
+	</div>
+	<div class="formBar">
+		<ul>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+		</ul>
+	</div>
+	</form>
+</div>

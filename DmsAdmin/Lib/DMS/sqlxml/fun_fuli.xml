@@ -1,0 +1,8 @@
+<table name='{$this->name}' engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='编号'  type="varchar(50)" null="1"  default=""/>
+<field name='name' type="varchar(50)"  default=""/>
+<field name='获得时间' type="varchar(50)"  default=""/>
+<field name='发放时间' type="varchar(50)"  default=""/>
+<field name='state' type="tinyint(1)" default="0" />
+</table>

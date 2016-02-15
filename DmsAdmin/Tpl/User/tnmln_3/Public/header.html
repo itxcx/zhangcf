@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/iconfont.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                            $('.li-' + action).addClass('selected');
+                        }
+
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                    $('.li-ind').addClass('selected');
+                }
+
+                //nav-left 高度
+                if ($('.section').height() > 683) {
+                    if (!$('#usereg').get(0))
+                    $('.nav-left').height($('.section').height() - 40);
+                    else {
+                    $('.nav-left').height($('.section').height() - 62);
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="top">
+                <div class="header-t">
+                    <div class="header-top center">
+                        <span>
+                            <a href="__GROUP__/Index/index" style="font-size: 14px;color:#e60012;">网站首页</a>&nbsp;|
+                            <a href="__GROUP__/Public/logout" style="font-size: 14px;">安全退出</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="nav-top">
+                    <div class="nav-t center">
+                        <div class="logo">{$SYSTEM_COMPANY}</div>
+                        <div class="navlist navlist1"><a class="key" href="__GROUP__/Index/index">网站首页</a></div>
+                        <php>
+                        $p=2;
+                        </php>
+                        <foreach name="menu" item="vo" key="key">
+                        <div class="navlist navlist{$p++}"><a class="key">{$key}</a>
+                            <ul class="navul" style="display: none;">
+                                <foreach name="vo" item="val">
+                                <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                                <li>
+                                <a class="report" href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                                </li>
+                                </if>
+                                </foreach>
+                            </ul>
+                        </div>
+                        </foreach>
+                    </div>
+                </div>
+            </div>
+            <div class="header-img"></div>
+        </div>
+        <div class="content center">
+            <div class="nav-left">
+                <div class="navlist"><i class="icon iconfont">&#xe600;</i><a class="key">&nbsp;主页</a></div>
+                <ul class="navul-left">
+                    <li>
+                    <a class="li-ind" href="__GROUP__/Index/index">
+                        <i class="icon iconfont">&#xe762;</i>
+                        网站首页
+                    </a>
+                    </li>
+                    <li>
+                    <a href="__GROUP__/Public/logout">
+                        <i class="icon iconfont">&#xe762;</i>
+                        安全退出
+                    </a>
+                    </li>
+                </ul>
+                <div class="navlist"><i class="icon iconfont">&#xe601;</i><a class="key">&nbsp;资料管理</a></div>
+                <ul class="navul-left">
+                    <li>
+                    <a class="li-view" href="__GROUP__/User/view">
+                        <i class="icon iconfont">&#xe762;</i>
+                        资料查看
+                    </a>
+                    </li>
+                    <li>
+                    <a class="li-edit" href="__GROUP__/User/edit">
+                        <i class="icon iconfont">&#xe762;</i>
+                        资料修改
+                    </a>
+                    </li>
+                    <li>
+                    <a class="li-setPass" href="__GROUP__/User/setPass">
+                        <i class="icon iconfont">&#xe762;</i>
+                        密码修改
+                    </a>
+                    </li>
+                </ul>
+                <div class="navlist"><i class="icon iconfont">&#xf0087;</i><a class="key">&nbsp;订单管理</a></div>
+                <ul class="navul-left">
+                    <li>
+                    <a class="li-buy" href="__GROUP__/Sale/buy:sale_buy[1]">
+                        <i class="icon iconfont">&#xe762;</i>
+                        购买商品
+                    </a>
+                    </li>
+                    <li>
+                    <a class="li-myreg" href="__GROUP__/User/myreg">
+                        <i class="icon iconfont">&#xe762;</i>
+                        我的订单
+                    </a>
+                    </li>
+                </ul>
+                <div class="navlist"><i class="icon iconfont">&#xe680;</i><a class="key">&nbsp;财务管理</a></div>
+                <ul class="navul-left">
+                    <li>
+                    <a class="li-index" href="__GROUP__/Tle/index:tle">
+                        <i class="icon iconfont">&#xe762;</i>
+                        奖金列表
+                    </a>
+                    </li>
+                    <li>
+                    <a class="li-rem" href="__GROUP__/Fun_bank/rem">
+                        <i class="icon iconfont">&#xe762;</i>
+                        汇款通知
+                    </a>
+                    </li>
+                    <li>
+                    <a class="li-get" href="__GROUP__/Fun_bank/get:fun_bank[1]">
+                        <i class="icon iconfont">&#xe762;</i>
+                        提现操作
+                    </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="section">

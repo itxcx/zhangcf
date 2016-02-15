@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:CONFIG('SYSTEM_TITLE')}</title>
+<link rel="stylesheet" href="__TMPL__Public/css/theme.css" type="text/css" />
+<link rel="stylesheet" href="__TMPL__Public/css/stylett.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="__TMPL__Public/css/invalid.css" type="text/css" media="screen" />	
+<script src="__PUBLIC__/jquery-1.x.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/facebox.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery.datePicker.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery.date.js"></script>
+<script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+     <!---浮动客服-->
+<link href="__PUBLIC__/css/floatqq.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/js/floatqq.js"></script>
+<style>
+    #pwd2 {
+        margin-left: 60px;
+    }
+</style>
+<script>
+$(function () {
+    $('div[id^=productCategory]').css({'width':'150px','float':'left','cursor':'pointer'});
+});
+</script>
+</head>
+	<body><div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
+		
+		<div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+			
+			<h1 id="sidebar-title"><a href="#">{:CONFIG('SYSTEM_COMPANY')}</a></h1>
+		  
+			<!-- Logo (221px wide) -->
+			<a href="#"><img id="logo" src="__TMPL__Public/images/logo.png" alt="企业销售平台 logo" /></a>
+		  
+			<!-- Sidebar Profile links -->
+			<div id="profile-links">
+				亲, 查看 <a href="/index.php?s=/User/Mail/index" rel="modal"> 信息 </a> 吧！<br />
+				<br />
+				<a href="__GROUP__/Index/index">查看网站</a> | <a href="/index.php?s=/User/Public/logout" title="退出登录">退出登录</a>
+			</div>        
+			
+			<ul id="main-nav">
+				
+				<li style="font-size:19px; font-weight:bold;" >
+					<a href="__GROUP__/Index/index" class="nav-top-item no-submenu">
+						网站首页
+					</a>       
+				</li>
+					<foreach name="menu" item="vo" key="key"> 
+						<php>$findopen=false;</php>
+						<foreach name="vo" item="val" key='key1'>
+						<if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">
+						<php>$findopen=true;</php>
+						</if>
+						</foreach>
+					<li style="font-size:19px; font-weight:bold;" id="{$key}1" onclick=|><a href="#" class="nav-top-item" >{$key}</a>
+						<ul <if condition="$findopen">class='dispnow'</if>>
+						<foreach name="vo" item="val">
+						<if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+							<li style="font-size:15px; font-weight:bold;" id="{$val.title}">
+								<a HREF="__GROUP__/{$val.model}/{$val.action}"
+								 <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">class='active_menu'</if> >{$val.title}</a>
+							</li>
+						</if>
+						</foreach>
+						</ul>
+					</li>
+					</foreach>
+				
+			</ul> <!-- End #main-nav --> 
+		</div></div> <!-- End #sidebar -->
+		
+		<div id="main-content"> <!-- Main Content Section with everything --> 
+			<!-- Page Head -->
+			<h2>{:CONFIG('SYSTEM_TITLE')}</h2>
+			<p id="page-intro">请及时登录查看最新信息</p>
+			
+			<ul class="shortcut-buttons-set">
+				
+				<if condition="!$userMenuPower or in_array('User-view',$userMenuPower)">
+				<li><a class="shortcut-button" href="/index.php?s=/User/User/view"><span>
+					<img src="__TMPL__Public/images/icons/pencil_48.png" alt="icon" /><br />
+					资料查看
+				</span></a></li>
+				</if>
+				
+				<if condition="!$userMenuPower or in_array('User-edit',$userMenuPower)">
+				<li><a class="shortcut-button" href="/index.php?s=/User/User/edit"><span>
+					<img src="__TMPL__Public/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
+					资料修改
+				</span></a></li>
+				</if>
+				
+				<if condition="!$userMenuPower or in_array('Sale-productmysale',$userMenuPower)">
+				<li><a class="shortcut-button" href="/index.php?s=/User/Sale/productmysale"><span>
+					<img src="__TMPL__Public/images/icons/image_add_48.png" alt="icon" /><br />
+					业务管理
+				</span></a></li>
+				</if>
+
+				<if condition="!$userMenuPower or in_array('Mail-index',$userMenuPower)">
+				<li><a class="shortcut-button" href="/index.php?s=/User/Mail/index"><span>
+					<img src="__TMPL__Public/images/icons/comment_48.png" alt="icon" /><br />
+					信息管理
+				</span></a></li>
+				</if>
+				
+			</ul><!-- End .shortcut-buttons-set -->
+			
+			<div class="clear"></div> <!-- End .clear -->

@@ -1,0 +1,46 @@
+<div style="margin-top:10px;margin-left:10px">
+<form method="post" action="__URL__/pay_confirm/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate"  target="_blank">
+<table border="0" bordercolor="#dddddd">
+<tr>
+<th>支付方式：</th>
+<td style="text-align:left">
+<select name="payment">
+
+<empty name="list"><option value="">暂无</option></empty>
+
+<foreach name="list" item="payInfo">
+
+<present name="payInfo.banklist">
+
+<foreach name="payInfo.banklist" key="bank_code" item="bank_name">
+
+<option value="{$key}:{$bank_code}" >{$bank_name}</option>
+
+</foreach>
+
+<else />
+
+<option value="{$key}" >{$payInfo.name}</option>
+
+</present>
+
+</foreach>
+</select>
+</td>
+</tr>
+
+
+<tr>
+<th>支付金额：</th>
+<td style="text-align:left"><input type="text" name="money" /></td>
+</tr>
+
+<tr>
+<td colspan="2"><input type="submit" value="确认支付" /></td>
+</tr>
+
+
+
+</table>
+</form>
+</div>

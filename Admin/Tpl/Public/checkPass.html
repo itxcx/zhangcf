@@ -1,0 +1,32 @@
+<script language="JavaScript">
+function dialogAjaxDoneCheckps(json)
+{
+	DWZ.ajaxDone(json);
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+			$("#sysmenu").toggle();
+		}
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/saveCheckps/callbackType/closeCurrent" class="pageForm" onsubmit="return validateCallback(this, dialogAjaxDoneCheckps)">
+		<div class="pageFormContent" layoutH="58">
+		<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>密码：</th>
+					<td><input type="password" name="password" size="20" class="required" /></td>
+				</tr>
+		</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

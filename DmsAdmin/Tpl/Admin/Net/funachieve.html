@@ -1,0 +1,65 @@
+<div layoutH="0">
+<table width="500px" class="list">
+<thead>
+  <tr>
+    <th colspan="2" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/coins.png" />&nbsp;&nbsp;{:$fun_treenum->byname}业绩分析</th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+	<td colspan='2' style="height:25px;vertical-align: middle;text-align:left;border-bottom:1px solid #ededed">
+		&nbsp;&nbsp;&nbsp;&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/information.png" />&nbsp;此功能表示查询某{$name}在某时间段内的{:$fun_treenum->byname}
+	</td>
+  </tr>
+  <tr>
+    <td width="30%" style="height:25px;vertical-align: middle;text-align:right;border-bottom:1px solid #ededed">
+		{$name}编号：
+	</td>
+    <td width="70%" style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+    	<input type="text" value="" size="20" name="userid" id='userid'/>
+    </td>
+  </tr>
+  <tr>
+	<td style="height:25px;text-align:right;border-bottom:1px solid #ededed">日期：</td>
+	<td style="height:25px;text-align:left;border-bottom:1px solid #ededed">
+		<input type="text" value="" name='startTime' class='date' id='startTime'/> - <input type="text" value="" name='endTime' class='date' id='endTime'/>
+	</td>
+  </tr>
+  <tr>
+	<td colspan='2' style="height:25px;border-bottom:1px solid #ededed;padding-left:200px"><a href='javascript:getAchieve()' class='button'><span>分析</span></a></td>
+  </tr>
+  </tfoot>
+</table>
+<table width="500px" class="list">
+<thead>
+  <tr>
+    <th colspan="2" style="text-align:left">&nbsp;分析结果</th>
+  </tr>
+  <tr>
+  	<th>来源区域</th>
+    <th>新增业绩</th>
+  </tr>
+</thead>
+<tfoot id='new'>
+</tfoot>
+</table>
+</div>
+<script>
+function getAchieve(){
+	var userid=$('#userid',navTab.getCurrentPanel()).val();
+	var startTime=$('#startTime',navTab.getCurrentPanel()).val();
+	var endTime=$('#endTime',navTab.getCurrentPanel()).val();
+	$.post('__URL__/funachieve:__XPATH__',{userid:userid,startTime:startTime,endTime:endTime},function(data){
+		eval("var data="+data);
+		if(data.status==0){
+			alertMsg.error(data.info);
+		}else{
+			var htmlstr="";
+			for(i in data.data){
+				htmlstr=htmlstr+"<tr><td style='height:25px;vertical-align: middle;border-bottom:1px solid #ededed'>"+i+"</td><td style='height:25px;vertical-align: middle;border-bottom:1px solid #ededed'>"+data.data[i]+"</td></tr>";
+			}
+			$('#new',navTab.getCurrentPanel()).html(htmlstr);
+		}
+	});
+}
+</script>

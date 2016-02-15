@@ -1,0 +1,234 @@
+﻿<div class="pageContent">
+	<form method="post" action="__URL__/configUpdate:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+	<input type="hidden" name="callbackType" value="forward"/>
+		<div class="pageFormContent" layoutH="56">
+            <div style="margin: 5px;"><b>开关设置</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">交易开关：</label>
+				<input type="radio" value="0"  name="open" <if condition="($gold:open eq 0) OR ($gold:open eq true)" >checked</if>/>关闭
+			    <input type="radio" value="1" name="open" <if condition="($gold:open eq 1) OR ($gold:open eq false)">checked</if>/>开启
+			</p>
+			<p >
+				<label style="float: left;width: 150px; text-align: right;">关闭提示语：</label>
+				<input type="text" value="{$gold:closeMsg}" size="30" name="closeMsg"/>
+			</p>
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">卖出操作：</label>
+				<input type="radio" value="0"  name="sellOpen" <if condition="($gold:sellOpen eq 0) OR ($gold:sellOpen eq true)" >checked</if>/>关闭
+			    <input type="radio" value="1" name="sellOpen" <if condition="($gold:sellOpen eq 1) OR ($gold:sellOpen eq false)">checked</if>/>开启
+			</p>
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">买入操作：</label>
+				<input type="radio" value="0"  name="buyOpen" <if condition="($gold:buyOpen eq 0) OR ($gold:buyOpen eq true)" >checked</if>/>关闭
+			    <input type="radio" value="1" name="buyOpen" <if condition="($gold:buyOpen eq 1) OR ($gold:buyOpen eq false)">checked</if>/>开启
+			</p>
+            <div style="margin: 5px;padding-top: 15px;clear: both;"><b>交易设置</b></div>
+            <div class="divider"></div>
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">单价最小值：</label>
+				<input type="text" value="{$gold:rmbMin}" name="rmbMin" class="number"/>
+			</p>
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">单价最大值：</label>
+				<input type="text" value="{$gold:rmbMax}" name="rmbMax" class="number"/>
+			</p>
+			<p style="width: 650px;line-height:19px;height:35px">
+				<label style="float: left;width: 73px; text-align: right;">&nbsp;</label>
+				注：单价表示一个货币对应出售人民币的价格.最大最小都为0则会员可以随便设置价格<br>
+				如最大最小值大都为1，则为固定价格1元不能修改，否则会员的价格可以在设置范围之内自由填写<br>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">手续费比例：</label>
+				<input type="text" value="{$gold:tax}" name="tax" class="number"/>% 注：手续费在出售时额外从货币中扣除。
+			</p>
+			<p style="width: 350px;">
+				<label style="float: left;width: 150px; text-align: right;">挂单的全额购买：</label>
+				<input type="radio" value="1"  name="buyAll" <if condition="($gold:buyAll eq 1) OR ($gold:buyAll eq true)" >checked</if>/>是
+			    <input type="radio" value="0" name="buyAll" <if condition="($gold:buyAll eq 0) OR ($gold:buyAll eq false)">checked</if>/>否
+			</p>
+			<p style="width: 650px;">
+					<label style="float: left;width: 150px; text-align: right;">未成交购买挂单上限：</label>
+					<input type="text" value="{$gold:buyMax}" name="buyMax" class="digits"/> 注：在没有成交状态下最多可以做几笔购买，0为不限
+			</p>
+			<p style="width: 650px;">
+					<label style="float: left;width: 150px; text-align: right;">日购买数量上限：</label>
+					<input type="text" value="{$gold:buyDayNum}" name="buyDayNum" class="digits"/> 注：每日购买操作的数量上限，包含未成交和已成交，0为不限
+			</p>
+			<p style="width: 650px;">
+					<label style="float: left;width: 150px; text-align: right;">未成交出售挂单上限：</label>
+					<input type="text" value="{$gold:sellMax}" name="sellMax" class="digits"/> 注：在没有成交状态下最多可以做几笔购买，0为不限
+			</p>
+			<p style="width: 650px;">
+					<label style="float: left;width: 150px; text-align: right;">日出售数量上限：</label>
+					<input type="text" value="{$gold:sellDayNum}" name="sellDayNum" class="digits"/> 注：每日出售货币的总上限，包含未成交和已成交，0为不限
+			</p>
+			<p style="width: 650px;">
+					<label style="float: left;width: 150px; text-align: right;">信誉值样式功能：</label>
+					<select name='creditStyle' onchange="showcredit(this)">
+					<option value='0'  <if condition="$gold:creditStyle eq ''">selected</if>>不启用信誉功能</option>
+					<option value='sung' <if condition="$gold:creditStyle neq ''">selected</if>>星级样式</option>
+					</select>
+					<input name="image_1" id="image_1" type="hidden" value="{$gold:creditStyle}"/>
+					<a href='__URL__/UploadPhoto:__XPATH__' target="dialog" mask="true" width="500" height="200">[查看图例]</a><span>&nbsp;注：&nbsp;启用时请使用信誉星级样式</span>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">默认信誉值：</label>
+				<input type="text" value="{$gold:creditNum}" name="creditNum" size='5' class="digits"/>
+			</p>
+            <!--金额输入-->
+            <p style="width: 850px; position:relative;">
+				<label style="float: left;width: 150px; text-align: right;">输入金额：</label>
+				<input class="money-yes" type="radio" value="true" name="setmoney" onclick="money_yes()" <if condition="$setmoney==true">checked</if>/>是
+                <input class="money-no" type="radio" value="false" name="setmoney" onclick="money_no()" <if condition="$setmoney==false">checked</if>/>否
+                (注：此开关表示会员在挂单出售时，是可以自行填写金额，还是通过选择框选择固定的金额)
+                <!--可选金额-->
+                <span class="moneySelect" style="display: none;">
+                    
+                </span>
+                <script>
+                	$(function() {
+                		if('{$setmoney}'!=true){
+                			money_no();
+                		}
+                	});
+                    //下拉菜单
+                    function money_yes() {
+                        $('#usernumdiv').show();
+                        $('#userseldiv').hide();
+                    }
+                    function money_no() {
+                        $('#usernumdiv').hide();
+                        $('#userseldiv').show();
+                    }
+                    /*
+                    $(function() {
+                        $('.money-box').hide();
+                        $('.moneyinput').click(function () {
+                            $('.money-box').toggle();
+                        });
+                        var moneyval = $('.money-box').find('span');
+                        moneyval.hover(function () {
+                            $(this).css('background','#e8edf3');
+                            },function () {
+                            $(this).css('background','none');
+                        });
+                        moneyval.click(function () {
+                            $('.moneyinput').val($(this).text());
+                            $('.money-box').hide();
+                        });
+                    });*/
+
+                    //验证数字
+                    $.validator.addMethod("numberb", function(value, element) {
+                        return this.optional(element) || /^(\d+\n*)+$/.test(value);
+                    }, "请输入合法的数字");
+
+                    //去空格
+                   
+                    $('.moneyinput').blur(function () {
+                        var str = $(this).val();
+                        str = str.replace(/[ 　]*/g,"");
+                        $(this).val(str);
+                    });
+                </script>
+			</p>
+			<div id='usernumdiv'>
+	            <p style="width: 350px;">
+					<label style="float: left;width: 150px; text-align: right;">出售最小数量：</label>
+					<input type="text" value="{$gold:numMin}" name="numMin" class="digits"/>
+				</p>
+	            <p style="width: 350px; ">
+					<label style="float: left;width: 150px; text-align: right;">出售最大数量：</label>
+					<input type="text" value="{$gold:numMax}" name="numMax" class="digits"/>
+				</p>
+	            <p style="width: 350px;">
+					<label style="float: left;width: 150px; text-align: right;">倍数设置：</label>
+					<input type="text" value="{$gold:intNum}" name="intNum" class="digits"/>
+				</p>
+			</div>
+			<div id='userseldiv' style='display: none;'>
+				<p style="width: 350px;height:100px">
+				<label style="float: left;width: 150px; text-align: right;">数量选择项：</label>
+				<textarea class="moneytext numberb" name="numSelect" style="width: 80px;height: 100px;">{$numSelect}</textarea>
+				</p>
+			</div>
+            <div style="margin: 5px;"><b>时间设置</b></div>
+            <div class="divider"></div>
+	        <p style="width: 700px;">
+				<label style="float: left;width: 150px; text-align: right;">买家付款时间：</label>
+				<input type="text" value="{$gold:payTime}" name="payTime" class="digits"/> 分钟 注：买家拍下后，如果在这个时间不付款，系统自动撤销购买
+			</p>
+	        <p style="width: 700px;">
+				<label style="float: left;width: 150px; text-align: right;">卖家确认时间：</label>
+				<input type="text" value="{$gold:payTime}" name="confirmTime" class="digits"/> 分钟 注：买家付款后，如果在这个时间不确认，系统自动确认
+			</p>
+			<p style="width: 650px;line-height:19px;height:35px">
+				<label style="float: left;width: 73px; text-align: right;">&nbsp;</label>
+				如果时间设置为0，则不进行倒计时操作，一直等待人工操作<br>
+			</p>
+            <!--end-->
+            </div>
+            <div style="margin: 5px;padding-top: 15px;clear: both;"><b>信息填写设置</b></div>
+            <div class="divider"></div>
+            <table>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">卖家挂单联系信息</label>
+				<table style='margin-left:80px'>
+					<tr><td style='text-align: right;'>列项目</td><td width='50'>可见</td><td width='50'>可填写</td></tr>
+					<tr><td style='text-align: right;'>开户银行</td><td><input name="sellInput[]" value="开户银行" type='checkbox' <if condition="in_array('开户银行',$goldsellInput)">checked</if>/></td><td><input name="epsellInput[]" value="开户银行" type='checkbox' <if condition="in_array('开户银行',$goldepsellInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>银行卡号</td><td><input name="sellInput[]" value="银行卡号" type='checkbox' <if condition="in_array('银行卡号',$goldsellInput)">checked</if>/></td><td><input name="epsellInput[]" value="银行卡号" type='checkbox' <if condition="in_array('银行卡号',$goldepsellInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>开户名</td><td><input name="sellInput[]" value="开户名" type='checkbox' <if condition="in_array('开户名',$goldsellInput)">checked</if>/></td><td><input name="epsellInput[]" value="开户名" type='checkbox' <if condition="in_array('开户名',$goldepsellInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>联系电话</td><td><input name="sellInput[]" value="联系电话" type='checkbox' <if condition="in_array('联系电话',$goldsellInput)">checked</if>/></td><td><input name="epsellInput[]" value="联系电话" type='checkbox' <if condition="in_array('联系电话',$goldepsellInput)">checked</if>/></td></tr>
+				</table>
+			</p>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">买家挂单联系信息</label>
+				<table style='margin-left:80px'>
+					<tr><td style='text-align: right;'>列项目</td><td width='50'>可见</td><td width='50'>可填写</td></tr>
+					<tr><td style='text-align: right;'>开户银行</td><td><input name="buyInput[]" value="开户银行" type='checkbox' <if condition="in_array('开户银行',$goldbuyInput)">checked</if>/></td><td><input name="epbuyInput[]" value="开户银行" type='checkbox' <if condition="in_array('开户银行',$goldepbuyInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>银行卡号</td><td><input name="buyInput[]" value="银行卡号" type='checkbox' <if condition="in_array('银行卡号',$goldbuyInput)">checked</if>/></td><td><input name="epbuyInput[]" value="银行卡号" type='checkbox' <if condition="in_array('银行卡号',$goldepbuyInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>开户名</td><td><input name="buyInput[]" value="开户名" type='checkbox' <if condition="in_array('开户名',$goldbuyInput)">checked</if>/></td><td><input name="epbuyInput[]" value="开户名" type='checkbox' <if condition="in_array('开户名',$goldepbuyInput)">checked</if>/></td></tr>
+					<tr><td style='text-align: right;'>联系电话</td><td><input name="buyInput[]" value="联系电话" type='checkbox' <if condition="in_array('联系电话',$goldbuyInput)">checked</if>/></td><td><input name="epbuyInput[]" value="联系电话" type='checkbox' <if condition="in_array('联系电话',$goldepbuyInput)">checked</if>/></td></tr>
+				</table>
+			</p>
+			
+			
+        </div>
+		<div class="formBar">
+			
+			<ul style="margin:0 auto;float:left">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script>
+$(function(){
+	$('input[name=getMoneySmsSwitch]',navTab.getCurrentPanel()).change(function(){
+		if($(this).val() == 'true'){
+			$('#getMoneySmsContent',navTab.getCurrentPanel()).show();
+		}else{
+			$('#getMoneySmsContent',navTab.getCurrentPanel()).hide();
+		}
+	});
+	$('input[name=giveMoneySmsSwitch]',navTab.getCurrentPanel()).change(function(){
+		if($(this).val() == 'true'){
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).show();
+		}else{
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).hide();
+		}
+	});
+});
+function removeGivecon(key){
+	alertMsg.confirm("确定要删除该配置项吗?", {
+        okCall: function(){
+			navTab.getCurrentPanel().find('#vo_'+key).remove();
+				$.post('__URL__/deleteGiveCon:__XPATH__',{key:key},function(data){
+			});
+        }
+	});
+}
+</script>

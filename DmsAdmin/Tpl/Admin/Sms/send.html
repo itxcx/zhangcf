@@ -1,0 +1,421 @@
+<div layoutH="0">
+<form action="__URL__/smsSave" method="post" id="form"  class="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<table style="width:800px;" class="list" >
+	<thead>
+	<tr>
+		<th style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/user_add.png" />&nbsp;&nbsp;短信发送平台</th>
+		<th colspan="2" style="text-align:left;">短信余额：{$smsreturn}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td width="22%" style="height:25px;vertical-align: middle;">&nbsp;</td>
+		<td width="8%" style="height:25px;vertical-align: middle;">添加号码:</td>
+		<td width="70%" style="height:25px;text-align:left;vertical-align: middle;">
+			<ul>
+				<li style="float:left;"><input name="add_num" id="add_num" type="text" value=""></li>
+				<li style="float:left;"><input name="submit1" type="button" value="添加" onclick="addnum()"></li>
+				<li style="float:left;"><input name="submit1" type="button" value="删除" onclick="delnum()"></li>
+				<li style="float:left;"><input name="submit1" type="button" value="清空" onclick="clearnum()"></li>
+				<li style="float:left;"><input name="submit1" type="button" value="添加会员号码" onclick="addhy()"></li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="22%" style="height:25px;vertical-align: middle;">
+			<ul>
+				<li>
+					<ul>
+						<li style="float:left;"><input name="submit2" value="添加分组" type="button" onclick="addsave()"><li>
+						<li style="float:left;"><input name="submit2" value="删除分组" type="button" onclick="delrow()"><li>
+					</ul>
+				</li>
+				<li><select name="号码分组" size="18" multiple id="group" style="width:95%;">
+					<volist name="grouplist" id="go">
+						<option value="{$go['id']}">{$go['分组名称']}({$go['数量']})</option>
+					</volist>
+					</select>
+				</li>
+			</ul>
+		</td>
+		<td width="8%" style="height:25px;vertical-align: middle;">
+			发送号码:<br><span id="send_num"></span><br><br>
+			<ul>
+				<!--<li><input name="submit3" value="导入号码" type="button" onclick="importinto()"></li>-->
+				<li><input name="submit3" value="导出 TXT" type="button" onclick="printout()"></li>
+				<li><input name="submit3" value="添加 >>>" type="button" onclick="removeinto()"></li>
+				<li><input name="submit3" value="<<< 加入" type="button" onclick="removeout()"></li>
+			</ul>
+		</td>
+		<td width="70%" style="height:25px;vertical-align: middle;">
+			<input name="sendnums" id="sendnums" type="hidden" value="">
+			<select name="numlist" size="18" multiple id="numlist" style="width:95%">
+				<foreach name="idnums" item="vo"><notempty name="vo['num']"><option value="{$vo['num']}">{$vo['num']}[{$vo['name']}]</option></notempty></foreach>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:right;vertical-align:top;font-size:14px;">短信内容:</td>
+		<td colspan="2" width="70%" style="height:25px;text-align:left;vertical-align: middle;">
+			<div style="float:left;width:470px;height:80px;">
+				<textarea name="content" id="content" style=" width:470px;height:70px;resize:none;"></textarea>
+			</div>
+			<div style="float:right;width:140px;height:80px;valign:top;">
+				<span style="Vertical-align:3px;Letter-spacing:2px;">请填写短信发送内容，使用“[编号]”、“[姓名]”，可在发送时，转换成会员的编号和姓名</span>
+			</div>
+			<ul>
+				<li style="float:left;"><select name="phrase" id="phrase" style="width:400px;">
+					<option value="">请选择载入短语</option>
+					<foreach name="phraselist" item="phrase">
+						<option value="{$phrase.短语内容}" id="{$phrase['id']}">{$phrase.短语内容}</option>
+					</foreach>
+				</select></li>
+				<li style="float:left;"><input onclick="loadmsg()" type="button" value="↑"></li>
+				<li style="float:left;"><input onclick="addmsg()" type="button" value="添"></li>
+				<li style="float:left;"><input onclick="delmsg()" type="button" value="删"></li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">&nbsp;</td>
+		<td colspan="2" style="text-align:center;">
+			<div class="buttonActive" style="margin-left:290px;margin-top:5px;">
+			  <div class="buttonContent" >
+				<button type="submit" id="submit" onclick="send111()">发送</button>
+			  </div>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+var nums=document.getElementById("numlist").length;
+document.getElementById("send_num").innerHTML=nums+'条';
+function send111(){
+	var l=document.getElementById("numlist").length;
+	var numlist=new Array();
+	for(var i=0;i<l;i++){
+		var id  =document.getElementById("numlist").options[i].id;
+		if(id){
+			var name=document.getElementById("numlist").options[i].name;
+		}else{
+			var name='';
+		}
+		var num =document.getElementById("numlist").options[i].value;
+		numlist[i]=num;
+	}
+	document.getElementById("sendnums").value=numlist;
+}
+//自定义添加号码
+function addnum(){
+	var l=document.getElementById("numlist").length;
+	var add_num=document.getElementById('add_num').value;
+	var name = "自定义号码";
+	var id;
+	var nums=document.getElementById("numlist").length;
+	if(!isNaN(add_num) && add_num!=''){
+		if(add_num.length!=11){
+			alert("请输入正确手机号");return false;
+		}
+		var find=false;
+		$.post('__URL__/check',{num:add_num},function(data){
+			eval("var json = "+data);
+			name=json.name;
+			id	=json.id;
+			for(i=0;i<l;i++){
+				if(document.getElementById("numlist").options[i].value==add_num){
+					find=true;
+					if(document.getElementById("numlist").options[i].name!=name){
+						document.getElementById("numlist").options[i].text=add_num+" [ "+name+" ]"
+						document.getElementById("numlist").options[i].name=name
+						document.getElementById("numlist").options[i].id=id
+						document.getElementById("add_num").value=''
+					}
+				}
+			}
+			if(find==false){
+				var oOption  = document.createElement("OPTION");
+					oOption.text  = add_num+" [ "+name+" ]"
+					oOption.value = add_num;
+					oOption.name  = name;
+					oOption.id	  = id;
+				var x=document.getElementById("numlist");
+				try
+				{
+					x.add(oOption,null);//standards compliant
+				}
+				catch(ex)
+				{
+					x.add(oOption);//IE only
+				}
+				document.getElementById("add_num").value='';
+				nums+=1;
+				document.getElementById("send_num").innerHTML=nums+'条';
+			}
+		})
+	}else{
+		alert("请输入正确手机号");return false;
+	}
+}
+//删除发送号码
+function delnum(){
+	var l=document.getElementById("numlist").length;
+	for(i=0;i<l;i++){
+		//删除选中的选项
+		if(document.getElementById("numlist").options[i].selected==true){
+			l--;
+			document.getElementById("numlist").options[i].remove();
+			i--;
+		}
+		var nums=document.getElementById("numlist").length;
+		document.getElementById("send_num").innerHTML=nums+'条';
+	}
+}
+//清空发送号码
+function clearnum(){
+	//将select中的option的长度设为零
+	document.getElementById("numlist").options.length=0;
+	var nums=document.getElementById("numlist").length;
+	document.getElementById("send_num").innerHTML=nums+'条';
+}
+//添加会员号码
+function addhy(){
+	//点击打开添加的弹窗
+	$.pdialog.open('/index.php?s=/Admin/Sms/addmember','member','查询添加会员号码','width:300px,height:500px');
+}
+//添加分组
+function addsave(){
+	//点击打开添加的弹窗
+	$.pdialog.open('/index.php?s=/Admin/Sms/addgroup','group','添加分组','width:100px,height:100px');
+}
+//删除分组
+function delrow(){
+	var l=document.getElementById("group").length;
+	var i;
+	for(i=0;i<=l;i++){
+		if(document.getElementById("group").options[i].selected==true){
+			l--;
+			var id=document.getElementById("group").options[i].value;
+			if(id == ''){
+				alert("请选择分组");
+				return false;
+			}else{
+				$.post('__URL__/delgroup',{id:id},function(data)
+				{
+					eval("var json = "+data);
+					if(json.status == 1){
+						alert(json.info);
+						navTab.reload('__URL__/send');
+					}
+				})
+			}
+			i--;
+		}
+	}
+}
+//导入号码
+function importinto(){
+	alert(importinto);
+}
+//导出号码
+function printout(){
+	var l=document.getElementById("group").length;
+	var i;
+	for(i=0;i<l;i++){
+		if(document.getElementById("group").options[i].selected==true){
+			var id=document.getElementById("group").options[i].value;
+			if(id == ''){
+				alert("请选择分组");
+				return false;
+			}else{
+				location.href='__URL__/downout/id/'+id;
+			}
+		}
+	}
+}
+//添加到发送号码（循环出错  经常卡住？？？？貌似有没问题了。。。）
+function removeinto(){
+	var l=document.getElementById("group").length;
+	var i;
+	for(i=0;i<l;i++){
+		if(document.getElementById("group").options[i].selected==true){
+			var id=document.getElementById("group").options[i].value;
+			if(id == ''){
+				alert("请选择分组");
+				return false;
+			}else{
+				$.post( '__URL__/getnum',{id:id},function(data){
+					eval("var json = "+data);//定义json数组
+					add_do(json);
+				})
+			}
+		}
+	}
+}
+//添加操作函数
+function add_do(json){
+	if(json){
+		var l=json.length;
+		for(var i=0;i<l;i++){
+			var num=json[i].num;var name=json[i].name;var hyid=json[i].id;
+			var find=false;
+			if(num!=''){
+				var h=document.getElementById("numlist").length;
+				for(var j=0;j<h;j++){
+					if(document.getElementById("numlist").options[j].value==num){
+						find=true;
+						if(document.getElementById("numlist").options[j].name!=name && name!=''){
+							document.getElementById("numlist").options[j].text=num+" [ "+name+" ]"
+							document.getElementById("numlist").options[j].name=name
+							document.getElementById("numlist").options[j].id=hyid
+						}
+					}
+				}
+				//将为加入的号码加入
+				if(find == false){
+					var oOption  = document.createElement("OPTION");
+						oOption.text  = num+" [ "+name+" ] ";
+						oOption.value = num;
+						oOption.name  = name;
+						oOption.id	  = hyid;
+					var x=document.getElementById("numlist");
+					try
+					{
+						x.add(oOption,null); //standards compliant
+					}
+					catch(ex)
+					{
+						x.add(oOption); //IE only
+					}
+				}
+			}
+			var nums=document.getElementById("numlist").length;
+			document.getElementById("send_num").innerHTML=nums+'条';
+		}
+	}else{
+		alert("没有可添加会员");return false;
+	}
+}
+//将发送号码添加到某个分组
+function removeout(){
+	var l=document.getElementById("numlist").length;
+	var g=document.getElementById("group").length;
+	var find=false;
+	if(l>0){
+		for(var i=0;i<l;i++){
+			if(document.getElementById("numlist").options[i].selected==true){
+				var num =document.getElementById("numlist").options[i].value;
+				var name=document.getElementById("numlist").options[i].name;
+				var id  =document.getElementById("numlist").options[i].id;
+				if(num){
+					var findgroup=true;
+					for(var h=0;h<g;h++){
+						if(document.getElementById("group").options[h].selected==true){
+							var group=document.getElementById("group").options[h].value;
+							if(group){
+								//查询
+								$.post('__URL__/putinto',{group:group,num:num,name:name,id:id},function(data){
+									eval("var json = "+data);
+								})
+							}else{
+								alertMsg.error("请选择分组");
+								return false;
+							}
+						}else{
+							findgroup=false;
+						}
+					}
+					if(findgroup==false){
+						alertMsg.error("请选择分组");
+						return false;
+					}
+				}
+			}
+		}
+		if(find==false){
+			alertMsg.error("请选择号码");
+			return false;
+		}
+	}else{
+		alertMsg.error('没有号码');
+		return false;
+	}
+	alertMsg.correct('添加完成');
+}
+//添加短语
+function addmsg(){
+	var content=document.getElementById("content").value;
+	if(content){
+		var l=document.getElementById("phrase").length;
+		if(l>1){
+			for(var i=1;i<l;i++){
+				if(document.getElementById("phrase").options[i].value==content){
+					alert("此短语已添加")
+					return false;
+				}
+			}
+		}
+		$.post('__URL__/addmsg',{content:content},function(data){
+			eval("var json = "+data);
+			alert(json.info);
+		})
+	}else{
+		alert("短语内容不能为空");
+		return false;
+	}
+}
+//删除短语
+function delmsg(){
+	var l =document.getElementById("phrase").length;
+	var id='';
+	if(l>0){
+		for(var i=1;i<l;i++){
+			if(document.getElementById("phrase").options[i].selected==true){
+				var id=document.getElementById("phrase").options[i].id;
+				$.post('__URL__/delmsg',{id:id},function(data){
+					eval("var json = "+data);
+					alert(json.info);
+					navTab.reload('__URL__/send');
+				})
+			}
+		}
+		if(id==''){
+			alert('请选择要删除短语');
+			return false;
+		}
+	}
+}
+//将短语插入到光标处
+function loadmsg(){
+	var obj=content=document.getElementById("content");
+	var l =document.getElementById("phrase").length;
+	if(l>1){
+		for(var i=1;i<l;i++){
+			if(document.getElementById("phrase").options[i].selected==true){
+				var str=document.getElementById("phrase").options[i].value;
+			}
+		}
+	}
+	if(str){
+		if (document.selection) {
+			var sel = document.selection.createRange();
+			sel.text = str;
+		} else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+			var startPos = obj.selectionStart,
+				endPos = obj.selectionEnd,
+				cursorPos = startPos,
+				tmpStr = obj.value;
+			obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+			cursorPos += str.length;
+			obj.selectionStart = obj.selectionEnd = cursorPos;
+		} else {
+			obj.value += str;
+		}
+	}else{
+		alert('请选择插入短语');
+		return false;
+	}
+}
+</script>

@@ -1,0 +1,44 @@
+<include file="Public:header" />
+    
+          <!--左侧菜单栏结束-->
+            <div class="show_area" >
+            	<div class="username_area">
+                	<div class="user_info">
+                    <span>{:L('会员编号')}</span>:&nbsp;<span>{$userinfo.编号}</span>
+                    </div>
+                    <div class="checkbox_info">
+                         <!--<a href='{$link}/region/Left' target='_self' id='link'>-->
+                         <php>$nets = X('net_place@');if($nets){ echo $nets->name."：".$userinfo[$nets->name.'_位置']."区";}</php>
+                           <!--<a href='{$link}/region/Right' target='_self' id='link'>-->
+                    </div>
+                </div>
+                <div class="cardShow_area">
+                	<div class="card_container">	
+                    	<ul>
+                        <php>$i=0;</php>
+                          <foreach name="homeimg" item="val" key="k">
+                             <php>if($i%3==0 && $i!=0){</php>
+                             	</ul><ul>
+                            	<li>
+                                    <a href='{$val.urlpath}' target="_blank"><img src="{$val.imgpath}" width="230" height="165"/></a><br/>
+                                    <div class="fun_bank">
+                                        <span>{$val.title}</span>
+                                    </div>
+                                </li><!--放的是每一行的最后一个就是要换行的-->
+                                <php>}else{</php>
+                                <li>
+                                    <a href='{$val.urlpath}' target="_blank"><img src="{$val.imgpath}" width="230" height="165"/></a><br/>
+                                    <div class="fun_bank">
+                                        <span>{$val.title}</span>
+                                    </div>
+                                </li><!--不用换行的其他的正常的-->
+                                <php>}$i++;</php>
+                            </foreach>
+                        <php>$i=0;</php>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          
+
+<include file="Public:footer" />

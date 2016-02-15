@@ -1,0 +1,60 @@
+<form action="__URL__/run/" method="post" target="execute" id='settlementform'>
+<table width="600px" class="list">
+  <thead>
+	<tr>
+	  <th colspan="5" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/calculator.png" />&nbsp;&nbsp;快速安装</th>
+	</tr>
+     </thead>
+     <tfoot>
+		<tr><td style="width:100px;border-bottom:1px solid #ededed" >安装代码:</td>
+		<td style="text-align:left;border-bottom:1px solid #ededed" id="startTime">
+		<textarea id="icode" name="icode" rows="5" cols="70" ></textarea>
+		</td>
+		</tr>
+		<tr style="border-bottom:1px solid #ededed" >
+		
+			<td style="text-align:center;height:25px"  colspan="5" id="buttonSatus">
+				<div class="buttonActive" style="margin-left:230px;" id="calbutton">
+		          <div class="buttonContent" >
+		          	<!--js锁定操作按钮-->
+		            <button id="settlementbutton" type="button" onclick="startsettlement('')">开始自动安装</button>
+		          </div>
+				</div>
+			</td>
+		</tr>
+</tfoot>
+</table>
+</form>
+<!--滚动条-->
+<table width="600px" class="list">
+  <thead>
+	<tr>
+	  <th colspan="5" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/application/application_view_detail.png" />&nbsp;&nbsp;安装明细</th>
+	</tr>
+     </thead>
+     <tfoot>
+		<tr>
+		<td style="border-bottom:1px solid #ededed" >
+			<DIV align=left style="width: 581; height: 300px; overflow-y:scroll;overflow:yes;margin:5px 5px 5px 5px;border: 1px solid #aaaaaa;line-height:18px;padding: 4px" id='caldiv'>
+				<table width='100%' id='calmemo'>
+				</table>
+			</div>
+		</td></tr>
+</tfoot>
+</table>
+<script>
+function startsettlement(test){
+	$('#calmemo').html('');
+	$('#settlementbutton').html('正在进行自动安装');
+	//结算操作按钮不可操作
+	//$('#settlementbutton').attr('disabled','true');
+	//$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled');
+	$("#settlementform").submit();
+}
+function addexemsg(title,time,icon)
+{
+	$("<tr><td width='18'><img src='"+icon+"'></td><td align='left' style='text-align: left'>"+title+"...</td><td width='80'>("+time+")</td></tr>").appendTo('#calmemo');
+	$('#caldiv').scrollTop(1000000);
+}
+</script>
+<iframe src="" width="600" height="310" frameBorder="0" scrolling="auto" name='execute'>111</iframe>

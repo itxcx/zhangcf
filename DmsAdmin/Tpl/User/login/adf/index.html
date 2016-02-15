@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ADF</title>
+<!-- start: Mobile Specific -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end: Mobile Specific -->
+<!-- start: CSS -->
+<link href="/UserTpl/login/adf/css/bootstrap.min.css" rel="stylesheet" />
+<!-- <link href="/UserTpl/login/adf/css/bootstrap-responsive.min.css" rel="stylesheet" /> -->
+<link href="/UserTpl/login/adf/css/style.min.css" rel="stylesheet" />
+<!-- <link href="/UserTpl/login/adf/css/style-responsive.min.css" rel="stylesheet" /> -->
+<!-- end: CSS -->
+<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<link id="ie-style" href/UserTpl/login/adf/css/ie.css" rel="stylesheet">
+<![endif]-->
+
+<!--[if IE 9]>
+	<link id="ie9style" href/UserTpl/login/adf/css/ie9.css" rel="stylesheet">
+<![endif]-->
+
+<!-- start: JavaScript-->
+    <script src="__PUBLIC__/jquery-1.9.1.min.js"></script>
+    <script src="/UserTpl/login/adf/js/jquery.placeholder.min.js"></script>
+    <script src="/UserTpl/login/adf/js/core.min.js"></script>	
+    <script>
+        function fleshVerify(type) {
+            //重载验证码
+            var timenow = new Date().getTime();
+            if (type) {
+                $('#verifyImg').attr("src", '__URL__/verify/adv/1/' + timenow);
+            } else {
+                $('#verifyImg').attr("src", '__URL__/verify/' + timenow);
+            }
+        }
+
+        //-->
+    </script>
+<!-- end: JavaScript-->
+
+</head>
+
+
+<body style="background-image:url(/UserTpl/login/adf/img/login_bg.jpg);">
+    
+    <div class="container-fluid-full">
+		<div class="row-fluid">
+			<div class="row-fluid">
+				<div class="login-box">
+					<div style="text-align: center"><img src="/UserTpl/login/adf/img/adf-logo-blue.png"></div>
+					<h2>会员登陆</h2>
+					                        
+                        <form name="login" class="form-horizontal"  method="post" action="__URL__/check" id="loginform">
+                        <fieldset>
+                        
+                        <!-- <select name="locale" id="selectError30" style="width: 100%; margin-bottom: 5px;" onChange="javascript:changeLocale(this.form);">
+				              	
+										<option value="en_US" >English</option>
+								
+									<option value="zh_CN" selected>&#31616;&#20307;&#20013;&#25991;</option>    
+								
+        				</select> -->
+                        <input type="hidden" name="act" value="verify" />
+                        <input id="Uid" name="username" class="input-large span12" type="text" maxlength="255" value="" autocomplete="off" placeholder="客户帐号"/>
+                        
+                        <input id="Password" name="password" class="input-large span12" type="password" maxlength="255" value="" autocomplete="off" placeholder="密码"/>	
+                        <if condition="isset($dispCode) and ($dispCode eq true)">
+                        <input id="verify" name="captcha" type="text" class="input-large span7" maxlength="6" value="" autocomplete="off" size="8" placeholder="验证代码"/>
+                        <div style="width: 104px; height: 22px; background: #FFFFFF; border: 1px solid #CCCCCC; float: right; margin: 5px 0 0 0; padding: 8px; font-size: 20px; font-weight: bold; color: #000000; text-align: center;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer; width: 75px;" align="absmiddle" /></div>
+                        </if>
+                        <div class="clearfix"></div>
+                        <eq name="isOpenTime" value="0">
+                            <span style="padding-left: 50px;">对不起，该时间段暂不可访问</span>
+                        <else/>
+                        <button class="btn btn-primary span6" style="float: left;">登入</button>
+                        <button type="reset" class="btn btn-primary span6" style="float: right;" onclick="doReset()">撤销</button>
+                        </eq>
+                        <if condition="$usernum eq 1">
+                            <input type="hidden" value="{$users[0]}" name="usertype">
+                        </if>
+                        <br>
+                        <span style="font-size: 12px;padding-left: 17px;">{$openTimeStr}</span>
+                        <input type=hidden name="agp" value="10">
+				     	<input type=hidden name="URL" value="login.html">
+                        
+				     	</fieldset>	
+                        </form>
+                    
+                        <p hidden>
+                         <a href="#" >注册</a>
+                        </p> 
+                    
+     
+     			</div>
+		</div><!--/row-->
+			
+	</div><!--/fluid-row-->
+	</div><!--/.fluid-container-->
+    
+    
+	
+
+</body>
+
+</html>
+            

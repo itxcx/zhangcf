@@ -1,0 +1,99 @@
+<div layoutH="0">
+	<table width="600"  class="list" style="float:left">
+	<thead>
+	<tr>
+	<th colspan="4" align="left" valign="middle">货币买卖明细</th>
+	</tr>
+	</thead>
+	<tr>
+	<td width="50%" >卖家编号:</td>
+	<td width="50%" >{$vo.编号}</td>
+	</tr>
+	<tr>
+	<td width="50%" >卖出时间:</td>
+	<td width="50%" >{$vo.挂单时间|date='Y-m-d H:i:s',###}</td>
+	</tr>
+	<tr>
+	<td width="50%" >销售金额:</td>
+	<td width="50%" >{$vo.货币金额}</td>
+	</tr>
+	<if condition="$vo['单价'] neq 1">
+	<tr>
+	<td width="50%" >出售价格:</td>
+	<td width="50%" >{$vo.单价}</td>
+	</tr>
+	<tr>
+	<td width="50%" >实际金额:</td>
+	<td width="50%" >{$vo.实际金额}</td>
+	</tr>
+	</if>
+	<tr>
+	<td width="50%" >收款方式:</td>
+	<td width="50%" >{$vo.开户银行}</td>
+	</tr>
+	<tr>
+	<td width="50%" >账号:</td>
+	<td width="50%" >{$vo.银行卡号}</td>
+	</tr>
+	<tr>
+	<td width="50%" >户名:</td>
+	<td width="50%" >{$vo.开户名}</td>
+	</tr>
+	<tr>
+	<td width="50%" >联系方式:</td>
+	<td width="50%" >{$vo.移动电话}</td>
+	</tr>
+	
+	<hr>
+	<if condition="$vo['状态'] gt 0">
+	<tr>
+	<td width="50%" >买家编号:</td>
+	<td width="50%" >{$vo.购买编号}</td>
+	</tr>
+	<tr>
+	<td width="50%" >买入时间:</td>
+	<td width="50%" >{$vo.购买时间|date='Y-m-d H:i:s',###}</td>
+	</tr>
+	</if>
+	
+	<if condition="($vo['状态'] eq 2) OR ($vo['状态'] eq 5)">
+
+	<tr>
+	<td width="50%" >联系方式:</td>
+	<td width="50%" >{$vo.买家电话}</td>
+	</tr>
+	<tr>
+	<td width="50%" >汇款人:</td>
+	<td width="50%" >{$vo.汇款用户名}</td>
+	</tr>
+	<tr>
+	<td width="50%" >汇款银行:</td>
+	<td width="50%" >{$vo.汇款银行}</td>
+	</tr>
+	<tr>
+	<td width="50%" >汇款账号:</td>
+	<td width="50%" >{$vo.汇款账户}</td>
+	</tr>
+
+	<tr>
+	<td width="50%" >汇款日期:</td>
+	<td width="50%" >{$vo.汇款时间|date='Y-m-d H:i:s',###}</td>
+	</tr>
+<!--	<tr>
+	<td width="50%" >转账单号:</td>
+	<td width="50%" >{$vo.汇款编号}</td>
+	</tr>-->
+	<tr>
+	<td width="50%" >转账金额:</td>
+	<td width="50%" >{$vo.汇款金额}</td>
+	</tr>
+	<tr>
+	</if>
+	<if condition="$vo['状态'] eq 5">	
+	<td width="50%" >成交时间:</td>
+	<td width="50%" >{$vo.成交时间|date='Y-m-d H:i:s',###}</td>
+	</tr>
+	</if>
+	
+	</table>
+</div>

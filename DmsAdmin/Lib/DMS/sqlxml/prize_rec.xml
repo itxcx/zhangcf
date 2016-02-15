@@ -1,0 +1,16 @@
+<table name='会员'>
+<field name='{$this->name}'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}本日' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}本周' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}本月' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}累计' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}比例' type="numeric(5,2)" default="100"/>
+</table>
+<table name='{$this->parent('tle')->name}'   engine="InnoDB">
+<field name='{$this->name}'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}本月' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}累计' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+</table>
+<table name='修改日志'>
+<field name='{$this->name}比例' type="numeric(5,2)" default="100"/>
+</table>

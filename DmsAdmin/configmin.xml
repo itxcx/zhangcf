@@ -1,0 +1,163 @@
+<con>
+<user name="会员" >
+	<product name="产品">
+		<_con name="会员价" />
+	</product>
+	<levels name='会员级别'>
+		<_con lv='1' name='消费者'     pvmoney='#lv1money#'  money='#lv1money#' use='false'/>
+		<_con lv='2' name='普通经销商' pvmoney='#lv2money#'  money='#lv2money#' where='会员级别=1 or {down,推荐,会员级别>=2,>=2}'/>
+		<_con lv='3' name='主级经销商' pvmoney='#lv3money#'  money='#lv3money#' where=''/>
+		<_con lv='4' name='经理经销商' pvmoney='#lv4money#'  money='#lv4money#' where=''/>
+	</levels>
+	<!--用户级别-->
+	<levels name='管理级别'>
+		<_con lv='1' name='无级别'   pvmoney='0' money='0' where=""/>
+		<_con lv='2' name='普通宝石' pvmoney='0' money='0' where="{per,推荐,消费团队业绩累计,1,>=45000} and {per,推荐,消费团队业绩累计,2--,>=45000}"/>
+		<_con lv='3' name='一星宝石' pvmoney='0' money='0' where="{down,推荐,消费团队业绩累计>=45000,>=2}"/>
+		<_con lv='4' name='二星宝石' pvmoney='0' money='0' where="{down,推荐,管理级别>=3,>=2}"/>
+		<_con lv='5' name='三星宝石' pvmoney='0' money='0' where="{down,推荐,管理级别>=4,>=2}"/>
+		<_con lv='6' name='四星宝石' pvmoney='0' money='0' where="{down,推荐,管理级别>=5,>=2}"/>
+		<_con lv='7' name='皇冠网商' pvmoney='0' money='0' where="{down,推荐,管理级别>=6,>=2}"/>
+	</levels>
+	<sale_reg lvName="会员级别" name='前台注册' byname="会员注册" user='会员'  fromNoName='服务中心' confirm="true" productname='产品' accbank="电子货币" >
+		<_addval from='[报单金额]' to='管理' set='1' now='1'/>
+		<_addval from='[报单金额]' to='管理' now='1'/>
+		<_addval from='[报单金额]/2' to='积分' now='1'/>
+	</sale_reg>
+	<sale_reg lvName="会员级别" name='后台注册' byname="会员注册" user='admin'>
+		<_addval from='[报单金额]' to='管理' set='1' now='1'/>
+		<_addval from='[报单金额]' to='积分' />
+	</sale_reg>
+	<fun_fuli name="福利奖">
+	</fun_fuli>
+	<sale_up name='前台升级' byname='会员升级' lvname='会员级别' user='会员'  accbank='电子货币' productname="产品">
+		<_addval from='[报单金额]' to='管理' now='1' />
+		<_addval from='[id]*0.8' to='消费团队业绩'  now='1'/>
+		<_addval from='[报单金额]' to='管理' now='1'/>
+	</sale_up>
+	<sale_up name='后台升级' byname='会员升级' lvname='会员级别' user='admin' accbank='电子货币'>
+		<_addval from='[报单金额]' to='管理' now='1' />
+	</sale_up>
+	<sale_up name='管理级别升级' byname='后台管理级别升级' lvname='管理级别' user='admin'>
+		<_addval from='[报单金额]' to='管理' now='1' />
+	</sale_up>
+	<sale_buy lvName="会员级别" name='业绩消费' user='会员' setmoney='true' accbank='电子货币' productname="产品">
+		<_addval from='[报单金额]' to='管理' now='1'/>
+	</sale_buy>
+	<!--会员后台自动消费-->
+		<sale_buy lvName="会员级别" name='零售消费' user='会员' setmoney='true' use='false'>
+		<_addval from='[报单金额]*0.8' to='消费团队业绩'  now='1'/>
+	</sale_buy>
+	<sale_buy lvName="会员级别" name='后台消费'  productname="产品" byname="零售消费" user='admin' setmoney='true' lockme='false' accbank="电子货币">
+		<_addval from='[报单金额]' to='管理'  now='1'/>
+	</sale_buy>
+	<net_rec name='推荐' nullRecer='true'>
+		<_lock where='[会员级别]>>2' msg='推荐人级别必须为普通经销商以上'/>
+	</net_rec>
+	<net_place name='管理' fromnet='推荐' >
+		<_region name='左'/>
+		<_region name='右'/>
+	</net_place>
+	<fun_bank name='电子货币' allowBack='true'/>
+	<fun_bank name='消费货币' bankIn='true'/>
+	<fun_bank name='游戏钱包' />
+	<fun_bank name='积分' />
+	<fun_lock name='店铺功能'/>
+	<fun_treenum name='消费团队业绩' netName='推荐'/>
+	<fun_val name='网络费时间' mode='int(10)'>
+		<_con val="{down,推荐,会员级别=1}"/>
+	</fun_val>
+	<fun_val name='网络办公费累计' mode='numeric(10,2)'/>
+	<tle name='销售奖金' tleMode='d' autoGive='false' secAutoGive='false' >
+		<_addval to='电子货币' />
+		<prize_sql  sql="update dms_会员 set 网络费时间=审核日期 where 状态='有效' and 网络费时间=0"/>
+		<prize_sql  sql="update dms_会员 set 网络费时间=UNIX_TIMESTAMP(),网络办公费累计=0 where FROM_UNIXTIME(网络费时间,'%Y') >> {calyear} and FROM_UNIXTIME(审核日期,'%m')={calmonth}" tlemode='m' tleday='1'/>
+		<prize_rec name='推荐奖' lvname='会员级别' netname='推荐' rowfrom='1' rowname='报单金额' unmemo='true' where="true">
+			<_con minlv='2' maxlv='2' minlayer='1' maxlayer='1' val='8%'/>
+			<_con minlv='3' maxlv='3' minlayer='1' maxlayer='1' val='10%'/>
+			<_con minlv='4' maxlv='4' minlayer='1' maxlayer='1' val='12%'/>
+		</prize_rec>
+		<prize_bump name='碰对奖' netName='管理'>
+			<_con bump='1:1:1' val='#pljf1#%'   where=""/>
+			<_con bump='1:1:1' val='#pljf2#%'   where=""/>
+			<_con bump='1:1:1' val='#pljf3#%'   where=""/>
+			<_top where='[会员级别]=2' mode='day' val='#pljffd1#'/>
+			<_top where='[会员级别]=3' mode='day' val='#pljffd2#'/>
+			<_top where='[会员级别]=4' mode='day' val='#pljffd3#'/>
+			<_addval to='电子货币' />
+		</prize_bump>
+		<prize_layer name='层碰奖' netname='管理' ifmode='0' lvname='会员级别' >
+			<_con minlv='2' maxlv='2' minlayer='1' maxlayer='2' val='100'/>
+			<_con minlv='3' maxlv='3' minlayer='1' maxlayer='2' val='200'/>
+			<_con minlv='4' maxlv='4' minlayer='1' maxlayer='2' val='400'/>
+			<_addval to='电子货币' />
+		</prize_layer>
+		<prize_consume name='责任消费' rowname='碰对奖' lvname='会员级别'>
+			<_con minlv='2' maxlv='4' val='10%'/>
+			<_addval to='电子货币' />
+		</prize_consume>
+		<prize_rebate name='返利奖' lvname='会员级别' prizemode='1' rowname='推荐奖+碰对奖' rowfrom='0'>
+		</prize_rebate>
+		<prize_lvdiff name='级差奖' netname="推荐" rowname='报单金额' rowfrom='1' lvname='会员级别' where="" unmemo='true' tlemode='d'>
+			<_con lv='1'  val='9%'/>
+			<_con lv='2'  val='12%'/>
+			<_con lv='3' val='15%'/>
+			<_addval to='电子货币' />
+		</prize_lvdiff>
+		<prize_getall name='分红奖' rowName='报单金额' where="[报单类别]='注册单'">
+			<_con where='' val='2%' weighing='[推荐_推荐人数]'/>
+		</prize_getall>
+		<prize_givedown name='帮扶奖' rowname='碰对奖' rowfrom='0' lvname='会员级别' netname="管理">
+			<_con minlv='1' maxlv='2' minlayer='1' maxlayer='1' val='10%' where='M[会员级别]>=5'/>
+			<_addval to='电子货币' />
+		</prize_givedown>
+		<prize_salefrom name='店补' rowname='报单金额' username='会员' lvname='会员级别'>
+			<_con minlv='1' maxlv='4' val='*0.1'/>
+			<_addval to='电子货币' />
+		</prize_salefrom>	
+		<prize_tax name='所得税' taxnum='10' rowname='推荐奖+碰对奖+返利奖+层碰奖+帮扶奖+店补+分红奖+帮扶奖+级差奖-责任消费'/>
+	</tle>
+</user>
+<tleset title="用户设置">
+	<table>
+	<tr>
+	<td>优惠顾客PV:    </td><td><input value="0"     name="lv1money" /></td>
+	<td>普通经销商PV:  </td><td><input value="1920"  name="lv2money"/></td>
+	<td>普通经销商PV:  </td><td><input value="6400"  name="lv3money" /></td>
+	<td>主任级经销商PV:</td><td><input value="12800" name="lv4money"/></td>
+	</tr>
+	<tr>
+	<td>优惠顾客:      </td><td><input  value="0"     name="lv1pmoney"  xml='false' /></td>
+	<td>普通经销商PV:  </td><td><input  value="1900"  name="lv2pmoney"  xml='false' /></td>
+	<td>主任级经销商PV:</td><td><input  value="6400"  name="lv3pmoney"  xml='false' /></td>
+	<td>经理级经销商PV:</td><td><input  value="12800" name="lv4pmoney"  xml='false' /></td>
+	</tr>
+	</table>
+	<table title="碰对奖">
+	<tr>
+		<td>普通经销商无推荐: </td><td><input value="3"     name="pljf1"/></td>
+		<td>普通经销商推荐1人:</td><td><input value="5"     name="pljf2" /></td>
+		<td>普通经销商推荐2人:</td><td><input value="10"    name="pljf3" /></td>
+		<td>日封顶:           </td><td><input value="3000"  name="pljffd1" /></td>
+	</tr>
+	<tr>
+		<td>普通经销商无推荐: </td><td><input name="pljffd21" value="3.6"  xml='false' /></td>
+		<td>普通经销商推荐1人:</td><td><input name="pljffd22" value="6"   xml='false' /></td>
+		<td>普通经销商推荐2人:</td><td><input name="pljffd23" value="12"  xml='false' /></td>
+		<td>日封顶:</td><td><input value="5000"  name="pljffd2" /></td>
+	</tr>
+	<tr>
+		<td>经理经销商无推荐: </td><td><input value="4.5"   name="pljf7" xml='false' /></td>
+		<td>经理经销商推荐1人:</td><td><input value="7.5"   name="pljf8"  xml='false' /></td>
+		<td>经理经销商推荐2人:</td><td><input value="15"     name="pljf9"  xml='false'  /></td>
+		<td>日封顶:</td><td><input value="10000" name="pljffd3" /></td>
+	</tr>
+	</table>
+	<table title="责任消费积分">
+	<tr>
+		<td>责任消费积分比例%:</td><td><input value="10" name="zrxfjf"  xml='false' /></td>
+		<td>月封顶:</td><td><input value="2000" name="zrxfjffd"  xml='false' /></td>
+    </tr>
+	</table>
+</tleset>
+</con>

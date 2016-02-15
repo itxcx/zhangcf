@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'account', 2 => 'nickname', 3 => 'password', 4 => 'last_login_time', 5 => 'last_login_ip', 6 => 'login_count', 7 => 'email', 8 => 'remark', 9 => 'create_time', 10 => 'update_time', 11 => 'status', 12 => 'admin_status', 13 => 'googlepass', '_autoinc' => true, '_pk' => 'id', ); ?>

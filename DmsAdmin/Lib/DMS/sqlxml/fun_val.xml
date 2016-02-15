@@ -1,0 +1,16 @@
+<table name='会员'>
+<field name='{$this->name}'  type="{$this->mode}" default="{$this->default}"/>
+<field name='INDEX (`{$this->name}`)' type="KEY"/>
+</table>
+<if condition="$this->per eq true">
+<table name='{$this->name}_业绩'  engine="InnoDB">
+<field name="id"     type="int(11)" auto_increment="1" primary="1" />
+<field name='time'   type='int(11)' default='0'/>
+<field name='userid' type='int(8)' default='0'/>
+<field name='val'    type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
+<field name='saleid' type="int(11)" default='0'/>
+</table>
+</if>
+<table name='修改日志'>
+<field name='{$this->name}'  type="{$this->mode}" default="{$this->default}"/>
+</table>

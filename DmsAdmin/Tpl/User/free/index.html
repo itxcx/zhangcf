@@ -1,0 +1,59 @@
+<include file="Public:header" />
+	<table  width="998"  height="520"  border="0"  cellpadding="0"  cellspacing="0">
+	<tbody>
+	  <tr>
+	    <td  width="260"  valign="top"><div  class="listBox1">
+	        <div  class="listBoxTitle1">游戏账户</div>
+	        <div  class="listBoxContent1">
+	          <ul>
+	            <li>玩家编号：<span  id="ctl00_ContentPlaceHolder1_lblUserName">{$userinfo.编号}</span></li>
+	            <foreach name="userlevel" item="lv" key="key">
+	            <li>身份等级：<span  id="ctl00_ContentPlaceHolder1_lblUserType">{$lv.byname}</span> </li>
+	            </foreach>
+	            <foreach name="funbank" item="fun_bank" key="key">
+	            <li>{$fun_bank.name}帐户：<span  id="ctl00_ContentPlaceHolder1_lblPrice1"  class="PriceCss3">￥{$fun_bank.num}</span></li>
+	            </foreach>
+	          </ul>
+	        </div>
+	      </div></td>
+	    <td  width="10">&nbsp;</td>
+	    <td  width="400"  valign="top"><div  class="listBox2">
+	        <div  class="listBoxTitle2">最新公告</div>
+	        <div  class="listBoxContent2">
+	          <ul  style="padding-top:10px; padding-left:10px; padding-right:10px;">
+	            <foreach name="notice" item="vo">
+	            <li><a href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a></li>
+	           </foreach>
+	          </ul>
+	        </div>
+	      </div>
+	      </td>
+	    <td  width="10">&nbsp;</td>
+	    <td  valign="top"> <div  class="listBox3">
+	        <div  class="listBoxTitle3">私人消息</div>
+	        <div  class="listBoxContent3">
+	          <ul  style="padding-top:10px; padding-left:10px; padding-right:10px;">
+	           <foreach name="mail" item="vo">
+	            <li><a href="__GROUP__/Mail/view/id/{$vo.id}">{$vo.标题}</a></li>
+	           </foreach>
+	          </ul>
+	        </div>
+	      </div></td>
+	  </tr>
+	</tbody>
+	</table>
+	 </div>
+  </div>
+  <div  id="divBox"  style="filter:alpha(opacity=40);-moz-opacity:0.3;opacity:0.3;background-color:#000;width:100%;height:100%;z-index:1000;position: absolute;left:0;top:0;display:none;overflow: hidden;"> </div>
+  <div  id="divMsg"  style="border:solid 5px #339999;background:#fff;padding:10px;width:780px;z-index:1001; position: absolute; display:none;top:50%; left:50%;margin:-200px 0 0 -400px;">
+    <div  style="padding:3px 15px 3px 15px;text-align:left;vertical-align:middle;">
+      <div  class="IndexShowMsg">
+        <div  id="divShowMsg"></div>
+      </div>
+      <br>
+      <div  id="showbtnCancel"  style="text-align:right;">
+        <input  id="btnCancel"  type="button"  class="buttom"  value=" 关闭 "  onclick="javascript:parent.ShowNo()">
+      </div>
+    </div>
+  </div>
+<include file="Public:footer" />

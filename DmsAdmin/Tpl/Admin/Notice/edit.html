@@ -1,0 +1,55 @@
+<div class="pageContent">
+
+	<form method="post" action="__URL__/editSave/id/{$_GET['id']}" class="pageForm required-validate" onsubmit="return validateCallback(this,navTabAjaxDoneOpen);">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/Notice/index')}"/>
+		<input type="hidden" name="forwardUrl" value="__APP__/Admin/Notice/index"/>
+		<input type="hidden" name="navTabTitle" value="站内公告管理"/>
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5" style="width:900px">
+				<tr>
+					<th style="width:80px">标题：</th>
+					<td style="text-align:left">
+						<input type="text" class="required" name="标题" value="{$list.标题}"/>
+					</td>
+				</tr>
+				<tr>
+					<th>发布人：</th>
+					<td style="text-align:left">
+						<input type="text" class="required" name="发布人" value="{$list.发布人}"/>
+					</td>
+				</tr>
+				<tr>
+					<th>语言：</th>
+					<td style="text-align:left">
+						<eq name="list.语言" value="zh-cn">中文</eq>
+						<eq name="list.语言" value="en-us">英文</eq>
+					</td>
+				</tr>
+				<tr>
+					<th>内容：</th>
+					<td>
+						<textarea id="editNoticeContent" name="内容" style="width:700px;height:500px">{$list.内容}</textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+
+	
+</div>
+
+<script type="text/javascript"> 
+$(function(){
+	KindEditor.create($("#editNoticeContent",navTab.getCurrentPanel()), {
+		allowFileManager : true,
+		afterBlur: function(){this.sync();}
+	});
+});
+</script>

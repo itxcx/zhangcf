@@ -1,0 +1,118 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form name="form2" method="post" action="__GROUP__/Saleshop/buy_shop:__XPATH__" id="form2">
+        <table class="table">
+            <tr>
+                <td class="tbkey">商品分类</td>
+                <td class="tbval">
+                    <select name="fenlei" id="fenlei" class="select">
+                        <option value="">请选择</option>
+                        <foreach name='fenlei' item="vos">
+                        <option value="{$vos.名称}">{$vos.名称}</option>
+                        </foreach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tbkey">
+                    <span>商品名称：</span>
+                </td>
+                <td class="tbval">
+                    <input type="text" class="input" name="pro_name">
+            </tr>
+            <tr>
+                <td class="tbkey">
+                    <span>零售价：</span>
+                </td>
+                <td class="tbval">
+                    <input type="text" class="input half" name="lingshou_start">-<input type="text" class="input half" name="lingshou_end">元
+                </td>
+            </tr>       
+        </table>
+        <div class="content-box">
+            <button class="btn btn-default" type="submit" name="search">查　询</button>
+        </div>
+    </form>
+    <form name="form1" method="post" action="__GROUP__/Saleshop/buySave:__XPATH__" id="form" class="margin-t-2">
+        <table class="table">
+            <if condition="$sale:accBank neq ''">
+            <foreach name="banks" item="bank">
+            <tr>
+                <td class="tbkey"><span><span id="state_{$bank:xpath}"></span>{$bank:byname}余额：</span></td>
+                <td class="tbval">{:$userinfo[$bank->name]} 元</td>
+            </tr>
+            </foreach>
+            </if>
+            <php>
+            if($discount!=1){
+            </php>
+            <tr>
+                <td class="tbkey"><span><span id="state_discount"></span>享受折扣：</span></td>
+                <td class="tbval"><php>echo $discount*10;</php>折</td>
+            </tr>
+            <php>}</php>
+            <if condition="$sale:logistic eq true">
+            <tr>
+                <td class="tbkey">物品收费标准：</td>
+                <td class="tbval"><if condition="$areafei">首重{$areafei.首重}Kg以下的为{$areafei.首重价格}，续重价格{$areafei.续重价格}/Kg（随填写收货地区后可能有所变化）<else />基本标准：暂无（随填写收货地区后可能有所变化）</if>&nbsp;</td>
+            </tr>
+            </if>
+        </table>
+
+        <if condition="count($data['list']) elt 0">
+        <div class="no-data text-align-center margin-t-2"><h1>暂无消费数据</h1></div>
+        </if>
+        <foreach name='data.list' item='vos'>
+        <dl class="product margin-t-2">
+            <dt><a href="__URL__/chanpinxiangxi:__XPATH__/id/{$vos.id}" class="titles" ><img src="{$vos.图片}"></a></dt>
+            <dd>
+                <p class="name_top"><a href="__URL__/chanpinxiangxi:__XPATH__/id/{$vos.id}" class="titles">{$vos.名称}</a></p>
+                <p>零售价：<span class="red">￥<php>echo $vos[$sale->productMoney];</php></span></p>
+                <eq name="sale:productPV" value="true">
+                <p>价值PV：<span class="red">{$vos.PV}</span></p>
+                </eq>
+            </dd>
+            <div class="clearfix"></div>
+        </dl>
+        </foreach>
+    </form>
+
+    <div class="page">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">&laquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&laquo;</a>
+        </if>
+
+        <a href="{$data.upRow}">&lt;</a>
+
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+
+        <a href="javascript:void(0)">{$data.nowPage}/{$data.totalPages}</a>
+
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+
+        <a href="{$data.downRow}">&gt;</a>
+
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&raquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&raquo;</a>
+        </if>  
+    </div>   
+</div>
+
+<include file="Public:footer" />
+

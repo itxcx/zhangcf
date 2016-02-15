@@ -1,0 +1,73 @@
+<include file="Public:header" />
+                <div class="content_box">
+                	<div class="content_box_header" style="	height:40px;
+						line-height:15px;
+						padding-left:16px;
+						border-left:#ccc 1px solid;
+						border-right:#ccc 1px solid;
+						border-top:#ccc 1px solid;
+						border-top-left-radius:6px;
+						border-top-right-radius:6px;background:url(__TMPL__Public/images/bg-content-box.gif) repeat-x">
+                    	<h3>个人档</h3>
+                    </div>
+                    <div class="content_box_content">
+                        <div class="content_box_content_image" style="display:inline-block">
+                        	<img src="__TMPL__Public/images/dfboy.png"/><br/>
+                            <a href="__GROUP__/User/edit">编辑资料</a><a style="color:#29A5C9;font-size:12px;text-decoration:underline" href="__GROUP__/User/setPass">密码修改</a>
+                        </div>
+                        <div class="content_box_content_info">
+                        	<div class="info_title">
+                            	<span class="username">{$userinfo.编号}</span>&nbsp;
+                                <span style="color:#777;">
+                                	<img src="__TMPL__Public/images/icon_s1.png"><if condition="$userinfo['状态'] eq '无效'">【未激活】<else />【已激活】<!--【子账户:{$ftnum}】--></if>
+                                    <!--好友<span>0</span>人-->
+                                    <img src="__TMPL__Public/images/icon_heart.png"/><if condition="$userinfo['状态'] eq '无效'"><a href="__GROUP__/Sale/mysale"><font color='blue'>我要激活</font></a>&nbsp;&nbsp;&nbsp;推荐人联系QQ：{$uptj['QQ']}&nbsp;电话：{$uptj['移动电话']}，请联系推荐人购买电子币激活</if>
+                                    <!--文章被访问<span>0</span>次-->
+                                </span>
+                            </div>
+                            <div class="info_detail">
+                            	<span>你目前的身份是：<foreach name="userlevel" item="lv" key="key"><em>{$lv.byname}</em></foreach></span>
+                                <if condition="$userinfo['服务中心'] eq 1">
+                                <span>【商务中心】</span>
+                                </if>
+                                <br/>
+                                <foreach name="funbank" item="fun_bank" key="key">
+                            	<span>{$fun_bank.name}:{$fun_bank.num}</span>&nbsp;&nbsp;
+                            	<php>if($fun_bank['bankIn'] == true) $funbankIn=$fun_bank['bankIn'];</php>
+                            	</foreach>
+                            	<if condition="isset($funbankIn) && $funbankIn eq true">&nbsp;<a href="__GROUP__/Fun_pay/index">在线充值</a></if>
+                            	<br />
+                                <span>注册日期:{:date('Y-m-d',$userinfo['注册日期'])}</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="content_box">
+                	<div class="content_box_header" style="	height:40px;
+						line-height:15px;
+						padding-left:16px;
+						border-left:#ccc 1px solid;
+						border-right:#ccc 1px solid;
+						border-top:#ccc 1px solid;
+						border-top-left-radius:6px;
+						border-top-right-radius:6px;background:url(__TMPL__Public/images/bg-content-box.gif) repeat-x">
+                    	<h3>最新公告</h3>
+                    </div>
+                    <div>
+                         <div class="core_con">
+					        <table class="tablebg">
+					       
+					            <foreach name="notice" item="vo">
+					            <TR class="datalist">
+					                <TD style="text-align:left;" ><nobr><a href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a></nobr></TD>
+					                <TD style="text-align:left;" ><nobr>{$vo.创建时间|date='Y-m-d',###}</nobr></TD>
+			
+					            </TR>
+					            </foreach>
+					        </table>	
+					    </div>
+                    </div>
+                </div>
+<include file="Public:footer" />                

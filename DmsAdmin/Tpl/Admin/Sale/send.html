@@ -1,0 +1,201 @@
+<if condition="$edit eq true"><script type="text/javascript" src="__PUBLIC__/directSell/area_select_dwz.js"></script></if>
+<div class="pageContent" style="position:relative;"  style='width:0px'>
+  <form action="__URL__/sended" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+    <input name="id" id="id" type="hidden" value="{$sale.id}">
+    <input name="callbackType" id="callbackType" type="hidden" value="closeCurrent">
+      <div>
+       <div class="pageFormContent" layouth="60" style="" style='width:0px'>
+        <h2 class="contentTitle">修改表单</h2>
+        <div style="float:left; display:block; overflow:hidden; width:600px; padding:0 10px; line-height:21px;">
+        	<if condition="$edit eq true">
+        	<dl >
+				<dt>地区：</dt>
+				<dd>
+	            	<select name="country" id="country_id" data-role="none">
+	            	    <option value="">请选择</option>
+	            	</select>
+	            	<select name="province"  id="province_id" data-role="none">
+	            	    <option value="">请选择省</option>
+	            	</select>
+	            	<select name="city"  id="city_id" data-role="none">
+	            	    <option value="">请选择城市</option>
+	            	</select>
+				</dd>
+			</dl>
+        	<dl >
+				<dt>区县：</dt>
+				<dd>
+						<select name="county"  id="county_id" data-role="none" >
+	                        <option value="">请选择</option>
+	                    </select>
+	                    <select name="town"  id="town_id" data-role="none" >
+	                        <option value="">请选择街道</option>
+	                    </select>
+				</dd>
+			</dl>
+        	<dl >
+				<dt>收货人：</dt>
+				<dd><input type="text" name="receiver" value="{$sale['收货人']}"> <font color='red'>*</font></dd>
+			</dl>
+          	<dl >
+				<dt>联系电话：</dt>
+				<dd><input type="text" name="mobile" value="{$sale['联系电话']}"> <font color='red'>*</font></dd>
+			</dl>
+     	 	<dl >
+				<dt>收货地址：</dt>
+				<dd><input type="text" name="address" value="{$sale.收货地址}" size="60"> <font color='red'>*</font></dd>
+			</dl>
+			<else/>
+	        	<dl >
+					<dt>收货人：</dt>
+					<dd>{$sale['收货人']}</dd>
+				</dl>
+	          	<dl >
+					<dt>联系电话：</dt>
+					<dd>{$sale['联系电话']}</dd>
+				</dl>
+	     	 	<dl >
+					<dt>收货地址：</dt>
+					<dd>{$sale.收货省份}{$sale.收货城市}{$sale.收货地区}{$sale.收货街道}{$sale.收货地址}</dd>
+				</dl>
+			</if>
+     	 	<dl >
+				<dt>发货日期：</dt>
+				<dd><input name="sendtime" value="<if condition="$sale['发货日期'] eq 0">{:date('Y-m-d',systemTime())}<else/>{:date('Y-m-d',$sale['发货日期'])}</if>" class="date textInput" type="text"/></dd>
+			</dl>
+     	 	<dl >
+				<dt>快递公司：</dt>
+				<dd>
+					<select name="company" id="com">
+					<foreach name="express" item="kd">
+					<option value="{$kd.company}" <eq name="kd['company']" value="$sale['快递公司']">selected</eq>>{$kd.company}</option>
+					</foreach>
+					</select>
+					<font color='red'>*</font>				
+				</dd>
+			</dl>
+     	 	<dl >
+				<dt>快递单号：</dt>
+				<dd><input type="text" name="kddd" value="{$sale.快递订单}"> <font color='red'>*</font></dd>
+			</dl>
+     	 	<dl >
+				<dt>快递备注：</dt>
+				<dd><input type="text" name="kdmemo" value="{$sale.快递备注}" size="60"></dd>
+			</dl>
+	    </div>
+      </div>
+    </div>
+    <div class="formBar" style="padding-top:8px;">
+      <ul style="float:left;">
+        <li>
+          <div class="buttonActive" >
+            <div class="buttonContent">
+              <button id="submit" type="submit">保存</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="button">
+            <div class="buttonContent">
+              <button type="button" class="close">取消</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
+<if condition="$edit eq true">
+	<script type="text/javascript">
+	$.area_default_show=true;
+	$.area_default_country="{$sale['收货国家']}";
+	$.area_default_province="{$sale['收货省份']}";
+	$.area_default_city="{$sale['收货城市']}";
+	$.area_default_county="{$sale['收货地区']}";
+	$.area_default_town="{$sale['收货街道']}";
+	$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' ,'dialog');
+	</script>
+</if>
+<!--
+<div layoutH="0">
+	<table align="left" id="print_list">
+	<tr>
+	<td valign="top" align="left">
+	<form action="__URL__/sended" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<table width="780">
+		<tr>
+			<td valign="top" align="left"><table width="100%"  class="list">
+				<tbody>
+				<if condition="$edit eq true">
+
+	            
+
+				<tr>
+					<td>收货人:</td>
+					<td style="text-align:left" ></td>
+				</tr>
+				<tr>
+					<td>联系电话:</td>
+					<td style="text-align:left" ><input type="text" name="mobile" value="{$sale['联系电话']}"> <font color='red'>*</font></td>
+				</tr>
+				<tr>
+					<td>收货地址:</td>
+					<td style="text-align:left" ></td>
+				</tr>
+				<else />
+				<tr>
+					<td>收货人:</td>
+					<td style="text-align:left" >{$sale['收货人']}</td>
+				</tr>
+				<tr>
+					<td>联系电话:</td>
+					<td style="text-align:left" >{$sale['联系电话']}</td>
+				</tr>
+				<tr>
+					<td>收货地址:</td>
+					<td style="text-align:left" >{$sale.收货省份}{$sale.收货城市}{$sale.收货地区}{$sale.收货街道}{$sale.收货地址}</td>
+				</tr>
+				</if>
+				<tr>
+					<td>发货时间:</td>
+					<td style="text-align:left" ></td>
+				</tr>
+				<tr>
+					<td>快递公司:</td>
+					<td style="text-align:left" >
+					
+				</td>
+				</tr>
+				<tr>
+					<td>快递单号:</td>
+					<td style="text-align:left" ></td>
+				</tr>
+				<tr>
+					<td>快递备注:</td>
+					<td style="text-align:left" ><input type="text" name="kdmemo" value="{$sale.快递备注}" size="60"></td>
+				</tr>
+				<tr>
+					<input type="hidden" name="id" value="{$id}">
+					<td colspan="2"><button type="submit">确定</button></td>
+				</tr>
+				</tbody>
+			</table>
+			</form>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+	<if condition="$edit eq true">
+	<script type="text/javascript">
+	$.area_default_show=true;
+	$.area_default_country="{$sale['收货国家']}";
+	$.area_default_province="{$sale['收货省份']}";
+	$.area_default_city="{$sale['收货城市']}";
+	$.area_default_county="{$sale['收货地区']}";
+	$.area_default_town="{$sale['收货街道']}";
+	$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' );
+	</script>
+	</if>
+</div>
+-->

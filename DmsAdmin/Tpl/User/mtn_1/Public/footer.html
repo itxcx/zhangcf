@@ -1,0 +1,39 @@
+<br style="clear: both">
+</div>
+</div>
+<div class="footer">
+    <div class="foot_cont center">
+        <ul class="foot_nav">
+            <li><a href="__GROUP__/Index/index">网站首页</a>&nbsp;|</li>
+            <li><a href="__GROUP__/User/viewNotice">系统公告</a>&nbsp;|</li>
+            <li><a href="__GROUP__/Mail/index">个人邮件</a>&nbsp;|</li>
+            <li><a href="__GROUP__/User/view">帐号资料</a>&nbsp;|</li>
+            <li><a href="__GROUP__/User/setPass">密码修改</a>&nbsp;|</li>
+            <li><a href="__GROUP__/Sale/reg:sale_reg[1]">会员注册</a></li>
+        </ul>
+        <p>Developed with instruction and approval of the client. All Rights Reserved </p>
+    </div>
+</div>
+<!--在线QQ-->		
+<link rel="stylesheet" href="__PUBLIC__/css/floatqq.css">
+<script src="__PUBLIC__/js/floatqq.js"></script>
+<if condition="count($SERVICE_QQ) gt 0">
+<div id="floatTools" class="lanrenzhijia-cs" style="position:fixed;top:200px;right:0px;">
+    <div class="floatL"> <a style="display: block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show();kf_setCookie('RightFloatShown', 0, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" href="javascript:void(0);">展开</a> <a style="display: none" id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide();kf_setCookie('RightFloatShown', 1, '', '/', ''); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" href="javascript:void(0);"> 收缩</a> </div>
+    <div id="divFloatToolsView" class="floatR" style="display: none">
+        <div class="cn">
+
+            <h3 class="titZx">在线客服</h3>
+            <foreach name="SERVICE_QQ" item="v">
+            <ul>
+                <li> <a style="margin:10px 0 0 10px;" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v}&site=qq&menu=yes"><img src="/Public/Images/SERVICE_QQ.gif" border="0" alt="点击咨询" title="点击咨询" style='display:inline;'></a>  </li>
+                </li>
+            </ul>
+            </foreach>
+        </div>
+    </div>
+</div>
+</if>
+<!--end-->
+</body>
+</html>

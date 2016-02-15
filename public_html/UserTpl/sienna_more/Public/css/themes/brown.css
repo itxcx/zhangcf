@@ -1,0 +1,61 @@
+@charset "utf-8";
+#header {
+    background: #654222;
+}
+.navlist li {
+    background-color: #8f6831;
+    border-left: 1px solid #654222;
+    border-right: 1px solid #654222;
+}
+.navlist a {
+    color: #fff;
+}
+.navlist a:hover,.navlist a.cur {
+    color: #654322;
+    font-weight: bold;
+    background-color: #fff;
+}
+.nav-child li a {
+    color: #654322;
+}
+
+.sidebar dl dt {
+    background-color: #f7f6f1;
+    border-bottom: 1px solid #e9e8e3;
+}
+.sddebar .kefu dt {
+    background-color: #f7f6f1;
+}
+.sidebar dl dt a {
+    color: #654322;
+}
+.sidebar dl dd a {
+    color: #654322;
+}
+.index.main dt {
+    color: #654322;
+    border: 1px solid #e9e8e3;
+    border-bottom: none;
+    background: #f7f6f1;
+}
+.index.main table {
+    border: 1px solid #e9e8e3;
+}
+.index.main table td,
+.index.main table th {
+    border: 1px solid #e9e8e3!important;
+}
+
+.core_con {
+    border: 1px solid #e9e8e3!important;
+}
+.core_title_con {
+    color: #654322;
+    background-color: #f7f6f1;
+}
+.button_text {
+    color: #fff;
+    background: #654322;
+}
+
+

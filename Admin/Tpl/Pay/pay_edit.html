@@ -1,0 +1,85 @@
+<script language="JavaScript">
+
+function dialogAjaxDoneProductAdd1(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<link rel="stylesheet" href="__PUBLIC__/select/multiselect2side.css" type="text/css"/>
+<script type="text/javascript" src="__PUBLIC__/select/multiselect2side.js" ></script>
+<div class="pageContent">
+	<form method="post" action="__URL__/do_pay_edit/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneProductAdd1)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="payment" value="{$payment}" />
+		<input type="hidden" name="ids" value="{$ids}" />
+		<div class="pageFormContent" layoutH="58">
+			<table>
+			<foreach name="payInfo" item="vo">
+			<assign name="radio_i" value="1" />
+			<tr>
+			<td style="text-align:left;width:20%;">{$vo.name}：</td>
+			<td style="text-align:left">
+			<switch name="vo.type" >
+			<case value="radio">
+				<foreach name="vo.options" key="op_val" item="op_name">
+				<input type="radio" name="attr[{$vo.config_name}]" id="{$vo.config_name}{$op_val}" value="{$op_val}" <eq name="op_val" value="$vo['config_value']">checked='true'</eq>/><label for="{$vo.config_name}{$op_val}">{$op_name}</label>&nbsp;
+				<assign name="radio_i" value="$radio_i-1" />
+				</foreach>
+			</case>
+
+			<case value="text">
+				<if condition="$vo.name eq '支付方式名称' ">
+				<input type="text" readonly="readonly" name="attr[{$vo.config_name}]" value="{$vo.config_value}"/>
+				<else />
+				<input type="text" name="attr[{$vo.config_name}]" value="{$vo.config_value}"/>
+				</if>
+				<present name="vo.memo"><label>{$vo.memo}</label></present>
+			</case>
+			</switch>
+			<input type="hidden" name="name[]" value="{$vo.name}"/>
+			</td>
+			</tr>
+			</foreach>
+			<tr><td style="text-align:left">是否生效</td><td style="text-align:left"><input name="state" type="radio" value="1" <if condition="$state eq 1 ">   checked="checked"  </if>>生效  <input name="state" type="radio" value="2" <if condition="$state eq 2 ">   checked="checked"  </if>>失效</td></tr>
+			</table>
+			<if condition="$credit neq 'No'">
+			<div>
+				<select name="secondSelect[]" id='second' multiple='multiple' size='8' >
+					<foreach name="bank" key="ke" item="val">
+					<option value="{$ke}" <if condition="isset($select[$ke]) && $select[$ke] eq 1"> SELECTED </if>>{$val}</option>
+					</foreach>
+				</select>
+			</div>
+			<script type="text/javascript">
+				$().ready(function() {
+					$('#second').multiselect2side({
+						selectedPosition: 'right',
+						moveOptions: false,
+						labelsx: '',
+						labeldx: '',
+						autoSort: true,
+						labelsx: ' 可选直连银行 ',
+						labeldx: ' 生效银行列表 ',
+						autoSortAvailable: true
+						});
+				});
+			</script>
+			</if>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

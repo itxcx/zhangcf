@@ -1,0 +1,25 @@
+<div class="core_main Index" id="secPwd3">
+	<div class="core_title">
+    	<span class="core_title_con">三级密码确认</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+    	<form name="form1" method="post" action="__APP__/User/Index/seconfirm3/returnUrl/{:urlencode($_GET['returnUrl'])}">
+          <table class="tablebg">
+            <TR>
+              <TD class="tbkey">三级密码：</TD>
+              <TD class="tbval"><input name="pwd1" type="password" id="pwd1"></TD>
+            </TR>
+            <TR>
+              <TD colspan="2">
+                <input type='hidden' name='fromurl1' value="<? echo $fromurl;?>"/>
+                <input class="button_text" type="submit"  id="but" value="确定" name="but"/>        
+              </TD>
+            </TR>
+          </table>
+        </form>
+    </div>
+    
+    <div class="core_page"></div>
+</div>

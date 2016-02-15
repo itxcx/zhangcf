@@ -1,0 +1,107 @@
+<table name='{$this->name}发行'   engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='发行价'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='发行量'  type="int(11)" default="0"/>
+<field name='余量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='发行总量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='回购总量'  type="int({:C('decimalLon')})" default="0"/>
+
+<field name='认购总量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='认购金额'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='成交量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='成交金额'  type="decimal({:C('decimalLon')},4)" default="0"/>
+
+<field name='日期'  type="int(11)"  default="0"/>
+<field name='拆股变动'  type="int(11)"  default="0"/>
+<field name='INDEX (`日期`)' type="KEY"/>
+<field name='INDEX (`成交量`)' type="KEY"/>
+<field name='INDEX (`余量`)' type="KEY"/>
+<field name='INDEX (`认购总量`)' type="KEY"/>
+<field name='INDEX (`认购金额`)' type="KEY"/>
+<field name='INDEX (`成交金额`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}' engine="InnoDB">
+<field name="id"    type="int(11)" auto_increment="1" primary="1" />
+<field name="userid"    type="int(11)"  default="0"/>
+<field name='编号'  	type="varchar(50)" null="1"  default=""/>
+<field name='数量'      type="int({:C('decimalLon')})" default="0" null="1"/>
+<field name='unique INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`数量`)' type="KEY"/>
+<field name='constraint `fs_userid` foreign key (`userid`) references `dms_会员` (`id`) ' type="FOREIGN"  byname='fs_userid'/>
+</table>
+
+<table name='{$this->name}明细' comment="股票变动明细表"  engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='编号'  type="varchar(50)"  default=""/>
+<field name='价格'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='数量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='余量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='时间'  type="varchar(15)"  default=""/>
+<field name='备注'  type="text" />
+<field name='类型'  type="varchar(15)" default=""/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`数量`)' type="KEY"/>
+<field name='INDEX (`时间`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}市场' comment="股票市场 买卖股票"  engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='编号'  type="varchar(50)"  default=""/>
+<field name='成交量'  type="int({:C('decimalLon')})" default="0" comment="已成交量"/>
+<field name='剩余量'  type="int({:C('decimalLon')})" default="0" comment="挂单的剩余股数"/>
+<field name='挂单总量'  type="int({:C('decimalLon')})" default="0" comment="挂单的原始股数" />
+<field name='挂单价'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='挂单时间'  type="varchar(15)" comment='挂单时间'  default=""/>
+<field name='类型'  type="varchar(25)" default="" comment="卖出 买入"/>
+<field name='状态'  type="varchar(25)" default="0" comment="挂单中 已撤销 已成交"/>
+<field name='tradeinfo'  type="longtext" comment="交易人信息 包括 编号 时间 数量" />
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`剩余量`)' type="KEY"/>
+<field name='INDEX (`挂单价`)' type="KEY"/>
+<field name='INDEX (`挂单时间`)' type="KEY"/>
+<field name='INDEX (`类型`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}交易' comment="当会员交易股票"  engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='买入ID'  type="int(11)" default="0"/>
+<field name='买入编号'  type="varchar(50)"  default=""/>
+<field name='交易量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='交易价'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='成交时间'  type="int(11)"  default="0"/>
+<field name='卖出编号'  type="varchar(50)"  default=""/>
+<field name='卖出ID'  type="int(11)" default="0"/>
+<field name='挂单来源'  type="int(11)" default="0"/>
+<field name='备注'  type="varchar(255)"  default=""/>
+<field name='INDEX (`买入编号`)' type="KEY"/>
+<field name='INDEX (`交易量`)' type="KEY"/>
+<field name='INDEX (`卖出编号`)' type="KEY"/>
+<field name='INDEX (`成交时间`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}拆股'   engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='拆股前'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='拆股后'  type="decimal({:C('decimalLon')},4)" default="0"/>
+
+<field name='认购总量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='认购金额'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='成交量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='成交金额'  type="decimal({:C('decimalLon')},4)" default="0"/>
+
+<field name='时间'  type="varchar(15)"  default=""/>
+<field name='拆分倍数'  type="decimal({:C('decimalLon')},4)"  default="0"/>
+<field name='拆分方式'  type="varchar(15)"  default=""/>
+</table>
+
+<table name='{$this->name}走势'   engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='价格'  type="decimal({:C('decimalLon')},4)" default="0"/>
+<field name='成交量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='认购量'  type="int({:C('decimalLon')})" default="0"/>
+<field name='成交金额'  type="decimal({:C('decimalLon')},2)" default="0"/>
+<field name='日期'  type="int(11)"  default="0"/>
+</table>

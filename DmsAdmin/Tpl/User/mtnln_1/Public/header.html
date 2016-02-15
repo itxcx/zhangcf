@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/iconfont.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                        }
+
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                }
+
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-top">
+                <span class="logo">{$SYSTEM_COMPANY}</span>
+                <div class="tips">
+                    <span><a href="__GROUP__/Mail/send"><i class="icon iconfont">&#xe66c;</i>&nbsp;在线留言</a></span>
+                    <span><a href="#"><i class="icon iconfont">&#xe634;</i>&nbsp;进入官网</a></span>
+                    <span><a href="__GROUP__/Public/logout"><i class="icon iconfont">&#xe622;</i>&nbsp;退出</a></span>
+                </div>
+            </div>
+            <div class="header-welcome">
+                <php>
+                $maillist = new TableListAction('邮件');
+                $mnum = count($maillist->field('id,标题,收件人,发送时间')->where(array('收件人'=>$userinfo['编号'],'状态'=>0))->select());
+                </php>
+                <div class="welcome">
+                    {$userinfo.编号}&nbsp;您好，欢迎光临&nbsp;&nbsp;
+                    <i class="icon iconfont">&#xe643;</i>
+                    <a href="__GROUP__/Mail/index">未读消息（{$mnum}）</a>
+                </div>
+                <div class="location">
+                    <span><i class="icon iconfont">&#xe634;</i>当前位置：{$nowtitle}</span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="top-nav">
+                <div class="navlist navlist1"><a class="key" href="__GROUP__/Index/index">首页</a></div>
+                <php>
+                $o=0;
+                $p=2;
+                $arh=array('__GROUP__/User/view',
+                '__GROUP__/Sale/reg:sale_reg[1]',
+                '__GROUP__/Net/disp:net_place',
+                '__GROUP__/Fun_bank/rem',
+                '__GROUP__/Mail/index',
+                '__GROUP__/Fun_deal/index:fun_stock2',
+                '__GROUP__/Fun_stock/index:fun_stock');
+                </php>
+                <foreach name="menu" item="vo" key="key">
+                <div class="navlist navlist{$p++}">
+                    <a class="key" href="{$arh[$o++]}">{$key}</a>
+                </div>
+                </foreach>
+            </div>
+            <div class="left-nav">
+                <php>
+                $p=2;
+                $ar=0;
+                $arr=array('&#xe603;','&#xe619;','&#xe676;','&#xe601;','&#xe615;','&#xe628;','&#xe620;');
+                </php>
+                <foreach name="menu" item="vo" key="key">
+                <div class="navlist navlist{$p++}"><a class="key"><i class="icon iconfont">{$arr[$ar++]}</i><br>{$key}</a>
+                    <ul class="navul" style="display: none">
+                        <foreach name="vo" item="val">
+                        <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                        <li>
+                        <a class="report" href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                        </li>
+                        </if>
+                        </foreach>
+                    </ul>
+                    <div style="clear: both"></div>
+                </div>
+                </foreach>
+            </div>

@@ -1,0 +1,287 @@
+/*2014-11-06*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+html {
+    background: #6cbf67;
+}
+body {
+    width: 100%;
+    min-width: 1024px;
+    font-family: 微软雅黑;
+    font-size: 14px;
+    background: #fff;
+}
+
+/*header*/
+.header {
+    width: 100%;
+    height: 160px;
+}
+.header-top {
+    height: 120px;
+    background: #6cbf67;
+}
+.logo {
+    margin-left: 40px;
+    line-height: 120px;
+    color: #fff;
+    font-size: 40px;
+    font-family: SimHei;
+}
+.tips {
+    margin-top: 60px;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 18px;
+    float: right;
+}
+.tips span {
+    margin-left: 15px;
+}
+.tips span a {
+    color: #fff;
+}
+.tips .icon {
+    font-size: 20px;
+}
+.header-welcome {
+    height: 40px;
+    line-height: 40px;
+    background: #e5e5e5;
+}
+.welcome {
+    margin-left: 160px;
+    width: 300px;
+    height: 40px;
+    float: left;
+}
+.location {
+    margin-right: 20px;
+    width: 300px;
+    text-align: right;
+    float: right;
+}
+
+/*content*/
+.content {
+    margin: 0 auto;
+    width: 80%;
+    min-width: 1024px;
+}
+.navlist {
+    cursor: pointer;
+}
+    /*上导航*/
+.top-nav {
+    width: 100%;
+    height: 40px;
+    background: #31c3b6;
+}
+.top-nav .navlist {
+    height: 40px;
+    width: 12%;
+    text-align: center;
+    line-height: 40px;
+    float: left;
+}
+.top-nav .selected,.top-nav .navlist:hover {
+    background: #208078;
+}
+.top-nav .navlist a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+}
+    /*左导航*/
+.left-nav {
+    width: 180px;
+    background: #e5e5e5;
+    float: left;
+}
+.left-nav .navlist {
+    margin-left: 20px;
+    width: 160px;
+    height: 100px;
+    text-align: center;
+    position: relative;
+    border-radius: 5px 0 0 5px;
+}
+.left-nav .selected,.left-nav .navlist:hover {
+    background: #fff;
+}
+.left-nav .navlist .icon {
+    font-size: 40px;
+}
+.left-nav .navlist a {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.left-nav .navul {
+    padding-bottom: 1px;
+    width: 283px;
+    background: #f5fff6;
+    position: absolute;
+    top: 0;
+    left: 160px;
+    z-index: 9999;
+}
+.left-nav .navul li {
+    margin: 1px 0 0 1px;
+    width: 138px;
+    height: 50px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    float: left;
+}
+.left-nav .navul a {
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+}
+    /*内容*/
+.section {
+    margin-top: 20px;
+    margin-left: 2%;
+    width: 80%;
+    min-width: 820px;
+    background: #fff;
+    float: left;
+}
+.baseinfo {
+    width: 100%;
+}
+.tb_info {
+    width: 50%;
+    float: left;
+}
+.tb_info th,.tb_info td {
+    height: 35px;
+    font-size: 15px;
+}
+.tb_info th {
+    text-indent: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    background: #e9ffe8;
+}
+.tb_info .infokey-h {
+    border-left: 10px solid #6cbf67;
+}
+.tb_info .infoval-h {
+    border-left: 2px solid #6cbf67;
+}
+.infokey {
+    width: 30%;
+    text-align: right;
+}
+.infoval {
+    text-align: left;
+    text-indent: 5px;
+}
+.sumall {
+    width: 50%;
+    font-size: 20px;
+    color: #fff;
+    float: left;
+}
+.income,.money {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    width: 90%;
+    height: 150px;
+}
+.income-t,.money-t {
+    display: block;
+    height: 35px;
+    width: 100%;
+    line-height: 35px;
+    text-align: left;
+    text-indent: 5%;
+}
+.income {
+    background: #ff744d;
+}
+.income-t {
+    background: #fe825e;
+}
+.income-v {
+    margin-right: 10px;
+    margin-top: 70px;
+    font-size: 30px;
+    float: right;
+}
+.money {
+    background: #2fbee8;
+}
+.money-t {
+    background: #45c5ea;
+}
+.money-tb {
+    margin-top: 20px;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+}
+.money-tb th {
+    font-weight: normal;
+    font-size: 22px;
+}
+.money-tb td {
+    font-size: 30px;
+}
+    /*系统公告*/
+.notice .h2 {
+    height: 35px;
+    line-height: 35px;
+    text-indent: 10px;
+    font-weight: normal;
+    border-left: 10px solid #6cbf67;
+    background: #e9ffe8;
+}
+.notice-list {
+    width: 100%;
+}
+.notice-tb {
+    width: 100%;
+    font-size: 16px;
+}
+.tdtit {
+    width: 80%;
+    height: 25px;
+    text-indent: 20px;
+}
+.tddate {
+    text-align: center;
+}
+.tddate .date {
+    display: inline-block;
+}
+.page {
+    margin: 15px;
+    text-align: center;
+}
+.page a {
+    color: #ccc;
+}
+.page img {
+    border: none;
+}
+/*footer*/
+.footer {
+    padding: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    background: #6cbf67;
+}

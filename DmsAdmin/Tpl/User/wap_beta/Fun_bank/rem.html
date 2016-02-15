@@ -1,0 +1,109 @@
+<php>
+function printStatus($status)
+{
+	if($status==0)
+	{
+		return "未审核";
+	}
+	else
+	{
+		return "已审核";
+	}
+}
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+
+    <if condition="count($data['list']) elt 0">
+    <div class="no-data text-align-center"><h1>暂无数据</h1></div>
+    </if>
+
+    <foreach name='data.list' item='vo'>
+    <dl class="mail dl">
+        <dt>
+            <h1>
+                <span>汇入账户：</span>
+                <if condition="$is_huikuanimg">
+                {$vo.汇入账户卡号}
+                {$vo.汇入账户开户名}
+                {$vo.汇入账户开户行}
+                <else />
+                {$vo.汇入账户}
+                </if>
+            </h1>
+            <if condition="($vo['状态'] neq 1)"><a class="delete" href="__GROUP__/Fun_bank/rem_delete/id/{$vo.id}" onclick="return confirm('确定要删除吗?')">删除</a></if>
+        </dt>
+        <dd>
+            <div class="title float-left text-align-center">
+                <a href="javascript:void(0);">
+                    <span class="money">{$vo.金额}</span>
+                    <br>
+                    <span class="text-color-gray">汇款金额(元)</span>
+                </a>
+            </div>
+            <div class="info float-left">
+                <a href="javascript:void(0);">
+                    <p>{$vo.开户名}&nbsp;{$vo.银行卡号}</p>
+                    <p>{$vo.开户银行}<span>&nbsp;({:printStatus($vo['状态'])})</span></p>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </dd>
+        <dd class="rem-info">
+            <div class="title float-left text-align-center">
+                {:date('Y-m-d H:i:s',$vo['汇款时间'])}
+            </div>
+            <div class="info float-left">
+                <span class="more down"><i class="iconfont">&#xe67e;</i></span>
+                <span class="more up"><i class="iconfont">&#xe67f;</i></span>
+                备注：{$vo.备注}
+            </div>
+        </dd>
+    </dl>
+    </foreach>
+
+    <div class="page">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">&laquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&laquo;</a>
+        </if>
+
+        <a href="{$data.upRow}">&lt;</a>
+
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+
+        <a href="javascript:void(0)">{$data.nowPage}/{$data.totalPages}</a>
+
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+
+        <a href="{$data.downRow}">&gt;</a>
+
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&raquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&raquo;</a>
+        </if>  
+    </div>
+    <div class="content-box margin-t-4">
+    <if condition="$is_huikuanimg">
+        <a href="__GROUP__/Fun_bank/add_rem" class="btn btn-default">添加汇款通知</a>
+    <else />
+        <a href="__GROUP__/Fun_bank/add_rem_two" class="btn btn-default">添加汇款通知</a>
+    </if>
+    </div>  
+</div>
+<include file="Public:footer" />
+

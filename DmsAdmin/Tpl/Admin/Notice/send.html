@@ -1,0 +1,81 @@
+<script language="javascript" type="text/javascript"> 
+function dispinput(isuser)
+{
+	
+	if(isuser=='0')
+	{
+		$('#receiver',navTab.getCurrentPanel()).show();
+	}
+	else
+	{
+		$('#receiver',navTab.getCurrentPanel()).hide();
+	}
+}
+</script> 
+<div class="pageContent">
+<form id="sendform" action="__URL__/send_notice" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneOpen)">
+	<input type="hidden" name="callbackType" value="closeCurrent" />
+	<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/Notice/index')}"/>
+	<input type="hidden" name="forwardUrl" value="__APP__/Admin/Notice/index"/>
+	<input type="hidden" name="navTabTitle" value="站内公告管理"/>
+	<div class="pageFormContent" layoutH="58">
+	<table style="width:900px">
+		<tr>  
+			<td  style="width:100px;">接收范围:</td>
+			<td style="width:100px;text-align:left">
+			<select name='path' onchange="dispinput($(this.options[this.selectedIndex]).attr('isuser'))">
+			 <foreach name='sendto' item='to'>
+			 <option value='{$to.path}' isuser='{$to.isuser}'>{$to.name}</option>
+			 </foreach>
+			</select>
+			</td>
+			<td style="text-align:left; border-left:none;">
+			&nbsp;&nbsp;&nbsp;&nbsp;<input id="receiver" name="receiver"  value="" type="text" style="display:none"/>
+			</td>
+       </tr>
+       <tr align="left">
+           <td >公告标题:</td>
+           <td colspan="2" style="text-align:left;"><input id="title" name="title" type="text" style="width:580px; background:#FFF;"/></td>  
+            </tr>
+		<tr align="left">
+           <td >公告类别:</td>
+           <td colspan="2" style="text-align:left;"><select name="type" >
+		   <option value="news">新闻中心</option>
+		   <option value="problem">常见问题</option>
+		   </select>
+		  </td> 
+		  </tr>
+		  	<tr align="left"> 
+		    <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语言:</td>
+           <td colspan="2" style="text-align:left;"><select name="lang" >
+		   <option value="zh-cn" <eq name="lang" value="zh-cn">selected</eq> >中文</option>
+		   <option value="en-us" <eq name="lang" value="en-us">selected</eq>>英文</option>
+		   </select>
+            </tr>
+      <tr align="left">
+         <td height="100" valign="top">公告内容:</td>
+         <td  colspan="2" style="text-align:left">
+		 <textarea id="NoticeContent" name="content" style="width:700px;height:500px;"></textarea>
+               
+        </td>
+       </tr>
+        </table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">发布</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+   </form>
+
+</div>
+
+ <script type="text/javascript"> 
+$(function(){
+KindEditor.create($("#NoticeContent",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+})
+</script>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script src="__PUBLIC__/js/transfer.js"></script>
+        <script type="text/javascript" src="__TMPL__Public/js/jquery.SuperSlide.2.1.1.js"></script>
+        <script>
+
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                        }
+
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                }
+
+
+                /*幻灯片*/
+                
+                $(".slider").slide({
+                    titCell:".hd ul",
+                    mainCell:".bd ul",
+                    effect:"fold",
+                    interTime:3500,
+                    delayTime:500,
+                    autoPlay:true,
+                    autoPage:true, 
+                    trigger:"click" 
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <!--header-->
+        <div class="header">
+            <div class="top-content">
+                <div class="header-top center">
+                    <div class="welcome">欢迎光临{$SYSTEM_COMPANY}，请及时登录查看信息！</div>
+                    <div class="welcome-r">
+                        <a href="__GROUP__/Index/index">首页</a>&nbsp;|
+                        <a>欢迎回来&nbsp;{$userinfo.编号}</a>&nbsp;|
+                        <a href="__GROUP__/User/viewNotice">系统消息</a>&nbsp;|
+                        <a href="__GROUP__/Public/logout">安全退出</a>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-content">
+                <div class="header-middle center">
+                    <img class="logo" src="__TMPL__Public/images/logo.png" alt="logo">
+                    <ul>
+                        <li class="navlist navlist1"><a class="key" href="__GROUP__/Index/index">首页</a></li>
+                        <php>
+                            $p = 2;
+                        </php>
+                        <foreach name="menu" item="vo" key="key">
+                        <li class="navlist navlist{$p++}"><a class="key">{$key}</a>
+                        <ul class="navul" style="display: none;">
+                            <foreach name="vo" item="val">
+                            <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                            <li>
+                            <a class="report" href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                            </li>
+                            </if>
+                            </foreach>
+                        </ul>
+                        </li>
+                        </foreach>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-content">
+                <div class="slider">
+                    <div class="bd">
+                        <ul>          	    
+                            <li>
+                                <div class="m-width">
+                                <img src="__TMPL__Public/images/slider1.jpg" />
+                                </div>
+                                <div class="slider-text">
+                                    <h1>金融优质业务</h1>
+                                    <h2>投资业务、理财增值、信托服务、产品代理</h2>
+                                    <h3>Overdraft/financial/The turst/product</h3>
+                                    <a href="javascript:void(0);">推荐业务</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="m-width">
+                                <img src="__TMPL__Public/images/slider2.jpg" />
+                                </div>
+                                <div class="slider-text">
+                                    <h1 style="color:#000">金融优质业务</h1>
+                                    <h2 style="color:#000">投资业务、理财增值、信托服务、产品代理</h2>
+                                    <h3 style="color:#000">Overdraft/financial/The turst/product</h3>
+                                    <a href="javascript:void(0);" style="color:#000;border:1px solid #000;">推荐业务</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="m-width">
+                                <img src="__TMPL__Public/images/slider3.jpg" />
+                                </div>
+                                <div class="slider-text">
+                                    <h1 style="color:#000">金融优质业务</h1>
+                                    <h2 style="color:#000">投资业务、理财增值、信托服务、产品代理</h2>
+                                    <h3 style="color:#000">Overdraft/financial/The turst/product</h3>
+                                    <a href="javascript:void(0);" style="color:#000;border:1px solid #000;">推荐业务</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="banner-btn">
+                        <div class="hd"><ul></ul></div>
+                    </div>
+                </div>
+                <div class="bottom-nav center">
+                    <ul>
+                        <li class="li1"><a href="__GROUP__/User/view">
+                            <img src="__TMPL__Public/images/nav1.png" alt="资料查看">
+                            <p class="li-p">资料查看</p>
+                            <p>Data View</p>
+                        </a></li>
+                        <li class="li2"><a href="__GROUP__/User/edit">
+                            <img src="__TMPL__Public/images/nav2.png" alt="资料修改">
+                            <p class="li-p">资料修改</p>
+                            <p>Data Modify</p>
+                        </a></li>
+                        <li class="li3"><a href="__GROUP__/Sale/reg:sale_reg[1]">
+                            <img src="__TMPL__Public/images/nav3.png" alt="业务管理">
+                            <p class="li-p">业务管理</p>
+                            <p>Business Management</p>
+                        </a></li>
+                        <li class="li4"><a href="__GROUP__/User/viewNotice">
+                            <img src="__TMPL__Public/images/nav4.png" alt="信息管理">
+                            <p class="li-p">信息管理</p>
+                            <p>Information management</p>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+

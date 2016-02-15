@@ -1,0 +1,73 @@
+<form action="__URL__/editSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<input type="hidden" name="uid" value="{$userInfo.编号}" />
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" >
+<tr>
+	<th colspan="6" align="center" style="padding:10px">网体数据修改确认</th>
+</tr>
+
+<tr>
+	<td align="right" width="100">{$name}编号:</td>
+	<td align="left" width="100">{$userInfo.编号}</td>
+	
+	<td align="right" width="100">{$name}姓名:</td>
+	<td align="left" width="100"><notempty name="userInfo['姓名']">{$userInfo.姓名}<else />暂无</notempty></td>
+	
+	<td align="right" width="100">{$name}状态:</td>
+	<td align="left" width="200">{$userInfo.状态}</td>
+</tr>
+
+<tr>
+	<td align="right" width="100">注册日期:</td>
+	<td align="left" width="200" colspan="2"><notempty name="userInfo['注册日期']">{:date('Y-m-d H:i:s',$userInfo['注册日期'])}<else />暂无</notempty></td>
+	<td align="right" width="100">&nbsp;</td>
+
+	<td align="right" width="100">审核日期:</td>
+	<td align="left" width="200"><notempty name="userInfo['审核日期']">{:date('Y-m-d H:i:s',$userInfo['审核日期'])}<else />暂无</notempty></td>
+</tr>
+
+<foreach name="userNetList" item="net" key="net_name">
+<php>$superior_id  = $userInfo[ $net_name . '_上级编号' ];</php>
+<tr>
+<td align="right">{$net_name}人编号:</td>
+<td align="left">{$superior_id}</php></td>
+
+<td align="right">{$net_name}人名称:</td>
+<td align="left">{:getUserInfo($superior_id)}</td>
+
+<td align="right">新{$net_name}人编号:</td>
+<td style="text-align:left">
+	<input type="text" name="{$net_name}_上级编号" value="<php>echo $userInfo[ $net_name . '_上级编号' ];</php>"  style="width:100px" />
+	<present name="net.ramus">
+		<select name="{$net_name}_位置">
+		<foreach name="net.ramus" item="ramu" key="key">
+		<option value="{$ramu}" <if condition="($userInfo[ $net_name . '_位置' ] eq $ramu)">selected="true"</if> >{$ramu}</option>
+		</foreach>
+		</select>
+	</present>
+</td>
+</tr>
+</foreach>
+
+<tr>
+	<td colspan="6" align="center">
+	<div class="buttonActive" style="margin-left:330px;">
+          <div class="buttonContent" >
+            <button type="submit" onclick="return confirm('确定修改?')" >确定修改</button>
+          </div>
+      </div>
+	</td>
+</tr>
+</table>
+</form>
+<php>
+/**
+* 获取会员姓名
+*/
+function getUserInfo($id)
+{
+	$model			= M('会员');
+	$where['编号']	= $id;
+	$name			= $model->where($where)->getField('姓名');
+	return empty($name)?'暂无':$name;
+}
+</php>

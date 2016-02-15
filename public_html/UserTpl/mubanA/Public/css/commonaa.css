@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+/* CSS Document */
+html {color:#000;background:#190703;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {margin:0;padding:0;}
+body{font-family: "Microsoft Yahei", "宋体", arial;min-width: 112px; background:url(../images/bg.jpg) repeat-x 0 0 #190703;}
+.font-black {font-family:"黑体","Microsoft Yahei"；}
+fieldset, img {border:0;}
+img{margin:0;padding:0;vertical-align:middle;}
+li {list-style:none;}
+body, input, button, textarea {font-size:12px;}
+a {text-decoration:none;outline:none;color: #F6E6AB;}
+a:hover {cursor:pointer;color: #FFE400;}
+TABLE {padding-bottom: 0px;margin: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px;}
+TR {padding-bottom: 0px;margin: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px;vertical-align:middle;}
+TD {padding-bottom: 0px;margin: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px;vertical-align:top;}
+TH {padding-bottom: 0px;margin: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px;vertical-align:middle;}
+input[type='submit'],button{cursor: pointer;}
+
+/*宽度*/
+.w100 {width:100%;}
+.w1120{width:1120px;}
+.w1000{ width:1000px;}
+.w50{ width:50%;}
+
+/*浮动*/
+.fl {float: left;}
+.fr {float: right;}
+
+/*字体*/
+.fz12{font-size: 12px;}
+.fz14{font-size: 14px;}
+.fz16{font-size: 16px;}
+.fz18{font-size: 18px;}
+.fz20 {font-size:20px;}
+.fz24{font-size: 24px;}
+.fz32{font-size: 32px;}
+.blod{font-weight: 700;}
+
+.hide {display: none;}
+.clear {clear: both;}
+
+/*行高*/
+.l42{ line-height:42px;}
+.l46{ line-height:46px;}
+
+/*padding & margin*/
+.auto{margin:0 auto;}
+.pt4{padding-top:4px;}
+.pt40{ padding-top:40px;}
+.pt56{ padding-top:56px;}
+.pr80{padding-right:80px;}
+.pr280{ padding-right:280px;}
+.pt20{ padding-top:20px;}
+.mt20{ margin-top:20px;}
+.m116{ margin-left:16px;}
+.mr16{ margin-right:16px;}
+.ml20{ margin-left:20px;}
+.pr4{ padding-right:4px;}
+.mt30{ margin-top:30px;}
+
+/*对齐*/
+.align-l {text-align: left;}
+.align-r {text-align: right;}
+.align-c {text-align: center;}
+
+/*按钮*/
+.btn{padding: 5px 10px;color: #ffffff;font-size: 12px;font-weight: normal;background: #f70134;border: none;font-family: "Microsoft Yahei", "宋体", arial;cursor: pointer;}
+.btn:hover {background: #cc062f;color: white;}
+.btn.btn-primary{background-color: #317ee8;}
+.btn.btn-primary:hover{background-color: #609ced;}
+.btn.btn-cancel{background-color: #da4f49;}
+.btn.btn-cancel:hover{background-color: #bd362f;}
+.wrapper{overflow: hidden;}
+
+/*文本缩进*/
+.indent {text-indent:2em;}
+
+/*页面整体宽度*/
+.container{margin: 0 auto;}
+
+/*阴影展示*/
+.y-show {border: 1px solid #DCDCDC;box-shadow: 0 0 2px #D3D3D3;}
+
+/*圆角*/
+.yj{border-radius: 5px 5px 5px 5px;}
+
+/*颜色*/
+.gray{color: #696969;}
+.gray-light{color: #808080;}
+.black-light{color: #1e1e1e;}
+.orange{color: #F6E6AB;}
+.red{color: red;}
+.white{color: white;}
+.blue{color: #0056ac;}
+

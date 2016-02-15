@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<html>
+    <head>
+        <title>{$SYSTEM_TITLE}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+
+        <link rel="icon" type="image/ico" href="__TMPL__Public/images/favicon.ico" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="__TMPL__Public/style/vendor/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/vendor/animate/animate.min.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/vendor/bootstrap-checkbox.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/mmenu/css/jquery.mmenu.all.css" media="all" />
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/videobackground/css/jquery.videobackground.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/rickshaw/css/rickshaw.min.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/morris/css/morris.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/tabdrop/css/tabdrop.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/summernote/css/summernote.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/summernote/css/summernote-bs3.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/chosen/css/chosen.min.css">
+        <link rel="stylesheet" href="__TMPL__Public/js/vendor/chosen/css/chosen-bootstrap.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/minimal.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <!--[if lt IE 9]><link rel="stylesheet" href="__TMPL__Public/style/ie8.css"><![endif]-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.active').removeClass('active open');
+                            $('.navlist' + i).addClass('active open');
+                        }
+                    }
+                }
+
+
+                //
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('active');
+                }
+
+            });
+        </script>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="__TMPL__Public/js/ie8/html5shiv.min.js"></script>
+        <script src="__TMPL__Public/js/ie8/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="bg-1">
+
+        <!-- Preloader -->
+        <div class="mask">
+            <div id="loader"></div>
+        </div>
+        <!--/Preloader -->
+
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+
+            <!-- Make page fluid -->
+            <div class="row">
+
+                <!-- Fixed navbar -->
+                <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top collapsed" role="navigation" id="navbar">
+
+                    <!-- Branding -->
+                    <div class="navbar-header col-md-2">
+                        <a class="navbar-brand" href="__GROUP__/Index/index"> <strong>首页</strong></a>
+                        <div class="sidebar-collapse">
+                            <a href="#"> <i class="fa fa-bars"></i> </a>
+                        </div>
+                    </div>
+                    <!-- Branding end -->
+
+                    <!-- .nav-collapse -->
+                    <div class="navbar-collapse">
+
+                        <!--页面刷新-->
+                        <ul class="nav navbar-nav refresh">
+                            <li class="divided">
+                                <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+                            </li>
+                        </ul>
+                        <!--/页面刷新-->
+
+
+                        <!-- Search -->
+                        <!--<div class="search" id="main-search">
+                            <i class="fa fa-search"></i>
+                            <input type="text" placeholder="Search...">
+                        </div>-->
+                        <!-- Search end -->
+
+                        <!-- Quick Actions -->
+                        <ul class="nav navbar-nav quick-actions">
+
+
+                            <li class="dropdown divided">
+
+                            <php>
+                            $mlist = new TableListAction('邮件');
+                            $mail_num = count($mlist ->field('id,标题,收件人,发送时间')->where(array("收件人"=>$userinfo['编号'],"状态"=>0))->select()); 
+                            </php>
+                            <a href="__GROUP__/Mail/index"> <i class="fa fa-envelope"></i> <span class="label label-transparent-black">{$mail_num}</span> </a>
+
+                            
+
+                            </li>
+
+                            <!--<li class="dropdown divided">
+                            <php>
+                            $nlist = new TableListAction('公告');
+                            $notice_c = count($nlist->field('id,标题,创建时间')->order("id desc")->select());
+                            </php>
+
+                            <a href="__GROUP__/User/viewnotice"> <i class="fa fa-bell"></i> <span class="label label-transparent-black">{$notice_c}</span> </a>
+
+                            </li>
+                            -->
+                            <li class="dropdown divided user" id="current-user">
+                            <a class="dropdown-toggle options" data-toggle="dropdown" href="#"> <i class="fa fa-user-md"></i> {$userinfo.编号}<i class="fa fa-caret-down"></i> </a>
+
+                            <ul class="dropdown-menu arrow settings">
+
+                                <li>
+
+                                <h3>半透明背景</h3>
+                                <ul id="color-schemes">
+                                    <li>
+                                    <a href="#" class="bg-1"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="bg-2"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="bg-3"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="bg-4"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="bg-5"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="bg-6"></a>
+                                    </li>
+                                    <li class="title">
+                                    不透明背景
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-1"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-2"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-3"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-4"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-5"></a>
+                                    </li>
+                                    <li>
+                                    <a href="#" class="solid-bg-6"></a>
+                                    </li>
+                                </ul>
+                                </li>
+                            </ul>
+                            </li>
+
+                            <li>
+                            <a href="__GROUP__/Public/logout"><i class="fa fa-power-off"></i></a>
+                            </li>
+                        </ul>
+                        <!-- /Quick Actions -->
+
+                        <!-- Sidebar -->
+                        <ul class="nav navbar-nav side-nav" id="sidebar">
+
+                            <li class="collapsed-content">
+                            <ul>
+                                <li class="search">
+                                <!-- Collapsed search pasting here at 768px -->
+                                </li>
+                            </ul>
+                            </li>
+
+                            <php>
+                            $step = 2;
+                            </php>
+                            <li class="navigation" id="navigation">
+                            <a href="#" class="sidebar-toggle" data-toggle="#navigation">导航栏<i class="fa fa-angle-up"></i></a>
+
+                            <ul class="menu">
+                                <li class="dropdown navlist1">
+                                <a href="__GROUP__/Index/index" class="dropdown-toggle"> <i class="fa fa-tachometer"></i> 首页 </a>
+                                </li>
+
+                                <foreach name="menu" item="vo" key="key">
+                                <li class="dropdown navlist{$step++}">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-list"></i> {$key} <b class="fa fa-plus dropdown-plus"></b> </a>
+
+                                <ul class="dropdown-menu">
+                                    <foreach name="vo" item="val">
+                                    <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                                    <li>
+                                    <a class="report" style="<if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">color:#418bca</if>" href="__GROUP__/{$val.model}/{$val.action}"> <i class="fa fa-caret-right"></i>{$val.title}</a>
+                                    </li>
+                                    </if>
+                                    </foreach>
+                                </ul>
+                                </li>
+                                </foreach> 
+                            </ul>
+                            </li>
+                        </ul>
+                        <!-- Sidebar end -->
+
+                    </div>
+                    <!--/.nav-collapse -->
+
+                </div>
+                <!-- Fixed navbar end -->
+

@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+    	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+    	<meta http-equiv="x-ua-compatible" content="ie=8" /> 
+        <title>{$SYSTEM_TITLE}</title>
+        <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/basic.css" />
+        <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/base.css"/>
+        <script type="text/javascript" src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script type="text/javascript" src="__TMPL__Public/js/jquery-1.7.2.js"></script>
+        <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	$(function(){
+
+                // 初始化本地时间
+				getTime();
+
+                // 实时读取当前日期+时间并展示
+				var timeHandler = window.setInterval(getTime,1000);
+				
+                // 获取当前日期 时间，并展示在页面右下角
+				function getTime(){
+					var _date = new Date(),
+						_day = _date.getDay(),
+						_thisTime = _date.toLocaleDateString()+' '+_date.toLocaleTimeString()+' 星期';
+					switch(_day){
+						case 1:
+							_thisTime += '一';
+							break;
+						case 2:
+							_thisTime += '二';
+							break;
+						case 3:
+							_thisTime += '三';
+							break;
+						case 4:
+							_thisTime += '四';
+							break;
+						case 5:
+							_thisTime += '五';
+							break;
+						case 6:
+							_thisTime += '六';
+							break;
+						case 7:
+							_thisTime += '天';
+							break;
+					}
+					$('#time').html(_thisTime);
+				}
+
+				// 下拉二级菜单事件
+				$('.list-title').die().live('click',function(){
+					var me = $(this);
+					if(!(me.hasClass('list-title'))){
+						return;	
+					}
+					var list2 = me.closest('.nav-list-1').find('ul'),
+                        secondLists = list2.find('.nav-list-2');
+
+                    // 动态给二级菜单赋高度值
+                    list2.height(secondLists.height()*secondLists.length+secondLists.length*secondLists.css('margin-bottom').match(/\d+/g)[0]);
+
+                    // 二级菜单伸缩方法
+					list2.slideToggle('fast');
+				});	
+			});
+        </script>
+                 <script type="text/javascript"> 
+	$(document).ready(function(){
+	//判断当前方法是哪一个 对其进行显
+	var data = '{$menu_jsons}';
+	var action = '{$now_action}';
+	var model = '{$now_model}';
+	var title='';
+	data_arr = {};
+	 data_arr = eval('('+data+')');
+       for(var key in data_arr){//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+           for(var key1 in data_arr[key]){//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题  
+             if(data_arr[key][key1]['model']==model && data_arr[key][key1]['action']==action){
+             //替换属性的值
+               $("#"+key).next().css('display','block').siblings(".sub-menu").hide();
+               //判断一下Action是否相等
+               if(data_arr[key][key1]['action']==action){
+				 $("#"+data_arr[key][key1]['title']+"_1").css("color","white");
+	             title = data_arr[key][key1]['title'];
+               }
+             }
+             
+           }
+       
+       }
+    });
+
+</script>
+    </head>
+    <body>
+    	<div class="body_wraper">
+        	<div class="menu_area">
+            	<img class="logo" src="__TMPL__Public/images/logo.png"/>
+                <div class="func_links">
+                	<span id="time_clock" style="display:block">
+					<script type="text/javascript">
+						 var now=(new Date()).getHours();
+						 if(now>0&&now<=6){
+							document.write("午夜好");
+						 }else if(now>6&&now<=11){
+						 	document.write("早上好");
+						 }else if(now>11&&now<=14){
+							 document.write("中午好");
+						 }else if(now>14&&now<=18){
+						 	document.write("下午好");
+						 }else{
+						 	document.write("晚上好");
+						 }
+                    </script>{$userinfo.编号}</span><br/>
+                	<a href="__GROUP__/Index/index">管理首页</a>
+                    <a href="/DmsAdmin/admin.php?s=/User/Public/logout">注销登录</a>
+                </div>
+                <div class="nav_bar">
+                	<ul>
+                		<foreach name="menu" item="vo" key="key"> 
+                    	<li class="nav-list-1">
+                        	<div class="list-title"  id="{$key}"><span>{$key}</span></div>
+                        	<ul hidden class="sub-menu">
+                        		<foreach name="vo" item="val">
+                        			<if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                            			<li class="nav-list-2" id="{$val.title}"><a href="__GROUP__/{$val.model}/{$val.action}"  id="{$val.title}_1">{$val.title}</a></li>
+                            		</if>
+                                </foreach>
+                            </ul>
+                        </li>
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+            	<div class="menu_shortcut">
+                	<ul style="overflow:hidden;">
+                    	<li>
+                        	<a href="__GROUP__/User/viewNotice">
+                            	<img alt="系统公告" src="__TMPL__Public/images/pic_01.png"/><br>
+                                <span>系统公告</span>
+                            </a>
+                        </li>
+                        <!--<li>
+                        	<a href="javascript:void(0)">
+                            	<img alt="发布软件" src="__TMPL__Public/images/ims-upload.png"/><br>
+                                <span>发布软件</span>
+                            </a>
+                        </li>-->
+                        <li>
+                        	<a href="__GROUP__/User/edit">
+                            	<img alt="个人设置" src="__TMPL__Public/images/ims-return.png"/><br>
+                                <span>个人设置</span>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href="__GROUP__/Mail/index">
+                            	<img alt="我的消息" src="__TMPL__Public/images/ims-pm.png"/><br>
+                                <span>我的消息</span>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href="__GROUP__/Tle/index:tle">
+                            	<img alt="奖金列表" src="__TMPL__Public/images/pay.png"/><br>
+                                <span>我的奖金</span>
+                            </a>
+                        </li>
+                        <li>
+                        	<a href="__GROUP__/Index/index">
+                            	<img alt="网站首页" src="__TMPL__Public/images/ims-home.png"/><br>
+                                <span>网站首页</span>
+                            </a>
+                        </li>
+                       <!-- <li>
+                        	<a href="{$realurl}" target="_blank">
+                            	<img alt="福财官网" src="__TMPL__Public/images/ims-upload.png"/><br>
+                                <span>进入官网</span>
+                            </a>
+                        </li>-->
+                        <present name="SERVICE_QQ">
+                        <foreach name="SERVICE_QQ" item="v">
+                         <li>
+                         	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$v}&site=qq&menu=yes"><img alt="在线咨询" src="__TMPL__Public/images/ims-qq.png"/>
+                        	<br>
+                            <span>在线咨询</span>
+                            </a>
+                        </li>
+                        <php>break;</php>
+                        </foreach>
+                        </present>
+                    </ul>
+                </div>

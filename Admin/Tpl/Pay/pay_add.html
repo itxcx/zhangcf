@@ -1,0 +1,58 @@
+<script language="JavaScript">
+
+function dialogAjaxDoneProductAdd(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<div class="pageContent">
+
+	<form method="post" action="__URL__/do_add/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="payment" value="{$payment}" />
+		<div class="pageFormContent" layoutH="58">
+			<table>
+			<foreach name="payInfo['config']" item="vo">
+			<assign name="radio_i" value="0" />
+			<tr>
+			<td style="text-align:left">{$vo.name}：</td>
+			<td style="text-align:left">
+			<switch name="vo.type" >
+			<case value="radio">
+				
+				<foreach name="vo.options" key="op_val" item="op_name">
+				<input type="radio" name="attr[{$vo.config_name}]" id="{$vo.config_name}{$op_val}" value="{$op_val}" <eq name="radio_i" value="0">checked=true</eq>/><label for="{$vo.config_name}{$op_val}">{$op_name}</label>&nbsp;
+				<assign name="radio_i" value="$radio_i+1" />
+				</foreach>
+			</case>
+
+			<case value="text">
+				<input type="text" name="attr[{$vo.config_name}]" value="{$vo.config_value}" style="{$vo.style}"/>
+				<present name="vo.memo"><label>{$vo.memo}</label></present>
+			</case>
+
+			</switch>
+			<input type="hidden" name="name[]" value="{$vo.name}" style="{$vo.style}"/>
+			</td>
+			</tr>
+			</foreach>
+			</table>
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

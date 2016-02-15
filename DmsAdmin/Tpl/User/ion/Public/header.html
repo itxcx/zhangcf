@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{:CONFIG('SYSTEM_TITLE')}</title>
+        <meta name="description" content="">
+        <!-- Basic Styles -->
+        <link rel="stylesheet" type="text/css" media="screen" href="__TMPL__Public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="__TMPL__Public/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="__TMPL__Public/css/smartadmin-production.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+        <script type="text/javascript" language="javascript">
+            var nowsecond;
+            var nowminutes;
+            function showClockss() {
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate()
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if (year < 10)
+                    hour = "0" + year;
+                if (hour < 10)
+                    hour = "0" + hour;
+                if (minute < 10)
+                    minute = "0" + minute;
+                if (second < 10)
+                    second = "0" + second;
+                document.getElementById("clockss").innerHTML = year + "年" + month + "月" + day + "日 " + hour + ":" + minute + ":" + second;
+                setTimeout("showClockss()", 1000);
+            }
+        </script>
+        <script type="text/javascript">
+            function jianti() {
+                $("#activel").attr("src", "__TMPL__Public/img/flags/cn.png");
+                Cookies.set("languglo", 1);
+                location.href = '/index.php?s=/User/Index/index';
+            }
+            function fanti() {
+                Cookies.set("languglo", 2);
+                location.href = '/index.php?s=/User/Index/index';
+            }
+            function English() {
+                $("#activel").attr("src", "__TMPL__Public/img/flags/us.png");
+                Cookies.set("languglo", 3);
+                location.href = '/index.php?s=/User/Index/index';
+            }
+        </script>
+        <script type="text/javascript">
+            window.onload = window.onresize = function() {
+                if (document.getElementById("left-panel").clientHeight < document.getElementById("content").clientHeight) {
+                    document.getElementById("left-panel").style.height = document.getElementById("content").offsetHeight + "px";
+                } else {
+                    document.getElementById("content").style.height = document.getElementById("left-panel").offsetHeight + "px";
+                }
+                showClockss();
+            }
+        </script>
+        <script type="text/javascript">
+            /*$(function() {
+                if (jQuery.jCookie('languglo') == false) {
+                    Cookies.set("languglo", 2);
+                }
+                var htabIdx = 0;
+                var htabLiIdx = 0;
+                var htabIndex = jQuery.jCookie('htabIndex');
+                var htabLiIndex = jQuery.jCookie('htabLiIndex');
+                if (htabIndex != false) {
+                    htabIdx = parseInt(htabIndex);
+                }
+                if (htabLiIndex != false) {
+                    htabLiIdx = parseInt(htabLiIndex);
+                }
+                $(".tab_bar_content >ul").filter(':eq(' + htabIdx + ')').show();
+                $(".tab_bar li a").filter(':eq(' + htabIdx + ')').addClass("current");
+                $(".tab_bar_content li a").filter(':eq(' + htabLiIdx + ')').addClass("current");
+                $(".tab_bar li a").each(function(i) {
+                    $(this).mouseover(function() {
+                        $(".tab_bar li a").removeClass("current");
+                        $(this).addClass("current");
+                        $(".tab_bar_content >ul").hide();
+                        $(".tab_bar_content >ul").eq(i).show();
+                        jQuery.jCookie('htabIndex', i.toString());
+                    })
+                })
+                $(".tab_bar_content li a").each(function(i) {
+                    $(this).mouseover(function() {
+                        $(".tab_bar_content li a").removeClass("current");
+                        $(this).addClass("current");
+                        jQuery.jCookie('htabLiIndex', i.toString());
+                    })
+                })
+            })*/
+        </script>
+        <script data-pace-options='{ "restartOnRequestAfter": true }' src="__TMPL__Public/js/plugin/pace/pace.min.js"></script>
+        <script>
+            if (!window.jQuery) {
+                document.write('<script src="__PUBLIC__/jquery-2.x.min.js"><\/script>');
+            }
+        </script>
+        <script>
+            if (!window.jQuery.ui) {
+                document.write('<script src="__PUBLIC__/jquery-1.x.min.js"><\/script>');
+            }
+        </script>
+        <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+        <script src="__TMPL__Public/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+        <!-- BOOTSTRAP JS -->
+        <script src="__TMPL__Public/js/bootstrap/bootstrap.min.js"></script>
+        <script src="__TMPL__Public/js/notification/SmartNotification.min.js"></script>
+        <script src="__TMPL__Public/js/global.js"></script>
+        <!--导航JS -->
+        <script src="__TMPL__Public/js/app.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            //将li下面的ul display block
+                            title = data_arr[key][key1]['title'];
+                            $("#" + key + ">a").css("color", "#fff");
+                            $("#" + key + " ul").css("display", "block");
+                            //判断一下Action是否相等
+                            if (data_arr[key][key1]['action'] == action) {
+                                title = data_arr[key][key1]['title'];
+                                $("#" + title + " a").css("color", "#fff");
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <header id="header">
+            <div id="logo-group">
+                <!-- PLACE YOUR LOGO HERE -->
+                <span id="logo"> <img src="__TMPL__Public/img/logo.png" alt="SenTrader" style="float:left"></span><span style="float:left;line-height:55px;font-weight:bold;padding-left:5px;color:#3A3633;font-size:15px">{:CONFIG('SYSTEM_COMPANY')}</span>
+                <!-- END AJAX-DROPDOWN -->
+            </div>
+            <!-- pulled right: nav area -->
+            <div class="pull-right">
+                <div id="hide-menu" class="btn-header pull-right">
+                    <span> <a href="javascript:void(0);" title="显示/隐藏菜单"><i class="fa fa-reorder"></i></a> </span>
+                </div>
+                <div id="logout" class="btn-header transparent pull-right">
+                    <span> <a href="__GROUP__/Public/logout" title="登出" data-logout-msg="退出后关闭这个浏览器心加强安全性"><i class="fa fa-sign-out"></i></a> </span>
+                </div>
+                <!-- end logout button -->
+                <div id="search-mobile" class="btn-header transparent pull-right">
+                    <span> <a href="javascript:void(0)" title="搜索"><i class="fa fa-search"></i></a> </span>
+                </div>
+                <div id="fullscreen" class="btn-header transparent pull-right">
+                    <span> <a href="javascript:void(0);" onClick="launchFullscreen(document.documentElement);" title="全屏"><i class="fa fa-fullscreen"></i></a> </span>
+                </div>
+                <!-- end fullscreen button -->
+                <ul class="header-dropdown-list hidden-xs">
+                    <li>
+                        <a href="#"  class="dropdown-toggle" data-toggle="dropdown"> <img id="activel" alt="" src="__TMPL__Public/img/flags/cn.png"> <span id="activel"> CN </span> <i class="fa fa-angle-down"></i> </a>
+                        <ul class="dropdown-menu pull-right Select_ln">
+                            <li id="yingwen">
+                                <a href="javascript:English()" ><img alt="" src="__TMPL__Public/img/flags/us.png"> EN</a>
+                            </li>
+                            <li id="zhongwen" >
+                                <a href="javascript:jianti()" ><img alt="" src="__TMPL__Public/img/flags/cn.png"> 中文</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- end multiple lang -->
+            </div>
+            <!-- end pulled right: nav area -->
+        </header>
+        <div id="shortcut">
+            <ul>
+                <li>
+                    <a href="#" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>我的资料 </span> </span> </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END SHORTCUT AREA -->
+        <aside id="left-panel">
+            <!-- User info -->
+            <div class="login-info">
+                <span> <a href="__APP__/User/User/view" id="show-shortcut"> <img src="__TMPL__Public/img/avatars/avatar_31.png" alt="me" class="online" /> <span> {$userinfo['编号']} </span> <i class="fa fa-angle-down"></i> </a> </span>
+            </div>
+            <!-- end user info -->
+            <nav>
+                <ul>
+                    <php>
+                        $st = 0;
+                        $arr = array(
+                        	'fa-briefcase',
+                        	'fa-bar-chart-o',
+                        	'fa-sitemap',
+                        	'fa-trophy',
+                        	'fa-bullhorn',
+                        	'fa-bar-chart-o',
+                        	'fa-bar-chart-o',
+                        	'fa-question'
+                        );
+                    </php>
+                    <li <if condition="$now_model eq 'Index'"> class="active" </if> >
+                        <a href="__GROUP__/Index/index"  title="首页"  ><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">首页</span></a>
+                    </li>
+                    <foreach name="menu" item="vo" key="key">
+                    <li id="{$key}" class="<if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">actives</if>">
+                    <a href="#"  title="{$key}"><i class="fa fa-lg fa-fw {$arr[$st++]}"></i> <span class="menu-item-parent">{$key}</span></a>
+                    <ul>
+                        <foreach name="vo" item="val">
+                        <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                        <li id="{$val.title}">
+                        <a href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                        </li>
+                        <input type="hidden" name="xpaths" id="{$val.title}" value="{$val.xpath}"/>
+                        </if>
+                        </foreach>
+                    </ul>
+                    </li>
+                    </foreach>
+                </ul>
+            </nav>
+            <span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+        </aside>
+        <div id="main" role="main">
+            <!-- RIBBON -->
+            <div id="ribbon">
+                <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> 注意！." data-html="true" data-reset-msg="复位网站?"><i class="fa fa-refresh"></i></span></span>
+                <!-- breadcrumb -->
+                <ol class="breadcrumb">
+                    <span>当前时间:&nbsp;&nbsp;&nbsp;<span id="clockss"></span></span>
+                </ol>
+            </div>

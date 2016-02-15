@@ -1,0 +1,42 @@
+<div layoutH="0">
+<form action="__URL__/testsendmail" method="post" id="form"  class="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDoneOpen)">
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Mail/index')}"/>
+<input type="hidden" name="forwardUrl" value="__APP__/Mail/index"/>
+<input type="hidden" name="navTabTitle" value="邮件设置"/>
+<table style="width:460px;" class="list" >
+	<tbody>
+	<tr>
+		<td width="8%" style="height:25px;vertical-align: middle;">邮箱:</td>
+		<td width="70%" style="height:25px;text-align:left;vertical-align: middle;">
+			<input name="email" id="email" type="text" value="">
+		</td>
+	</tr>
+	<tr>
+		<td width="8%" style="height:25px;vertical-align: middle;">主题:</td>
+		<td width="70%" style="height:25px;text-align:left;vertical-align: middle;">
+			<input name="subject" id="subject" type="text" value="">
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:right;vertical-align:top;">内容:</td>
+		<td style="height:25px;text-align:left;vertical-align: middle;">
+			<div style="float:left;width:420px;height:55px;">
+				<textarea name="content" id="content" style=" width:410px;height:55px;resize:none;">{$msg}</textarea>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">&nbsp;</td>
+		<td colspan="2" style="text-align:center;">
+			<div class="buttonActive" style="margin-left:290px;margin-top:5px;">
+			  <div class="buttonContent" >
+				<button type="submit" id="submit" >发送</button>
+			  </div>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</form>
+</div>

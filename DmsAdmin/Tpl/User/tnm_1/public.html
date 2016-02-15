@@ -1,0 +1,40 @@
+<include file="Public:header" />
+<!--内容-->
+<link rel="stylesheet" href="__TMPL__Public/css/content.css">
+<link rel="stylesheet" href="__TMPL__Public/css/view.css">
+<div class="content-box center">
+    <div class="banner">
+        <img src="__TMPL__Public/img/banner.jpg" alt="banner">
+    </div>
+    <div class="sidebar">
+        <foreach name="menu" item="vo" key="title">
+        <foreach name="vo" item="val">
+        <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">
+        <ul>
+            <li class="title"><h1>{$title}</h1></li>
+            <foreach name="vo" item="val">
+            <li><a href="__GROUP__/{$val.model}/{$val.action}"<if condition="$val['action'] eq $now_action && $val['model'] eq $now_model"> class="active"</if>>{$val.title}<span>&raquo;</span></a></li>
+            </foreach>
+        </ul>
+        <style>
+            .ulul {
+                display: none;
+            }
+        </style>
+        </if>
+        </foreach>
+        </foreach>
+        <ul class="ulul">
+            <li class="title"><h1>内容详情</h1></li>
+            <li><a href="javascript:void(0)" class="active">详情<span>&raquo;</span></a></li>
+        </ul>
+    </div>
+    <div class="main-box">
+        [template]
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--内容结束-->
+<include file="Public:footer" />
+

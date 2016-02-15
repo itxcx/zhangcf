@@ -1,0 +1,147 @@
+<tagLib name="Sql"/> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:CONFIG('SYSTEM_TITLE')}</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/css/commonaa.css" />
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/css/indexaa.css" />  
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/css/datalist4.css" />  
+<script src="__PUBLIC__/jquery-1.x.min.js"></script>
+<script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+<script src="__PUBLIC__/directSell/area_select.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/xstable.js" type="text/javascript"></script>
+<script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+<script src="__PUBLIC__/kindeditor/kindeditor.js"></script>				
+<script type="text/javascript"> 
+	$(document).ready(function(){
+	//判断当前方法是哪一个 对其进行显
+	var data = '{$menu_jsons}';
+	var action = '{$now_action}';
+	var model = '{$now_model}';
+	var title='';
+	data_arr = {};
+	 data_arr = eval('('+data+')');
+	 i=1;
+	 j=1;
+       for(var key in data_arr){//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+       i++;
+           for(var key1 in data_arr[key]){//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题  
+           j++;
+             if(data_arr[key][key1]['model']==model && data_arr[key][key1]['action']==action){
+               //替换属性的值
+               	$('.submenu').css('display','none');
+               	$('#submenu'+i).css('display','block');
+				$('.selected').removeClass('selected');
+				$('#showsubmenu_a'+i).addClass('selected');
+				//判断Action是否相等
+                $("#childmenu"+j).attr("class","activehover");
+	             }
+           }
+       }
+    });
+	
+</script>
+  <script>
+function showsubmenu1(sid)
+{
+	$('.submenu').css('display','none');
+	$('#submenu'+sid).css('display','block');
+	$('.selected').removeClass('selected');
+	$('#showsubmenu_a'+sid).addClass('selected');
+}
+</script>
+<script type="text/javascript" language="javascript">
+    var nowsecond;
+    var nowminutes;
+    function showClock(){
+        var date = new Date();
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        var day=date.getDate()
+            var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        if( hour<10 )   hour = "0"+hour;
+        if( minute<10 ) minute = "0"+minute;
+        if( second<10 ) second = "0"+second;
+        document.getElementById("clock").innerHTML = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        setTimeout( "showClock()",1000 );
+    }
+</script>
+<style>
+    a{color:#F6E6AB}
+a:hover{color:#FFE400}
+</style>
+</head>
+
+<body onload="showClock()">
+<div class="wrapper w1120 auto" >
+  <div class="header w100">
+    <div class="header-top w100">
+      <div class="header-top-left-language fl" style="display: none"> 
+		  <a href="#" target="_self" class="ele-lang-option ele-lang-zh-tw" title="繁體中文"  onclick="fanti()"></a> 
+		  <a href="#" target="_self" class="ele-lang-option ele-lang-zh-cn" title="简体中文" onclick="jianti()"></a> 
+		 <!-- <a href="#" target="_self" class="ele-lang-option ele-lang-en" title="English"></a>--> 
+	  </div>
+    </div>
+     <div class="header-bottom-nav w100">
+      <ul>
+        <php>$p=1;</php>
+	   <li class="fl l42 align-c " onClick="showsubmenu1(1)" style="width:110px;margin-left:20px"><a href="javascript:;" class="selected" id='showsubmenu_a1'>首页</a></li>
+	     <foreach name="menu" item="vo" key="key">
+	   <php>$p++;
+	     if($key!='语言管理'){
+	   </php>
+         <li class="fl l42 align-c"  style="width:110px<if condition='$p eq 5'>;margin-left:210px</if>"  onClick="showsubmenu1({$p})"><a href="javascript:;" id='showsubmenu_a{$p}'>{$key}</a></li>
+           <php>}</php>       
+        </foreach>
+       
+      </ul>
+    </div>
+
+    <div class="fl_logo">
+       <img src="__TMPL__Public/images/logo.jpg" alt="logo">
+    </div>
+  </div>  
+  <div class="clear"></div>
+  <div class="container w100">
+  	<div class="container_cont">
+    	<div class="container_cont_left fl m116">
+    	  	<!-- 首页 -->
+    	<div class="container_cont_left1">
+			<div style='color:#ffffff;margin-top:80px;margin-left:22px;border:1px solid #543634;width:80%;padding:5px;line-height:30px;'>
+			<span style='padding-left:70px;font-weight:bold;font-size:14px;'>登录信息</span><br />
+			当前时间：<span id="clock"></span><br />
+     	    <foreach name="userlevel" item="lv" key="key">
+		            {$key}：{$lv.byname}<br />
+		     </foreach>	
+			加入日期：{$userinfo.注册日期|date='Y-m-d H:i:s',###}<br />
+			</div>
+				</div>
+				<div class="container_cont_left2">
+			 <div id="submenu1" style='display:block;' class='submenu' >
+			    <ul>
+				 <li class="align-c fz14 l46 ml20"><a class="activehover1"  id="childmenu77" href="__GROUP__/Index/index" onclick="menuclickdo('欢迎加入东方皇冠国际俱乐部！')">首页</a></li>
+				 <li class="align-c fz14 l46 ml20"><a class="activehover1"  href="__GROUP__/Fun_bank/get:fun_bank[1]" onclick="menuclickdo('电子货币提现')" >电子货币提现</a></li>
+				 <li class="align-c fz14 l46 ml20"><a class="activehover1"  href="__GROUP__/Tle/index:tle" onclick="menuclickdo('奖金查询')">奖金查询</a></li>
+				 <li class="align-c fz14 l46 ml20"><a class="activehover1"  href="__GROUP__/Public/logout" >退出</a></li>
+				</ul> 
+			 </div>
+			<!-- 子菜单  -->
+		      <php> $i=1;$f=1;</php>
+			  <foreach name="menu" item="vo" key="key">
+			   <php>$i++;</php>
+			   <div id="submenu{$i}" style="display:none;" class='submenu' >
+				   <ul>
+				     <foreach name="vo" item="val">  
+				      <php>$f++;</php>   
+					   <li class="align-c fz14 l46 ml20">
+					   <a   class="activehover1"  href="__GROUP__/{$val.model}/{$val.action}" onclick="menuclickdo({$val.title})" id="childmenu{$f}">{$val.title}</a></li>
+			        </foreach>
+				</ul> 
+		    </div>
+			  </foreach>
+			 </div>
+		  	<div class="container_cont_left3"></div>
+			  </div>
+			

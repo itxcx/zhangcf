@@ -1,0 +1,28 @@
+<table name='会员'>
+	<field name='{$this->name}_盘号'     type="numeric(13)" default="0"/>
+	<field name='{$this->name}_序号'     type="numeric(13)" default="0"/>
+	<field name='{$this->name}_直推'     type="numeric(13,2)" default="0"/>
+	<field name='{$this->name}_间推'     type="numeric(13,2)" default="0"/>
+	<field name='{$this->name}_总推'     type="numeric(13,2)" default="0"/>
+	<field name='{$this->name}_入盘时间' type="int(11)" default="0"/>
+	<field name='{$this->name}_出盘'     type="numeric(10)" default="0"/>
+	<field name='{$this->name}_盘主资格' type="numeric(10)" default="0"/>
+	<field name='{$this->name}_循环'     type="numeric(10)" default="0"/>
+</table>
+<table name='{$this->name}rec'   engine="InnoDB">
+	<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+	<field name='盘号'     type="numeric(10)" default="0"/>
+	<field name='编号'     type="varchar(50)" default="0"/>
+	<field name='来源'     type="varchar(50)" default="0"/>
+	<field name='直推'     type="numeric(10)" default="0"/>
+	<field name='代数'     type="numeric(10)" default="0"/>
+	<field name='数量'     type="numeric(13,2)" default="0"/>
+</table>
+<table name='{$this->name}记录'   engine="InnoDB">
+	<field name="id"       type="int(11)"       auto_increment="1" primary="1" />
+	<field name='盘号'     type="numeric(10)" default="0"/>
+	<field name='时间'     type="int(11)"   default="0"/>
+	<field name='进盘编号' type="varchar(50)"   default=""/>
+	<field name='数据'     type="longtext" />
+	<field name='推荐数据' type="longtext" />
+</table>

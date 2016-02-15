@@ -1,0 +1,39 @@
+<div class="pageContent">
+  <div class="pageFormContent" layoutH="58">
+	<table style="width:100%;" class="list" >
+		<thead>
+		<tr>
+			<th colspan="3" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/user_add.png" />&nbsp;&nbsp;短信信息</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td width="20%" style="text-align:right;">接收号码：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.接收号码}</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align:right;">接收人：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.接收人}</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align:right;">内容：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.内容}</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align:right;">发送时间：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.发送时间|date="Y-m-d H:i:s",###}</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align:right;">状态：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.状态}</td>
+			</tr>
+			<notempty name="smsdetal['错误信息']">
+			<tr>
+				<td width="20%" style="text-align:right;">错误信息：</td>
+				<td width="80%" style="text-align:left;">{$smsdetal.错误信息}</td>
+			</tr>
+			</notempty>
+		</tbody>
+	</table>
+  </div>
+</div>

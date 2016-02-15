@@ -1,0 +1,281 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form action="__GROUP__/Transfer/giveSave" method="post" id="giveform">
+    <table class="table">	
+         <tr>
+            <td class="tbkey">转账选择：</td>
+            <td class="tbval">
+                <select name="giveTo" onchange="giveType(this.options[this.options.selectedIndex].value)" id="giveTo" class="select">
+                   <option value="">请选择转账货币</option>
+                    <foreach name="bankdata" item="bankdata" key='key'>
+                        <option value="{$key}">{$bankdata}</option>
+                    </foreach>
+                </select>
+            </td>
+        </tr>	
+        <tr id='zhye'>
+            <td class="tbkey">账户余额：</td>
+            <td class="tbval">
+                <span id='balance'></span>
+            </td>
+        </tr>
+        <tr id="totype">
+            <td class="tbkey">转账类型：</td>
+            <td class="tbval">
+                <select id='seltype' name="giveTypes" onchange="giveCh(this.options[this.options.selectedIndex].value)" class="select">
+                   <option value="wu">请选择转账类型</option>
+                   <option id='me'  value="tome">转给自己</option>
+                   <option id='you' value="toyou">转给其他会员</option>
+                </select>
+            </td>
+        </tr>		
+        <tr id="hideuserid">
+            <td class="tbkey"><span><span id='giveidname'></span>转入人编号：</span></td>
+            <td class="tbval">
+                <input type="text" name="userid" id="userid" class="input" onkeyup="getid(this)" autocomplete="off">
+            </td>
+        </tr>
+        <tr>
+            <td class="tbkey"><span><span id="giveMoneyInt1"></span>转账金额：</span></td>
+            <td class="tbval">
+                    <input type="text" value="" name="givesum" id='givesum' class="input">
+            </td>
+        </tr>
+        <tr>
+          <td class="tbkey"><span>手续费</span>(<span id='givetax'></span>%)：</td>
+          <td class="tbval">
+            <span id="tax">0</span><span id="tax_convert" style="color:red;"></span>
+          </td>
+        </tr>
+        <tr>
+            <td class="tbkey">备注：</td>
+            <td class="tbval"><input type="text" class="input" name="memo"></td>
+        </tr>
+        
+        <if condition="($giveMoneyPass2 eq 1)">
+        <tr>
+            <td class="tbkey">二级密码：</td>
+            <td class="tbval"><input type="password" class="input" name="pass2"></td>
+        </tr>
+        </if>
+        <if condition="($giveMoneyPass3 eq 1)">
+        <tr>
+            <td class="tbkey">三级密码：</td>
+            <td class="tbval"><input type="password" class="input" name="pass3"></td>
+        </tr>
+        </if>
+        <!--短信验证-->
+        <if condition="($giveMoneySmsSwitch eq 1)">
+        <tr>
+            <td class="tbkey">短信验证码：</td>
+            <td class="tbval"><input name="giveSmsVerfy" type="text" id="giveSmsVerfy" class="sms float-left input">
+                <input class="float-left" type="button" id="sendMess" value="点击获取">
+            </td>
+        </tr>
+        </if>
+    </table>
+    <div class="content-box margin-t-4">
+        <button id="subbut" class="btn btn-default" type="submit" name="but" onclick="$(this).attr('disabled',true);tijiao()">确定</button>
+    </div>
+    </form>
+</div>
+<!--更改选择转账货币触发事件-->
+<script type="text/javascript">
+$(function(){
+	var givethis=document.getElementById('giveTo');
+	giveType(givethis.options[givethis.options.selectedIndex].value);
+});
+
+function giveType(id)
+{
+	var giveToid = id;
+	$.post('__GROUP__/Transfer/giveType',{giveToid:giveToid},function(data){
+		try
+		{
+			eval("var json="+data);
+			if(json.status == 1)
+			{
+				$('#seltype').val('wu');
+				$('#givesum').attr("value",'');
+				$("#tax").html("0");
+				$("#zhye").show();
+				for(var x in json){				
+					if(x=='data'){
+						var bata=json[x];
+						for(var x in bata){
+							if(x=='balance'){
+								$('#balance').html(bata[x]);
+							}
+							if(x=='toyou'){
+								if(bata[x]==1)
+								{
+									$('#hideuserid').show();
+									$('#totype').show();
+									$('#you').show();
+								}else{
+									$('#hideuserid').hide();					
+									$('#you').hide();
+								}
+							}
+							if(x=='tome'){
+								if(bata[x]==1)
+								{
+									$('#totype').show();
+									$('#me').show();							
+								}else{
+									$('#me').hide();
+								}
+							}
+							if(x=='intnum'){
+								if(bata[x]>0)
+								{
+									$("#giveMoneyInt1").show();
+									$('#giveMoneyInt1').html('必须为'+bata[x]+'的整数倍');							
+								}else{
+									$("#giveMoneyInt1").hide();
+								}
+							}
+							if(x=='tax'){
+								if(bata[x]>0)
+								{
+									$("#givetax").show();
+									$('#givetax').html(bata[x]);							
+								}
+							}
+						}
+					}
+				}
+			}else{
+				$("#totype").hide();
+				$("#zhye").hide();
+				$("#giveMoneyInt1").hide();
+				$("#givetax").hide();
+			}
+		}
+		catch(e)
+		{
+			alert(data);
+			alert("网络异常!");
+		}
+	});
+}
+</script>
+<!--如果选择只转入自己的货币那么转入人编号输入框不显示-->
+<script>
+	function giveCh(type)
+	{		
+		if(type=='tome')
+		{
+			$('#hideuserid').hide();
+		}else{
+			$('#hideuserid').show();
+		}
+	} 
+</script>
+<!--如果转账选择没有返回至则隐藏转账类型-->
+<script>
+	$("#totype").hide();
+	$("#zhye").hide();
+</script>
+<!--对转入人编号进行验证-->
+<script type="text/javascript">
+var vd;
+function getid(e)
+{
+	clearTimeout(vd);
+    id=e.id;
+	vd = setTimeout("giveAjax('"+e.id+"')",600);
+}
+function giveAjax(id)
+{
+	var userid = $('#'+id).val();
+	$.post('__GROUP__/Transfer/giveAjax/',{userid:userid},function(data){
+		try
+		{
+			eval("var json="+data);
+			if( json.status == 0 )
+			{
+				$('#giveidname').html('编号不正确');
+			}
+			else
+			{
+				//var userinfo = json.data;
+				//$('#giveidname').html(userinfo['姓名']);
+				$('#giveidname').html('');
+			}
+		}
+		catch(e)
+		{
+			alert(data);
+			alert("网络异常!");
+		}
+	});
+}
+</script>
+<!--手续费计算-->
+<script>
+    $("input[name='givesum']").keyup(function(){
+        var sum = $(this).val();
+        if(sum !="" && !isNaN(sum)){
+            var tax = sum * ($('#givetax').html()/100);
+            tax = tax.toFixed(2);
+           if(tax < parseFloat($('#leastComCharge').val())){
+                tax = parseFloat($('#leastComCharge').val());
+            }
+           if(tax > parseFloat($('#limitComCharge').val()) && $('#limitComCharge').val()!=0){
+                tax = parseFloat($('#limitComCharge').val());
+            }
+           $("#tax").html(tax);
+        }else{
+            $("#tax").html("0");
+        }
+    })
+</script>
+<script>
+	//短息验证
+	var wait=300;
+	var sta = true;
+	function time(o){
+	    if(sta == true){
+	        var type = '转账';
+	        var content = '{CONFIG("giveMoneySmsContent")}';
+	        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+	          eval('var data='+data);
+	          if(data.status == 1){
+	            alert('发送成功!');
+	          }else{
+	            alert('发送失败!');
+	          }
+	        });
+	        sta = false;
+	    }
+	    if (wait == 0) {
+	      o.removeAttribute("disabled");      
+	      o.value="点击获取";
+	      wait = 300;
+	      sta = true;
+	    } else {
+	      o.setAttribute("disabled", true);
+	      o.value="重新发送(" + wait + ")";
+	      wait--;
+	      setTimeout(function() {
+	        time(o)
+	      },
+	      1000)
+	    }
+  	}
+  	document.getElementById("sendMess").onclick=function(){time(this);}
+  	var s=1;
+	function tijiao(){
+    	var ua = navigator.userAgent.toLowerCase();
+    	if(s!=1){
+    		s=1;
+    	}else{
+    		return false;
+    	}
+
+        $('#subbut').val('确定');
+	}
+</script>
+<include file="Public:footer" />
+

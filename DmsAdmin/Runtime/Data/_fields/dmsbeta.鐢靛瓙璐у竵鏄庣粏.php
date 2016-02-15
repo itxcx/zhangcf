@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => '时间', 2 => '编号', 3 => '来源', 4 => '类型', 5 => '金额', 6 => '余额', 7 => '备注', 8 => '删除', 9 => 'tlename', 10 => 'prizename', 11 => 'dataid', 12 => 'adminuser', '_autoinc' => true, '_pk' => 'id', ); ?>

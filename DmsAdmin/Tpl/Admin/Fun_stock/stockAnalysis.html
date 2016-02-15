@@ -1,0 +1,55 @@
+<script language="JavaScript">
+function dialogAjaxDoneAnalysis(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/config:__XPATH__');
+	}
+}
+</script>
+<form action="" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneAnalysis)">
+<table width="650px" class="list">
+<thead><tr><th colspan="3" style="text-align:left">数据汇总表</th></tr></thead>
+<tbody>
+<tr>
+<td  style="text-align:right;width:20%">总持有量:</td>
+<td  style="text-align:left;width:20%">{$data.allHave}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">总普通股持有:</td>
+<td  style="text-align:left;width:20%">{$data.tradeHave}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">总托管股持有:</td>
+<td  style="text-align:left;width:20%">{$data.trustHave}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">普通股卖出:</td>
+<td  style="text-align:left;width:20%">{$data.tradeSell}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">普通股买入:</td>
+<td  style="text-align:left;width:20%">{$data.tradeBuy}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">托管股卖出:</td>
+<td  style="text-align:left;width:20%">{$data.trustSell}</td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</form>
+<script>
+function subtwpd()
+{
+var splitnum=$("#splitnum").val();
+$.pdialog.open("__URL__/intwp:__XPATH__/splitnum/"+splitnum,"","输出入密码",{width:400,height:200,mask:true,mixable:true,minable:true,resizeable:true,drawable:true});
+}
+</script>

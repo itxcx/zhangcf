@@ -1,0 +1,6 @@
+<table name='{$this->name}'>
+<field name="id"  type="int(11)" auto_increment="1" primary="1" />
+<field name="编号"     type="varchar(50)"  default=""/>
+<field name='日期' type="integer" default="0"/>
+<field name='连续' type="integer" default="0"/>
+</table>

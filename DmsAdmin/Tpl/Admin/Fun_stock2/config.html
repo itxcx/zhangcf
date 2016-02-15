@@ -1,0 +1,120 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/config:__XPATH__');
+	}
+}
+</script>
+<form action="__URL__/configSave:__XPATH__" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<div layoutH="0">
+<table width="650px" class="list">
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;<img src="__PUBLIC__/Images/cog.png" style="vertical-align:middle"/>&nbsp;&nbsp;交易设定</th></tr></thead>
+<tbody>
+
+<!--
+<tr>
+<td style="text-align:right;width:20%">开启公司大盘:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="startComGrail" value="true" <if condition="$startComGrail eq true "> checked </if>>开启大盘</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;是否开启大盘，用户影响股票发行量</td>
+</tr>-->
+
+<tr>
+<td  style="text-align:right;width:20%">公司总发行量:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="allnums" value="{$allnums}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;公司当前剩余，可以设置</td>
+</tr>
+
+<!--<tr>
+<td  style="text-align:right;width:20%">股票已认购量:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockHasGive" value="{$stockHasGive}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;表示已经发行的股票数量</td>
+</tr>-->
+<tr>
+<td  style="text-align:right;width:20%">当前涨价额度:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="upNum" value="{$upNum}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;价格上涨时的交易额度</td>
+</tr>
+<!---->
+<tr>
+<td style="text-align:right;width:20%">交易的小数位:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="priceLen" value="{$priceLen}" size="10"></td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">达到拆分的价格:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="splitPrice" value="{$splitPrice}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">涨价幅度:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="upSkip" value="{$upSkip}" size="10">元/股</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+<!--<tr>
+<td style="text-align:right;width:20%">股票售出手续费:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="shouxufei" value="{$shouxufei}" size="10">%</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">股票购买的手续费:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockBuyTax" value="{$stockBuyTax}" size="10">%</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+
+<tr>
+<td style="text-align:right;width:20%">买入公司发行:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="buyComStock" value="true" <if condition="$buyComStock eq true "> checked </if>>购买公司发行股</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;当买入股票，会员的卖出不足时，剩余的股票购买公司发行股</td>
+</tr>
+
+
+
+<tr>
+<td style="text-align:right;width:20%">股票交易总数:</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockTrade" value="{$stockTrade}" size="10"></td>
+</tr>-->
+<tr>
+<td style="text-align:right;width:20%">当前价格:</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;&nbsp;{$price}</td>
+</tr>
+<!--<tr>
+<td style="text-align:right;width:20%">股票开盘价格:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="StockOpening" value="{$StockOpening}" size="10">元/股</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+
+
+<tr>
+<td style="text-align:right;width:20%">股票价格公式:</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockMoneyForm" value="{$stockMoneyForm}" size="80"></td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%"></td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;<font style="text-decoration:underline">[股票原始价格]+floor([股票交易总数]/100000)*0.001</font>，表示每当股票交易总数达到100000股时，股票价格上涨0.001元</td>
+</tr>
+-->
+<tr>
+	<td style="text-align:right;width:20%">交易市场:</td>
+	<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockClose" value="true" <if condition="$stockClose eq true "> checked </if>>开启休市</td>
+	<td  style="text-align:left;width:60%"></td>
+</tr>
+<if condition="$stockClose eq true" >
+	<tr>
+		<td style="text-align:right;width:20%">休市提示语:</td>
+		<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockCloseMsg" value="{$stockCloseMsg}" size="10"></td>
+		<td  style="text-align:left;width:60%"></td>
+	</tr>
+</if>
+<tr>
+<td ></td><td><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div>
+</div></td>
+<td ></td>
+</tr>
+</tbody>
+</table>
+</div>
+</form>

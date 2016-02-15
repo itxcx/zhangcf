@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <link rel="icon" href="__PUBLIC__/favicon.ico" type="image/x-icon">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{:CONFIG('SYSTEM_TITLE')}</title>
+        <link type="text/css" rel="stylesheet" href="css/basic.css"/>
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    </head> 
+    <body>
+        <!--头部-->
+        <div class="header">
+            <div class="head_top">
+                <div class="vip_info">
+                	<div class="logo">
+                        <img src="images/logo.jpg"/>
+                    </div>
+                	<div class="vip_info_rank">级别</div>
+                    <div class="vip_info_image"><img src="images/rank.jpg"/></div>
+                    <div class="vip_info_detail"></div>
+                </div>
+                <div class="head_decorator"></div>
+            </div>
+            <div class="head_bottom">
+                <div class="sliders">
+             	   	<a class="slider_left" href="javascript:void(0)">
+                    	<img src="images/slider_left_1.jpg"/>
+                    </a>
+                    <div class="img_containers">
+                    	<div class="img_container"><img src="images/ad_1.jpg"/></div>
+                        <div class="img_container"><img src="images/ad_1.jpg"/></div>
+                        <div class="img_container"><img src="images/ad_1.jpg"/></div>
+                        <div class="img_container"><img src="images/ad_1.jpg"/></div>
+                    </div>
+                    <a class="slider_right" href="javascript:void(0)">
+                    	<img src="images/slider_right_1.jpg"/>
+                    </a>		
+		        </div>
+            </div>
+        </div>
+        <!--头部结束-->
+    
+        <div class="center">
+        
+            <!--左侧菜单栏-->
+            <div class="menu_list"><!--margin-right:28px;-->
+            	<div class="menu_container">
+                	<ul>
+						<li class="current" style="margin-bottom:8px;"><a href="javascript:void(0)">Home</a></li>
+                        <li><a href="javascript:void(0)">Personal Profile</a></li> 
+                        <li><a href="javascript:void(0)">Change Password</a></li>
+                        <li><a href="javascript:void(0)">Daily Roi Report</a></li> 
+                        <li><a href="javascript:void(0)">Direct Downlines</a></li>
+                        <li><a href="javascript:void(0)">Referral Sales Point</a></li> 
+                        <li><a href="javascript:void(0)">Binary Sales</a></li>
+                        <li><a href="javascript:void(0)">Binary Sales Point</a></li>      
+                        <li><a href="javascript:void(0)">Matching Sales Point</a></li> 
+                        <li><a href="javascript:void(0)">Points expire inquiry</a></li>
+                        <li><a href="javascript:void(0)">Transfer Bonus To E-Wallet</a></li> 
+                        <li><a href="javascript:void(0)">Withdraw</a></li>
+                        <li><a href="javascript:void(0)">Add Funds To E-Wallet</a></li> 
+                        <li><a href="javascript:void(0)">Transfer E-Wallet To Member</a></li>
+                        <li><a href="javascript:void(0)">Investment Plans</a></li> 
+                        <li><a href="javascript:void(0)">Purchase Package</a></li>
+                        <li><a href="javascript:void(0)">Register New Member</a></li> 
+                        <li><a href="javascript:void(0)">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--左侧菜单栏结束-->
+            <div class="show_area">
+            	<table style="border:1px solid #5685bf;width:614px;" border="1">
+                	<tr><td>Profile（个人资料）:</td></tr>
+                    <tr><td>Country:</td></tr>
+                    <tr><td>FirstName:</td></tr>
+                    <tr><td>MiddleName:</td></tr>
+                    <tr><td>LastName:</td></tr>
+                    <tr><td>Prefix:</td></tr>
+                    <tr><td>Document Number:</td></tr>
+                    <tr><td>Birth Date:</td></tr>
+                    <tr><td>Phone Number:</td></tr>
+                    <tr><td>E-mail:</td></tr>
+                    <tr><td>Address 1:</td></tr>
+                    <tr><td>Address 2:</td></tr>
+                    <tr><td>City:</td></tr>
+                    <tr><td>State:</td></tr>
+                    <tr><td>Zip:</td></tr>
+                    <tr><td>Referral Links:</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+        	<div class="footer_background"></div>
+            <div class="footer_info"></div>
+        </div>
+        
+        <!--引用js文件+本地js-->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript">
+        	$(function(){
+				
+				// 全局变量，存储要轮播显示的图片总张数
+				var imageNumber = $('.img_container img').length,
+					thisPos = 0,
+					timeHandler,directFlag=1;
+				
+				// 每隔三秒更换图片
+				var timeHandler = window.setInterval(showImage,3000);
+				
+				// 手动切换显示图片
+				$('.sliders a').die().live('click',function(){
+					var me = $(this),
+						_button = me.closest('a');
+						
+					if(timeHandler){
+						window.clearInterval(timeHandler);
+						timeHandler = null;
+					}
+					
+					if(_button.hasClass('slider_left')){
+						directFlag = 0;
+						showImage();
+					}
+					
+					if(_button.hasClass('slider_right')){
+						directFlag = 1;
+						showImage();
+					}
+						
+				});
+				
+				// 页面顶部图片轮播  pos表示当前图片为第几张图片
+				function showImage(){
+					var _imageSliders = $('.img_container img'),
+						_thisImage = _imageSliders.eq(thisPos%imageNumber),
+						_nextImage;
+						
+					// 图片向左轮播
+					if(0==directFlag){
+						_nextImage = _imageSliders.eq((thisPos-1)%imageNumber);
+						thisPos --;
+					}
+					
+					// 图片向右轮播
+					if(1==directFlag){
+						_nextImage = _imageSliders.eq((thisPos+1)%imageNumber);
+						thisPos ++;
+					}
+					
+					_thisImage.parent().fadeOut(function(){
+						console.log('ss');
+						_nextImage.parent().fadeIn(function(){
+							directFlag = 1;
+							if(!timeHandler){
+								timeHandler = window.setInterval(showImage,3000);
+							}	
+						});
+					});	
+					
+				}
+				
+				// 左侧列表选中状态
+				$('.menu_container li').die().live('click',function(){
+					var me = $(this);
+					me.siblings().removeClass('current');
+					me.addClass('current');
+				});
+			});
+        </script>
+    </body>
+ </html>
+
+
+
+

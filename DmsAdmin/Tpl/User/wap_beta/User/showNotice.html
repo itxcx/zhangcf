@@ -1,0 +1,20 @@
+<php>
+$nowtitle = "当前位置&gt;&gt;查看公告";
+</php>
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <article class="article">
+        <header>
+            <h1 class="title">{$list.标题}</h1>
+        </header>
+        <div class="content">
+            {$list.内容}
+        </div>
+    </article>
+    
+    <div class="content-box margin-t-4">
+        <button class="btn btn-default js-goback">返　回</button>
+    </div>
+</div>
+<include file="Public:footer" />
+

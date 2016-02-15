@@ -1,0 +1,156 @@
+<script language="JavaScript">
+
+
+function RepairSubmit(url)
+{
+	$('#subform').attr('action',url);
+	$('#subform').submit();
+}
+
+//
+function saleReAddVal_ajax(saleid)
+{
+$.ajax({ 
+type:'post', 
+url:'__URL__/saleReAddVal_ajax/saleid/'+saleid, 
+dataType:'json', 
+success:function(data){
+		$(data).each(function(){
+    
+  		});
+
+		//$('#saleReAddVal_chk').html(data);
+	}
+}); 
+
+}
+</script>
+
+<form id='subform' action="" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;"  width="400" >
+<tr>
+	<td align="right" width="100">插原始点功能:</td>
+	<td align="left"  >
+	    <input type='text' name='newtopbh' id='newtopbh'/>
+	</td>
+	
+</tr>
+<tr>
+<td colspan='3'>
+	输入作为新原始点的现有编号,编号以下不能有任何下级,需为空点.
+</td>
+</tr>
+<tr>
+<td colspan='3'>
+	<input type='button' value='确认' onclick="RepairSubmit('__URL__/newtop/bh/'+$('#newtopbh').val())">
+</td>
+</tr>
+</table>
+
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;"  width="400" >
+<tr>
+	<th colspan="6" align="center" style="">订单修正</th>
+</tr>
+
+<tr>
+	<td align="right" width="100">订单:</td>
+	<td align="left" >订单ID:<input type='text' id="saleReAddVal_saleid{$k}"  onkeyup="saleReAddVal_ajax($('#saleReAddVal_saleid{$k}').val())"></td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="RepairSubmit('__URL__/saleReAddVal/saleid/'+$('#saleReAddVal_saleid{$k}').val())">重执行addval</button>
+		</div></div>
+	</td>
+</tr>
+<tr>
+	<td align="right" width="100">订单:</td>
+	<td align="left"  colspan='2'>
+	<div id='saleReAddVal_chk'>
+	
+	</div>
+	</td>
+</tr>
+
+<tr>
+	<td align="right" width="100">订单:</td>
+	<td align="left" >订单ID:<input type='text' name="" ></td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">重执行扣款</button>
+		</div></div>
+	</td>
+</tr>
+
+</table>
+
+
+
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;"  width="400" >
+<tr>
+	<th colspan="6" align="center" style="">网络数据修正</th>
+</tr>
+<foreach name='nets' item='net' key='k'>
+<tr>
+	<td align="right" width="100">{$k}网络:</td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">修正团队人数</button>
+		</div></div>
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">修正网体数据</button>
+		</div></div>
+	</td>
+</tr>
+</foreach>
+</table>
+
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" width="400" >
+<tr>
+	<th colspan="6" align="center" style="">财务数据修正</th>
+</tr>
+<foreach name='banks' item='bank' key='k'>
+<tr>
+	<td align="right" width="100">{$k}:</td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">根据货币明细修复余额</button>
+		</div></div>
+	</td>
+</tr>
+</foreach>
+</table>
+
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" width="400" >
+<tr>
+	<th colspan="6" align="center" style="">奖金数据修正</th>
+</tr>
+<foreach name='tles' item='tle' key='k'>
+<tr>
+	<td align="right" width="100">{$tle.name}:</td>
+	<td align="left" >
+	开始日期:<input type='text' class='date' id='startdate_{$k}' size="10">
+	</td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button"  onclick="RepairSubmit('__URL__/ledgerSum:{$xpath}/startdate/'+$('#startdate_{$k}').val())">修复总账数据</button>
+		</div></div><br>
+	</td>
+</tr>
+<tr>
+	<td align="right" width="100">{$tle.name}:</td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">从算累计收入</button>
+		</div></div>
+	</td>
+</tr>
+<tr>
+	<td align="right" width="100">{$tle.name}:</td>
+	<td align="left" >
+		<div class="buttonActive" style="" id="calbutton"><div class="buttonContent" >
+		<button type="button" onclick="">从算各奖金累计、本月</button>
+		</div></div>
+	</td>
+</tr>
+</foreach>
+</table>
+</form>

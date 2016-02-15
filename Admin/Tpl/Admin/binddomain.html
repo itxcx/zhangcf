@@ -1,0 +1,48 @@
+<script language="JavaScript">
+function dialogAjaxDoneProductAdd(json)
+{
+	DWZ.ajaxDone(json);
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+}
+function band(status){
+	$("#status").val(status);
+}
+</script>
+<div class="pageContent">
+<form id="form1" action="__URL__/bind" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="status" id="status" value="">
+        <div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<td class="right">已绑定域名：</td>
+					<td class="left"><span>{:CONFIG('binddomain')}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="right">当前域名：</td>
+					<td class="left"><span>{:$_SERVER['HTTP_HOST']}</span>
+					<input type="hidden" name="domain" value="{:$_SERVER['HTTP_HOST']}">
+					</td>
+				</tr>
+				<tr>
+					<td class="right"></td>
+					<td class="left"><span style="color:red;">注：绑定域名后，后台登陆网址只能使用此域名！！！</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" onclick='band(1)'>绑定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="submit" onclick='band(2)'>取消绑定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+</form>
+</div>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+<title>系统登录</title>
+<link rel="stylesheet" type="text/css" href="UserTpl/login/sanyuan/loginsanyuan.css" media="all" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-fieldselection.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/forest.vkeyboard.js"></script>
+<script type="text/javascript" src="__PUBLIC__/katniss/js/my.js"></script> 
+ <link type="text/css" rel="stylesheet" href="__PUBLIC__/katniss/css/index.css">
+   <script type="text/javascript">
+function fleshVerify(type){ 
+	//重载验证码
+	var timenow = new Date().getTime();
+	if (type){
+		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
+	}else{
+		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+	}
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body class="login-body">
+<div id="login_wrapper">
+<div id="login_main" style="width:900px">
+		<div class="logo">
+			<a href="#"><img src="UserTpl/login/sanyuan/login-logo.png" width="321" height="80" alt="三圆健康俱乐部" /></a>
+		</div>
+            
+            				<div class="login-form">
+            <form method="post" action="__URL__/check" language="javascript" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'LinkButton1')" id="loginform">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTc1MDY3ODAyMg9kFgICAw9kFgICAw8PFgIeBFRleHQFBk1lbWJlcmRkZKRrAgkKHA5DlsZxiYxbdrK6i9q88yKx/tUHfVE/7xaH" />
+</div>
+
+<script type="text/javascript">
+<!--
+var theForm = document.forms['loginform'];
+if (!theForm) {
+    theForm = document.loginform;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+// -->
+</script>
+<div class="aspNetHidden">
+<input type="hidden" name="act" value="verify" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBAK96tSzCgKT2ervCwLXuZ9nAsz0+6YPQbSSu14f4JnbFoEQ8ilgRzqpP/hlJf+E4eST4JDMDZE=" />
+</div>
+            <table cellpadding="0" cellspacing="0" border="0">
+				<tbody>
+					<tr>
+						<td class="td1">用户名:</td>
+						<td class="td2"><input name="username" type="text" id="username" class="login-inp" />
+                        </td>
+					</tr>
+					<tr>
+						<td class="td1">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
+						<td class="td2"><div id="MemberPWD"><input id="password" class="login-inp"  type="password" name="password" /></div>
+                        </td>
+					</tr>
+						<if condition="isset($dispCode) and ($dispCode eq true)">
+					<tr>
+						<td class="td1">验证码:</td>
+						<td class="td2">
+							<nobr><input type="text" name="captcha" id="verify" class="login-inp" />&nbsp;</nobr>
+						</td>
+					</tr>
+					
+						<tr>
+						<td class="td1"></td>
+						<td class="td2"><img id="verifyImg" SRC="__URL__/verify/" onClick="this.src='__URL__/verify/'+Math.random();" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"/></td>
+					</tr>		</if>
+					<tr>
+						<td class="td1">&nbsp;</td>
+						<td class="td2 btns">
+							<a onclick="return Check();" id="LinkButton1" class="btn-login btn1" href="javascript:__doPostBack(&#39;LinkButton1&#39;,&#39;&#39;)">登录</a>
+                            <input type="reset" value="重置" class="btn-login" />
+						</td>
+					</tr>
+					<tr>
+						<td class="">&nbsp;</td>
+						<td class="">
+						  <a href="javascript:;" onclick="popupURL('找回密码','__URL__/getPassWord');" style="color: #000000;">找回密码</a>
+						</td>
+					</tr>
+		 <if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+				</tbody>
+			</table>
+            
+
+<script type="text/javascript">
+
+function rem1(){
+	$.colorbox({
+     iframe:true,
+     width:"400px",
+     height:"500px",
+     speed:0,
+     href:"__URL__/getPassWord",
+     transition:"elastic",
+	 opacity:'0.1',
+	 scrolling:true,
+	 onClosed:function()	       
+		{ 
+		
+		}
+	});
+}
+</script>
+
+</form>
+            </div>
+            </div></div>
+</body>
+</html>

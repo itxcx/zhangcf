@@ -1,0 +1,3 @@
+<table name='会员'>
+<field name='{$this->name}'  type='int' default="0"/>
+</table>

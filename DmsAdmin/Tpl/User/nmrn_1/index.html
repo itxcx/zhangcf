@@ -1,0 +1,57 @@
+<include file="Public:header" />
+    <div class="notice">
+        <h3>
+            <span class="tit">最新公告</span>
+            <span class="location">您现在的位置：首页>最新公告</span>
+        </h3>
+        <php>
+            $list = new TableListAction('公告');
+            $list->field('id,标题,创建时间')->order("id desc");
+            $list->pagenum = 12;
+            $data = $list->getData();
+        </php>
+        <ul class="notice-ul">
+        <foreach name="data.list" item="name">
+            <li>
+                <div class="notice-tit">
+                    <i>&nbsp;</i>
+                    <a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a>
+                </div>
+                <span class="notice-date">{:date('Y-m-d',$name['创建时间'])}</span>
+            </li>
+        </foreach>
+        </ul>
+        <div class="page">
+            <ul class="page-num">
+                <li>
+                <if condition="$data['nowPage'] neq 1">
+                    <a href="{$data.firstRow}">&nbsp;首页&nbsp;</a>
+                    <else/><a>&nbsp;首页&nbsp;</a>
+                </if>
+                </li>
+                <li class="row"><a href="{$data.upRow}">&nbsp;&lt;上一页</a></li>
+                <if condition="isset($data['rollPage'][-2])">
+                <li><a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a></li>
+                </if>
+                <if condition="isset($data['rollPage'][-1])">
+                <li><a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a></li>
+                </if>
+                <li><a class="now-page">{$data['nowPage']}</a></li>
+                <if condition="isset($data['rollPage'][1])">
+                <li><a href="{$data.rollPage.1}">{$data['nowPage']+1}</a></li>
+                </if>
+                <if condition="isset($data['rollPage'][2])">
+                <li><a href="{$data.rollPage.2}">{$data['nowPage']+2}</a></li>
+                </if>
+                <li class="row"><a href="{$data.downRow}">下一页&nbsp;&gt;</a></li>
+                <li>
+                <if condition="$data['nowPage'] lt $data['totalPages']">
+                    <a href="{$data.theEndRow}">&nbsp;尾页&nbsp;</a>
+                <else/><a>&nbsp;尾页&nbsp;</a>
+                </if>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+<include file="Public:footer" />

@@ -1,0 +1,184 @@
+<div class="core_main Fun_ep_deal" id="deal_list">
+    <eq name="gold:sellOpen" value="1">
+    <div class="core_title">
+    	<span class="core_title_con">当前位置：{$nowtitle}</span>
+    </div>
+    <div class="core_con">
+    <form method="post" id="form1" action="">
+      <table class="tablebg">
+          <tr class="datalist">
+			<td class="tbkey">{$funbank[$gold:bankName]['name']}余额：</td>
+            <td class="tbval"><strong>{$funbank[$gold:bankName]['num']}</strong></td>
+          </tr>
+          <!-- 价格 -->
+          <tr class="datalist">
+          	<td class="tbkey">{:L('出售价格')}：</td>
+			<td  class="tbval">
+			<if condition="$gold:rmbMax - $gold:rmbMin eq 0">
+				<if condition="$gold:rmbMin eq 0">
+					<input type="text" id="price" value="{$gold:rmbMin}" name="price" style="width:160px;"/>
+				<else/>
+					{$gold:rmbMin}
+				</if>
+			<else/>
+				<input type="text" id="price" value="{$gold:rmbMin}" name="price" style="width:160px;"/>
+			</if>
+          </tr>
+		  <tr class="datalist">
+            <td class="tbkey">{:L('出售数量')}：</td>
+			<td  class="tbval">
+				<if condition="$gold:numSelect eq ''">
+				<input type="text" id="num" name="num" style="width:160px;"/>
+				<else/>
+				<select name="num">
+				<option value=""/>请选择
+				<foreach name="numSelect" item="numval">
+				<option value="{$numval}"/>{$numval}
+				</foreach>
+				</select>
+				</if>
+			</td>
+          </tr>
+          <notempty name="sellInput">
+	          <if condition="in_array('开户银行',$sellInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('开户银行')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('开户银行',$epsellInput) || $user['开户银行']==''">
+					<input type="text" id="bank" name="bank" style="width:160px;" value="{$user.开户银行}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.开户银行}<input type="hidden" id="bank" name="bank" style="width:160px;" value="{$user.开户银行}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('银行卡号',$sellInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('银行卡号')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('银行卡号',$epsellInput) || $user['银行卡号']==''">
+					<input type="text" id="zhanghao" name="zhanghao" style="width:160px;" value="{$user.银行卡号}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>{$user.银行卡号}
+					<input type="hidden" id="zhanghao" name="zhanghao" style="width:160px;" value="{$user.银行卡号}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('开户名',$sellInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('开户名')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('开户名',$epsellInput) || $user['开户名']==''">
+					<input type="text" id="huzhu" name="huzhu" style="width:160px;" value="{$user.开户名}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.开户名}<input type="hidden" id="huzhu" name="huzhu" style="width:160px;" value="{$user.开户名}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+	          <if condition="in_array('联系电话',$sellInput)">
+	          <tr class="datalist">
+	            <td class="tbkey">{:L('联系电话')}：</td>
+				<td  class="tbval">
+				<if condition="in_array('联系电话',$epsellInput) || $user['移动电话']==''">
+					<input type="text" id="mobile" name="mobile" style="width:160px;" value="{$user.移动电话}"/>&nbsp;<span class="form_notice">*</span>
+				<else/>
+					{$user.移动电话}<input type="hidden" id="mobile" name="mobile" style="width:160px;" value="{$user.移动电话}"/>
+				</if>
+				</td>
+	          </tr>
+	          </if>
+          </notempty>
+		  <tr class="datalist">
+			<td class="tbkey">{:L('二级密码')}：</td>
+			<td class="tbval">
+			 <span><input type="password" value="" id="pass2" name="pass2" /></span>
+			 &nbsp;<span class="form_notice">*</span>
+			</td>
+		  </tr>
+		  <php>
+		  	$xinyu=$user[$gold->name.'信誉'];$creditStyle="";
+		  	for($i=1;$xinyu>=$i;$i++){
+		  		$creditStyle.="<img style='display:inline;' src='".$gold->creditStyle."'/>";
+		  	}
+		  </php>
+		  <if condition="$gold:creditStyle neq ''">
+		  <elt name="xinyu" value="0">
+		  <tr>
+            <td colspan="2" align="center">抱歉，您的信誉值太低了...</td>
+          </tr>
+		  <else/>
+		  <tr>
+		  	<td class="tbkey">当前{$gold:name}信誉</td>
+		  	<td class="tbval">{$creditStyle}</td>
+		  </tr>
+          <tr>
+            <td colspan="2" align="center"><button id="sell_btn" type="button" class="input_button" onclick="sell1();" >{:L('确定卖出')}</button></td>
+          </tr>
+          </elt>
+          <else/>
+          <tr>
+            <td colspan="2" align="center"><button id="sell_btn" type="button" class="input_button" onclick="sell1();" >{:L('确定卖出')}</button></td>
+          </tr>
+		  </if>
+     </table>
+     </form> 
+  </div>
+  </eq>
+  <div class="core_title">
+    	<span class="core_title_con">挂单记录</span>
+    </div>
+    <div class="core_con">
+      <table class="tablebg">              
+	      <TR class="datafield">
+                <foreach name="data.field" item="vo">
+                <TH ><nobr>{$vo}</nobr></TH>
+                </foreach>
+            </TR>
+            <foreach name="data.list" item="vo">
+            <TR class="datalist">
+                <foreach name="vo" item="vo1">
+                <TD ><nobr>{$vo.$key}</nobr></TD>
+                </foreach>
+            </TR>
+            </foreach>
+		</table>
+    </div>
+    <div class="core_page">
+    <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
+    <if condition="$data['nowPage'] neq 1">
+    <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
+    <else/><span>首页&nbsp;&nbsp;</span>
+    </if>
+    <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
+    <if condition="isset($data['rollPage'][-2])">
+    <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+    </if>
+    <if condition="isset($data['rollPage'][-1])">
+    <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+    </if>
+    {$data.nowPage}&nbsp;&nbsp;
+    <if condition="isset($data['rollPage'][1])">
+    <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+    </if>
+    <if condition="isset($data['rollPage'][2])">
+    <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+    </if>
+    <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
+    <if condition="$data['nowPage'] lt $data['totalPages']">
+    <a href="{$data.theEndRow}">尾页</a>
+    <else/><span>尾页</span>
+    </if>  
+    </div>
+</div>
+<script language="javascript">
+	function sell1(){
+		$("#sell_btn").attr("disabled","disabled");
+		var url="__URL__/sellsave:__XPATH__";
+		$("#form1").attr("action",url);
+		$('#form1').submit();
+		$("#sell_btn").moveAttr("disabled");
+	}
+</script>
+</body>
+</html>

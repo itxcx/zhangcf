@@ -1,0 +1,52 @@
+<div class="core_main Net" id="listDisps_down">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}&gt;&gt;{$recommend_id}</span>
+
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+        <TR class="datafield">
+            <foreach name='data.field' item='name'>
+            <TH >{$name}</TH>
+            </foreach>
+        </TR>
+        <foreach name='data.list' item='name'>
+        <TR class="datalist">
+            <foreach name="name" key='name1' item='value'>
+            <TD ><nobr>{$value}</nobr></TD>
+            </foreach>
+        </TR>
+        </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
+        <else/><span>首页&nbsp;&nbsp;</span>
+        </if>
+        <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
+        <if condition="$data['rollPage'][-2]">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+        </if>
+        <if condition="$data['rollPage'][-1]">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+        </if>
+        {$data.nowPage}&nbsp;&nbsp;
+        <if condition="$data['rollPage'][1]">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+        </if>
+        <if condition="$data['rollPage'][2]">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+        </if>
+        <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">尾页</a>
+        <else/><span>尾页</span>
+        </if>
+          
+    </div>
+    
+</div>
+
+

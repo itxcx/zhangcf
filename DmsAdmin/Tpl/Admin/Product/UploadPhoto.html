@@ -1,0 +1,51 @@
+<script language="JavaScript">
+<!--
+
+function submit_edit(json)
+{
+	//如果执行成功
+	if(json.error == 0)
+	{
+		//显示消息框
+		//DWZ.ajaxDone('上传成功!');
+		alertMsg.correct('上传成功！');
+		$('#image_0').val(json.url);
+		$.pdialog.closeCurrent();
+	}else{
+		DWZ.ajaxDone(json.message);
+	}
+}
+
+//-->
+</script>
+<div class="pageContent">
+	<form action="__URL__/UploadPhotoSave:__XPATH__" method="post" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this,submit_edit)">
+		<input type="hidden" name="id" value="{$id}" />
+        <input type="hidden" name="save" value="1" />
+	  <div class="pageFormContent" layoutH="58">
+		<table cellspacing="0" cellpadding="0" border="0" align="center">
+		<tbody>
+			<tr>
+			<td valign="middle" style="padding-left:20px;">
+				<div style="position:relative;" id="uploadImgDiv">
+		
+					<input id="iconimage" size="40" name="iconimage" type="file" class="required" />    
+					  
+				</div>	
+				<div style="padding:8px; text-align:center; width:250px;" class="gray12">图片大小不能超过800K</div>
+			</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+		</form> 
+</div>
+
+</body>
+</html>

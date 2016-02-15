@@ -1,0 +1,159 @@
+@charset "utf-8";
+
+body{width:1126px;}
+.header,.center,.footer{width:100%;float:left;}
+.header{height:472px;}
+.header .head_top{
+	height:42%;
+	border:4px solid #fff;
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+	background: -moz-linear-gradient(top,#395ea0,#0d295d);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#395ea0), to(#0d295d));
+}
+.header .head_top .vip_info{height:80%}
+.header .head_top .vip_info .logo{margin:10px 0px 22px 1px;position:relative;}   /*-9px*/
+.header .head_top .vip_info .vip_info_rank{
+	width:14%;
+	height:68px;
+	border:6px solid #385d8a;
+	margin-left:18px;
+	text-indent:64px;
+	font-size:16px;
+	line-height:68px;
+	color:#ff0;
+	background-color:#4f81bd
+}
+.header .head_top .vip_info .vip_info_image{position:relative;top:-77px;left:7px;width:74px;}
+.header .head_top .vip_info .vip_info_detail{position:relative;width:50%;height:87px;left:30%;top:-161px;background-color:#4f81bd}
+.header .head_top .vip_info .vip_info_detail>div{width:50%;float:left;color:#fff;margin-top:10px;}
+.header .head_top .vip_info .vip_info_detail>div span{margin-right:10px;margin-left:10px;}
+.header .head_top .vip_info .log_out{float:right;width:159px;height:36px;margin:-203px 65px 0px 0px;padding-top:6px;background-color:#4f81bd;}
+.header .head_top .head_decorator{height:15%}
+.header .head_bottom{height:56%;border-left:4px solid #fff;border-right:4px solid #fff;background-color:#3e62a2;}
+.header .head_bottom .sliders{height:100%;padding:0px 16px}
+.header .head_bottom .sliders .slider_left{float:left;margin-top:88px;}
+.header .head_bottom .sliders .img_containers{
+	float:left;
+	background-color:#ecf0f6;
+	width:1010px;
+	height:92%;
+	margin:23px 0px 22px;
+	border-radius:10px;
+}
+.header .head_bottom .sliders .img_container{padding:14px 18px}
+.header .head_bottom .sliders .img_container+.img_container{display:none;}
+.header .head_bottom .sliders .slider_right{float:left;margin-top:88px;}
+
+
+.center{margin-top:8px;}
+.center .menu_list{width:29%;float:left;margin-right:28px;margin-top:-6px;}   /*margin-top:-16px;*/
+.center .menu_list .menu_container{width:100%;height:auto;zoom:1;overflow:hidden;-webkit-padding-start:0px;}   /*margin-left:-40px;*/
+.center .menu_list .menu_container .menuList{height:auto;margin-bottom: 4px;}
+.center .menu_list .menu_container .menuList .menuContent{height:auto}
+.center .menu_list .menu_container .menuList .menuContent ul{height:auto;zoom:1;overflow:hidden;-webkit-padding-start:0px;margin-bottom:4px;background-color:#AEC5EF;}
+.center .menu_list .menu_container .menuList .menuContent li a{color:#324B84;}
+.center .menu_list .menu_container .menuList .menuContent ul li.sssss {background-color:#526EC1;}
+.center .menu_list .menu_container .menuList .menuContent ul li.sssss a{color:white;}
+.center .menu_list .menu_container .menuTitle{
+	width: 100%;
+	height: 42px;
+	margin-bottom: 4px;
+	text-indent: 16px;
+	line-height: 42px;
+	background-color:#6A8DDE;
+	cursor:pointer;
+}
+/**.center .menu_list .menu_container .menuTitle{background-color:#d9d9d9;}**/
+
+.center .menu_list .menu_container .menuContent{
+	width: 100%;
+	height: auto;
+	margin-bottom: 4px;
+	text-indent: 16px;
+	line-height: 42px;
+	background-color:white;
+	display:none;
+	font-size: 14px;
+}
+
+.center .menu_list .menu_container li{width:100%;height:30px;margin-bottom:4px;text-indent:16px;line-height:30px;}
+.center .menu_list .menu_container .menuTitle.odd{background-color:#e9edf4;}
+.center .menu_list .menu_container .menuTitle.even{background-color:#6A8DDE;}
+.center .menu_list .menu_container .menuTitle.current{color:white;background-color:#3d58b3;}
+.center .menu_list .menu_container .menuTitle.current a{color:#C00000}
+
+.center .show_area{float:left;width:68%;}
+.center .show_area .username_area{
+	margin-bottom:38px;
+	float:left;
+	height:58px;
+	width:101%;
+	background-color:#5b8ac2;
+	color:#fff;
+	font-size:28px;
+	line-height:58px;
+}
+.center .show_area .username_area .user_info{float:left;margin-left:18px;}
+.center .show_area .username_area .checkbox_info{float:right;margin-right:30px;}
+.center .show_area .cardShow_area{float:left;width:101%;}
+.center .show_area .cardShow_area .card_container{float:left;width:100%;height:166px;margin-bottom:30px;}
+.center .show_area .cardShow_area .card_container ul{margin:0px 12px 30px 0px;padding-left:30px;width:96%;background-color:#3d61a1;}
+.center .show_area .cardShow_area .card_container li{height:165px;margin-right:14px;}
+.center .show_area .cardShow_area .card_container .fun_bank{color: #000;height: 48px;text-align: center;position:relative;top:-48px;}
+.center .show_area .cardShow_area .card_container .fun_bank span{line-height: 48px;}
+
+.footer{bottom:0px;margin-top:70px;}
+.footer .footer_background{width:100%;background-color:#4f81bd;height:104px;}
+.footer .footer_info{width:100%;background-color:#fff;height:52px;}
+
+
+/**-------------------------------登陆页样式-----------------------------**/
+.header.login_head{height:200px;}
+.header.login_head .head_top{height:100%}
+.header.login_head .head_top .vip_info.login_vip_info{float: left;}
+.header.login_head .head_top .login_vip_info .login_blank{
+	width:1090px;
+	height:130px;
+	background-color:#558ed5;
+	float:left;
+	margin:-20px 0px 0px 8px;
+	border-radius:20px;
+}
+
+.center .login_area{background-color:#666;width:655px;height:424px;;margin:0px auto;color:#fff;}
+.center .login_area .login_title{width:428px;height:98px;margin:0px auto;font-size:46px;line-height:112px;}
+.center .login_area .login_info{width:428px;height:184px;margin:0px auto;}
+.center .login_area .login_info input[type="text"]{
+	width:100%;
+	height:50px;
+	border:1px solid black;
+	border-radius:10px;
+	text-indent:10px;
+	font-size:30px;
+}.center .login_area .login_info input[type="password"]{
+	width:100%;
+	height:50px;
+	border:1px solid black;
+	border-radius:10px;
+	text-indent:10px;
+	font-size:30px;
+}
+.center .login_area .login_keyin{
+	width:428px;
+	height:108px;
+	margin:0px auto;
+	background-color:#383737;
+	border:12px solid #e46c0a;
+}
+.center .login_area .login_keyin button{
+	width:132px;
+	height:36px;
+	box-shadow:0 1px 2px #8b8b8b inset,0 -1px 0 #3d3d3d inset;
+	background:-webkit-linear-gradient(top,#656565,#4c4c4c);
+	border-color:#3c3c3c;border-radius:6px;
+	font-size:20px;
+	color:white;
+	cursor:pointer;
+}
+.center .login_area .login_keyin button:hover{background:-webkit-linear-gradient(top,#818181,#575757);}

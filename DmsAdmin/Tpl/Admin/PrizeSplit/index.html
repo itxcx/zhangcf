@@ -1,0 +1,181 @@
+<div class="pageContent" layoutH='0'>
+<style>
+.pageWidth {
+	background-image: none;
+	margin: 0px auto;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: auto;
+	width:100%;
+}
+#box_root {
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+.cont {	
+	overflow:auto;
+}
+.mbx {
+	width:100%;
+	height:48px;
+	border-bottom:1px solid #e6e6e6;
+}
+.mbx p {
+	line-height:47px;
+	font-size:14px;
+	text-align:center;
+	border-bottom:1px solid #fff;
+}
+.mbx span {
+	color:#fff;
+	padding:0px 6px;
+	background:#18a32a;
+	border-radius:2px;
+	-o-border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	margin:0 10px;
+}
+.mbx a {
+	color:#18a32a;
+	text-decoration:underline;
+}
+.cont_detail {
+	width:100%;
+	margin:0 auto;
+}
+.detail_first, .detail_second {
+	width:100%;
+	overflow:auto;
+	padding:10px 0;
+	margin:0 auto;
+}
+.detail_first ul, .detail_second ul{
+	margin: 0 auto;
+	text-align:center;
+}
+.detail_first ul{
+	width:700px;
+	margin:0 auto;
+}
+.detail_second ul{
+	width:800px;
+	margin:0 auto;
+}
+.detail_first ul li,.detail_second ul li {
+	width:90px;
+	background:#fff;
+	float:left;
+	box-shadow:0 0 2px #8c8c8c;
+	display:inline;
+}
+.detail_first ul li{
+	margin:0 4px;
+}
+.detail_second ul li{
+	margin:0 4px;
+}
+.detail_first ul li h4,.detail_second ul li h4 {
+	font-size:14px;
+	color:#fff;
+	width:88px;
+	height:26px;
+	line-height:28px;
+	text-align:center;
+}
+.detail_first ul li h4{
+	background:#1bbb30;
+	border:1px solid #148b24;
+}
+.detail_second ul li h4{
+	background:#e0232a;
+	border:1px solid #b41d22;
+}
+.detail_first ul li table,.detail_second ul li table{
+	width:90px;
+	border-left:1px solid #a8a8a8;
+	border-right:1px solid #a8a8a8;
+	border-bottom:1px solid #a8a8a8;
+}
+.detail_first ul li table td,.detail_second ul li table td{
+	width:100%;
+	font-size:12px;
+	color:#545454px;
+	text-align:center;
+	line-height:17px;
+}
+</style>
+<div class="pageWidth" id="box_root">
+  <div class="cont">
+    <div class="mbx">
+      <p>当前版块号:<span>{$panid}</span>该版块类型:<span>{$name}</span>记录时间:<span>{$create_time|date="Y-m-d H:i:s",###}
+
+</span></p>
+    </div>
+    <div class="cont_detail">
+      <div class="detail_first">
+        <ul>
+          <for start="1" end="8" name="i">
+			<if condition="array_key_exists($i,$data)">
+	          <li>
+	            <h4 title='直接推荐权:{$data[$i]['tj']}&#13;间接推荐权:{$data[$i]['tj2']}'>{$data[$i]['id']}</h4>
+	            <table border="0" height='62'>
+	            	<foreach name="data[$i]['recdata']" item="vo">
+	              <tr >
+	                <td height='20'>{$vo['来源']}</td>
+	              </tr>
+	            	</foreach>
+	              <tr>
+	                <td></td>
+	              </tr>
+	            </table>
+	          </li>
+			<else />
+	          <li>
+	            <h4></h4>
+	            <table border="0" height='62'>
+	              <tr>
+	                <td></td>
+	              </tr>
+	            </table>
+	          </li>
+			</if>
+          </for>
+        </ul>
+      </div>
+      <div class="detail_second">
+      	 <ul>
+          <for start="8" end="16" name="i">
+			<if condition="array_key_exists($i,$data)">
+	          <li>
+	            <h4  title='直接推荐权:{$data[$i]['tj']}&#13;间接推荐权:{$data[$i]['tj2']}'>{$data[$i]['id']}</h4>
+	            <table border="0" height='62'>
+	            	<foreach name="data[$i]['recdata']" item="vo">
+	              <tr>
+	                <td height='20'><if condition="($name GT 1)">*</if>{$vo['来源']}</td>
+	              </tr>
+	            	</foreach>
+	              <tr>
+	                <td></td>
+	              </tr>
+	            </table>
+	          </li>
+			<else/>
+	          <li>
+	            <h4></h4>
+	            <table border="0" height='62'>
+	              <tr>
+	                <td></td>
+	              </tr>
+	            </table>
+	          </li>
+			</if>
+          </for>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

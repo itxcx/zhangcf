@@ -1,0 +1,143 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+
+<div class="core_main Fun_ep_deal" id="index">
+     <div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>:{:L('金币交易')}&gt;&gt;{:L($bankname)}{:L('买入')}</span>
+    </div>
+    <div class="core_con">
+    <php>if(!stristr($_SERVER['HTTP_USER_AGENT'],'Android')) $action="__URL__/buy/args/".$args."/ios/1";</php>
+    <form method="post" id="form1" action="{$action}">
+      <table class="tablebg">
+	  <tr>
+		<td  class="tbkey">{:L('金币数量')}：</td>
+		<td  class="tbval"><strong>{$eqnum}</strong></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('买入')}：</td>
+		<td  class="tbval" ><input type="text" id="price" name="price"  value="" onkeyup="getBtb(this.value);" onblur="getBtb(this.value);"/>&nbsp;<span class="aa">*<if condition="$eqMultiple gt 0">{$eqMultiple}<span>{:L('的整数倍')}</span></if></span></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('比特币数量')}：</td>
+		<td  class="tbval" id="btb"></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('充值钱包')}：</td>
+		<td  class="tbval">{$eqAddress}</td>
+	  </tr>
+	  <php>if(stristr($_SERVER['HTTP_USER_AGENT'],'Android')) { </php>
+		<tr>
+			<td colspan="2" align="center"><a target="_blank" class="button_text" href="{$eqLink}" onclick="buy();">{:L('付款')}</a></td>
+		</tr>
+		<php>}else{ </php>
+		<tr>
+			<td colspan="2" align="center"><input  class="button_text" onMouseDown="this.className='button_onmousedown'" onMouseOver="this.className='button_onmouseover'" onMouseOut="this.className='button_onmouseout'" type="button" value="{:L('付款')}" name="subbut"  id='subbut' onclick="tijiao()"/></td>
+		</tr>
+	  <tr>
+		<td class="tbkey">{:L('说明')}：</td>
+		<td  class="tbval">{:L('买入后，请用新的浏览器打开此链接：')}<font color='blue'>{$eqLink}</font> ，{:L('以完成买入操作，否则不通过审核')}</td>
+	  </tr>
+	  <php>}</php>
+	</TABLE> 
+	</form>
+	</div>
+    <div class="core_con">
+    <div class="title">		
+    	<span class="core_title_con">{:L('我的买入记录')}</span>
+  	</div>
+        <table class="tablebg">
+            <foreach name="data.list" item="inst" key="k">
+            <tr class="tbtr">
+                <td class="btkey">
+                    <table>
+                        <tr><td><center>{:L('时间')}</center></td><td><center>{$inst.挂单时间|date='Y-m-d H:i:s',###}</center></td></tr>
+                        <tr><td><center>{:L('数量')}</center></td><td><center>{$inst.金额}</center></td></tr>
+                        <tr><td><center>{:L('比特币')}</center></td><td><center>{$inst.比特币}</center></td></tr>
+                        <tr><td><center>{:L('充值钱包')}</center></td><td><center>{$inst.充值钱包}</center></td></tr>
+                        <tr><td><center>{:L('状态')}</center></td><td><center>{:L($inst['状态'])}</center></td></tr>
+                        <tr><td><center>{:L('操作')}</center></td><td><center>
+                                <if condition="$inst['状态'] eq '待审核'"><a href="__URL__/sellBreak/id/{$inst.id}/args/{$args}" ><font color='red'>{:L('撤销')}</font></a></if>
+                    </center></td></tr>
+                    </table>
+                </td>               
+            </tr>
+            </foreach>            
+	    </table>
+	</div>	
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+</div>
+<!--内容-->
+<script language='javascript'>
+function tijiao(){
+	var price=$("#price").val();
+	if(price==0 || price==''){
+		alert("{:L('请输入买入金额')}");return false;
+	}
+	$('#subbut').attr('disabled',true);
+	$('#subbut').val('{:L('正在提交,请等待...')}');
+	$('#form1').submit();
+}
+function buy(){
+	var price=$("#price").val();
+	if(price==0 || price==''){
+		alert("{:L('请输入买入金额')}");return false;
+	}
+	$.post('__URL__/buy/args/{$args}',{price:price},function(data){
+
+      if(data != 'ok'){
+		  alert(data);return false;
+	   }else{
+	   	location.reload();
+	   	return true;
+	   }
+    });
+}
+
+function getBtb(price){
+	$.post('__URL__/getBtb2/args/{$args}',{price:price},function(data){
+
+      if(data == ''){
+		  $("#btb").html('');
+	   }else{
+		 $("#btb").html(data);
+	   }
+    });
+}
+</script>  
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+

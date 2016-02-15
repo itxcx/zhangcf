@@ -1,0 +1,56 @@
+<script>
+function navTabAjaxDoneReload(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok){
+		$.pdialog.closeCurrent();
+		navTab.reload(json.forwardUrl);
+	}else{
+		var $pagerForm = $("#pagerForm", navTab.getCurrentPanel());
+		var args = $pagerForm.size()>0 ? $pagerForm.serializeArray() : {}
+		navTabPageBreak(args, json.rel);
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__APP__/Admin/cancelyubiprefix"  class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="id" value="{$yubiprefix['id']}"/>
+		<input type="hidden" name="adid" value="{$admininfo['id']}"/>
+		<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/edit')}"/>
+		<input type="hidden" name="forwardUrl" value="__APP__/Admin/edit/id/{$admininfo['id']}"/>
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th style="text-align:right">yubi信息：</th>
+					<td style="text-align:left">
+                    	{$yubiprefix.yubi_prefix}&nbsp;<neq name="yubiprefix['yubi_prefix_name']" value="">（{$yubiprefix.yubi_prefix_name}）</neq>&nbsp;<gt name="yubiprefix['endtime']" value="0">&nbsp;截止到&nbsp;{:date("Y-m-d",($yubiprefix['endtime']+86400))}&nbsp;<eq name="yubiprefix['state']" value="1">失效<else/><span style="color:#ff0000">已失效<span></eq></gt>&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<th style="text-align:right">管理员：</th>
+					<td style="text-align:left">
+                    	{$admininfo.account}<neq name="admininfo['nickname']" value="">（{$admininfo['nickname']}）</neq>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" style="text-align:right">点击输入key值：</th>
+					<td style="text-align:left;vertical-align: middle;height:30px;line-height:30px;" varalign="middle">
+                    <input type="password"  id="ayubiopt" name='ayubiopt' value="" size='32'/>&nbsp;（当前管理员的yubikey或者您的yubikey）
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" >确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script >
+$(function () {
+	$('#newyubiopt').focus();
+})
+</script >

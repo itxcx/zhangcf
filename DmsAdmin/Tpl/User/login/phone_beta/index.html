@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head lang="cn">
+        <meta charset="UTF-8">
+        <title>系统登录页</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" href="UserTpl/login/phone_beta/css/style.css"/>
+        <script src="__PUBLIC__/jquery-1.8.3.min.js"></script>
+       <script type="text/javascript">
+        function fleshVerify(type){ 
+            //重载验证码
+            var timenow = new Date().getTime();
+            $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+        }
+        </script>
+</head>
+<body>
+    <div class="logform">
+        <form class="form" action="__URL__/check" method="post">
+            <input type="hidden" name="act" value="verify" />
+            <dl class="formtable">
+                <dt>
+                    <h1><span>企业销售平台<i class="icon-user">用户版</i></span></h1>
+                    <h2>Enterprise sales platform</h2>
+                </dt>
+                <dd>
+                    <label for="username"><img src="UserTpl/login/phone_beta/img/username.png" alt="username"></label>
+                    <input type="text" name="username" id="username" maxlength="20" placeholder="请输入账号" autocomplete="off">
+                </dd>
+                <dd>
+                    <label for="password"><img src="UserTpl/login/phone_beta/img/password.png" alt="password"></label>
+                    <input type="password" name="password" id="password" maxlength="20" placeholder="请输入密码">
+                </dd>
+                <if condition="isset($dispCode) and ($dispCode eq true)">
+                <dd>
+                    <label for="captcha"><img src="UserTpl/login/phone_beta/img/captcha.png" alt="username"></label>
+                    <input type="text" maxlength="4" name="captcha" id="captcha" placeholder="验证码" autocomplete="off"><img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="点击刷新验证码">
+                </dd>
+                </if>
+                <dd class="subbtn">
+                    <eq name="isOpenTime" value="0">
+                    <span>对不起，该时间段暂不可访问！</span>
+                    <else/>
+                    <button type="submit" class="sub">登　录</button>
+                    </eq>
+                </dd>
+                <dd><p class="open-time">今日开放时间为：<strong><i>0:00-24:00</i></strong> 当前时间可以访问</p></dd>
+            </dl>
+        </form>
+    </div>
+</body>
+</html> 

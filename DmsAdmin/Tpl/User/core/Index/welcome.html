@@ -1,0 +1,71 @@
+<div class="core_main Index" id="welcome">
+	<p >
+   &nbsp;	
+    </p>	<p >
+   &nbsp;	
+    </p>
+    <div class="core_con">
+    	<table class="tablebg">        
+          <tr>
+            <td colspan=4 >
+              <table  class="tablebg">              
+                    <tr >
+                      <th>事务提醒</th>              
+                    </tr>              
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td >
+                <table class="tablebg">              
+                <tr>
+                 <td>
+                 欢迎您，<span class="STYLE2"><span class="STYLE1">{$userinfo.编号}</span></span>
+                 <!-- <span>姓名：<span class="msg">{$userinfo.姓名}</span></span>-->&nbsp;&nbsp;
+                  <foreach name="userlevel" item="lv" key="k">
+                  <span>{$k}：</span><span class="msg">{$lv.byname}</span></span>
+                  </foreach>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                    <foreach name="netPlaceName" item="placeNames" key="ky">
+                      <div >{$ky}网体业绩</div>
+                      <table  class="tablebg">
+                        <tr>
+                          <td >{$ky}</td>
+                          <td >新增</td>
+                          <td >结转</td>
+                          <td >累计</td>
+                        </tr>
+                        <foreach name="placeNames" item="placeName">
+                        <tr >
+                          <td >{$placeName}区</td>
+                          <td >{:$userinfo[$ky.'_'.$placeName.'区本日业绩']}</td>
+                          <td >{:$userinfo[$ky.'_'.$placeName.'区结转业绩']}</td>
+                          <td >{:$userinfo[$ky.'_'.$placeName.'区累计业绩']}</td>
+                        </tr>
+                        </foreach>
+                      </table>
+                    </foreach>
+                    </td>
+                </tr>           
+                    <!--<tr>
+                      <td height="38" align="left" valign="middle" >为保证您个人信息的安全请更改默认登录密码，以确保您的安全</td>
+                    </tr>
+                      <tr>
+                      <td height="20" align="left" valign="middle" >您的IP地址为：{$ip}</td>
+                    </tr>
+                    <tr>
+                      <td height="20" align="left" valign="middle" >系统发现同一电脑ip出现登录2个号以上的，系统立刻疯掉！</td>
+                    </tr>-->            
+            </table>
+            </td>
+          </tr>
+        </table>
+    </div>
+    
+    <div class="core_page"></div>
+</div>
+
+

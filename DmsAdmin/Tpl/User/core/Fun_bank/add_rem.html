@@ -1,0 +1,25 @@
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<load href="__PUBLIC__/jquery-1.9.1.min.js" />
+<div class="core_main Fun_bank" id="add_rem">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：添加汇款通知</span>
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+        <form  id="register" name='register'>
+        <table class="tablebg">
+            <tr>
+              <td class="tbkey">选择银行：</td>
+              <td class="tbval">
+              <ul>
+              <foreach name="tp" item="vo">
+              	<li><a href='__GROUP__/Fun_bank/add_rem1/id/{$vo.id}'><img src="__PUBLIC__/Images/{$vo.图标}"/></a></li>
+              </foreach>
+              </ul>
+              </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div class="core_page"></div>
+</div>

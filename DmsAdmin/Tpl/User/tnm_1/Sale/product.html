@@ -1,0 +1,252 @@
+<div class="product-box">
+    <div class="product-title">
+        <h1>{$sale:productName}选购</h1>
+    </div>
+    <div class="product-content">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th colspan=4>
+                        <div class="product-search">
+                            关键字&nbsp;&nbsp;<input class="keywords" type="text" name="keywords" placeholder="关键字">
+                            &nbsp;&nbsp;价格&nbsp;
+                            <input class="beginprice" type="text" name="beginprice" placeholder="￥">
+                            &nbsp;&nbsp;到&nbsp;
+                            <input class="endprice" type="text" name="enprice" placeholder="￥">
+                            <button type="button">搜索</button>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="product-class">
+                        产品分类 ∨
+                        <ul class="classlist">
+                        <li id="productCategory_0" productCategoryid="0">显示全部</li>
+                        <php>$i=1;</php>
+                        <foreach name="productArr" item="product">
+                        <li id="productCategory_{$i}" productCategoryid="{$i}">{$key}</li>
+                        <php>$i++;</php>
+                        </foreach></td>
+                        </ul>
+                    </th>
+                    <th>产品名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                </tr>
+            </thead>
+            <php>$ii=1;</php>
+            <foreach name="productArr" item="product" key="fenlei">
+            <tbody id="productTbody_{$ii}">
+                <volist name="product" id="vo">
+                <tr>
+                    <td>{$vo.分类}</td>
+                    <td><a href="__URL__/showProinfo/id/{$vo.id}">{$vo.名称}</a></td>
+                    <td><span class="red">{$vo[$sale:productMoney]}</span></td>
+                    <td style="width: 120px;">
+                        <div class="product-num">
+                            <a class="productMinus" href="javascript:void(0);">-</a>
+                            <input type="text" name="productNum[{$vo.id}]"  id="productNum_{$vo.id}" productNumInfo="{$vo.id}_{$fenlei}_{$vo.名称}_{$vo[$sale:productMoney]}_{$vo.PV}_{$vo.重量}" pronum="{$vo.可订购数量}"  productimg="{$vo.图片}" value="0">
+                            <a class="productPlus" href="javascript:void(0);">+</a>
+                        </div>
+                        <p class="product-status">有货</p>
+                        <!--<p class="product-status noproduct">缺货</p>-->
+                    </td>
+                </tr>
+                </volist>
+            </tbody>
+            <php>$ii++;</php>
+            </foreach>
+            <tfoot>
+                <tr class="product-page">
+                    <td colspan=4>
+                        <div class="core_page">
+                            <span>共10条记录 1/2页 &nbsp;</span>
+                            <a href="javascript:void(0);">首页</a>&nbsp;&nbsp;
+                            <a href="javascript:void(0);">上一页</a>&nbsp;&nbsp;
+                            <span href="javascript:void(0);">1</span>&nbsp;&nbsp;
+                            <a href="javascript:void(0);">下一页</a>&nbsp;&nbsp;
+                            <a href="javascript:void(0);">尾页</a>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="product-selected">
+        <table class="selected-table">
+            <thead>
+                <tr class="product-head">
+                    <th colspan=3 class="selected-title">已选购产品</th>
+                    <th colspan=2 class="selected-val">共<span class="red product-numall" id="totalnum">0</span>件产品　</th>
+                </tr>
+            </thead>
+            <tbody id="selectedProduct">
+            </tbody>
+            <tr class="no-pr">
+                <td colspan=5><img class="noproduct" src="__TMPL__Public/img/noproduct.jpg" alt="noproduct"></td>
+            </tr>
+            <tr class="product-sum">
+                <td colspan=3>　金额总计：<span class="red product-sumall">￥<span id="totalprice">0.00</span></span></td>
+                <td colspan=2 id="submit-box">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<if condition="($logistic eq true) or ($zkbool eq true)"><script language="javascript" src="__PUBLIC__/js/cal.js"></script></if>
+<script>
+$(function(){
+
+    $('#submit-box').append($('.submit-box').remove().clone());
+
+    $('.product-class').hover(function () {
+        $(this).addClass('hover');
+    }, function () {
+        $(this).removeClass('hover');
+    });
+
+  	<if condition="($logistic eq true) or ($zkbool eq true)">
+		user_getTotalzf('{$sale:name}','Sale');
+	</if>
+	var productStock = <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">true<else/>false</if>;
+
+	$("[id^='productCategory_']").click(function(){
+        $('.product-class').removeClass('hover');
+		$('[id^=productTbody_]').hide();
+        if ($(this).attr('productCategoryid') == 0) {
+		    $('[id^=productTbody_]').show();
+        } else {
+		    $('#productTbody_'+$(this).attr('productCategoryid')).show();
+        }
+	});
+
+    //加减
+    $('.productMinus').click(function () {
+        _this = this;
+        calculator(0, _this);
+    });
+    $('.productPlus').click(function () {
+        _this = this;
+        calculator(1, _this);
+    });
+
+	$("[id^=productNum_]").keyup(function(){
+		var product =$(this).attr('productNumInfo').split("_");
+        var productimg = '<img class="product-img" src="'+$(this).attr('productimg')+'">';
+		var num = $(this).val();
+		num = parseInt(num.replace(/\b(0+)/gi,""));
+		if(!(num > 0 && (!isNaN(num)))){
+			$(this).val(0);
+            $('#product-show' + product[0]).remove();
+		}
+		//开启库存时，不能超过库存量
+		var realnum=$(this).attr('pronum');
+		if(productStock && num > realnum){
+			num =  parseInt(realnum);
+			$(this).val(num);
+		}
+		
+        //定义序号
+        /*
+		var k=0;
+		$("#selectedProduct > tr").each(function(i,v){
+			if($(v).attr('selectedProductid') == product[0]){
+				$(this).remove();//删除
+			}else{
+				k=parseInt($(this).find("td:first").html());
+			}
+		});
+        */
+		if((!isNaN(num)) && num > 0){
+            if(!$('#product-show' + product[0]).get(0)) {
+                var productlist = '<tr selectedProductid="'+product[0]+'" id="product-show'+product[0]+'" class="product-show">' +
+                                      '<td>'+productimg+'</td>'+
+                                      '<td style="min-width:100px;">'+product[2]+'</td>'+
+                                      '<td id="selprice_'+product[0]+'" class="red">'+(num*product[3]).toFixed(2)+'</td>'+
+                                      '<td id="selnum_'+product[0]+'" selectedProductid="'+product[0]+'"><div class="prnum">' + 
+                                            '<input type="text" class="product-num" value="' + num + '" onkeyup="showplu(this, 1)">' +
+                                            '<a class="prmin" href="javascript:void(0);" onclick="calculator(10, this);">-</a>' +
+                                            '<a class="prplu" href="javascript:void(0);" onclick="calculator(11, this);">+</a>' + 
+                                        '</div></td>'+
+                                      '<td><div class="productRemove" onclick="productRemove(this);">'+
+                                           '<img src="__TMPL__Public/img/delete.png" alt="delete">'+
+                                           '<p>删除</p>'+
+                                       '</div></td>'+
+                                  '</tr>'
+                $("#selectedProduct").append(productlist);
+                $('.no-pr').hide(0);
+            } else {
+                $('#selprice_' + product[0]).html((num*product[3]).toFixed(2));
+                $('#selnum_' + product[0]).find('.product-num').val(num);
+            }
+		}
+
+        if(!$('.product-show').get(0)) {
+            $('.no-pr').show(0);
+        }
+		//统计
+		var countNum = 0;
+		var countMoney = 0;
+		$("#selectedProduct > tr").each(function(i,v){
+			var proid=$(this).attr('selectedProductid');
+			countNum +=parseFloat($('#selnum_'+proid).find('.product-num').val());
+			countMoney +=parseFloat($('#selprice_'+proid).html());
+		});
+		
+		$("#totalnum").html(countNum);
+		$("#totalprice").html(countMoney.toFixed(2));
+		//计算实付款并显示
+		<if condition="($logistic eq true) or ($zkbool eq true)">
+			user_getTotalzf('{$sale:name}','Sale');
+		</if>
+        
+	});
+
+});
+
+//加减按钮
+function calculator(type, _this) {
+    var pPrice = $(_this).parent('.product-num').find('[id^=productNum_]');
+    var productid = $(_this).parent('.prnum').parent('td[id^=selnum_]').attr('selectedproductid');
+
+    if (!!pPrice.get(0)) {
+
+        var pPricenum = pPrice.val();
+
+        if (type==0) {
+            pPricenum--;
+            pPrice.val(pPricenum);
+            $("[id^=productNum_]").trigger('keyup');
+        }
+        if (type==1) {
+            pPricenum++;
+            pPrice.val(pPricenum);
+            $("[id^=productNum_]").trigger('keyup');
+        }
+    }
+
+    if(!!productid) {
+        var pPrice = $('#productNum_' + productid);
+        var pPricenum = pPrice.val();
+
+        if (type==10) {
+            pPricenum--;
+            pPrice.val(pPricenum);
+            pPrice.trigger('keyup');
+        }
+        if (type==11) {
+            pPricenum++;
+            pPrice.val(pPricenum);
+            pPrice.trigger('keyup');
+        }
+    }
+}
+//移除按钮
+function productRemove(_this) {
+    var productid = $(_this).parent('td').prev('td[id^=selnum_]').attr('selectedproductid');
+    var pPrice = $('#productNum_' + productid);
+    var pPricenum = pPrice.val(0);
+    pPrice.trigger('keyup');
+}
+</script>

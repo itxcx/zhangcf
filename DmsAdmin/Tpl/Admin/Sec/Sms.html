@@ -1,0 +1,57 @@
+<script>
+$(document).ready(function ()
+{
+	$('#SmsTestBut').click(function (){
+		name =$('#name').val();
+		pass =$('#pass').val();
+		code =$('#code').val();
+		phone_number=$('#phone_number').val();
+		$('#SmsTestBut').attr('href','__URL__/SmsTest/name/'+name+'/pass/'+pass+'/code/'+code+'/phone_number/'+phone_number);
+	});
+});
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/SmsSave" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input name="callbackType" type="hidden" value="closeCurrent"/>
+		<input type="hidden" name="navTabId" value="1cd9de70cbbe5970a92b08a7be94c1aa">
+		<input type="hidden" name="forwardUrl" value="__URL__/index">		
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label class='oldlabel' style='text-align:right;'>状态：</label>
+				<select name='status'>
+				<option value='1' <eq name='status' value='1'>selected</eq>>开启</option>
+				<option value='0' <eq name='status' value='0'>selected</eq>>关闭</option>
+				</select>
+			</p>
+			<p>
+				<label class='oldlabel' style='text-align:right;'>公司代码：</label>
+				<input name="code" id='code' type="text" size="40" value="{$code}"/>
+			</p>
+			<p>
+				<label class='oldlabel'>短信账户：</label>
+				<input name="name" id='name' class="required" type="text" size="40" value="{$name}"/>
+			</p>
+			<p>
+				<label class='oldlabel'>短信密码：</label>
+				<input name="pass" id='pass' class="required" type="text" size="40" value="{$pass}"/>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label class='oldlabel'>测试手机号码：</label>
+				<input style='float:left' name="phone_number" id='phone_number' type="text" size="14" value=""/>
+				<a  href="" id='SmsTestBut' target="ajaxTodo" class='button' style='margin-left:10px'><span>测试发送</span></a>
+			</p>
+			<p>
+			<span style="float:left;margin-left:23px;height:23px;line-height:23px;padding:0 0 0 20px;background: url('/Public/Images/ExtJSicons/information.png') no-repeat 2px 3px"> 如测试成功，您会接到短信，并提示验证码为123456</span>
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

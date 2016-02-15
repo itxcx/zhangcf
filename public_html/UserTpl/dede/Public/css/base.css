@@ -1,0 +1,135 @@
+
+.tablebg {
+	width:100%;
+	margin-top: 10px;
+
+}
+.tablebg tr.datafield th {
+	background: #EAEAEA;
+	font-weight: normal;
+	height: 28px;
+	line-height: 28px;
+}
+.tablebg tr.datafield td {
+	background: #EAEAEA;
+	font-weight: normal;
+	height: 28px;
+	line-height: 28px;
+}
+.tablebg  tr.datalist td {
+	height: 28px;
+	line-height: 28px;
+	border-bottom: 1px solid #EAEAEA;
+	text-align:center;
+}
+.tablebg tr.datalist a {
+	color: #29A5C9;
+}
+
+
+
+.tablebg{
+	padding: 10px 40px;
+	min-height:25px;
+	_height:25px;
+	line-height:25px;
+	margin-bottom:10px;
+	font-size:14px;
+	color:#333333;
+}
+
+.tablebg tr{
+	line-height:28px;
+	min-height:25px;
+	zoom:1;
+	margin-top: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	overflow:hidden;
+}
+.tablebg .tbkey{
+	width:10%;
+	color:#727272;
+	vertical-align:top;	
+	font-weight:bold;
+}
+.tablebg .tbval{
+	color:#727272;
+	width:150px;
+	text-align:left;
+}
+.tablebg select {
+	font-size:13px;
+	color:#666;
+	_margin:2px 0 0 0;
+}
+.tablebg .intxt, textarea {
+	padding:4px 5px;
+	border:1px solid #9e9e9e;
+	width:200px;
+	background:url(../images/input_bg.gif) no-repeat 0 0;
+	color: #666;
+}
+.tablebg textarea {
+	height:5em;
+}
+
+.tablebg input{
+	margin:0 0px;
+	*margin:0 -1px;
+	_margin:0;
+}
+.core_conp .tablebg{
+	color:#333;
+}
+.core_conp .tablebg thead tr td {
+	background: #EAEAEA;
+	font-weight: normal;
+	height: 28px;
+	line-height: 28px;
+	
+}
+.core_conp .tablebg tbody  tr td {
+	height: 28px;
+	line-height: 28px;
+	border-bottom: 1px solid #EAEAEA;
+	text-align:left;
+}
+
+.core_conp .tablebg tr td.ptitle{
+	font-weight:bold;
+	background:none;
+}
+.pcategory{
+	display:inline-block;width:70px;margin-left:5px;padding:5px 5px;
+	text-align:center;
+}
+.title .core_title_con{
+	display:inline-block;padding-left:50px;font-weight:bold;
+}
+.add{
+	display:inline-block;padding-top: 10px;padding-right:50px;font-weight:bold;float:left;
+}
+#state_productCountMoney{padding-left:45px;color:red;}
+.button_text {
+	 border:none;PADDING-BOTTOM: 4px !important;  DISPLAY: inline-block; FONT-FAMILY: Verdana, Arial, sans-serif; BACKGROUND: url(../images/bg-button-green.gif) no-repeat right top; COLOR: #fff !important; FONT-SIZE: 11px !important;  CURSOR: pointer;PADDING-TOP: 4px !important;width:180px;PADDING-left:135px;
+}
+.button_onmousedown {
+	 border:none;PADDING-BOTTOM: 4px !important;  DISPLAY: inline-block; FONT-FAMILY: Verdana, Arial, sans-serif; BACKGROUND: url(../images/bg-button-green.gif)  no-repeat right top; COLOR: #fff !important; FONT-SIZE: 11px !important;  CURSOR: pointer;PADDING-TOP: 4px !important;width:180px;PADDING-left:135px;
+}
+.button_onmouseover {
+	 border:none;PADDING-BOTTOM: 4px !important;  DISPLAY: inline-block; FONT-FAMILY: Verdana, Arial, sans-serif; BACKGROUND: url(../images/bg-button-green.gif)  no-repeat right top; COLOR: #fff !important; FONT-SIZE: 11px !important;  CURSOR: pointer;PADDING-TOP: 4px !important;width:180px;PADDING-left:135px;
+}
+.button_onmouseout {
+	 border:none;PADDING-BOTTOM: 4px !important;  DISPLAY: inline-block; FONT-FAMILY: Verdana, Arial, sans-serif; BACKGROUND: url(../images/bg-button-green.gif)  no-repeat right top; COLOR: #fff !important; FONT-SIZE: 11px !important;  CURSOR: pointer;PADDING-TOP: 4px !important;width:180px;PADDING-left:135px;
+}
+
+.core_page {
+	font-size:14px;
+	padding:10px 55px;
+	text-align:right;
+}
+.core_page a{
+	color:#29A5C9;
+	margin-left:5px;
+	}

@@ -1,0 +1,35 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload();//刷新角色管理
+ 
+		$.pdialog.closeCurrent(); //关闭添加角色对话框
+	}
+}
+
+</script>
+
+<div class="pageContent">
+	<form method="post" action="__URL__/splitSave:__XPATH__/splitnum/{$splitnum}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>管理员密码：</th>
+					<td>
+						<input type="password" class="required" name="repwd" value=""/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

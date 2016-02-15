@@ -1,0 +1,57 @@
+<table name='{$this->name}' engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name="计算日期" type="int(11)"   default="0"/>
+<foreach name="{X('levels')}" item="levels">
+   <field name='{$levels.name}'   type="tinyint(2)" default="1"/>
+</foreach>
+<field name='编号'     type="varchar(50)" default=""/>
+<foreach name="{X('net_rec,net_place')}" item="net">
+   <field name='{$net.name}_上级编号'   type="varchar(50)" default=""/>
+</foreach>
+<field name='奖金'     type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='收入'     type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='形成奖金' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='结转奖金' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='应发奖金' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='累计收入' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='显示'     type="tinyint(2)" default="0"/>
+<field name="生成日期" type="int(11)"   default="0"/>
+<field name='state'     type="tinyint(1)" default="0" />
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`计算日期`)' type="KEY"/>
+<field name='INDEX (`state`)' type="KEY"/>
+</table>
+<table name='{$this->name}构成'  engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="dataid"   type="int(11)"  default="0"/>
+<field name='name'  type="varchar(100)"   default=""/>
+<field name='prizename' type="varchar(100)"   default=""/>
+<field name='userid'   type="int(11)" default="0"/>
+<field name='fromid'   type="int(11)" default="0"/>
+<field name='val'      type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='trueval'      type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0"/>
+<field name='memo'     type="varchar(5000)" default=""/>
+<field name='layer'    type="int(11)" default="0"/>
+<field name='tighten'  type="int(11)" default="0"/>
+<field name='INDEX (`dataid`)' type="KEY"/>
+<field name='INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`prizename`)' type="KEY"/>
+</table>
+<table name='{$this->name}总账'  engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="计算日期" type="int(11)" default="0"/>
+<field name='总业绩'   type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='总奖金'   type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='本期业绩' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<field name='本期奖金' type="decimal({$this->parent('user')->decimalLon},{$this->parent('user')->decimalLen})" default="0" null="1"/>
+<foreach name="{X('prize_*[prizeMode>=0]')}" item="prize">
+   <field name='{$prize.name}' type="decimal({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+</foreach>
+<field name='新增会员' type="int(11)" default="0"/>
+<field name='全部会员' type="int(11)" default="0"/>
+<field name='发放日期' type="varchar(50)" default=""/>
+<field name='结算方式' type="tinyint(1)" default="0"/>
+<field name='state' type="tinyint(1)" default="0"/>
+<field name='INDEX (`计算日期`)' type="KEY"/>
+<field name='INDEX (`state`)' type="KEY"/>
+</table>

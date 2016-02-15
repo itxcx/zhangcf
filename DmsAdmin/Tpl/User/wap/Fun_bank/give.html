@@ -1,0 +1,328 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+<div class="core_main Fun_bank" id="give">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>:{:L($nowtitle)}</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+    	<form action="__GROUP__/Fun_bank/give1/args/{$args}" method="post" onSubmit="return checkform()" id="giveform">
+        <table class="tablebg">	
+          <tr>
+                <td class="tbkey">{:L($name)}{:L('余额')}：</td>
+                <td class="tbval"><span>{$user_bank}</span></td>
+            </tr>
+             <tr>
+                <td class="tbkey">{:L('转账类型：')}</td>
+                <td class="tbval"><span>
+                <if condition="count($givecon) eq 1">
+                <input type="hidden" name="giveTo" value="0"/>
+                <empty name="givecon[0].giveTitle">{$givecon[0].giveTo}<else/>{$givecon[0].giveTitle}</empty>
+                <else/>
+                <select name="giveTo">
+                   <option value="">{:L('请选择转账类型')}</option>
+                    <foreach name="givecon" item="vo" key='key'>
+                   <option value="{$key}" isme="{$vo.isme}" comCharge="{$vo.comCharge}" leastComCharge="{$vo.leastComCharge}" limitComCharge="{$vo.limitComCharge}" <if condition="isset($giveTo) and $giveTo eq $key">selected</if>><empty name="vo.giveTitle">{:L($vo['giveTo'])}<else/>{:L($vo['giveTitle'])}</empty></option>
+                    </foreach>
+                </select>
+                </if>
+                </span></td>
+            </tr>	
+
+            <tr id="hideuserid" <if condition="((count($givecon) eq 1) and ($givecon[0]['isme']==1)) or ($firstto eq true) or ($userid eq '')"> style="display:none" </if> >
+                <td class="tbkey">{:L('会员编号：')}</td>
+                <td class="tbval">
+                <span><input type="text" name="userid" id="userid" value="{$userid}" onkeyup="getid(this)" autocomplete="off"/></span> 
+                <span id='giveidname'></span>
+                </td>
+            </tr>
+            <tr >
+                <td class="tbkey">{:L('转账金额：')}</td>
+                <td class="tbval"><span><input type="text" value="{$givesum}" name="givesum" /></span>
+                    <if condition="(count($givecon) eq 1) and ($givecon[0]['giveMoneyInt'] neq 0)">
+                        <span id="giveMoneyInt1" int="{$givecon[0].giveMoneyInt}">{:L('必须为')}{$givecon[0].giveMoneyInt}{:L('的整数倍')}</span>
+                    <else/>
+                        <span id="giveMoneyInt1" int="0"></span>
+                    </if>
+                </td>
+            </tr>
+	        <TR>
+	          <TD class="tbkey"><span>{:L('手续费')}</span>(<span id='givetax'><if condition="isset($giveTo)">{$givecon[$giveTo].comCharge}<else />{$givecon[0].comCharge}</if></span>%)：</TD>
+	          <TD class="tbval">
+	          <span id="tax"><if condition="isset($giveTo)">{$givesum*$givecon[$giveTo]['comCharge']/100}<else />0</if></span><span id="tax_convert" style="color:red;"></span>
+	          <input type='hidden' id='leastComCharge' value='{$givecon[0].leastComCharge}' />
+	          <input type='hidden' id='limitComCharge' value='{$givecon[0].limitComCharge}' />
+	          </TD>
+	        </TR>
+            <tr >
+                <td class="tbkey">{:L('备注：')}</td>
+                <td class="tbval"><span><input type="text" value="{$memo}" name="memo" /></span></td>
+            </tr>
+            <if condition="($bank:giveMoneyPass2 eq true)">
+            <tr >
+            <td class="tbkey">{:L('二级密码：')}</td>
+            <td class="tbval"><span><input type="password" value="" name="pass2" /></span></td>
+            </tr>
+            </if>
+          <if condition="($bank:giveMoneyPass3 eq true)">
+          <tr>
+            <td class="tbkey">三级密码：</td>
+            <td class="tbval"><span><input type="password" value="" name="pass3" /></span></td>
+          </tr>
+          </if>
+          <if condition="($bank:giveMoneySmsSwitch eq true)">
+          <tr >
+            <td class="tbkey">短信验证码：</td>
+            <td class="tbval"><input name="giveSmsVerfy" type="text" id="giveSmsVerfy" >
+            <input style="margin-left:10px" type="button" id="sendMess" value="点击获取" />
+
+            </td>
+          </tr>
+          </if>
+          <tr>
+            <td colspan="2"><input class="button_text" onMouseDown="this.className='button_onmousedown'" onMouseOver="this.className='button_onmouseover'" onMouseOut="this.className='button_onmouseout'" type="submit"   id="subbut" value="{:L('确定')}" name="but"/>	
+            </td>
+          </tr>
+        </table>
+        </form>
+    </div>
+    
+    
+    <div class="core_con">
+        <div class="title">
+    	<span class="core_title_con">{:L('转账记录')}</span>
+        <if condition="isset($data['edit'])">
+      	<span class="core_title_edit"><a href="#" onclick="ShowDialog('{$data.edit}',330);return false;">编辑</a></span>
+      	</if>        
+    </div>
+        <table class="tablebg">
+            <foreach name='data.list' item='name'>
+            <tr class="tbtr">
+                <td class="btkey">
+                    <table>
+                        <foreach name='data.field' item='name2'>
+                        <tr><td><nobr>{$name2}</nobr></td></tr>
+                        </foreach>
+                    </table>
+                </td>
+                <td class='btval'>
+                    <table>
+                    <foreach name="name" item='value' key='name1'>
+                    <tr><td><nobr>{$name.$name1}</nobr></td></tr>
+                    </foreach>
+                    </table>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+
+<script type="text/javascript">
+var vd;
+function getid(e)
+{
+	clearTimeout(vd);
+    id=e.id;
+	vd = setTimeout("giveAjax('"+e.id+"')",600);
+}
+function giveAjax(id)
+{
+	var giveTo = $('[name=giveTo]').val();
+	//alert(giveTo)
+	var args		   = '{$args}';
+	var userid	   = $('#'+id).val();
+	$.post('__GROUP__/Fun_bank/giveAjax/args/'+args,{giveTo:giveTo,userid:userid},function(data){
+		//alert(data)
+		try
+		{
+			
+			eval("var json="+data);
+			
+			if( json.status == 0 )
+			{
+				$('#giveidname').html('{:L('编号不正确')}');
+			}
+			else
+			{
+				var userinfo = json.data;
+				$('#giveidname').html(userinfo['姓名']);
+			}
+		}
+		catch(e)
+		{
+			alert(data);
+			alert("网络异常!");
+		}
+	});
+}
+
+</script>
+
+
+<script>
+$(function(){
+    $("input[name='givesum']").keyup(function(){
+        var sum = $(this).val();
+        if(sum !="" && !isNaN(sum)){
+            var tax = sum * ($('#givetax').html()/100);
+            tax = tax.toFixed(2);
+           if(tax < parseFloat($('#leastComCharge').val())){
+                tax = parseFloat($('#leastComCharge').val());
+            }
+           if(tax > parseFloat($('#limitComCharge').val()) && $('#limitComCharge').val()!=0){
+                tax = parseFloat($('#limitComCharge').val());
+            }
+           $("#tax").html(tax);
+        }else{
+            $("#tax").html("0");
+        }
+    });
+    $("select[name='giveTo']").change(function(){
+        if($(this).val()!=""){
+            if($(this).find("option:selected").attr("isme")=="0"){
+                //$("input[name='userid']").attr("disabled",false);
+				$('#hideuserid').show();
+            }else{
+                //$("input[name='userid']").attr("disabled",true);
+				$('#hideuserid').hide();
+            }
+        }
+        $('#givetax').html($(this).find("option:selected").attr("comCharge"));
+		if($("input[name='givesum']").val()!=''){
+			tax=parseFloat($("input[name='givesum']").val())*$(this).find("option:selected").attr("comCharge")/100;
+			if(tax<parseFloat($(this).find("option:selected").attr("leastComCharge"))){
+				tax=$(this).find("option:selected").attr("leastComCharge");
+			}
+           if(tax > parseFloat($(this).find("option:selected").attr("limitComCharge")) && $(this).find("option:selected").attr("limitComCharge")!=0){
+                tax = parseFloat($(this).find("option:selected").attr("limitComCharge"));
+            }
+        	$("#tax").html(tax);
+		}else{
+        	$("#tax").html('');
+		}
+         $("#leastComCharge").val($(this).find("option:selected").attr("leastComCharge"));
+         $("#limitComCharge").val($(this).find("option:selected").attr("limitComCharge"));
+   });
+    
+});
+function checkform(){
+    var mess = "";
+    
+    if($("input[name='givesum']").val()==""){
+        mess = "{:L('转账金额不能为空！')}\r\n" + mess;
+        $("input[name='givesum']").focus();
+    }else if(isNaN($("input[name='givesum']").val()) || $("input[name='givesum']").val() == 0){
+        mess = "{:L('转账金额必须为大于0的数字！')}\r\n"+ mess;
+        $("input[name='givesum']").focus();
+    }else if($("#giveMoneyInt1").attr("int")!="0"){
+		var gint = $("#giveMoneyInt1").attr("int");
+		//alert($("input[name='givesum']").val()%parseInt(gint))
+		if($("input[name='givesum']").val()%parseInt(gint)!=0){
+			mess = "{:L('转账金额必须为')}"+gint+"{:L('的整数倍！')}\r\n"+ mess;
+		}
+	}
+    if(!$("input[name='userid']").attr("disabled") && $("input[name='userid']").val()=="" && $("#hideuserid").css("display")!='none'){
+        mess = "{:L('金币钱包不能为空！')}\r\n" + mess;
+        $("input[name='userid']").focus();
+    }
+    if($("select[name='giveTo']").val()==""){
+        mess = "{:L('请选择转账类型！')}\r\n" + mess;
+        $("select[name='giveTo']").focus();
+    }
+     if(mess !=""){
+        alert(mess);
+        $('#subbut').attr('disabled',false);
+        $('#subbut').val('{:L('确定')}');
+         return false;
+    }else{
+        return true;
+    }
+}
+/*
+function sendSmsVerify(){
+	var type = '{$bank:name}转账';
+	var content = '{$bank:giveMoneySmsContent}';
+	$.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+		
+		eval('var data='+data);
+		if(data.status == 1){
+			alert('发送成功!');
+		}else{
+			alert('发送失败!');
+		}
+	});
+}*/
+var wait=300;
+var sta = true;
+function time(o) {
+    if(sta == true){
+        var type = '{$bank:name}转账';
+        var content = '{$bank:giveMoneySmsContent}';
+        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
+          eval('var data='+data);
+          if(data.status == 1){
+            alert('发送成功!');
+          }else{
+            alert('发送失败!');
+          }
+        });
+        sta = false;
+    }
+    if (wait == 0) {
+      o.removeAttribute("disabled");      
+      o.value="点击获取";
+      wait = 300;
+      sta = true;
+    } else {
+      o.setAttribute("disabled", true);
+      o.value="重新发送(" + wait + ")";
+      wait--;
+      setTimeout(function() {
+        time(o)
+      },
+      1000)
+    }
+  }
+  document.getElementById("sendMess").onclick=function(){time(this);}
+	
+</script>

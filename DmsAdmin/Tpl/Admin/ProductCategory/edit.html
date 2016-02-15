@@ -1,0 +1,55 @@
+<script language="JavaScript">
+function dialogAjaxDoneReload(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<div class="pageContent">	
+<form action="__URL__/editSave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload)">
+      <input type="hidden" name="id" value="{$info.id}" >
+      <div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<td class="right">分类名称：</td>
+					<td class="left">
+					  <input type="text" class="required" name="name" value="{$info.名称}" />
+					</td>
+				</tr>
+				
+				<tr>
+				  <td class="right">显示顺序：</td>
+				  <td class="left">
+				    <input type="text" class="medium bLeft" size="4" name="sort" value="{$info.排序}" />
+			      &nbsp;越小越靠前</td>
+			  </tr>
+			
+			  </tr>
+				<tr>
+				  <td class="right">状态：</td>
+				  <td class="left">
+				    <select class="required combox"  name="status">
+                        <option <eq name="info.状态" value="使用" >selected</eq> value="使用">使用</option>
+                        <option <eq name="info.状态" value="不使用" >selected</eq> value="不使用">不使用</option>
+			      </select>
+				  </td>
+			  </tr>
+			</table>
+</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+  </form>
+	
+</div>

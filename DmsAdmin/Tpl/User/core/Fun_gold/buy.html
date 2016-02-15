@@ -1,0 +1,65 @@
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<div class="core_main Fun_ep_deal" id="deal_list">
+     <div class="core_title">
+    	<span class="core_title_con">当前位置：{$nowtitle}</span>
+        
+    </div>
+    <div class="core_con">
+    <form method="post" id="form1" action="__URL__/buysave:__XPATH__">
+    	<input type="hidden" name="id" value="{$sellinfo.id}" />
+      <table class="tablebg">
+	  <tr>
+		<td  class="tbkey">{:L('卖家编号')}：</td>
+		<td  class="tbval"><strong>{$sellinfo.编号}</strong></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('出售数量')}：</td>
+		<td  class="tbval"><span id="sellnum">{$sellinfo.未成交数量}</span></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('出售价格')}：</td>
+		<td class="tbval">{$sellinfo.单价}</td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('需汇款金额')}：</td>
+		<td class="tbval">{$sellinfo['未成交数量']*$sellinfo['单价']}</td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('收款方式')}：</td>
+		<td class="tbval">{$sellinfo.开户银行}</td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('银行卡号')}：</td>
+		<td class="tbval">{$sellinfo.银行卡号}</td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('收款人')}：</td>
+		<td class="tbval">{$sellinfo.开户名}</td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('联系方式')}：</td>
+		<td class="tbval">{$sellinfo.电话}</td>
+	  </tr>
+	  </tr>
+	  	<td class="tbkey">{:L('购买数量')}：</td>
+		<td class="tbval"><if condition="$gold:buyAll eq 1">{$sellinfo['未成交数量']}<else/><input name="buynum" value="{$sellinfo['未成交数量']}" type="text" onkeyup="checknum(this)"/></if></td>
+	  </tr>
+	  <tr>
+		<td colspan="2" align="center"><button type="submmit" class="input_button" id="zz_btn" >{:L('确定购买')}</button> <span class="aa" id="notice_state"></span></td>
+	  </tr>
+	</TABLE>
+	</form>
+	</div>
+</div>
+<script type="text/javascript">
+function checknum(e){
+	//判断是否是数字
+	if(isNaN($(e).val())){
+		alert("非法数字");
+		return false;
+	}
+	if($(e).val()>$('#sellnum').html()){
+		$(e).val($('#sellnum').html());
+	}
+}
+</script>

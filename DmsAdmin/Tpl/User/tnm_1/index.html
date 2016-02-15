@@ -1,0 +1,140 @@
+<include file="Public:header" />
+<!--内容-->
+<div class="content-box center">
+
+    <!--图片轮播-->
+    <div class="slider">
+        <div class="slider-img">
+            <img src="__TMPL__Public/img/slider1.jpg">
+            <img src="__TMPL__Public/img/slider2.jpg">
+            <img src="__TMPL__Public/img/slider3.jpg">
+        </div>
+        <div class="slider-a">
+            <div></div>
+        </div>
+    </div>
+    <script src="__TMPL__Public/js/slider.js"></script>
+    <script>
+            $('.slider-img').lateralSlider({
+                captionPadding: '0',
+                captionHeight: 45
+            });
+            $('.circle').appendTo('.slider-a div');
+
+    </script>
+    <!--图片轮播结束-->
+
+    <div class="notice">
+        <span class="notice-title">&nbsp;</span>
+        <a class="notice-content" href="__GROUP__/User/showNotice/id/{$notice[0]['id']}"><i class="new">&nbsp;</i>{$nownotice[0]['标题']}</a>
+    </div>
+
+    <div class="product">
+        <h1>产品推荐<span>PRODUCT</span>
+        </h1>
+        <ul class="product-list">
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+            <li><a href="javascript:void(0);">
+                <img src="__TMPL__Public/img/product1.jpg" alt="product">
+                <p class="product-title">秋水伊人拼接直筒大衣</p>
+                <p class="product-price red">¥509.00</p>
+            </a></li>
+        </ul>
+    </div>
+    <div class="information">
+        <dl class="user-info">
+            <dt>
+                <h1>基本资料<span>DATA</span></h1>
+                <a class="more" href="__GROUP__/User/view">More+</a>
+            </dt>
+            <dd>
+                <table class="table">
+                    <tr>
+                        <td class="userkey">用户编号</td>
+                        <td class="userval"><span class="blue">{$userinfo.编号}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="userkey">用户姓名</td>
+                        <td class="userval"><span class="red">{$userinfo.姓名}</span></td>
+                    </tr>
+                    <foreach name="funbank" item="fun_bank" key="key">
+                    <tr>
+                        <td class="userkey">{$fun_bank.name}</td>
+                        <td class="userval"><span class="red">{$fun_bank.num}</span></td>
+                    </tr>
+                    </foreach>
+                    <foreach name="userlevel" item="lv" key="key">
+                    <tr>
+                        <td class="userkey">{$key}</td>
+                        <td class="userval"><span class="blue">{$lv.byname}</span></td>
+                    </tr>
+                    </foreach>
+                    <tr>
+                        <td class="userkey">注册日期</td>
+                        <td class="userval">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                    <tr>
+                        <td class="userkey">确认日期</td>
+                        <td class="userval">{$userinfo.审核日期|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                </table>
+                </dd>
+            </dl>
+            <dl class="notice-list">
+                <dt>
+                <h1>最新公告<span>NEWEST</span></h1>
+                <a class="more" href="__GROUP__/User/viewNotice">More+</a>
+            </dt>
+            <volist name="notice" id="vo" offset="0" length="8">
+            <dd>
+                <a class="title" href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a>
+                <span class="date">{$vo.创建时间|date="Y/m/d",###}</span>
+            </dd>
+            </volist>
+        </dl>
+    </div>
+
+    <div class="clear"></div>
+</div>
+<!--内容结束-->
+<include file="Public:footer" />
+

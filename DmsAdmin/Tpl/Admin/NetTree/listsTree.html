@@ -1,0 +1,34 @@
+<div layoutH="0"  id="dirtreecontent">
+<!--
+<select name="changeStyle" id="changeStyle">
+	<option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
+      <php>
+		//判断是否是豪华版还是简化版 如果是简化版的话是没属性目录功能和列表功能的
+		if(C('VERSION_SWITCH') == '0'){
+		</php>
+			<option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+			<option value="lists" <eq name="style" value="lists">selected="true"</eq>>列表形式</option>
+		<php>}</php>
+</select>
+-->
+<script type="text/javascript">
+
+$('#style').bind('change',function()
+{
+	window.location.href = URL + '/index:__XPATH__/style/' + $(this).children("[selected='true']").val();
+});
+$(function(){
+	navTab.getCurrentPanel().find('#changeStyle').bind('change',function(){
+		//navTab.reload('',{data:{style:$(this).val()}});
+		navTab.reload('__APP__/Admin/NetTree/index:__XPATH__/style/'+$(this).val());
+	});
+
+	navTab.getCurrentPanel().find("[id^='doverUser_']").bind('mousemove',function(e){
+		showFloat(e,this);
+	});
+});
+
+</script>
+{$list}
+</div>
+

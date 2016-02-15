@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+    </head>
+    <body>
+        <div class="left-content">
+            <div class="logo">
+                <div class="title">
+                    <h2>企业信息管理系统</h2>
+                    <h3>INFORMATION MANAGEMENT SYSTEM</h3>
+                </div>
+                <div class="date">
+                    <span class="day" id="day">2015年02月03日</span>
+                    <span class="hour" id="hour">10:00</span>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="homepage">
+                    <a href="__GROUP__/Index/index"><span class="tit">首页</span></a>
+                </div>
+                <foreach name="menu" item="vo" key="key">
+                <div>
+                    <span class="tit">{$key}</span>
+                    <ul class="nav-ul">
+                    <foreach name="vo" item="val">
+                        <li>
+                            <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}" >{$val.title}</a>
+                        </li>
+                    </foreach>
+                    </ul>
+                </div>
+                </foreach>
+            </div>
+        </div>
+<div class="right-content">
+    <ul class="top-nav">
+        <li class="top-li1">
+        <a href="__GROUP__/User/view">
+            <i class="icon">&nbsp;</i>
+            <span>DATA MANAGEMENT</span>
+        </a>
+        </li>
+        <li class="top-li2">
+        <a href="__GROUP__/User/edit">
+            <i class="icon">&nbsp;</i>
+            <span>DATA MODIFY</span>
+        </a>
+        </li>
+        <li class="top-li3">
+        <a href="__GROUP__/Sale/reg:sale_reg[1]">
+            <i class="icon">&nbsp;</i>
+            <span>BUSINESS ADMINISTRATION</span>
+        </a>
+        </li>
+        <li class="top-li4">
+        <a href="__GROUP__/Mail/index">
+            <i class="icon">&nbsp;</i>
+            <span>INFORMATION MANAGEMENT</span>
+        </a>
+        </li>
+    </ul>
+        

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/css/view.css">
+        <script src="__PUBLIC__/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/Public/directSell/area_select.js"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                text-align: left;
+                font-family: "微软雅黑";
+                font-size: 13px;
+                background-color: rgb(204, 212, 248);
+            }
+            #wrap{
+                margin: 0 auto;
+                width: 1200px;
+            }
+            .header {
+                height: 110px;
+                text-indent: 10px;
+                text-align: left;
+                color: #000;
+            }
+            .header .left {
+                margin-top: 28px;
+                width: 700px;
+                float: left;
+                overflow: hidden;
+            }
+            .header .left h1 {
+                display: inline;
+                font-size: 40px;
+                font-weight: normal;
+            }
+            .header .left h2 {
+                display: inline;
+                padding-left: 20px;
+                font-size: 30px;
+                font-weight: normal;
+            }
+            .header .right {
+                float: right;
+                margin-top: 50px;
+            }
+            .header .right h3 {
+                padding-right: 200px;
+                line-height: 20px;
+                font-size: 20px;
+                color: #000;
+            }
+            .center {
+                margin-bottom: 50px;
+                text-align: left;
+                background: #fff;
+            }
+            .clearboth {
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="header">
+                <div class="left">
+                    <h1>{:CONFIG('SYSTEM_COMPANY')}</h1><h2>{:CONFIG('SYSTEM_MEMO')}</h2>
+                </div>
+                <div class="right">
+                    <h3>欢迎注册！</h3>
+                </div>
+            </div>
+            <div class="center">
+                <div class="core_main Saleweb" id="usereg">
+                    <div class="core_title">
+                        <span class="core_title_con">推广链接</span>
+                    </div>
+                    <div class="core_con">
+		             <table class="message"  cellpadding=0 cellspacing=0 >
+		            <tr>
+		                <td height='3'  class="topTd" ></td>
+		            </tr>
+		            <tr class="row" style="">
+		                <td style="padding:10px;<if condition='$status'>color:blue<else/>color:red</if>">{$message}</td>
+		            </tr>
+		            <neq name="waitSecond" value="0">
+		            <tr class="row">
+		                <td>系统将在 <span id="wait" style="color:blue;font-weight:bold">{$waitSecond}</span> 
+		        		
+		        		秒后自动关闭，如果不想等待,直接点击 <a id="href" href="{$jumpUrl}">这里</a> 关闭</td>
+		            </tr>
+		            <else/>
+		            <tr class="row">
+		            	<td>请点击 <a id="href" href="{$jumpUrl}">这里</a> 跳转页面</td>
+		            </tr>
+		            </neq>
+		            <tr>
+		                <td height='3' class="bottomTd"></td>
+		            </tr>
+		            </table>
+                    </div>
+                </div>
+                <div class="clearboth"></div>
+            </div>
+			<style type="text/css">
+			.message
+			{
+				color:#972D01;
+			}
+			</style>
+			<div class="main Public" id="success">
+				<div class="core_con">
+			    	<div class="message">
+						
+			        </div>
+			    </div>
+			</div>
+			<script type="text/javascript">
+			(function(){
+				var wait = document.getElementById('wait');
+				if(wait!=null && wait!=""){
+					var href = document.getElementById('href').href;
+					var interval = setInterval(function(){
+					var time = --wait.innerHTML;
+						(time == 0) && (location.href = href);
+					}, 1000);	
+				}
+				})();
+			</script>
+        </div>
+    </body>
+</html>

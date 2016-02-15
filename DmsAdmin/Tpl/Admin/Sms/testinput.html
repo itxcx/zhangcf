@@ -1,0 +1,38 @@
+<div layoutH="0">
+<form action="__URL__/testsend" method="post" id="form"  class="pageForm required-validate"  onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<table style="width:460px;" class="list" >
+	<thead>
+	<tr>
+		<th colspan="2" style="text-align:left;">短信余额：{$smsreturn}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td width="8%" style="height:25px;vertical-align: middle;">接收号码:</td>
+		<td width="70%" style="height:25px;text-align:left;vertical-align: middle;">
+			<input name="telnum" id="telnum" type="text" value="">
+		</td>
+	</tr>
+
+	<tr>
+		<td style="text-align:right;vertical-align:top;">短信内容:</td>
+		<td style="height:25px;text-align:left;vertical-align: middle;">
+			<div style="float:left;width:420px;height:55px;">
+				<textarea name="msg" id="msg" style=" width:410px;height:55px;resize:none;">{$_GET['msg']}</textarea>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">&nbsp;</td>
+		<td colspan="2" style="text-align:center;">
+			<div class="buttonActive" style="margin-left:290px;margin-top:5px;">
+			  <div class="buttonContent" >
+				<button type="submit" id="submit" onclick="send111()">发送</button>
+			  </div>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</form>
+</div>

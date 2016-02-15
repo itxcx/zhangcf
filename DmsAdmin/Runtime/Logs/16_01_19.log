@@ -1,0 +1,56 @@
+[ 2016-01-19T09:15:56+08:00 ] /index.php?s=/Admin/PrizeLock/index&_=1453166155926 | ERR: (ThinkException) 无法加载模块PrizeLock
+[ 2016-01-19T09:15:56+08:00 ] /index.php?s=/Admin/PrizeLock/index&_=1453166155926 | ERR: (ThinkException) [16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-01-19 09:15:01] C:\WWW\dmsbeta\public_html\index.php (20) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+
+[ 2016-01-19T09:15:57+08:00 ] /index.php?s=/Admin/PrizeLock/index&_=1453166157801 | ERR: (ThinkException) 无法加载模块PrizeLock
+[ 2016-01-19T09:15:57+08:00 ] /index.php?s=/Admin/PrizeLock/index&_=1453166157801 | ERR: (ThinkException) [16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-01-19 09:15:01] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-01-19 09:15:01] C:\WWW\dmsbeta\public_html\index.php (20) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+
+[ 2016-01-19T16:44:47+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) 表达式错误:字段7
+[ 2016-01-19T16:44:47+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) [16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (552) Db->parseWhereItem(`0`, array)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (1014) Db->parseWhere(array)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (981) Db->parseSql(SELECT%DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%%LIMIT% %UNION%, array)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (553) Db->buildSelectSql(array)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\DmsAdmin\Lib\Action\Admin\TestAction.class.php (23) Model->select(boolean)
+[16-01-19 16:44:01]  () TestAction->index()
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (133) call_user_func(array)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-01-19 16:44:01] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-01-19 16:44:01] C:\WWW\dmsbeta\public_html\index.php (20) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+
+[ 2016-01-19T16:45:20+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) 表达式错误:字段7
+[ 2016-01-19T16:45:20+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) [16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (552) Db->parseWhereItem(`0`, array)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (1014) Db->parseWhere(array)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (981) Db->parseSql(SELECT%DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%%LIMIT% %UNION%, array)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (553) Db->buildSelectSql(array)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\DmsAdmin\Lib\Action\Admin\TestAction.class.php (23) Model->select(boolean)
+[16-01-19 16:45:01]  () TestAction->index()
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (133) call_user_func(array)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-01-19 16:45:01] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-01-19 16:45:01] C:\WWW\dmsbeta\public_html\index.php (20) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+
+[ 2016-01-19T16:46:04+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) 表达式错误:字段7
+[ 2016-01-19T16:46:04+08:00 ] /index.php?s=/Admin/Test/index | ERR: (ThinkException) [16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (552) Db->parseWhereItem(`0`, array)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (1014) Db->parseWhere(array)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (981) Db->parseSql(SELECT%DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%%LIMIT% %UNION%, array)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (553) Db->buildSelectSql(array)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\DmsAdmin\Lib\Action\Admin\TestAction.class.php (9) Model->select(boolean)
+[16-01-19 16:46:01]  () TestAction->index()
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (133) call_user_func(array)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-01-19 16:46:01] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-01-19 16:46:01] C:\WWW\dmsbeta\public_html\index.php (20) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+

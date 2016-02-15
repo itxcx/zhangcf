@@ -1,0 +1,45 @@
+<div class="core_main Fun_bank" id="pay">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+      <table class="tablebg">
+        <TR >
+          <TD class="tbkey">用户编号：</TD>
+          <TD class="tbval">{$user.编号}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">姓名：</TD>
+          <TD class="tbval">{$user.姓名}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">会员级别：</TD>
+          <TD class="tbval">{$user.会员级别}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">注册时间：</TD>
+          <TD class="tbval">{$user.注册日期|date="Y-m-d H:i:s",###}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">推荐人：</TD>
+          <TD class="tbval">{$user.推荐_上级编号}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">接点人：</TD>
+          <TD class="tbval">{$user.管理_上级编号}&nbsp;</TD>
+        </TR>
+        <TR >
+          <TD class="tbkey">位置：</TD>
+          <TD class="tbval">{$user.管理_位置}区</TD>
+        </TR>
+         <tr>
+            <td colspan="2"><input class="button_text" type="button"  id="but" value="返回" name="but" onClick="history.back();"></td>
+        </tr>    
+        </table>    
+    </div>
+    
+    <div class="core_page"></div>
+</div>
+

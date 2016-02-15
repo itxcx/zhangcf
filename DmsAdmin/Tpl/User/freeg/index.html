@@ -1,0 +1,173 @@
+<include file="Public:header" />
+<table  width="998"  height="520"  border="0"  cellpadding="0"  cellspacing="0">
+    <tbody>
+        <tr>
+            <td  width="260"  valign="top"><div  class="listBox1">
+                    <div  class="listBoxTitle1">游戏账户</div>
+                    <div  class="listBoxContent1">
+                        <ul>
+                            <li>玩家编号：<span  id="ctl00_ContentPlaceHolder1_lblUserName">{$userinfo.编号}</span></li>
+                            <foreach name="userlevel" item="lv" key="key">
+                            <php>
+                            if($key=='玩家身份级别'){
+                            </php>
+                            <li>身份等级：<span  id="ctl00_ContentPlaceHolder1_lblUserType">{$lv.byname}<a href="#"  onclick="showMsgFloat2('<iframe frameborder=0 scrolling=no src=__GROUP__/Sale/leves width=730 height=330></iframe>')">说明</a></span> </li>
+                            <php>}</php>
+                            </foreach>
+                            <li>信用指数：<span  id="ctl00_ContentPlaceHolder1_lblStars">★★★★★(五星)</span></li>
+                            <li>激活状态：<span  id="ctl00_ContentPlaceHolder1_lblActivation"><if condition="$userinfo['状态'] eq '有效'">已激活<else />未激活</if></span></li>
+                            <li>帐号类型：<span  id="ctl00_ContentPlaceHolder1_lblDWUser"><if condition="isset($userinfo['主账号']) and $userinfo['主账号'] neq ''">复投帐号<else />主账号</if></span></li>
+                            <li>服务中心：<span  id="ctl00_ContentPlaceHolder1_BDUserOK"><if condition="$userinfo['服务中心'] eq 0">否<else />是</if></span></li>
+                            <li>直属游戏帐号：<span  id="ctl00_ContentPlaceHolder1_lblTotalTg"  class="f16">{$userinfo['推荐_推荐人数']}</span>個</li>
+                            <li>游戏帐号總數：<span  id="ctl00_ContentPlaceHolder1_lblTotalGroup"  class="f16"><a class="f16" onclick="showMsgFloat2('<iframe frameborder=0 scrolling=no src=__GROUP__/Sale/getUserInfo width=730 height=125></iframe>')" style="cursor:pointer">查询</a></span> 個</li>
+                            <li>游戏帐号有效數：<span  id="ctl00_ContentPlaceHolder1_lblTotalGroupYes"  class="f16"><a class="f16" onclick="showMsgFloat2('<iframe frameborder=0 scrolling=no src=__GROUP__/Sale/getUserInfo width=730 height=125></iframe>')"  style="cursor:pointer">查询</a></span>  個 <a href="#" onclick="alert('溫馨提示：玩家游戲帳號有效數是指玩家團隊所屬內所有已激活未鎖定且還在正常分紅的帳號單數！對于因各種原因被系統鎖定後的玩家則不享受分紅也就不計入有效單數！')">说明</a></li>
+                            <li>新增帐号：<span  id="ctl00_ContentPlaceHolder1_lblDWNum"  class="f16"><present name="xzzh">{($xzzh)}</present></span>個</li>
+                            <foreach name="funbank" item="fun_bank" key="key">
+                            <li>{$fun_bank.name}帐户：<span  id="ctl00_ContentPlaceHolder1_lblPrice1"  class="PriceCss3">￥{$fun_bank.num}</span></li>
+                            </foreach>
+
+                            <li>历史累计提成：<span  id="ctl00_ContentPlaceHolder1_lblTotalTC"  class="PriceCss3">￥{$userinfo['累计收入']}</span> <a  href="/index.php?s=/User/Tle/index:tle"  class="view">查看</a></li>
+                            <li>历史累计分紅：<span  id="ctl00_ContentPlaceHolder1_lblTotalFL"  class="PriceCss3">￥<present name="userinfo.市场分红奖累计">{$userinfo['市场分红奖累计']}</present></span></li>
+                            <li>帐号分红出局：<span  id="ctl00_ContentPlaceHolder1_lblFlKey"><if condition="isset($fhmax) && $userinfo['分红奖累计'] egt $fhmax">是<else />否</if></span> <a  href="#" onclick="alert('溫馨提示：當玩家帳號分紅達到4500停止分紅時我們叫分紅出局！分紅出局後可照常享受推荐的推荐獎及領導獎！玩家帳號分紅出局時只要按照平臺規則做復利，那麼其金種子將自動再生成一個新增帳號出來，即當主帳號分紅出局時您又多出兩個帳號來繼續享受分紅！同時主帳號又開始享受這兩個新帳號的領導獎！按此操作，帳號將逐漸增多！收入也更多！這就是玩家在平臺即使不推荐一個人也能長久獲得收益！有推荐則獲得更多額外收入！')">說明</a></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+            </div></td>
+            <td  width="10">&nbsp;</td>
+            <td  width="400"  valign="top"><div  class="listBox2">
+                    <div  class="listBoxTitle2">最新公告</div>
+                    <div  class="listBoxContent2">
+                        <ul  style="padding-top:10px; padding-left:10px; padding-right:10px;">
+                            <foreach name="notice" item="vo">
+                            <li><a href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a></li>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <div  class="listBox2">
+                    <div  class="listBoxTitle2">私人消息</div>
+                    <div  class="listBoxContent2">
+                        <ul  style="padding-top:10px; padding-left:10px; padding-right:10px;">
+                            <foreach name="mail" item="vo">
+                            <li><a href="__GROUP__/Mail/view/id/{$vo.id}">{$vo.标题}</a></li>
+                            </foreach>
+                        </ul>
+                    </div>
+            </div></td>
+            <td  width="10">&nbsp;</td>
+            <td  valign="top"><div  class="listBox3">
+                    <div  class="listBoxTitle3">重要操作日志</div>
+                    <div  class="listBoxContent3">
+                        <div  style="padding-top:15px; padding-left:15px; padding-right:15px; line-height:22px; color:Red">以下是您最近进行的重要操作(<span style="color: blue;">绑定身份、设置及更新密保等</span>)！如非您本人所为，请及时发现并进行必要的改密等安全操作！</div>
+                        <div style="height: 1px;margin: 10px;border-bottom: 1px dashed;"></div>
+                        <ul  style="margin-left:10px; margin-right:10px; margin-top:10px;">
+                        	<present name="impLog">
+                            <foreach name="impLog" item="vo">
+                            <li>在  {$vo.create_time|date="Y-m-d H:i:s",###} {$vo.content}</li>
+                            </foreach>
+                            </present>
+                        </ul>
+                        <div  style="padding-top:15px; padding-left:15px; padding-right:15px;text-align:center;">
+                            <!--<input  type="button"  value="查看詳細"  class="buttom" >-->
+                        </div>
+                    </div>
+                    </div><div  class="listBox3">
+                    <div  class="listBoxTitle3">安全提示</div>
+                    <div  class="listBoxContent3">
+                        <div  style="padding-top:15px; padding-left:15px; padding-right:15px; line-height:22px; color:Red">尊敬的玩家，您好！以下是您在平台最近活动情況，如发现异常，请及时修改密码！ </div>
+                        <ul  style="margin-left:10px; margin-right:10px; margin-top:10px;">
+                            <notempty name="lastsafeLog">
+                            <li>上次登陆时间：<span  id="ctl00_ContentPlaceHolder1_lblLastLoginTime">{$lastsafeLog[0]['create_time']|date="Y-m-d H:i:s",###}</span></li>
+                            <li>上次登陆IP：<span  id="ctl00_ContentPlaceHolder1_lblLastLoginIP">{$lastsafeLog[0]['ip']}</span></li>
+                            </notempty>
+                            <li>本次登陆时间：<span  id="ctl00_ContentPlaceHolder1_lblTheLoginTime"><if condition="isset($cursafeLog) and $cursafeLog[0]['create_time']">{$cursafeLog[0]['create_time']|date="Y-m-d H:i:s",###}<else />[暂无]</if></span></li>
+                            <li>本次登陆IP：<span  id="ctl00_ContentPlaceHolder1_lblTheLoginIP"><present name="cursafeLog">{$cursafeLog[0]['ip']}</present></span></li>
+                        </ul>
+                        <div  style="padding-top:15px; padding-left:15px; padding-right:15px;text-align:center;">
+
+                            <a href="/index.php?s=/User/User/passSafe"> <input  type="button"  value="查看詳細"  class="buttom" onclick=""></a>
+
+                        </div>
+                    </div>
+            </div></td>
+        </tr>
+    </tbody>
+</table>
+     </div>
+</div>
+<div  id="divBox"  style="filter:alpha(opacity=40);-moz-opacity:0.3;opacity:0.3;background-color:#000;width:100%;height:100%;z-index:1000;position: absolute;left:0;top:0;display:none;overflow: hidden;"> </div>
+<div  id="divMsg"  style="border:solid 5px #339999;background:#fff;padding:10px;width:780px;z-index:1001; position: absolute; display:none;top:50%; left:50%;margin:-200px 0 0 -400px;">
+    <span style="float:right;font-size:20px;cursor:pointer;margin-right:10px" id="yincang2">&times;</span>
+ <div  style="padding:3px 15px 3px 15px;text-align:left;vertical-align:middle;">
+     <div  class="IndexShowMsg">
+         <div  id="divShowMsg"></div>
+     </div>
+     <br>
+     <div  id="showbtnCancel"  style="text-align:right;">
+         <input  id="btnCancel"  type="button"  class="buttom"  value=" 关闭 "  onclick="javascript:parent.ShowNo()">
+     </div>
+ </div>
+</div>
+
+<if condition="$edmbFlag eq 'noSp'">
+<div id="edmb1" style="background: #333;opacity:.8; width: 100%;height: 1500px;position: fixed; top: 0;left: 0;z-index: 1000px">
+
+</div>
+<div id="edmb2" style="border:solid 5px #339999;background:#fff;width:780px;height: 100px;z-index:1001; position: absolute;top:50%; left:50%;margin:-200px 0 0 -400px;" >
+    <div>
+         <span style="float:right;font-size:20px;cursor:pointer;margin-right:10px" id="yincang">&times;</span>
+        <div style="text-align: left; margin-left: 40px;">
+       
+            <img src="__TMPL__Public/images/logos.png">
+            尊敬的玩家{$userinfo.编号}, 您好! 您的账号还未设置二代密保!为了安全!请及时设置!
+        </div>
+        <div>
+           【注】 当账号忘记密码只能通过绑定的安全邮箱或者设置的密保找回!<a onclick="showMsgFloat2('<iframe id=showMsgiframe frameborder=0 scrolling=no src=/index.php?s=/User/User/setSecPass width=730 height=180></iframe>');notSet()">立即设置</a><a onclick="notSet()">稍后设置</a>
+        </div>
+    </div>
+</div>
+</if>
+<div>
+    <style>
+        #edmb2 div {
+            margin-top: 10px;
+            height: 30px;
+            line-height: 23px;
+            color: #06c;
+        }
+        #edmb2 a {
+            margin-left: 5px;
+            padding: 3px 10px;
+            font-size: 14px;
+            color: #fff;
+            display: inline-block;
+            background: #090;
+            cursor: pointer;
+            border-radius: 3px;
+            font-weight:bold
+        }
+    </style>
+    <script>
+        function notSet(){
+            var e1=document.getElementById('edmb1');
+            var e2=document.getElementById('edmb2');
+            e1.style.display="none";
+            e2.style.display="none";
+        }
+        $('#yincang').click(function(){edmb2.style.display="none";
+             edmb1.style.display="none";
+        
+        }
+        )
+        
+        $('#yincang2').click(function(){divMsg.style.display="none";
+             divBox.style.display="none";
+        
+        }
+        )
+        
+        
+        
+        
+    </script>

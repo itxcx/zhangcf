@@ -1,0 +1,64 @@
+<table width="521" border="0px" cellspacing="0" cellpadding="0" style="margin-top: 10px;margin-left: 10px;">
+  <tr>
+    <td width="5" height="5" class="top_left"></td>
+    <td height="5" colspan="5" class="top_middle"></td>
+    <td width="5" height="5" class="top_right"></td>
+  </tr>
+  <tr>
+    <td width="5" class="middle_left"></td>
+    <td colspan="5">
+    <div class="tab2">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" id="checkList" class="list">
+  <tr>
+    <td   colspan="2" bgcolor="#ced9e7" style="border:none;">&nbsp;批量注册进度表</td>
+    </tr>
+     <tr>
+    <td  width="100px" valign="top" bgcolor="#d8e4f2" style="border:1px #99bbe8 solid;">
+    进度数量:
+    </td>
+    <td  valign="top" bgcolor="#d8e4f2" style="border:1px #99bbe8 solid;">
+    <div id="num"></div>
+    </td>
+    </tr>
+    <tr>
+    <td  width="100px" valign="top" bgcolor="#d8e4f2" style="border:1px #99bbe8 solid;">
+    进度条:
+    </td>
+    <td  valign="top"  bgcolor="#d8e4f2" style="border:1px #99bbe8 solid; ">
+    <div style="background:#F8FCFD;width:400px;height:20px;margin:0 auto;border:#99BBE8 solid 1px;">
+<div id="login" style="background:#A3EEAB;width:1px;height:20px;"></div></div>
+    </td>
+    </tr>
+     <tr>
+    <td  width="100px" valign="top" bgcolor="#d8e4f2" style="border:1px #99bbe8 solid;">
+    进度比例:
+    </td>
+    <td  valign="top" bgcolor="#d8e4f2" style="border:1px #99bbe8 solid;">
+    <div id="tax"></div>
+    </td>
+    </tr>
+   </table>
+    </div> 
+   </td>
+    <td width="5" class="middle_right"></td>
+   </tr>
+    <tr>
+    <td width="5" height="5" class="buttom_left"></td>
+    <td height="5" colspan="5" class="buttom_middle"></td>
+    <td width="5" height="5" class="buttom_right"></td>
+  </tr>
+   </table>
+   <script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+<script type="text/javascript">
+function tu(value,num,all){
+document.getElementById("login").style.width =value+"px";
+var bili=Math.round(num/all*100)+'%';
+document.getElementById("num").innerHTML=num+'/'+all;
+document.getElementById("tax").innerHTML=bili;
+}
+function end()
+{
+document.getElementById("login").innerHTML='注册完成';
+}
+tu(0,1,'0%');
+</script>

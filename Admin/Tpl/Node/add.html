@@ -1,0 +1,151 @@
+<tagLib name="sql"/>
+
+
+<script language="JavaScript">
+
+//级别改变事件
+function level_change(level)
+{
+	var level = $("#level").children(":selected").val();
+	
+	//选择应用
+	if( level == 1 )
+	{
+		$('#app_node').unbind('change',load_module);
+		$('#parent_tr').hide();
+		$('#module_node').hide();
+		$('#args_tr').hide();
+		$('#biaoshi').html('&nbsp;应用的名称,区分大小写');
+
+	}
+	//选择模块
+	else if( level == 2 )
+	{
+		$('#app_node').unbind('change',load_module);
+		$('#parent_tr').show();
+		$('#module_node').hide();
+		$('#args_tr').hide();
+		$('#biaoshi').html('&nbsp;模块的名称,区分大小写');
+	}
+	//选择操作
+	else if( level == 3 )
+	{
+		$('#app_node').bind('change',load_module);
+		$('#parent_tr').show();
+		$('#module_node').show();
+		$('#args_tr').show();
+		
+		$('#biaoshi').html('&nbsp;操作的名称,区分大小写');
+	}
+}
+//加载模块节点
+function load_module()
+{
+	var pid = $("#app_node").children(":selected").val();
+	$.get('__URL__/ajaxLoadModule/id/'+pid,function(data)
+	{
+		eval("var json="+data);
+		if( json.status )
+		{
+			$('#module_node').empty();
+			if( json.data.length == 0 )
+			{
+				$('#module_node').append( "<option value=''>暂无</option>" );
+			}
+			else
+			{
+				$('#module_node').append( "<option value=''>请选择</option>" );
+			}
+			
+			for( i=0;i<json.data.length;i++ )
+			{
+				$('#module_node').append( "<option value='" + json.data[i].id + "'>" +  json.data[i].title + "</option>" );	
+			}
+		}
+	});
+}
+
+</script>
+
+
+<div class="pageContent">
+
+	<form method="post" action="__URL__/insert/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload)">
+		<input type="hidden" name="submit" value="1" />
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th>标识：</th>
+					<td>
+						<input type="text" class="required alphanumeric" name="name"/>
+						<div style="text-align:left;vertical-align:middle;padding-top: 4px;">
+						<span id="biaoshi" style="color:#555555">&nbsp;应用的英文名称,区分大小写</span>
+						</div>
+					</td>
+				</tr>
+				<tr id="args_tr" style="display:none">
+					<th>参数：</th>
+					<td>
+						<input type="text" class="" name="args" />
+						<div style="text-align:left;vertical-align:middle;padding-top: 4px;">&nbsp;args</div>
+					</td>
+				</tr>
+				<tr>
+					<th>名称：</th>
+					<td>
+						<input type="text" class="required" name="title" />
+						<div style="text-align:left;vertical-align:middle;padding-top: 4px;">
+						<span id="biaoshi" style="color:#555555">&nbsp;中文名称</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>级别：</th>
+					<td>
+						<select name="level" id="level" onchange="level_change()">
+						<option value="1">应用</option>
+						<option value="2">模块</option>
+						<option value="3">操作</option>
+						</select>
+					</td>
+				</tr>
+				<tr id="parent_tr" style="display:none">
+					<th>上级：</th>
+					<td>
+						<select name="pid2" id="app_node">
+						<option value="">请选择</option>
+						<sql:query model="node" where="level=1" result="app">
+						<option value="{$app.id}">{$app.title}</option>
+						</sql:query>
+						</select>
+
+						<select name="pid3" id="module_node">
+						<option value="">暂无</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>状态：</th>
+					<td style="text-align:left">
+						<input type="radio" name="status" checked="true" value="1" id="status1" /> <label for="status1">启用</label>
+
+						<input type="radio" name="status" value="2" id="status2" /> <label for="status2">禁用</label>
+					</td>
+				</tr>
+				<tr>
+					<th>描 述：</th>
+					<td>
+						<TEXTAREA class="large bLeft" name="remark"  ROWS="5" COLS="57"></TEXTAREA>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>

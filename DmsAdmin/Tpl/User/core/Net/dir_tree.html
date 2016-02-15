@@ -1,0 +1,127 @@
+<script src='/Public/jquery.ztree.all-3.5.min.js'></script>
+<link rel="stylesheet" href="/Public/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script>
+		
+		var setting = {
+			async:{
+				enable:true,
+				url:"__URL__/getChild:__XPATH__",
+				autoParam: ["id"]
+			},
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onClick: onClick
+			}
+		};
+		$first='{$firstUserInfo.编号}<foreach name="levelsArr" item="levels" key="levelName">[{:$levels[$firstUserInfo[$levelName]]}]</foreach>';
+		<empty name="firstUserInfo.审核日期">
+			$first+="[注册日期:{:date('Y-m-d',$firstUserInfo['注册日期'])}]";
+		<else/>
+			$first+="[审核日期:{:date('Y-m-d',$firstUserInfo['审核日期'])}]";
+		</empty>
+		var zNodes =[
+			{ id:'{$firstUserInfo.编号}', pId:0, name:$first,  open:true}
+		];
+		
+		<foreach name="downUsers" key="k" item="downUser">
+		$downname='{$downUser.编号}<foreach name="levelsArr" item="levels" key="levelName">[{:$levels[$downUser[$levelName]]}]</foreach>';
+		<empty name="downUser.审核日期">
+			$downname+="[注册日期:{:date('Y-m-d',$downUser['注册日期'])}]";
+		<else/>
+			$downname+="[审核日期:{:date('Y-m-d',$downUser['审核日期'])}]";
+		</empty>
+		
+		zNodes.push({ id:'{$downUser.编号}', pId:'<php>echo $downUser[$netNode->name.'_上级编号']</php>', name:$downname,  open:true,isParent:<if condition="$downUser['haveChild'] eq true">true<else />false</if>});
+		
+		</foreach>
+		var log, className = "dark";
+		function beforeClick(treeId, treeNode, clickFlag) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
+			return (treeNode.click != false);
+		}
+		function onClick(event, treeId, treeNode, clickFlag) {
+			showLog("[ "+getTime()+" onClick ]&nbsp;&nbsp;clickFlag = " + clickFlag + " (" + (clickFlag===1 ? "普通选中": (clickFlag===0 ? "<b>取消选中</b>" : "<b>追加选中</b>")) + ")");
+		}		
+		function showLog(str) {
+			if (!log) log = $("#log");
+			log.append("<li class='"+className+"'>"+str+"</li>");
+			if(log.children("li").length > 8) {
+				log.get(0).removeChild(log.children("li")[0]);
+			}
+		}
+		function getTime() {
+			var now= new Date(),
+			h=now.getHours(),
+			m=now.getMinutes(),
+			s=now.getSeconds();
+			return (h+":"+m+":"+s);
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		});
+</script>
+<div class="core_main Net" id="position_ramus_tree">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con" style="overflow:auto;">
+	<select name="changeStyle" id="changeStyle">
+		<option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
+		<php>
+		 //判断是豪华版还是简化版 如果是简化版的话 则不显示树形目录
+		 if(C('VERSION_SWITCH') == '0'){
+		</php>
+		   <option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+		<php>}</php>
+	</select>
+	<table width="100%" border="0">
+	<tbody>
+    <if condition="$firstUserInfo">
+	        <tr><td>
+	            <table width="100%" border="0">
+	            <tbody><tr>
+            <td height="30" align="center">
+                {// 表单查询 }
+                <form action="__URL__/disp:__XPATH__/style/dir" method="post" name="form1" id="form1">
+                <input name="nettype" type="hidden" value="{$style}"/>
+                <span class="white">{$userNode:name}编号:</span><input type="text" name="uid" value="" size="12"/>
+                <input class="button_text" type="submit" value="搜索"> 
+               <!-- <if condition="$firstUserInfo['编号'] neq $thisUser['编号']">
+                <input class="button_text" type="button" name="btnSearch" value="上一层" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__/uid/{:$firstUserInfo[$netNode->name.'_上级编号']}/style/dir';">
+                <input class="button_text" type="button" name="btnSearch" value="置顶" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__/style/dir';"> 
+                </if>-->
+                </form>
+            </td>
+            </tr></tbody>
+            </table>
+        </td></tr>
+    </if>
+	<tr>
+	<td height="30" align="center" >
+		<div class="zTreeDemoBackground left" id="dirtreefont">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+    <div class="core_page"></div>
+</div>
+<script language="javascript">
+$(function(){
+	$("[id^='changeStyle']").change(function(){
+		window.location='__URL__/disp:__XPATH__/nettype/'+$(this).val();
+	});
+});
+</script>

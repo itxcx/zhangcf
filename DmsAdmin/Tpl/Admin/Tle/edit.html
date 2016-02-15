@@ -1,0 +1,83 @@
+<script language="javascript" type="text/javascript"> 
+//锁定键盘，防止非法值注入
+$(function(){
+	$(".sum").focus(function(){
+		$(this).keydown(function(e){
+			var k = e.keyCode;
+		if((k==8) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105)||(k==190)||(k==110)||(k>=37 && k<=40) || k==9 || k==45){
+			//	if ((k==46)||(k==190)||(k==110)|| (k>=48 && k<=57)||(k>=96 && k<=105)||(k>=37 && k<=40))
+			}else{
+				return false;
+			}
+		})
+	})
+})
+//计算求和
+	$(".sum").keyup(function(){
+		if($("#set").attr('checked')){
+			$(".sum").each(function(i,val){
+					getSum();
+				
+			})
+		}
+	});
+	function getSum(){
+		var sum1 = 0;
+		var sum2 = 0;
+		$(".sum").each(function(i,val){
+			if( $(val).attr('mode')==1){
+				sum1+=parseFloat($(val).val());
+				sum2+=parseFloat($(val).val());
+			}else if($(val).attr('mode')==2){
+				sum2+=parseFloat($(val).val());
+			}
+		});
+		$("#tleIm").val(sum1.toFixed(2));
+		$("#tleIn").val(sum2.toFixed(2));
+	}
+</script>
+<div class="pageContent">
+<form id="editform" action="__URL__/editTle:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneReload)">
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<div class="pageFormContent" layoutH="58">
+
+  <table>
+		<tr align="left">
+			<td>　编号：</td>
+			<td colspan="2" style="text-align:left;"><input type="hidden" name="编号" value="{$list.编号}"/><input type="hidden" name="id" value="{$list.id}"/>{$list.编号}</td>
+		</tr>
+  	<volist name="tleSet" id="vo">
+		
+	    <tr align="left">
+           <td >　{$key}：</td>
+		   <td colspan="2" style="text-align:left;"><input class="sum" mode="{$vo.mode}" name="{$key}" type="text" style="width:120px; background:<if condition="isset($vo['readonly'])">#CCC<else />#FFF</if>;" value="{$vo.val}" <if condition="isset($vo['readonly'])">readonly="readonly"</if> />
+		 		   
+		   </td> 		   
+		</tr>
+			
+	</volist>
+		<tr align="left">
+			<td>　奖金：</td>
+			<td colspan="2" style="text-align:left;"><input id="tleIm" class="sum" name="奖金" type="text" style="width:120px; background:#FFF;" value="{$list.奖金}"/></td>
+		</tr>
+		<tr align="left">
+			<td>　收入：</td>
+			<td colspan="2" style="text-align:left;"><input id="tleIn" class="sum" name="收入"  type="text" style="width:120px; background:#FFF;" value="{$list.收入}"/></td>
+		</tr>
+		<tr align="left">
+			<td colspan="2" style="text-align:left;">　　
+				<label for all>自动计算收入：<input type="checkbox" name="sum" id="set" checked="checked">
+				</label>
+			</td>
+        </tr>
+		</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+   </form>
+
+</div>

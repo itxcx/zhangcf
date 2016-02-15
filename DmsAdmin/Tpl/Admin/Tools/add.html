@@ -1,0 +1,117 @@
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+<script type="text/javascript" >
+window.onload=function(){
+var username=document.getElementById('username');
+subuser(username);
+}
+setdata={$jsonuser};
+
+</script>
+<form action="__URL__/handle" method="post">
+注册体系:
+<select name="username" id="username" onchange="subuser(this);">
+<foreach name='users' item="vo" key="key">
+<option  value="{$vo.name}" >{$vo.name}</option>
+</foreach>
+</select>
+<div id='content'>
+</div>
+</form>
+<script type="text/javascript">
+function subuser(obj)
+{
+   var user=obj.value;
+       for(var k in setdata)
+        {
+         if(setdata[k].name==user)
+         {
+           var  showarr='<table border="0" cellspacing="0" cellpadding="0"><tr><td><table  border="0" cellspacing="0" cellpadding="0">';
+            showarr=showarr+'<tr><td>'+user+'编号起点:</td><td><input type="text" size="13" name="serial" value="000001"></td></tr>';
+           //判断级别
+           if(setdata[k].levels !=undefined)
+           {
+            showarr=showarr+'<tr><td>'+user+'级别:</td><td><select name="level"><option value="rand">随机</option><option value="lowmore">低级别比例高</option><option value="highmore">高级别比例高</option>';
+            for( var k1 in setdata[k].levels)
+            {
+               var level=setdata[k].levels[k1];
+               showarr=showarr+'<option value="'+k1+'">'+level+'</option>';
+               }
+            showarr=showarr+'</select></td></tr>';
+            }
+            //判断注册单
+            if(setdata[k].sale_reg !=undefined){
+            showarr=showarr+'<tr><td>注册订单类型:</td><td><select name="regtype">';
+            for(var k2 in setdata[k].sale_reg)
+            {
+              if(k2 !='admin'){
+                showarr=showarr+'<option value="reg_user">前台会员注册</option>';
+                if(setdata[k].sale_reg[k2]==true)
+                {
+                showarr=showarr+'<option value="reg_usernull">前台会员注册(空点)</option>';
+                }
+            }if(k2=='admin')
+            {
+             showarr=showarr+'<option value="reg_admin">后台会员注册</option>';
+             if(setdata[k].sale_reg[k2]==true)
+                {
+                showarr=showarr+'<option value="reg_adminnull">后台会员注册(空点)</option>';
+                }
+            }if(k2=='')
+            {
+            showarr=showarr+'<option >未登入可以注册</option>';
+            }
+            }
+            showarr=showarr+'</select></td></tr>';
+            }
+            
+            //判断人数
+          showarr=showarr+'<tr><td>人数:</td><td><input id="num" type="text" size="10" name="num" value="10" />人&nbsp;&nbsp;<input type="button" value="100" onclick="usernum(this);" /><input type="button" value="200" onclick="usernum(this);" /><input type="button" value="1000" onclick="usernum(this);" /></td></tr>';
+          
+          //判断推荐
+           showarr=showarr+'<tr><td>推荐:</td><td><input type="text" name="tjnum1" id="tjnum1" value="1-3" size="5">人&nbsp;&nbsp;<select onchange="tjnum(this);"><option value="">请选择</option><option value="1-3">1-3人</option><option value="1-5">1-5人</option><option value="1-10">1-10人</option></select></td></tr>';
+           
+           //判断管理
+            showarr=showarr+'<tr><td>管理:</td><td><select name="place"><option value="desc">向下安置</option><option value="balance">多线平衡</option></select></td></tr>';
+            
+            //判断时间
+             showarr=showarr+'<tr><td>时间:</td><td><input type="text" name="regdate" id="regdate" value="1" size="5">天&nbsp;&nbsp;<select onchange="regtime(this);"><option value="1">请选择</option><option value="递增">递增</option><option value="1">1天</option><option value="10">10天</option><option value="30">30天</option><option value="60">60天</option><option value="90">90天</option></select></td></tr></table></td></tr>';
+             
+             //若是递增则显示下面
+              showarr=showarr+'<tr id="show2"></tr>';
+               showarr=showarr+'<tr><td colspan="2" align="center"><input type="submit" value="添加"/></td></tr></table>';    
+        $('#content').html(showarr);
+         }
+       }
+  }
+  
+function usernum(obj)
+{
+  var usernums=obj.value;
+  //document.getElementById('num').value=usernums;
+   $('#num').val(usernums);
+ }
+function tjnum(obj)
+{
+  var tjnums=obj.value;
+  //document.getElementById('tjnum1').value=tjnums;
+    $('#tjnum1').val(tjnums);
+ }
+function regtime(obj)
+{
+  var regdates=obj.value;
+  if(regdates=='递增')
+  {
+  var text2='<td><table  border="0" cellspacing="0" cellpadding="0"><tr><td>首日人数:</td><td><input type="text" name="todaynum" id="todaynum" value="10" size="5">人</td></tr><tr><td>日递增幅:</td><td><input name="everyadd" id="everyadd" type="text" value="0" size="5">%&nbsp;&nbsp;<select onchange="everydayadd(this);"><option value="0">请选择</option><option value="1">1%</option><option value="1.5">1.5%</option><option value="2">2%</option><option value="5">5%</option><option value="10">10%</option></select></td></tr></table></td>';
+  $('#show2').html(text2);
+  }else{
+  $('#show2').html('<td></td>');
+  }
+    $('#regdate').val(regdates);
+ }
+
+function everydayadd(obj)
+{
+  var everyrate=obj.value;
+  $('#everyadd').val(everyrate);
+  }
+</script>

@@ -1,0 +1,68 @@
+ /*推荐网*/
+.core_main .topLayer {
+    border: none;
+    background: none;
+}
+.core_main .topLayerTd1 {
+    background: none;
+}
+    /*前三行*/
+.core_main .topLayerTb1 {
+    margin: 0 auto;
+    width: 98px;
+    border: none;
+}
+.core_main .topLayerTb1 tr:first-child td {
+    border-radius: 5px 5px 0 0;
+}
+.core_main .topLayerTb1Td1 {
+    border-bottom: 1px solid #eee;
+    color: #fff;
+}
+.core_main .currentNavTab {
+    color: #fff;
+}
+.core_main .topLayerTb1De {
+    background: #57812d;
+}
+.core_main .topLayerTb1St {
+    background: #aaa;
+}
+    /*中间*/
+.core_main .topLayerTb1Td2 {
+    background: #94b65d;
+}
+    /*底部*/
+.core_main .topLayerTb2 {
+    border: none;
+    border-radius: 0 0 5px 5px;
+    background: url(../images/tip-bg.png);
+    background-size: contain;
+    color: #eee;
+}
+/*注册*/
+.core_main .topReg {
+    border: none;
+    background: none;
+}
+.core_main .topRegTd1 {
+    color: #fff;
+}
+.core_main .topRegTb1 {
+    margin: 0 auto;
+    width: 98px;
+}
+    /*行*/
+.core_main .topRegTb1 td {
+    height: 20px;
+    background: #94b65d;
+}
+.core_main .topRegTb1 tr:first-child td {
+    border-radius: 5px 5px 0 0;
+}
+.core_main .topRegTb1 td a {
+    color: #d00;
+}
+.core_main .topRegTb1 tr:last-child td {
+    border-radius: 0 0 5px 5px;
+}

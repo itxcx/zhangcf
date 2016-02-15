@@ -1,0 +1,61 @@
+<div layoutH="0">
+<table width="521" class="list">
+ <thead>
+  <tr>
+    <th colspan="2">&nbsp;批量注册进度表</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+    <td valign="top"> 进度条:</td>
+    <td  valign="top">
+    <div style="width:400px;height:20px;margin:0 auto;" id="load">
+</div>
+    </td>
+    </tr>
+     <tr>
+    <td  width="100px" valign="top">
+    </td>
+    <td  valign="top"><div id="tax"></div></td>
+    </tr>
+    </tbody>
+   </table>
+   </div>
+<script type="text/javascript">
+var xmlHttp;
+Request();
+function create()
+{
+if(window.ActiveXObject)
+{
+xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");//IE浏览器
+}
+else if(window.XMLHttpRequest)
+{
+xmlHttp = new XMLHttpRequest();//非IE浏览器
+}
+}
+function Request()
+{
+create();
+var postdata	= new Array();
+	xmlHttp.open("POST","__URL__/regAjax");
+	xmlHttp.onreadystatechange=function(){
+	if(xmlHttp.readyState==4)
+	{
+document.getElementById("load").innerHTML='注册完成';
+	}
+	}
+	xmlHttp.send();
+}
+
+function tu(value){
+document.getElementById("login").style.width =value+"px";
+
+}
+function end()
+{
+document.getElementById("login").innerHTML='注册完成';
+}
+//tu(0,1,'0%');
+</script>

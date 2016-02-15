@@ -1,0 +1,64 @@
+<script>
+$(document).ready(function ()
+{
+	$('#MailLoginTestBut').click(function (){
+		mail =$('#mail',$.pdialog.getCurrent()).val();
+		pass =$('#pass',$.pdialog.getCurrent()).val();
+		smtp_host =$('#smtp_host',$.pdialog.getCurrent()).val();
+		$('#MailLoginTestBut').attr('href','__URL__/MailLoginTest/mail/'+mail+'/pass/'+pass+'/smtp_host/'+smtp_host);
+	});
+	//邮箱地址在发生变更时,根据后缀,自动匹配SMTP服务器
+	//
+	var mailSet=[
+		{name:'qq.com',ssl:true,port:465,smpt:'smtp.qq.com',host:'http://mail.qq.com'},
+		{name:'163.com',ssl:true,port:465,smpt:'smtp.qq.com',host:'http://mail.163.com'}
+	]
+	$(mailSet).each(function (index,data){
+		alert(data.name)
+	});
+	//alert(mailSet);
+});
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/MailSet" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input name="callbackType" type="hidden" value="closeCurrent"/>
+		<input type="hidden" name="navTabId" value="1cd9de70cbbe5970a92b08a7be94c1aa">
+		<input type="hidden" name="forwardUrl" value="__URL__/index">		
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label class='oldlabel' style='text-align:right;'>状态：</label>
+				<select name='status'>
+				<option value='1' <eq name='status' value='1'>selected</eq>>开启</option>
+				<option value='0' <eq name='status' value='0'>selected</eq>>关闭</option>
+				</select>
+			</p>
+			<p>
+				<label class='oldlabel' style='text-align:right;'>邮箱地址：</label>
+				<input name="mail" id='mail' type="text" size="20" value="104978@qq.com"/>
+				
+			</p>
+			<p>
+				<label class='oldlabel'>邮箱密码：</label>
+				<input name="pass" id='pass' class="required" type="text" size="20" value="lichang549774"/>
+			</p>
+			<p style='width:400px'>
+				<label class='oldlabel'>SMTP服务器：</label>
+				<input name="smtp_host" id='smtp_host' class="required" type="text" size="20" value="smtp.qq.com"/>
+				<input type='checkbox' value='' name='smtp_ssl' id='smtp_ssl'/> SSL 端口 <input name="smtp_ssl_port" id='smtp_ssl_port' class="required" type="text" size="4" value="25"/>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<a  href="" id='MailLoginTestBut' target="ajaxTodo" class='button' style='margin-left:130px'><span>账号登录测试</span></a>
+			</p>
+
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

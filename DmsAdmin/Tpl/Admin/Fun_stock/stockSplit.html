@@ -1,0 +1,45 @@
+<script language="JavaScript">
+function dialogAjaxDoneStockSplit(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/config:__XPATH__');
+	}
+}
+</script>
+<form action="" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneStockSplit)">
+<table width="450px" class="list">
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;<img src="__PUBLIC__/Images/cog.png" style="vertical-align:middle"/>&nbsp;&nbsp;交易拆分</th></tr></thead>
+<tbody>
+<tr>
+<td  style="text-align:right;width:20%">当前股价:</td>
+<td  style="text-align:left;width:40%">&nbsp;{$Stockprice}</td>
+<td  style="text-align:left;width:40%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">拆分倍数:</td>
+<td  style="text-align:left;width:40%">&nbsp;&nbsp;{$StockSplit}</td>
+<td  style="text-align:left;width:40%">&nbsp;</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">拆分后:</td>
+<td  style="text-align:left;width:40%">&nbsp;&nbsp;<span id="splitAfter">{$splitAfter}</span></td>
+<td  style="text-align:left;width:40%">&nbsp;</td>
+</tr>
+<tr>
+<td ></td><td><div class="buttonActive"><div class="buttonContent"><button type="button" onclick="subtwpd()">确定</button></div></div>
+</div></td>
+<td ></td>
+</tr>
+</tbody>
+</table>
+</form>
+<script>
+function subtwpd()
+{
+	var splitnum=$("#splitnum").val();
+	$.pdialog.open("__URL__/intwp:__XPATH__/splitnum/"+splitnum,"","输出入密码",{width:400,height:200,mask:true,mixable:true,minable:true,resizeable:true,drawable:true});
+}
+</script>

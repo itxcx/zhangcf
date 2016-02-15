@@ -1,0 +1,138 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <if condition="count($data['list']) elt 0">
+    <div class="no-data text-align-center"><h1>暂无数据</h1></div>
+    </if>
+
+    <foreach name='data.list' item='vo'>
+    <dl class="mail dl">
+        <dt>
+            <h1>
+                <span>计算日期：</span>
+                {:date('Y-m-d H:i:s',$vo['计算日期'])}
+        </dt>
+        <dd>
+            <div class="title float-left text-align-center">
+                <a href="javascript:void(0)">
+                </if>
+                    <i class="iconfont">&#xe6f6;</i>
+                    <br>
+                    <span>奖金</span>
+                </a>
+            </div>
+            <div class="info float-left">
+                <a href="javascript:void(0);">
+                    <p>奖金：<span class="text-color-red">{$vo.奖金}</span></p>
+                    <p>收入：<span class="text-color-red">{$vo.收入}</span></p>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </dd>
+        <dd class="award-info">
+            <div class="title float-left text-align-center">
+                新增业绩
+            </div>
+            <div class="info float-left">
+                <span class="more down"><i class="iconfont">&#xe67e;</i></span>
+                <span class="more up"><i class="iconfont">&#xe67f;</i></span>
+                {$vo.新增业绩}
+            </div>
+        </dd>
+        <dl class="award-list">
+            <dd>
+                <div class="title float-left text-align-center">结转业绩</div>
+                <div class="info float-left">{$vo.结转业绩}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">累计业绩</div>
+                <div class="info float-left">{$vo.累计业绩}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">推荐奖</div>
+                <div class="info float-left">{$vo.推荐奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">碰对奖</div>
+                <div class="info float-left">{$vo.碰对奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">层碰奖</div>
+                <div class="info float-left">{$vo.层碰奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">责任消费</div>
+                <div class="info float-left">{$vo.责任消费}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">返利奖</div>
+                <div class="info float-left">{$vo.返利奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">级差奖1</div>
+                <div class="info float-left">{$vo.级差奖1}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">代理级差奖</div>
+                <div class="info float-left">{$vo.代理级差奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">分红奖</div>
+                <div class="info float-left">{$vo.分红奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">帮扶奖</div>
+                <div class="info float-left">{$vo.帮扶奖}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">店补</div>
+                <div class="info float-left">{$vo.店补}</div>
+            </dd>
+            <dd>
+                <div class="title float-left text-align-center">所得税</div>
+                <div class="info float-left">
+                    <span class="more up"><i class="iconfont">&#xe67f;</i></span>
+                    {$vo.所得税}
+                </div>
+            </dd>
+        </dl>
+    </dl>
+    </foreach>
+        
+    <div class="page">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">&laquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&laquo;</a>
+        </if>
+
+        <a href="{$data.upRow}">&lt;</a>
+
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+
+        <a href="javascript:void(0)">{$data.nowPage}/{$data.totalPages}</a>
+
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+
+        <a href="{$data.downRow}">&gt;</a>
+
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&raquo;</a>
+        <else/>
+        <a href="javascript:void(0)">&raquo;</a>
+        </if>  
+    </div>      
+</div>
+<include file="Public:footer" />
+

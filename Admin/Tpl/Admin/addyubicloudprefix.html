@@ -1,0 +1,58 @@
+<script>
+function navTabAjaxDoneReload(json){
+	DWZ.ajaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok){
+		$.pdialog.closeCurrent();
+		navTab.reload(json.forwardUrl);
+	}else{
+		var $pagerForm = $("#pagerForm", navTab.getCurrentPanel());
+		var args = $pagerForm.size()>0 ? $pagerForm.serializeArray() : {}
+		navTabPageBreak(args, json.rel);
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__APP__/Admin/addyubicloudprefix_save/id/{$managerid}"  class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/edit')}"/>
+		<input type="hidden" name="forwardUrl" value="__APP__/Admin/edit/id/{$managerid}"/>
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5">
+				<tr>
+					<th style="text-align:right">备注：</th>
+					<td style="text-align:left">
+                    	<input type="text"  id="yubiname" name='yubiname' value="" size='32'/>&nbsp;&nbsp;（标注当前yubikey码）
+					</td>
+				</tr>
+				<tr>
+					<th style="text-align:right">有效天数：</th>
+					<td style="text-align:left">
+                    	<input type="text"  id="yubidays" name='yubidays' value="0" size="8"/>&nbsp;天&nbsp;（天数为0或不填默认为无限，大于0的整数表示天数）
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" style="text-align:right">点击输入key值：</th>
+					<td style="text-align:left;vertical-align: middle;height:30px;line-height:30px;" varalign="middle">
+                    <input type="password"  id="newyubiopt" name='newyubiopt' value="" size='32'/>&nbsp;（光标移到输入框内，按下图操作）
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" style="text-align:right">&nbsp;</th>
+					<td style="text-align:left;"><img src="/Admin/Common/images/yubiKey.jpg"/></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" >确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script >
+$(function () {
+//	$('#newyubiopt').focus();
+})
+</script >

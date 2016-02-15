@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$SYSTEM_TITLE}</title>
+    <link rel="stylesheet" type="text/css" href="__TMPL__Public/style/style.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__Public/style/view.css" />
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script src="__TMPL__Public/js/basic.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            //判断当前方法是哪一个 对其进行显
+            var data = '{$menu_jsons}';
+            var action = '{$now_action}';
+            var model = '{$now_model}';
+            var title = '';
+            data_arr = {};
+            data_arr = eval('(' + data + ')');
+            i = 1;
+            j = 1;
+            for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                i++;
+                for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                    j++;
+                    if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                        $('.selected').removeClass('selected');
+                        $('.navlist' + i).addClass('selected');
+                    }
+
+                }
+            }
+            if(action=='index' && model=='Index'){
+                $('.navlist1').addClass('selected');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-top center">
+            <div class="logo">
+                <a href="__GROUP__/Index/index">
+                    <!--<img src="#" alt="公司标题">-->
+                    <h1>{$SYSTEM_COMPANY}</h1>
+                </a>
+            </div>
+            <div class="top-right">
+                <a href="__GROUP__/Public/logout">安全退出</a>
+            </div>
+        </div>
+        <div class="header-bottom center"></div>
+        <div class="header-nav">
+            <ul class="nav-list center">
+                <php>
+                $p = 2;
+                </php>
+                <li><a href="__GROUP__/Index/index" class="nav-key navlist1">系统首页</a></li>
+                <foreach name="menu" item="vo" key="key">
+                <li><a class="nav-key navlist{$p++}">{$key}</a>
+                <ul class="nav-li">
+                    <foreach name="vo" item="val">
+                    <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                    <li>
+                    <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}">{$val.title}</a>
+                    </li>
+                    </if>
+                    </foreach>
+                    <div class="clear"></div>
+                    </ul>
+                </li>
+                </foreach>
+            <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-main center">
+            <div class="main-top">
+                <span class="part-tit">系统公告</span>
+                <foreach name="nownotice" item="vo">
+                <a href="__GROUP__/User/showNotice/id/{$vo.id}">{$vo.标题}</a>
+                </foreach>
+            </div>

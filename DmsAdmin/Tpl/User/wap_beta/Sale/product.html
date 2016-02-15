@@ -1,0 +1,196 @@
+<div class="content-box">
+    <table class="table" id="table1">
+        <tr>
+            <th colspan="8" >{$sale:productName}选购</th>
+        </tr>
+        <tr>
+            <td colspan="8" >
+                <php>$i=1;</php>
+                <foreach name="productArr" item="product">
+                <div id="productCategory_{$i}" productCategoryid="{$i}">{$key}</div>
+                <php>$i++;</php>
+                </foreach>
+            </td>
+        </tr>
+
+    </table>
+    <table class="table product-table">
+        <thead>
+            <tr>
+                <th class="product-td1">序号</th>
+                <th class="product-td2">产品名称</th>
+                <th class="product-td3">图片</th>
+                <th class="product-td4">数量</th>
+                <th class="product-td5">{$sale:productMoney}</th>
+                <eq name="sale:productPV" value="true"><th class="product-td6">PV</th></eq>
+                <if condition="$logistic eq true"><th class="product-td7">重量</th></if>
+                <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">
+                <th class="product-td8">库存</th>
+                </if>
+            </tr>
+        </thead>
+        <php>$ii=1;</php>
+        <foreach name="productArr" item="product" key="fenlei">
+        <tbody id="productTbody_{$ii}" style="<neq name="ii" value="1">display:none</neq>">
+            <volist name="product" id="vo">
+            <tr>
+                <td class="product-td1">{:($key+1)}</td>
+                <td class="product-td2"><a href="__URL__/showProinfo/id/{$vo.id}">{$vo.名称}</a></td>
+                <td class="product-td3">
+                    <php>$imgstr=$vo['图片'];</php>
+                    <if condition="(strlen($imgstr) eq 0)" >
+                    无
+                    <php> $productimg='无'; </php>
+                    <else/>
+                    <img src="{$vo.图片}">
+                    <php>
+                    $productimg="<img src='".$vo['图片']."'>"; 
+                    </php>
+                    </if>
+                </td>
+                <td class="product-td4"><input type="text" name="productNum[{$vo.id}]"  id="productNum_{$vo.id}" productNumInfo="{$vo.id}_{$fenlei}_{$vo.名称}_{$vo[$sale:productMoney]}_{$vo.PV}_{$vo.重量}" pronum="{$vo.可订购数量}" style="width:35px" productimg="{$productimg}" /></td>
+                <td class="product-td5">{$vo[$sale:productMoney]}</td>
+                <eq name="sale:productPV" value="true"><td class="product-td6">{$vo.PV}</td></eq>
+                <if condition="$logistic eq true"><td class="product-td7">{$vo.重量}</td></if>		
+                <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">
+                <td id="state_productnum{$vo.id}" class="product-td8">{$vo.可订购数量}</td>
+                </if>
+            </tr>
+            </volist>
+        </tbody>
+        <php>$ii++;</php>
+        </foreach>
+    </table>
+    <table class="table margin-t-1" id="table2">
+        <tr>
+            <th colspan="8">已选产品</th>
+        </tr>
+    </table>
+    <table class="table product-table">
+        <thead>
+            <tr>
+                <th class="product-td1">序号</th>
+                <th class="product-td2">类别</th>
+                <th class="product-td3">产品名称</th>
+                <th class="product-td4">图片</th>
+                <th class="product-td5">总计数量</th>
+                <th class="product-td6">总金额</th>
+                <eq name="sale:productPV" value="true"><th class="product-td7">总PV</th></eq>
+                <if condition="$logistic eq true"><th class="product-td8">总重量</th></if>
+            </tr>
+        </thead>
+        <tbody id="selectedProduct">
+        </tbody>
+        <tr>
+            <td colspan="4" style="text-align:right">汇总：</td>
+            <td id="totalnum">0</td>
+            <td id="totalprice">0</td>
+            <eq name="sale:productPV" value="true"><td id="totalpv">0</td></eq>
+            <if condition="$logistic eq true"><td id="totalweight">0</td></if>
+        </tr>
+        <if condition="($logistic eq true) or ($zkbool eq true)">
+        <tr>
+            <td colspan="4" style="text-align:right;">
+                <span style="display:inline-block;text-align:left;width:70%">
+                    <if condition="$zkbool eq true">折扣：<span id="zk"></span>折</if>
+                    &nbsp;&nbsp;&nbsp;
+                    <if condition="$logistic eq true">物流费：<span id="wlf"></span></if>
+                </span>
+                <span>实际支付:</span>
+            </td>
+            <td id="totalzf" colspan="4" style="text-align:center;">0</td>
+        </tr>
+        </if>
+    </table>
+</div>
+<if condition="($logistic eq true) or ($zkbool eq true)"><script language="javascript" src="__PUBLIC__/js/cal.js"></script></if>
+<script>
+    $(function(){
+        <if condition="($logistic eq true) or ($zkbool eq true)">
+        user_getTotalzf('{$sale:name}','Sale');
+        </if>
+        var productStock = <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">true<else/>false</if>;
+        $("[id^='productCategory_']").first().addClass('productSelect');
+        $("[id^='productCategory_']").click(function(){
+            $('[id^=productTbody_]').hide();
+            $('#productTbody_'+$(this).attr('productCategoryid')).show();
+            $('[id^=productCategory_]').removeClass('productSelect');
+            $(this).addClass('productSelect');
+        });
+        $("[id^=productNum_]").keyup(function(){
+            var product =$(this).attr('productNumInfo').split("_");
+            var productimg = $(this).attr('productimg');
+            var num = $(this).val();
+            num = parseInt(num.replace(/\b(0+)/gi,""));
+            if(!(num > 0 && (!isNaN(num)))){
+                $(this).val('');
+            }
+            //开启库存时，不能超过库存量
+            var realnum=$(this).attr('pronum');
+            if(productStock && num > realnum){
+                num =  parseInt(realnum);
+                $(this).val(num);
+            }
+
+            //定义序号
+            var k=0;
+            $("#selectedProduct > tr").each(function(i,v){
+                if($(v).attr('selectedProductid') == product[0]){
+                    $(this).remove();//删除
+                    }else{
+                    k=parseInt($(this).find("td:first").html());
+                }
+            });
+            var pd1 = 'product-td1';
+            var pd2 = 'product-td2';
+            var pd3 = 'product-td3';
+            var pd4 = 'product-td4';
+            var pd5 = 'product-td5';
+            var pd6 = 'product-td6';
+            var pd7 = 'product-td7';
+            var pd8 = 'product-td8';
+            if((!isNaN(num)) && num > 0){
+                $("#selectedProduct").append(
+                '<tr selectedProductid="'+product[0]+
+                    '"><td class='+pd1+'>'+(parseInt(k)+1)+
+                        '</td><td class='+pd2+'>'+product[1]+
+                        '</td><td class='+pd3+'>'+product[2]+
+                        '</td><td class='+pd4+'>'+productimg+
+                        '</td><td id="selnum_'+product[0]+'" class='+pd5+'>'+num+
+                        '</td><td id="selprice_'+product[0]+'" class='+pd6+'>'+(num*product[3]).toFixed(2)+
+                        '</td><eq name="sale:productPV" value="true"><td id="selpv_'+product[0]+'" class='+pd7+'>'+(num*product[4]).toFixed(2)+
+                        '</td></eq><if condition="$logistic eq true"><td id="selweight_'+product[0]+'" class='+pd8+'>'+(num*product[5]).toFixed(2)+
+                        '</td></if></tr>');
+            }
+            //统计
+            var countNum = 0;
+            var countMoney = 0;
+            var countPV = 0;
+            var countWeight = 0;
+            $("#selectedProduct > tr").each(function(i,v){
+                var proid=$(this).attr('selectedProductid');
+                countNum +=parseFloat($('#selnum_'+proid).html());
+                countMoney +=parseFloat($('#selprice_'+proid).html());
+                <if condition="$sale:productPV eq true">
+                countPV +=parseFloat($('#selpv_'+proid).html());
+                </if>
+                <if condition="$logistic eq true">
+                countWeight +=parseFloat($('#selweight_'+proid).html());
+                </if>
+            });
+
+            $("#totalnum").html(countNum);
+            $("#totalprice").html(countMoney.toFixed(2));
+            <eq name="sale:productPV" value="true">
+            $("#totalpv").html(countPV.toFixed(2));
+            </eq>
+            <if condition="$logistic eq true">
+            $("#totalweight").html(countWeight.toFixed(2));
+            </if>
+            //计算实付款并显示
+            <if condition="($logistic eq true) or ($zkbool eq true)">
+            user_getTotalzf('{$sale:name}','Sale');
+            </if>
+        });
+    });
+</script>

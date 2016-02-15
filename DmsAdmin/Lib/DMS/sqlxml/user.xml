@@ -1,0 +1,258 @@
+<table name='会员' engine="InnoDB">
+<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+<field name='编号'  type="varchar(50)" null="1"  default=""/>
+<field name='pass1' type="varchar(50)" default=""/>
+<field name='pass2' type="varchar(50)" default=""/>
+<field name='pass3' type="varchar(50)" default=""/>
+<field name='姓名' type="varchar(50)" default=""/>
+<field name='收货人' type="varchar(50)" default=""/>
+<field name='昵称' type="varchar(50)" default=""/>
+<field name='注册类型' type="varchar(50)" default=""/><!--admin,会员,其他-->
+<field name='空点' type="tinyint(1)" default="0"/>
+<field name='奖金锁' type="tinyint(1)" default="0"/>
+<field name='注册日期' type="int(11)" default="0"/>
+<field name='审核日期' type="int(11)" default="0"/>
+<field name='登入日期' type="int(11)" default="0"/>
+<field name='状态'   type="varchar(50)" default=""/>
+<field name='登陆锁定'   type="tinyint(1)"  default="0" />
+<field name='开户银行' type="varchar(50)" default=""/>
+<field name='银行卡号' type="varchar(50)" default=""/>
+<field name='开户名'   type="varchar(50)" default=""/>
+<field name='开户地址' type="varchar(50)" default=""/>
+<field name='国家代码' type="varchar(50)" default="+086"/>
+<field name='移动电话' type="varchar(50)" default=""/>
+<field name='固定电话' type="varchar(50)" default=""/>
+<field name='证件号码' type="varchar(50)" default=""/>
+<field name='性别'  type="varchar(50)" default=""/>
+<field name='生日'  type='varchar(15)' default=""/>
+<field name='email' type="varchar(200)" default=""/>
+<field name='微信账号' type="varchar(200)" default=""/>
+<field name='QQ'    type="varchar(50)" default=""/>
+<field name='国家'  type="varchar(50)" default=""/>
+<field name='省份'  type="varchar(50)" default=""/>
+<field name='城市'  type="varchar(50)" default=""/>
+<field name='地区'  type="varchar(50)" default=""/>
+<field name='街道'  type="varchar(50)" default=""/>
+<field name='代理国家'  type="varchar(50)" default=""/>
+<field name='代理省份'  type="varchar(50)" default=""/>
+<field name='代理城市'  type="varchar(50)" default=""/>
+<field name='代理地区'  type="varchar(50)" default=""/>
+<field name='代理街道'  type="varchar(50)" default=""/>
+<field name='邮编'  type="varchar(50)" default=""/>
+<field name='地址'  type="varchar(255)" default=""/>
+<field name='关联账号' type="varchar(50)" default="0"/>
+<field name='月收入' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='累计收入'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已发放奖金'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='最后登入IP' type="varchar(50)" default=""/>
+<field name='注册级别金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='是否回本'  type="tinyint(1)" default="0"/>
+<field name='服务中心' type="numeric(1)" default="0"/>
+<field name='服务中心编号' type="varchar(50)" default=""/>
+<field name='注册人编号' type="varchar(50)" default=""/>
+<field name='sessionid' type="varchar(50)" default=""/>
+<field name='最后访问时间' type="int(11)" default="0"/>
+<field name='密保问题' type="varchar(220)"  default=""/>
+<field name='密保答案' type="varchar(220)"  default=""/>
+<field name='备注'     type="varchar(1000)" default=""/>
+<field name='INDEX (`id`)' type="KEY"/>
+<field name='unique INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`空点`)' type="KEY"/>
+<field name='INDEX (`审核日期`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>
+<table name='报单' engine="InnoDB">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name="userid"   type="int(11)"  default="0"/>
+<field name='报单编号' type="varchar(50)" default=""/>
+<field name='编号'     type="varchar(50)" default=""/>
+<field name='购买日期' type="int(11)"  default="0"/>
+<field name='到款日期' type="int(11)"  default="0"/>
+<field name='发货日期' type="int(11)"  default="0"/>
+<field name='收货日期' type="int(11)"  default="0"/>
+<field name='服务中心编号' type="varchar(50)" default=""/>
+<field name='注册人编号' type="varchar(50)" default=""/>
+<field name='付款人编号' type="varchar(50)" default=""/>
+<field name='报单类别' type="varchar(50)" default=""/>
+<field name='报单状态' type="varchar(50)" default=""/>
+<field name='物流状态' type="varchar(50)"  default='未发货' />
+<field name='订单备注' type="varchar(255)" default=""/>
+<field name='快递公司' type="varchar(50)" default=""/>
+<field name='快递订单' type="varchar(100)" default=""/>
+<field name='快递备注' type="varchar(255)" default=""/>
+<field name='收货国家' type="varchar(50)" default=""/>
+<field name='收货省份' type="varchar(50)" default=""/>
+<field name='收货城市' type="varchar(50)" default=""/>
+<field name='收货地区' type="varchar(50)" default=""/>
+<field name='收货街道' type="varchar(50)" default=""/>
+<field name='收货地址' type="varchar(150)" default=""/>
+<field name='收货人' type="varchar(50)" default=""/>
+<field name='联系电话' type="varchar(50)" default=""/>
+<field name='发货类型' type="varchar(50)" default=""/>
+<field name='发货人' type="varchar(50)" default=""/>
+<field name='发货方式' type="varchar(50)"  default=""/>
+<field name='代理国家'  type="varchar(50)" default=""/>
+<field name='代理省份'  type="varchar(50)" default=""/>
+<field name='代理城市'  type="varchar(50)" default=""/>
+<field name='代理地区'  type="varchar(50)" default=""/>
+<field name='代理街道'  type="varchar(50)" default=""/>
+<field name='报单金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='报单单数'   type="int(11)" default="0"/>
+<field name='购物金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='购物PV'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='折扣' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="1"/>
+<field name='accbank' 	type="longtext"/>
+<field name='accokstr' type="longtext"/>
+<field name='实付款'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='优先级'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='升级数据' type="numeric(10)" default="0"/>
+<field name='回填' type="tinyint(1)" default="0"/>
+<field name='回填金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已回金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='回填日期' type="int(11)"  default="0"/>
+<field name='byname'   type="varchar(255)" default=""/>
+<field name='paydata'  type="varchar(500)" default="" />
+<field name='产品'  type="tinyint(1)" default="0"/>
+<field name='是否推广链接'  type="varchar(20)" default="0"/>
+<field name='old_lv'   type="int(11)" default="0"/>
+<field name='产品总重量' type="numeric(13,2)" default="0"/>
+<field name='物流费' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`到款日期`)' type="KEY"/>
+<field name='INDEX (`报单状态`)' type="KEY"/>
+<field name='INDEX (`报单类别`)' type="KEY"/>
+<field name='INDEX (`byname`)' type="KEY"/>
+<field name='INDEX (`报单金额`)' type="KEY"/>
+<field name='INDEX (`回填`)' type="KEY"/>
+<field name='constraint fk_user_id foreign key (`userid`) references `dms_会员` (`id`) ' type="FOREIGN"  byname='fk_user_id'/>
+</table>
+<table name='申请回填' engine="InnoDB">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name="编号"   type="varchar(50)"  default=""/>
+<field name="saleid"   type="int(11)"  default="0"/>
+<field name='申请日期' type="int(11)"  default="0"/>
+<field name='审核日期' type="int(11)"  default="0"/>
+<field name='转正方式' type="varchar(50)" default=""/>
+<field name='申请状态' type="varchar(50)"  default='未审核' />
+<field name='INDEX (`saleid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+</table>
+<table name='报单回填明细' engine="InnoDB">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name="编号"   type="varchar(50)"  default=""/>
+<field name="saleid"   type="int(11)"  default="0"/>
+<field name='结算日期' type="int(11)"  default="0"/>
+<field name='回填日期' type="int(11)"  default="0"/>
+<field name='转正方式' type="varchar(50)" default=""/>
+<field name='金额' type="decimal(13,2)"  default='0' />
+<field name='INDEX (`saleid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+</table>
+<table name='汇款通知' engine="MyISAM">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='汇入账户卡号'      type="varchar(255)" default=""/>
+<field name='汇入账户'      type="varchar(255)" default=""/>
+<field name='汇入账户开户名'      type="varchar(255)" default=""/>
+<field name='汇入账户开户行'      type="varchar(255)" default=""/>
+<field name='编号'	   type="varchar(50)" null="1"  default=""/>
+<field name='开户银行' type="varchar(50)" default=""/>
+<field name='银行卡号' type="varchar(50)" default=""/>
+<field name='开户名'   type="varchar(50)" default=""/>
+<field name='汇款时间' type="varchar(15)" default=""/>
+<field name='汇款方式' type="varchar(15)"  default=""/>
+<field name='状态'	   type="tinyint(1)" default="0"/>
+<field name='金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='换算后金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='备注'	   type="varchar(255)" default=""/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>
+<table name='汇款方式' engine="MyISAM">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='方式名称'      type="varchar(255)" default=""/>
+<field name='添加时间'	   type="varchar(50)"  default=""/>
+<field name='修改时间'    type="varchar(50)" default=""/>
+</table>
+<table name='修改日志'>
+	<field name="id" type="int(11)" auto_increment="1" primary="1" />
+	<field name="userid"   type="int(11)"  default="0"/>
+	<field name="logid"    type="int(11)"  default="0"/>
+	<field name="修改人"   type="int(11)"  default="0"/>
+	<field name="修改时间" type="int(11)"  default="0"/>
+	<field name='ip'    type="varchar(50)" null="1"  default=""/>
+	<field name='编号'  type="varchar(50)" null="1"  default=""/>
+	<field name='pass1' type="varchar(50)" default=""/>
+	<field name='pass2' type="varchar(50)" default=""/>
+	<field name='pass3' type="varchar(50)" default=""/>
+	<field name='姓名' type="varchar(50)" default=""/>
+	<field name='收货人' type="varchar(50)" default=""/>
+	<field name='别名' type="varchar(50)" default=""/>
+	<field name='注册日期' type="varchar(50)" default=""/>
+	<field name='空点' type="tinyint(2)" default="0"/>
+	<field name='审核日期' type="varchar(50)" default=""/>
+	<field name='登入日期' type="varchar(50)" default=""/>
+	<field name='状态'   type="varchar(50)" default=""/>
+	<field name='锁定'   type="varchar(50)" default=""/>
+	<field name='开户银行' type="varchar(50)" default=""/>
+	<field name='银行卡号' type="varchar(50)" default=""/>
+	<field name='开户名'   type="varchar(50)" default=""/>
+	<field name='开户地址' type="varchar(50)" default=""/>
+	<field name='移动电话' type="varchar(50)" default=""/>
+	<field name='固定电话' type="varchar(50)" default=""/>
+	<field name='证件号码' type="varchar(50)" default=""/>
+	<field name='性别'  type="varchar(50)" default=""/>
+	<field name='生日'  type='varchar(15)' default=""/>
+	<field name='email' type="varchar(200)" default=""/>
+	<field name='QQ'    type="varchar(50)" default=""/>
+	<field name='国家'  type="varchar(50)" default=""/>
+	<field name='省份'  type="varchar(50)" default=""/>
+	<field name='城市'  type="varchar(50)" default=""/>
+	<field name='地区'  type="varchar(50)" default=""/>
+	<field name='邮编'  type="varchar(50)" default=""/>
+	<field name='地址'  type="varchar(300)" default=""/>
+	<field name='服务中心' type="numeric(1)" default="0"/>
+</table>
+<table name='首页图片'>
+	<field name="id" type="int(11)" auto_increment="1" primary="1" />
+	<field name='title' type="varchar(50)" default=""/>
+	<field name='位置'	   type="tinyint(1)" default="1"/>
+	<field name='imgpath' type="varchar(50)" default=""/>
+	<field name="顺序号" type="int(11)"  default="0"/>
+	<field name='urlpath' type="varchar(50)" default=""/>
+</table>
+<table name='货币' engine="InnoDB">
+<field name="id"    type="int(11)" auto_increment="1" primary="1" />
+<field name="userid"   type="int(11)"  default="0"/>
+<field name='编号'  type="varchar(50)" null="1"  default=""/>
+<field name='unique INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='constraint fk_userid foreign key (`userid`) references `dms_会员` (`id`) ' type="FOREIGN"  byname='fk_userid'/>
+</table>
+<table name='银行账户' engine="InnoDB">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='userid'   type="varchar(255)" default=""/>
+<field name='标签' type="varchar(50)"  default=""/>
+<field name='银行' type="varchar(50)"  default=""/>
+<field name='银行卡号' type="varchar(50)"  default=""/>
+<field name='开户名' type="varchar(50)"  default=""/>
+<field name='省份' type="varchar(50)"  default=""/>
+<field name='城市' type="varchar(50)"  default=""/>
+<field name='区县' type="varchar(50)"  default=""/>
+<field name='时间' type="varchar(50)" default=""/>
+<field name='状态' type="int(1)" default="0"/>
+<field name='INDEX (`userid`)' type="KEY"/>
+<field name='INDEX (`银行`)' type="KEY"/>
+<field name='INDEX (`标签`)' type="KEY"/>
+</table>
+<table name='lvlog' engine="InnoDB">
+	<field name="id"      type="int(11)" auto_increment="1" primary="1" />
+	<field name="userid"  type="int(11)"       memo='会员id' default="0"/>
+	<field name="username"  type="varchar(50)" null="1"  default=""  memo='会员编号'/>
+	<field name='lvname'  type="varchar(50)"   memo='级别名称' default=""/>
+	<field name='time'    type="int(11)"       memo='时间' default="0"/>
+	<field name="olv"     type="int(11)"       memo='老级别数' default="0"/>
+	<field name="nlv"     type="int(11)"       memo='新级别数' default="0"/>
+	<field name='saleid'  type="int(11)"       memo='订单ID' default="0"/>
+	<field name='adminid' type="int(11)"       memo='管理员ID' default="0"/>
+</table>

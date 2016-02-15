@@ -1,0 +1,118 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+
+<div class="core_main Fun_ep_deal" id="index">
+     <div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>:{:L('金币交易')}&gt;&gt;{:L($bankname)}{:L('卖出')}</span>
+    </div>
+    <div class="core_con">
+    <form method="post" id="form1" action="__URL__/sell/args/{$args}">
+      <table class="tablebg">
+	  <tr>
+		<td  class="tbkey">{:L('金币数量')}：</td>
+		<td  class="tbval"><strong>{$userinfo[$bankname]}</strong></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('卖出数量')}：</td>
+		<td  class="tbval" ><input type="text" id="price" name="price"  value="" onkeyup="getBtb(this.value);" onblur="getBtb(this.value);"/>&nbsp;<span class="aa">*<if condition="$eqsale gt 0"><span>{:L('最低')}</span>{$eqsale}</if></span><if condition="$salerate gt 0">，<span>{:L('手续费')}</span>{$salerate}%</if></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('比特币数量')}：</td>
+		<td  class="tbval" id="btb"></td>
+	  </tr>
+	  <tr>
+		<td class="tbkey">{:L('收款地址')}：</td>
+		<td  class="tbval">{$userinfo['BTC钱包地址']}</td>
+	  </tr>
+		<tr>
+			<td colspan="2" align="center"><INPUT class="button_text" onMouseDown="this.className='button_onmousedown'" onMouseOver="this.className='button_onmouseover'" onMouseOut="this.className='button_onmouseout'" type="submit" value="{:L('确认')}" /></td>
+		</tr>
+		
+	</TABLE> 
+	</form>
+	</div>
+    <div class="core_con">
+    <div class="title">		
+    	<span class="core_title_con">{:L('我的卖出记录')}</span>
+  	</div>
+      <table class="tablebg">              
+          <foreach name="data.list" item="inst" key="k">
+            <tr class="tbtr">
+                <td class="btkey">
+                    <table>
+                        <tr><th><center>{:L('时间')}</center></th></tr>
+                        <tr><th><center>{:L('数量')}</center></th></tr>
+                        <tr><th><center>{:L('比特币')}</center></th></tr>
+                        <tr><th><center>{:L('收款地址')}</center></th></tr>
+                        <tr><th><center>{:L('状态')}</center></th></tr>
+                        <tr><th><center>{:L('操作')}</center></th></tr>
+                    </table>
+                </td>
+                <td class='btval'>
+                    <table>
+                        <tr><td><center>{$inst.挂单时间|date='Y-m-d H:i:s',###}</center></td></tr>
+                        <tr><td><center>{$inst.金额}</center></td></tr>
+                        <tr><td><center>{$inst.比特币}</center></td></tr>
+                        <tr><td><center>{$inst.充值钱包}&nbsp;</center></td></tr>
+                        <tr><td><center>{:L($inst['状态'])}</center></td></tr>
+                        <tr><td><center>
+                                <if condition="$inst['状态'] eq '待审核'"><a href="__URL__/sellBreak/id/{$inst.id}/args/{$args}" ><font color='red'>{:L('撤销')}</font></a></if>
+                    </center></td></tr>
+                    </table>
+                </td>
+            </tr>
+            </foreach>          
+		</table>
+	</div>	
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+<script>
+function getBtb(price){
+	$.post('__URL__/getBtb/args/{$args}',{price:price},function(data){
+
+      if(data == ''){
+		  $("#btb").html('');
+	   }else{
+		 $("#btb").html(data);
+	   }
+    });
+}
+</script>  
+<!--内容-->
+    </div>
+<include file="Public:footer" />

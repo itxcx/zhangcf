@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="IE=EmulateIE8" http-equiv="X-UA-Compatible">
+<title>会员登录</title>
+<link href="UserTpl/login/31/imgs/login.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+<!--
+function fleshVerify(type){ 
+	//重载验证码
+	var timenow = new Date().getTime();
+	if (type){
+		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
+	}else{
+		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+	}
+}
+//-->
+</script>
+<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="loginwrap">
+  <div class="loginforms">
+    <form action="__URL__/check" method="post" name="login" id=loginform encType="multipart/form-data">
+	<input type="hidden" name="act" value="verify" />
+      <p>
+        <input name="username" class="logininput">
+      </p>
+      <p>
+        <input name="password" type="password" class="logininput">
+      </p>
+      
+      <p>
+        <input name="captcha"  id="captcha" maxlength="4" value=""  class="logininput2">
+        <span style="padding-left:20px;">	<img width="82" height="38" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </span>
+        </p>
+     
+      <if condition="$usernum eq 1">
+		<input type="hidden" value="{$users[0]}" name="usertype">
+		</if>
+      <div onclick="$(this).closest(&#39;form&#39;).submit()" class="longinbtn"></div>
+    </form>
+    <div class="spacing5"></div>
+    <div class="copy"> Copyright © 2013-2014 版权所有</div>
+  </div>
+</div>
+</body>
+</html>

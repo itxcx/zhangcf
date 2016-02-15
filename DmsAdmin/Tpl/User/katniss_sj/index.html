@@ -1,0 +1,114 @@
+<include file="Public:header" /><!--pagetitle-->
+           <div class="pagetitle" style="height:40px"></div>
+		<div class="maincontent">
+        	<div class="contentinner content-dashboard">
+                <div class="row-fluid">
+                	<div class="span8">
+                    	<ul class="widgeticons row-fluid">
+                        	<li class="one_fifth"><a href="__GROUP__/User/viewNotice"><img src="__TMPL__Public/img/gemicon/notify.png" alt="" /><span>New Announcement</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/Fun_bank/index:fun_bank[1]"><img src="__TMPL__Public/img/gemicon/image.png" alt="" /><span>Electronic money</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/User/setPass"><img src="__TMPL__Public/img/gemicon/settings.png" alt="" /><span>Change Password</span></a></li>
+                            <li class="one_fifth last"><a href="__GROUP__/Mail/index"><img src="__TMPL__Public/img/gemicon/mail.png" alt="" /><span>Mailing Lists</span></a></li>
+                        	<li class="one_fifth"><a href="__GROUP__/User/view"><img src="__TMPL__Public/img/gemicon/calendar.png" alt="" /><span>View Profile</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/User/edit"><img src="__TMPL__Public/img/gemicon/edit.png" alt="" /><span>Modify data</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/Net/disp:net_rec"><img src="__TMPL__Public/img/gemicon/users.png" alt="" /><span>Recommended Network</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/Net/disp:net_place"><img src="__TMPL__Public/img/gemicon/users.png" alt="" /><span>Management Network</span></a></li>
+                            <li class="one_fifth"><a href="__GROUP__/Sale/usereg:net_place"><img src="__TMPL__Public/img/gemicon/archive.png" alt="" /><span>Register</span></a></li>
+                            <li class="one_fifth last"><a href="__GROUP__/Sale/buy:sale_buy[1]"><img src="__TMPL__Public/img/gemicon/shop.png" alt="" /><span>Secondary consumer</span></a></li>
+                        </ul>
+                        
+                        <br />
+                        
+                        
+                        <!--widgetcontent-->
+                        
+                        <h4 class="widgettitle">Recent Articles</h4>
+						<div id="right1" style="width:auto;padding-right:24px;">
+						<div class="grid2"style="width:auto;padding-right:15px;padding-left:15px">
+						<table width="100%" border=0 align="center" cellPadding=0 cellSpacing=0 class="grid2">
+						 <php>$i=1;</php>
+                      <foreach name="notice" item="vo">
+					 <tr style="display:none" class="show<php>echo floor($i/3);</php>">
+					   <td width="100%" style="font-size:14px"><span style="width:60%">{$vo.标题}</span>
+					     <span style="float:right;padding-left:100px"><a href="javascript:;" onclick="view({$vo.id})">View</a></span>
+					   <span style="float:right">{$vo.创建时间|date='Y-m-d',###}</span></td>
+					 
+				
+					</tr>
+					 <if condition="$i%3 eq 2">
+                         <tr style="display:none" id="show<php>echo floor($i/3);</php>" onclick="show11(<php>echo floor($i/3);</php>)">
+                           <td colspan="11" id="mous"><center><input class="more" type="button" id="mous1" value="More Expired News" onclick="show11(<php>echo floor($i/3);</php>)"/></center></td>
+                        </tr>
+                        </if>
+                       <php>$i++;</php>
+						</foreach>
+					<tr>
+					<td colspan="3" align="center"></td>
+					</tr>
+					</table>
+                        </div>
+                        </div>
+						<div style="padding-top:15px">
+                        <div class="widgetcontent">
+                        	<div id="calendar" class="widgetcalendar"></div>
+                        </div><!--widgetcontent-->
+						</div>
+                    </div><!--span8-->
+                  
+                </div><!--row-fluid-->
+            </div><!--contentinner-->
+        </div><!--maincontent-->
+        
+    </div><!--mainright-->
+    <!-- END OF RIGHT PANEL -->
+    
+    <!--footer-->
+
+</div>
+<!--mainwrapper-->
+
+</body> 
+</html>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+		
+		// calendar
+		jQuery('#calendar').datepicker();
+
+
+});
+function view(id){
+	$.colorbox({
+     iframe:true,
+     innerWidth:"45%",
+     innerHeight:"45%",
+     speed:0,
+     href:"__GROUP__/User/showNotice/id/"+id,
+     transition:"elastic",
+	 opacity:'0.1',
+	 scrolling:true,
+	 onClosed:function()	       
+		{ 
+		
+		}
+	});
+}
+$(function(){
+$("#mous,#mous1").hover(function(){
+	//$(this).css("background","#ccc");
+	$(this).css("cursor","pointer");
+},function(){
+	$(this).css("background","none");
+})
+});
+</script>
+<script>
+$(window).ready(function(){show11(-1);});
+function show11(num)
+{
+next=num+1;
+$(".show"+next).show();
+$("#show"+next).show();
+$("#show"+num).hide();
+}
+</script>

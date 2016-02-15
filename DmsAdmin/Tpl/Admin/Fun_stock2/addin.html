@@ -1,0 +1,32 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/index:__XPATH__');
+		$.pdialog.closeCurrent(); 
+	}
+}
+</script>
+<div class="pageContent">
+	<form method="post" action="__URL__/savein:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone1);">
+		<div class="pageFormContent nowrap" layoutH="57">
+				<dl>
+					<dt>{$username}:</dt>
+					<dd style="width:auto"><input name="编号" type="text" class="required" value="" /></dd>
+				</dl>
+				<dl>
+					<dt>{$stocknum}:</dt>
+					<dd style="width:auto"><input name="num" type="text" class="required" value="" /></dd>
+				</dl>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" name="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

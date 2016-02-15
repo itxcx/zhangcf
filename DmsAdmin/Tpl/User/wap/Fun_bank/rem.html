@@ -1,0 +1,107 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+<php>
+function printStatus($status)
+{
+	if($status==0)
+	{
+		return "未审核";
+	}
+	else
+	{
+		return "已审核";
+	}
+}
+</php>
+<div class="core_main Fun_bank" id="rem">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{:L($nowtitle)}</span>    
+    </div>
+    <div class="core_con">
+        <if condition="$is_huikuanimg">
+        	<div class="add"><a href="__GROUP__/Fun_bank/add_rem">{:L('添加汇款通知')}</a></div>
+    	 <else />
+    	 	<div class="add"><a href="__GROUP__/Fun_bank/add_rem_two">{:L('添加汇款通知')}</a></div>
+        </if>
+        <div style="overflow:scroll;">
+        <table class="tablebg">
+            <TR class="datafield" >
+            <TH ><nobr>汇款时间</nobr></TH>
+            <TH ><nobr>金额</nobr></TH>
+            <if condition="$is_huikuanimg">
+            <TH ><nobr>汇入账户卡号</nobr></TH>
+            <TH ><nobr>汇入账户开户名</nobr></TH>
+            <TH ><nobr>汇入账户开户行</nobr></TH>
+            <else />
+            <TH ><nobr>汇入账户</nobr></TH>
+            </if>
+            <TH ><nobr>开户银行</nobr></TH>
+            <TH ><nobr>银行卡号</nobr></TH>
+            <TH ><nobr>开户名</nobr></TH>
+            <TH ><nobr>备注</nobr></TH>
+            <TH ><nobr>状态</nobr></TH>
+            <TH ><nobr>操作</nobr></TH>
+        </TR>
+        <foreach name='data.list' item='vo'>
+        <TR class="datalist">
+            <TD ><nobr>{:date('Y-m-d H:i:s',$vo['汇款时间'])}</nobr></TD>
+            <TD ><nobr>{$vo.金额}</nobr></TD>
+            <if condition="$is_huikuanimg">
+            <TD ><nobr>{$vo.汇入账户卡号}</nobr></TD>
+            <TD ><nobr>{$vo.汇入账户开户名}</nobr></TD>
+            <TD ><nobr>{$vo.汇入账户开户行}</nobr></TD>
+            <else />
+           <TD ><nobr>{$vo.汇入账户}</nobr></TD>
+            </if>
+            <TD ><nobr>{$vo.开户银行}</nobr></TD>
+            <TD ><nobr>{$vo.银行卡号}</nobr></TD>
+            <TD ><nobr>{$vo.开户名}</nobr></TD>
+            <TD ><nobr>{$vo.备注}</nobr></TD>
+            <TD ><nobr>{:printStatus($vo['状态'])}</nobr></TD>
+            <TD ><nobr><if condition="($vo['状态'] neq 1)"><a href="__GROUP__/Fun_bank/rem_delete/id/{$vo.id}" onclick="return confirm('确定要删除吗?')">删除</a></if></nobr></TD>
+           
+        </TR>
+        </foreach>
+        </table>
+        </div>
+    </div>
+    <div class="core_page">
+        <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')}</span> 
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+

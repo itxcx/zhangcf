@@ -1,0 +1,47 @@
+AUTOBACKUP          是否自动备份数据库(如发现没有本日数据库则自动备份)
+TIMEMOVE_HOUR       时间偏移小时时间
+TIMEMOVE_DAY        时间偏移天数
+CAL_START_TIME      结算奖金开始时间
+XMLMD5              当前XML文件的MD5值，如果出现不一样，则会尝试重新修正数据库，并更新本配置
+DIFFTIME            跨日时间，如果当前时间与DIFFTIME在日期上相差一天，则会触发difftime事件
+SHOW_WORLD_MOBILE   是否显示国家区号
+SHOW_TIMESET        是否可以在系统设置中显示时间设置
+SHOW_SHOPSET        是否可以在系统设置菜单中显示服务中心报单设定
+SHOW_BULKREG        是否可以在系统设置菜单显示批量注册
+
+DEFAULT_USER_PASS1  注册用户默认一级密码
+DEFAULT_USER_PASS2  注册用户默认二级密码
+DEFAULT_USER_PASS3  注册用户默认三级密码
+SERVICE_QQ          客服QQ信息
+SYSTEM_TITLE        浏览器标题
+SYSTEM_COMPANY      公司名称
+SYSTEM_MEMO         公司副标题
+
+USER_REMIT_INBANK   设置汇款登记审核能够自动到那个钱包0为不到任何钱包
+USER_REMIT_RATIO_USE是否开启比例转换
+USER_REMIT_RATIO    换算比例
+USER_REMIT_MIN      汇款登记最小额
+USER_REMIT_MAX      汇款登记最大额
+
+
+USER_PRIZE_SWITCH   前台是否可以显示
+DEFAULT_THEME       前台默认模板
+DEFAULT_LOGIN_THEME 前台登入口模板
+USER_PRIZE_SWITCH   前台是否显示奖金构成
+USER_USE_PASS3
+USER_PASS_TIMEOUT   前台二级密码超时
+USER_LOGIN_URL      前台登入口网址，使用第三方登入口页面地址
+USER_LOGIN_VERIFY   前台登入验证码
+USER_SHOP_SALEONLY  前台只能由服务中心报单
+
+
+
+MAIL_ADDRESS     发送邮箱地址
+MAIL_SMTP        邮箱服务器地址
+MAIL_LOGINNAME   登入名
+MAIL_PASSWORD    密码
+MAIL_FROMNAME    发件人姓名
+
+
+F缓存项目，使用缓存的原因是因为不希望系统恢复数据库时导致配置跟随数据库还原
+SYSTEM_CLOSE_TITLE  系统维护时的留言内容

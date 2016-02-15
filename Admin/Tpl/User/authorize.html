@@ -1,0 +1,50 @@
+
+<form method="post" action="__URL__/authorize" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<input type="hidden" name="submit" value="1" />
+<input type="hidden" name="args" value="{$args}"/>
+<input type="hidden" name="admin_id" value="{$adminInfo.id}" />
+<p style="margin:10px">选定的管理员: <span style="color:blue">{$adminInfo.nickname} ( {$adminInfo.account} )</span></p>
+<p style="margin:10px;color:#BBBBBB">[注意]该颜色表示权限已在角色权限中授于</p>
+<div id="authorize" style="float:left; display:block; margin:10px; overflow:auto; width:370px; height:430px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+	<ul class="tree treeCheck expand">
+		<foreach name="treeList" item="app">
+		<li>
+			<a tname="node[]" tvalue="{$app.id}_{$app.pid}_{$app.level}" <if condition="(in_array($app['id'],$adminAccessArray))">checked</if> <if condition="(in_array($app['id'],$roleAccessArray))">style="color:#BBBBBB"</if>>{$app.title}</a>
+			<ul>
+				<foreach name="app['childs']" item="module">
+				<li>
+					<a tname="node[]" tvalue="{$module.id}_{$module.pid}_{$module.level}" <if condition="(in_array($module['id'],$adminAccessArray))">checked</if> <if condition="(in_array($module['id'],$roleAccessArray))">style="color:#BBBBBB"</if>>{$module.title}</a>
+					<ul>
+					<foreach name="module['childs']" item="action">
+					<li><a tname="node[]" tvalue="{$action.id}_{$action.pid}_{$action.level}" <if condition="(in_array($action['id'],$adminAccessArray))">checked</if> <if condition="(in_array($action['id'],$roleAccessArray))">style="color:#BBBBBB"</if>>{$action.title}</a></li>
+					</foreach>
+					</ul>
+				</li>
+				</foreach>
+			</ul>
+		</li>
+		</foreach>
+	</ul>
+</div>
+<div class="formBar">
+	<ul>
+		<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+		<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+	</ul>
+</div>
+</form>
+
+<script type="text/javascript">
+//处理提交事件
+function onsubmit()
+{
+	var checkedList = $("#authorize input:checkbox[name='node[]']:checked");
+	var ids			= '';
+	for( i=0; i<checkedList.length; i++ )
+	{
+		if( ids !='' ) ids += ',';
+		ids += checkedList[i].value;
+	}
+	$('#power').val(ids);
+}
+</script>

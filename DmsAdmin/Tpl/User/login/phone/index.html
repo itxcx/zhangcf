@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>会员登录</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="UserTpl/login/phone/css/component.css">
+<link rel="stylesheet" type="text/css" href="UserTpl/login/phone/css/login.css">
+<script type="text/javascript" src="__PUBLIC__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jquery.mobile.min.js"></script>
+</head>
+
+<script>
+function frmlogin(frm){
+	if (frm.username.value==''){
+		alert('请输入用户id');
+		return false;
+	}
+	if (frm.password.value==''){
+		alert('请输入密码');
+		return false;
+	}
+	return true;
+} 
+function fleshVerify(type){ 
+	//重载验证码
+	var timenow = new Date().getTime();
+	if (type){
+		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
+	}else{
+		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+	}
+}
+//-->
+
+$(document).ready(function() {	   
+// Your jQuery commands go here before the mobile reference 
+$("#foot_ul li a,.h_link li a").hover(
+	function(){	
+	var url=$(this).find("img").attr("src");
+	var rurl=$(this).find("img").attr("rsrc");	
+	$(this).find("img").attr("src",rurl);
+	$(this).find("img").attr("rsrc",url);	
+	},
+	function(){		
+	var url=$(this).find("img").attr("src");
+	var rurl=$(this).find("img").attr("rsrc");
+	$(this).find("img").attr("src",rurl);
+	$(this).find("img").attr("rsrc",url);	
+	}	
+	);
+}); 
+</script> 
+
+
+<script>  
+$(document).ready(function() {	   
+// disable ajax nav   
+$.mobile.ajaxLinksEnabled = false;
+}); 
+</script>
+<body scroll="none" quick-markup_injected="true" style="">
+<div id="tbh5v0">
+<div class="screen-wrap fullscreen login">
+    <header id="header">
+        <div class="c-inav">
+            <section></section>
+            <section><span>会员登录</span></section>
+            <section></section>
+        </div>
+    </header>
+	<section class="innercontent">  
+	
+		<form method="post" class="c-form login-form" name="from1"  action="__URL__/check" id="J_Login" data-ajax="false" autocomplete="off">  
+		<input type="hidden"  name="act" value="verify"/>
+            <fieldset>
+                <div class="field username">
+                    <div class="c-form-search">
+    					<input type="text" name="username" id="J_UserNameTxt" placeholder="手机号/会员名" value="">                        
+                    </div>
+               	</div>
+                <div class="field pwd">
+                	<input type="password" name="password" id="J_PassWordTxt" placeholder="密码" class="c-form-txt-normal">
+                </div>
+				<div >
+                	<input type="hidden" value="1" name="snpass" id="J_PassWordTxt" placeholder="动态密码" class="c-form-txt-normal">
+                </div>
+				 <if condition="$dispCode eq true">
+                <div class="field auth-code">
+                    <input type="text" name="captcha"  id="verify"   placeholder="验证码" class="c-form-txt-normal">
+                   
+						 <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer; height:34px; width:80px;" align="absmiddle">
+                </div>	
+				</if>
+			<if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+                <div class="field submit-btn">
+                    <input type="submit" class="c-btn-oran-big" value="登 录">
+                </div>                    
+			</fieldset>   
+		</form>
+	</section>
+    <footer class="footer c-footer ">
+        <section class="footer-t c-footer-t">
+        </section>
+        <nav class="footer-l c-footer-l">              
+        </nav>
+        <p class="copyright c-copyright"></p>			
+    </footer>
+</div>
+</div>
+</body>
+</html>

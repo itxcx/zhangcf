@@ -1,0 +1,119 @@
+<php>
+$nowtitle = '查看订单';
+</php>
+<include file="Public:header" />
+<div class="content-box" id="viewMyreg">
+    <table class="table" id="table1">
+        <tr >
+            <td class="tbkey"><nobr>编号：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.编号}</nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>购买日期：</nobr></td>
+            <td class="tbval"><nobr><if condition="$saleData['购买日期']">{$saleData.购买日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>到款日期：</nobr></td>
+            <td class="tbval"><nobr><if condition="$saleData['到款日期']">{$saleData.到款日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>报单中心：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.服务中心编号}</nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>报单类别：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.报单类别}</nobr></td>
+        </tr>
+    
+        <tr >
+            <td class="tbkey"><nobr>报单状态：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.报单状态}</nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>报单金额：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.报单金额}</nobr></td>
+        </tr>
+    </table>
+    <table class="table" id="table2">
+        <if condition="$saleData['产品'] eq 1">
+        <tr >
+            <td class="tbkey"><nobr>购物金额：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.购物金额}</nobr></td>
+        </tr>
+        <if condition="$adminshow eq true">
+        <tr >
+            <td class="tbkey"><nobr>购物PV：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.购物PV}</nobr></td>
+        </tr>
+        </if>
+        </if>
+        <tr >
+            <td class="tbkey"><nobr>实付款：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.实付款}</nobr></td>
+        </tr>
+        <if condition="($saleData['产品'] eq 1) or (adminshow('baodan_wuliu') eq true)">
+        <tr >
+            <td class="tbkey"><nobr>收货地址：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.收货省份}{$saleData.收货城市}{$saleData.收货地区}{$saleData.收货街道}{$saleData.收货地址}</nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>收货人：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.收货人}</nobr></td>
+        </tr>
+       
+        <tr >
+            <td class="tbkey"><nobr>联系电话：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.联系电话}</nobr></td>
+        </tr>
+        <tr >
+            <td class="tbkey"><nobr>物流状态：</nobr></td>
+            <td class="tbval"><nobr>{$saleData.物流状态}</nobr></td>
+        </tr>
+        </if>
+    </table>
+    <present name="productData">	
+    <table class="table" id="table3">
+        <tr class="datafield">
+            <th colspan="6">产品选购信息</th>
+        </tr>
+        <tr class="datafield">
+            <td>产品名称</td>
+            <td>数量</td>
+            <td>价格</td>
+            <if condition="$adminshow eq true">
+            <td>PV</td>
+            </if>
+            <td>总价</td>
+            <if condition="$adminshow eq true">
+            <td>总PV</td>
+            </if>
+        </tr >
+        <foreach name="productData" item="paydata">
+        <tr class="datalist">
+            <td>{$paydata['名称']}</td>
+            <td>{$paydata['数量']}</td>
+            <td>{$paydata['价格']}</td>
+            <if condition="$adminshow eq true">
+            <td>{$paydata['PV']}</td>
+            </if>
+            <td>{$paydata['总价']}</td>
+            <if condition="$adminshow eq true">
+            <td>{$paydata['总PV']}</td>
+            </if>
+        </tr>
+        </foreach>
+        <tr class="datalist">
+            <td colspan="3">汇总：</td>
+            <td>{$saleData.购物金额}</td>
+            <if condition="$adminshow eq true">
+            <td>{$saleData.购物PV}</td>
+            </if>
+        </tr>		
+    </table>
+    </present>
+    <div class="content-box margin-t-2">
+        <button class="btn btn-default js-goback" type="button">返　回</button>
+    </div>
+</div>
+<include file="Public:footer" />
+

@@ -1,0 +1,213 @@
+.tablebg{
+	width:100%;	
+	color: #666;
+	height: 24px;
+	line-height: 24px;
+	margin-top:-1px;	
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.tablebg a{ color:#006dcc;}
+.tablebg td,.tablebg th {
+	border: 1px solid #cdcdcd;	
+	padding: 7px 5px;
+	font-size:12px;
+	text-align:center;	
+}
+.tablebg th{	
+	font-weight:bold;
+	}
+.tablebg .tbkey{
+	width:32%; 
+	text-align: right;
+	padding:7px 4px;
+	background-color: #ddf5f9;
+	color: #666;
+	font-weight:bold;	
+}
+.tablebg .tbval{ 
+	text-align: left;	
+}
+.tablebg .datafield td,.tablebg .datafield th{	
+	color: #666;	
+	border: 1px solid #cdcdcd;	
+	background: #ddf5f9;	
+	font-weight:bold;	
+	text-align: center;
+	padding:7px 0px;
+		
+}
+.tablebg .datalist td{
+	border: 1px solid #cdcdcd;
+}
+
+th.SkHeaderTag
+{
+	background-color: #DB4E0F;
+	color: White;
+}
+td.SkItemTag
+{
+	background-color: #FBE9B6;
+}
+.FooterStyle td
+{
+	line-height: 30px;
+	height: 30px;
+	color: #000000;
+	background-color: #000000;
+	border: 1px solid #7CC5DE;
+}
+
+
+.Selecteddatalist
+{
+     background-color: #E2DED6;
+     font-weight: bold;
+     color: #B5D6E6;
+}
+
+.Emptydatalist{
+	text-align: center;
+	color: #FF0000;
+}
+
+.PagerStyle
+{
+    background-image: url("../images/HeaderGlassBlack.jpg");
+    background-position:center;
+    background-repeat:repeat-x;
+    background-color:#0099CC;
+}
+.PagerStyle table
+{
+    text-align:center;
+    margin:auto;
+}
+
+.PagerStyle table td
+{
+	line-height: 30px;
+	height: 30px;
+	color: #000000;
+	background-color: #ffffff;
+	border: 1px solid #7CC5DE;
+}
+.PagerStyle td
+{
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.PagerStyle a
+{
+    color:#ffffff;
+    text-decoration:none;
+    padding:2px 10px 2px 10px;
+    border-top:solid 1px #777777;
+    border-right:solid 1px #333333;
+    border-bottom:solid 1px #333333;
+    border-left:solid 1px #777777;
+}
+.PagerStyle span
+{
+    font-weight:bold;
+    color:#FFFFFF;
+    text-decoration:none;
+    padding:2px 10px 2px 10px;
+}
+
+
+.GridViewStyle
+{
+	border: 1px none #764C17;
+}
+.datafield2 th
+{
+	line-height: 22px;
+	color: #000000;
+	height: 22px;
+	font-weight: bold;
+	text-align: center;
+	font-size: 14px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+.datalist2 td, .datalist2 td
+{
+	line-height: 35px;
+	height: 35px;
+	color: #000000;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+}
+.Emptydatalist2{
+	text-align: center;
+	color: #FF0000;
+}
+.FieldTextM{
+	font-size: 14px;
+}
+.EmptyRowStyle{
+	text-align: center;
+	color: #FF0000;
+}
+.tl{
+	text-align:left;
+}
+/*Tle#prizeForm*/
+.Tle#prizeForm .core_con{}
+#prizeForm .tablebg .datafield .source{
+	width:200px;
+}
+.Tle#prizeForm .tablebg .datafield .number{
+	width:100px;
+}
+.Tle#prizeForm .tablebg .datafield .calcul{
+	width:300px;
+}
+.Tle#prizeForm .tablebg .datafield .layers{
+	width:80px;
+}
+.Tle#prizeForm .tablebg .datafield .tights{
+	width:80px;
+}
+/*Fun_bank#rem*/
+.Fun_bank#rem .core_con .add {
+    padding: 10px 0;
+    text-align: left;
+    background-position: 90% 25%;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.Fun_bank#rem .core_con .add a{ color:#275caa;}	
+/*Fun_bank#add_rem*/
+.Fun_bank#add_rem .core_con .tablebg .tbval #bank,.Fun_bank#add_rem .core_con .tablebg .tbval #bank_no{ 
+	width:200px;
+}
+.Fun_bank#add_rem .core_con .tablebg .tbval textarea{
+	width:320px;
+	height:90px;	
+}
+/*Mail#send*/
+.Mail#send{}
+.Mail#send .tablebg{}
+.Mail#send .core_con .tablebg .tbkey{width:9%;}
+.Mail#send .core_con .tablebg .tbval{}
+.Mail#send .core_con .tablebg .tbval #title{width:250px;}
+.Mail#send .core_con .tablebg .tbval #content_1{width:540px;}
+.Mail#send .core_con .tablebg .tbval .ke-container td{
+	border:0;	
+	padding:0;	
+}
+/*Sale/usereg*/
+.Sale#usereg #table3,.Sale#usereg #table3 td{border:0;}
+#product {
+    width: 100%;
+    padding: 0;
+    float: left;
+}

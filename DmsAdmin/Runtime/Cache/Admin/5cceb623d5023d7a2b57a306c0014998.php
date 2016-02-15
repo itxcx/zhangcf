@@ -1,0 +1,48 @@
+<?php if (!defined('THINK_PATH')) exit();?><div class="pageContent"><form method="post" action="__URL__/funbankConfigUpdate:__XPATH__" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);"><div class="pageFormContent" layoutH="56"><div style="margin-bottom: 20px;"><label style="float: left;width: 150px; text-align: right;"><b>功能开关：</b></label><span><label><input type="radio" name="use" value="true" <?php if(($bank->use == 1) OR ($bank->use == true)): ?>checked<?php endif; ?> />开启</label><label><input type="radio" name="use" value="false" <?php if(($bank->use == 0) OR ($bank->use == false)): ?>checked<?php endif; ?> />关闭</label></span></div><div style="margin: 5px;"><b>提现设置</b></div><div class="divider"></div><p><label style="float: left;width: 150px; text-align: right;">允许提现：</label><label><input type="radio" name="getMoney" id="getmoney1" value="true" <?php if(($bank->getMoney == 1) OR ($bank->getMoney == true)): ?>checked<?php endif; ?>  onclick="navTab.getCurrentPanel().find('#hideGetMoney').show();"/>允许</label><label><input type="radio" name="getMoney" id="getmoney2" value="false" <?php if(($bank->getMoney == 0) OR ($bank->getMoney == false)): ?>checked<?php endif; ?> onclick="navTab.getCurrentPanel().find('#hideGetMoney').hide();"/>不允许</label></p><div style="clear: left;<?php if(($bank->getMoney == 0) OR ($bank->getMoney == false)): ?>display:none<?php endif; ?>" id="hideGetMoney"><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现手续费比率：</label><input type="text" value="<?php echo ($bank->getMoneyTax); ?>" name="getMoneyTax"  class="number" />&nbsp;<span class="unit">%</span></p><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现手续费下限：</label><input type="text" value="<?php echo ($bank->getMoneyTaxMin); ?>" size="20" class="number" name="getMoneyTaxMin"/></p><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现手续费上限：</label><input type="text" value="<?php echo ($bank->getMoneyTaxMax); ?>" size="20" name="getMoneyTaxMax" class="number"/></p><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">手续费来源：</label><input type="radio" name="getTaxFrom" value="0" <?php if($bank->getTaxFrom == 0): ?>checked<?php endif; ?>/>额外货币
+				<input type="radio" value="1" name="getTaxFrom" <?php if($bank->getTaxFrom == 1): ?>checked<?php endif; ?>/>提现额
+			</p><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">最小提款额：</label><input type="text" value="<?php echo ($bank->getMoneyMin); ?>" size="20" name="getMoneyMin" class="number" /></p><p style="width: 650px;"><label style="float: left;width: 150px; text-align: right;">最大提款额：</label><input type="text" value="<?php echo ($bank->getMoneyMax); ?>" size="20" name="getMoneyMax" class="number" /><font color='red'>限制额大于0才会起作用</font></p><?php  if(C('VERSION_SWITCH') == '0'){ ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现发放换算比</label><input type="text" value="<?php echo ($bank->getMoneyRatio); ?>" name="getMoneyRatio" class="number"/></p><?php } if(C('VERSION_SWITCH') == '0'){ ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现确认后清除银行信息：</label><input type="radio" value="true" name="getMoneyBankClear" <?php if(($bank->getMoneyBankClear == 1) OR ($bank->getMoneyBankClear == true)): ?>checked<?php endif; ?>/>是
+	     <input type="radio" value="false" name="getMoneyBankClear" <?php if(($bank->getMoneyBankClear == 0) OR ($bank->getMoneyBankClear == false)): ?>checked<?php endif; ?>/>否
+				</p><?php } ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">整数倍设置：</label><input type="text" value="<?php echo ($bank->getMoneyInt); ?>" name="getMoneyInt" class="digits"/></p><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">有未审记录不能提现：</label><input type="radio" value="true" name="getOnly" <?php if(($bank->getOnly == 1) OR ($bank->getOnly == true)): ?>checked<?php endif; ?>/>是
+     			<input type="radio" value="false" name="getOnly" <?php if(($bank->getOnly == 0) OR ($bank->getOnly == false)): ?>checked<?php endif; ?>/>否
+			</p><p style="width: 550px;"><label style="float: left;width: 150px; text-align: right;">周几不能提现：</label><input type="checkbox" name="getMoneyWeek[]" value="1" <?php if(in_array(1,$weekary)) echo "checked"; ?> />周一&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="2" <?php if(in_array(2,$weekary)) echo "checked"; ?>  />周二&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="3" <?php if(in_array(3,$weekary)) echo "checked"; ?>  />周三&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="4" <?php if(in_array(4,$weekary)) echo "checked"; ?>  />周四&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="5" <?php if(in_array(5,$weekary)) echo "checked"; ?>  />周五&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="6" <?php if(in_array(6,$weekary)) echo "checked"; ?>  />周六&nbsp;&nbsp;
+				<input type="checkbox" name="getMoneyWeek[]" value="0" <?php if(in_array(0,$weekary)) echo "checked"; ?>  />周日&nbsp;&nbsp;
+			</p><p style="width: 800px;"><label style="float: left;width: 150px; text-align: right;">每月中的几号不能提现：</label><input type="text" value="<?php echo ($bank->getMoneyMday); ?>" name="getMoneyMday" size="70" /><font color='red'>多个请用逗号分隔</font></p><?php  if(C('VERSION_SWITCH') == '0'){ ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现需要二级密码：</label><input type="radio" value="true" name="getMoneyPass2"  <?php if(($bank->getMoneyPass2 == 1) OR ($bank->getMoneyPass2 == true)): ?>checked<?php endif; ?>/>是
+     			<input type="radio" value="false" name="getMoneyPass2" <?php if(($bank->getMoneyPass2 == 0) OR ($bank->getMoneyPass2 == false)): ?>checked<?php endif; ?>/>否
+			</p><?php } if(($pwd3Switch) == "true"): ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">提现需要三级密码：</label><input type="radio" value="true" name="getMoneyPass3" <?php if(($bank->getMoneyPass3 == 1) OR ($bank->getMoneyPass3 == true)): ?>checked<?php endif; ?> />是
+     			<input type="radio" value="false" name="getMoneyPass3" <?php if(($bank->getMoneyPass3 == 0) OR ($bank->getMoneyPass3 == false)): ?>checked<?php endif; ?>/>否
+			</p><?php endif; if(adminshow('smsSwitch') == true): ?><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">短信验证码：</label><input type="radio" value="true" name="getMoneySmsSwitch" <?php if(($bank->getMoneySmsSwitch == 1) OR ($bank->getMoneySmsSwitch == true)): ?>checked<?php endif; ?>/>是
+				<input type="radio" value="false" name="getMoneySmsSwitch" <?php if(($bank->getMoneySmsSwitch == 0) OR ($bank->getMoneySmsSwitch == false)): ?>checked<?php endif; ?>/>否
+			</p><p style="width: 550px;height:100px;<?php if(($bank->getMoneySmsSwitch == 0) OR ($bank->getMoneySmsSwitch == false)): ?>display:none<?php endif; ?>" id="getMoneySmsContent"><label style="float: left;width: 150px; text-align: right;">短信内容：</label><textarea name="getMoneySmsContent" cols="50" rows="3"><?php echo ($bank->getMoneySmsContent); ?></textarea></p><?php endif; if(adminshow('mibao') == true): ?><p style="width: 350px;"><label style="float: left;width: 150px;text-align: right;">提现需要回答密保问题：</label><input type="radio" value="true" name="getSecretSafe" <?php if(($bank->getSecretSafe == 1) OR ($bank->getSecretSafe == true)): ?>checked<?php endif; ?> />是
+     			<input type="radio" value="false" name="getSecretSafe" <?php if(($bank->getSecretSafe == 0) OR ($bank->getSecretSafe == false)): ?>checked<?php endif; ?>/>否
+			</p><?php endif; ?></div><div style="margin: 5px;padding-top: 15px;clear: both;"><b>在线支付管理</b></div><div class="divider"></div><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">开启在线支付：</label><label><input type="radio" value="true" name="bankIn" id="bankin1"  <?php if($bank->bankIn == true): ?>checked<?php endif; ?> onclick="navTab.getCurrentPanel().find('#hideInline').show();"/>是</label><label><input type="radio" value="false" name="bankIn" id="bankin2"  <?php if($bank->bankIn == false): ?>checked<?php endif; ?> onclick="navTab.getCurrentPanel().find('#hideInline').hide();"/>否</label></p><div style="clear: left;<?php if($bank->bankIn == 0): ?>display:none<?php endif; ?>" id="hideInline"><p style="width: 350px;"><label style="float: left;width: 150px; text-align: right;">在线支付换算比：</label><input type="text" value="<?php echo ($bank->bank_scale); ?>" name="bank_scale" size="4" />充值金额/换算比
+			</p></div></div><div class="formBar"><ul style="margin:0 auto;float:left"><li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li></li></ul></div></form></div><script>$(function(){
+	$('input[name=getMoneySmsSwitch]',navTab.getCurrentPanel()).change(function(){
+		if($(this).val() == 'true'){
+			$('#getMoneySmsContent',navTab.getCurrentPanel()).show();
+		}else{
+			$('#getMoneySmsContent',navTab.getCurrentPanel()).hide();
+		}
+	});
+	$('input[name=giveMoneySmsSwitch]',navTab.getCurrentPanel()).change(function(){
+		if($(this).val() == 'true'){
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).show();
+		}else{
+			$('#giveMoneySmsContent',navTab.getCurrentPanel()).hide();
+		}
+	});
+});
+function removeGivecon(key){
+	alertMsg.confirm("确定要删除该配置项吗?", {
+        okCall: function(){
+			navTab.getCurrentPanel().find('#vo_'+key).remove();
+				$.post('__URL__/deleteGiveCon:__XPATH__',{key:key},function(data){
+			});
+        }
+	});
+}
+</script>

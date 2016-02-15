@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/iconfont.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/netstyle.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                        }
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                }
+                
+                //时间
+                showClock();
+
+            });
+
+            //时间
+            var nowsecond;
+            var nowminutes;
+            function showClock(){
+                var date = new Date();
+                var year=date.getFullYear();
+                var month=date.getMonth()+1;
+                var day=date.getDate()
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                if( hour<10 )   hour = "0"+hour;
+                if( minute<10 ) minute = "0"+minute;
+                if( second<10 ) second = "0"+second;
+                document.getElementById("clock").innerHTML = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+                setTimeout( "showClock()",1000 );
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <span class="logo">{$SYSTEM_COMPANY}</span>
+            <div class="tips">
+                <span><a>欢迎回来！{$userinfo.编号}</a></span>
+                <span><a href="__GROUP__/User/viewNotice">系统消息&nbsp;|</a></span>
+                <span><a href="__GROUP__/Public/logout">安全退出</a></span>
+            </div>
+        </div>
+        <div class="left-nav">
+            <div class="info-tips">
+                <h1 class="h1">登录信息</h1>
+                <table>
+                    <tr>
+                        <td class="tiptit">当前时间：</td>
+                        <td class="tipval"><span id="clock"></span></td>
+                    </tr>
+                    <foreach name="userlevel" item="lv" key="key">
+                    <tr>
+                        <td class="tiptit">{$key}：</td>
+                        <td class="tipval">{$lv.byname}</td>
+                    </tr>
+                    </foreach>	
+                    <tr>
+                        <td class="tiptit">加入日期：</td>
+                        <td class="tipval">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                </table>
+            </div>
+            <php>
+            $p=2;
+            $ar=0;
+            $q=0;
+            $arr=array('&#xe607;','&#xe609;','&#xe60a;','&#xe604;','&#xe60b;','&#xe608;','&#xe606;');
+            </php>
+            <div class="navlist navlist1"><a class="key" href="__GROUP__/Index/index"><i class="icon iconfont">&#xe600;&nbsp;</i>网站首页</a></div>
+            <foreach name="menu" item="vo" key="key">
+            <div class="navlist navlist{$p++}"><a class="key"><i class="icon iconfont">&#xe605;&nbsp;</i>{$key}</a>
+                <ul class="navul">
+                    <foreach name="vo" item="val">
+                    <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                    <li>
+                    <a class="report <if condition="$val['action'] eq $now_action && $val['model'] eq $now_model">navul-a</if>" href="__GROUP__/{$val.model}/{$val.action}" id="{$val.title}"><i class="icon iconfont">&#xe601;&nbsp</i>{$val.title}</a>
+                    </li>
+                    </if>
+                    </foreach>
+                </ul>
+                <div style="clear: both"></div>
+            </div>
+            </foreach>
+        </div>
+        <div class="content">
+            <foreach name="nownotice" item="name">
+            <h2 class="notice-h"><span><i class="icon iconfont">&#xe603;&nbsp;</i>HOT NEWS：<a href="__GROUP__/User/showNotice/id/{$name.id}">{$name.标题}</a></span><a class="more" href="__GROUP__/User/viewNotice">查看更多&nbsp;<i class="icon iconfont">&#xe602;</i></a></h2>
+            </foreach>
+            <div class="top-nav">
+                <php>
+                $o=0;
+                $p=2;
+                $arh=array('__GROUP__/User/view',
+                '__GROUP__/Sale/reg:sale_reg[1]',
+                '__GROUP__/Net/disp:net_place',
+                '__GROUP__/Fun_bank/rem',
+                '__GROUP__/Mail/index',
+                '__GROUP__/Fun_deal/index:fun_stock2',
+                '__GROUP__/Fun_stock/index:fun_stock');
+                </php>
+                <foreach name="menu" item="vo" key="key">
+                <div class="navlist navlist{$p++}">
+                    <a class="key" href="{$arh[$o++]}"><i class="icon iconfont">{$arr[$ar++]}</i><br>{$key}</a>
+                </div>
+                </foreach>
+            </div>

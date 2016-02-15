@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <link rel="icon" href="__PUBLIC__/favicon.ico" type="image/x-icon">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{:CONFIG('SYSTEM_TITLE')}</title>
+        <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/basic.css"/>
+        <link href="__TMPL__Public/css/view.css" rel="stylesheet" type="text/css" />
+        <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/style.css"/>
+         <!--引用js文件+本地js-->
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        	$(function(){
+				
+				// 全局变量，存储要轮播显示的图片总张数
+				var imageNumber = $('.img_container img').length,
+					thisPos = 0,
+					timeHandler,directFlag=1;
+				
+				// 每隔三秒更换图片
+				var timeHandler = window.setInterval(showImage,3000);
+				
+				// 手动切换显示图片
+				$('.sliders a').die().live('click',function(){
+					var me = $(this),
+						_button = me.closest('a');
+						
+					if(timeHandler){
+						window.clearInterval(timeHandler);
+						timeHandler = null;
+					}
+					
+					if(_button.hasClass('slider_left')){
+						directFlag = 0;
+						showImage();
+					}
+					
+					if(_button.hasClass('slider_right')){
+						directFlag = 1;
+						showImage();
+					}
+						
+				});
+				
+				// 页面顶部图片轮播  pos表示当前图片为第几张图片
+				function showImage(){
+					var _imageSliders = $('.img_container img'),
+						_thisImage = _imageSliders.eq(thisPos%imageNumber),
+						_nextImage;
+						
+					// 图片向左轮播
+					if(0==directFlag){
+						_nextImage = _imageSliders.eq((thisPos-1)%imageNumber);
+						thisPos --;
+					}
+					
+					// 图片向右轮播
+					if(1==directFlag){
+						_nextImage = _imageSliders.eq((thisPos+1)%imageNumber);
+						thisPos ++;
+					}
+					
+					_thisImage.parent().fadeOut(function(){
+						_nextImage.parent().fadeIn(function(){
+							directFlag = 1;
+							if(!timeHandler){
+								timeHandler = window.setInterval(showImage,3000);
+							}	
+						});
+					});	
+					
+				}
+				//左侧列表偶数行
+				$('.menuTitle:even').css('background','#d0d8e8');
+				// 左侧列表选中状态
+				$('.menu_container .menuList').die().live('click',function(event){
+					var me = $(this),
+						_titleDom = $(event.target).closest('.menuList').find('.menuTitle'),
+						_listDom = $('.menuTitle');
+					
+					_listDom.removeClass('current');
+					_titleDom.addClass('current');
+					
+				});
+				
+				 // 下拉二级菜单
+                $('.menu_container .menuTitle').die().live('click',function(){
+                    var me = $(this),
+                        _thisMenuContent = me.parent().find('.menuContent'),
+                        _isDisplay = _thisMenuContent.css('display'),
+                        _menuLists = $('.menu_container .menuList');
+                    if('none'==_isDisplay){
+                        _menuLists.find('.menuContent').slideUp('fast');
+                        _thisMenuContent.slideDown();
+                    }else{
+                        _thisMenuContent.slideUp('fast');
+                    }
+                });
+				
+				// 左侧列表隔行变色
+				$('.center .menu_list .menu_container li.menuList:nth-child(odd) .menuTitle').addClass('odd');		// 奇数行
+				$('.center .menu_list .menu_container li.menuList:nth-child(even) .menuTitle').addClass('even');	// 偶数行
+			});
+        </script>
+
+    </head> 
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="head_top">
+                        <div class="rank">
+                            <span>{$SYSTEM_COMPANY}</span>
+                        </div>
+                        <div class="integral">
+                        <if condition="$userlevel">
+                            <foreach name="userlevel" item="lv" key="key">
+                                    <div><span>{$key}&nbsp;:</span><span class="val">{$lv.byname}</span></div>
+                            </foreach>
+                        </if>
+                        <if condition="$funbank">
+                            <foreach name="funbank" item="fun_bank" key="key">
+                   <!--         钱包的名称就是 {$key}
+                            钱包的值  {$fun_bank}-->
+                                <div><span>{$fun_bank.name}&nbsp;:</span><span class="val">{$fun_bank.num}</span></div>
+                            </foreach>
+                          <else />
+                          
+                            <php>
+                              $funbank = X('fun_bank');
+                              foreach($funbank as $bank){
+                            </php>
+                            <div><span>{$bank:byname}&nbsp;:</span><span class="val">0.00</span></div>
+                            <php>}</php>
+                            
+                          </if>
+                        </div>
+                        <a href="/DmsAdmin/admin.php?s=/User/Public/logout"  class="log_out">退出</a>
+                </div>
+                <div class="divider-in-header"></div>
+                <div class="head_bottom">
+                    <div class="sliders" style="position:relative;">
+                        <a class="slider_left slide-arrow" href="javascript:void(0)"></a>
+                        <div class="img_containers">
+                            <foreach name="topimg" item="val" key="k">
+                                <div class="img_container"><img src="{$val.imgpath}" width="987" height="225" /></div>
+                             </foreach>
+                        </div>
+                        <a class="slider_right slide-arrow" href="javascript:void(0)"></a>		
+                    </div>
+                </div>
+            </div>
+            <!--头部结束-->
+            
+            <!--我是分割线-->
+            <div class="divider-in-main"></div>
+            
+            <!--我是分割线-->
+        
+            <div class="center">
+                 <!--左侧菜单栏-->
+                <div class="menu_list"><!--margin-right:28px;-->
+    
+                    <ul class="menu_container">
+                        <a href="__GROUP__/Index/index" ><li class="menuList">
+                            <div  <if condition="$now_model eq 'Index' and $now_action eq 'index'"> class="menuTitle current" <else /> class="menuTitle" </if> >{:L('首页')}</div>
+                        </li></a>
+                        <foreach name="menu" item="val" key="key"> 
+                        <a href="__GROUP__/{$val.model}/{$val.action}">
+                         <li id="{$val.title}" class="menuList">
+                            <div  id="{$val.action}" <if condition="($now_action eq $val['action'] or ($now_action=='showNotice' and $_GET['id']==4 and $val['action']=='showNotice/id/4')) and $now_model eq $val['model']"> class="menuTitle current" <else /> class="menuTitle" </if> >{$val.title}</div>
+                         </li>
+                         </a>
+                        </foreach>
+                    </ul>
+                </div>
+                <!--左侧菜单栏结束-->
+

@@ -1,0 +1,196 @@
+<script src="__PUBLIC__/jquery-ui-1.8.13.custom.js"  type="text/javascript"></script>
+<script src="__PUBLIC__/jquery.contextmenu.r2.js"  type="text/javascript"></script>
+<script src="__PUBLIC__/jquery-ui-i18n.js"  type="text/javascript"></script>
+<script src="__PUBLIC__/cookie.js"  type="text/javascript"></script>
+<style id="print_style">
+.sallist {border-collapse:collapse;border:1px solid #000000;margin-top:7px;}
+.sallist td{border:1px solid #000000;font-size:14px;}
+.tdborder{padding:0px;border:1px solid #000000} 
+.STYLE1 {font-size: 25px;font-weight: bold;text-decoration: underline;}
+</style>
+<body onload="printview()">
+<style media=print>
+.Noprint{display:none;}
+.PageNext{page-break-after: always;}
+</style>
+<script language="javascript">
+function getLodop(oOBJECT,oEMBED){
+	var strHtml1="<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop.exe'>执行安装</a>,安装后请刷新页面或重新进入。</font>";
+	var strHtml2="<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='install_lodop.exe'>执行升级</a>,升级后请重新进入。</font>";
+	var strHtml3="<br><br><font color='#FF00FF'>(注：如曾安装过Lodop旧版附件npActiveXPLugin,请在【工具】->【附加组件】中先卸载它)</font>";
+	var LODOP=oEMBED;
+	try{
+		 if (navigator.appVersion.indexOf("MSIE")>=0) LODOP=oOBJECT;
+		 if ((LODOP==null)||(typeof(LODOP.VERSION)=="undefined")) {
+		 if (navigator.userAgent.indexOf('Firefox')>=0)
+		 document.documentElement.innerHTML=strHtml3+document.documentElement.innerHTML;
+		 $("#printdiv").html("请下载打印机控件<a href='__PUBLIC__/Lodop.rar'>点此下载</a> 。")
+		 }
+		 return LODOP; 
+	}catch(err){
+		 document.documentElement.innerHTML="Error:"+strHtml1+document.documentElement.innerHTML;
+		 return LODOP; 
+	}
+}
+</script>
+<script language="javascript">
+//cookie插件
+$(document).ready(function()
+{
+	var LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));
+	
+	var print_i;
+	try {
+		var print_num=LODOP.GET_PRINTER_COUNT();
+		}
+	catch(error)
+		{
+			return;
+		}
+	for(var print_i=1;print_i<=print_num;print_i++)
+	{
+		$("<option value='"+(print_i-1)+"'>"+LODOP.GET_PRINTER_NAME(print_i-1)+"</option>").appendTo($("#printselect"));
+	}
+	$("#printselect option[value='"+$.cookie("printindex")+"']").attr("selected","selected");
+});
+function printnow(id)
+{
+	$.cookie("printindex",$('#printselect').val(),{expires: 360})
+	document.getElementById("print_frame").src='__URL__/print_index/id/'+id+'/printindex/'+$('#printselect').val()+'/act/printnow'
+};
+function printview(id) {
+	$.cookie("printindex",$('#printselect').val(),{expires: 360})
+	document.getElementById("print_frame").src='__URL__/print_index/id/'+id+'/printindex/'+$('#printselect').val()+'/act/printview'
+};
+function CreatePrintPage(){
+	LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));
+	stylestr="<style>"+document.getElementById('print_style').innerHTML+"</style>"
+	LODOP.SET_LICENSES("中国辽宁紫龙直销软件开发QQ104978","851626882738788847981789091626","","");
+	LODOP.PRINT_INIT("sale_print");
+	LODOP.SET_PRINT_PAGESIZE(1,"25cm","14cm","")
+	LODOP.ADD_PRINT_HTM(0,15,916,800,stylestr+pagetable.innerHTML)
+	LODOP.SET_PRINTER_INDEX(-1);
+} 
+</script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
+</object> 
+<div layoutH="0" style="background-color:white">
+<table align="left" id="print_list">
+<tr>
+<td valign="top" align="left">
+<table width="750">
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-weight:bold;font-size:25px">会员产品订单</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	会员编号：{$vo.编号}	&nbsp;&nbsp;&nbsp;电话：{$vo.联系电话}&nbsp;&nbsp;&nbsp;地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;发货日期：<if condition="$vo['发货日期']">{$vo.发货日期|date='Y-m-d H:i:s',###}<else />未发货</if>
+	</td>
+</tr>
+<tr>
+<notempty name='productdata'>
+<!--列表-->
+<td style="margin:0 auto;margin-bottom:5px;"><table width="730" align="center" class="sallist" cellpadding="1" cellspacing="1" >
+<tr>
+    <td  align="center"  class= "tdborder">序号</td>
+	<td  align="center"  class= "tdborder">品名</td>
+	<td  align="center"  class= "tdborder">单位</td>
+	<td align="center"  class= "tdborder">单价</td>
+	<td  align="center"  class= "tdborder">数量</td>
+	<td  align="center"  class= "tdborder">重量（kg）</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  class= "tdborder">pv</td>
+	</if>
+	<td  align="center"  class= "tdborder">合计金额</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  class= "tdborder">合计pv</td>
+	</if>
+</tr>
+<php>
+$i=1;
+$shuliang=0;
+$zhongliang=0;
+</php>
+<foreach name="productdata" item="paydata">
+
+<tr>
+    <td  align="center"  class= "tdborder">{$i}</td>
+	<td  align="center"  class= "tdborder">{$paydata['名称']}</td>
+	<if condition="$paydata['规格']">
+	<td  align="center"  class= "tdborder">{$paydata['规格']}</td>
+	<else />
+	<td  align="center"  class= "tdborder">无</td>
+	</if>
+	<td  align="center"  class= "tdborder">{$paydata['价格']}</td>
+	<td  align="center"  class= "tdborder">{$paydata['数量']}</td>
+	<td  align="center"  class= "tdborder">{$paydata['总重量']}</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  class= "tdborder">{$paydata['PV']}</td>
+    </if>
+	<td  align="center"  class= "tdborder">{$paydata['总价']}</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  class= "tdborder">{$paydata['总PV']}</td>
+    </if>\
+</tr>
+<php>
+$zhongliang+=$paydata['总重量'];
+$shuliang+=$paydata['数量'];
+$i++;
+</php>
+</foreach>
+<tr>
+	     <td colspan="<if condition="$pvshow eq true">6<else />4</if>" style="text-align:right">实付款：{$vo.实付款}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇总：</td>
+	            <td>{$shuliang}</td>
+	            <td>{$zhongliang}</td>
+				<td>{$vo.购物金额}</td>
+				<if condition="$pvshow eq true">
+				<td>{$vo.购物PV}</td>
+				</if>
+</tr>
+</table></td>
+</notempty>
+</tr>
+
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;font-size:16px">发货信息：</span>
+	
+	</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	&nbsp;&nbsp;&nbsp;收货人：{$vo.收货人}&nbsp;&nbsp;&nbsp;收货地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;
+		<php>
+	  //判断该系统是简化版还是豪华版 如果是简化版的话 则默认没有打印产品订单的功能
+   if(C('VERSION_SWITCH') == '0'){	 
+	</php>
+	快递:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
+	无</if>
+	<php>}</php>
+	<br/>
+		&nbsp;&nbsp;&nbsp;	<a href="__URL__/outlist/id/{$vo.id}"><span style="font-size:14px;color:green;font-weight:bold">导出订单信息</span></a>
+	</td>
+</tr>
+</table>
+	
+	<php>
+	  //判断该系统是简化版还是豪华版 如果是简化版的话 则默认没有打印产品订单的功能
+   if(C('VERSION_SWITCH') == '0'){	 
+	</php>
+   <div id="printdiv" style="float:left;font-size:14px;padding:5px;">
+	<input onclick="printview({$vo.id})" type="button" value="打印预览" >
+	<input onclick="printnow({$vo.id})" type="button" value="打印出订单" >
+	<select id="printselect"></select>
+	
+	</div>
+	<!--请不要尝试设置这个iframe的style="display:none;",因为会导致在一些浏览器中框架页的打印组件实例化失败-->
+	<iframe src="" id="print_frame" width="0" height="0" >
+	</iframe>
+	<php>}</php>
+</td>
+</tr>
+</table>
+</div>

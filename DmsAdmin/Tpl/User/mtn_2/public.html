@@ -1,0 +1,40 @@
+<include file="Public:header" />
+<div class="section center">
+    <div class="section-info">
+        <h3 class="h3">&nbsp;&nbsp;基本信息</h3>
+        <div class="info-list1">
+            <div class="info-list2">
+                <table class="tb-info">
+                    <tr>
+                        <td class="infokey">用户编号：</td>
+                        <td class="infoval">{$userinfo.编号}</td>
+                    </tr>
+                    <foreach name="funbank" item="fun_bank" key="key">
+                    <tr>
+                        <td class="infokey">{$fun_bank.name}：</td>
+                        <td class="infoval">{$fun_bank.num}</td>
+                    </tr>
+                    </foreach>
+                    <foreach name="userlevel" item="lv" key="key">
+                    <tr>
+                        <td class="infokey">{$key}：</td>
+                        <td class="infoval">{$lv.byname}</td>
+                    </tr>
+                    </foreach>
+                    <tr>
+                        <td class="infokey">加入日期：</td>
+                        <td class="infoval">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="section-m">
+        <div class="core_m">
+            [template]   
+            <br style="clear:both;">
+        </div>
+    </div>
+    <br style="clear:both;">
+</div>
+<include file="Public:footer" />

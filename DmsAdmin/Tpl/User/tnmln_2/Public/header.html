@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <link rel="stylesheet" href="__TMPL__Public/style/basic.css">
+        <link rel="stylesheet" href="__TMPL__Public/style/view.css">
+        <script src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script src="__TMPL__Public/js/basic.js"></script>
+        <script src="__PUBLIC__/js/transfer.js" type="text/javascript"></script>
+        <script>
+            $(function () {
+                //判断当前方法是哪一个 对其进行显
+                var data = '{$menu_jsons}';
+                var action = '{$now_action}';
+                var model = '{$now_model}';
+                var title = '';
+                data_arr = {};
+                data_arr = eval('(' + data + ')');
+                i = 1;
+                j = 1;
+                for (var key in data_arr) {//key 为资料管理 data_arr[key] 为一维数组 key 为一级菜单的标题
+                    i++;
+                    for (var key1 in data_arr[key]) {//key1 为一维数组的元素 data_arr[key][key1]['model']为模型 data_arr[key][key1]['Action']为方法 data_arr[key][key1]['title']为二级菜单标题
+                        j++;
+                        if (data_arr[key][key1]['model'] == model && data_arr[key][key1]['action'] == action) {
+                            $('.selected').removeClass('selected');
+                            $('.navlist' + i).addClass('selected');
+                        }
+
+                    }
+                }
+                if(action=='index' && model=='Index'){
+                    $('.navlist1').addClass('selected');
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="top">
+                <div class="header_t">
+                <div class="header_top"><span class="homepage"><a href="__GROUP__/Index/index"><span class="icon_home"></span></a>&nbsp;{$userinfo.编号},欢迎回来！&nbsp;<a href="__GROUP__/User/viewNotice"><span class="icon_mail"></span>&nbsp;系统消息</a></span>
+                    <span><a href="__GROUP__/Public/logout" style="font-size: 14px;">安全退出</a></span>
+                </div>
+            </div>
+                <div class="nav_top">
+                    <div class="nav_t">
+                        <div class="logo">{$SYSTEM_COMPANY}</div>
+                        <div class="navlist navlist1"><a class="key" href="__GROUP__/Index/index">首页</a></div>
+                        <php>$p=2;</php>
+                        <foreach name="menu" item="vo" key="key">
+                        <div class="navlist navlist{$p++}"><a class="key">{$key}</a>
+                            <ul class="navul" style="display: none;">
+                                <foreach name="vo" item="val">
+                                <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
+                                <li>
+                                <a class="report" href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a>
+                                </li>
+                                </if>
+                                </foreach>
+                            </ul>
+                            <div style="clear: both"></div>
+                        </div>
+                        </foreach>
+                    </div>
+                </div>
+                <br style="clear:both;display: none">
+            </div>
+            <div class="header_img"></div>
+            <br style="clear: both">
+        </div>
+        <div class="content">
+            <div class="content_m">
+                <div class="main_img"></div>
+                <div class="main_top"><span class="part_tit">系统公告&nbsp;NEWS</span>
+                    <foreach name="nownotice" item="vo">
+                    <span class="p_title">{$vo.标题}<a href="__GROUP__/User/showNotice/id/{$vo.id}">查看更多&gt;</a></span>
+                    </foreach>
+                </div>
+
+                <div class="nav_left">
+                    <ul class="before">
+                        <li style="background: #2255a3;"></li>
+                        <li style="background: #28ac74;"></li>
+                        <li style="background: #d55130;"></li>
+                        <li style="background: #8f8d2e;"></li>
+                        <li style="background: #b25c0a;"></li>
+                    </ul>
+                    <div class="line"></div>
+                    <ul>
+                        <li style="background: #2255a3;">
+                        <a href="__GROUP__/User/view">
+                            <span class="span0" style="background: url(__TMPL__Public/images/span0_1.png);"></span>
+                            <span class="span1">资料查看</span>
+                        </a>
+                        </li>
+                        <li style="background: #28ac74;">
+                        <a href="__GROUP__/User/edit">
+                            <span class="span0" style="background: url(__TMPL__Public/images/span0_2.png);"></span>
+                            <span class="span1">资料修改</span>
+                        </a>
+                        </li>
+                        <li style="background: #d55130;">
+                        <a href="__GROUP__/Sale/reg:sale_reg[1]">
+                            <span class="span0" style="background: url(__TMPL__Public/images/span0_3.png);"></span>
+                            <span class="span1">业务管理</span>
+                        </a>
+                        </li>
+                        <li style="background: #8f8d2e;">
+                        <a href="__GROUP__/Net/disp:net_place">
+                            <span class="span0" style="background: url(__TMPL__Public/images/span0_4.png);"></span>
+                            <span class="span1">网络管理</span>
+                        </a>
+                        </li>
+                        <li style="background: #b25c0a;">
+                        <a href="__GROUP__/User/viewNotice">
+                            <span class="span0" style="background: url(__TMPL__Public/images/span0_5.png);"></span>
+                            <span class="span1">信息管理</span>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main">

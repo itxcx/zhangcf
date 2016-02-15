@@ -1,0 +1,150 @@
+<include file="Public:header" />
+
+<script type="text/javascript">
+function change(obj){
+	var comment = document.getElementById(obj.id);
+ 
+	if (document.all) {
+	 // For IE
+	comment.click();
+	} else if (document.createEvent) {
+	   //FOR DOM2
+	var ev = document.createEvent('MouseEvents');
+	 ev.initEvent('click', false, true);
+	 comment.dispatchEvent(ev);
+	}
+}
+
+
+</script>
+<style>
+#tabless ul{padding:0px;margin:0px;width:auto;border:1px solid #EEEEEE;}
+#tabless li{padding:0;margin:0;float:left;height:30px;line-height:30px;padding:5px;}
+</style>
+<!--
+
+	<td width="15%" align="right">{:L('user1_name_serial')}：</td>
+				<td width="18%"><span class="tab_font">{$userinfo.编号}</span></td>
+				<td width="15%" align="right">{:L('name')}：</td>
+				<td width="18%"><span class="tab_font">{$userinfo.姓名}</span></td>
+				
+					<tr>
+				<foreach name="funbank" item="fun_bank" key="key">
+				<td align="right">{$key}：</td>
+				<td >{$fun_bank}</td>
+				</foreach>
+			</tr>
+-->
+<div class="centre_right">
+		<php>$i=1;</php>
+		<foreach name="menu" item="vo" key="key"> 
+        <div class="dh_img_{$i} dh_img" id='{$key}' onclick="change(this)"><center><img src="__TMPL__Public/images/{$i}.png" width="40" height="35"  style="cursor:pointer"/><div class="dh_font">{$key}</div></center></div>
+		<php>$i++;</php>
+		</foreach>
+    <div class="dh_tab">
+		<table border="0" width="96%" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" id="tabless" >
+			<tr>
+				<td  bgcolor="#efefef"><span class="tab_title"></span><span class="tab_font" style="line-height:20px;">基本信息</span></td>
+			</tr>
+			<tr>
+			<td  style="border:none;padding:0px;">
+	           <ul>
+		            <li align="right"  style="width:19.1%;">{:L('user1_name_serial')}：</li>	
+		            <li  style="width:26.2%;">{$userinfo.编号}</li>	
+		            <li  style="width:19.1%;" align="right" >{:L('name')}：</li>	
+		            <li  style="width:26.2%;"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+	           </ul>
+              </td>
+			</tr>
+		    <tr>
+			<td  width="100%" style="border:none;padding:0px">
+	           <ul>
+	           	<foreach name="funbank" item="fun_bank" key="key">
+		            <li align="right"   style="width:19.1%;">{$fun_bank.name}：</li>	
+		            <li style="width:26.2%;">{$fun_bank.num}</li>
+		      	</foreach>	
+	           </ul>
+              </td>
+			</tr>
+			<tr>
+			
+				<td  width="100%" style="border:none;padding:0px">
+	           <ul>
+	           	<foreach name="userlevel" item="lv" key="key">
+		            <li align="right"   style="width:19.1%;">{$key}：</li>	
+		            <li style="width:26.2%;">{$lv.byname}</li>
+		      	</foreach>	
+	           </ul>
+              </td>
+			</tr>
+			<tr>
+				<td width="100%" style="border:none;padding:0px">
+	           <ul>
+		            <li align="right"   style="width:19.1%;">{:L('join_date')}：</li>	
+		            <li style="width:26.2%;">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>
+		    
+	           </ul>
+	           </td>
+			</tr>
+	</table>
+
+    </div> 
+    <div style="width:48%;float:left;">
+    <div class="dh_tab_1">
+     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr>
+            <td width="5%" align="center" valign="middle" bgcolor="#efefef" class="dh_border_r"><div><img src="__TMPL__Public/images/breadcrumb.png" width="5" height="10" /></div></td>
+            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">最新公告</span></td>
+          </tr>
+       </table>
+     </div>
+	 <div class='dh_tab_11'>
+     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style='line-height:40px;'>
+		  <!-- 公告 -->
+		  <foreach name="notice" item="vo">
+          <tr>
+            <td>
+              <p style="font-weight:bold;padding-left:50px;"><a href="__GROUP__/User/shownotice/id/{$vo.id}">{$vo.标题}</a></p>
+              <!-- <p>{$vo.内容}</p> -->
+            </td>
+            <td style='text-align:center;width:150px;'>
+             {$vo.创建时间|date='Y-m-d',###}
+            </td>
+          </tr>
+		  </foreach>
+       </table>
+     </div>
+	</div>
+    <div style="width:48%;float:left;">
+    <div class="dh_tab_1">
+     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+          <tr>
+            <td width="5%" align="center" valign="middle" bgcolor="#efefef" class="dh_border_r"><div><img src="__TMPL__Public/images/breadcrumb.png" width="5" height="10" /></div></td>
+            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">最新邮件</span></td>
+          </tr>
+       </table>
+     </div>
+	 <div class='dh_tab_11'>
+     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style='line-height:40px;'>
+		<!-- 邮件 -->
+		  <foreach name="mail" item="vo">
+          <tr>
+            <td>
+              <p style="font-weight:bold;padding-left:50px;"><a href="__GROUP__/Mail/view/id/{$vo.id}">{$vo.标题}</a></p>
+              <!-- <p>内容内容内容内容内容内容内容内容内容</p> -->
+            </td>
+            <td width="150px">
+             {$vo.发送时间|date='Y-m-d',###}
+            </td>
+          </tr>
+		  </foreach>
+       </table>
+     </div>
+	</div>
+  </div>
+ 
+
+ 
+</div>
+<!--中间结束-->
+           

@@ -1,0 +1,233 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__APP__/Admin/Fun_stock/config:__XPATH__');
+	}
+}
+</script>
+<script language="JavaScript">
+	if(!'{$stockLimit}'){
+		$("#stockAllNum").hide();
+		$("#stockListNum").hide();
+		$("#stockNewNum").hide();
+		$("#stockNum").hide();
+	}
+	function checklimit(e){
+	
+		if($(e).val()=='false'){
+			$("#stockAllNum").hide();
+			$("#stockListNum").hide();
+			$("#stockNewNum").hide();
+			$("#stockNum").hide();
+		}else{
+			$("#stockAllNum").show();
+			$("#stockListNum").show();
+			$("#stockNewNum").show();
+			$("#stockNum").show();
+		}
+	}
+	function fundisp(val)
+	{
+		var disp='';
+		for(var i=1; i<=5;i++) {
+			disp='disp'+i;
+			if(i==val) {
+				$('#'+disp).show();
+			}else {
+				$('#'+disp).hide();
+			}
+		}		
+	}
+</script>
+<div layoutH="0">
+<div class="panelBar">
+	<ul class="toolBar">
+		<li><a class="edit" onclick="fundisp(1)"><span>交易设定</span></a></li>
+		<li><a class="edit" onclick="fundisp(2)"><span>公司发行</span></a></li>
+	</ul>
+</div>
+<form action="__URL__/configSave:__XPATH__" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<table width="800" class="list"  id='disp1'>
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;<img src="__PUBLIC__/Images/stock_set.png" style="vertical-align:middle"/>&nbsp;&nbsp;会员{$stockname}交易设定</th></tr></thead>
+<tbody>
+<tr>
+<td  style="text-align:right;width:20%">买卖整数单位:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockMinint" value="{$stockMinint}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;限制交易{$stockname}数量必须大于等于且为此参数的整数倍</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">当前价格:</td>
+<td colspan="2" style="text-align:left;width:20%">&nbsp;&nbsp;{$stockNowPrice}</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">会员自定义价格:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockInputPrice" value="true" <if condition="$stockInputPrice eq true "> checked </if>>开启</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;如果开启，会员出价会被以下4条限制，否则按照当前价</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">买卖最低价格:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockLowPrice" value="{$stockLowPrice}" size="10">&nbsp;</td>
+<td style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;买入或卖出不得低于此价格，<font color='red'>0代表不限制</font></td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">买卖最高价格:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockHighPrice" value="{$stockHighPrice}" size="10">&nbsp;</td>
+<td style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;买入或卖出不得高于此价格，<font color='red'>0代表不限制</font></td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">买卖价格跌幅:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockDrop" value="{$stockDrop}" size="10"> %&nbsp;</td>
+<td style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;买入或卖出，会员自己的定价不能低于当前价格的%</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">买卖价格涨幅:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockRise" value="{$stockRise}" size="10"> %&nbsp;</td>
+<td style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;买入或卖出，会员自己的定价不能高于当前价格的%</td>
+</tr>
+<tr>
+<td style="text-align:right;width:20%">市场:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockClose" value="true" <if condition="$stockClose eq true "> checked </if>>关闭市场</td>
+<td style="text-align:left;width:60%"></td>
+</tr>
+<if condition='$fun_stock:buyDisp eq false'>
+<tr>
+<td style="text-align:right;width:20%">买入:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockBuybutton" value="true" <if condition="$stockBuybutton eq true "> checked </if>>开启操作</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+</if>
+<if condition='$fun_stock:sellDisp eq false'>
+<tr>
+<td style="text-align:right;width:20%">卖出:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockSellbutton" value="true" <if condition="$stockSellbutton eq true "> checked </if>>开启操作</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+</if>
+<if condition='$fun_stock:buyDisp eq false'>
+<tr>
+<td style="text-align:right;width:20%">买入撤销:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockBuycancel" value="true" <if condition="$stockBuycancel eq true "> checked </if>>开启操作</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+</if>
+<if condition='$fun_stock:sellDisp eq false'>
+<tr>
+<td style="text-align:right;width:20%">卖出撤销:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="stockSellcancel" value="true" <if condition="$stockSellcancel eq true "> checked </if>>开启操作</td>
+<td  style="text-align:left;width:60%"></td>
+</tr>
+</if>
+<if condition='$fun_stock:sellDisp eq false || $fun_stock:buyDisp eq false'>
+<tr>
+<td style="text-align:right;width:20%">买卖提交间隔:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockSec" value="{$stockSec}" size="10">秒</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;单个会员每次交易提交间隔</td>
+</tr>
+</if>
+<if condition="$splitStart eq true">
+<tr>
+<td style="text-align:right;width:20%">拆分倍数:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="StockSplit" value="{$StockSplit}" size="10"></td>
+<td  style="text-align:left;width:60%">&nbsp;</td>
+</tr>
+</if>
+<tr>
+<td style="text-align:right;width:20%">优先买入公司发行:</td>
+<td style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="buyfComStock" value="true" <if condition="$buyfComStock eq true "> checked </if>>开启</td>
+<td style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;是否先购买公司发行股，总发行量-已认购量为会员可购买量</td>
+</tr>
+<tr>
+<th  style="text-align:left" colspan="4"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;持有封顶设置<font color='red'>（会员最高持有数量：当前账户+出售中，<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;0代表不限制）</font></th>
+</tr>
+<foreach name="maxary" item="stockMax" key="lvkey">
+<tr>
+<td  style="text-align:right;width:25%">{$stockMax['name']}:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockMax[{$lvkey}]" value="{$stockMax['max']}" size="10"></td>
+<td  style="text-align:left;">&nbsp;</td>
+</tr>
+</foreach>
+<tr>
+<th  style="text-align:left" colspan="4"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;挂单设置<font color='red'><img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;持有达到固定值后卖出</font></th>
+</tr>
+<tr>
+<td  style="text-align:right;width:25%">开启自动挂单:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="checkbox" name="sellauto" value="true" <if condition="$sellauto eq true "> checked </if> size="10">启动</td>
+</tr>
+<foreach name="autoSellary" item="autoSell" key="lvkey">
+<tr>
+<td  style="text-align:right;width:25%">{$autoSell['name']}:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="autoSell[{$lvkey}]" value="{$autoSell['max']}" size="10"></td>
+<td  style="text-align:left;">&nbsp;</td>
+</tr>
+</foreach>
+<tr>
+<td ></td><td><button id="submit" type="submit">确定</button></td>
+<td ></td>
+</tr>
+</tbody>
+</table>
+</form>
+<form action="__URL__/issue:__XPATH__" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<table width="800" class="list" style="float:left; display:none" id='disp2'>
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;<img src="__PUBLIC__/Images/stock_set.png" style="vertical-align:middle"/>&nbsp;&nbsp;{$stockname}公司发行</th></tr></thead>
+<tbody>
+<tr>
+<td  style="text-align:right;width:20%">{$stockname}发行:</td>
+<td  style="text-align:left;width:20%"><input onclick="checklimit(this)" name="stockLimit" value="true" type="radio" <if condition="$stockLimit">checked</if>/>发行数量<input onclick="checklimit(this)" name="stockLimit" value="false" type="radio" <if condition="!$stockLimit">checked</if>/>不限制</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;发行数量：须填写发行量或后期追加发行；不限制：会员认购公司量不限制</td>
+</tr>
+<if condition="$stockLimit">
+<tr id="stockAllNum">
+<td  style="text-align:right;width:20%">发行总量:</td>
+<td  style="text-align:left;width:20%">{$stockAllinfo['发行总量']}</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;已发行的总数量</td>
+</tr>
+<tr id="stockListNum">
+<td  style="text-align:right;width:20%">余量:</td>
+<td  style="text-align:left;width:20%">{$stockAllinfo['余量']}</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;公司剩余量</td>
+</tr>
+<tr id="stockNewNum">
+<td  style="text-align:right;width:20%">最新发行量:</td>
+<td  style="text-align:left;width:20%">{$stockAllinfo['发行量']}</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;公司最新发行量</td>
+</tr>
+</if>
+<tr>
+<td  style="text-align:right;width:20%">已认购量:</td>
+<td  style="text-align:left;width:20%">{$stockAllinfo['认购总量']}</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;会员认购公司数量</td>
+</tr>
+<eq name="fun_stock:buyBack" value="true">
+<tr>
+<td  style="text-align:right;width:20%">回购总量:</td>
+<td  style="text-align:left;width:20%">{$stockAllinfo['回购总量']}</td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;公司回购总量</td>
+</tr>
+</eq>
+<tr>
+<td  style="text-align:right;width:20%">原始价:</td>
+<td  style="text-align:left;width:20%"><input name="stockPrice" value="{$stockAllinfo['发行价']}" type="text"/></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;发行股票的初始价格</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:20%">清除股价上涨量:</td>
+<td  style="text-align:left;width:20%"><input name="cleartrade" value="true" type="checkbox"/></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;清除股价上涨量，使股价回归原始价</td>
+</tr>
+<tr id="stockNum">
+<td  style="text-align:right;width:20%">发行量:</td>
+<td  style="text-align:left;width:20%"><input name="stockNum" value="0" type="text"/></td>
+<td  style="text-align:left;width:60%">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;发行数量或追加发行</td>
+</tr>
+<tr>
+<td ></td><td><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div>
+</div></td><td ></td>
+</tbody>
+</table>
+</form>
+</div>

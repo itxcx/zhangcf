@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 12px;
+    background: #eee;
+}
+li {
+    list-style: none;
+}
+.clear {
+    clear: both;
+}
+#header { 
+    width: 100%;
+    height: 60px;
+    font: 12px/60px 微软雅黑;
+    text-align: center;
+    background: url(../images/headerbg.jpg) repeat-x;
+}
+#header h1 a {
+    display: block;
+    margin: 0 auto;
+    height: 60px;
+    width: 200px;
+    font: bolder 15px/60px 宋体;
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+}
+.back,.reload,
+.logout {
+    z-index: 9999;
+    position: absolute;
+    display: block;
+    width: 3em;
+    height: 60px;
+    color: #fff;
+    text-decoration: none;
+}
+.back {
+    top: 0;
+    left: 0;
+    border-right: 2px solid rgba(255,255,255,.2);
+}
+.reload {
+    top: 0;
+    left: 3em;
+    border-right: 2px solid rgba(255,255,255,.2);
+}
+.lan111 {
+	position: absolute;
+    top: 0;
+    right:4em;
+}
+.logout {
+    top: 0;
+    right: 0;
+    border-left: 2px solid rgba(255,255,255,.2);
+}
+#content {
+    min-height: 50px;
+}
+#content nav ul {
+    padding-top: 20px;
+}
+#content nav li {
+    float: left;
+    width: 30%;
+    padding: 0 10%;
+    height: 160px;
+    text-align: center;
+    overflow: hidden;
+}
+#content li img {
+    width: 108px;
+    height: 108px;
+    float: left;
+}
+#content li span {
+    padding: 10px 0;
+    width: 100%;
+    height: 2em;
+    text-align: center;
+    font: 14px 微软雅黑;
+    color: #000;
+    float: left;
+    overflow: hidden;
+}
+#footer {
+    width: 100%;
+    height: 60px;
+    font: bold 12px/60px 微软雅黑;
+    text-align: center;
+    background: url(../images/footerbg.jpg) repeat-x;
+    overflow: hidden;
+}
+#footer a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: #000;
+    
+}
+#footer nav li {
+    float: left;
+    width: 25%;
+    height: 100%;
+    list-style: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    border-left: 1px solid #ccc;
+    border-right: 2px solid #fff;
+    overflow: hidden;
+}
+

@@ -1,0 +1,153 @@
+<script src="__PUBLIC__/directSell/area_select.js" type="text/javascript"></script>
+<script language="javascript">
+function back(){
+   path='';
+   location.href='__GROUP__/Saleshop/chongxiao_gouwuche:__XPATH__';
+}
+</script>
+<if condition="$logistic eq true"><script language="javascript" src="__PUBLIC__/js/cal.js"></script></if>
+<body>
+<div class="core_main Sale" id="buy">
+	<div class="core_title">
+    	<span class="core_title_con">当前位置：确认支付</span>
+    </div>
+    <div class="core_con">
+        <form name="form1" method="post" action="__GROUP__/Saleshop/buySave:__XPATH__" id="form">
+        <table class="tablebg" id="table1">
+            <TR>
+                <td colspan="2">
+	                <p style="text-align:center;font-size:12px;text-indent:2em;line-height:2em;letter-spacing:2px">
+	                  <span>购物金额:</span>￥<span id="totalprice">{$buymoneys}</span>
+	                  <if condition="$discount lt 1">
+		                  <span>折扣:</span><span id="zk">{$discount*10}</span><span>折</span>
+		                  </span>折后总价:<span><span>￥{$all_price}</span>
+	                  </if>
+	                  <if condition="$sale:productPV eq true"><span>总PV:</span><span>{$all_pv}</span></if>
+	                  <br/>
+	                  <if condition="$sale:accBank neq ''">
+		              <foreach name="banks" item="bank">
+		              <span>现有{$bank:byname}余额：</span><span>￥{$userinfo[$bank:name]}</span>
+		              </foreach>
+		              </if>
+	                  <if condition="$logistic eq true">
+		                  <span>总重量：</span><span><font id="totalweight">{$all_zongliang}</font>kg</span>
+		                  <span>物流费:</span>￥<span id="wlf">0.00</span> 
+	                  </if>
+	                  共需支付：￥<span id="totalzf">{$all_price}</span>
+	                </p>
+                </td>
+            </TR>
+           <if condition="$sale:extra eq true">
+            <table class="tablebg" id="table2">
+                <tr>
+                    <td colspan="2"><strong>物流信息</strong></TD>
+                </tr>
+                <if condition="adminshow('sale_sendtype') eq true">
+                	<td class="tbkey" >发货方式：</td>
+                    <td class="tbval" >
+                        <select name="sendtype">
+                            <option value="物流发货">物流发货</option>
+			                <option value="公司自提">公司自提</option>
+			                <option value="专卖店自提">专卖店自提</option>
+                        </select>
+                    </td>
+                </if>
+                <tr>
+                    <td class="tbkey" >国家：</td>
+                    <td class="tbval" >
+                        <select name="country" id="country_id" data-role="none">
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="province"  id="province_id" data-role="none" <if condition="$logistic eq true">onchange="user_getTotalzf('{$sale:name}')"</if>>
+                            <option value="">请选择省</option>
+                        </select>
+                        <select name="city"  id="city_id" data-role="none" >
+                            <option value="">请选择城市</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="tbkey" >区县：</td>
+                    <td class="tbval" ><select name="county"  id="county_id" data-role="none" >
+                            <option value="">请选择</option>
+                        </select>
+                        <select name="town"  id="town_id" data-role="none" >
+                            <option value="">请选择街道</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="tbkey" >收货人：</TD>
+                    <td class="tbval" ><input name="reciver" id="reciver" type="text" value="{$userinfo.收货人}"/> <font color='red'>*</font></TD>
+                    
+                </tr>
+                <tr>
+                    <td class="tbkey" >联系电话：</TD>
+                    <td class="tbval" ><input name="mobile" id="mobile" type="text" value="{$userinfo.移动电话}"> <font color='red'>*</font></TD>
+                    
+                </tr>
+                <tr>
+                    <td class="tbkey" >收货地址：</TD>
+                    <td class="tbval" ><input name="address" id="address" type="text" value="{$userinfo.地址}" size="50"/> <font color='red'>*路况信息及门牌号等</font></TD>
+                    
+                </tr>
+           <notempty name="shop">
+            <tr>
+                <td class="tbkey" >{$shop}：</td>
+                <td class="tbval" ><span><input type="text" value="{$userinfo['服务中心编号']}" name="shop"  id="shop"  /></span>&nbsp;&nbsp;<span id="state_shop">*</span></td>
+                
+            </tr>
+            </notempty>
+             <tr>
+                <td class="tbkey" >备注：</td>
+                <td class="tbval" ><textarea name="beizhu" style="wdith:600px;height:100px;"></textarea></td>
+            </tr>
+            </table>
+        </if>
+            <table class="tablebg" id="table3" style="clear:both">
+                <TR>
+                    <td colspan="2" >
+                        <INPUT class=button_text type="button" value="返回" onclick="back()"> 
+                        <INPUT class=button_text type="reset" value="重置" > 
+                        <INPUT class=button_text name="subbut"  id='subbut' onclick="tijiao()" type="submit" value="确认支付" > 
+                    </TD>
+                </TR>
+            </table>
+    </form>
+    </div>
+    <div class="core_page"></div>
+</div>
+</body>
+
+<style type="text/css">
+dl{float:left;width:200px;padding:5px;margin-left:20px;padding-left:10px;padding-top:20px;}
+dt{width:180px;height:180px;}
+.name_top{padding:10px 0px;display:block;color:#4D4D4D;font-size:13px;height:50px}
+dd{text-align:left;font-size:12px}
+.red{color:#F65F2A;font-weight:bold}
+p span{color:#006DCC;font-weight:bold;padding-right:20px;}
+</style>
+<script type="text/javascript"> 
+$.area_default_show = true; //显示默认区域
+$.area_default_country="{$userinfo['国家']}";
+$.area_default_province="{$userinfo['省份']}";
+$.area_default_city="{$userinfo['城市']}";
+$.area_default_county="{$userinfo['地区']}";
+$.area_default_town="{$userinfo['街道']}";
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id' );
+function tijiao(){
+	var ua = navigator.userAgent.toLowerCase();
+	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#form').submit();
+		$('#subbut').attr('disabled',false);
+	} else {
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#form').submit();
+	}
+}
+</script>

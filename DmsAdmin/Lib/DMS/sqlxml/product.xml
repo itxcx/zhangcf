@@ -1,0 +1,103 @@
+<table name='{$this->name}_分类'>
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name='名称'   type="varchar(100)" default=""/>
+<field name='排序'    type="int(4)" default="0"/>
+<field name='创建时间'  type="int(10)" default="0"/>
+<field name='状态'  type="varchar(10)" default="使用"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}' engine="InnoDB">
+<field name="id"       type="int(10)" auto_increment="1" primary="1" />
+<field name="产品编码" type="varchar(100)"   default=""/>
+<field name="名称"     type="varchar(100)"   default=""/>
+<field name="分类"     type="varchar(50)"   default=""/>
+<field name="规格"     type="varchar(50)"   default=""/>
+<field name="描述" type="text"  />
+<field name="图片" type="varchar(200)"   default=""/>
+<field name="成本价" type="double(12,2)"   default="0"/>
+<field name="价格" type="double(12,2)"   default="0"/>
+<field name="重量" type="double(12,2)"   default="0"/>
+<field name="PV" type="double(12,2)"   default="0"/>
+<field name="所属功能"  type="varchar(100)"  default=""/>
+<field name="顺序" type="int(11)"   default="0"/>
+<foreach name="{$this->getfieldCon()}" item="con">
+<field name="{$con.name}" type="decimal(12,2)" default="0"/>
+</foreach>
+<field name="数量" type="int(10)"   default="0"/>
+<field name="可订购数量" type="int(10)"   default="0"/>
+<field name="添加时间" type="int(11)"   default="0"/>
+<field name="修改时间" type="int(11)"   default="0"/>
+<field name="状态" type="varchar(10)"   default="使用"/>
+<field name='INDEX (`分类`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+<field name='INDEX (`可订购数量`)' type="KEY"/>
+</table>
+
+<table name='{$this->name}套餐' engine="InnoDB">
+<field name="id"       type="int(10)" auto_increment="1" primary="1" />
+<field name="产品id"   type="int(100)"   default="0"/>
+<field name="名称"     type="varchar(100)"   default=""/>
+<field name="分类"     type="varchar(50)"   default=""/>
+<field name="规格"     type="varchar(50)"   default=""/>
+<field name="价格"     type="double(12,2)"   default="0"/>
+<field name="描述" type="text"  />
+<field name="图片" type="varchar(200)"   default=""/>
+<field name="数量" type="int(10)"   default="0"/>
+<field name="添加时间" type="int(11)"   default="0"/>
+<field name="修改时间" type="int(11)"   default="0"/>
+<field name="状态" type="varchar(10)"   default="使用"/>
+<field name='INDEX (`分类`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+</table>
+
+<table name='产品_功能'>
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name='名称'   type="varchar(100)" default=""/>
+<field name='创建时间'  type="int(10)" default="0"/>
+<field name='节点名称'   type="varchar(100)" default=""/>
+<field name='状态'  type="varchar(10)"  default="使用"/>
+</table>
+
+<table name='产品订单'  engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1"/>
+<field name="报单id"   type="int(11)" default="0"/>
+<field name="产品id"   type="int(11)"  default="0"/>
+<field name="产品节点"   type="varchar(50)"  default=""/>
+<field name='名称'   type="varchar(100)" default=""/>
+<field name='分类'   type="varchar(50)" default=""/>
+<field name="规格"     type="varchar(50)"   default=""/>
+<field name='数量'    type="int(11)" default="0"/>
+<field name='价格'  type="double(12,2)" default="0"/>
+<field name='PV'  type="double(12,2)" default="0"/>
+<field name='总重量'  type="double(12,2)" default="0"/>
+<field name='总价'  type="double(12,2)" default="0"/>
+<field name='总PV'  type="double(12,2)" default="0"/>
+<field name='INDEX (`报单id`)' type="KEY"/>
+<field name='INDEX (`产品id`)' type="KEY"/>
+<field name='INDEX (`产品节点`)' type="KEY"/>
+</table>
+
+<table name='产品库存'  engine="InnoDB">
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name="产品id"    type="int(11)"  default="0"/>
+<field name='报单id'  type="int(11)" default="0"/>
+<field name="产品节点"   type="varchar(50)"  default=""/>
+<field name='数量'      type="int(11)" default="0"/>
+<field name='备注'      type="varchar(255)" default=""/>
+<field name='操作时间'  type="int(11)" default="0"/>
+<field name='操作人'    type="varchar(50)" default=""/>
+<field name='INDEX (`报单id`)' type="KEY"/>
+<field name='INDEX (`产品id`)' type="KEY"/>
+<field name='INDEX (`产品节点`)' type="KEY"/>
+</table>
+
+<table name='产品物流管理'>
+<field name="id" type="int(11)" auto_increment="1" primary="1" />
+<field name='发往省份'   type="varchar(50)"  default=""/>
+<field name='国家'   type="varchar(50)"  default=""/>
+<field name='首重' type="double(12,2)" default="0" />
+<field name='首重价格'  type="double(12,2)" default="0"/>
+<field name='续重价格'  type="double(12,2)" default="0"/>
+<field name='是否全国标准'  type="int(1)" default="0"/>
+</table>

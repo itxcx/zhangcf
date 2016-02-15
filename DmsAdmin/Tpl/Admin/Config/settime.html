@@ -1,0 +1,96 @@
+<script type="text/javascript">
+showtime();
+function showtime()
+{
+ var date=new Date();
+ var y=date.getFullYear();
+ var w=date.getMonth()+1;
+ var d=date.getDate();
+ var h=date.getHours();
+ var m=date.getMinutes();
+ var s=date.getSeconds();
+ if(m<=9)  m="0" + m;
+ if(s<=9)  s="0" + s;
+ var time=y+"-"+w+"-"+d+" "+h+":"+m+":"+s;
+$("#starttime",navTab.getCurrentPanel()).text(time);
+ var  shift={$shifttime};
+ var dateint=(new Date).getTime();
+ var date1=new Date(dateint+shift);
+ var y1=date1.getFullYear();
+ var w1=date1.getMonth()+1;
+ var d1=date1.getDate();
+ var h1=date1.getHours();
+ var m1=date1.getMinutes();
+ var s1=date1.getSeconds();
+ if(m1<=9)  m1="0" + m1;
+ if(s1<=9)  s1="0" + s1;
+ var time1=y1+"-"+w1+"-"+d1+" "+h1+":"+m1+":"+s1;
+ $("#systime",navTab.getCurrentPanel()).text(time1);
+ //document.getElementById("systime").innerHTML=time1;
+ setTimeout("showtime()",1000);
+}
+
+</script>
+<form action="__URL__/timeupdate" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload)">
+<div layoutH="0">
+	<table class="list" style="width:600px">
+		<thead>
+		   <tr>
+		   <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;时间信息设置</th>
+		   </tr>
+		</thead>
+		<tbody>
+			 <tr>
+				 <td width="120px" >服务器实际时间:</td>
+				 <td width="160px"><span id='starttime'></span></td>	
+				 <td width="120px">系统表述时间:</td>
+				 <td width="160px"><span id="systime"></span></td>
+			 </tr>
+			
+			 <tr>
+				  <td width="120px">时间偏移量设置:</td> 
+				  <td  colspan="3" style="text-align:center"><input type="text" id="inpp" style="width:50px;"  value="{$day}" name="day">&nbsp;&nbsp;&nbsp;&nbsp;日 &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="inpp"value="{$hour}" style="width:50px;"  name="hour">&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			 </tr>
+			 <if condition="isset($_GET['setShow']) and $_GET['setShow']==1">
+			 <tr>
+				 <td width="120px" >结算起始日:</td>
+				 <td colspan="3" style="text-align:center"><input style="margin-left:5px;width:2cm"  type="text" class="date" name="tle" value="{$tle|date='Y-m-d',###}"></td>
+			</tr>
+
+			<tr>
+				 <td colspan="4" >
+			   
+					此功能用于调整时间 <br/>
+					如果保持和服务器同步，请全部设置为0<br/>
+					结算起始日属于系统核心设定，在不了解其功能的情况下请勿对其进行修改<br/>
+				
+				 </td>
+			</tr>
+			<else/>
+			 <tr>
+				 <td width="120px" >结算起始日:</td>
+				 <td colspan="3" style="text-align:center">{$tle|date='Y-m-d',###}</td>
+			</tr>
+			</if>
+			<if condition="isset($_GET['setShow']) and $_GET['setShow']==1">
+			<tr>
+				 <td width="120px" >在系统设置显示:</td>
+				 <td colspan='3' style="text-align:left">
+				 <label><input type="radio" name='SHOW_TIMESET' value='1' <eq name='SHOW_TIMESET' value="1">checked</eq>/>开启</label>
+				 <label><input type="radio" name='SHOW_TIMESET' value='0' <eq name='SHOW_TIMESET' value="0">checked</eq>/>关闭</label>
+				 </td>	
+			 </tr>
+			 </if>
+			<tr>
+				 <td colspan="4" style="vertical-align: middle;" >
+				   <div class="buttonActive" style="margin-left:290px;">
+						  <div class="buttonContent" >
+							<button type="submit">确定</button>
+						  </div>
+					</div>
+				 </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</form>

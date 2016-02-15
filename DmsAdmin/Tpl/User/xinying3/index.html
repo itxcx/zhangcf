@@ -1,0 +1,133 @@
+<include file="Public:header" />			
+<!--content-->			
+<style>
+#main-content table td,
+#main-content table th {
+                padding: 1px; 
+			/* 	padding-top:10px; */
+				text-align:center;
+				  /* border: 1px solid #ccc; */
+            /*     line-height: 1.3em; */
+				border-bottom:1px; 
+                }      
+#youhave ul{padding:0px;margin:0px}
+#youhave ul li{padding:0px;foloat:left;border-bottom:1px solid #CDCDCD;margin:0px} 
+</style>
+		<div id="content">		
+			<div id="rightnow" style="margin-top:39px;">
+                    <h3 style="height:40px; line-height:45px;padding-left:10px;" class="reallynow">
+                        <span>基本信息</span>
+                        <!-- <a href="#" class="add">Add New Product</a>
+                        <a href="#" class="app_add">Some Action</a>
+                         <foreach name="funbank" item="fun_bank" key="key">
+									<td align="right" style="background:#EEEEEE;border-top:none;border-left:none;border-bottom:none;width:15%">{$key}：</td>
+									<td style="border-top:none;border-left:none;border-bottom:none;width:15%">{$fun_bank}</td>
+									</foreach>
+									
+									<td width="20%" align="right" style="background:#EEEEEE" style="background:#EEEEEE">{:L('user1_name_serial')}：</td>
+						<td width="30%"><span class="tab_font">{$userinfo.编号}</span></td>
+						<td width="20%" align="right" style="background:#EEEEEE">{:L('name')}：</td>
+						<td width="30%"><span class="tab_font">{$userinfo.姓名}</span></td>
+						
+						
+							<foreach name="userlevel" item="lv" key="key">
+						<td  align="right" style="background:#EEEEEE">{$key}：</td>
+						<td >{$lv.byname}</td>
+						</foreach>
+                         
+                         	<td  align="right" style="background:#EEEEEE">{:L('join_date')}：</td>
+						<td colspan="3"><span class="tab_font">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</span></td>
+                         border-right:2px solid #CDCDCD;border-top:2px solid #CDCDCD;
+                         -->
+                        <br />
+                    </h3>
+					<table id="youhave"style="background:#ffffff;width:100%">
+					   <tr  style="height:37px; font-size:18px; font-weight:bold; line-height:37px;">
+					     <td colspan="4" width="100%"  style="border-top:none;border-top:none">
+					           <ul>
+					            <li style="float:left;background:#EEEEEE;width:19.8%;">{:L('user1_name_serial')}：</li>	
+					            <li style="float:left;width:29.9%;">{$userinfo.编号}</li>	
+					            <li style="float:left;background:#EEEEEE;width:19.8%;">{:L('name')}：</li>	
+					            <li style="float:left;width:29.9%;"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+					           </ul>
+					      </td>
+						
+					  </tr>
+					  <tr  style="height:37px; font-size:18px; font-weight:bold; line-height:37px">
+					      <td colspan="4" width="100%"  style="border-top:none;border-top:none">
+					           <ul>
+					            <foreach name="funbank" item="fun_bank" key="key">
+					            <li style="float:left;background:#EEEEEE;width:19.8%;margin-bottom:2px">{$fun_bank.name}：</li>	
+					            <li style="float:left;width:29.9%;margin-bottom:2px">{$fun_bank.num}</li>	
+					            </foreach>
+					           </ul>
+					      </td>
+						</tr>
+					  <tr style="height:37px; font-size:18px; font-weight:bold; line-height:37px;">
+					    <td colspan="4" width="100%"  style="border-top:none;border-top:none">
+					           <ul>
+					            <foreach name="userlevel" item="lv" key="key">
+					            <li style="float:left;background:#EEEEEE;width:19.8%;">{$key}：</li>	
+					            <li style="float:left;width:29.9%;">{$lv.byname}</li>	
+					            </foreach>
+					           </ul>
+					      </td>
+					 </tr>
+					 <tr  style="height:37px; font-size:18px; font-weight:bold; line-height:37px;">
+					    <td colspan="4" width="100%"  style="border-top:none;border-top:none">
+					           <ul>
+					            <li style="float:left;background:#EEEEEE;width:19.8%;">{:L('join_date')}：</li>	
+					            <li style="float:left;width:29.9%;">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>	
+					      
+					           </ul>
+					      </td>
+					
+					 </tr>
+					</table>
+			  </div>
+              <div id="infowrap" style="margin-top:51px;">
+                 <div id="infobox" style="border:0px; margin-bottom:17px;">
+                    <h3 style="height:40px; line-height:45px;padding-left:10px">最新公告</h3>
+                    <table class="gg"  width="100%">
+						<thead>
+							<tr>
+                            	<th style="height:37px; font-size:16px; line-height:37px; width:50%;">公告时间</th>
+                                <th style="height:37px; font-size:16px; line-height:37px; width:50%;">公告标题</th>
+                            </tr>
+						</thead>
+						<tbody>
+							<foreach name="notice" item="vo">
+							<tr>
+                                <td class="c_date" bgcolor="#f9f9f9" style="height:30px;line-height:30px">{$vo.创建时间|date='Y/m/d',###}</td>
+								<td class="c_t"><a href="__GROUP__/User/shownotice/id/{$vo.id}">{$vo.标题}</a></td>
+							</tr>
+							</foreach>
+						</tbody>
+					</table>            
+                  </div>
+                  <div id="infobox" class="margin-left" style="border:0px; margin-bottom:17px;">
+                    <h3 style="height:40px; line-height:45px; padding-left:10px">最新邮件</h3> 
+                    <table class="gg"  width="100%">
+						<thead>
+							<tr>
+                            	<th style="height:37px; font-size:16px; line-height:37px; width:50%;">邮件时间</th>
+                                <th style="height:37px; font-size:16px; line-height:37px; width:50%;">邮件标题</th>
+                            </tr>
+						</thead>
+						<tbody>
+							<foreach name="mail" item="vo">
+							<tr>
+                            	<td class="c_date" bgcolor="#f9f9f9" style="height:30px;line-height:30px">{$vo.发送时间|date='Y-m-d',###}</td>
+								<td class="c_t"><a href="__GROUP__/Mail/view/id/{$vo.id}">{$vo.标题}</a></td>
+                            </tr>
+							</foreach>
+						</tbody>
+					</table>     
+                  </div>
+			</div>
+		    </div>	
+			</div>
+			</div>
+		</div>			
+<!--content end-->				
+<include file="Public:footer" />

@@ -1,0 +1,415 @@
+table{
+	border-spacing: 0px;
+	border-collapse: collapse;
+	border-spacing:2px;
+	border-color:gray;	
+	font-family:Helvetica,Arial,sans-serif;
+		overflow:scroll;	
+	}
+/*main title con page*/
+.core_main{ 
+	width: 100%;
+	}
+.core_title{	
+   padding:13px 13px;
+   margin:0;
+    border-bottom:1px solid rgba(0,0,0,.1);
+    background-color: rgba(248,248,248,.9);
+    background-repeat: no-repeat; 
+}
+.core_con{	
+	padding:20px 10px;
+	padding-bottom:0px;
+	}
+.core_page{	
+    padding: 10px;
+	text-align: right;	
+	color: #505050;
+}
+.core_page>span {
+    display: block;
+    margin-bottom: 10px;
+    padding-right: 30px;
+    text-align: right;
+}
+.page_box span, .page_box a {
+    padding: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.page_box .nowPage,.page_box span {
+    background: #f0f0f0;
+}
+.core_title_con {
+   line-height:30px;
+	display: block;
+	width: auto;		
+	font-size: 14px;
+	font-weight: bold;	
+	color: #232323;
+}
+.core_title_edit a{}
+
+.core_page a{ color:#006dcc;}
+
+/* tablebg #table1 #table2 #table3 #table4*/
+.tablebg{
+	width:100%;
+	line-height: 28px;
+	border-left: 1px solid #DDDDDD;
+	border-top: 1px solid #DDDDDD;	
+	color: #333333;
+	height: 24px;
+	line-height: 24px;
+	margin-top:-1px;	
+	
+}
+.tablebg a{ color:#006dcc;}
+.tablebg td,.tablebg th {
+  display:table-cell;
+  vertical-align:inherit;
+  border:1px solid #DDDDDD;
+
+}
+.tablebg th{	
+	font-weight:bold;
+	}
+.tablebg .tbkey{
+	color: #505050;
+	font-weight:bold;	
+    border:1px solid #DDDDDD;
+    height:43px;
+    line-height:43px;
+    font-size: 12px;
+}
+.tbkey{background:#eee;text-align:center;width:25%}
+.tablebg  {
+	text-align: left;
+	background:#fff;	
+	color: #505050;
+	font-weight:bold;	
+	
+}
+.ui-select{position: relative;display: block;}
+.tbval{
+    color:#da4e08;
+    width:40%;
+    padding-left: 5px;
+}
+.tbval+td {
+    width: 10%;
+}
+.tablebg .datafield td,.tablebg .datafield th{	
+	color: #333333;	
+	border:1px solid #DDDDDD;
+	background-color:#eee;
+    background-image:-webkit-linear-gradient(top,#f2f2f2 0,#fafafa 100%);
+	font-size:14px;
+	font-weight:bold;	
+	text-align: left;
+	height:43px;line-height:43px;
+	
+
+}
+.tablebg .datalist td{
+	border: 1px solid #cdcdcd;
+}
+
+.backbtn{
+	clear: both;
+	height: 26px;
+	text-align: center;
+	margin-top: 5px;
+}
+.button_text,.button_onmouseout,.button_onmouseover,.button_onmouseup,.button_onmousedown{
+    display: inline-block;
+    margin: 10px 25%;
+    width: 50%;
+    height: 35px;
+    line-height: 35px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    background: #ddd;
+    text-decoration: none;
+}
+input[type='text'],input[type='password'],select,option {
+    margin-left: 5px;
+    padding-left: 5px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 5px;
+    font-size: 12px;
+}
+input[type='password'] {
+    width: 12em;
+}
+
+.msg{
+	color:red;
+	padding-left:3px;	
+    font-size: 12px;
+}	
+td.msg {
+    width: 10%;
+}
+#bank,#country_id,#province_id,#city_id,#county_id{
+	width:100px;
+}
+#state_shop,#state_net_11,#state_net_4,#state_net_5,#state_net_5_Region,#state_country,#state_province,#state_city,#state_county{ color:red;}
+.address input{ 	
+	width:200px;
+}
+/*所有page中form#form的元素样式*/
+form#form select,form#form input,form#form textarea{}
+/*Public/success*/
+.Public#success .core_con{ background:none; border:0;}
+/*.PrizeSplit#index*/
+.PrizeSplit#index .pageWidth {
+	background-image: none;
+	margin: 0px auto;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: auto;
+	width:100%;
+}
+.PrizeSplit#index #box_root {
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+.PrizeSplit#index .cont {	
+	overflow:auto;
+}
+.PrizeSplit#index .mbx {
+	width:100%;
+	height:48px;
+	border-bottom:1px solid #e6e6e6;
+}
+.PrizeSplit#index .mbx p {
+	line-height:47px;
+	font-size:14px;
+	text-align:center;
+	border-bottom:1px solid #fff;
+}
+.PrizeSplit#index .mbx span {
+	color:#fff;
+	padding:0px 6px;
+	background:#18a32a;
+	border-radius:2px;
+	-o-border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	margin:0 10px;
+}
+.PrizeSplit#index .mbx a {
+	color:#18a32a;
+	text-decoration:underline;
+}
+.PrizeSplit#index .cont_detail {
+	width:100%;
+	margin:0 auto;
+}
+.PrizeSplit#index .detail_first, .detail_second {
+	width:100%;
+	overflow:auto;
+	padding:10px 0;
+	margin:0 auto;
+}
+.PrizeSplit#index .detail_first ul, .detail_second ul{
+	margin: 0 auto;
+	text-align:center;
+}
+.PrizeSplit#index .detail_first ul{
+	width:760px;
+	margin:0 auto;
+}
+.PrizeSplit#index .detail_second ul{
+	width:800px;
+	margin:0 auto;
+}
+.PrizeSplit#index .detail_first ul li,.PrizeSplit#index .detail_second ul li {
+	width:90px;
+	background:#fff;
+	float:left;
+	box-shadow:0 0 2px #8c8c8c;
+	display:inline;
+}
+.PrizeSplit#index .detail_first ul li{
+	margin:0 4px;
+}
+.PrizeSplit#index .detail_second ul li{
+	margin:0 4px;
+}
+.PrizeSplit#index .detail_first ul li h4,.detail_second ul li h4 {
+	font-size:14px;
+	color:#fff;
+	width:88px;
+	height:26px;
+	line-height:28px;
+	text-align:center;
+}
+.PrizeSplit#index .detail_first ul li h4{
+	background:#1bbb30;
+	border:1px solid #148b24;
+}
+.PrizeSplit#index .detail_second ul li h4{
+	background:#e0232a;
+	border:1px solid #b41d22;
+}
+.PrizeSplit#index .detail_first ul li table,.PrizeSplit#index .detail_second ul li table{
+	width:90px;
+	border-left:1px solid #a8a8a8;
+	border-right:1px solid #a8a8a8;
+	border-bottom:1px solid #a8a8a8;
+}
+.PrizeSplit#index .detail_first ul li table td,.PrizeSplit#index .detail_second ul li table td{
+	width:100%;
+	font-size:12px;
+	color:#545454px;
+	text-align:center;
+	line-height:28px;
+}
+/*Tle#prizeForm*/
+.Tle#prizeForm .core_con{}
+#prizeForm .tablebg .datafield .source{
+	width:200px;
+}
+.Tle#prizeForm .tablebg .datafield .number{
+	width:100px;
+}
+.Tle#prizeForm .tablebg .datafield .calcul{
+	width:300px;
+}
+.Tle#prizeForm .tablebg .datafield .layers{
+	width:80px;
+}
+.Tle#prizeForm .tablebg .datafield .tights{
+	width:80px;
+}	
+/*Fun_bank#rem*/
+.Fun_bank#rem .core_con .add{ text-align:right; padding-bottom:5px; background-position:90% 25%;}
+.Fun_bank#rem .core_con .add a{ color:#333;}	
+/*Fun_bank#add_rem*/
+.Fun_bank#add_rem .core_con .tablebg .tbval #bank,.Fun_bank#add_rem .core_con .tablebg .tbval #bank_no{ 
+	width:200px;
+}
+.Fun_bank#add_rem .core_con .tablebg .tbval textarea{
+	margin: 5px 0 0 5px;
+    width:240px!important;
+    height: 100px!important;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #eee;	
+}
+/*Mail#send*/
+.Mail#send{}
+.Mail#send .tablebg{}
+.Mail#send .core_con .tablebg .tbkey{width:9%;}
+.Mail#send .core_con .tablebg .tbval{}
+.Mail#send .core_con .tablebg .tbval #title{width:250px;}
+.Mail#send .core_con .tablebg .tbval #content_1{
+    margin: 5px 0 0 5px;
+    width:260px!important;
+    height: 200px!important;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #eee;
+}
+.Mail#send .core_con .tablebg .tbval .ke-container td{
+	border-right:0;
+	border-bottom:0;
+	padding:0;	
+	}
+/*Sale/usereg*/
+/*.Sale#usereg .tablebg,.Sale#up .tablebg,.Sale#buy .tablebg,.User#view .tablebg,.User#edit .tablebg{text-indent:3%}*/
+.Sale#usereg #table1{width:100%; }
+.Sale#up #table1{width:100%;background:none;border:none}
+.Sale#up #table1 .tbkey{text-align:right}
+.Sale#buy #table1 {background:none}
+.Sale#product {background:#fff}
+.Sale#usereg #table2{width:100%;}
+.Sale#usereg #table3,.Sale#usereg #table3 td{border:0;}
+
+.Sale#product input[name^="productNum"] {
+    margin-right: 5px;
+    width: 40px;
+}
+.Sale#product table tr {
+    text-indent: 2px;
+}
+.Sale#up select[id$='_id'],.Sale#up select[id$='_id1'],.Sale#buy select[id$='_id'] {
+    display: block;
+    margin: 10px 0 10px 5px;
+    width: 10em;
+}
+.Sale#up #address,.Sale#buy #address {
+    margin: 5px;
+    display: block;
+    width: 200px;
+}
+#product .tablebg img {
+    margin: 5px;
+    width: 80px;
+    height: 60px;
+}
+#fun_fuli .datafield td {
+    text-align: center;
+}
+#price {
+    width: 60px;
+}
+.btkey table,.btval table {
+    width: 100%;
+}
+.btkey table td {
+    text-align: center;
+    border-right: none;
+}
+.btval table td {
+    text-indent: .5em;
+}
+.tbtr {
+    border-top: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
+}
+#position_ramus_tree input[type="text"] {
+    margin: 5px;
+    width: 50px!important;
+}
+#position_ramus_tree #userid {
+    position: relative;
+    top: -8px;
+}
+.core_con[name="placetreeContent"] .list {
+    width: 100%!important;
+}
+.core_main.Net .button_text {
+    margin: 0;
+    width: 100px;
+    font-size: 12px;
+}
+#js_lang {
+    margin: 0;
+    padding: 0;
+    width: 72px;
+    font-size: 12px;
+}
+#js_lang option {
+    width: 60px;
+    font-size: 12px;
+}
+#viewMysale .tablebg td {
+    font-size: 12px;
+    text-align: center;
+}
+
+
+

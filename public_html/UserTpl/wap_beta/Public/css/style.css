@@ -1,0 +1,353 @@
+@chaset "utf-8";
+/*头部导航*/
+#header,
+.header{
+    height: .5rem;
+    line-height: .5rem;
+    color: #fff;
+    background: #009cff;
+}
+#header h1,
+.header h1 {
+    font-size: normal;
+}
+#header .icon,
+.header .icon {
+    font-size: .28rem;
+}
+
+/*首页*/
+#userinfo {
+    height: 1.8rem;
+    background: url(../img/infobg.png) repeat-x center/cover;
+    background-color: #2dadff;
+}
+#userinfo figure {
+    position: relative;
+    margin: 0 auto;
+    width: 1rem;
+    height: 100%;
+}
+#userinfo figure img {
+    margin: .2rem 0 .05rem 0;
+    width: 1rem;
+    height: 1rem;
+}
+#userinfo figure p {
+    line-height: .2rem;
+    font-size: .14rem;
+    color: #fff;
+}
+#userinfo .userview,
+#userinfo .userpass {
+    position: absolute;
+    width: .4rem;
+    height: .4rem;
+    line-height: .4rem;
+    text-align: center;
+    color: #fff;
+    background: #6cc6ff;
+    border-radius: .2rem;
+}
+#userinfo .userview:hover,
+#userinfo .userview:focus,
+#userinfo .userpass:hover, 
+#userinfo .userpass:focus {
+    nd: #087eca;
+    text-decoration: none;
+}
+#userinfo .iconfont {
+    font-size: .2rem;
+}
+#userinfo .userview {
+    top: .5rem;
+    left: -.6rem;
+}
+#userinfo .userpass {
+    top: .5rem;
+    right: -.6rem;
+}
+
+.navlist {
+    display: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+/*资料管理*/
+input.sms,
+input#repwdSms,
+input#repwdMail {
+    width: 65%;
+}
+input#sendMess,
+input#sendMailMess {
+    margin-left: 2%;
+    width: 33%;
+    height: .38rem;
+    font-size: .14rem;
+}
+
+/*邮件列表*/
+.mail .title {
+    padding: .05rem 0;
+}
+.mail a {
+    color: #ff9c00;
+}
+.mail .title .iconfont {
+    font-size: .5rem;
+}
+.mail .title span {
+    font-size: .14rem;
+}
+.mail a .money {
+    line-height: 1.6em;
+    font-size: .26rem;
+    font-weight: bold;
+}
+@media (max-width: 375px) {
+    .mail .title span {
+        font-size: .12rem;
+    }
+    .mail a .money {
+        line-height: 2em;
+        font-size: .22rem;
+    }
+}
+
+/*汇款样式*/
+.mail .rem-info,
+.mail .award-info {
+    height: .3rem !important;
+    line-height: .3rem !important;
+    border-top: 1px dashed #eee;
+    background: #fdfdfd;
+    overflow: hidden;
+}
+.mail .rem-info.down {
+    height: auto !important;
+}
+.mail .rem-info .title,
+.mail .award-info .title {
+    padding: 0 !important;
+    color: #a4a4a4;
+}
+.mail .rem-info .info,
+.mail .award-info .info {
+    position: relative;
+    padding: 0 .15rem !important;
+    color: #666;
+}
+.mail .rem-info .info .more,
+.mail .award-info .info .more,
+.mail .award-list .info .more {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: .3rem;
+    height: 100%;
+    text-align: center;
+}
+.rem-info .info .more .iconfont,
+.award-info .info .more .iconfont,
+.award-list .info .more .iconfont {
+    position: static;
+    font-size: .14rem;
+    font-weight: bold;
+}
+.rem-info .up {
+    display: none;
+}
+/*订单*/
+.mail .pay-info {
+    padding: 0 .15rem;
+    min-height: .3rem !important;
+    line-height: .3rem !important;
+    border-top: 1px dashed #eee;
+    background: #fdfdfd;
+    overflow: hidden;
+}
+
+/*提现列表*/
+.get-title {
+    position: relative;
+    height: .5rem;
+    line-height: .5rem;
+}
+/*奖金表详细信息*/
+.award-list {
+    display: none;
+}
+.award-list dd {
+    height: .3rem !important;
+    line-height: .3rem !important;
+    border-top: 1px dashed #eee;
+    background: #fdfdfd;
+    overflow: hidden;
+}
+.award-list dd .title {
+    padding: 0 !important;
+    color: #a4a4a4;
+}
+.award-list dd .info {
+    position: relative;
+    padding: 0 .15rem !important;
+    color: #666;
+}
+.award-info .up {
+    display: none;
+}
+
+pre {
+    display: none;
+}
+
+/*产品*/
+.product {
+    padding: .1rem;
+    background: #fff;
+}
+.product dt {
+    float: left;
+    width: 40%;
+    text-align: center;
+}
+.product dt img {
+    padding: .02rem;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid #ccc;
+}
+.product dd {
+    float: left;
+    padding-top: .15rem;
+    width: 60%;
+    height: 1rem;
+    line-height: .25rem;
+    font-size: .14rem;
+}
+.product dd p {
+    width: 100%;
+    height: 2em;
+    overflow: hidden;
+}
+
+.productimg {
+    padding: .2rem .1rem;
+    text-align: center;
+}
+.productimg img {
+    padding: .05rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 1px solid #ccc;
+}
+
+/*购物车*/
+dl.shopping dd {
+    height: auto !important;
+}
+dl.shopping .title {
+    padding: .2rem 0;
+}
+dl.shopping .product-show {
+    padding: .02rem;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid #ccc;
+}
+.shopping .info table {
+    width: 100%;
+    line-height: 1.5em;
+    font-size: 14px;
+}
+.shopping .shopkey {
+    width: 50%;
+    text-align: right;
+}
+.shopping .shopval {
+    text-align: left;
+}
+.shopping .shopval .input-num {
+    width: .4rem;
+    text-indent: .02rem;
+    border: 1px solid #ccc;
+}
+
+/*支付*/
+.pay-info {
+    padding: .15rem;
+    background: #fff;
+}
+.pay-info .pay-table {
+    width: 100%;
+    line-height: 1.5em;
+    font-size: .16rem;
+    border: 1px dashed #ccc;
+}
+.pay-table li {
+    float: left;
+    width: 25%;
+}
+.pay-table .paykey {
+    width: 55%;
+    text-indent: .05rem;
+}
+.pay-table .payval {
+    font-weight: bold;
+    color: #3bb4f2;
+}
+.pay-table .total .payval {
+    color: #e74c3c;
+}
+
+/*会员升级*/
+.product-table th {
+    height: .5rem;
+    font-size: .12rem;
+}
+.product-table td {
+    text-align: center;
+}
+.product-td1 {
+    width: .3rem;
+}
+.product-td2 {
+}
+.product-td3 {
+    padding: .01rem;
+}
+.product-td3 img,
+.product-td4 img {
+    width: .5rem;
+    height: .5rem;
+    border: 1px solid #eee;
+}
+.product-td4 {
+}
+.product-td4 input {
+    border: 1px solid #ddd;
+}
+.product-td5 {
+}
+.product-td6 {
+}
+.productSelect {
+    color: #fff;
+    background: #ff9c00;
+    border: 1px solid #ff9c00 !important;
+}
+div[id^=productCategory_] {
+    float: left;
+    padding: 0 .05rem;
+    margin: 0 .03rem;;
+    border: 1px solid #ddd;
+    border-radius: .03rem;
+    cursor: pointer;
+}
+

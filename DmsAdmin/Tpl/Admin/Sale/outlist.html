@@ -1,0 +1,120 @@
+<?php
+ini_set('display_errors', 1);
+header("Content-Type: application/vnd.ms-excel; charset=gb2312");
+header("Content-Disposition: attachment; filename=\"excel_5.xls\"");   
+?>
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="ProgId" content="Excel.Sheet"/>
+  <meta name="Generator" content="WPS Office ET"/>
+
+  <link rel="File-List" href="filelist.xml"/>
+
+ </head>
+ <style id="print_style">
+.sallist {border-collapse:collapse;border:1px solid #000000;margin-top:7px;}
+.sallist td{border:1px solid #000000;font-size:14px;}
+.tdborder{padding:0px;border:.5pt solid windowtext} 
+.STYLE1 {font-size: 25px;font-weight: bold;text-decoration: underline;}
+</style>
+ <body link="blue" vlink="purple">
+ <table width="800">
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-weight:bold;font-size:25px;text-aign:center;">会员产品订单</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	会员编号：{$vo.编号}	&nbsp;&nbsp;&nbsp;电话：{$vo.联系电话}&nbsp;&nbsp;&nbsp;地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;发货日期：<if condition="$vo['发货日期']">{$vo.发货日期|date='Y-m-d H:i:s',###}<else />未发货</if>
+	</td>
+</tr>
+<tr>
+<notempty name='productdata'>
+<!--列表-->
+<td style="margin:0 auto;margin-bottom:5px;">
+<table width="730" align="center" class="sallist" cellpadding="1" cellspacing="1">
+<tr>
+    <td  align="center"  style='border:.5pt solid windowtext;' x:str>序号</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>品名</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>单位</td>
+	<td align="center"  style='border:.5pt solid windowtext;' x:str>单价</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>数量</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>重量（kg）</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>pv</td>
+	</if>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>合计金额</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>合计pv</td>
+	</if>
+</tr>
+<php>
+$i=1;
+$shuliang=0;
+$zhongliang=0;
+</php>
+<foreach name="productdata" item="paydata">
+
+<tr>
+    <td  align="center"  style='border:.5pt solid windowtext;' x:num>{$i}</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>{$paydata['名称']}</td>
+	<if condition="$paydata['规格']">
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>{$paydata['规格']}</td>
+	<else />
+	<td  align="center"  style='border:.5pt solid windowtext;' x:str>无</td>
+	</if>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['价格']}</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['数量']}</td>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['总重量']}</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['PV']}</td>
+    </if>
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['总价']}</td>
+	<if condition="$pvshow eq true">
+	<td  align="center"  style='border:.5pt solid windowtext;' x:num>{$paydata['总PV']}</td>
+    </if>\
+</tr>
+<php>
+$zhongliang+=$paydata['总重量'];
+$shuliang+=$paydata['数量'];
+$i++;
+</php>
+</foreach>
+<tr>
+	     <td colspan="<if condition="$pvshow eq true">6<else />4</if>" style="border:.5pt solid windowtext;text-align:right">实付款：{$vo.实付款}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇总：</td>
+	            <td style="border:.5pt solid windowtext;text-align:center">{$shuliang}</td>
+	            <td style="border:.5pt solid windowtext;text-align:center">{$zhongliang}</td>
+				<td style="border:.5pt solid windowtext;text-align:center">{$vo.购物金额}</td>
+				<if condition="$pvshow eq true">
+				<td style="border:.5pt solid windowtext;text-align:center">{$vo.购物PV}</td>
+				</if>
+</tr>
+</table></td>
+</notempty>
+</tr>
+
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+	<span style="font-weight:bold;font-size:16px">发货信息：</span>
+	
+	</td>
+</tr>
+<tr>
+	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
+收货人：{$vo.收货人}&nbsp;&nbsp;&nbsp;收货地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
+	&nbsp;&nbsp;&nbsp;
+		<php>
+	  //判断该系统是简化版还是豪华版 如果是简化版的话 则默认没有打印产品订单的功能
+   if(C('VERSION_SWITCH') == '0'){	 
+	</php>
+	快递:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
+	无</if>
+	<php>}</php>
+	<br/>
+	</td>
+</tr>
+</table>
+
+ </body>
+</html>

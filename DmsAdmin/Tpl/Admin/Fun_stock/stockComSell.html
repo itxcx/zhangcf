@@ -1,0 +1,64 @@
+<script language="JavaScript">
+function dialogAjaxDone1(json)
+{
+	DWZ.ajaxDone(json);
+
+	if (json.statusCode == DWZ.statusCode.ok)
+	{
+		navTab.reload('__URL__/shop:__XPATH__');
+	}
+}
+</script>
+<form action="__URL__/stockComSellSave:__XPATH__" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone1)">
+<table width="650px" class="list">
+<thead><tr><th colspan="3" style="text-align:left">&nbsp;<img src="__PUBLIC__/Images/stock_set.png" style="vertical-align:middle"/>&nbsp;&nbsp;{$stockname}挂单出售(<font color="red">此操作将出售符合条件的所有用户的{$stockname},并同步进行交易，请谨慎操作</font>)</th></tr></thead>
+<tbody>
+<!--<tr>
+<td  style="text-align:right;width:25%">用户{$stockname}最低出售:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" id="minnum" name="minnum" value="" size="10"></td>
+<td  style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;用户最低出售数量，如不限制，请留空</td>
+</tr>
+<tr>
+<td  style="text-align:right;width:25%">用户{$stockname}最高出售:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" id="maxnum" name="maxnum" value="" size="10"></td>
+<td  style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;用户最高出售数量，如不限制，请留空</td>
+</tr>-->
+ <thead>
+    <tr>
+     <th  style="text-align:left" colspan="4"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;挂单设置</th>
+    </tr>
+	</thead>
+<tr>
+<td  style="text-align:right;width:25%">一键挂单卖出数字公式分母:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" id="formula" name="formula" value="{$formula}" size="10"></td>
+<td  style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />&nbsp;（账户现有-不得超过的数字）/分母 </td>
+</tr>
+<tr>
+<td  style="text-align:right;width:25%">出售价格:<br><font color="red">(右侧说明仅供参考)</font></td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" id="sellprice" name="sellprice" value="" size="10"></td>
+<td  style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/notice.png" />
+当前价格：{$stockNowPrice}，<font color="red">如留空，默认使用此价格</font>
+<!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;买卖最低价格：{$stockLowPrice}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;买卖最高价格：{$stockHighPrice} -->
+</td>
+</tr>
+ <thead>
+    <tr>
+     <th  style="text-align:left" colspan="4"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;封顶设置<font color='red'>（不得超过的数字，高于此限制的才能一键挂单）</font></th>
+    </tr>
+	</thead>
+<foreach name="levels" item="level">
+<tr>
+<td  style="text-align:right;width:25%">{$level['name']}:</td>
+<td  style="text-align:left;width:20%">&nbsp;&nbsp;<input type="text" name="stockfd{$key}" value="{$level['max']}" size="10"></td>
+<td  style="text-align:left;">&nbsp;<if condition="$key eq 1"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;0代表不限制</if></td>
+</tr>
+</foreach>
+<tr>
+<td ></td><td><div class="buttonActive"><div class="buttonContent"><button type="submit" >确定</button></div></div>
+</div></td>
+<td ></td>
+</tr>
+</tbody>
+</table>
+</form>

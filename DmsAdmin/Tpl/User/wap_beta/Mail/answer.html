@@ -1,0 +1,22 @@
+<include file="Public:header" />
+<div id="view" class="content-box">
+    <form action="__GROUP__/Mail/answerSave" method="post">
+        <input name="id" value="{$list.id}" type="hidden">
+        <table class="table">          		
+            <tr>
+                <td class="tbkey">{:L('回复邮件')}：</td>
+                <td class="tbval">{$list.标题}</td>  
+            </tr>
+            <tr>
+                <td colspan=2><textarea name="answerContent" id="answerContent" class="textarea" placeholder="&para;&nbsp;邮件内容..."></textarea></td>
+            </tr>
+        </table>
+
+        <div class="content-box margin-t-4">
+            <button class="btn btn-default" type="submit">{:L('发表回复')}</button>
+        </div>
+    </form>
+</div>
+
+<include file="Public:footer" />
+    

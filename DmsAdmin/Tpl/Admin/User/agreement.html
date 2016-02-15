@@ -1,0 +1,34 @@
+<div class="pageContent" layoutH="0">
+<form method="post" action="__APP__/Admin/User/saveAgreement" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+		<table class="list" width="800px" style="margin-bottom:5px;margin-left:5px">
+		 <thead>
+		     <tr>
+				 <th  colspan="2" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;注册协议设置</th>
+		     </tr>
+		 </thead>
+		 <tfoot>
+			 <tr align="left">
+				<td  style="text-align:left">
+				<textarea id="agreementContent" name="agreementContent" style="width:700px;height:300px;">{$regAgreement}</textarea>
+						
+				</td>
+			 </tr>
+		 </tfoot>
+		</table>
+		<!--<div style="padding-left:30px">获得注册协议内容:  $regAgreement = $this->con->getnow("user")->getatt('regAgreement');</div>-->
+		 <div class="buttonActive" style="margin-left:400px;margin-top:5px;">
+				 <div class="buttonContent" >
+					<button type="submit">保存</button>
+				 </div>
+		 </div>
+	</form>
+</div>
+
+<script type="text/javascript"> 
+$(function(){
+KindEditor.create($("#agreementContent",navTab.getCurrentPanel()), {
+	allowFileManager : true,
+	afterBlur: function(){this.sync();}
+});
+})
+</script>

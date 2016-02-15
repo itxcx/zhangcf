@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{$SYSTEM_TITLE}</title>
+        <script  type="text/javascript"  src="__PUBLIC__/jquery-1.x.min.js"></script>
+        <script  type="text/javascript"  src="__TMPL__Public/js/Menu.js"></script>
+        <script  type="text/javascript"  src="__TMPL__Public/js/ValidateCommon.js"></script>
+        <script  type="text/javascript"  src="__TMPL__Public/js/Common.js"></script>
+        <script  type="text/javascript"  src="__TMPL__Public/js/DialogJS.js"></script>
+        <link  href="__TMPL__Public/style/Style.css"  type="text/css"  rel="stylesheet">
+        <link  href="__TMPL__Public/style/view.css"  type="text/css"  rel="stylesheet">
+        <script src="__PUBLIC__/js/transfer.js"></script> 
+    </head>
+    <body  huaban_collector_injected="true"  youdao="bind"  ryt11110="1">
+        <div  id="wrap">
+            <div  id="header">
+                <div  id="top">
+                    <div  id="logo">{$SYSTEM_COMPANY}</div>
+                    <div  id="loginInfo"><span  id="ctl00_lblUserName">{$userinfo.编号}</span> 欢迎登陆系统平台！ <a  href="__APP__/User/Mail/index">我的消息</a> <a  href="#" onclick="if(confirm('确认安全退出吗?')){window.location.href = '__APP__/User/Public/logout/';}">安全退出</a></div>
+                </div>
+                <div  class="clear"></div>
+                <div  id="menu">
+                    <ul  id="jsddm">
+                        <li><a  href="__GROUP__/Index/index">玩家首页</a></li>
+                        <foreach name="menu" item="vo" key="key"> 
+                        <li><a  href="javascript:void(0);">{$key}</a>
+                        <ul>
+                            <foreach name="vo" item="val">	
+                            <if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower) and $val['level'] eq 1">
+                            <li><a href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a></li>
+                            </if>
+                            </foreach>
+                        </ul>
+                        </li>
+                        </foreach>
+                        <li><a  href="#" onclick="if(confirm('确认安全退出吗?')){window.location.href = '__APP__/User/Public/logout/';}">安全退出</a></li>
+                    </ul>
+                </div>
+                <div id="bottom"></div>
+            </div>
+            <div  id="mainbody">
+                <br>
+                <div  id="adminICO">
+                    <ul>
+                        <li><a  href="__APP__/User/User/viewNotice"  class="nav1">
+                            <div>玩家公告</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Tle/index:tle"  class="nav2">
+                            <div>销售奖金</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Sale/reg:sale_reg[1]"  class="nav3">
+                            <div>注册账号</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/User/edit"  class="nav4">
+                            <div>帐号管理</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Mail/index"  class="nav7">
+                            <div>私人信箱</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Index/index"  class="nav9">
+                            <div>新手入门</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Index/index"  class="nav5">
+                            <div>帮助中心</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/User/setPass"  class="nav6">
+                            <div>帐号安全</div>
+                        </a></li>
+                        <li><a  href="__APP__/User/Index/index"  class="nav8">
+                            <div>系统设置</div>
+                        </a></li>
+                    </ul>
+                </div>
+                <div id="main_content">

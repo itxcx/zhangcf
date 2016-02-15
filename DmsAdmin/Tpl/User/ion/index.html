@@ -1,0 +1,167 @@
+<include file="Public:header" />
+<link href="__TMPL__Public/js/lanrenzhijia.js" rel="stylesheet" type="text/css">
+<link href="__TMPL__Public/css/lanrenzhijia.css" rel="stylesheet" type="text/css">
+
+<div id="content" style="opacity: 1;">
+  <style type="text/css">
+.index_new{overflow:hidden;}
+.text-scroll {list-style:none; padding: 0 0 0 10px ; height:20px; line-height: 20px;}
+.well_wallet{ border-radius: 0; color:#fff; overflow: hidden;}
+.well_wallet h2{ font-weight: bold; }
+.well_wallet p{font-size:26px; text-align:right;}
+.icon_wallet{position:absolute; font-size: 120px; bottom: -70px; left: -0px; opacity: .7;}
+</style>
+  <div class="row">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+      <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> 首页 &gt;<span> 我的首页</span></h1>
+    </div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
+      	<ul id="sparks" class="">
+            <li class="sparks-info">
+             <!--   <h5><span>上市股数</span><span class="txt-color-blue" id="account_balance">$544</span></h5>--->
+            </li>
+			<li class="sparks-info">
+				<h5><span>账户:</span><span class="txt-color-blue " style="width:200px;" id="currentprice"><i class="fa fa-group"></i>&nbsp;{$userinfo['编号']}</span></h5>
+			</li>
+		<!--	<li class="sparks-info">
+				<h5> 剩余額度 <span class="txt-color-blue " id="yeji"><i class="fa fa-truck"></i>&nbsp;$785000</span></h5>
+			</li>-->
+		</ul>
+    </div>
+  </div>
+  <style type="text/css">
+
+</style>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-info clearfix index_new"> <span class="pull-left">最新通知:</span>
+        <ul class="pull-left text-scroll" style="direction: ltr; font-size: 13px; color: rgb(0, 0, 0);">
+          <li><a href="#" ></a></li>
+          <foreach name="notice" item="n" >
+            <li style="display: none;"><a href="__GROUP__/User/shownotice/id/{$n.id}" >{$n.标题}</a></li>
+          </foreach>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <foreach name="funbank" item="fun_bank" key="key">
+      <div class="col-sm-3" style="width:20%">
+        <div class="well well_wallet" style="background-color: {$color[array_rand($color,1)]}">
+          <h2>{$fun_bank.name}</h2>
+          <p><span>余额</span>：<span>{$fun_bank.num}</span></p>
+          <div class="icon_wallet"> <i class="fa fa-dollar"></i> </div>
+        </div>
+      </div>
+    </foreach>
+  </div>
+  <!-- widget grid -->
+<section id="widget-grid" class="">
+	
+
+	
+    <!-- row -->
+
+    
+    <div class="row">
+    	<article class="col-md-12">
+            <!-- well -->
+            <div class="well">
+                <div id="myCarousel-2" class="carousel fade">
+                    <ol class="carousel-indicators">
+                    	<foreach name="img" item="val" key="k">
+                    		<if condition="$k eq 0" >
+                        		<li data-target="#myCarousel-2" data-slide-to="{$k}" class="active"></li>
+                        	<else/>
+                        		<li data-target="#myCarousel-2" data-slide-to="{$k}" class=""></li>
+                        	</if>
+                        </foreach>             
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <!-- Slide 1 -->
+                    	<foreach name="img" item="val" key="k">
+                    		<if condition="$k eq 0" >
+	                        	<div class="item active">
+	                            	<a href="#"><img src="{$val.imgpath}" alt="{$val.title}"></a>
+	                        	</div>
+	                        <else/>
+	                        	<div class="item">
+	                            	<a href="#"><img src="{$val.imgpath}" alt="{$val.title}"></a>
+	                        	</div>
+	          				</if>
+						 </foreach> 
+
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel-2" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+                    <a class="right carousel-control" href="#myCarousel-2" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+                </div>
+
+            </div>
+            <!-- end well-->
+
+		</article>
+    </div>
+	
+	<!-- end row -->
+
+	<!-- row -->
+
+
+
+	<!-- end row -->
+
+</section>
+  <!-- end widget grid -->
+  <script type="text/javascript">
+	// DO NOT REMOVE : GLOBAL FUNCTIONS!
+	$(document).ready(function()
+	{				
+		var exist_gift = "";
+		if(0 < Number(exist_gift))
+		{
+			$("#index_notice_gift").removeClass("hide");
+		} 
+	});
+
+   loadScript("__TMPL__Public/js/inewsticker.js", text_scroll);
+    
+    function text_scroll()
+    {
+        $('.text-scroll').inewsticker({
+            speed           : 3000,
+            effect          : 'slide',
+            dir             : 'ltr',
+            font_size       : 13,
+            color           : '#000',
+            delay_after : 5000,
+        });
+    }
+	
+</script>
+</div>
+
+
+<div id="floatTools" class="lanrenzhijia-cs">
+  <div class="floatL"> <a style="display: block" id="aFloatTools_Show" class="btnOpen" title="查看在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show(); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" href="javascript:void(0);"> 展开</a>
+  
+  
+  
+   <a style="display: none" id="aFloatTools_Hide" class="btnCtn" title="关闭在线客服" onClick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide(); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" href="javascript:void(0);"> 收缩</a> </div>
+  <div id="divFloatToolsView" class="floatR" style="display: none">
+    <div class="cn">
+      <h3 class="titZx">在线客服</h3>
+      <ul>
+      <foreach name="SERVICE_QQ" item="vo" >
+        <li><span>客服</span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$vo}&site=qq&menu=yes"> <img border="0" src="http://wpa.qq.com/pa?p=2:{$vo}:51" alt="客服1" title="客服1" /></a> </li>
+    </foreach>
+
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,185 @@
+<notempty name="username">
+<form action="__URL__/applysave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" class="list">
+	<tbody>
+	<tr >
+		<td width="100" align="right">编号:</td>
+		<td width="300" style="text-align:left">{$username}</td>
+	</tr>
+	<tr >
+        <td align="right"><nobr>购买日期：</nobr></td>
+        <td style="text-align:left"><nobr><if condition="$saleData['购买日期']">{$saleData.购买日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+    </tr>
+    <if condition="$saleData['到款日期'] gt 0">
+    <tr >
+        <td align="right"><nobr>到款日期：</nobr></td>
+        <td style="text-align:left"><nobr><if condition="$saleData['到款日期']">{$saleData.到款日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+    </tr>
+    </if>
+    <if condition="$saleData['发货日期'] gt 0">
+    <tr >
+        <td align="right"><nobr>发货日期：</nobr></td>
+        <td style="text-align:left"><nobr><if condition="$saleData['发货日期']">{$saleData.发货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+    </tr>
+    </if>
+	<if condition="$saleData['收货日期'] gt 0">
+    <tr >
+        <td align="right"><nobr>收货日期：</nobr></td>
+        <td style="text-align:left"><nobr><if condition="$saleData['收货日期']">{$saleData.收货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+    </tr>
+    </if>
+    <tr >
+        <td align="right"><nobr>报单类别：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.报单类别}</nobr></td>
+    </tr>                
+    <tr >
+        <td align="right"><nobr>报单状态：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.报单状态}</nobr></td>
+    </tr>
+    <if condition="$saleData['报单金额'] neq 0">
+    <tr >
+        <td align="right"><nobr>报单金额：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.报单金额}</nobr></td>
+    </tr>
+    </if>
+
+    <if condition="$saleData['产品'] eq 1">
+        <tr >
+            <td align="right"><nobr>购物金额：</nobr></td>
+            <td style="text-align:left"><nobr>{$saleData.购物金额}</nobr></td>
+        </tr>
+        <if condition="$adminshow eq true">
+        <tr >
+            <td align="right"><nobr>购物PV：</nobr></td>
+            <td style="text-align:left"><nobr>{$saleData.购物PV}</nobr></td>
+        </tr>
+        </if> 
+    </if>
+    <tr>
+        <td align="right"><nobr>回填金额：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.回填金额}</nobr></td>
+    </tr>
+    <if condition="$saleData['物流费'] gt 0">
+	<tr>
+		<td align="right">产品重量：</td>
+		<td style="text-align:left">{$saleData['产品总重量']}</td>
+	</tr>
+	<tr>
+		<td align="right">物流费：</td>
+		<td style="text-align:left">{$saleData['物流费']}</td>
+	</tr>
+	</if>
+	<if condition="$saleData['发货方式'] neq ''">
+	<tr>
+		<td align="right">发货方式：</td>
+		<td style="text-align:left">{$saleData['发货方式']}</td>
+	</tr>
+	</if>
+	<if condition="($saleData['产品'] eq 1) or (adminshow('baodan_wuliu') eq true)">
+    <tr >
+        <td align="right"><nobr>收货人：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.收货人}</nobr></td>
+    </tr>
+    <tr >
+        <td align="right"><nobr>联系电话：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.联系电话}</nobr></td>
+    </tr>
+    <tr >
+        <td align="right"><nobr>收货地址：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.收货省份}{$saleData.收货城市}{$saleData.收货地区}{$saleData.收货街道}{$saleData.收货地址}</nobr></td>
+    </tr>
+    <tr >
+        <td align="right"><nobr>物流状态：</nobr></td>
+        <td style="text-align:left"><nobr>{$saleData.物流状态}</nobr></td>
+    </tr>
+    </if>
+   	<if condition="$saleData['快递公司'] neq ''">
+	<tr>
+		<td align="right">快递公司</td>
+		<td style="text-align:left">{$saleData.快递公司}</td>
+	</tr>
+	<tr>
+		<td align="right">快递单号：</td>
+		<td style="text-align:left">{$saleData.快递订单}</td>
+	</tr>
+	<tr>
+		<td align="right">快递备注：</td>
+		<td style="text-align:left">{$saleData.快递备注}</td>
+	</tr>
+	</if>
+	<tr>
+		<td align="right">转正方式：</td>
+		<td style="text-align:left">
+			<input name="uid" type="hidden" value="{$username}"/>
+			<select name="type" onchange="checktype(this)" id="typec">
+				<notempty name="backfill"><option value="回填转正">回填转正（奖金回填）</option></notempty>
+				<option value="立即转正">立即转正（扣除货币或现金）</option>
+			</select>
+		</td>
+		<tr id='accbank'>
+			<td align="right">转正扣币：</td>
+			<td style="text-align:left"><select name="accbank">
+				<option value="">不扣币</option>
+				<foreach name="banks" item="bankname" key="bankkey">
+				<option value="{$bankkey}">{$bankname}</option>
+				</foreach>
+				</select>
+			</td>
+		</tr>
+	</tr>
+	<tr>
+		<td colspan="2">
+		  <div class="buttonActive" style="margin-left:180px;">
+		      <div class="buttonContent" >
+		        <button type="submit">确认</button>
+		      </div>
+		  </div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</form>
+<else/>
+<form onsubmit="return addapply()">
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" class="list">
+	<tbody>
+	<tr >
+		<td width="100" align="center">编号:</td>
+		<td width="300" style="text-align:left"><input type="text" name="uid" id="uid"/></td>
+	</tr>
+	</tbody>
+	<tr>
+	<td colspan="2">
+	  <div class="buttonActive" style="margin-left:180px;">
+	      <div class="buttonContent" >
+	        <button type="button" onclick="edit()">下一步</button>
+	      </div>
+	  </div>
+	</td>
+	</tr>
+</table>
+</form>
+</notempty>
+<script>
+if('{$username}'!=''){
+	checktype($("#typec"))
+	function checktype(e){
+		if(e.val()=="立即转正"){
+			$("#accbank").show();
+		}else{
+			$("#accbank").hide();
+		}
+	}
+}
+function edit(){
+	//var userid=$('#uid').val();
+	var userid=$('#uid',navTab.getCurrentPanel()).val();
+	if(userid==''){
+		alertMsg.error('编号不能为空!');
+		return false;
+	}
+	
+	navTab.reload('__URL__/addapply/uid/'+userid);
+	return false;
+}
+</script>

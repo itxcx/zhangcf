@@ -1,0 +1,760 @@
+<con>
+<!--
+XML文档约定
+1.在XML节点属性中,不允许出现小于号,如果要在属性中表示一个小于号,要使用">>"来表示,如果是不等于,则用>>>
+2.tleset中定义的输入name值,可以在user内部的节点属性中用#xxx#做动态替换
+3.注释中出现类似  @package xxx _yyy   的内容,表示嵌套配置的说明
+  <xxx>
+      <_yyy .../>
+  </xxx>
+
+@package    user   用户公共节点
+@param      string $name      '会员' 系统对会员的名称
+@deprecated bool   $unaccLog  false  未审核会员是否允许登入系统(false)
+@param      bool   $agreement false  是否开启注册协议
+@param      bool   $allInTle  false  未产生奖金和业绩的会员,是否也要插入一条奖金记录
+@param      bool   $shop      false  是否存在服务中心功能
+@param      string $shopwhere ''     可以申请服务中心的条件
+@deprecated bool   $idExp     ''     会员编号输入格式验证正则如果为空则按照/^[A-Za-z0-9]*$/执行
+-->
+<user name="会员" >
+	<!--
+	@package product 产品节点，用于开启产品分类添加，并在sale_*模块中的productName属性中使用使用
+	@param   string $name 产品名称
+		@package product _con
+		@param   string $name 字段名称 在产品表中增加一个独立的字段，用于一些定制化需求
+	-->
+	<product name="产品">
+	</product>
+	<product name="商城产品">
+	</product>
+	<!--
+	@package levels 级别模块
+	@param   string $name       ''     级别名称
+	@param   bool   $calStart   true   日结前执行自动升级
+	@param   bool   $calEnd     false  日结后执行自动升级
+	@param   bool   $scalStart  true   秒结前执行自动升级
+	@param   bool   $scalEnd    false  秒结后执行自动升级
+	@param   bool   $onlylevel  false  一次只能升一级
+	@param   bool   $area       false  注册使用此级别，要设置具体代理区域，如果客户有要求，有按照地域性关系设置的代理级别。则需要开启这个选项
+		$package levels _con
+		@param   string   $name    ''  具体级别名称
+		@param   bool     $use     ''  此级别是否启用
+		@param   int      $lv      0   级别标号，一般用10 20 30这样来定义，方便在后期插入新级别，在会员同级名称中体现
+		@param   float    $money   0   使用此级别的实扣款项，会在报单表"实付款"中体现
+		@param   float    $pvmoney 0   使用此级别的报单表"报单金额"中体现
+		@param   int      $number  1   订单倍数，如果设置为2,那么实际money和pvmoney都会按照2倍来实际处理，对应报单中的
+		                               "报单单数"字段
+		@param   float    $pv      0   报单PV，属于另外一种业绩，在报单表的"报单pv"字段中体现，一般有级别业绩和级别PV
+		                               ，并有对PV的判定时才需要用到
+		@param   string   $where   ''  自动升级条件，具体条件
+                                       {down,推荐,会员级别>=2,>=2}        推的下级会员的会员级别>=2的人数要>=2
+                                       {per,推荐,推荐_团队人数,1,>=30}    推荐的下级会员中存在 推荐_团队人数最大（1）且推荐_团队人数人数>=30
+                                       {place,安置,2,>=100}               会员安置网下 第2大区的业绩>=100最多只支持三个区荐
+                                       {all,推荐,会员级别>=1,>2}          推荐网体下满足会员级别>=1的团队数>2
+        @param   string  $area     ''  在levels的area属性开启后使用
+                                       "town"     乡镇级代理
+                                       "county"   区县级
+                                       "city"     市级代理
+                                       "province" 省级代理
+                                       "country"  全国代理
+        @param   int     $only     1   如果是levels的area属性开启的话，表示特定代理级别最多只能有N个人
+	-->
+	<levels name='会员级别'>
+		<_con lv='1' name='消费者'     pvmoney='#lv1money#'  money='#lv1money#' />
+		<_con lv='2' name='普通经销商' pvmoney='#lv2money#'  money='#lv2money#' />
+		<_con lv='3' name='主级经销商' pvmoney='#lv3money#'  money='#lv3money#' />
+		<_con lv='4' name='经理经销商' pvmoney='#lv4money#'  money='#lv4money#' />
+	</levels>
+	<levels name='管理级别'>
+		<_con lv='1' name='无级别'   pvmoney='0' money='0' where=""/>
+		<_con lv='2' name='普通宝石' pvmoney='0' money='0' where="{down,推荐,管理级别>=1,>=2}"/>
+		<_con lv='3' name='一星宝石' pvmoney='0' money='0' where="{per,推荐,推荐_团队人数,1,>=20}"/>
+		<_con lv='4' name='二星宝石' pvmoney='0' money='0' where="{full,管理,2}"/>
+		<_con lv='5' name='三星宝石' pvmoney='0' money='0' where="{place,管理,2,>=100000}"/>
+		<!--
+		
+		{standard,考核模块名称,考核达标月份,总考核月份}
+		如果总考核月份大于考核达标月份，则认为是非连续累计到指定月份即可
+		-->
+		<_con lv='6' name='四星宝石' pvmoney='0' money='0' where="{standard,考核,3}"/>
+		<_con lv='7' name='五星宝石' pvmoney='0' money='0' where="{standard,考核,4,12}"/>
+		</levels>
+	<levels name='代理级别' area="true">
+		<_con lv='1' name='无'       pvmoney='0' money='0' />
+		<_con lv='2' name='乡镇代理' pvmoney='0' money='0' area="town"     only="1"/>
+		<_con lv='3' name='区县代理' pvmoney='0' money='0' area="county"   only="1"/>
+		<_con lv='4' name='市代理'   pvmoney='0' money='0' area="city"     only="1" />
+		<_con lv='5' name='省代理'   pvmoney='0' money='0' area="province" only="1" />
+		<_con lv='6' name='全国代理' pvmoney='0' money='0' area="country"  only="1" />
+	</levels>
+	<!--
+		@package accbank 扣款方式
+		@param  string $name '' 扣款方式名称，此名称用于sale_*节点中的accbank属性使用
+            @package accbank _bank
+		    @param  string $minval '100%' 此货币最小使用占比或固定金额,如果结尾带%则认为是比例
+		    @param  string $maxval '100%' 此货币最大使用占比或固定金额,如果结尾带%则认为是比例
+		    @param  bool   $extra  false  此扣款是否作为额外的一笔扣除费用，如果
+		    使用多个_bank设置，可以进性多种货币联合支付
+		    扣款配置在订单生成时会做保存即便后期修改了_bank配置，之前的订单审核也会按照之前的配置进性
+		    扣款配置数据会在订单生成时以序列化json的形式存储到dms_报单表当中
+			支付完成后会生成每个货币的实际支付金额，记录到订单中，退款时会根据这个数据对每个货币相对应的退款
+	-->
+	<accbank name='常规扣款'>
+		<_bank name="电子货币" minval='100%' maxval='100%' />
+	</accbank>
+	<fun_val name="两层人数"/>
+	<!--
+	@package sale 订单节点
+	@param   $name             ''         报单类型 对应报单表中的 报单类型字段
+	@param   $byname           ''         别名,对应报单表中的byname字段
+	@param   $user             ''         admin或者 会员,未来有可能会改为isadmin属性.
+	@param   $lvname           ''         级别名称,填写levels的name值
+	@param   $setlv            true       报单时所用的级别,注册和升级,根据级别确定价格,购物消费可能会用于确定折扣,必填
+	@param   $use              true       此报单功能是否可用,在一些活动期间增加临时订单,如需撤销只需要设定此值即可,
+	                                      尽量不要删除节点
+	                                      
+	@param   $levelUp          false      订单执行成功后。是否调动自动升级
+	@param   $setmoney         false      是否允许注册时填写报单金额,如果开启,订单生成后,报单金额会设为所填写的值
+	@param   $setpv            false      是否允许设置报单PV,订单生成后,报单PV会设为所填写的值
+	@param   $setNumber        false      是否允许设置单数
+	@param   $money            -1         是否强制设定实付款
+	@param   $pv               -1         报单pv,-1表示不启用
+	@param   $pvmoney          -1         报单pvmoney,-1表示不启用
+	@param   $confirm          true       是否确认,订单操作是否为有效状态,如果为false则订单报完以后为未确认状态
+	@param   $accBank          ''         订单如果进行货币扣除，设置accbank模块的name值
+	@param   $showRatio        false      在使用多中货币浮动比例进行货币支付时，会员是否可以手动调整
+	@param   $accBankLock      true       禁止在货币不足的情况下，将报单作为未审核状态成功申报
+	@param   $useracc          true       confirm为false时。在订单处于未审核状态下,会员界面是否能够对订单做审核
+	@param   $accby            ''         扣款计算设置 如: [购物金额]*90%+[购物PV]*0.1+[报单金额]+[报单PV]*10)
+	@param   $nullMode         false      空点模式,如果开启,则注册订单的报单金额,报单PV都为0,并且会员表中的"空点"字段为1
+	@param   $fromNoName       ''         服务中心标题,如果设置不为空则会在注册期间显示一个额外表单,
+	                                      一般填写为服务中心或者专卖店,如果不填写,则报单表中的报单来源字段为当前所操作的平台
+                                          如"admin_管理员名","会员_注册操作登入的会员编号
+                                          
+	@param   $fromNoWhere      ''         表示指定来源编号的条件,架设设置会员级别大于2的会员才能作为服务中心,
+	                                      则设置"[会员级别]>2"
+	                                      
+	@param   $pass2            false      操作订单时是否要验证自己的二级密码
+	@param   $pass3            false      操作订单时是否要验证自己的三级密码
+	@param   $productName      ''         所使用的产品节点的名称,设置该节点则调用产品模块
+	@param   $productMoneyInt  0          产品金额整数倍必须为多少的整数倍
+	@param   $productMoneyMode 2          产品验证模式 0不验证 1必须与报单金额相等 2必须大于等于报单金额
+	@param   $productMoney     价格       产品使用的价格,如会员价等,增加价格字段在product节点的_con配置
+	@param   $productPV        true       是否增加产品PV
+	@param   $extra            false      是否再填写物流,不填写则用用户表中的信息
+	@param   $dispWhere        ''         此订单操作的条件，如果当前会员不符合条件，则不显示，
+	                                      比如实现只有服务中心才能报单则可以设置为 "[服务中心]=1"
+	                                      
+	@param   $ledger           '报单金额' 计算奖金时汇总到总账里边的字段名，此属性需要注意，有一些如
+	                                      申请服务中心之类的订单,应设置为''要确认每种订单进总账是否都正确
+
+	@param   $defaultlv        1          如果setlv='false',则注册使用的默认级别
+	@param   $setlvmax         0          注册可以选的最小级别
+    @param   $logistic         false      开启物流费
+	setlvmin='0'(注册可选择的最小级别,根据levels中_con的lv标签来判定,0为不限)
+    @param   $adminAccDeduct   true 默认后台审核扣款
+
+    @package sale_reg    注册订单
+    
+    
+    @package sale_up     升级订单
+    @param   $deduct_acc       1    默认后台升级不扣货币 显示
+	@param   $point            0    默认后台升级产生业绩 显示
+
+    @package sale_buy    购物类订单
+    @param   $onlyMsg    ''      订单只能报一次，如果报第二次则会出现此提示，此属性不为空即会触发判断
+    
+    	@package sale _addval    联动增加值操作,此类操作在tle,prize_...模块都存在，意义相同
+        @param   $from    ''     表示订单的字段名，比如要将订单中牟一个字段的值，增加到团队业绩，个人业绩
+                                 具体增加多少。可以写固定值，或者报单记录字段名，此报单生效后就会触发。
+                                 触发方式为sale的accok()到runconfirm()到salerunadd()到function.php的runadd方法
+                                 runadd函数找到$to属性同名的节点，调用其event_valadd方法，进性具体执行
+        @param   $to         ''  目标对象名，根据名称找到节点对象,不同的对象响应方式也不一样。会有备注介绍
+        
+        @param   $now        ''  此属性准备作废 已作废
+        @param   $isnull     0   用来判断当前节点用于空点或回填还是实点 0 表示用于实点;1 表示用于空点或回填单未转实单直接执行;2 表示用于空单或回填单转实单后执行。
+        						 
+        @param   $userwhere  ''  会员条件支持中括号,如果条件不符,则这个addval标签不会被执行,但不影响订单审核
+        @param   $salewhere  ''  报单条件支持中括号
+        
+        @package sale _lock      对订单的限制,谁有限制案例.希望提供.集成到XML说明中
+        @param   $where      ''  验证条件信息
+        @param   $msg        ''  验证不通过的提示信息
+        @param   $state      ''  提示信息位置,在报单时,提示信息一般是显示在某一个表单的后边.
+                                 页面会有很多id='state_xxx'的span节点,这里设置为xxx,提示信息会在
+                                 对应的节点显示出来
+        @package sale _discount  折扣率
+        @param   $where      ''  享受折扣的条件
+        @param   $val        1   折扣比例，1为全折
+	-->
+	<sale_reg lvName="会员级别" netname='推荐' name='前台注册' byname="会员注册" user='会员'  fromNoName='服务中心' fromNoWhere="[服务中心]=1" confirm="false" productname='产品' accbank="常规扣款" >
+		<_addval from='[报单金额]' to='管理'/>
+	</sale_reg>
+	<sale_reg lvName="会员级别" netname='推荐' name='后台注册' byname="会员注册" user='admin'  fromNoName='服务中心' fromNoWhere="[服务中心]=1" >
+		<_addval from='[报单金额]' to='管理' />
+		<_addval from='[报单金额]' to='管理'     set='1'/>
+		<_addval from='1' to='两层人数' _netname='管理' _minlayer='1' _maxlayer='2'/>
+	</sale_reg>
+	<sale_up name='前台升级' byname='会员升级' lvname='会员级别' user='会员'  accbank='常规扣款' productname="产品" extra="true">
+		<_addval from='[报单金额]' to='管理' now='1' />
+	</sale_up>
+	<sale_up name='后台升级' byname='会员升级' lvname='会员级别' user='admin' accbank='常规扣款'>
+		<_addval from='[报单金额]' to='管理' now='1' />
+	</sale_up>
+	<sale_up name='管理级别升级' byname='后台管理级别升级' lvname='管理级别' user='admin'>
+	</sale_up>
+	<sale_up name='前台代理升级' byname='代理升级' lvname='代理级别' user='会员' confirm="false" >
+	</sale_up>
+	<sale_up name='后台代理升级' byname='代理升级' lvname='代理级别' user='admin' unuse="true">
+	</sale_up>
+	<sale_buy lvName="会员级别" name='零售消费' user='会员' productname="产品" accbank="常规扣款">
+		<_addval from='[购物金额]*0.8' to='管理'  now='1'/>
+	</sale_buy>
+	<sale_buy lvName="会员级别" name='后台消费'  byname="零售消费" user='admin' lockme='false'  productname="产品" >
+		<_addval from='[报单金额]' to='个人业绩'/>
+	</sale_buy>
+	<!--
+	@package net 网络节点基类
+	@param      $name                ''     网络体系名称 
+	@param      $regDisp             true   在注册时是否显示,如不显示,注册成功后此网络层数为0,上级编号为空此会员不进网
+	@param      $nullUp              false  注册时填写的上级编号是否可以为无效会员
+	@param      $mustup              true   上级编号是否必填
+    @param      $shopNetDisp         true   店铺是否能显示网络图(后台可设置)
+    @param      $shopListDisp        true   店铺是否能显示网络图列表(后台可设置)
+    @param      $userNetDisp         true   店铺是否能显示网络图(后台可设置)
+    @param      $userListDisp        true   店铺是否能显示网络图列表(后台可设置)
+	@param      $adminNetLayer       4      后台单页查看层数
+	@param      $userNetLayer        4      前台会员单页查看层数,查看层数表示当前网络图页面可以一次性显示多少层的内容
+	@param      $shopNetLayer        4      前台店铺单页查看层数
+	@param      $userLookLayer       0      前台会员查看深度
+	@param      $shopLookLayer       0      前台会员查看深度
+	@param      $userNameDisp        true   姓名显示
+	@param      $userAnotherNameDisp true   别名显示
+	@deprecated $userauto            true   网络图默认显示分支节点,还是树形目(这名字要换掉)
+	
+	
+	
+	@package    net_rec     推荐关系网络节点
+	@deprecated $sumMode         true   已失效的属性
+	@param      $sumwhere        ''     能够计入上级推荐人数的条件
+	@param      $setNowUser      false  开启此属性.在前台注册时隐藏编号填写输入,并默认网络上级为当前登入会员 
+	@param      $maxUser         0      设置网络中每个人最多只能开展几个下级,比如设置每个人最多只能推荐N人 
+	@param      $maxusermsg      ''     如果注册时上级的下属数量已经达到了$maxuser所表示的数量,则根据此属性输出提示
+	@param      $nullRecer       true   空点是否算推荐人数
+		@package  net_rec _lock
+	    @param    $where    ''  会员作为新注册会员推荐的额外条件,比如特定级别才能推荐人
+	    @param    $msg      ''  如果不符合条件的提示
+	    @example  <_lock where='[会员级别]>>2' msg='推荐人级别必须为普通经销商以上'/>
+	-->
+	<net_rec name='推荐' nullRecer='true'>
+	</net_rec>
+	<!--
+	@package net_place    安置关系节点,请同时参考net的基类属性
+	@param   $Backfall       true    如果注册时上级所选区域已经存在会员,是否自动滑落 
+	@param   $addMinLayer    0       产生新业绩时向上累计的最小层数 
+	@param   $addMaxLayer    0       产生新业绩时向上累计的最大层数,0为不限 
+	@param   $setRegion      true    注册期间是否允许选择左右区,如果关闭,则按照先左后右的顺序找位置 
+	@param   $oneInLeft      false   推荐人推荐第一个人时是否要求放在此网络中最左边的位置,如果开启则$formNet需填写推荐网络名 
+	@param   $fromNet        ''      相关网络名称,用于自动排列,或者$oneInLeft设置
+	@param   $automode       ''      自动下滑模式,(min 1,fill 表示找小区一层,没有数字表示找小区无限层,fill表示从上到下从左到右排列) 
+	@param   $pvfun          true    业绩功能开关,如果关闭,系统则不再生成跟业绩有关的数据字段与功能
+	@param   $lockrec        false   安置人是否是推荐人的推荐网体下 
+	@param   $lockplace      false   安置人是否是推荐人的安置网体下
+	@param   $Sequence       false   注册时必须要按照从左到右的顺序进行
+	@param   event_valadd()          此模块响应addval方法向上产生业绩
+                                     addval操作支持min='true'参数，表示业绩进入自己的小区
+	                                 addval操作支持set='1'   参数，表示执行进网操作，而非业绩处理
+	    @package net_place _region
+	    @param   $name     ''   区域信息,如左中右或ABCDEF字母
+	    @param   $where    ''   可以开通此区域的会员条件,比如达到多少条件之后可以开C区
+	-->
+
+	<net_place name='管理' fromnet='推荐' pvfun='true'>
+		<_region name='左'/>
+		<_region name='右' where='{myrec}'/>
+	</net_place>
+	<!--
+	@package fun_fuli   福利奖模块,是会员达到某种标准之后,进行一次性实物奖励
+	                    福利奖模块,会在结算完成之后被调用一次
+	@param   $name   ''  模块名称
+		@package fun_fuli _con
+		@param   $name   ''  奖励名称
+		@param   $where  ''  获奖条件
+	-->
+	<fun_fuli name="福利奖">
+		<_con name='出国旅游' where='[累计收入]>=10000'/>
+	</fun_fuli>
+	<!--
+	@package fun_bank   货币节点,此节点是系统中非常重要的节点
+	@param  $name             ''    货币名称
+	@param  $allowBack        true  提现是否允许撤销
+	@param  $allowBack_apply  false 提现是否允许撤销的申请
+	@param  $userListDisp     true  是否允许会员查看明细
+	@param  $getMoneyWhere    ''    提现条件
+	@param  $getMoneyMsg      ''    提现不满足条件的提示
+	@param  $giveMoneyWhere   ''    转账满足的条件
+	@param  $giveMoneyMsg     ''    转账不满足条件的提示
+	@param  event_valadd()          此模块响应addval方法产生金额
+		                            支持的额外参数
+		                            bankmode   ''  进入货币的类型 
+		                            bankmemo   ''  进入货币的备注信息
+	-->
+	<fun_bank name='电子货币' allowBack='true'/>
+	<fun_bank name='消费货币' />
+	<fun_bank name='游戏钱包' />
+	<!--
+	@package fun_lock 此模块可以在会员表中创建一个同名字段，并在后台会员编辑中出现一个开关项
+	@param   $name            ''    名称
+		<fun_lock name='店铺功能'/>
+	-->
+
+	<!--
+	@package fun_treenum 网络业绩节点，统计某一个区的业绩
+	@param    $name     ''    节点名称
+    @param    $netName  ''    统计网络业绩的网络关系名
+    @param    $haveMe   false 业绩是否包含自己,比如A推荐B,B在执行时,B的团队业绩是否也增加
+	@param    $minLayer 0     累计业绩最小层数
+	@param    $maxLayer 0     累计业绩最大层数 0表示无限
+	@param  event_valadd()          此模块响应addval方法产生金额
+		                            支持的额外参数
+		<fun_treenum name='消费团队业绩' netName='推荐'/>	                            无
+	-->
+
+	<!--
+	@package fun_val自定义字段节点,一般用于一些定制化目的存储的字段
+	@param   $name     ''              字段名称 
+	@param   $mode     'numeric(10,2)' 字段类型,暂时只有数值类型numeric(10,2)
+	@param   $default  '0'             默认值
+	@param  event_valadd()             此模块响应addval方法对现有字段值做自增
+		                               支持的额外参数
+		                               无
+		                            
+		@package fun_val _con 可以让这个字段自动根据一些条件进行计算处理,比如要得到计算时用到的一些值
+		                      _con设置项,只开启了日结启动.因为考虑到效率问题.秒结请使用其他方式进行实现
+		@param   $val     ''              值表达式,此表达式是通过SQL语句执行,如果使用函数,请要注意不能使用PHP函数
+		@param   $where   'numeric(10,2)' 字段类型,暂时只有数值类型numeric(10,2)
+		@example 有效一级会员,此字段设置为1
+		         <_con val='1' where="[会员级别]=1 and [状态]='有效'"/>
+		         有效二级会员,此字段设置为2
+		         <_con val='2' where="[会员级别]=2 and [状态]='有效'"/>
+		         在现有基础之上,推荐5人增加1
+		         <_con val='+FLOOR([推荐_推荐人数]/5)'/>
+		         当前的值等于我推荐的所有1级会员
+		         <_con val="{down,推荐,U[会员级别]=1}"/>
+		         当前值等于我下边1-3代的一级会员数量
+		         <_con val="{allsum,推荐,会员级别=1,1,3}"/>
+		         
+		         	<fun_val name='网络费时间' mode='int(10)'>
+	</fun_val>
+	
+		<fun_val name='网络办公费累计' mode='numeric(10,2)'/>
+	-->
+
+
+	<!--
+	@package fun_dateset 此模块会创建一个全局配置项,并在后台奖金管理中增加一个菜单
+	                     菜单功能会设置一些具体日期时间段,使用这个时间段限制的奖金
+	                     如果当前结算日正好是设置的日期,则奖金会停止计算
+	                     一般遇到周六日节假日不产生奖金的奖金,用这个就没错了
+	@param   $name       ''    模块名称
+	-->
+	<fun_val name='上月业绩'/>
+	<fun_per name='个人业绩' month='true'/>
+	<fun_standard name='考核' timemode='m' where='[个人业绩本月]+[上月业绩]>=100'/>
+	<fun_dateset name="节假日"/>
+	<!--
+	@package tle 奖金表节点
+	@param   $name           ''      奖金表名称,会在奖金管理中增加xx明细,xx总账
+	@param   $tleMode        'd'     结算周期:结算周期
+	                                 s 秒结
+	                                 d 日结
+	                                 w 周结 
+	                                 m 月结
+	                                 y 年结
+	                                 r 审核日期间隔 
+	@param   $tleDay         ''      结算周期二级设置:此属性配合tleMode使用
+	                                 如果为周结 $tleDay设置为1-7,分别表示周一到周日
+	                                 如果为月结 $tleDay为0表示月末,如果为指定日期,则表示每月n号结算
+	                                 如果为r结  则为x,[y],[z],x为间隔周期,比如10天一返x就为10,y为最小周期,当天返为0下期返为1,z为最大周期,返到多少期为止
+	                                 如注册后10天计算一次,一共计算8次则设置$tleDay='10,1,8'
+	@param   $k              '0'     K值，表示奖金总体奖金拨出比超过这个属性设置的比例，则所有奖金都需要强制扣除，能够让总奖金维持在设置的比例。
+	                                 设置为0表示不做限制，设置为50，则表示奖金最多只能发当日业绩的50%
+	@param   $autoGive       false   日结完成是否发放奖金
+	@param   $secAutoGive    false   秒结完成是否发放奖金
+	@param   $autoGiveDelay  0       如果是日结自动发放.是否延迟.单位为天数.如 设置为1在结算当期奖金时发放上日奖金 
+	@param   $notgiveshow    false   未发放奖金的时候.前台不可见
+	@param   $weekAutoGive   false   日结周发自动发放
+	@param   $weekGiveDay    1       对于日结周发是周几进行发放
+	
+	    @package tle _addval  增加参数,将实发奖金增加到可以响应的addval的模块中,一般为fun_bank
+	    @example              将当前奖金全部发到电子货币中
+	                          <_addval to='电子货币' val='100%'/>
+	--> 
+	<tle name='销售奖金' tleMode='d' autoGive='false' secAutoGive='false'>
+		<_addval to='电子货币' val='100%'/>
+		<prize_sql sql='update dms_会员 set 上月业绩= 个人业绩本月' tlemode='m' tleday='0'/>
+		<!--
+		@package     prize 所有prize模块继承的基类属性.其他奖金不在复述
+		@param       $name          ''     奖金的名称
+		@param       $userDisp      true   会员是否可以看到这个奖金(在会员平台的奖金表中)
+		                                   一般有一些奖金是为了计算另外一个奖金而临时使用的.这种情况下设置为false
+		@param       $adminDisp     true   后台奖金表中是否可以看到此奖金
+		@param       $prizeMode     1      奖金处理规则
+		                                   0为不计算收入
+		                                   1为发放
+		                                   2为扣除
+		@param       $tleMode       ''     结算周期，可参考tle同名属性
+		@param       $tleDay        ''     结算时间，可参考tle同名属性
+		@param       $decimalLon    14     字段长度
+		@param       $decimalLen    2      小数长度
+		@param       $lockDate      ''     fun_dateset模块的名字
+		@param       $startUpLv     false  执行这个奖金之前是否升级
+		@param       $K             0      奖金的独立K值
+		@param       $Kwhere        ''     K值只能通过符合条件的人中扣除，如果不设，则是所有人
+		@param       $Kprize        ''     K值扣除之后的金额，要进入到一个独立的奖金项中华
+		@param       $to            ''     把当前奖金产生的奖金构成和奖金值，给另外一个奖金
+		@param       $memo          true   是否生成构成信息
+		@param       $unmemo        false  是否生成反向构成信息
+		@deprecated  $isSee         false  奖金是否可以显示
+		    @package prize _addval  所有prizemode>=0的奖金.都能够支持addval,将奖金产生的额度充到货币
+		                            后续奖金不在重复说明
+            @param   $to            ''     是否生成反向构成信息
+            @param   $userwhere     false  是否生成反向构成信息
+            @param   $name          false  是否生成反向构成信息
+            
+            @package $prize _top  所有prizemode>=0的奖金.都支持封顶设置，prize_tax奖金除外
+            @param   $model         ''     封顶的类型
+                                           'day'  日封顶
+                                           'month'月封顶
+                                           'week' 周封顶
+                                           'all'  累计封顶
+            @param   $val           ''     封顶的值,如果是根据会员表中某个字段的值作为封顶值可以写诚
+                                           '[封顶额度]' (封顶额度这个字段默认在会员表中并不存在，我们假设是用fun_val创建出来的)
+            @param   $where         ''     要执行封顶人的条件，如果不同级别有不同封顶，则需要创建多条top记录，并用不同的where
+                                           判断区分开
+            @param   $with          ''     联合封顶，如果A奖金和B奖金之和不能超过封顶，则使用这个属性，多个奖金之间用逗号间隔
+                                           with='奖金1,奖金2'
+                                           A奖金和B奖金都需要写top封顶并且彼此的top中的with属性都要包含AB两个奖金的名字
+            
+            
+		@package prize_sql  此模块会创建一个全局配置项,并在后台奖金管理中增加一个菜单
+		@param   $sql      '' 执行sql语句 {calmonth}结算日期的月份 {calyear}结算日期的年份
+		
+				{caltime} 周日  左区累计 中区累计  右区累计  合区业绩
+		-->
+		
+		<!--查询出本周之前的所有的业绩累计-->
+		
+<!--
+		
+		<prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and region='1' and val>0 and time>>{caltime}+86400 group by userid)
+		 as b on a.id=b.userid set a.左区累计=ifnull(b.num,0)"  tlemode="w" tleday="5" />
+		 
+		<prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and region='2' and val>0 and time>>{caltime}+86400  group by userid)
+		 as b on a.id=b.userid set a.中区累计=ifnull(b.num,0)"  tlemode="w" tleday="5" />
+		 
+		 <prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and region='3' and val>0 and time>>{caltime}+86400  group by userid)
+		 as b on a.id=b.userid set a.右区累计=ifnull(b.num,0)" tlemode="w" tleday="5"  />
+		 
+		 <prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and (region='1' or region='2') and val>0 and time>>{caltime}+86400 and time>={caltime}-6*86400  group by userid)
+		 as b on a.id=b.userid set a.合区业绩=ifnull(b.num,0) where a.左区累计>=a.右区累计 and a.中区累计>=a.右区累计" tlemode="w" tleday="5"  />
+		 
+		 <prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and (region='1' or region='3') and val>0 and time>>{caltime}+86400 and time>={caltime}-6*86400  group by userid)
+		 as b on a.id=b.userid set a.合区业绩=ifnull(b.num,0) where a.左区累计>a.中区累计 and a.右区累计>a.中区累计" tlemode="w" tleday="5"  />
+		 
+		 <prize_sql sql="update dms_会员  as a  join (select sum(val) as num,userid from dms_管理_业绩 where pid!=0 and (region='2' or region='3') and val>0 and time>>{caltime}+86400 and time>={caltime}-6*86400  group by userid)
+		 as b on a.id=b.userid set a.合区业绩=ifnull(b.num,0) where a.中区累计>a.左区累计 and a.右区累计>a.左区累计" tlemode="w" tleday="5"  />
+		 
+		 -->
+		
+		
+		
+		<!--
+		@package prize_rec 推荐代数奖节点
+		@param $name         ''    奖金名称
+		@param $lvname       ''    奖金所使用的级别
+		@param $rowfrom      1     奖金判定表,1为报单表,0为会员表 
+		@param $rowname      ''    奖金来源字段
+		@param $where        ''    来源表条件 
+		@param $netname      ''    对应网络关系的名称 
+		@param $tightenWhere ''    紧缩条件 
+		@param $getmin       false 取得上下级最小级别,进行级别判定
+		    @package prize_rec _con  奖金计算配置
+		    @param $minlv    0     最小级别
+		    @param $maxlv    0     最大级别
+		    @param $minlayer '-1'  最小层数,最小和最大层数可以根据会员的特定字段，动态决定比如$minlayer='[推荐_推荐人数]+1'
+		    @param $maxlayer '-1'  最大层数
+		    @param $where    ''    产生奖金的条件,
+		                           支持 S[字段]  如果奖金的rowfrom=1是根据报单表产生奖金,则可以通过前边语法得到订单字段
+		                                         如S[报单类别]='店铺进货'
+		                           支持 U[字段]  产生业绩的人的条件,比如判断比如 U[会员级别]=1
+		                           支持 M[字段]  产生奖金的人的条件,如只能拿同级或者更高级级别人的奖金 U[会员级别]>=M[会员级别]
+		    @param $val      ''    产生奖金的比例或者固定值
+		-->
+		<prize_rec name='推荐奖' lvname='会员级别' netname='推荐' rowfrom='1' rowname='报单金额' where="byname='会员注册'">
+			<_con minlv='2' maxlv='2' minlayer='1' maxlayer='1' val='8%' />
+			<_con minlv='3' maxlv='3' minlayer='1' maxlayer='1' val='10%'/>
+			<_con minlv='4' maxlv='4' minlayer='1' maxlayer='1' val='12%'/>
+		</prize_rec>
+		<!--
+		@package prize_bump 碰对奖节点
+		@param   $netName    ''    网体名称,只允许为net_place的名称
+		@param   $clear_mode 1     扫单类型
+		                           0为平均扫单,如果在两个区扣除业绩不平均情况下,是碰一个最小单位,重新判定一次大小区
+		                           1为整数扫单,如果在两个区扣除业绩不平均情况下,尽量满足最大碰对次数并扣除业绩
+		@param   $against    true  在计算奖金时,是否要根据业绩大小排列先后位置,如果不排列,就要按照net_place中的_region的配置来决定顺序
+		                           举例如果有两个区,左区业绩为10,右区业绩为20,进行2:1碰对计算
+		                           如果开启,业绩进行大小排序计算则按照
+		                           20:10
+		                            2:1 =10单计算
+		                           如果关闭则按照固定顺序
+		                           10:20
+		                            2:1 =5单计算
+		    @package prize_bump _con
+		    @param   $bump   ''    碰对规则,规则是不同区要碰的业绩,用:做分隔
+		                           如果net_place是2个区设置类似1:1
+		                           如果net_place是3个区设置类似1:1:1 一次类推
+		                           如果每个区碰比是不平衡的情况下,业绩大的是在前边
+		                           2:1:0 是正确的
+		                           1:2:0 是不正确
+		    @param   $val    true  碰对奖产生的奖金额具体值或百分比
+		                           如果是碰一次发固定金额要写成*50,这种(数值仅供参考)
+		                           如果按碰的次数算百分比,则为15%这种(数值仅供参考)
+		    @param   $where  ''    产生奖金的人的条件
+		    @param   $only   false 此配置只产生一次奖金.
+		                           一种需求可能,三个区,两个大区1:1碰按照10%比例,剩余的业绩在跟另外一个区1:1碰.按照15%比例,则可以按照下边这个方式来写
+                                   <_con bump='1:1:0' val='10%' only='true'/>
+                                   <_con bump='1:1:0' val='15%'            />
+		-->
+		<prize_bump name='碰对奖' netName='管理'>
+			<_con bump='1:1'  val='10%'   where="[]"/>
+			<_con bump='1:1'  val='10%'   where=""/>
+			<_top where='[会员级别]=1' mode='day' val='#pljffd1#'/>
+			<_top where='[会员级别]=2' mode='day' val='#pljffd2#'/>
+			<_top where='[会员级别]=3' mode='day' val='#pljffd3#'/>
+			<_top where='[会员级别]=4' mode='day' val='#pljffd4#'/>
+		</prize_bump>
+		<!--
+		@package prize_layer 层碰奖节点
+		@param   $name       ''    奖金名称
+		@param   $lvname     ''    奖金所使用的级别 
+		@param   $rowfrom    '1'   激发奖金判定表,1为报单表,0为会员表 
+		@param   $rowName    '1'   激发奖金判定表,1为报单表,0为会员表 
+		
+		@param   $ifmode     '0'   判定方式,0为指定层的各区各自存在至少一个点位,即可得奖,1为指定层必须排满才能得奖 
+		@param   $reprize    false 当指定层产生过了奖金,是否还从新计算指定层的奖金,在存在层奖补差额奖金则开启
+		@param   $netname    ''    对应网络关系的名称,必须是一个net_place的网络
+			@param package _con    层碰奖奖金配置
+		    @param $minlv    1     最小级别
+		    @param $maxlv    1     最大级别
+		    @param $minlayer -1    最小层数
+		    @param $maxlayer -1    最大层数
+            @param $where    ''    S[字段]表示订单表字段  M[字段]表示产生奖金人字段  U[字段]下级产生判定人字段 
+            @param $val      ''    产生奖金的金额,可以为固定值，也可以为百分比
+		-->
+		<prize_layer name='层碰奖' netname='管理'  lvname='会员级别' rowname='id'>
+			<_con minlv='2' maxlv='2' minlayer='1' maxlayer='2' val='100'/>
+			<_con minlv='3' maxlv='3' minlayer='1' maxlayer='2' val='200'/>
+			<_con minlv='4' maxlv='4' minlayer='1' maxlayer='2' val='400'/>
+		</prize_layer>
+		<!--
+		@package prize_consume重复消费节点
+		@param   $name       ''         奖金名称 
+		@param   $prizemode  2          重写了属性,默认是扣除奖金
+		@param   $where      ''         可以扣除重消的条件 
+		@param   $rowfrom    0          奖金判定表,1为报单表,0为会员表 
+		@param   $rowname    ''         参考来源,即要扣除重消的参考字段
+		@param   $startnum   0          起征点
+		@param   $startrow   '累计收入' 起征字段
+		    @package prize_consume _con
+		    @param   $minlv    0  起征字段
+		    @param   $maxlv    0  起征字段
+		    @param   $where    '' 扣除条件只支持 M[字段名]
+		    @param   $val      '' 重复消费扣除比例
+		-->
+		<prize_consume name='责任消费' rowname='碰对奖' lvname='会员级别'>
+			<_con minlv='1' maxlv='4' val='10%'/>
+		</prize_consume>
+		<!--
+		@package prize_rebate返利奖节点
+		@param   $name      '' 奖金名称 
+		@param   $lvname    '' 奖金所使用的级别
+		@param   $rowfrom   1  奖金判定表,1为报单表,0为会员表
+		@param   $rowname   '' 奖金来源字段
+		@param   $where     '' 来源表条件
+		    @package prize_consume _con
+		    @param   $minlv    0  起征字段
+		    @param   $maxlv    0  起征字段
+		    @param   $where    '' 扣除条件只支持 M[字段名]
+		    @param   $val      '' 产生奖金比例
+		-->
+		<prize_rebate name='返利奖' lvname='会员级别' prizemode='1' rowname='推荐奖+碰对奖' rowfrom='0'>
+			<_con minlv='1' maxlv='4' val='10%'/>
+		</prize_rebate>
+		<!--
+		@package prize_lvdiff   级差奖节点
+		@param   $name           ''    奖金名称 
+		@param   $netname        ''    网络体系名称
+		@param   $lvname         ''    奖金所使用的级别 
+		@param   $rowfrom        1     激发奖金判定表,1为报单表,0为会员表 
+		@param   $rowname        ''    奖金来源字段
+		@param   $tlemode        ''    结算周期,-1表示以tle奖金表为准 
+		@param   $tleday         ''    结算日期,-1表示以tle奖金表为准 
+		@param   $where          ''    来源表条件 
+		@param   $tightenwhere   ''    紧缩条件 
+		@param   $maxlayer       0     级差计算到多少层后结束,如果存在紧缩条件,则按照紧缩层数,0为不限 
+		@param   $differenceOnly false 仅计算差额部分,即计算时0%-x%之间的奖金不产生
+		    @package prize_lvdiff _con
+		    @param $lv       1  级别,因为是要算不同CON之间的级别差额,所以不存在最大最小级别
+		    @param $val      '' 奖金比例或固定额
+		    @param $where    '' 可以拿到此级差奖的条件
+		    @param $equals   '' 平级奖金比例,如果我的下边有N个人人和我的级别相同(没有人大于我的级别),
+		                        或者指判定在一个con上,则认定平级按照设置的比例额外发平级奖
+		    @param $minequal '' 判定属于平级的最少平级层数
+		    @param $maxequal '' 判定平级平级的最大平级层数
+		-->
+		<prize_lvdiff name='级差奖' byname="级差奖1" netname="推荐" rowname='报单金额' rowfrom='1' lvname='会员级别' where="byname='会员注册' or byname='会员升级'" unmemo='true' tlemode='d'>
+			<_con lv='1' val='9%' />
+			<_con lv='2' val='12%'/>
+			<_con lv='3' val='15%'/>
+			<_con lv='4' val='20%'/>
+		</prize_lvdiff>
+		<!--
+		@package prize_areadiff  区域代理级差奖节点
+		@param $name      ''   奖金名称 
+		@param $rowfrom   1    激发奖金判定表,1为报单表,0为会员表 
+		@param $rowname   ''   奖金来源字段
+		@param $where     ''   来源表条件 
+		
+		@param $userarea  ''   地区判定标准
+		                       ''     会员表基本注册省市区      (需设置rowfrom=0)
+		                       '代理' 代理级别省市区            (需设置rowfrom=0)
+		                       '收货' 根据订单的收货地址判定区域(需设置rowfrom=1)
+		@param $from      ''   空默认直接读自己，'服务中心'直接返给服务中心编号并且按照服务中心的代理区域朝上找
+		@param $haveme    false 是否包含自己
+		    @package prize_areadiff _con
+		    @param  $lv     1    级别
+		    @param  $val    ''   奖金比例
+		    @param  $where  ''   能够拿到此奖金的人的条件
+		                         S[字段名] 订单条件
+		                         M[字段名] 得奖人条件
+		                         U[字段名] 产生业绩人条件
+		    @param  $area   ''   级别对应的代理级别
+		                         town     乡镇
+		                         county   区县
+		                         city     城市
+		                         province 省份
+		                         country  国家
+		-->
+		<prize_areadiff name='代理级差奖'  rowname='报单金额' rowfrom='1' lvname='代理级别' where="报单类别='前台注册' or 报单类别='后台注册'"  tlemode='d'>
+			<_con lv='2'  val='9%' area="town"/>
+			<_con lv='3'  val='12%' area="county"/>
+			<_con lv='4' val='15%' area="city"/>
+			<_con lv='5' val='18%' area="province"/>
+			<_con lv='6' val='20%' area="country"/>
+		</prize_areadiff>
+		<!--
+		@package prize_getall 分红奖节点 把公司某一时期的业绩平分给符合条件的人
+		@param   $name      ''  奖金名称 
+		@param   $lvname    1   奖金所使用的级别
+		@param   $sumprice  -1  统计实际业绩设置,如果设置为-1,则根据结算周期统计实际业绩
+		                        如果设置>=0,奖金则认为业绩只有设置的这些
+		@param   $rowfrom   1   激发奖金判定表,1为报单表,0为会员表 
+		@param   $rowname   ''  奖金来源字段
+		@param   $where     ''  来源表查询条件
+		    @package  prize_getall _con 分红奖金配置
+		    @param   $val       ''  分红奖比例额
+		    @param   $where     ''  获得条件，奖金的分母是符合条件的这些人，此条件在SQL使用，可以不用加中括号
+		    @param   $weighing  ''  加权字段，
+		-->
+		<prize_getall name='分红奖' rowName='报单金额' where="byname='会员注册' or byname='会员升级'" tlemode="m">
+			<_con where='' val='2%' />
+		</prize_getall>
+		<!--
+		@package prize_givedown帮扶奖节点
+		@param   $name       ''  奖金名称 
+		@param   $lvname     ''  奖金所使用的级别 
+		@param   $netname    ''  网络体系名称
+		@param   $rowfrom    1   激发奖金判定表,1为报单表,0为会员表 
+		@param   $rowname    ''  奖金来源字段
+		    @package prize_givedown
+		    @param   $minlv     1   最小级别
+		    @param   $maxlv     1   最大级别
+		    @param   $minlayer  1   最小层数
+		    @param   $maxlayer  1   最大层数
+		    @param   $val       ''  奖金比例
+		    @param   $where     ''  条件支持表达式
+		                           支持 S[字段]  如果奖金的rowfrom=1是根据报单表产生奖金,则可以通过前边语法得到订单字段
+		                                         如S[报单类别]='店铺进货'
+		                           支持 U[字段]  产生业绩的人的条件,比如判断比如 U[会员级别]=1
+		                           支持 M[字段]  产生奖金的人的条件,如只能拿同级或者更高级级别人的奖金 U[会员级别]>=M[会员级别]
+
+		                         
+		-->
+		<prize_givedown name='帮扶奖' rowname='碰对奖' rowfrom='0' lvname='会员级别' netname="管理">
+			<_con minlv='1' maxlv='4' minlayer='1' maxlayer='1' val='10%'/>
+		</prize_givedown>
+		<!--
+		@package prize_salefrom 店铺补贴奖节点,拿会员或者报单的所属服务中心信息发奖金
+		                        
+		@package $name     奖金名称 
+		@param   $lvname   奖金所使用的级别 
+		@param   $rowfrom  1  奖金来源表
+		                   1为报单表,根据报单表中的 "服务中心编号"     来确定上级店铺
+		                   0为会员表,根据会员表中的 "服务中心编号"来确定上级店铺
+		@param   $rowname  '' 奖金来源字段
+		@param   $where    '' 来源表条件
+		    @package prize_salefrom 
+		    @param   $minlv    0   可以拿奖金店铺的最小级别
+		    @param   $maxlv    0   可以拿奖金店铺的最大级别
+		    @param   $val      ''  奖金额或比例
+		    @param   $where    ''  额外条件
+		                           支持 S[字段]  如果奖金的rowfrom=1是根据报单表产生奖金,则可以通过前边语法得到订单字段
+		                                         如S[报单类别]='店铺进货'
+		                           支持 U[字段]  产生业绩的人的条件,比如判断比如 U[会员级别]=1
+		                           支持 M[字段]  产生奖金的人的条件,如只能拿同级或者更高级级别人的奖金 U[会员级别]>=M[会员级别]
+		-->
+		<prize_salefrom name='店补' rowname='报单金额' lvname='会员级别' where="byname='会员注册'" >
+			<_con minlv='1' maxlv='4' val='2%'/>
+		</prize_salefrom>	
+		<!--
+		@package prize_tax 所得税节点
+		@param $name='' 奖金名称 
+		@param $prizemode  2   对此属性进行了重设
+		@param $lvname     ''  奖金所使用的级别 
+		@param $rowname    ''  奖金来源字段(报单表)
+		@param $where      ''  扣税条件 
+		@param $startnum   0   起征额 
+		@param $startrow   ''  起征字段 
+		@param $taxnum     0   税点
+		-->
+		<prize_tax name='所得税' taxnum='10' rowname='推荐奖+碰对奖+返利奖+层碰奖+帮扶奖+店补+分红奖+帮扶奖+级差奖-责任消费'/>
+	</tle>
+
+</user>
+<!--用户设置节点,生成奖金设置页面-->
+<tleset title="用户设置">
+	<table>
+	<tr>
+	<td>消费者:    </td><td><input value="0"     name="lv1money" /></td>
+	<td>普通经销商:  </td><td><input value="1920"  name="lv2money"/></td>
+	<td>主级经销商:  </td><td><input value="6400"  name="lv3money" /></td>
+	<td>经理经销商:</td><td><input value="12800" name="lv4money"/></td>
+	</tr>
+	</table>
+	<table title="碰对奖（10%）">
+	<tr><td>消费者日封顶:</td><td><input value="3000"  name="pljffd1" /></td></tr>
+	<tr><td>普通经销商日封顶:</td><td><input value="5000"  name="pljffd2" /></td></tr>
+	<tr><td>主级经销商日封顶:</td><td><input value="10000" name="pljffd3" /></td></tr>
+	<tr><td>经理经销商日封顶:</td><td><input value="10000" name="pljffd4" /></td></tr>
+	</table>
+
+	<table title="责任消费积分2">
+	<tr>
+		<td>责任消费积分比例%:</td><td><input value="10" name="zrxfjf"  xml='false' /></td>
+		<td>月封顶:</td><td><input value="2000" name="zrxfjffd"  xml='false' /></td>
+    </tr>
+	</table>
+</tleset>
+</con>

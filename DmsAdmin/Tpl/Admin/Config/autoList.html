@@ -1,0 +1,125 @@
+<div layoutH="0">
+<form action='__URL__/autosetsave' method="post" target="execute" id='autosetform' class="pageForm required-validate" >
+	<input name="autotype" id="autotype" value="" type="hidden"/>
+	<input name="type" id="type" value="" type="hidden"/>
+</form>
+<table class="list" width="500px">
+	<thead>
+		<tr>
+		<th colspan="3" style="text-align:left;">&nbsp;<img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;自动设置</th>
+		</tr>
+	</thead>
+	<foreach name='autoary' item='autodata' key="autokey">
+	<thead>
+		<tr>
+			<th colspan="3">&nbsp;{$autodata['autoname']}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<td width="30%">运行状态</td>
+		<if condition="!isset($autodata['error'])">
+		<td width="30%" id="sta_{$autokey}"><eq name='autodata[1]' value='runing'>运行中<else/>已停止</eq></td>
+		<td width="30%" style="padding-left:30px;" id="act_{$autokey}">
+			<eq name='autodata[1]' value='runing'>
+			<div class="buttonActive">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('{$autokey}','restart')">重启</button>
+			  </div>
+			</div>
+			<div class="buttonActive">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('{$autokey}','stop')">停止</button>
+			  </div>
+			</div>
+			<else/>
+			<div class="buttonActive">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('{$autokey}','start')">启动</button>
+			  </div>
+			</div>
+			</eq>
+		</td>
+		<else/>
+		<td colspan="2">{$autodata['error']}</td>
+		</if>
+		</tr>
+	</tbody>
+	</foreach>
+	<if condition='count($autoary) gt 1 && $donot eq false'>
+	<thead>
+		<tr>
+			<th colspan="3">&nbsp;操作</th>
+		</tr>
+		<tr>
+			<th>&nbsp;
+			<div class="buttonActive" style="float:right;">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('all','restart')">全部重启</button>
+			  </div>
+			</div>
+			</th>
+			<th>&nbsp;
+			<div class="buttonActive" style="float:right;">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('all','start')">全部启动</button>
+			  </div>
+			</div>
+			</th>
+			<th>
+			<div class="buttonActive" style="float:right;">
+			  <div class="buttonContent" >
+				<button type="button" onclick="autoset('all','stop')">全部关闭</button>
+			  </div>
+			</div>
+			</th>
+		</tr>
+	</thead>
+	</if>
+</table>
+<!--滚动条-->
+<table width="600px" class="list">
+  <thead>
+	<tr>
+	  <th colspan="5" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/ExtJSicons/application/application_view_detail.png" />&nbsp;&nbsp;操作明细</th>
+	</tr>
+     </thead>
+     <tfoot>
+		<tr>
+		<td style="border-bottom:1px solid #ededed" >
+			<DIV align=left style="width: 581; height: 300px; overflow-y:scroll;overflow:yes;margin:5px 5px 5px 5px;border: 1px solid #aaaaaa;line-height:18px;padding: 4px" id='autodiv'>
+				<table width='100%' id='automemo'>
+				</table>
+			</div>
+		</td></tr>
+</tfoot>
+</table>
+</div>
+<iframe src="" width="600" height="310" frameBorder="0" scrolling="auto" name='execute'></iframe>
+<script>
+function autoset(autotype,type){
+	$("#autotype",navTab.getCurrentPanel()).val(autotype);
+	$("#type",navTab.getCurrentPanel()).val(type);
+	$("#autosetform",navTab.getCurrentPanel()).submit();
+}
+function addexemsg(title,time,icon)
+{
+	$("<tr><td width='18'><img src='"+icon+"'></td><td align='left' style='text-align: left'>"+title+"</td><td width='80'>("+time+")</td></tr>").appendTo('#automemo',navTab.getCurrentPanel());
+	$('#autodiv',navTab.getCurrentPanel()).scrollTop(1000000);
+	if(icon == '/Public/Images/ExtJSicons/tick.png'){
+		//刷新状态显示
+		$.post('__URL__/autostatus',{type:'runstatic'},function(data){
+			eval("var json = "+data);
+			for(var i in json.data){
+				if(json.data[i]=='runing'){
+					$("#sta_"+i,navTab.getCurrentPanel()).html("运行中");
+					$("#act_"+i,navTab.getCurrentPanel()).html("<div class=\"buttonActive\"><div class=\"buttonContent\"><button type=\"button\" onclick=\"autoset('"+i+"','restart')\">重启</button></div></div><div class=\"buttonActive\"><div class=\"buttonContent\"><button type=\"button\" onclick=\"autoset('"+i+"','stop')\">停止</button></div></div>");
+				}else{
+					$("#sta_"+i,navTab.getCurrentPanel()).html("已停止");
+					$("#act_"+i,navTab.getCurrentPanel()).html("<div class=\"buttonActive\"><div class=\"buttonContent\"><button type=\"button\" onclick=\"autoset('"+i+"','start')\">启动</button></div></div>");
+				}
+			}
+		});
+	}
+}
+</script>

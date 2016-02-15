@@ -1,0 +1,280 @@
+/*2015-02-27*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+html {
+    min-width: 1580px;
+}
+body {
+    width: 100%;
+    min-width: 1024px;
+    font-family: 微软雅黑;
+    font-size: 14px!important;
+    background: url(../images/bg.jpg) no-repeat;
+    background-size: cover;
+    background-color: #e0bc99;
+}
+.clear {
+    clear: both;
+}
+/*left-content*/
+.left-content {
+    float: left;
+    width: 380px;
+    background: url(../images/left-content.png) no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+.left-content a {
+    color: #fff;
+}
+    /*logo*/
+.logo {
+    padding-right: 15px;
+    text-align: right;
+}
+.logo .title {
+    padding-top: 50px;
+    height: 100px;
+}
+.logo h2 {
+    font: normal 38px 微软雅黑;
+}
+.logo h3 {
+    font: normal 16px 微软雅黑;
+    color: #9fbbbf;
+}
+.date span {
+    display: block;
+}
+.date .day {
+    font: normal 14px 微软雅黑;
+    color: #f3faff;
+}
+.date .hour {
+    font: normal 30px 微软雅黑;
+    color: #9fbbbf;
+}
+    /*nav*/
+.nav {
+    margin-top: 120px;
+}
+.nav div {
+    padding-right: 15px;
+    height: 60px;
+    text-align: right;
+    font: normal 20px/60px 微软雅黑;
+    color: #f3faff;
+    background: url(../images/nav-bg.png) no-repeat;
+    background-position: right;
+    cursor: pointer;
+}
+.nav div:hover {
+    position: relative;
+    background: url(../images/nav-hover.png) no-repeat;
+    background-position: right;
+}
+.nav .homepage {
+    height: 62px;
+    background: url(../images/nav-first.png) no-repeat;
+    background-position: right;
+}
+.homepage a {
+    display: block;
+    width: 100%;
+}
+.nav .homepage:hover {
+    background: url(../images/nav-hoverfirst.png) no-repeat;
+    background-position: right;
+}
+.nav .nav-ul {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: -300px;
+    display: none;
+    width: 300px;
+    text-align: center;
+    background: url(../images/nav-ulbg.png);
+} 
+.nav div:hover .nav-ul {
+    display: block;
+}
+.nav .nav-ul li {
+    background: url(../images/ul-libg.png) no-repeat;
+    background-position: top;
+}
+.nav .nav-ul li:first-child {
+    background: url(../images/ul-lifirst.png) no-repeat;
+    background-position: left;
+}
+.nav .nav-ul li a {
+    display: block;
+    width: 100%;
+}
+/*right-content*/
+.right-content {
+    float: left;
+    width: 1200px;
+}
+.top-nav {
+    margin-bottom: 20px;
+    height: 200px;
+}
+.top-nav li {
+    float: left;
+    width: 300px;
+    height: 200px;
+    text-align: center;
+}
+.top-nav li span {
+    font: normal 16px 微软雅黑;
+}
+.top-li1,.top-li3 {
+    background: #9aa4a7;
+}
+.top-li2,.top-li4 {
+    background: #7e8586;
+    color: #ccd8d8;
+}
+.top-li1 a,.top-li3 a {
+    color: #313945;
+}
+.top-li2 a,.top-li4 a {
+    color: #ccd8d8;
+}
+.icon {
+    display: block;
+    margin: 35px 0 15px 110px;
+    *margin-left: 0;
+    width: 80px;
+    height: 80px;
+}
+.top-li1 .icon {
+    background: url(../images/icon1.png) no-repeat;
+}
+.top-li2 .icon {
+    background: url(../images/icon2.png) no-repeat;
+}
+.top-li3 .icon {
+    background: url(../images/icon3.png) no-repeat;
+}
+.top-li4 .icon {
+    background: url(../images/icon4.png) no-repeat;
+}
+/*content*/
+.content h2 {
+    font: normal 18px 微软雅黑;
+    color: #fff;
+}
+.content h3 {
+    font: normal 12px 微软雅黑;
+    color: #fff;
+}
+.c-tit {
+    padding: 10px;
+    height: 40px;
+    background: #848989;
+}
+.baseinfo {
+    float: left;
+    margin-bottom: 10px;
+    width: 600px;
+    height: 260px;
+    background: url(../images/baseinfo.png);
+    overflow: hidden;
+}
+.baseinfo ul li {
+    float: left;
+    height: 40px;
+    line-height: 40px;
+}
+.infokey {
+    padding: 0  5px;
+    width: 100px;
+    text-align: right;
+}
+.infoval {
+    width: 190px;
+    text-align: left;
+}
+.lastest {
+    float: left;
+    width: 600px;
+    height: 440px;
+    background: url(../images/baseinfo.png);
+    overflow: hidden;
+}
+.lastest ul {
+    padding: 5px 0;
+}
+.lastest li {
+    height: 30px;
+    line-height: 30px;
+}
+.lastest li a {
+    float: left;
+    display: block;
+    width: 480px;
+    text-indent: 10px;
+    overflow: hidden;
+}
+.lastest li .date {
+    float: left;
+    display: block;
+    width: 110px;
+    text-align: right;
+}
+.newmail {
+    float: right;
+    width: 590px;
+    height: 710px;
+    background: url(../images/baseinfo.png);
+    overflow: hidden;
+}
+.newmail h2,.newmail h3 {
+    color: #000;
+}
+.newmail ul {
+    padding: 5px 0;
+}
+.newmail li {
+    height: 30px;
+    line-height: 30px;
+}
+.newmail li a {
+    float: left;
+    display: block;
+    width: 480px;
+    text-indent: 10px;
+    overflow: hidden;
+}
+.newmail li .date {
+    float: left;
+    display: block;
+    width: 100px;
+    text-align: right;
+}
+/*footer*/
+.footer {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    background: url(../images/baseinfo.png);
+}
+.foot-cont {
+    padding: 40px;
+}
+.foot-nav {
+    padding: 10px 0;
+}
+.foot-nav li {
+    display: inline;
+}
+

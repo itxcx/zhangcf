@@ -1,0 +1,31 @@
+<html  xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link  href="/DmsAdmin/Tpl/User/free/Public/css/GridView.css"  type="text/css"  rel="stylesheet">
+<link  href="/DmsAdmin/Tpl/User/free/Public/css/Style.css"  type="text/css"  rel="stylesheet">
+</head>
+<body style="background-image:none;background-color: #ffffff;text-align:left;">
+    	<form name="form1" method="post" action="/DmsAdmin/admin.php?s=/User/Index/seconfirm/returnUrl/{:urlencode($returnUrl)}">
+    		<div>
+    		<b style="display:block;padding:5px 0px;">验证二级密码</b>
+    		<hr>
+    		<font color="#FF0000" style="display:block;padding:5px 0px;">为了保障玩家帐号安全，当前操作需要验证您的二级密码，请在下面输入！</font>
+    		<br />
+
+	          	<table class="CommonTb" style="background-color: #ffffff;">
+	            <TR>
+	              <TD class="tbval" style="width:70px;">二级密码:</TD>
+	              <TD class="tbval"><input name="pwd1" type="password" id="pwd1" size="26"></TD>
+	            </TR>
+	            <TR>
+	             <TD class="tbval">&nbsp;</TD>
+	              <TD class="tbval">
+	                <input class="button_text" onMouseDown="this.className='button_onmousedown'" onMouseOver="this.className='button_onmouseover'" onMouseOut="this.className='button_onmouseout'" type="submit"  id="but" value="提交" name="but"/>     
+	                <input id="btnClose" type="button" value="关闭" class="button_text" onclick="javascript:parent.ShowNo()">   
+	              </TD>
+	            </TR>
+	          	</table>
+          	</div>
+        </form>
+</body>
+</html>     

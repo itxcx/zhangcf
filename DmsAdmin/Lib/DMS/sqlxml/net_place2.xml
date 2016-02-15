@@ -1,0 +1,15 @@
+<table name='{$this->name}' engine="InnoDB">
+<field name="id"       type="int(11)" auto_increment="1" primary="1" />
+<field name='序号'     type="int(11)" default="0"/>
+<field name='userid'   type="int(11)" default="0"/>
+<field name='编号'     type="varchar(50)" default=""/>
+<field name='上级id' type="int(11)" default="0"/>
+<field name='位置' type="varchar(50)" default=""/>
+<field name='进网日期' type="varchar(50)" default=""/>
+<field name='层数' type="int(11)"  default='0'/>
+<field name='计算' type="int(11)"  default='0'/>
+<field name='网体数据' type='longtext' default=""/>
+<foreach name="{$this->getBranch()}" item="vo">
+	<field name='{$vo}区'  type='int(11)' default='0'/>
+</foreach>
+</table>

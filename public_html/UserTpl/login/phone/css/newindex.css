@@ -1,0 +1,50 @@
+ul,li{ 
+ padding:0; 
+ margin:0;
+ border:0; 
+ list-style:none;}
+a{
+ text-decoration:none;
+ }
+img{
+	display:block;
+	width:100%;
+}
+body .ui-li .ui-li-desc {  white-space: normal;  } 
+body .ui-footer .ui-title {  white-space: normal;  }
+
+.w100{ width:100%;}
+.w25{ display:block; width:25%; float:left;}
+
+#foot_ul .w25 a{ 
+	display:block;
+	text-decoration:none; 
+	border-right:solid 1px #fff;
+	border-left:solid 1px #b4b4b4;
+}
+#foot_ul .w25 a:hover{	
+	border-left:solid 1px #b34006;
+}
+/*newindex*/
+.newindex_link li{ 
+	width:30%; 
+	float:left; 
+	margin:0% 10%;
+	text-align:center;
+	padding-bottom:0.3em;
+}
+.newindex_link li img{
+	margin-bottom:0.3em;
+} 
+.newindex_link li a span{	
+	color: #000;	
+	font-weight: 500;	
+	font-family:"黑体";
+}
+
+
+
+	 
+
+
+

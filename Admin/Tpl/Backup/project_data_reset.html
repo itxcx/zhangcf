@@ -1,0 +1,26 @@
+<div class="pageContent">
+	<form method="post" action="__ACTION__" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone);">
+		<input type="hidden" name="callbackType" value="closeCurrent"/>
+		<input type="hidden" name="submit" value="1" />
+		<div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5" align="left">
+				<tr>
+					<td>请选择要重置数据的项目.</td>
+				</tr>
+				<volist name="list" id="vo">
+				<tr>
+					<td style="text-align:left">
+						<input type="checkbox" name="project[]" value="{$vo.id}" id="project{$key}"/><label for="project{$key}">{$vo.title}</label>
+					</td>
+				</tr>
+				</volist>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>

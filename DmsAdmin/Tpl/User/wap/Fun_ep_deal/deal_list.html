@@ -1,0 +1,167 @@
+<include file="Public:header" />
+<style>
+    #content nav {
+        display: none;
+    }
+</style>
+    <div class="content-main">
+<!--内容-->
+
+<div class="core_main Fun_ep_deal" id="deal_list">
+     <div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>:财务管理&gt;&gt;{$bankname}卖出</span>
+        
+    </div>
+    <div class="core_con">
+    <form method="post" id="form1" action="">
+      <table class="tablebg">
+          <tr class="datalist">
+            <td class="tbkey">{$bankname}余额：</td>
+            <td class="tbval"><strong>{$user.$bankname}</strong></td>
+          </tr>
+		  <tr class="datalist">
+            <td class="tbkey">{:L('出售金额')}：</td>
+			<td  class="tbval"><input type="text" id="money" name="money" style="width:160px;"/><span style="color:#c61d32; font-size:12px; vertical-align:middle; font-weight:200;">&nbsp;<span class="form_notice"><if condition="$eqMultiple neq 1">*{:L('必须是')}{$eqMultiple}{:L('的整数倍')}</if><if condition="$eqlow gt 0">-最低{$eqlow}</if><if condition="$eqhigh gt 0">-最高{$eqhigh}</if></span></span></td>
+          </tr>
+          <if condition="$eqCost gt 0">
+          <tr class="datalist">
+            <td class="tbkey">{:L('出售交易费')}：</td>
+			<td  class="tbval"><if condition="$eqCost lt 1"><span id="eqCost">0&nbsp;</span>（出售数量*{$eqCost}）<else/><strong>{$eqCost}</strong></if></td>
+          </tr>
+          </if>
+          <if condition="$eqScale neq 1">
+          <tr class="datalist">
+            <td class="tbkey">{:L('出售价格')}：</td>
+			<td  class="tbval"><input type="text" id="price" value="{$eqScale}" name="price" style="width:160px;" <if condition="$eqDrop eq 0 and $eqRise eq 0">readonly="readonly"</if>/><span style="color:#c61d32; font-size:12px; vertical-align:middle; font-weight:200;">&nbsp;<span class="form_notice"><if condition="$eqDrop gt 0">允许{$eqDrop}%跌幅</if><if condition="$eqRise gt 0">-允许{$eqRise}%涨幅</if></span></span></td>
+          </tr>
+          </if>
+          <if condition="$eqSellInput eq true">
+          <tr class="datalist">
+            <td class="tbkey">{:L('开户名')}：</td>
+			<td  class="tbval"><input type="text" id="huzhu" name="huzhu" style="width:160px;" value="{$user.开户名}"/>&nbsp;<span class="form_notice">*</span></td>
+          </tr>
+          <tr class="datalist">
+            <td class="tbkey">{:L('银行卡号')}：</td>
+			<td  class="tbval"><input type="text" id="zhanghao" name="zhanghao" style="width:160px;" value="{$user.银行卡号}"/>&nbsp;<span class="form_notice">*</span></td>
+          </tr>
+          <tr class="datalist">
+            <td class="tbkey">{:L('开户银行')}：</td>
+			<td  class="tbval"><input type="text" id="bank" name="bank" style="width:160px;" value="{$user.开户银行}"/>&nbsp;<span class="form_notice">*</span></td>
+          </tr>
+          <tr class="datalist">
+            <td class="tbkey">{:L('移动电话')}：</td>
+			<td  class="tbval"><input type="text" id="mobile" name="mobile" style="width:160px;" value="{$user.移动电话}"/>&nbsp;<span class="form_notice">*</span></td>
+          </tr>
+          </if>
+		<tr class="datalist">
+			<td class="tbkey">{:L('二级密码')}：</td>
+			<td class="tbval">
+			 <span><input type="password" value="" id="pass2" name="pass2" /></span>
+			 &nbsp;<span class="form_notice">*</span>
+			</td>
+		  </tr> 
+		 
+          <tr>
+            <td colspan="2" align="center"><button id="sell_btn" type="button" class="input_button" onclick="sell();" >{:L('确定卖出')}</button></td>
+          </tr>
+     </table>
+     </form> 
+  </div>
+  <div class="title">		
+    <span class="core_title_con">我的卖出记录</span>
+  </div>
+  <div class="core_con">
+        <table class="tablebg">
+             <foreach name="data.list" item="name">
+            <tr class="tbtr">
+                <td class="btkey">
+                    <table>
+                       <foreach name='data.field' item='name2'>
+                       <tr><td><nobr>{$name2}</nobr></td></tr>
+                       </foreach>
+                    </table>
+                </td>
+                <td class='btval'>
+                    <table>
+                    <foreach name="name" item='value' key='name1'>
+                    <tr><td><nobr>{$name.$name1}</nobr></td></tr>
+                    </foreach>
+                    </table>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+    </div>
+    <div class="core_page">
+        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页</span>
+        <div class="page_box">
+        <if condition="$data['nowPage'] neq 1">
+        <a href="{$data.firstRow}">|&lt;</a>
+        <else/><span>|&lt;</span>
+        </if>
+        <a href="{$data.upRow}">&lt;</a>
+        <if condition="isset($data['rollPage'][-2])">
+        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>
+        </if>
+        <if condition="isset($data['rollPage'][-1])">
+        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>
+        </if>
+        <a class="nowPage">{$data.nowPage}</a>
+        <if condition="isset($data['rollPage'][1])">
+        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>
+        </if>
+        <if condition="isset($data['rollPage'][2])">
+        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>
+        </if>
+        <a href="{$data.downRow}">&gt;</a>
+        <if condition="$data['nowPage'] lt $data['totalPages']">
+        <a href="{$data.theEndRow}">&gt;|</a>
+        <else/><span>&gt;|</span>
+        </if>  
+        </div>
+    </div>
+    
+</div>
+<!--内容-->
+    </div>
+<include file="Public:footer" />
+
+<script language="javascript">
+	$("input[name='money']").focus();
+    $("input[name='money']").keyup(function(){
+    	var sum = $(this).val();
+        if(sum !="" && !isNaN(sum) && {$eqCost}>0 && {$eqCost}<1){
+            var tax = sum * {$eqCost};
+            tax = tax.toFixed(2);
+            $("#eqCost").html(tax);
+        }else{
+            $("#tax").html("0");
+        }
+    });
+function sell(){
+	var low={$eqlow};
+	var high={$eqhigh};
+	var money=$("#money").val();
+	//var price=$("#price").val();
+	var pass=$("#pass2").val();
+	if(money=='' ||  pass=='' ){
+		alert("信息请填写完整");
+		return false;
+	}
+	
+	if(money<low){
+		alert("出售金额不能低于"+low);
+		return false;
+	}else if(money>high && high>0){
+		alert("出售金额不能高于"+high);
+		return false;
+	}
+
+	$("#sell_btn").attr({"disabled":"disabled"});
+	var url="__URL__/add_ep/args/{$args}";
+	$("#form1").attr("action",url);
+	$('#form1').submit();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<script language="JavaScript">
+
+function dialogAjaxDoneProductAdd1(json)
+{
+	DWZ.ajaxDone(json);
+	navTab.reload();          //刷新列表
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+	
+}
+</script>
+<div class="pageContent">
+	<form  id="formpay" method="post" action="__URL__/do_add/navTabId/{:md5(__URL__.'/index')}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDoneProductAdd1)">
+		<input type="hidden" name="callbackType" value="closeCurrent" />
+		<table>
+			<tr>
+				<td style="text-align:left;width:80px">
+					支付接口：
+				</td>
+				<td>
+					<select name="payment" id="payment">
+						<option value="0">请在列表中选出支付接口</option>
+						<foreach name="data" item="vo"  key="ke">
+						<option value="{$ke}">{$vo.name}</option>
+						</foreach>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<link rel="stylesheet" href="__PUBLIC__/select/multiselect2side.css" type="text/css"/>
+		<script type="text/javascript" src="__PUBLIC__/select/multiselect2side.js" ></script>
+		<div class="pageFormContent" id="zfpz" layoutH="90">
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="button">确定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script>
+$("#payment").change(function(){
+	$("#zfpz").empty();
+	if($("#payment").val()!=0){
+		$.ajaxSetup({global: false});
+		$("#zfpz").load("__URL__/config",{"interface":$("#payment").val()});
+	}
+});
+
+$("#submit").click(function(){
+	if($("#payment").val()==0){
+		alert('请在列表中选择一种支付接口');
+		$("#payment").focus();
+	}else{
+		$("#formpay").submit();
+	}
+})
+</script>

@@ -1,0 +1,93 @@
+<include file="Public:pagerForm" />
+<div class="pageHeader">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+	<div class="searchBar">
+		
+		<div class="subBar">
+			<ul class="searchContent" style="float:left">
+				<li>
+					<label>权限组名称：</label>
+					<input type="text" name="name" style="width:90px" />
+				</li>
+				<!--<li>
+					<label>类型：</label>
+					<select name="type">
+					<option value="">不限</option>
+					<option value="1">会员</option>
+					<option value="0">管理员</option>
+					</select>
+				</li>-->
+			</ul>
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="__URL__/add" rel="role_add" target="navTab" mask="true" height="580"><span>添加权限组</span></a></li>
+			<li><a class="edit" href="__URL__/edit/id/{admin_id}" rel="role_edit" target="navTab" mask="true" height="580"><span>修改权限组</span></a></li>
+			<li><a class="delete" href="__URL__/delete/id/{admin_id}" rel="role_del" target="ajaxTodo" title="确定删除？"><span>删除权限组</span></a></li>
+		</ul>
+	</div>
+
+	<table class="table" width="100%" layoutH="112">
+		<thead>
+		<tr>
+			<th width="50">编号</th>
+			<th>权限组名称</th>
+			<th>上级</th>
+			<th>类型</th>
+			<th>状态</th>
+		</tr>
+		</thead>
+		<tbody>
+		<volist id="vo" name="list">
+			<tr target="admin_id" rel="{$vo['id']}">
+				<td>{$vo['id']}</td>
+				<td>{$vo.name}</td>
+				<td>{:getGroupName($vo['pid'])}</td>
+				<td>
+				<eq name="vo.type" value="1">会员</eq>
+				<eq name="vo.type" value="0">管理员</eq>
+				</td>
+				<td>
+				<eq name="vo.status" value='0'>待审</eq>
+				<eq name="vo.status" value='1'>正常</eq>
+				<eq name="vo.status" value='2'>禁用</eq>
+				</td>
+			</tr>
+		</volist>
+		</tbody>
+	</table>
+
+	<div class="panelBar">
+		<div class="pages">
+			<span>共{$totalCount}条</span>
+		</div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+
+</div>
+<php>
+function getGroupName($id) {
+	if ($id == 0) {
+		return '无上级';
+	}
+	if ($list = F ( 'groupName' )) {
+		return $list [$id];
+	}
+	$dao = D ( "Role" );
+	$list = $dao->field('id,name')->select();
+	foreach ( $list as $vo ) {
+		$nameList [$vo ['id']] = $vo ['name'];
+	}
+	$name = $nameList [$id];
+	F ( 'groupName', $nameList );
+	return $name;
+}
+</php>

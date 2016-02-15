@@ -1,0 +1,36 @@
+<form onsubmit="return edit()">
+<table bordercolor="#eeeeee" border="1" style="border-collapse:collapse;" class="list">
+<tr>
+	<th colspan="2" style="text-align:left">&nbsp;&nbsp;网体数据修改</th>
+</tr>
+<tbody>
+<tr >
+<td width="100" align="center">编号:</td>
+<td width="300" style="text-align:left"><input type="text" name="uid" id="uid"/></td>
+</tr>
+
+</tbody>
+<tr>
+<td colspan="2">
+  <div class="buttonActive" style="margin-left:180px;">
+          <div class="buttonContent" >
+            <button type="button" onclick="edit()">下一步</button>
+          </div>
+      </div>
+</td>
+</tr>
+</table>
+</form>
+<script>
+function edit(){
+	//var userid=$('#uid').val();
+	var userid=$('#uid',navTab.getCurrentPanel()).val();
+	if(userid==''){
+		alertMsg.error('编号不能为空!');
+		return false;
+	}
+	
+	navTab.reload('__URL__/edit/uid/'+userid);
+	return false;
+}
+</script>

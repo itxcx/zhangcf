@@ -1,0 +1,19 @@
+<table name='会员'>
+<field name='申请{$this->name}'  type="numeric(3)" default="1"/>
+<field name='{$this->name}'      type="numeric(3)" default="1"/>
+<field name='赠送{$this->name}'  type="numeric(3)" default="0"/>
+<field name='{$this->name}金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}PV'    type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}单数'  type="int(11)" default="0"/>
+<field name='INDEX (`申请{$this->name}`)' type="KEY"/>
+<field name='INDEX (`{$this->name}`)' type="KEY"/>
+</table>
+<table name='修改日志'>
+<field name='申请{$this->name}'  type="numeric(3)" default="1"/>
+<field name='{$this->name}'      type="numeric(3)" default="1"/>
+<field name='赠送{$this->name}'  type="numeric(3)" default="0"/>
+<field name='{$this->name}金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}PV'    type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='{$this->name}单数'  type="int(11)" default="0"/>
+<field name='{$this->name}_temp' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+</table>

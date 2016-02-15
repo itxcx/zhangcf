@@ -1,0 +1,410 @@
+[ 2016-02-04T13:13:52+08:00 ] /pc_denglu.php?s=/Public/login | ERR: (ThinkException) 警告：此操作不在事务中
+[ 2016-02-04T13:13:52+08:00 ] /pc_denglu.php?s=/Public/login | ERR: (ThinkException) [16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Db.class.php (214) DbMysql->connect()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Driver\Db\DbMysql.class.php (123) Db->initConnect(boolean)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Driver\Db\DbMysql.class.php (308) DbMysql->query(SHOW COLUMNS FROM `dms_loginrs`)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (142) DbMysql->getFields(dms_loginrs)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (125) Model->flush()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (1262) Model->_checkTableInfo()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Model.class.php (102) Model->db(0, )
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Common\common.php (264) Model->__construct(dms_loginrs, NULL, )
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Extend\Library\COM\LoginVerify\LoginVerify.class.php (18) M(dms_loginrs, NULL)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\Admin\Lib\Action\PublicAction.class.php (96) LoginVerify::checkloginrs(127.0.0.1)
+[16-02-04 13:13:02]  () PublicAction->login()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (133) call_user_func(array)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\App.class.php (160) App::exec()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Lib\Core\Think.class.php (48) App::run()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php (241) Think::Start()
+[16-02-04 13:13:02] C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php (41) require(C:\WWW\dmsbeta\ThinkPHP\Common\runtime.php)
+[16-02-04 13:13:02] C:\WWW\dmsbeta\public_html\pc_denglu.php (9) require(C:\WWW\dmsbeta\ThinkPHP\ThinkPHP.php)
+
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run XSS Behavior [ RunTime:0.007000s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_init ] --END-- [ RunTime:0.021001s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run CheckRoute Behavior [ RunTime:0.014001s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ route_check ] --END-- [ RunTime:0.021001s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run ReadHtmlCache Behavior [ RunTime:0.015001s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_begin ] --END-- [ RunTime:0.022001s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.032002s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.013000s ]
+[ 2016-02-04T16:43:46+08:00 ] /pc_denglu.php?s=/RunSet/index | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.027001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.011000s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run LocationTemplate Behavior [ RunTime:0.011001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_template ] --END-- [ RunTime:0.016001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run ParseTemplate Behavior [ RunTime:0.463026s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_parse ] --END-- [ RunTime:0.470027s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run ContentReplace Behavior [ RunTime:0.014001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run TokenBuild Behavior [ RunTime:0.017001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run WriteHtmlCache Behavior [ RunTime:0.008000s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run ShowRuntime Behavior [ RunTime:0.021001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_filter ] --END-- [ RunTime:0.075004s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run ShowPageTrace Behavior [ RunTime:0.010000s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ view_end ] --END-- [ RunTime:0.015001s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Run SaveConfig Behavior [ RunTime:0.006000s ]
+[ 2016-02-04T16:43:47+08:00 ] /pc_denglu.php?s=/RunSet/index | INFO: Tag[ app_end ] --END-- [ RunTime:0.011000s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run XSS Behavior [ RunTime:0.009001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_init ] --END-- [ RunTime:0.015001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run CheckRoute Behavior [ RunTime:0.012001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ route_check ] --END-- [ RunTime:0.017001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.015001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.020001s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.027002s ]
+[ 2016-02-04T16:44:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.003000s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.023002s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.005000s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run LocationTemplate Behavior [ RunTime:0.011001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_template ] --END-- [ RunTime:0.016001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run ParseTemplate Behavior [ RunTime:0.442026s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.449026s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run ContentReplace Behavior [ RunTime:0.014001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run TokenBuild Behavior [ RunTime:0.014001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.007001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run ShowRuntime Behavior [ RunTime:0.022001s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.071004s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run ShowPageTrace Behavior [ RunTime:0.008000s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ view_end ] --END-- [ RunTime:0.014000s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Run SaveConfig Behavior [ RunTime:0.006000s ]
+[ 2016-02-04T16:44:18+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575457575 | INFO: Tag[ app_end ] --END-- [ RunTime:0.011000s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Run XSS Behavior [ RunTime:0.007001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_init ] --END-- [ RunTime:0.012001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Run CheckRoute Behavior [ RunTime:0.015001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ route_check ] --END-- [ RunTime:0.021001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Run ReadHtmlCache Behavior [ RunTime:0.018001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_begin ] --END-- [ RunTime:0.024001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.023001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.003000s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.023001s ]
+[ 2016-02-04T16:45:22+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.004000s ]
+[ 2016-02-04T16:45:23+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:45:23+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Run SaveConfig Behavior [ RunTime:0.006000s ]
+[ 2016-02-04T16:45:23+08:00 ] /pc_denglu.php?s=/RunSet/getlog/type/admin/filename/clical.log | INFO: Tag[ app_end ] --END-- [ RunTime:0.013001s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run XSS Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_init ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run CheckRoute Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T16:48:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.002001s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.030002s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.000000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.040002s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run LocationTemplate Behavior [ RunTime:0.003001s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_template ] --END-- [ RunTime:0.004001s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run ParseTemplate Behavior [ RunTime:0.035002s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.036002s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run TokenBuild Behavior [ RunTime:0.001000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.001000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run ShowRuntime Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.008000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run ShowPageTrace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ view_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Run SaveConfig Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:48:51+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575730829 | INFO: Tag[ app_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run XSS Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run CheckRoute Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.024002s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.020001s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run LocationTemplate Behavior [ RunTime:0.004001s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_template ] --END-- [ RunTime:0.004001s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run ParseTemplate Behavior [ RunTime:0.036002s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.037002s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run ContentReplace Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run TokenBuild Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run ShowRuntime Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.011000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run ShowPageTrace Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ view_end ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Run SaveConfig Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T16:53:19+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454575999255 | INFO: Tag[ app_end ] --END-- [ RunTime:0.002001s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run XSS Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_init ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ route_check ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.024002s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.022001s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run LocationTemplate Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_template ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run ParseTemplate Behavior [ RunTime:0.037002s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.037002s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run TokenBuild Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run ShowRuntime Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.009001s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run ShowPageTrace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ view_end ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Run SaveConfig Behavior [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576030117 | INFO: Tag[ app_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run XSS Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_init ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run CheckRoute Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003001s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003001s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.021002s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.022001s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run LocationTemplate Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_template ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run ParseTemplate Behavior [ RunTime:0.033002s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.033002s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run TokenBuild Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run ShowRuntime Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.009000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run ShowPageTrace Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ view_end ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Run SaveConfig Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:53:53+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576033396 | INFO: Tag[ app_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run XSS Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.021001s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.025001s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.000000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run LocationTemplate Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_template ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run ParseTemplate Behavior [ RunTime:0.031002s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.031002s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run TokenBuild Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run ShowRuntime Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.008000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run ShowPageTrace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ view_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Run SaveConfig Behavior [ RunTime:0.001000s ]
+[ 2016-02-04T16:54:04+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576044148 | INFO: Tag[ app_end ] --END-- [ RunTime:0.001000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run XSS Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run CheckRoute Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.020001s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.024001s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run LocationTemplate Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_template ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run ParseTemplate Behavior [ RunTime:0.035002s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.036002s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run TokenBuild Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run ShowRuntime Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.009001s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run ShowPageTrace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ view_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Run SaveConfig Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:54:17+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576056907 | INFO: Tag[ app_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run XSS Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run CheckRoute Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.021001s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.022002s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run LocationTemplate Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_template ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run ParseTemplate Behavior [ RunTime:0.034001s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.035002s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run TokenBuild Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run ShowRuntime Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.014001s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run ShowPageTrace Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ view_end ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Run SaveConfig Behavior [ RunTime:0.003001s ]
+[ 2016-02-04T16:58:50+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576330482 | INFO: Tag[ app_end ] --END-- [ RunTime:0.003001s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run XSS Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run CheckRoute Behavior [ RunTime:0.003001s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ route_check ] --END-- [ RunTime:0.003001s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead Dispatcher.class.php 第 125 行.
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run ReadHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:58+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.019001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.000000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.019001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SHOW COLUMNS FROM `node` [ RunTime:0.019001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE level=1 and status=1 and is_sync_menu=1 and type=0 ORDER BY sort asc  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE id='2' LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '1' ) LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE Name<>'Admin' and pid=0  FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SHOW COLUMNS FROM `dms_邮件` [ RunTime:0.019001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT COUNT(*) AS tp_count FROM `dms_邮件` WHERE 收件人类型='管理员' and 状态=0 LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SHOW COLUMNS FROM `dms_汇款通知` [ RunTime:0.019001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT COUNT(id) AS tp_count FROM `dms_汇款通知` WHERE 状态=0 LIMIT 1   FOR UPDATE  [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run LocationTemplate Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_template ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.008000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.000000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.000000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | SQL: SELECT * FROM `node` WHERE ( `id` = '2' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run ParseTemplate Behavior [ RunTime:0.114006s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_parse ] --END-- [ RunTime:0.114006s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run ContentReplace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run TokenBuild Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run ShowRuntime Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_filter ] --END-- [ RunTime:0.008001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run ShowPageTrace Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ view_end ] --END-- [ RunTime:0.002000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Run SaveConfig Behavior [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/index | INFO: Tag[ app_end ] --END-- [ RunTime:0.001000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Run XSS Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_init ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Run CheckRoute Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ route_check ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead Dispatcher.class.php 第 125 行.
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_begin ] --END-- [ RunTime:0.004000s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.028001s ]
+[ 2016-02-04T16:59:59+08:00 ] /pc_denglu.php?s=/Index/checkxml | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.000000s ]
+[ 2016-02-04T17:00:00+08:00 ] /pc_denglu.php?s=/Index/checkxml | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.029001s ]
+[ 2016-02-04T17:00:00+08:00 ] /pc_denglu.php?s=/Index/checkxml | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T17:00:00+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T17:00:00+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Run SaveConfig Behavior [ RunTime:0.003001s ]
+[ 2016-02-04T17:00:00+08:00 ] /pc_denglu.php?s=/Index/checkxml | INFO: Tag[ app_end ] --END-- [ RunTime:0.004001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_init ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run XSS Behavior [ RunTime:0.002001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_init ] --END-- [ RunTime:0.002001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ route_check ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run CheckRoute Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ route_check ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead Dispatcher.class.php 第 125 行.
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_begin ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run ReadHtmlCache Behavior [ RunTime:0.003000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_begin ] --END-- [ RunTime:0.003000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | SQL: SHOW COLUMNS FROM `config` [ RunTime:0.030002s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | SQL: SELECT * FROM `config` WHERE ( `name` = 'DIFFTIME' ) LIMIT 1   FOR UPDATE  [ RunTime:0.000000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | SQL: SHOW COLUMNS FROM `admin` [ RunTime:0.027002s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | SQL: SELECT `admin_status` FROM `admin` WHERE ( `id` = '1' ) LIMIT 1   [ RunTime:0.001000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_template ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run LocationTemplate Behavior [ RunTime:0.005001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_template ] --END-- [ RunTime:0.006001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_parse ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run ParseTemplate Behavior [ RunTime:0.047002s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_parse ] --END-- [ RunTime:0.048002s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_filter ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run ContentReplace Behavior [ RunTime:0.005001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run TokenBuild Behavior [ RunTime:0.005000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run WriteHtmlCache Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run ShowRuntime Behavior [ RunTime:0.004000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_filter ] --END-- [ RunTime:0.016001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_end ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run ShowPageTrace Behavior [ RunTime:0.004001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ view_end ] --END-- [ RunTime:0.004001s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_end ] --START--
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Run SaveConfig Behavior [ RunTime:0.002000s ]
+[ 2016-02-04T17:00:48+08:00 ] /pc_denglu.php?s=/RunSet/index&_=1454576448585 | INFO: Tag[ app_end ] --END-- [ RunTime:0.003000s ]

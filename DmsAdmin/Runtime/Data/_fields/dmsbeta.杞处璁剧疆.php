@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'title', 2 => 'bank', 3 => 'tobank', 4 => 'tome', 5 => 'toyou', 6 => 'toyoutype', 7 => 'taxfrom', 8 => 'tax', 9 => 'taxtop', 10 => 'taxlow', 11 => 'sacl', 12 => 'maxnum', 13 => 'minnum', 14 => 'intnum', 15 => 'nets', 16 => 'shop', 17 => 'time', 18 => 'status', '_autoinc' => true, '_pk' => 'id', ); ?>

@@ -277,10 +277,13 @@ class PublicAction extends Action {
 	//获得验证码
 	public function verify()
 	{
-		//import("ORG.Util.Image");
-		//Image::generate_captcha(80,25);
+		
 		import("ORG.Util.Verify");
 		$Verify=new Verify();
+		if(CONFIG('USER_LOGIN_VERIFY_TYPE')==1)
+		{
+			$Verify->usenum = true;
+		}
 		$Verify->fontSize = 15;
 		$Verify->length   = 4;
 		$Verify->useNoise = false;

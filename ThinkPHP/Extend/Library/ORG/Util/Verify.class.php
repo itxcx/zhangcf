@@ -11,6 +11,8 @@
 class Verify {
     protected $config =	array(
         'seKey'     =>  'xsfmdmsverofy',   // 验证码加密密钥
+        'usenum'	=>  false,
+        'numSet'    =>  '1234567890',
         'codeSet'   =>  '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY',             // 验证码字符集合
         'expire'    =>  60,            	   // 验证码过期时间（s）
         'useZh'     =>  false,             // 使用中文验证码 
@@ -146,6 +148,12 @@ class Verify {
             for ($i = 0; $i<$this->length; $i++) {
                 $code[$i] = iconv_substr($this->zhSet,floor(mt_rand(0,mb_strlen($this->zhSet,'utf-8')-1)),1,'utf-8');
                 imagettftext($this->_image, 18, mt_rand(-40, 40), $this->fontSize*($i+1)*1.5, $this->fontSize + mt_rand(10, 20), $this->_color, $this->fontttf, $code[$i]);
+            }
+        }else if($this->usenum){
+            for ($i = 0; $i<$this->length; $i++) {
+                $code[$i] = $this->numSet[mt_rand(0, strlen($this->numSet)-1)];
+                $codeNX  += mt_rand($this->fontSize*0.8, $this->fontSize*1.2);
+                imagettftext($this->_image, 18, mt_rand(-40, 40), $codeNX, $this->fontSize*1.4, $this->_color, $this->fontttf, $code[$i]);
             }
         }else{
             for ($i = 0; $i<$this->length; $i++) {

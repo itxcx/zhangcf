@@ -153,7 +153,7 @@
 <field name="address" type="varchar(255)"  null="1"  default=""/>
 <field name="create_time" type="int(11)" default="0"/>
 </table>
-<!--<table name="log" comment="日志记录">
+<table name="log" comment="日志记录">
 <field name="id" type="int(11)" auto_increment="1" primary="1" />
 <field name="admin_id" type="int(11)"  null="1"  default="0"/>
 <field name="user_id" type="varchar(255)"  null="1"  default=""/>
@@ -177,7 +177,7 @@
 <field name="session_id" type="varchar(255)" comment="session在浏览器中的表示SESSIONID"  default=""/>
 <field name="session_data" type="varchar(5000)"  default=""/>
 <field name="session_expire" type="int(11)" comment="session最后修改时间" default="0" />
-</table>-->
+</table>
 <table name="fundlist" comment="基金捐献列表">
 <field name="id" type="int(11)" auto_increment="1" primary="1"/>
 <field name="userid" type="varchar(255)" default=""/>

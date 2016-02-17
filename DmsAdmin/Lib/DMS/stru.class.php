@@ -509,7 +509,12 @@
 						{
 							foreach($trform as $val)
 							{
-								$ret[$val[2]]=$val[2];
+								//如果XML中的一些CON属性，存在'[]'的写法,会导致查询数据库出现空字段名
+								if($val[2] == '')
+								{
+									throw_exception('如果XML中的一些CON属性，存在[]的写法,会导致查询数据库出现空字段名');
+								}
+								$ret[$val[2]] = $val[2];
 							}
 						}
 					}

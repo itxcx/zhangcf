@@ -1456,5 +1456,20 @@
 				}
 			}
 		}
+		//定制化添加 查询符合条件的下级的数量
+		public function getdownNum($user, $minlayer = 0, $maxlayer = 0, $where = '',$haveme = false)
+		{
+			$m_user=D("user");
+			//判断会员是否是第一个会员 如果是第一个会员的话 应该是'id-%' 如果不是的话应该是'%,id-%'
+			$sql = $this->name . "_网体数据 like '".($user[$this->name.'_网体数据'] ? $user[$this->name.'_网体数据'].',' : '').$user['id']."-%' or {$this->name}_上级编号='".$user['编号']."'";
+	        $where .= " and ($sql)";
+	        if($minlayer >= 0) $where .= " and " . $this -> name . "_层数" .  " >=" . ($user[$this -> name . "_层数"] + $minlayer);
+	        if($maxlayer > 0)  $where .= " and " . $this -> name . "_层数" . " <="  . ($user[$this -> name . "_层数"] + $maxlayer);
+	        $ret = $m_user -> where(trim($where,' and')) -> count();
+	        if($ret === false){
+	            throw_exception('net_place执行查下级点位数量失败,sql信息(' . htmlentities($m_user -> getDbError(), ENT_COMPAT , 'UTF-8') . ")");
+	        }
+	        return $ret;
+        }
 	}
 ?>

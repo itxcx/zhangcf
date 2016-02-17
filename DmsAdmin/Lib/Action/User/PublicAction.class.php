@@ -73,14 +73,9 @@ class PublicAction extends Action {
 			die;
 		}
 		//判定手机版
-		import('ORG.Mobile.Mobile_Detect');
-	    $detect = new Mobile_Detect;
-	    $isMobile = $detect->isMobile();
-	    $isTablet = $detect->isTablet();
 	    
-		if(adminshow('phone_auto') && $isMobile)
+		if($_SESSION['isMobile'])
 		{
-			$_SESSION['isMobile'] = true;
 			$this->display('login:phone:index');
 		}
 		else

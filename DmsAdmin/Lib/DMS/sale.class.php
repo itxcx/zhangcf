@@ -190,12 +190,16 @@
 				}
 			}
 		}
+        /*
+        * 服务中心编号 注册人编号 
+        */
 		public function getFromInfo(&$sdata,&$data,$user=array()){
 			$sdata['服务中心编号']='';
 		    //如果订单为注册.需要对订单赋予注册人编号
 			if(get_class($this) == 'sale_reg'){
 				if($this->user !='admin'){
-					$sdata["注册人编号"]=$_SESSION[C('USER_AUTH_NUM')];
+                    //判断注册人编号 如果是前台会员注册 记录当前会员 如果是前台推广注册记录注册的会员
+					$sdata["注册人编号"]=isset($_SESSION[C('USER_AUTH_NUM')])?$_SESSION[C('USER_AUTH_NUM')]:$sdata["编号"];
 				}else{
 					$sdata["注册人编号"]=$_SESSION["loginAdminAccount"];
 				}
@@ -213,22 +217,22 @@
 			}
 			else
 			{
-					if(get_class($this) != 'sale_reg')
+				if(get_class($this) != 'sale_reg')
+				{
+					//如果没有填写服务中心,那么除了注册以外,全部以会员的服务中心编号作为订单的服务中心编号
+					$sdata["服务中心编号"]     = $user['服务中心编号'];
+				}
+				else
+				{
+					//如果是前台注册,需要服务中心,但是不开放填写,则以当前会员作为服务中心编号
+					if($this->user !='admin')
 					{
-						//如果没有填写服务中心,那么除了注册以外,全部以会员的服务中心编号作为订单的服务中心编号
-						$sdata["服务中心编号"]     = $user['服务中心编号'];
+						//不需要填并且有默认字段的情况下
+						$curuser=M("会员")->where(array('编号'=>$_SESSION[C('USER_AUTH_NUM')]))->find();
+						if($curuser && $this->fromNo!='' && $this->fromNoName=='')
+							$sdata["服务中心编号"]  = $curuser[$this->fromNo];
 					}
-					else
-					{
-						//如果是前台注册,需要服务中心,但是不开放填写,则以当前会员作为服务中心编号
-						if($this->user !='admin')
-						{
-							//不需要填并且有默认字段的情况下
-							$curuser=M("会员")->where(array('编号'=>$_SESSION[C('USER_AUTH_NUM')]))->find();
-							if($curuser && $this->fromNo!='' && $this->fromNoName=='')
-								$sdata["服务中心编号"]  = $curuser[$this->fromNo];
-						}
-					}
+				}
 			}
 			return $sdata;
 		}

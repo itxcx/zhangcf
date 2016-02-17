@@ -158,7 +158,11 @@ class CommonAction extends Action
 	*/
     protected function saveAdminLog($oldData,$newData=null,$content,$memo=null)
     {
+        $oldp=C('DB_PREFIX');
+        if($oldp!="")
+            C('DB_PREFIX',"");
 		$Model  = D('Admin://Log');
+        C('DB_PREFIX',$oldp);
         return $Model->saveAdminLog($oldData,$newData,$content,$memo);
     }
     public function handle(){

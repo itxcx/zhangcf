@@ -446,6 +446,15 @@ $(function(){
 		</select>
 		</td>
 	</tr>
+		<tr>
+		<td width="150px" colspan='2'>验证码类型:</td>
+		<td colspan="4" style="text-align:left">
+		<select name="USER_LOGIN_VERIFY_TYPE">
+		<option value="1" <if condition="$USER_LOGIN_VERIFY_TYPE eq 1"> selected</if>>数字验证</option>
+		<option value="2" <if condition="$USER_LOGIN_VERIFY_TYPE eq 2"> selected</if>>字符串混合验证</option>
+		</select>
+		</td>
+	</tr>
 	</tbody>
 </if>
     

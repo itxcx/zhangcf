@@ -1,3 +1,4 @@
 Admin/Runtime/*
 DmsAdmin/Runtime/*
 ThinkPHP/config/config.php
+public_html/dbbackup/*

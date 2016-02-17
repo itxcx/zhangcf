@@ -1,4 +1,3 @@
-Runtime/*
-Conf/*
-Logs/*
-
+Admin/Runtime/*
+DmsAdmin/Runtime/*
+ThinkPHP/config/config.php

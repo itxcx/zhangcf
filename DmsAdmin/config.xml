@@ -528,7 +528,6 @@ XML文档约定
                                    <_con bump='1:1:0' val='15%'            />
 		-->
 		<prize_bump name='碰对奖' netName='管理'>
-			<_con bump='1:1'  val='10%'   where="[]"/>
 			<_con bump='1:1'  val='10%'   where=""/>
 			<_top where='[会员级别]=1' mode='day' val='#pljffd1#'/>
 			<_top where='[会员级别]=2' mode='day' val='#pljffd2#'/>

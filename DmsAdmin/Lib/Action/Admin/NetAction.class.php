@@ -149,7 +149,7 @@ class NetAction extends CommonAction
 	//管理网络业绩分析
 	public function achieve(net_place $net_place){
 		$branch=$net_place->getBranch();
-		if(trim(I("post.uid/s"))!=""){
+		if(trim(I("post.userid/s"))!=""){
 			$where = "报单状态!='未确认'";
 			if(I("post.startTime/s") != ''){
 				$startTime = strtotime(I("post.startTime/s"));
@@ -159,10 +159,10 @@ class NetAction extends CommonAction
 				$endTime = strtotime(I("post.endTime/s"));
 				$where .= ' and 到款日期<'.($endTime+24*3600);
 			}
-			if(trim(I("post.uid/s")) == ''){
+			if(trim(I("post.userid/s")) == ''){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不能为空!',0);
 			}
-			$userInfo = M("会员")->where(array("编号"=>trim(I("post.uid/s"))))->find();
+			$userInfo = M("会员")->where(array("编号"=>trim(I("post.userid/s"))))->find();
 			if(!$userInfo){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不存在!',0);
 			}

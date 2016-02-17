@@ -428,7 +428,7 @@ class DbMysqli extends Db{
      * @return string
      +----------------------------------------------------------
      */
-    protected function parseKey(&$key) {
+    public function parseKey(&$key) {
         $key   =  trim($key);
         if(!preg_match('/[,\'\"\*\(\)`.\s]/',$key)) {
            $key = '`'.$key.'`';

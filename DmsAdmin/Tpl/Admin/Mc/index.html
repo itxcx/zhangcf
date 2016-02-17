@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		table{
+			border-collapse: collapse;
+		}
+		td{
+			border:1px solid #ADC5EB;
+			width:150px;
+		}
+	</style>
+</head>
+
+<body>
+<form action="/index.php?s=/Mc/update" method='post' class='pageForm required-validate' onsubmit="return validateCallback(this, navTabAjaxDoneReload)" novalidate="novalidate">
+	<table >
+		<tr>
+			<td>名称</td>
+			<td>别名</td>
+		</tr>
+		<foreach name="prize" item="vo">
+			<if condition="$vo:name eq true"> 
+				<tr>
+					<td>{$vo:name}</td>
+					<td><input type="text" name="{$vo:name}" value='{$vo:byname}'></td>
+				</tr>	
+			</if>
+		</foreach>
+
+	</table>
+	<br/><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	<button type='submit'>提交</button>
+</form>
+
+</body>
+</html>

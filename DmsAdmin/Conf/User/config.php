@@ -1,6 +1,6 @@
 <?php
 $DEFAULT_THEME=CONFIG('DEFAULT_THEME')?CONFIG('DEFAULT_THEME'):"blanc_default";
-if(is_mobile_request())
+if($_SESSION['isMobile'])
 {
 	$DEFAULT_THEME='wap';
 }

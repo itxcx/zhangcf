@@ -1,4 +1,15 @@
+Admin/Conf/*
 Admin/Runtime/*
-DmsAdmin/Runtime/*
+
+ThinkPHP/Conf/*
 ThinkPHP/config/config.php
+
+DmsAdmin/config.xml
+DmsAdmin/PrizeData/*
+DmsAdmin/Conf/*
+DmsAdmin/Runtime/*
+
+Install/Conf/*
+Install/Runtime/*
+
 public_html/dbbackup/*

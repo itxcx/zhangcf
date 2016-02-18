@@ -102,11 +102,13 @@
 			超过1M开始散列，如果没有超过1M则直接存储
 		*/
 		public static function commit($caltime,$total=false)
-		{	
+		{
 			self::flush($total);
 			if(!isset(self::$Handle))return;
-
-			//if(!self::$Handle) return;
+            //判断PrizeData文件夹是否存在 不存在创建新文件夹
+            if(file_exists(APP_PATH.'PrizeData')){
+                mkdir(APP_PATH.'PrizeData',0777,true);
+            }
 			$content = '';
 			$dataname = APP_PATH.'PrizeData/'.date('Y/md',$caltime).'/data.php';
 			$dir = dirname($dataname);

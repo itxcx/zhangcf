@@ -1,11 +1,11 @@
 <?php
 return array(
 		'DB_HOST'					=>	'127.0.0.1',
-		'DB_NAME'					=>	'dmsbeta',
+		'DB_NAME'					=>	'waibao',
 		'DB_USER'					=>	'root',
-		'DB_PWD'					=>	'root',
+		'DB_PWD'					=>	'',
 		'DB_PORT'					=>	'3306',
-		'DB_TYPE'					=>	'mysqli',
+		'DB_TYPE'					=>	'mysql',
 	
 		'URL_MODEL'                 =>  3,					// 如果你的环境不支持PATHINFO 请设置为3
 		'DB_LIKE_FIELDS'            =>  'title|remark',

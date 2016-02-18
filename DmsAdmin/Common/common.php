@@ -29,13 +29,11 @@ function getTable($name)
 //断是否为手机移动终端
  function is_mobile_request()
 {  
-	
 	//如果登入时使用了移动端
 	if(isset($_SESSION['isMobile']))
 	{
 		return true;
 	}
-	
 	//判断手机端自动登录的开关是否开启
 	if(adminshow('phone_auto')){
 		import('ORG.Mobile.Mobile_Detect');
@@ -51,8 +49,6 @@ function getTable($name)
 	}else{
      return false;
 	}
-
- 
 }
 function pinyin($zh){
 	$ret = "";

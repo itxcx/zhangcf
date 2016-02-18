@@ -73,8 +73,8 @@ class PublicAction extends Action {
 			die;
 		}
 		//判定手机版
-	    
-		if($_SESSION['isMobile'])
+	    B('CheckAccess');
+		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile'])
 		{
 			$this->display('login:phone:index');
 		}

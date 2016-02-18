@@ -31,6 +31,7 @@ class CommonAction extends Action{
 	public $huobi='';
 	public $userlevel='';
 	public function _initialize() {
+		B('CheckAccess');
 		//网站标题
 		$SYSTEM_TITLE=CONFIG('SYSTEM_TITLE');
 		$SYSTEM_COMPANY=CONFIG('SYSTEM_COMPANY');
@@ -52,6 +53,7 @@ class CommonAction extends Action{
 				die;
 			}
 		}
+		
 		B('CheckLang');
 		//user节点对象
 		if(isset($_SESSION[C('USER_AUTH_NUM')])){

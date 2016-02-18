@@ -301,9 +301,9 @@ class InstallAction extends Action
 		{
 			exit($result[1]);
 		}
-
 		//生成安装应用配置文件
-		$result	= $Install->create_config_file('Install', array(), $this->langs);
+		/* 不需要重写配置文件 config.php
+        $result	= $Install->create_config_file('Install', array(), $this->langs);
 		if ( $result[0] === false )
 		{
 			exit($result[1]);
@@ -333,7 +333,7 @@ class InstallAction extends Action
 			{
 				exit($result[1]);
 			}
-		}
+		}*/
 		echo 'OK';
 	}
 

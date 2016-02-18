@@ -145,7 +145,7 @@ class InstallModel
 	 */
 	function create_config_file($app,$config_list,&$langs)
 	{
-		
+		/*
 		$content = "<?php\n";
 		$content .= '$_app_config = array('."\n";
 		foreach( $config_list as $key=>$value )
@@ -173,7 +173,7 @@ class InstallModel
 			return array(false,$file_path.'无法写入应用配置文件');
 		}
 		@fclose($fp);
-
+        */
 		return array(true,'ok');
 	}
 
@@ -243,6 +243,10 @@ class InstallModel
 			$tables = $BakRec->getTables();
 			$mess = $BakRec->backup($tables,$fileName);
 			//删除奖金构成文件
+            //判断PrizeData文件夹是否存在 不存在创建新文件夹
+            if(file_exists(APP_PATH.'PrizeData')){
+                mkdir(APP_PATH.'PrizeData',0777,true);
+            }
 			$BakRec->remove_directory(ROOT_PATH.'DmsAdmin/PrizeData/',false);
 			
 		}
@@ -267,7 +271,6 @@ class InstallModel
 		$filter_dbs = array('information_schema', 'mysql');
 		$db_host	= $this->construct_db_host($db_host, $db_port);
 		$conn		= @mysql_connect($db_host, $db_user, $db_pass);
-
 		if ($conn === false)
 		{
 			return array(false,'连接数据库失败');
@@ -333,19 +336,17 @@ class InstallModel
 	{
 		include_once(COMMON_PATH . 'includes/cls_mysql.php');
 		include_once(COMMON_PATH . 'includes/cls_sql_executor.php');
-
-		$config = include( ROOT_PATH."$app/Conf/config.php");
-
-		$db = new cls_mysql($config['DB_HOST'].':'.$config['DB_PORT'], $config['DB_USER'], $config['DB_PWD'], $config['DB_NAME'],'utf8');
-		
-		$se = new sql_executor($db, 'utf8', $config['DB_PREFIX'], $config['DB_PREFIX']);
-		
+		//$config = include( ROOT_PATH."$app/Conf/config.php");
+		//直接根据配置文件数据C('***')链接数据库
+		$db = new cls_mysql(C('DB_HOST').':'.C('DB_PORT'), C('DB_USER'), C('DB_PWD'), C('DB_NAME'),'utf8');
+		//数据库 执行
+		$se = new sql_executor($db, 'utf8', C('DB_PREFIX'), C('DB_PREFIX'));
+        //执行sql语句
 		$result = $se->run_all($sql_str);
 		if ($result !== true )
 		{
 			return $result;
 		}
-
 		return true;
 	}
 

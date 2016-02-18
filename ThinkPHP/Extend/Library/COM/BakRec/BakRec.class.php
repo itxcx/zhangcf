@@ -281,11 +281,9 @@ class BakRec
 	}
 	public function runsql($data){
 		$sqldatas=explode("\r\n",$data);
-		//dump(count($sqldata));
 		$filecontent = "";
 		foreach($sqldatas as &$sqldata)
 		{
-			
             if(trim($sqldata) !='/* MySQLReback Separation */' && trim($sqldata) !=';/* MySQLReback Separation */'){
                 $filecontent .= $sqldata;
             }else{
@@ -298,7 +296,7 @@ class BakRec
                         $mes = M()->execute($sql);
                     }
                     if (false === $mes) {                                     
-                        $message .='备份文件代码遇到错误!';
+                        $message ='备份文件代码遇到错误!';
                     }
                 }
                 $filecontent ="";

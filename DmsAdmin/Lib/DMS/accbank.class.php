@@ -2,7 +2,8 @@
 	/*电子货币模块*/
 	class accbank extends stru
 	{
-		//扣款流程
+        
+        
 		public function accok(&$sale,$data=array(),$user,$saleobj,$adminacc=false){
 			//直接生成的订单
 			if(!isset($sale['id']) && ($sale['报单状态']=='未确认' || $sale['报单状态']=='空单' || $sale['报单状态']=='回填'))

@@ -87,7 +87,7 @@ class CommonAction extends Action
 	//程序出错报错
 	public static function onError($errno, $errstr, $errfile, $errline)
 	{
-		//找出抛出的错误  警告不需要
+		//找出抛出的错误警告不需要
 		switch ($errno) {
 			case E_ERROR:
 			case E_USER_ERROR:

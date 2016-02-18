@@ -1737,6 +1737,7 @@ class Model {
 		flock($fp,LOCK_EX|LOCK_NB);//文件加锁
 		$tletmp = array();
 		$tlelist = mysql_unbuffered_query($sql,$this->db->_linkID);
+        $tle=array();
 		do{
 			$i++;
 			$tle = mysql_fetch_assoc($tlelist);

@@ -26,7 +26,7 @@ class NetAction extends CommonAction
 		$list->join('admin as c on a.admin_id=c.id');
 		$list->order("a.id desc");
 		
-		$button=Array("修改"=>array("class"=>"edit","href"=>__APP__."/Admin/Net/editList","target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_edit.png'));
+		$button=Array("修改"=>array("class"=>"edit","href"=>__APP__."/Admin/Net/edit","target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_edit.png'));
 		$list->setButton = $button;
 		$list->showPage=true;
 		
@@ -43,18 +43,16 @@ class NetAction extends CommonAction
 	*/
 	public function edit()
 	{
-		if(trim(I("request.uid/s"))==''){
-			$this->error($this->userobj->name."编号不能为空!");
-		}
 		$uid				= trim(I("request.uid/s"));
 		$userModel			= M('会员');
 		$userInfo			= $userModel->where(array('编号'=>$uid))->find();
-		
-		if( !$userInfo )
+		if($uid!='')
 		{
-			$this->error($uid."  不存在!");
+			if( !$userInfo )
+			{
+				$this->error($uid."  不存在!");
+			}
 		}
-
 		$userNetList		= array(); //用户网体列表
 		foreach(X('net_rec,net_place') as $net)
 		{
@@ -64,11 +62,70 @@ class NetAction extends CommonAction
 				$poses=$net->getBranch();
 				$userNetList[ $net->name ]['ramus']= $poses;
 			}
+//
+			$this->assign('name',$this->userobj->name);
+			
+			$this->assign('userNetList',$userNetList);
+			$this->assign('userInfo',$userInfo);
 		}
-		$this->assign('name',$this->userobj->name);
-		$this->assign('userNetList',$userNetList);
-		$this->assign('userInfo',$userInfo);
+//	echo '<pre>';print_r($userNetList);die;
 		$this->display();
+	}
+	//输入会员编号开始判断存在否
+	public function searchUser(){
+		$num = strval($_POST['num']);
+		$map = array();
+		$map['编号'] = $num;
+		$userModel = M('会员');
+		$rs = $userModel->where($map)->find();
+		if($rs){
+			$username = $rs['姓名']==''?'暂无':$rs['姓名'];			            //会员姓名
+			$userstatus = $rs['状态'];                          //会员状态
+			$tuijian_num = $rs['推荐_上级编号'];             //推荐人编号
+			$guanli_num = $rs['管理_上级编号'];             //管理人编号
+			if($tuijian_num==''){
+				$tuijian_num = '暂无';
+				$tuijian_name='暂无';	
+			}else{
+				$tuijian_name = $userModel->where('编号='.$tuijian_num)->find();
+				$tuijian_name = $tuijian_name['姓名']==''?'暂无':$tuijian_name['姓名'];          //推荐人姓名
+			}
+			if($guanli_num==''){
+				$guanli_num = '暂无';
+				$guanli_name = '暂无';
+			}else{
+				$guanli_name = $userModel->where('编号='.$guanli_num)->find();
+				$guanli_name = $guanli_name['姓名']==''?'暂无':$guanli_name['姓名'];           //管理人姓名
+			}
+			$w_time = date('Y-m-d H:i:s',$rs['注册日期']); //注册日期
+			$e_time = date('Y-m-d H:i:s',$rs['审核日期']); //审核日期
+			$userNetList		= array(); //用户网体列表
+		foreach(X('net_rec,net_place') as $net)
+		{
+			$userNetList[ $net->name ]['tag'] = get_class($net);
+			if( get_class($net) == 'net_place' )
+			{
+				$poses=$net->getBranch();
+				$userNetList[ $net->name ]['ramus']= $poses;
+			}
+			$net_name='';
+			foreach($userNetList as $k=>$v)
+			{
+				$net_name[]=$k;
+			}
+		}
+		$guanli_net= $net_name[1];
+		$tuijian_net= $net_name[0];
+		$str = "<select name='管理_位置'>";
+		foreach($userNetList[ $net->name ]['ramus'] as $v){
+			$str.="<option value='".$v."'>".$v."</option>";	
+		}
+		$str.='</select>';
+	
+			echo json_encode(array('status'=>1,'username'=>$username,'userstatus'=>$userstatus,'tj_num'=>$tuijian_num,'tj_name'=>$tuijian_name,'gl_num'=>$guanli_num,'gl_name'=>$guanli_name,'w_time'=>$w_time,'e_time'=>$e_time,'str'=>$str,'guanli_net'=>$guanli_net,'tuijian_net'=>$tuijian_net));
+		}else{
+			echo json_encode(array('status'=>0,'username'=>'暂无','userstatus'=>'无效'));;
+		}
 	}
 
 	/*
@@ -149,7 +206,7 @@ class NetAction extends CommonAction
 	//管理网络业绩分析
 	public function achieve(net_place $net_place){
 		$branch=$net_place->getBranch();
-		if(trim(I("post.userid/s"))!=""){
+		if(trim(I("post.uid/s"))!=""){
 			$where = "报单状态!='未确认'";
 			if(I("post.startTime/s") != ''){
 				$startTime = strtotime(I("post.startTime/s"));
@@ -159,10 +216,10 @@ class NetAction extends CommonAction
 				$endTime = strtotime(I("post.endTime/s"));
 				$where .= ' and 到款日期<'.($endTime+24*3600);
 			}
-			if(trim(I("post.userid/s")) == ''){
+			if(trim(I("post.uid/s")) == ''){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不能为空!',0);
 			}
-			$userInfo = M("会员")->where(array("编号"=>trim(I("post.userid/s"))))->find();
+			$userInfo = M("会员")->where(array("编号"=>trim(I("post.uid/s"))))->find();
 			if(!$userInfo){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不存在!',0);
 			}
@@ -198,31 +255,25 @@ class NetAction extends CommonAction
 			$this->display();
 		}
 	}
-	/*
-	* fun_treenum网络业绩分析
-	* 根据订单数据组成数组 除未确认订单外的所有订单 根据xml配置中的addval对上返业绩
-	*/
+	//fun_treenum网络业绩分析
 	public function funachieve(fun_treenum $fun_treenum){
-		if(trim(I("post.userid/s"))){
-			//条件判断
-			$where['报单状态'] = array("neq","未确认");
+		if(trim(I("post.uid/s"))){
+			$where = "报单状态!='未确认'";
 			if(I("post.startTime/s") != ''){
 				$startTime = strtotime(I("post.startTime/s"));
-				$where['到款日期'][]=array("egt",$startTime);
+				$where .= ' and 到款日期>='.$startTime;
 			}
 			if(I("post.endTime/s") != ''){
 				$endTime = strtotime(I("post.endTime/s"));
-                $where['到款日期'][]=array("lt",$endTime+24*3600);
+				$where .= ' and 到款日期<'.($endTime+24*3600);
 			}
-			if(trim(I("post.userid/s")) == ''){
+			if(trim(I("post.uid/s")) == ''){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不能为空!',0);
 			}
-			//会员信息
-			$userInfo = M("会员")->where(array("编号"=>trim(I("post.userid/s"))))->find();
+			$userInfo = M("会员")->where(array("编号"=>trim(I("post.uid/s"))))->find();
 			if(!$userInfo){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不存在!',0);
 			}
-			//业绩来源订单
 			$addSet = array();
 			foreach(X('sale_*') as $sale){
 				$addvals = $sale->getcon('addval',array('from'=>'','to'=>'','set'=>''));
@@ -233,25 +284,19 @@ class NetAction extends CommonAction
 				}
 			}
 			$achieve = array();$downUsers=array();
-			//推荐的人
-			$tjusers = M('会员')->field('id,编号,'.$fun_treenum->netName.'_网体数据')->where(array($fun_treenum->netName."_上级编号"=>$userInfo['编号']))->select();
+			$tjusers = M('会员')->field('id,编号,'.$fun_treenum->netName.'_网体数据')->where($fun_treenum->netName."_上级编号='".$userInfo['编号']."'")->select();
 			if(isset($tjusers)){
 				foreach($tjusers as $tjuser){
-					//下级信息
-					$downUsers[$tjuser['编号']] = M('会员')->field('id,编号')->where(array($fun_treenum->netName."_网体数据"=>array("like",trim($tjuser[$fun_treenum->netName.'_网体数据'].','.$tjuser['id'].",%",',')),$fun_treenum->netName."_上级编号"=>$tjuser['编号'],"_logic"=>"or"))->select();
-					$downUsers[$tjuser['编号']][]=array("id"=>$tjuser['id'],"编号"=>$tjuser['编号']);
+					$downUsers[$tjuser['编号']] = M('会员')->field('id,编号')->where($fun_treenum->netName."_网体数据 like '".$tjuser[$fun_treenum->netName.'_网体数据'].",%' or ".$fun_treenum->netName."_上级编号='".$tjuser['编号']."'")->select();
+					$downUsers[$tjuser['编号']][]=$tjuser;
 				}
 			}
 			if(isset($downUsers)){
-                $sum=0;
-				//循环下级找出对上返的业绩
 				foreach($downUsers as $tjkey=>$downUser1s){
 					$achieve[$tjkey]=0;
 					foreach($downUser1s as $downUser){
-                        $where['编号']=$downUser['编号'];
 						foreach($addSet as $add){
-                            $where['报单类别']=$add['name'];
-							$downsales = M('报单')->where($where)->select();
+							$downsales = M('报单')->where($where." and 编号='{$downUser['编号']}' and 报单类别='{$add['name']}'")->select();
 							if(isset($downsales)){
 								foreach($downsales as $downsale){
 									$achieve[$tjkey] += transform($add['from'],$downsale);
@@ -259,12 +304,10 @@ class NetAction extends CommonAction
 							}
 						}
 					}
-                    $sum+=$achieve[$tjkey]; 
+					//if($achieve[$tjkey]==0)
+						//unset($achieve[$tjkey]);
 				}
 			}
-			//汇总
-            $achieve['汇总']=$sum;
-            //输出到页面上
 			$this->ajaxReturn($achieve,'',1);
 		}else{
 			$this->assign('fun_treenum',$fun_treenum);

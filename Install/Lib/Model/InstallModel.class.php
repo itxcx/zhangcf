@@ -240,13 +240,13 @@ class InstallModel
 				$BakRec = new BackRec();
 				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'A' . $backname. '.zip');
 			}
+            //判断PrizeData文件夹是否存在 不存在创建新文件夹
+            if(!file_exists(ROOT_PATH.'DmsAdmin/PrizeData')){
+                mkdir(ROOT_PATH.'DmsAdmin/PrizeData',0777,true);
+            }
 			$tables = $BakRec->getTables();
 			$mess = $BakRec->backup($tables,$fileName);
 			//删除奖金构成文件
-            //判断PrizeData文件夹是否存在 不存在创建新文件夹
-            if(file_exists(APP_PATH.'PrizeData')){
-                mkdir(APP_PATH.'PrizeData',0777,true);
-            }
 			$BakRec->remove_directory(ROOT_PATH.'DmsAdmin/PrizeData/',false);
 			
 		}

@@ -1,5 +1,4 @@
 <?php
-define('CONF_PATH',ROOT_PATH. 'Admin/Conf/');
 $_app_config = array(
 	'APP_GROUP_LIST'		=>	'Admin,User,Api,Check',
 

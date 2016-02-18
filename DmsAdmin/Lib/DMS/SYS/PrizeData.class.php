@@ -106,7 +106,7 @@
 			self::flush($total);
 			if(!isset(self::$Handle))return;
             //判断PrizeData文件夹是否存在 不存在创建新文件夹
-            if(file_exists(APP_PATH.'PrizeData')){
+            if(!file_exists(APP_PATH.'PrizeData')){
                 mkdir(APP_PATH.'PrizeData',0777,true);
             }
 			$content = '';

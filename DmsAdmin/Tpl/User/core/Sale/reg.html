@@ -244,13 +244,9 @@
 	               <tr>
 					<td class="tbkey">密保问题：</td>
 					<td class="tbval">
-					 <span><select name="secretsafe_name">
-	                    <option value="">{:L('请选择')}</option>
-	                    <foreach name="SecretSafelist" item="SecretSafe">
-	                    <option value="{$SecretSafe.密保问题}">{:L($SecretSafe['密保问题'])}</option>
-	                    </foreach>
-                        </select>
-                    </span>
+					<span>
+                        <input type="text" value="" name="secretsafe_name" />
+					</span>
                     &nbsp;&nbsp;<span class="msg" id="state_secretsafe_name">*</span>
 					</td>
 				  </tr>

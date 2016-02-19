@@ -413,8 +413,10 @@ class SaleAction extends CommonAction {
 	public function reg(sale_reg $sale_reg){
 		$require=explode(',',CONFIG('USER_REG_REQUIRED'));
 		$show=explode(',',CONFIG('USER_REG_SHOW'));
-		
 		//密保问题
+		$SecretSafe=M('密保');
+		$SecretSafelist	= $SecretSafe->order('id asc')->select();
+		$this->assign('SecretSafelist',$SecretSafelist);
 		$this->assign('reg_safe',adminshow('mibao'));
 		
 		//注册是否选产品--product.html

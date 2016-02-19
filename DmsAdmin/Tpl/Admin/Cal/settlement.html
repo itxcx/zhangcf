@@ -149,8 +149,7 @@ function addexemsg(title,time,icon)
 	}
 }
 var flushflag = 0;
-if({$if_cli})
-	getcalstate();
+getcalstate();
 function getcalstate()
 {
 	$.ajax({

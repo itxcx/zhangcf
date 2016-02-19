@@ -52,6 +52,8 @@
 <field name='注册人编号' type="varchar(50)" default=""/>
 <field name='sessionid' type="varchar(50)" default=""/>
 <field name='最后访问时间' type="int(11)" default="0"/>
+<field name='密保问题' type="varchar(220)"  default=""/>
+<field name='密保答案' type="varchar(220)"  default=""/>
 <field name='备注'     type="varchar(1000)" default=""/>
 <field name='INDEX (`id`)' type="KEY"/>
 <field name='unique INDEX (`编号`)' type="KEY"/>

@@ -13,8 +13,8 @@ $(document).ready(function(){
 	})*/
 	
 	
-	$('#userid').keyup(function(){
-		var num = $('#userid').val();
+	$('#userid',navTab.getCurrentPanel()).keyup(function(){
+		var num = $('#userid',navTab.getCurrentPanel()).val();
 		$.ajax({
 			data : {'num':num},
             url : "{:U('Net/searchUser')}",
@@ -23,13 +23,26 @@ $(document).ready(function(){
             global:false,
             success : function (data){
             	if(data.status==1){
-            		$('#u_name').text(data.username);
-            		$('#u_status').text(data.userstatus);
-            		$('#fir_tr').after("<tr><td align='right' width='100'>注册日期:</td><td align='left' width='200' colspan='2'>"+data.w_time+"</td><td align='right' width='100'>&nbsp;</td><td align='right' width='100'>审核日期:</td><td align='left' width='200'>"+data.e_time+"</td></tr><tr><td align='right'>"+data.tuijian_net+"人编号:</td><td align=‘left’>"+data.tj_num+"</td><td align='right'>"+data.tuijian_net+"人姓名:</td><td align='left'>"+data.tj_name+"</td><td align='right'>新"+data.tuijian_net+"人编号:</td><td style='text-align:left'><input class='textInput' value='"+data.tj_num+"' type='text' name='"+data.guanli_net+"_上级编号'/></td></tr><tr><td align='right'>"+data.guanli_net+"人编号:</td><td align=‘left’>"+data.gl_num+"</td><td align='right'>"+data.guanli_net+"人姓名:</td><td align='left'>"+data.gl_name+"</td><td align='right'>新"+data.guanli_net+"人编号:</td><td style='text-align:left'><input class='textInput' value='"+data.gl_num+"'  type='text' name='"+data.guanli_net+"_上级编号'/>"+data.str+"</td></tr>");
+            		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
+            		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
+                    $('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
+                    var showstr="<tr><td align='right' width='100'>注册日期:</td><td align='left' width='200' colspan='2'>"+data.userinfo['注册日期']+"</td><td align='right' width='100'>&nbsp;</td><td align='right' width='100'>审核日期:</td><td align='left' width='200'>"+data.userinfo['审核日期']+"</td></tr>";
+                    
+                    for(netkey in data.userinfo['netlist']){
+                        showstr+="<tr>";
+                        showstr+="<td align='right'>"+data.userinfo['netlist'][netkey]+"人编号:</td><td align='left'>"+data[netkey][netkey+'编号']+"</td><td align='right'>"+data.userinfo['netlist'][netkey]+"人姓名:</td><td align='left'>"+data[netkey][netkey+'姓名']+"</td><td align='right'>新"+data.userinfo['netlist'][netkey]+"人编号:</td><td style='text-align:left'><input class='textInput' value='"+data[netkey][netkey+'编号']+"' type='text' name='"+netkey+"_上级编号'/>";
+                        if(data[netkey][netkey+"pos"]!=undefined){
+                            showstr+=data[netkey][netkey+"pos"];
+                        }
+                        showstr+="</td></tr>";
+                    }
+                    
+                    console.log(showstr);
+            		$('#fir_tr',navTab.getCurrentPanel()).after(showstr);
             	}else{
-            		$('#u_name').text(data.username);
-            		$('#u_status').text(data.userstatus);
-            		$('#fir_tr').nextAll('tr').remove();
+            		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
+            		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
+            		$('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
             	}
 			}
 		})

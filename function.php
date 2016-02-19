@@ -71,7 +71,7 @@
 		}
 		$cache[$Node->getNodePath()] = new $Node->nodeName($Node);
 		return $cache[$Node->getNodePath()];
-	};
+	}
 	function X($name='',$parent = null)
 	{
 		

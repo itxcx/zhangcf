@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class LangAction extends Action{
 	function index(){
 		$langs = $this -> getLang();

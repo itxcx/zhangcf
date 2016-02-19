@@ -1,0 +1,16 @@
+engines:
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: 
+        - php
+  csslint:
+    enabled: true
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: 
+        - php
+ratings:
+  paths:
+  - "**.php"

@@ -699,7 +699,7 @@ function CONFIG($name=NULL,$val=NULL) {
 			$telNumberary[]=$mobile;
 			foreach(array_reverse($telNumberary) as $telNumber){
 				if($telNumber==$mobile){
-					$username=$udata['编号'];
+					$username=$userid;
 				}else{
 					$username="";
 				}

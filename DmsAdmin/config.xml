@@ -7,7 +7,7 @@ XML文档约定
   <xxx>
       <_yyy .../>
   </xxx>
-
+  
 @package    user   用户公共节点
 @param      string $name      '会员' 系统对会员的名称
 @deprecated bool   $unaccLog  false  未审核会员是否允许登入系统(false)

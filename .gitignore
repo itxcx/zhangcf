@@ -2,6 +2,8 @@ Admin/Conf/*
 Admin/Runtime/*
 
 ThinkPHP/Conf/*
+!ThinkPHP/Conf/langset.php
+!ThinkPHP/Conf/langTrans.php
 ThinkPHP/config/config.php
 
 DmsAdmin/config.xml

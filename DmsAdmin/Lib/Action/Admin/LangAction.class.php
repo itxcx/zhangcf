@@ -91,12 +91,10 @@ class LangAction extends Action{
     public function editSave(){
     	$data = I("post.");
     	if(empty($data['file'])){
-    		$this->error('作用域不可为空');
+    		$this->ajaxReturn('','作用域不可为空',0);
     		return;
     	}
-    	//dump($data);exit;
-    	$find_where = array("name"=>$data['name'],"file"=>$data['file']);
-    	$save_where = array("lid"=>I("get.id/s"));
+    	//获取语言包
     	$langs  = $this -> getLang();
     	foreach($langs as $val){
     		$rela_path = LANG_PATH . $val .'/'. $data['file'];
@@ -144,17 +142,13 @@ class LangAction extends Action{
     			file_put_contents($real_path , "<?php" ."\n". "return " . var_export($lang, true) . ";\n?>");
     		}
     	}
-    	
-    	$res = M('langdata') ->where($find_where) -> find();
-    	if($res){
-    		$this->success("此语言标签已经存在");
-    		return;
-    	}
+    	//存到数据表
+    	$where = array("lid"=>I("get.id/s"),"name"=>$data['name']);
     	M()->startTrans();
-    	$result = M('langdata') -> where($save_where) -> save($data);
-		if($result){
+    	$result = M('langdata') -> where($where) -> save($data);
+		if($result !== false){
 			M()->commit();
-			$this->success("保存成功");
+			$this->ajaxReturn(array('ajax'=>$data['ajax']),"保存成功");
 		}else{
 			M()->rollback();
 			$this->error("保存失败");
@@ -183,7 +177,7 @@ class LangAction extends Action{
 			}
 		}	
 		$arr = array('transTo' => $transTo);
-		print_r(json_encode($arr));
+		$this->ajaxReturn($arr,'','','json');
 	}
 	
 	function translate(){		
@@ -210,7 +204,7 @@ class LangAction extends Action{
 				}
 			}
 		}
-		print_r(json_encode($result));
+		$this->ajaxReturn($result,'','','json');
 	}
 	
 	function addMUI(){
@@ -219,15 +213,18 @@ class LangAction extends Action{
 	
 	function getMUI(){
 		$langset = $this -> getLangCode();
-		print_r(json_encode($langset));
+		$this->ajaxReturn($langset,'','','json');
 	}
 	function buildMUI(){
 		$mui = I('post.mui');
-		if(!file_exists(LANG_PATH . $mui)){
-			$res = mkdir(LANG_PATH . $mui);
+		list($a,$b) = explode('_',$mui);
+		if(!file_exists(LANG_PATH . $a)){
+			$res = mkdir(LANG_PATH . $a);
 			if($res){
-				$this->success('创建'.$mui.'语言包成功');
+				$this->ajaxReturn('','创建'.$b.'语言包成功',1);
 			}
+		}else{
+			$this->ajaxReturn('',$b.'语言包已存在',1);
 		}
 	}
 }

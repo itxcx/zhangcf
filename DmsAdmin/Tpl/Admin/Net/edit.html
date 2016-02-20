@@ -43,7 +43,7 @@ function searchUser(e){
 
 <tr id='fir_tr'>
 	<td align="right" width="100">{$name}编号:</td>
-	<td align="left" width="100"><input type="text" name="uid" id="userid" value='' onmouseover="searchUser(this)"/></td>
+	<td align="left" width="100"><input type="text" name="uid" id="userid" value='' onkeyup="searchUser(this)" onmouseover="searchUser(this)" oninput="searchUser(this)"/></td>
 	
 	<td align="right" width="100">{$name}姓名:</td>
 	<td align="left" width="100" id='u_name'></td>

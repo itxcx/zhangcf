@@ -36,8 +36,6 @@ $(document).ready(function(){
                         }
                         showstr+="</td></tr>";
                     }
-                    
-                    console.log(showstr);
             		$('#fir_tr',navTab.getCurrentPanel()).after(showstr);
             	}else{
             		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);

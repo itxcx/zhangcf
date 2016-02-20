@@ -33,11 +33,7 @@
 		DWZ.ajaxDone(json);
 		if (json.statusCode == DWZ.statusCode.ok){
 			navTab.reload();
-			//if ("closeCurrent" == json.callbackType) {
-
 				$.pdialog.closeCurrent();
-			//}
-
 		}
 	}
 	
@@ -45,12 +41,10 @@
 		url:'__URL__/getMUI',
 		dataType:'json',
 		success:function(result){
-			//console.log(result);
 			var output = [];
 			output.push('<option value="">请选择</option>');
-			$.each(result, function(key, value){
-				console.log(value);
-				output.push('<option value="'+ key +'">'+ value.name +' '+key+'</option>');
+			$.each(result.data, function(key, value){
+				output.push('<option value="'+ key +'_'+ value.name +'">'+ value.name +'</option>');
 			});
 			$("#mui").html(output.join(''));
 		}

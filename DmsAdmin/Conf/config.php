@@ -10,7 +10,7 @@ $_app_config = array(
 
 	'DB_PREFIX'		=>	'dms_',
 
-    'LOAD_EXT_CONFIG'=>'core_config,debug',//拓展配置文件名称
+    'LOAD_EXT_CONFIG'=>'core_config,debug,lang',//拓展配置文件名称
 
     'LOAD_EXT_CONFIG_PATH'=>ROOT_PATH.'Admin/Conf/',//拓展配置文件地址
 

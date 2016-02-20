@@ -1,1 +1,3 @@
-<?php phpinfo();?>
+<?php 
+//注释
+phpinfo();?>

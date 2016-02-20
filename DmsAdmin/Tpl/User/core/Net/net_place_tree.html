@@ -12,14 +12,7 @@
         <div id="selectplacediv{$firstUserInfo['id']}" style="width:200px;margin:0 auto;">
             <select name="changeStyle" id="changeStyle">
                 <option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
-                <php>
-                    //判断是豪华版还是简化版 如果是简化版的话 则不显示树形目录
-                    if(C('VERSION_SWITCH') == '0'){
-                </php>
                 <option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
-                <php>
-                    }
-                </php>
             </select>
         </div>
         <if condition="$firstUserInfo">

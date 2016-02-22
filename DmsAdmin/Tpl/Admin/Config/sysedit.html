@@ -26,7 +26,6 @@
       </td>
 </tr>
 </tbody>
-<if condition="$Complete eq true">
 <thead>
    <tr>
    <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;QQ在线客服</th>
@@ -55,7 +54,6 @@
 		</td>
 	</tr>
 </tbody>
-</if>
 <script>
 $(function(){
 	$('#TYPE_QQ').change(function(){
@@ -65,7 +63,6 @@ $(function(){
 	});
 })
 </script>
-<if condition="$Complete eq true">
 <thead>
    <tr>
    <th colspan="4" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;系统维护</th>
@@ -79,7 +76,6 @@ $(function(){
       </td>
 </tr>
 </tbody>
-</if>
 
 <thead>
    <tr>
@@ -87,7 +83,6 @@ $(function(){
    </tr>
    </thead>
    <tbody>
-<if condition="$Complete eq true">
 <tr>
      <td width="120px" >选择当前的系统状态:</td>
      <td colspan="3" style="text-align:center">
@@ -97,7 +92,6 @@ $(function(){
 		<option value="3" <eq name="SYSTEM_STATE" value="3"> selected</eq>>无法访问</option>
 		</select></td>
 </tr>
-</if>
 <tr>
      <td width="120px" >开放时间:</td>
      <td colspan="3" style="text-align:center">
@@ -398,7 +392,6 @@ $(function(){
 	<td></td>
 	</tr>
 	</if>
-	<if condition="$Complete eq true">
 	<tr>
 		<td>编号生成规则设置:</td>
 		<td colspan="6" style="text-align:left">
@@ -413,7 +406,6 @@ $(function(){
 		<p><span style="color:red"><img src="__PUBLIC__/Images/notice.png" style="vertical-align:middle"/>特别说明：自动不编辑获取编号注册时以注册后的编号为准</span></p>
 		</td>
 	</tr>
-	</if>
 	<tr>
 		<td>默认密码设置</td>
 		<td colspan="6" style="text-align:left">
@@ -429,7 +421,6 @@ $(function(){
 
 
 <table class="list" style="width:700px">
-<if condition="$Complete eq true">
     <thead>
     <tr>
      <th  style="text-align:left" colspan="5"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;会员安全设置</th>
@@ -456,8 +447,6 @@ $(function(){
 		</td>
 	</tr>
 	</tbody>
-</if>
-    
 	<tr>
 	 <td colspan="6" style="vertical-align: middle;" >
 	   <div class="buttonActive" style="margin-left:290px;">

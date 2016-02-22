@@ -20,9 +20,7 @@ class SaleAction extends CommonAction {
         	if(adminshow('kuaidi')){
           		$setButton["发货/查看物流"]=array("class"=>"sended","href"=>'__URL__/send/id/{tl_id}/',"target"=>"dialog","height"=>"500","width"=>"800","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	          	//判断是否是豪华版 如果是豪华版的话自动快递查询
-	          	if(C('VERSION_SWITCH') == '0'){
-	          		$setButton["快递查询"]=array("class"=>"edit","href"=>"http://www.kuaidi100.com/frame/app/index2.html","target"=>"_blank");
-	          	}
+          		$setButton["快递查询"]=array("class"=>"edit","href"=>"http://www.kuaidi100.com/frame/app/index2.html","target"=>"_blank");
 	        }else{
 	          	$setButton["发货"]=array("class"=>"sended","href"=>'__URL__/sended/id/{tl_id}/',"target"=>"ajaxTodo","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	        }
@@ -84,9 +82,7 @@ class SaleAction extends CommonAction {
 	        if(adminshow('kuaidi_pro')){
 	          	$setButton["发货/查看物流"]=array("class"=>"sended","href"=>'__URL__/send/id/{tl_id}/',"target"=>"dialog","height"=>"500","width"=>"800","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	          	//判断是否是豪华版 如果是豪华版的话自动快递查询
-	          	if(C('VERSION_SWITCH') == '0'){
-	          		$setButton["快递查询"]=array("class"=>"edit","href"=>"http://www.kuaidi100.com/frame/app/index2.html","target"=>"_blank");
-	          	}
+          		$setButton["快递查询"]=array("class"=>"edit","href"=>"http://www.kuaidi100.com/frame/app/index2.html","target"=>"_blank");
 	        }else{
 	          	$setButton["发货"]=array("class"=>"sended","href"=>'__URL__/sended/id/{tl_id}/',"target"=>"ajaxTodo","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	        }
@@ -413,10 +409,8 @@ class SaleAction extends CommonAction {
 	public function reg(sale_reg $sale_reg){
 		$require=explode(',',CONFIG('USER_REG_REQUIRED'));
 		$show=explode(',',CONFIG('USER_REG_SHOW'));
+		
 		//密保问题
-		$SecretSafe=M('密保');
-		$SecretSafelist	= $SecretSafe->order('id asc')->select();
-		$this->assign('SecretSafelist',$SecretSafelist);
 		$this->assign('reg_safe',adminshow('mibao'));
 		
 		//注册是否选产品--product.html

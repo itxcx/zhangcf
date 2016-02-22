@@ -104,13 +104,11 @@ class MenuAction extends Action {
 					$menu[$netManageName][]=array('model'=>'Net','action'=>'disp:'.$v->objPath(),'title'=>L($v->byname.'网络'),'level'=>1);
 				}
 				//网络的列表只有豪华版才能看到 简化版是没有这个功能的 
-				if(C('VERSION_SWITCH') == '0'){
 					if(($allshow) || (!$allshow && (($v->userListDisp && $userinfo[$v->name.'网络显示']=='自动') || $userinfo[$v->name.'网络显示']=='是'))
 							 	  || (!$allshow && $v->shopListDisp && transform($user->shopWhere,$userinfo))
 					){
 						$menu[$netManageName][]=array('model'=>'Net','action'=>'listDisp:'.$v->objPath(),'title'=>L($v->byname."列表"),'level'=>1);
 					}
-				}
 			}
 			foreach(X('net_place2') as $v)
 			{
@@ -124,16 +122,13 @@ class MenuAction extends Action {
 				 ){
 					$menu[$netManageName][]=array('model'=>'Net','action'=>'disp:'.$v->objPath(),'title'=>L($v->byname."网络"),'level'=>1);
 				}
-					//网络的列表只有豪华版才能看到 简化版是没有这个功能的 
-				if(C('VERSION_SWITCH') == '0'){
-					if(($allshow)
-						|| (!$allshow && (($v->userListDisp && $userinfo[$v->name.'网络显示']=='自动') || $userinfo[$v->name.'网络显示']=='是'))
-						|| (!$allshow && $v->shopListDisp && transform($user->shopWhere,$userinfo))
-						){
-						$menu[$netManageName][]=array('model'=>'Net','action'=>'listDisp:'.$v->objPath(),'title'=>L($v->byname."列表"),'level'=>1);
-					}
+				//网络的列表只有豪华版才能看到 简化版是没有这个功能的 
+				if(($allshow)
+					|| (!$allshow && (($v->userListDisp && $userinfo[$v->name.'网络显示']=='自动') || $userinfo[$v->name.'网络显示']=='是'))
+					|| (!$allshow && $v->shopListDisp && transform($user->shopWhere,$userinfo))
+					){
+					$menu[$netManageName][]=array('model'=>'Net','action'=>'listDisp:'.$v->objPath(),'title'=>L($v->byname."列表"),'level'=>1);
 				}
-				
 			}
 			//幸运网
 			foreach(X('fun_ifnum') as $luck){

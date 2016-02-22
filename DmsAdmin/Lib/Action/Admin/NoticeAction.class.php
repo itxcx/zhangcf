@@ -212,12 +212,10 @@ class NoticeAction extends CommonAction {
 		$sendto=array();
 		$sendto[]=array("name"=>"全部".$this->userobj->byname,"path"=>'',"isuser"=>1);
 		//判断如果是豪华版可以发布团队公告
-		if(C('VERSION_SWITCH') == '0'){
-			//遍历所有下级节点
-			foreach(X('net_rec,net_place') as $net)
-			{
-				$sendto[]=array("name"=>$this->userobj->name.$net->name."网络","path"=>$net->objPath(),"isuser"=>0);
-			}
+		//遍历所有下级节点
+		foreach(X('net_rec,net_place') as $net)
+		{
+			$sendto[]=array("name"=>$this->userobj->name.$net->name."网络","path"=>$net->objPath(),"isuser"=>0);
 		}
 		$this->assign('lang',C('DEFAULT_LANG'));
 		$this->assign('sendto',$sendto);

@@ -20,9 +20,7 @@ class FunBankAction extends CommonAction {
 			'设置'    =>array("class"=>"addMore","href"=>"__URL__/config:__XPATH__","target"=>"navTab",'title'=>'设置','icon'=>'/Public/Images/ExtJSicons/cog.png'),
 	    );
 	    //如果是豪华版的话 则有批量充值的功能
-		if(C('VERSION_SWITCH') == '0'){
-            $setButton['批量充值'] = array("class"=>"addMore","href"=>"__URL__/rechargepl:__XPATH__","target"=>"navTab","title"=>$bank->byname.'批量充值','icon'=>'/Public/Images/ExtJSicons/money_add.png');
-		}
+       $setButton['批量充值'] = array("class"=>"addMore","href"=>"__URL__/rechargepl:__XPATH__","target"=>"navTab","title"=>$bank->byname.'批量充值','icon'=>'/Public/Images/ExtJSicons/money_add.png');
         $list=new TableListAction($bank->name."明细");
 		$list->table('dms_'.$bank->name."明细 a");
         $list->setButton = $setButton;       // 定义按钮显示
@@ -785,9 +783,7 @@ class FunBankAction extends CommonAction {
 			'审核'=>array('class'=>'edit','href'=>"__URL__/confirmRem/id/{tl_id}","target"=>"dialog" ,"title"=>"汇款通知审核"),
 			'删除'=>array("class"=>"delete","href"=>"__URL__/del1/id/{tl_id}","target"=>"ajaxTodo" ,"title"=>"确定要删除吗?"),
 	    );
-        if(C('VERSION_SWITCH') == '0'){
-            $setButton['设置'] = array("class"=>"addMore","href"=>"__URL__/remitSet","target"=>"navTab","title"=>"汇款设置",'icon'=>'/Public/Images/ExtJSicons/cog.png');
-		}
+        $setButton['设置'] = array("class"=>"addMore","href"=>"__URL__/remitSet","target"=>"navTab","title"=>"汇款设置",'icon'=>'/Public/Images/ExtJSicons/cog.png');
 		$list->setButton = $setButton; 
         $this->assign('list',$list->getHtml());         // 分配到模板有自定义函数时需传递$this;
         $this->display('rem');

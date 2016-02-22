@@ -51,7 +51,7 @@ class PublicAction extends Action {
 	//系统维护密码验证
 	public function checkPass(){
 		//获取服务器的ip
-		if(isset($_SESSION['checkpass']) || CONFIG('SYSTEM_PASS_KEY')=="" || strpos('192.168.',$_SERVER['SERVER_ADDR'])>=0 || strpos('127.0.0.1',$_SERVER['SERVER_ADDR'])>=0){
+		if(isset($_SESSION['checkpass']) || CONFIG('SYSTEM_PASS_KEY')=="" || strpos($_SERVER['SERVER_ADDR'],'192.168.')>=0 || strpos($_SERVER['SERVER_ADDR'],'127.0.0.1')>=0){
 			echo "<script>$.pdialog.closeCurrent();$('#sysmenu').toggle();</script>";die;
 		}else{
 			$this->display();

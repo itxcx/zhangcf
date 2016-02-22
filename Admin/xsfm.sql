@@ -223,11 +223,10 @@ CREATE TABLE `dms_快递` (
 DROP TABLE IF EXISTS `dms_密保`;
 CREATE TABLE `dms_密保` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `编号` varchar(50) DEFAULT '',
   `密保问题` varchar(100) DEFAULT '',
-  `密保答案` varchar(100) DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY (`编号`)
+  `添加时间` int(11) DEFAULT 0,
+  `管理员` varchar(50) DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 

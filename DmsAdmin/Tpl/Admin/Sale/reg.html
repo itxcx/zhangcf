@@ -426,7 +426,12 @@ function alertcheck(){
   <tr>
     <td style="height:25px;vertical-align: middle;">密保问题：</td>
     <td style="height:25px;text-align:left;">
-		<input type="text" value="" name="secretsafe_name" />
+		<select name="secretsafe_name">
+		<option value="">请选择</option>
+		<foreach name="SecretSafelist" item="SecretSafe">
+		<option value="{$SecretSafe.密保问题}">{$SecretSafe.密保问题}</option>
+		</foreach>
+		</select>
     </td>
     <td style="height:25px;vertical-align: middle;">
       &nbsp;<span id="state_secretsafe_name">*</span>   

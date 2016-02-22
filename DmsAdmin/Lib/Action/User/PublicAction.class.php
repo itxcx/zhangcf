@@ -289,35 +289,6 @@ class PublicAction extends Action {
 	public function getUserPwd2(){
 		$this->display('login:mobile:getPassWord');
 	}
-    
-    //通过密保找回密码
-    public function mibao(){
-        $user=I("post.");
-        if(!empty($user['userbh']) and !empty($user['userda']) and !is_array($user['userbh']) and !is_array($user['userda']) ){
-            $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('编号'=>$user['userbh']))->find();
-            if(!empty($mbdata) and $mbdata['密保答案']==trim($user['userda'])){
-                M('会员')->startTrans() ;
-                $m_user=M('会员')->where(array('编号'=>$mbdata['编号']))->save(array('pass1'=>md100($mbdata['编号']),'pass2'=>md100($mbdata['编号'])));
-                $this->success('成功找回密码，新密码与您的帐号相同',U('Index/index'));
-                M('会员')->commit() ;
-            }
-        }
-        $this->error('您的答案不正确');
-    }
-    
-    //密保AJAX
-    public function mibaoajax(){
-        $user=I("post.");
-        if(!empty($user['id']) and !is_array($user['id'])){
-            $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('编号'=>$user['id']))->getField('密保问题');
-            if(!empty($mbdata)){
-                echo json_encode($mbdata);
-            }
-        }
-    }
-    
 	//通过短信找回密码
 	public function getMess(){
 		if(I("post.userid/s") != "" || I("post.telNum/s") != ""){

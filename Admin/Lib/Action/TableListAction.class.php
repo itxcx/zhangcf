@@ -1533,7 +1533,7 @@ class TableListAction extends Model{
 	    $objPHPExcel->getActiveSheet()->getStyle('G')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
 
         if(I("post.searchExcel/s")=="" || I("post.searchExcel/s")!='1'){
-			$this->options['where'] = unserialize(base64_decode(I("request._where/a")));
+			$this->options['where'] = unserialize(base64_decode(I("request._where/s")));
 		}
 
         $datasql = $this->select(false);

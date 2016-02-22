@@ -79,52 +79,46 @@ class NetAction extends CommonAction
 		$userModel = M('会员');
 		$rs = $userModel->where($map)->find();
 		if($rs){
-			$username = $rs['姓名']==''?'暂无':$rs['姓名'];			            //会员姓名
+            $showinfo   = array();//体现到页面的内容
+            $NetList		= array(); //用户网体列表
+			$username = $rs['姓名']==''?'暂无':$rs['姓名'];		//会员姓名
 			$userstatus = $rs['状态'];                          //会员状态
-			$tuijian_num = $rs['推荐_上级编号'];             //推荐人编号
-			$guanli_num = $rs['管理_上级编号'];             //管理人编号
-			if($tuijian_num==''){
-				$tuijian_num = '暂无';
-				$tuijian_name='暂无';	
-			}else{
-				$tuijian_name = $userModel->where('编号='.$tuijian_num)->find();
-				$tuijian_name = $tuijian_name['姓名']==''?'暂无':$tuijian_name['姓名'];          //推荐人姓名
-			}
-			if($guanli_num==''){
-				$guanli_num = '暂无';
-				$guanli_name = '暂无';
-			}else{
-				$guanli_name = $userModel->where('编号='.$guanli_num)->find();
-				$guanli_name = $guanli_name['姓名']==''?'暂无':$guanli_name['姓名'];           //管理人姓名
-			}
-			$w_time = date('Y-m-d H:i:s',$rs['注册日期']); //注册日期
-			$e_time = date('Y-m-d H:i:s',$rs['审核日期']); //审核日期
-			$userNetList		= array(); //用户网体列表
-		foreach(X('net_rec,net_place') as $net)
-		{
-			$userNetList[ $net->name ]['tag'] = get_class($net);
-			if( get_class($net) == 'net_place' )
-			{
-				$poses=$net->getBranch();
-				$userNetList[ $net->name ]['ramus']= $poses;
-			}
-			$net_name='';
-			foreach($userNetList as $k=>$v)
-			{
-				$net_name[]=$k;
-			}
-		}
-		$guanli_net= $net_name[1];
-		$tuijian_net= $net_name[0];
-		$str = "<select name='管理_位置'>";
-		foreach($userNetList[ $net->name ]['ramus'] as $v){
-			$str.="<option value='".$v."'>".$v."</option>";	
-		}
-		$str.='</select>';
-	
-			echo json_encode(array('status'=>1,'username'=>$username,'userstatus'=>$userstatus,'tj_num'=>$tuijian_num,'tj_name'=>$tuijian_name,'gl_num'=>$guanli_num,'gl_name'=>$guanli_name,'w_time'=>$w_time,'e_time'=>$e_time,'str'=>$str,'guanli_net'=>$guanli_net,'tuijian_net'=>$tuijian_net));
+            foreach(X("net_*") as $net){
+                $NetList[$net->name]=$net->byname;
+                $net_num=$rs[$net->name.'_上级编号'];
+                if($net_num==""){
+                    $net_num = '暂无';//上级编号
+				    $net_name= '暂无';//上级姓名
+                }else{
+                    $net_name = $userModel->where(array('编号'=>$net_num))->getField('姓名');
+                    $net_name=="" && $net_name="暂无";
+                }
+                $showinfo[$net->name][$net->name."编号"]=$net_num;
+                $showinfo[$net->name][$net->name."姓名"]=$net_name;
+                if( get_class($net) == 'net_place' )
+    			{
+                    $str = "<select name='".$net->name."_位置'>";
+            		foreach($net->getBranch() as $k=>$v){
+                        if($v==$rs[$net->name."_位置"]){
+                            $str.="<option value='".$v."' selected='selected'>".$v."</option>";	
+                        }else{
+                            $str.="<option value='".$v."'>".$v."</option>";
+                        }
+            		}
+            		$str.='</select>';
+                    $showinfo[$net->name][$net->name."pos"]=$str;
+    			}
+            }
+            $showinfo['userinfo']['姓名']=$username;
+            $showinfo['userinfo']['状态']=$userstatus;
+            $showinfo['userinfo']['注册日期']=date('Y-m-d H:i:s',$rs['注册日期']);
+            $showinfo['userinfo']['审核日期']=date('Y-m-d H:i:s',$rs['审核日期']);
+            $showinfo['userinfo']['netlist']=$NetList;
+            $showinfo['status']=1;
+			echo json_encode($showinfo);
 		}else{
-			echo json_encode(array('status'=>0,'username'=>'暂无','userstatus'=>'无效'));;
+            $showinfo=array('status'=>0,"userinfo"=>array('username'=>'暂无','userstatus'=>'无效'));
+			echo json_encode($showinfo);
 		}
 	}
 

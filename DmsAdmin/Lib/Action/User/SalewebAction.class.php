@@ -137,7 +137,7 @@ class SalewebAction extends CommonAction {
 		
 		$this->assign('nullMode',$sale_reg->nullMode);
 		//注册协议
-		if($this->userobj->agreement && C('VERSION_SWITCH') == '0'){
+		if($this->userobj->agreement){
 			//只有豪华版才可以开启注册协议
 			$this->assign('regAgreement',F('regAgreement'));
 		}

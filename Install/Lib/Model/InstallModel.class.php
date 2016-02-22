@@ -4,7 +4,6 @@ class InstallModel
 {
 	/*
 	* 处理其他操作
-	*
 	*/
 	function do_others($langs)
 	{
@@ -17,11 +16,7 @@ class InstallModel
 		/********** 插入应用节点 *********/
 		$app_list   = isset($_POST['app_list'])		?   trim($_POST['app_list']) : '';
 		if($app_list=='') exit($this->langs['not_select_app']);
-
 		$app_list	= explode(',' , $app_list);
-
-		
-
 		$Node		= M('Node');
 		foreach($app_list as $app)
 		{
@@ -431,8 +426,6 @@ return array(
 		'SESSION_TABLE'             =>  'session',
 		'SESSION_EXPIRE'            =>  1800,
 		'SHOW_PAGE_TRACE'           =>  0 ,					//显示调试信息
-
-		'VERSION_SWITCH'			=>  '0',			//版本切换用于切换母程序简化版和完整版之间的切换。1:简化版，0：完整版。
 		'decimalLon'				=>	14,				//决定double类型字段的整个长度
 		'decimalLen'				=>	2,				//决定double类型字段的小数点长度
 );

@@ -2,7 +2,7 @@
 return array (
   'LANG' => 
   array (
-    'USE' => true,
+    'USE' => false,
     'SET' => 
     array (
       0 => 'zh-cn',

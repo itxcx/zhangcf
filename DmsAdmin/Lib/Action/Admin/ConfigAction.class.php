@@ -200,11 +200,7 @@ class ConfigAction extends CommonAction{
 		}
 		$this->assign('SYSTEM_STATE',CONFIG('SYSTEM_STATE'));
 		//编号生成 需判断是豪华版还是简化版
-		if(C('VERSION_SWITCH') == '0'){
-			$this->assign('Complete',true);
-		}else{
-			$this->assign('Complete',false);
-		}
+		$this->assign('Complete',true);
 		$this->assign('SYSTEM_TITLE',CONFIG('SYSTEM_TITLE'));
 		$this->assign('SYSTEM_COMPANY',CONFIG('SYSTEM_COMPANY'));
 		$this->assign('SYSTEM_MEMO',CONFIG('SYSTEM_MEMO'));

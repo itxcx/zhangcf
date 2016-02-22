@@ -101,13 +101,11 @@ class MailAction extends CommonAction {
 		$sendto=array();
 		//遍历USER节点
 		$sendto[]=array("name"=>$this->userobj->byname."编号","path"=>'');
-			//判断如果是豪华版可以发布团队公告
-		if(C('VERSION_SWITCH') == '0'){
-			//遍历所有下级节点
-			foreach(X('net_rec,net_place') as $net)
-			{
-				$sendto[]=array("name"=>$this->userobj->byname.$net->byname."网络","path"=>$net->objPath());
-			}
+		//判断如果是豪华版可以发布团队公告
+		//遍历所有下级节点
+		foreach(X('net_rec,net_place') as $net)
+		{
+			$sendto[]=array("name"=>$this->userobj->byname.$net->byname."网络","path"=>$net->objPath());
 		}
 		$this->assign('sendto',$sendto);
 		$this->display();

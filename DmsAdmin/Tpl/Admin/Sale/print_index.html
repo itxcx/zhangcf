@@ -138,11 +138,8 @@ $i++;
 <tr>
 	<td colspan="2"  align="center" height="30" style="font-size:15px;text-align:left;line-height:23px;padding-left:5px;padding-top:5px">
 	&nbsp;&nbsp;&nbsp;收货人：{$vo.收货人}&nbsp;&nbsp;&nbsp;收货地址：{$vo.收货省份}{$vo.收货城市}{$vo.收货地区}{$vo.收货街道}{$vo.收货地址}
-	&nbsp;&nbsp;&nbsp;<php>//判断该系统是简化版还是豪华版 如果是简化版的话 则默认没有打印产品订单的功能
-   if(C('VERSION_SWITCH') == '0'){	 
-	</php>快递公司:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
+	&nbsp;&nbsp;&nbsp;快递公司:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
 	无</if>
-	<php>}</php>
 	</td>
 </tr>
 </table>

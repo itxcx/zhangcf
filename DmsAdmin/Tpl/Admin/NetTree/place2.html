@@ -1,10 +1,6 @@
 <div layoutH="0" id="treeContent">
 <div  style="padding-bottom:100px">
 <if condition="$firstUserInfo">
-<php>
-//判断是否是豪华版还是简化版 如果是简化版的话是没有缩放功能的
-if(C('VERSION_SWITCH') == '0'){
-</php>
 	<select name="changeSize" id="changeSize">
 		<option value="">缩放</option>
 		<option value="1.0">100%</option>
@@ -18,7 +14,6 @@ if(C('VERSION_SWITCH') == '0'){
 		<option value="0.2">20%</option>
 		<option value="0.1">10%</option>
 	</select>
-<php>}</php>
 	<table id="contentTable" align="center" cellpadding="0" cellspacing="0" width="100%" style="zoom:100%">
 		<tr><td>
 			<table width="auto" border="0" align="center" style="margin:0 auto;">

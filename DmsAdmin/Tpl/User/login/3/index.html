@@ -243,7 +243,7 @@ function fleshVerify(type){
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
 	<div class="pub_main_code"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle" /></div>
-	<div class="pub_main_button"><eq name="isOpenTime" value="0">对不起，该时间段暂不可访问<else/><input type="image" src="/UserTpl/login/3/login_button.gif" border="0"><span class="wjmm" hidden><a href="__URL__/getUserPwd/">忘记密码?</a></span></eq></div>
+	<div class="pub_main_button"><eq name="isOpenTime" value="0">对不起，该时间段暂不可访问<else/><input type="image" src="/UserTpl/login/3/login_button.gif" border="0"><span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span></eq></div>
 	</form>
 	<div class="pub_main_info">版权所有 copyright {:date('Y')}</div>
 </div>

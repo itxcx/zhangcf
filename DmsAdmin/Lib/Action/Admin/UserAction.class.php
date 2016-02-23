@@ -28,24 +28,17 @@ class UserAction extends CommonAction
         //排序字段
         $list->order("user.id desc");
         $REQUEST_URI=$_SERVER['REQUEST_URI'];
-        /*
-           C('VERSION_SWITCH') = '0'  代表的是豪华版
-           C('VERSION_SWITCH') = '1'  代表的是简化版
-        */
         //显示操作按钮
         $button=array(
 			"查看"=>array("class"=>"edit","href"=>__APP__."/Admin/User/view/id/{tl_id}".strstr($REQUEST_URI,'&'),"target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png'),
 	        "修改"=>array("class"=>"edit","href"=>__APP__."/Admin/User/edit/id/{tl_id}".strstr($REQUEST_URI,'&'),"target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_edit.png'),
 			"删除"=>array("class"=>"delete","href"=>__APP__."/Admin/User/pre_delete/id/{tl_id}".strstr($REQUEST_URI,'&'),"target"=>"dialog","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_delete.png')
 	    );
-	    //如果是豪华版的话
-	    if(C('VERSION_SWITCH') == '0'){
-	    	$button['登陆锁定'] = array("class"=>"delete","href"=>__APP__."/Admin/User/suoding/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要锁定此会员吗？",'icon'=>'/Public/Images/ExtJSicons/application/application_link.png');
-	    	$button['解锁']     = array("class"=>"edit","href"=>__APP__."/Admin/User/jiesuo/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要解除此会员的登陆锁定状态吗？");
-           	if(adminshow('piliangshengji')){
-            	$button['批量升级'] = array("class"=>"delete","href"=>__APP__."/Admin/User/bulkUpLevel","target"=>"navTab","mask"=>"true","title"=>"",'icon'=>'/Public/Images/ExtJSicons/award-start/award_star_add.png');
-           	}
-	    }
+	    $button['登陆锁定'] = array("class"=>"delete","href"=>__APP__."/Admin/User/suoding/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要锁定此会员吗？",'icon'=>'/Public/Images/ExtJSicons/application/application_link.png');
+	    $button['解锁']     = array("class"=>"edit","href"=>__APP__."/Admin/User/jiesuo/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要解除此会员的登陆锁定状态吗？");
+        if(adminshow('piliangshengji')){
+        	$button['批量升级'] = array("class"=>"delete","href"=>__APP__."/Admin/User/bulkUpLevel","target"=>"navTab","mask"=>"true","title"=>"",'icon'=>'/Public/Images/ExtJSicons/award-start/award_star_add.png');
+        }
         $list->setButton = $button;
         /*显示字段的内容*/
         $list->addshow("ID",array("row"=>'[id]',"hide"=>true));

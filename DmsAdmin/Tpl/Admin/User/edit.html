@@ -354,10 +354,6 @@ td table{margin-bottom:12px;}
 	</foreach>
 	</notempty>
 	<noempty name="funbank">
-	<php>
-	 //判断该系统是否是豪华版和简化版 如果是简化版是不能修改钱包锁定功能的
-	 if(C('VERSION_SWITCH') == '0'){
-	</php>	
 	<foreach name="funbank" item="fun_bank" key="byname">
 	<tr>
 	<td width="150" style="text-align:right">{$byname}锁定：</td>
@@ -369,12 +365,7 @@ td table{margin-bottom:12px;}
 	</td>
 	</tr>
 	</foreach>
-	<php>}</php>
 	</notempty>
-	<php>
-	//判断是否是豪华版还是简化版 如果是简化版的话是不能修改网络图显示
-	if(C('VERSION_SWITCH') == '0'){
-	</php>
 		<foreach name='netname' item='name'>
 		<tr>
 		<td width="150" style="text-align:right">{$name}网络显示：</td>
@@ -387,14 +378,8 @@ td table{margin-bottom:12px;}
 		</td>
 		</tr>
 		</foreach>
-	<php>}</php>
 	</tbody>
 	</table>
-	<php>
-	//判断是否是豪华版还是简化版 如果是简化版的话是不能修改奖金比例的
-   //  if(C('VERSION_SWITCH') == '0'){
-   if(adminshow('jiangjin_bili')){
-	</php>
 	<table width="250" class="" id='disp4' style='float:left'>
 	<thead>
 	<tr>
@@ -413,7 +398,6 @@ td table{margin-bottom:12px;}
 	
 	</tbody>
 	</table>
-	<php>}</php>
 </td>
 </tr>
 <tr>

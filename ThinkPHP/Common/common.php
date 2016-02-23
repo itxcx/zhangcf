@@ -319,12 +319,17 @@ function L($name=null, $value=null) {
     if (is_string($name)){
         $name = strtoupper($name);
         if (is_null($value)){
-            //return isset($_lang[$name]) ? $_lang[$name] : $name;
-            if(array_key_exists($name,$_lang)){
-            	if($_lang[$name]){
+        	if(!C('LANG.USE')){
+        		//如果没有开启语言管理，则直接运行原始L函数的内容
+            	return isset($_lang[$name]) ? $_lang[$name] : $name;
+            }
+            //如果找到，则返回
+            if(isset($_lang[$name])){
+            	if($_lang[$name] !== false){
             		return $_lang[$name];
             	}
             }else{
+            	//找不到则入库
             	$value = language($name);
             	$trace = debug_backtrace();
             	if(strpos($trace[0]['file'],'Action.class.php') === false && strpos($trace[0]['file'],'.class.php') === false){
@@ -665,16 +670,4 @@ function T($url = null,$post=array(),$threadNum = 10,$option=array())
 	}
 	for($i=1;$i<=$threadNum;$i++)
 	{
-		$fp ='fp'+$i;
-		$ret="";
-		while(!feof($$fp)){
-			$ret.= fgets($$fp, 128);
-		}
-		$ret=substr($ret,strpos($ret,"\r\n\r\n")+4);
-		$retarr[]=$ret;
-		fclose($$fp);
-	}
-	
-	return $retarr;
-}
-?>
+		                                                                                                                                                                                                      

@@ -1,51 +1,36 @@
-﻿
-<script>
-$(document).ready(function(){
-/*	$("#userid").change(function(){
-		//var userid=$('#uid').val();
-	var userid=$('#userid',navTab.getCurrentPanel()).val();
-		if(userid==''){
-			alertMsg.error('编号不能为空!');
-			return false;
-		}
-		navTab.reload('__URL__/edit/uid/'+userid);
-		return false;
-	})*/
-	
-	
-	$('#userid',navTab.getCurrentPanel()).keyup(function(){
-		var num = $('#userid',navTab.getCurrentPanel()).val();
-		$.ajax({
-			data : {'num':num},
-            url : "{:U('Net/searchUser')}",
-            type : 'POST',
-            dataType : 'json',
-            global:false,
-            success : function (data){
-            	if(data.status==1){
-            		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
-            		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
-                    $('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
-                    var showstr="<tr><td align='right' width='100'>注册日期:</td><td align='left' width='200' colspan='2'>"+data.userinfo['注册日期']+"</td><td align='right' width='100'>&nbsp;</td><td align='right' width='100'>审核日期:</td><td align='left' width='200'>"+data.userinfo['审核日期']+"</td></tr>";
-                    
-                    for(netkey in data.userinfo['netlist']){
-                        showstr+="<tr>";
-                        showstr+="<td align='right'>"+data.userinfo['netlist'][netkey]+"人编号:</td><td align='left'>"+data[netkey][netkey+'编号']+"</td><td align='right'>"+data.userinfo['netlist'][netkey]+"人姓名:</td><td align='left'>"+data[netkey][netkey+'姓名']+"</td><td align='right'>新"+data.userinfo['netlist'][netkey]+"人编号:</td><td style='text-align:left'><input class='textInput' value='"+data[netkey][netkey+'编号']+"' type='text' name='"+netkey+"_上级编号'/>";
-                        if(data[netkey][netkey+"pos"]!=undefined){
-                            showstr+=data[netkey][netkey+"pos"];
-                        }
-                        showstr+="</td></tr>";
+﻿<script>
+function searchUser(e){
+    var num = $('#userid',navTab.getCurrentPanel()).val();
+	$.ajax({
+		data : {'num':num},
+        url : "{:U('Net/searchUser')}",
+        type : 'POST',
+        dataType : 'json',
+        global:false,
+        success : function (data){
+        	if(data.status==1){
+        		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
+        		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
+                $('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
+                var showstr="<tr><td align='right' width='100'>注册日期:</td><td align='left' width='200' colspan='2'>"+data.userinfo['注册日期']+"</td><td align='right' width='100'>&nbsp;</td><td align='right' width='100'>审核日期:</td><td align='left' width='200'>"+data.userinfo['审核日期']+"</td></tr>";
+                
+                for(netkey in data.userinfo['netlist']){
+                    showstr+="<tr>";
+                    showstr+="<td align='right'>"+data.userinfo['netlist'][netkey]+"人编号:</td><td align='left'>"+data[netkey][netkey+'编号']+"</td><td align='right'>"+data.userinfo['netlist'][netkey]+"人姓名:</td><td align='left'>"+data[netkey][netkey+'姓名']+"</td><td align='right'>新"+data.userinfo['netlist'][netkey]+"人编号:</td><td style='text-align:left'><input class='textInput' value='"+data[netkey][netkey+'编号']+"' type='text' name='"+netkey+"_上级编号'/>";
+                    if(data[netkey][netkey+"pos"]!=undefined){
+                        showstr+=data[netkey][netkey+"pos"];
                     }
-            		$('#fir_tr',navTab.getCurrentPanel()).after(showstr);
-            	}else{
-            		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
-            		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
-            		$('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
-            	}
-			}
-		})
+                    showstr+="</td></tr>";
+                }
+        		$('#fir_tr',navTab.getCurrentPanel()).after(showstr);
+        	}else{
+        		$('#u_name',navTab.getCurrentPanel()).text(data.userinfo['姓名']);
+        		$('#u_status',navTab.getCurrentPanel()).text(data.userinfo['状态']);
+        		$('#fir_tr',navTab.getCurrentPanel()).nextAll('tr').remove();
+        	}
+		}
 	})
-})
+}
 </script>
 
 <form action="__URL__/editSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this)">
@@ -54,10 +39,9 @@ $(document).ready(function(){
 <tr>
 	<th colspan="6" align="center" style="padding:10px">网体数据修改确认</th>
 </tr>
-
 <tr id='fir_tr'>
 	<td align="right" width="100">{$name}编号:</td>
-	<td align="left" width="100"><input type="text" name="uid" id="userid" value=''/></td>
+	<td align="left" width="100"><input type="text" name="uid" id="userid" value='' onkeyup="searchUser(this)" onmouseout="searchUser(this)" onmouseover="searchUser(this)" oninput="searchUser(this)"/></td>
 	
 	<td align="right" width="100">{$name}姓名:</td>
 	<td align="left" width="100" id='u_name'></td>
@@ -65,41 +49,6 @@ $(document).ready(function(){
 	<td align="right" width="100">{$name}状态:</td>
 	<td align="left" width="200" id='u_status'></td>
 </tr>
-
-<!--<tr>
-	<td align="right" width="100">注册日期:</td>
-	<td align="left" width="200" colspan="2"><notempty name="userInfo['注册日期']">{:date('Y-m-d H:i:s',$userInfo['注册日期'])}<else />暂无</notempty></td>
-	<td align="right" width="100">&nbsp;</td>
-
-	<td align="right" width="100">审核日期:</td>
-	<td align="left" width="200"><notempty name="userInfo['审核日期']">{:date('Y-m-d H:i:s',$userInfo['审核日期'])}<else />暂无</notempty></td>
-</tr>
-
-<foreach name="userNetList" item="net" key="net_name">
-<php>$superior_id  = $userInfo[ $net_name . '_上级编号' ];</php>
-<tr>
-<td align="right">{$net_name}人编号:</td>
-<td align="left">{$superior_id}</php></td>
-
-<td align="right">{$net_name}人名称:</td>
-<td align="left">{:getUserInfo($superior_id)}</td>
-
-<td align="right">新{$net_name}人编号:</td>
-<td style="text-align:left">
-	<input type="text" name="{$net_name}_上级编号" value="<php>echo $userInfo[ $net_name . '_上级编号' ];</php>"  style="width:100px" />
-	<present name="net.ramus">
-		<select name="{$net_name}_位置">
-		<foreach name="net.ramus" item="ramu" key="key">
-		<option value="{$ramu}" <if condition="($userInfo[ $net_name . '_位置' ] eq $ramu)">selected="true"</if> >{$ramu}</option>
-		</foreach>
-		</select>
-	</present>
-</td>
-</tr>
-</foreach>
--->
-
-
 </table>
 	<div class="buttonActive" style="margin-left:330px;">
           <div class="buttonContent" >

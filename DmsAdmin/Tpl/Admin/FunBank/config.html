@@ -40,25 +40,15 @@
 				<label style="float: left;width: 150px; text-align: right;">最大提款额：</label>
 				<input type="text" value="{$bank:getMoneyMax}" size="20" name="getMoneyMax" class="number" /> <font color='red'>限制额大于0才会起作用</font>
 			</p>
-			<php>
-			  //判断豪华版和简化版 如果是简化版不能设置提现发放换算比
-			  if(C('VERSION_SWITCH') == '0'){
-			</php>
 				<p style="width: 350px;">
 					<label style="float: left;width: 150px; text-align: right;">提现发放换算比</label>
 					<input type="text" value="{$bank:getMoneyRatio}" name="getMoneyRatio" class="number"/>
 				</p>
-			<php>}</php>
-			<php>
-			 //判断如果是简化版的话 简化版则不享有提现后清楚银行信息
-			 if(C('VERSION_SWITCH') == '0'){
-			</php>
 				<p style="width: 350px;">
 					<label style="float: left;width: 150px; text-align: right;">提现确认后清除银行信息：</label>
 					<input type="radio" value="true" name="getMoneyBankClear" <if condition="($bank:getMoneyBankClear eq 1) OR ($bank:getMoneyBankClear eq true)">checked</if>/>是
 	     <input type="radio" value="false" name="getMoneyBankClear" <if condition="($bank:getMoneyBankClear eq 0) OR ($bank:getMoneyBankClear eq false)">checked</if>/>否
 				</p>
-			<php>}</php>
 			<p style="width: 350px;">
 				<label style="float: left;width: 150px; text-align: right;">整数倍设置：</label>
 				<input type="text" value="{$bank:getMoneyInt}" name="getMoneyInt" class="digits"/>
@@ -82,16 +72,11 @@
 				<label style="float: left;width: 150px; text-align: right;">每月中的几号不能提现：</label>
 				<input type="text" value="{$bank:getMoneyMday}" name="getMoneyMday" size="70" /> <font color='red'>多个请用逗号分隔</font>
 			</p>
-		    <php>
-			 //判断如果是简化版的话 简化版则不享有提现后清楚银行信息
-			 if(C('VERSION_SWITCH') == '0'){
-			</php>
 			<p style="width: 350px;">
 				<label style="float: left;width: 150px; text-align: right;">提现需要二级密码：</label>
 				<input type="radio" value="true" name="getMoneyPass2"  <if condition="($bank:getMoneyPass2 eq 1) OR ($bank:getMoneyPass2 eq true)">checked</if>/>是
      			<input type="radio" value="false" name="getMoneyPass2" <if condition="($bank:getMoneyPass2 eq 0) OR ($bank:getMoneyPass2 eq false)">checked</if>/>否
 			</p>
-			<php>}</php>
 			<eq name="pwd3Switch" value="true">
 			<p style="width: 350px;">
 				<label style="float: left;width: 150px; text-align: right;">提现需要三级密码：</label>

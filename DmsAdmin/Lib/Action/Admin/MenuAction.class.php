@@ -174,9 +174,7 @@ class MenuAction extends Action
 		     $menu[]=array('model'=>'Net','action'=>'editLog,editList,edit,editSave','title'=>'网络修改','level'=>1,'parent'=>'网络管理','setParent'=>'网络修改');
  		}
  		//只有豪华版才能看到网络显示
-		if(C('VERSION_SWITCH') == '0'){
-			$menu[]=array('model'=>'Net','action'=>'netSet,saveNetSet'  ,'title'=>'网络显示设置','level'=>1,'parent'=>'网络管理','setParent'=>'网络显示设置');
-		}
+		$menu[]=array('model'=>'Net','action'=>'netSet,saveNetSet'  ,'title'=>'网络显示设置','level'=>1,'parent'=>'网络管理','setParent'=>'网络显示设置');
 		if(adminshow('edit_wangluoprint'))
 			$menu[]=array('model'=>'Net','action'=>'netSet_print,savenetSet_print,myPrintPreview'  ,'title'=>'网络打印设置','level'=>1,'parent'=>'网络管理','setParent'=>'网络打印设置');
 		//++++++++++产品模块++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -423,10 +421,8 @@ class MenuAction extends Action
 			$menu[]=array('model'=>'Config','action'=>'autoList','title'=>'自动执行设置','level'=>1,'parent'=>'系统设置','xpath'=>'','actions'=>'autoList,autoSetsave,autostatus');
 		}
 		
-		if(C('VERSION_SWITCH') == '0'){ 
-			$menu[]=array('model'=>'Config','action'=>'LoginTempSetup,tempChange,viewLoginTemp,loginUrl','title'=>'登陆口设置','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');
-			$menu[]=array('model'=>'Config','action'=>'userMenuEdit,userMenuUpdate','title'=>'前台菜单设置','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');
-		}
+		$menu[]=array('model'=>'Config','action'=>'LoginTempSetup,tempChange,viewLoginTemp,loginUrl','title'=>'登陆口设置','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');
+		$menu[]=array('model'=>'Config','action'=>'userMenuEdit,userMenuUpdate','title'=>'前台菜单设置','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');
 		$menu[]=array('model'=>'Config','action'=>'system_do_info,doaddfile','title'=>'系统使用说明书','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');
 		if(CONFIG('SHOW_BULKREG')){
 			$menu[]=array('model'=>'Tools','action'=>'index1','title'=>'批量注册','level'=>1,'parent'=>'系统设置','setParent'=>'系统设置');

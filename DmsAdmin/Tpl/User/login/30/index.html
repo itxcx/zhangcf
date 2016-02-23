@@ -40,6 +40,7 @@ function fleshVerify(type){
                         </if>
                         <div class="index_dl_bg2_mid_l_dl">
                             <input type="submit" class="text_dl2" value="下一步"><!--<span style="font-size:12px; width:100px; padding-left:20px; line-height:33px;"><a href="./img/default_getpass.php" class="text_fff">忘记密码？</a></span>-->
+                        	<span  ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span>
                         </div>
                         <if condition="$usernum eq 1">
 						<input type="hidden" value="{$users[0]}" name="usertype">

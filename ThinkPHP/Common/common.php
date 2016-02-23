@@ -368,65 +368,54 @@ function L($name=null, $value=null) {
     return;
 }
 
-//有道翻译api
-function youdaoFanyi($q){
-	#要翻译的文字
-	$encode = mb_detect_encoding($q);
-	$q = iconv($encode, 'utf-8', $q);
-	$q = urlencode($q);
-	#您注册的API(keyfrom,key)
-	$keyfrom = "yanghouqun";
-	$key = "1204993469";
-	#返回结果的类型，固定为data
-	$type = "data";
-	#返回结果的数据格式，xml或json或jsonp
-	$doctype = "json";
-	#版本，当前最新版本为1.1
-	$version = "1.1";
-	#生成翻译API的URL GET地址
-	$url = "http://fanyi.youdao.com/openapi.do?keyfrom=" .$keyfrom. "&key=" .$key. "&type=" .$type. "&doctype=" .$doctype. "&version=" .$version. "&q=" .$q;
-	//echo $url;
-	$text=json_decode(language_text($url));
-	$trans = $text->translation[0];
-	$expl = $text->basic->explains;
-	$web = $text->web[0]->value;
-	$arr = array($trans,$expl,$web);
-	return $arr;
-}
-
 //百度翻译api
 function language($value,$from="auto",$to="auto"){
+	$query = is_array($value) ? join("\n",$value) : $value;
 	#首先对要翻译的文字进行 urlencode 处理
-	$q=urlencode($value);
 	#随机数
 	$salt = mt_rand();
 	#您注册的API(appid,Key)
 	$appid="20160204000011063";
 	$key="g2mZMzy6mfqG9Fifx2uQ";
 	#生成签名
-	$sign = md5($appid.$value.$salt.$key);
+	$sign = md5($appid.$query.$salt.$key);
 	#生成翻译API的URL GET地址
-	$languageurl = "http://api.fanyi.baidu.com/api/trans/vip/translate?appid=".$appid. "&salt=".$salt. "&q=".$q. "&sign=".$sign. "&from=".$from. "&to=".$to;
-	
-	$text=json_decode(language_text($languageurl));
-	$text = $text->trans_result;
-	return $text[0]->dst;
-}
-
-#获取目标URL所打印的内容
-function language_text($url){
-	if(function_exists('file_get_contents')) {
-		$file_contents = file_get_contents($url);
-	} else {
-		$ch = curl_init();
-		$timeout = 5;
-		curl_setopt ($ch, CURLOPT_URL, $url);
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-		$file_contents = curl_exec($ch);
-		curl_close($ch);
-	}
-	return $file_contents;
+	$languageurl = "http://api.fanyi.baidu.com/api/trans/vip/translate";
+	$post_data=array(
+		'appid'=>$appid,
+		'salt' =>$salt,
+		'q'    =>$query,
+		'sign' =>$sign,
+		'from' =>$from,
+		'to'   =>$to,
+	);
+	//var_dump($post_data);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $languageurl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // post数据
+    curl_setopt($ch, CURLOPT_POST, 1);
+    // post的变量
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    //打印获得的数据
+    $text=json_decode($output);
+    $text = $text->trans_result;
+    if(count($text)==1)
+    {
+    	return $text[0]->dst;
+    }
+    else
+    {
+    	$ret=array();
+    	
+    	foreach($text as $data)
+    	{
+    		$ret[$data->src]=$data->dst;
+    	}
+    	return $ret;
+    }
 }
 
 // 获取配置值

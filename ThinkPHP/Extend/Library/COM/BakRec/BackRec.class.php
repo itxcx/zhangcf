@@ -73,6 +73,7 @@ class BackRec
                 $col=trim($col,"',',").') rowstr';
                 $queryID=mysql_unbuffered_query("SELECT {$col} FROM {$table}",$db->_linkID);
                 $sqlstr='';
+                $rows=array();
                 do{
                 	
                 	$rows = mysql_fetch_assoc($queryID);
@@ -278,7 +279,7 @@ class BackRec
                         $mes = M()->execute($sql);
                     }
                     if (false === $mes) {                                     
-                        $message .='备份文件代码遇到错误!';
+                        $message ='备份文件代码遇到错误!';
                     }
                 }
                 $filecontent ="";

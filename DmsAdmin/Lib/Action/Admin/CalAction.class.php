@@ -186,6 +186,7 @@ class CalAction extends CommonAction {
                 M()->rollback();
             }else{
     			CONFIG('CAL_START_TIME',$starday);
+                X('user')->callevent('commit',array());
     			M()->commit();
     			//因为B方法使用的引参,不能直接传值;
     			$true=true;

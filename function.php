@@ -71,7 +71,7 @@
 		}
 		$cache[$Node->getNodePath()] = new $Node->nodeName($Node);
 		return $cache[$Node->getNodePath()];
-	};
+	}
 	function X($name='',$parent = null)
 	{
 		
@@ -699,7 +699,7 @@ function CONFIG($name=NULL,$val=NULL) {
 			$telNumberary[]=$mobile;
 			foreach(array_reverse($telNumberary) as $telNumber){
 				if($telNumber==$mobile){
-					$username=$udata['编号'];
+					$username=$userid;
 				}else{
 					$username="";
 				}

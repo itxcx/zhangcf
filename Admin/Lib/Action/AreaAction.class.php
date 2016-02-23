@@ -263,6 +263,7 @@ class AreaAction extends CommonAction
 		foreach($downareas as $downarea){
 			if($downarea['地区级别']>=3){
 				//找出文件
+                $area_json_file=null;
 				$nowk=str_replace($countrykey,'',$downarea['上级编码']);
 				$areafile="./Public/directSell/area".($nowk%110).".json";
 				if( isset($area_json_file[$areafile]) || file_exists($areafile)){

@@ -307,18 +307,58 @@ function R($url,$vars=array()) {
         return false;
 }
 
-// 获取和设置语言定义(不区分大小写)
+//  获取和设置语言定义(不区分大小写)
 function L($name=null, $value=null) {
     static $_lang = array();
     // 空参数返回所有定义
-    if (empty($name))
+    if (empty($name)){
         return $_lang;
+    }
     // 判断语言获取(或设置)
     // 若不存在,直接返回全大写$name
-    if (is_string($name)) {
+    if (is_string($name)){
         $name = strtoupper($name);
-        if (is_null($value))
-            return isset($_lang[$name]) ? $_lang[$name] : $name;
+        if (is_null($value)){
+        	if(!C('LANG.USE')){
+        		//如果没有开启语言管理，则直接运行原始L函数的内容
+            	return isset($_lang[$name]) ? $_lang[$name] : $name;
+            }
+            //如果找到，则返回
+            if(isset($_lang[$name])){
+            	if($_lang[$name] !== false){
+            		return $_lang[$name];
+            	}
+            }else{
+            	//找不到则入库
+            	$value = language($name);
+            	$trace = debug_backtrace();
+            	if(strpos($trace[0]['file'],'Action.class.php') === false && strpos($trace[0]['file'],'.class.php') === false){
+            		$loadfile = str_replace(dirname(dirname($trace[8]['file'])).'\\','',$trace[8]['file']);
+            	}else{
+            		$loadfile = str_replace(dirname(dirname($trace[0]['file'])).'\\','',$trace[0]['file']);
+            	}
+            	if(strpos($loadfile,'Action.class.php')){
+            		$loadfile = str_replace('Action.class.php','',$loadfile);
+            	}
+            	if(strpos($loadfile,'.class.php')){
+            		$loadfile = str_replace('.class.php','',$loadfile);
+            	}
+            	if(strpos($loadfile,'.php')){
+            		$loadfile = str_replace('.php','',$loadfile);
+            	}
+            	$loadfile = str_replace("\\",'/',$loadfile);
+            	//file_put_contents('d:/showtrace.txt',print_r($trace, true));
+            	$data = array(
+            		'name'    =>$name,
+            		'loadfile'=>$loadfile,
+            	);
+            	$result = M('Langdata')->where($data)->find();
+            	if(!$result){
+            		M('Langdata')->add($data);
+            	}
+            	return $name;
+            }
+        }
         $_lang[$name] = $value; // 语言定义
         return;
     }
@@ -326,6 +366,67 @@ function L($name=null, $value=null) {
     if (is_array($name))
         $_lang = array_merge($_lang, array_change_key_case($name, CASE_UPPER));
     return;
+}
+
+//有道翻译api
+function youdaoFanyi($q){
+	#要翻译的文字
+	$encode = mb_detect_encoding($q);
+	$q = iconv($encode, 'utf-8', $q);
+	$q = urlencode($q);
+	#您注册的API(keyfrom,key)
+	$keyfrom = "yanghouqun";
+	$key = "1204993469";
+	#返回结果的类型，固定为data
+	$type = "data";
+	#返回结果的数据格式，xml或json或jsonp
+	$doctype = "json";
+	#版本，当前最新版本为1.1
+	$version = "1.1";
+	#生成翻译API的URL GET地址
+	$url = "http://fanyi.youdao.com/openapi.do?keyfrom=" .$keyfrom. "&key=" .$key. "&type=" .$type. "&doctype=" .$doctype. "&version=" .$version. "&q=" .$q;
+	//echo $url;
+	$text=json_decode(language_text($url));
+	$trans = $text->translation[0];
+	$expl = $text->basic->explains;
+	$web = $text->web[0]->value;
+	$arr = array($trans,$expl,$web);
+	return $arr;
+}
+
+//百度翻译api
+function language($value,$from="auto",$to="auto"){
+	#首先对要翻译的文字进行 urlencode 处理
+	$q=urlencode($value);
+	#随机数
+	$salt = mt_rand();
+	#您注册的API(appid,Key)
+	$appid="20160204000011063";
+	$key="g2mZMzy6mfqG9Fifx2uQ";
+	#生成签名
+	$sign = md5($appid.$value.$salt.$key);
+	#生成翻译API的URL GET地址
+	$languageurl = "http://api.fanyi.baidu.com/api/trans/vip/translate?appid=".$appid. "&salt=".$salt. "&q=".$q. "&sign=".$sign. "&from=".$from. "&to=".$to;
+	
+	$text=json_decode(language_text($languageurl));
+	$text = $text->trans_result;
+	return $text[0]->dst;
+}
+
+#获取目标URL所打印的内容
+function language_text($url){
+	if(function_exists('file_get_contents')) {
+		$file_contents = file_get_contents($url);
+	} else {
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt ($ch, CURLOPT_URL, $url);
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$file_contents = curl_exec($ch);
+		curl_close($ch);
+	}
+	return $file_contents;
 }
 
 // 获取配置值

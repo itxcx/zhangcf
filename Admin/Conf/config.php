@@ -2,12 +2,10 @@
 $_app_config = array(
 	'DB_PREFIX'		=>	'',
 
+    'LOAD_EXT_CONFIG'=>'core_config,debug',//拓展配置文件名称
+
 );
 
-$_core_config = require ROOT_PATH.'Admin/Conf/core_config.php';
-
-$_debug_config = require ROOT_PATH.'Admin/Conf/debug.php';
-
-return array_merge($_core_config,$_app_config,$_debug_config);
+return $_app_config;
 
 ?>

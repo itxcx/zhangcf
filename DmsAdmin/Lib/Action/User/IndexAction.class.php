@@ -43,9 +43,9 @@ class IndexAction extends CommonAction {
 		$this->assign('nownotice',$nownotice);
 		$this->assign('web_name',L('web_name'));
 		$this->assign('web_title',L('web_title'));
-		if(isset($_SESSION['isMobile']))
+		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile'])
 		{
-			C('DEFAULT_THEME','wap');
+			C('DEFAULT_THEME','wap_beta');
 		}
 		if(file_exists(ROOT_PATH.'DmsAdmin/Tpl/User/'.C('DEFAULT_THEME').'/index.html')){
 			$this->display(ROOT_PATH.'DmsAdmin/Tpl/User/'.C('DEFAULT_THEME').'/index.html');

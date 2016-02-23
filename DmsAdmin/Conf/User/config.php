@@ -1,8 +1,9 @@
 <?php
 $DEFAULT_THEME=CONFIG('DEFAULT_THEME')?CONFIG('DEFAULT_THEME'):"blanc_default";
-if($_SESSION['isMobile'])
+B('CheckAccess');
+if(isset($_SESSION['isMobile']) && $_SESSION['isMobile'])
 {
-	$DEFAULT_THEME='wap';
+	$DEFAULT_THEME='wap_beta';
 }
 $_app_config = array(
 	'APP_GROUP_LIST'		=>	'Admin,User',

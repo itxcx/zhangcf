@@ -1,11 +1,11 @@
 <?php
 $_app_config = array(
+
+    'LOAD_EXT_CONFIG'=>'core_config,debug',//拓展配置文件名称
+
+    'LOAD_EXT_CONFIG_PATH'=>ROOT_PATH.'Admin/Conf/',//拓展配置文件地址
 );
 
-$_core_config = require ROOT_PATH.'Admin/Conf/core_config.php';
-
-$_debug_config = require ROOT_PATH.'Admin/Conf/debug.php';
-
-return array_merge($_core_config,$_app_config,$_debug_config);
+return $_app_config;
 
 ?>

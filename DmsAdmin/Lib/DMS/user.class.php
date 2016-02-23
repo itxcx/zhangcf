@@ -101,6 +101,7 @@
             $model=M();
             $model->execute('SET FOREIGN_KEY_CHECKS = 0;');
 			$model->execute('truncate table `dms_会员`');
+            $model->execute('truncate table `dms_密保`');
 			$model->execute('truncate table `dms_货币`');//货币分离
 			$model->execute('truncate table `dms_log_user`');
 			$model->execute('truncate table `dms_报单`');

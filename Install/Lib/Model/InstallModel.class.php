@@ -4,7 +4,6 @@ class InstallModel
 {
 	/*
 	* 处理其他操作
-	*
 	*/
 	function do_others($langs)
 	{
@@ -17,11 +16,7 @@ class InstallModel
 		/********** 插入应用节点 *********/
 		$app_list   = isset($_POST['app_list'])		?   trim($_POST['app_list']) : '';
 		if($app_list=='') exit($this->langs['not_select_app']);
-
 		$app_list	= explode(',' , $app_list);
-
-		
-
 		$Node		= M('Node');
 		foreach($app_list as $app)
 		{
@@ -145,7 +140,7 @@ class InstallModel
 	 */
 	function create_config_file($app,$config_list,&$langs)
 	{
-		
+		/*
 		$content = "<?php\n";
 		$content .= '$_app_config = array('."\n";
 		foreach( $config_list as $key=>$value )
@@ -173,7 +168,7 @@ class InstallModel
 			return array(false,$file_path.'无法写入应用配置文件');
 		}
 		@fclose($fp);
-
+        */
 		return array(true,'ok');
 	}
 
@@ -240,6 +235,10 @@ class InstallModel
 				$BakRec = new BackRec();
 				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'A' . $backname. '.zip');
 			}
+            //判断PrizeData文件夹是否存在 不存在创建新文件夹
+            if(!file_exists(ROOT_PATH.'DmsAdmin/PrizeData')){
+                mkdir(ROOT_PATH.'DmsAdmin/PrizeData',0777,true);
+            }
 			$tables = $BakRec->getTables();
 			$mess = $BakRec->backup($tables,$fileName);
 			//删除奖金构成文件
@@ -267,7 +266,6 @@ class InstallModel
 		$filter_dbs = array('information_schema', 'mysql');
 		$db_host	= $this->construct_db_host($db_host, $db_port);
 		$conn		= @mysql_connect($db_host, $db_user, $db_pass);
-
 		if ($conn === false)
 		{
 			return array(false,'连接数据库失败');
@@ -333,19 +331,17 @@ class InstallModel
 	{
 		include_once(COMMON_PATH . 'includes/cls_mysql.php');
 		include_once(COMMON_PATH . 'includes/cls_sql_executor.php');
-
-		$config = include( ROOT_PATH."$app/Conf/config.php");
-
-		$db = new cls_mysql($config['DB_HOST'].':'.$config['DB_PORT'], $config['DB_USER'], $config['DB_PWD'], $config['DB_NAME'],'utf8');
-		
-		$se = new sql_executor($db, 'utf8', $config['DB_PREFIX'], $config['DB_PREFIX']);
-		
+		//$config = include( ROOT_PATH."$app/Conf/config.php");
+		//直接根据配置文件数据C('***')链接数据库
+		$db = new cls_mysql(C('DB_HOST').':'.C('DB_PORT'), C('DB_USER'), C('DB_PWD'), C('DB_NAME'),'utf8');
+		//数据库 执行
+		$se = new sql_executor($db, 'utf8', C('DB_PREFIX'), C('DB_PREFIX'));
+        //执行sql语句
 		$result = $se->run_all($sql_str);
 		if ($result !== true )
 		{
 			return $result;
 		}
-
 		return true;
 	}
 
@@ -430,8 +426,6 @@ return array(
 		'SESSION_TABLE'             =>  'session',
 		'SESSION_EXPIRE'            =>  1800,
 		'SHOW_PAGE_TRACE'           =>  0 ,					//显示调试信息
-
-		'VERSION_SWITCH'			=>  '0',			//版本切换用于切换母程序简化版和完整版之间的切换。1:简化版，0：完整版。
 		'decimalLon'				=>	14,				//决定double类型字段的整个长度
 		'decimalLen'				=>	2,				//决定double类型字段的小数点长度
 );

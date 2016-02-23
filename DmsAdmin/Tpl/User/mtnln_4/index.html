@@ -11,11 +11,11 @@
             <td>
                 <table class="tbleft">
                     <tr>
-                        <td class="baskey">{:L('user1_name_serial')}：</td>
+                        <td class="baskey">{:L('会员编号')}：</td>
                         <td class='basval'>{$userinfo.编号}</td>
                     </tr>
                     <tr>
-                        <td class="baskey">{:L('name')}：</td>
+                        <td class="baskey">{:L('姓名')}：</td>
                         <td class="basval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></td>
                     </tr>
                     <foreach name="userlevel" item="lv" key="key">
@@ -24,7 +24,7 @@
                         <td class="basval">{$lv.byname}</td>
                     </tr>
                     </foreach>
-                    <td class="baskey">{:L('join_date')}：</td>	
+                    <td class="baskey">{:L('注册日期')}：</td>	
                     <td class="basval">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</td>
                 </table>
             </td>

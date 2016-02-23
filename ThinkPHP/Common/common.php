@@ -307,7 +307,7 @@ function R($url,$vars=array()) {
         return false;
 }
 
-// 获取和设置语言定义(不区分大小写)
+//  获取和设置语言定义(不区分大小写)
 function L($name=null, $value=null) {
     static $_lang = array();
     // 空参数返回所有定义
@@ -670,4 +670,16 @@ function T($url = null,$post=array(),$threadNum = 10,$option=array())
 	}
 	for($i=1;$i<=$threadNum;$i++)
 	{
-		                                                                                                                                                                                                      
+		$fp ='fp'+$i;
+		$ret="";
+		while(!feof($$fp)){
+			$ret.= fgets($$fp, 128);
+		}
+		$ret=substr($ret,strpos($ret,"\r\n\r\n")+4);
+		$retarr[]=$ret;
+		fclose($$fp);
+	}
+	
+	return $retarr;
+}
+?>

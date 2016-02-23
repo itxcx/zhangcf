@@ -307,7 +307,7 @@ function R($url,$vars=array()) {
         return false;
 }
 
-// 获取和设置语言定义(不区分大小写)
+//  获取和设置语言定义(不区分大小写)
 function L($name=null, $value=null) {
     static $_lang = array();
     // 空参数返回所有定义

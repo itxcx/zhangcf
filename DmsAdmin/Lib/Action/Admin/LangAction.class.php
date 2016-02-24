@@ -247,7 +247,7 @@ class LangAction extends Action{
 			$confpath = realpath(ROOT_PATH . 'Admin/conf/lang.php');
 			$langConf = include $confpath;
 			if(!isset($langConf['LANG']['SET'][$mui])){
-				$langConf['LANG']['SET'][$mui] =  $langset[$mui]['name'];
+				$langConf['LANG']['SET'][$mui] =  $langset[$mui]['dispname'];
 				file_put_contents($confpath,"<?php" ."\n". "return " . var_export($langConf, true) . ";\n?>");
 			}
 			//ajax返回

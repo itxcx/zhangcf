@@ -331,23 +331,25 @@ function L($name=null, $value=null) {
             }else{
             	//找不到则入库
             	$value = language($name);
-            	$trace = debug_backtrace();
-            	if(strpos($trace[0]['file'],'Action.class.php') === false && strpos($trace[0]['file'],'.class.php') === false){
-            		$loadfile = str_replace(dirname(dirname($trace[8]['file'])).'\\','',$trace[8]['file']);
-            	}else{
-            		$loadfile = str_replace(dirname(dirname($trace[0]['file'])).'\\','',$trace[0]['file']);
+            	$traces = debug_backtrace();
+            	//dump($traces);
+            	foreach($traces as $trace)
+            	{
+            		//adump($trace['file']);
+            		if(isset($trace['file']))
+            		{
+            			$filearr=explode('\\',$trace['file']);
+            			for($i=count($filearr)-1;$i>=0;$i--)
+            			{
+            				if($filearr[$i]=='Action')
+            				{
+            					//得知当前文件处于Action目录下
+            					$loadfile = $filearr[$i+1].'/'.str_replace('Action.class.php','',$filearr[$i+2]);
+            					break 2;
+            				}
+            			}
+            		}
             	}
-            	if(strpos($loadfile,'Action.class.php')){
-            		$loadfile = str_replace('Action.class.php','',$loadfile);
-            	}
-            	if(strpos($loadfile,'.class.php')){
-            		$loadfile = str_replace('.class.php','',$loadfile);
-            	}
-            	if(strpos($loadfile,'.php')){
-            		$loadfile = str_replace('.php','',$loadfile);
-            	}
-            	$loadfile = str_replace("\\",'/',$loadfile);
-            	//file_put_contents('d:/showtrace.txt',print_r($trace, true));
             	$data = array(
             		'name'    =>$name,
             		'loadfile'=>$loadfile,

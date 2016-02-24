@@ -11,8 +11,6 @@ DmsAdmin/config.xml
 DmsAdmin/PrizeData/*
 !DmsAdmin/Conf/*
 DmsAdmin/Runtime/*
-DmsAdmin/Lang/*
-
 Install/Conf/*
 Install/Runtime/*
 

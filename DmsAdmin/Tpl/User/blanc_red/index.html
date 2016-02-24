@@ -21,20 +21,7 @@ function change(obj){
 #tabless ul{padding:0px;margin:0px;width:auto;border:1px solid #EEEEEE;}
 #tabless li{padding:0;margin:0;float:left;height:30px;line-height:30px;padding:5px;}
 </style>
-<!--
 
-	<td width="15%" align="right">{:L('user1_name_serial')}：</td>
-				<td width="18%"><span class="tab_font">{$userinfo.编号}</span></td>
-				<td width="15%" align="right">{:L('name')}：</td>
-				<td width="18%"><span class="tab_font">{$userinfo.姓名}</span></td>
-				
-					<tr>
-				<foreach name="funbank" item="fun_bank" key="key">
-				<td align="right">{$key}：</td>
-				<td >{$fun_bank}</td>
-				</foreach>
-			</tr>
--->
 <div class="centre_right">
 		<php>$i=1;</php>
 		<foreach name="menu" item="vo" key="key"> 
@@ -49,9 +36,9 @@ function change(obj){
 			<tr>
 			<td  style="border:none;padding:0px;">
 	           <ul>
-		            <li align="right"  style="width:19.1%;">{:L('user1_name_serial')}：</li>	
+		            <li align="right"  style="width:19.1%;">{:L('会员编号')}：</li>	
 		            <li  style="width:26.2%;">{$userinfo.编号}</li>	
-		            <li  style="width:19.1%;" align="right" >{:L('name')}：</li>	
+		            <li  style="width:19.1%;" align="right" >{:L('姓名')}：</li>	
 		            <li  style="width:26.2%;"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
 	           </ul>
               </td>
@@ -80,7 +67,7 @@ function change(obj){
 			<tr>
 				<td width="100%" style="border:none;padding:0px">
 	           <ul>
-		            <li align="right"   style="width:19.1%;">{:L('join_date')}：</li>	
+		            <li align="right"   style="width:19.1%;">{:L('注册日期')}：</li>	
 		            <li style="width:26.2%;">{$userinfo.注册日期|date='Y-m-d H:i:s',###}</li>
 		    
 	           </ul>

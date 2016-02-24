@@ -10,7 +10,7 @@
             <option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
         </select>
         <if condition="$firstUserInfo">
-            <table align="center" cellpadding="0" cellspacing="0" width="100%">
+            <table align="center" cellpadding="0" cellspacing="0" width="100%" style="margin: 0 auto" class="net_table1">
                 <tr>
                     <td>
                     <table width="100%" border="0">
@@ -134,14 +134,14 @@
             if(empty($netTree[$layer]) || $j == 0) return;
         </php>
         {//下面上下线}
-        <table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+        <table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;" class="net_table1">
             <tbody>
                 <tr>
                     <td align="center" style="line-height: 10px; height: 10px;"><img style="width:1px;height:20px" alt="" src="/Public/Images/admin/line2.gif" border="0"></td>
                 </tr>
             </tbody>
         </table>
-        <table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;">
+        <table border="0" align="center" cellspacing="0" cellpadding="0" style="margin:0px auto 0 auto;" class="net_table2">
 
             <tbody>
                 <tr>
@@ -368,6 +368,7 @@
 </script>
 <script>
     $(function() {
+        $('.core_con>.net_table1').width($('.core_con>.net_table2').width());
         $("[id^='changeStyle']").change(function() {
             window.location = '__URL__/disp:__XPATH__/nettype/' + $(this).val();
         });

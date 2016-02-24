@@ -15,7 +15,7 @@ class UpdateUserAction extends CommonAction
 		$this->assign('vo',$str);
 		$this->display();
 	}
-	public function update(){	
+	public function updateSave(){	
 		$id = I("post.id/d");
 		$account = I("post.account/s");
 		$passwordyz = I("post.password1/s");	

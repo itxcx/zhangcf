@@ -195,6 +195,7 @@ class PrizeLockAction extends CommonAction {
 			$this->error('输入的编号未查到');
 		}
 		$users=$net->getdown($user,0,0,'',false,true);
+		$users[] = $user;
 		foreach($users as $user)
 		{
 			M('会员')->where(array('id'=>$user['id']))->save(array('奖金锁'=>$value));

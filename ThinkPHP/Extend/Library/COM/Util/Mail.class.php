@@ -122,4 +122,4 @@ class Email extends Think
 		return $result_str;
 	}
 }
-?> 
+?>

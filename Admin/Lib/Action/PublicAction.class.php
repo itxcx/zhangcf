@@ -204,7 +204,7 @@ class PublicAction extends Action {
     		if(!isset($yubiids)){
     			$loginpass="login_by_yubicloud_".$yubicloudprefix."(未找到绑定的YUBIKEY)_".date("Y-m-d H:i:s",time());
 				$fh=fopen(LOG_PATH.'login.php','a');
-			    fwrite($fh,$ip."|".$loginpass."\r\n");
+			    fwrite($fh,get_client_ip()."|".$loginpass."\r\n");
 			    fclose($fh);
     			$this->error("未找到绑定的YUBIKEY");
     		}
@@ -226,7 +226,7 @@ class PublicAction extends Action {
     		}else{
     			$loginpass="login_by_yubicloud_".$yubicloudprefix."(未找到绑定的账号)_".date("Y-m-d H:i:s",time());
 				$fh=fopen(LOG_PATH.'login.php','a');
-			    fwrite($fh,$ip."|".$loginpass."\r\n");
+			    fwrite($fh,get_client_ip()."|".$loginpass."\r\n");
 			    fclose($fh);
     			$this->error("未找到绑定的账号");
     		}
@@ -640,7 +640,7 @@ class PublicAction extends Action {
 		$this->checkAdminLogin();
 		$Admin = D("Admin");
 		if(!$Admin->create()) {
-			$this->error($User->getError());
+			$this->error($Admin->getError());
 		}
 		M()->startTrans();
 		$result	=	$Admin->save();
@@ -657,16 +657,6 @@ class PublicAction extends Action {
 			$this->error('资料修改失败!');
 		}
 	}
-	/*
-		public function updateUserPwd(){
-			$where = $_SESSION[ C('RBAC_ADMIN_AUTH_KEY') ];
-			$admin = M('admin');
-			$str = array();
-			$str = $admin->where($where)->select();
-			$this->assign("adminUser",$str);
-			$this->display();
-		}
-	*/
 	//会员是否登录
 	private function userIsLogin()
 	{

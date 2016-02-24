@@ -43,6 +43,12 @@
                         if($time<strtotime($dateArr[0]))continue;
                     } 
                     else if($dateArr[0] !="" && $dateArr[1] !=""){
+                        // 解决日期可能前大后小
+                        if(strtotime($dateArr[0])>strtotime($dateArr[1])){
+                            $t = $dateArr[0];
+                            $dateArr[0] = $dateArr[1];
+                            $dateArr[1] = $t;
+                        }
                         if(($time<strtotime($dateArr[0])) || ($time>strtotime($dateArr[1]))){
                             continue;
                         }

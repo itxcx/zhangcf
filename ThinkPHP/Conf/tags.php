@@ -37,6 +37,7 @@ return array(
         'TokenBuild',   // 表单令牌
         'WriteHtmlCache', // 写入静态缓存
         'ShowRuntime', // 运行时间显示
+    	'LangTemplate', // 运行时间显示
     ),
     'view_end'=>array(
         'ShowPageTrace', // 页面Trace显示

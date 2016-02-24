@@ -1,5 +1,6 @@
 <div class="pageContent">
-	<form  action="__APP__/UpdateUser/update" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneReload)">
+    <form action="__URL__/editSave:__XPATH__" method="post" class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDoneReload)">
+	<form  action="__APP__/UpdateUser/updateSave" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone)">
 		<input type="hidden" name="id" value="{$vo.id}" />
 		<div class="pageFormContent" layoutH="58">
 			<table cellpadding="5" cellspacing="5">

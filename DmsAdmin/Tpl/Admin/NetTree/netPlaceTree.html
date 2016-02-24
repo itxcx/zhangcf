@@ -2,38 +2,6 @@
 define('regXpath',$regXpath);
 define('placePvNodeDisp',$placePvNodeDisp);
 </php>
-<script>
-	var disop = 0;
-	var X = 0;
-	var Y = 0;
-	var button = 0;
-	var right = 0;
-    var is_treeimg = '{$is_treeimg}';
-    //判断是否要开启网络图拖拽
-    if(is_treeimg=='true'){
-    
-		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mousedown",function(e){
-			disop = 1;
-			X = e.clientX;
-			Y = e.clientY;
-		});
-		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mousemove",function(e){
-			if(disop==1){
-				var Y2 = e.clientY;
-				var X2 = e.clientX;
-				button = $('[name="placetreeContent{$firstUserInfo['id']}"]').scrollTop();
-				right = $('[name="placetreeContent{$firstUserInfo['id']}"]').scrollLeft();
-				Ys = Y - Y2;
-				Xs = X - X2;
-				$('[name="placetreeContent{$firstUserInfo['id']}"]').scrollTop(button + Ys);
-				$('[name="placetreeContent{$firstUserInfo['id']}"]').scrollLeft(right + Xs);
-			}
-		});
-		$('[name="placetreeContent{$firstUserInfo['id']}"]').bind("mouseup",function(e){
-			disop = 0;
-		});
-   }	
-</script>
 <div layoutH="0" id="treeContent" name="placetreeContent{$firstUserInfo['id']}" style="overflow:scroll; min-height:472px;">
 <div style="padding-bottom:100px;">
 <if condition="$users">

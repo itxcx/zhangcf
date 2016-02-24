@@ -25,7 +25,6 @@ class NetTreeAction extends CommonAction
 		$this->assign('levelsArr',$levelsArr);
 		//会员标题名称
 		$this->assign('usertitle',X('user')->name);
-		$this->assign('is_treeimg',adminshow('is_treeimg'));
 		$this->assign('placePvNodeDisp',$this->placePvNodeDisp);
 	}
 	public function setAssign($net)

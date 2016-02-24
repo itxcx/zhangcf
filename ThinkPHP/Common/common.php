@@ -402,7 +402,7 @@ function language($value,$from="auto",$to="auto"){
     //打印获得的数据
     $text=json_decode($output);
     $text = $text->trans_result;
-    if(count($text)==1)
+    if(!is_array($value))
     {
     	return $text[0]->dst;
     }

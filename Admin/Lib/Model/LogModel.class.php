@@ -67,4 +67,4 @@ class LogModel extends Model
 		return M()->table('log')->add($data);
 	}
 }
-?> 
+?>

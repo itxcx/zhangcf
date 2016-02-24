@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 return array (
 	'zh-cn' =>array('name'=>'简体中文'    ,'dispname'=>'简体中文'   ,'trans'=>'zh'),
 	'zh-tw' =>array('name'=>'繁体中文'    ,'dispname'=>'繁體中文'   ,'trans'=>'cht'),

@@ -6,7 +6,7 @@ return array (
     'SET' => 
     array (
       'zh-cn' => '中文',
-      'en' => 'English',
+      'en' => '英语',
     ),
     'DEFAULT' => 'zh-cn',
   ),

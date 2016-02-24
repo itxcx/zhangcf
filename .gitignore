@@ -1,4 +1,5 @@
 Admin/Conf/*
+!Admin/Conf/lang.php
 Admin/Runtime/*
 
 ThinkPHP/Conf/*
@@ -8,8 +9,9 @@ ThinkPHP/config/config.php
 
 DmsAdmin/config.xml
 DmsAdmin/PrizeData/*
-DmsAdmin/Conf/*
+!DmsAdmin/Conf/*
 DmsAdmin/Runtime/*
+DmsAdmin/Lang/*
 
 Install/Conf/*
 Install/Runtime/*

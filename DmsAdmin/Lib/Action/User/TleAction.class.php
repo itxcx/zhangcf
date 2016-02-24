@@ -1,5 +1,5 @@
 <?php 
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class TleAction extends CommonAction
 {
 	public function index(tle $tle)
@@ -50,9 +50,9 @@ class TleAction extends CommonAction
         $where['_complex']=$where1;
         $list ->where($where)->order("a.计算日期 desc,a.id desc");
         $list ->setShow = array(
-            L('calculate_date')=> array("row"=>array(array(&$this,"getDateUrl"),"[id]","[计算日期]")),
-            L('bonus')=> array("row"=>'[奖金]','sum'=>'奖金'),
-            L('income')=> array('row'=>'[收入]','sum'=>'收入'),
+            L('计算日期')=> array("row"=>array(array(&$this,"getDateUrl"),"[id]","[计算日期]")),
+            L('奖金')=> array("row"=>'[奖金]','sum'=>'奖金'),
+            L('收入')=> array('row'=>'[收入]','sum'=>'收入'),
         );
 		foreach(X('net_place') as $netPlace){
 			$region=array();

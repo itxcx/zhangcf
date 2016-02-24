@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class Fun_dealAction extends CommonAction {
 	public function index(fun_stock $fun_stock)
 	{

@@ -1,11 +1,11 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class Fun_stockAction extends CommonAction {
 	public function index(fun_stock $fun_stock)
 	{
 		$stockClose=$fun_stock->getatt('stockClose');
 		if($stockClose){
-			$this->error("交易市场尚未开启，请耐心等待");
+			$this->error(L("交易市场尚未开启，请耐心等待"));
 		}
 		//会员信息
 		$userinfo=$this->userinfo;
@@ -156,7 +156,7 @@ class Fun_stockAction extends CommonAction {
 		$hint='';
 		$stockClose=$fun_stock->getatt('stockClose');
 		if($stockClose){
-			$this->error("交易市场尚未开启，请耐心等待");
+			$this->error(L("交易市场尚未开启，请耐心等待"));
 		}
 		//当前价
 		$price=$fun_stock->getPrice();
@@ -242,10 +242,10 @@ class Fun_stockAction extends CommonAction {
 			$total=$stockTotal+I("post.num/d");
 			if($maxnum>0){
 				if($stockTotal>=$maxnum){
-					$this->error("您买入的".$fun_stock->name."已达到封顶值");
+					$this->error(L("您买入的").L($fun_stock->name).L("已达到封顶值"));
 				}elseif($total>$maxnum){
 					$cha=$total-$maxnum;
-					$this->error("您还能买入".$cha);
+					$this->error(L("您还能买入").$cha);
 				}
 			}
 		}

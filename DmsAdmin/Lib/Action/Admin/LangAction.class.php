@@ -2,12 +2,15 @@
 class LangAction extends Action{
 	function index(){
 		$langs = C('LANG.SET');
-		//$langs = $this -> getLang();
+		$langBao = $this -> getLang();
 		$langset = $this -> getLangCode();
-		//print_r ($langset);exit;
 		foreach($langs as $k => $v){
-			if(!array_key_exists($v,$langset)){
-				$this->error($v.'语言目录未在ThinkPHP配置文件中,请配置');
+			if(!in_array($k,$langBao)){
+				$this->error('Admin/conf/lang.php中SET配置的 '.$k.' 语言未在语言包目录中,请重新配置或者添加 '.$k.' 语言包');
+				return;
+			}
+			if(!array_key_exists($k,$langset)){
+				$this->error($k.' 语言未在ThinkPHP/conf/langset.php配置文件中,请配置');
 				return;
 			}
 		}
@@ -17,8 +20,8 @@ class LangAction extends Action{
 			'修改'=>array("class"=>"edit",   "href"=>"__URL__/edit/id/{tl_id}","target"=>"dialog", "mask"=>"true","width"=>"700","height"=>"450" )
         ); */ 
         $setButton=array(
-        	'多语言设置'=>array("class"=>"edit", "href"=>"__URL__/multiLangSet", "target"=>"dialog", "mask"=>"true","width"=>"600","height"=>"400" ),
-			'语种管理'=>array("class"=>"edit", "href"=>"__URL__/langCtgMng", "target"=>"dialog", "mask"=>"true","width"=>"600","height"=>"400" ),
+        	'多语言设置'=>array("class"=>"edit", "href"=>"__URL__/multiLangSet", "target"=>"dialog", "mask"=>"true","width"=>"500","height"=>"300" ),
+			'语种管理'=>array("class"=>"edit", "href"=>"__URL__/langCtgMng", "target"=>"dialog", "mask"=>"true","width"=>"500","height"=>"300" ),
         ); 
         import('Admin.Action.TableListAction');
         $list=new TableListAction("langdata"); // 实例化Model 传表名称 
@@ -29,7 +32,7 @@ class LangAction extends Action{
         $list->addshow("调用位置",array("row"=>"[loadfile]","searchMode"=>"text", ));
         $list->addshow("所在位置",array("row"=>"[file]",    "searchMode"=>"text", "excelMode"=>"text",));
         foreach($langs as $k => $v){
-        	$list->addshow($langset[$v]['name'], array("row"=>"[$v]", "searchMode"=>"text", "excelMode"=>"text",)); 
+        	$list->addshow($langset[$k]['name'], array("row"=>"[$k]", "searchMode"=>"text", "excelMode"=>"text",)); 
         }
 		$this->assign('list',$list->getHtml());  
 		$this->display();
@@ -56,18 +59,11 @@ class LangAction extends Action{
 		return $items;
 	}
 	
-	
 	function _disName($id,$name){
 		$nameLink = '<a target="dialog" mask="true" title="语言标签处理" href="'.__URL__.'/edit/id/'.$id.'" width="700" height="510">'.$name.'</a>';
 		return $nameLink;
 	}
-	function _disFile($file){
-		if($file === 0){
-			return __ROOT__.'/'.APP_NAME.'/lang/en-us';
-		}elseif($file == 1){
-			return __ROOT__.'/'.APP_NAME;
-		}
-	}
+
 	//点击标签名称
 	function edit(){
 		$id = I("get.id/d");
@@ -77,12 +73,11 @@ class LangAction extends Action{
 		}		
 		$list = M("langdata") -> find($id);
 		$langs = C('LANG.SET');
-		//$langs = $this -> getLang();
 		$langset = $this -> getLangCode();
 		$langss = array();
 		foreach( $langs as $key => $val){
-			if(array_key_exists($val,$langset)){
-				$langss[$val] = $langset[$val]['name'];
+			if(array_key_exists($key,$langset)){
+				$langss[$key] = $langset[$key]['name'];
 			}
 		}
 		$this->assign('list',$list);
@@ -99,13 +94,12 @@ class LangAction extends Action{
     	}
     	//获取语言包
     	$langs = C('LANG.SET');
-    	//$langs  = $this -> getLang();
-    	foreach($langs as $val){
-    		$rela_path = LANG_PATH . $val .'/'. $data['file'];
+    	foreach($langs as $key => $val){
+    		$rela_path = LANG_PATH . $key .'/'. $data['file'];
     		if(!file_exists($rela_path)){
     			if(strpos($data['file'],'/') !== false){
     				list($group,$module) = explode('/',$data['file']);
-    				$group_path = LANG_PATH . $val .'/'.$group;
+    				$group_path = LANG_PATH . $key .'/'.$group;
     				if(!file_exists($group_path)){
     					$res = mkdir($group_path);
     					if($res){
@@ -119,29 +113,12 @@ class LangAction extends Action{
     			}
     		}
     		$real_path = realpath($rela_path);
-    		$lang = require $real_path;
+    		$lang = include $real_path;
     		$i=0;
-    		if($val == 'zh-cn'){
-    			if(!array_key_exists($data['en-us'],$lang)){
-    				$lang[$data['en-us']] = $data[$val];
-    				$i++;
-    			}else{
-    				if(!$lang[$data['en-us']]){
-	    				$lang[$data['en-us']] = $data[$val];
-	    				$i++;
-	    			}	
-    			}
-    		}else{
-    			if(!array_key_exists($data['zh-cn'],$lang)){
-    				$lang[$data['zh-cn']] = $data[$val];
-	    			$i++;
-    			}else{
-	    			if(!$lang[$data['zh-cn']]){
-	    				$lang[$data['zh-cn']] = $data[$val];
-	    				$i++;
-	    			}
-    			}
-    		}
+    		if(!array_key_exists($data['name'],$lang)){
+				$lang[$data['name']] = $data[$key];
+				$i++;
+			}
     		if($i !=0){
     			file_put_contents($real_path , "<?php" ."\n". "return " . var_export($lang, true) . ";\n?>");
     		}
@@ -160,65 +137,38 @@ class LangAction extends Action{
     }
 
 	function getLangCode(){
-		$langset = require_once  realpath(THINK_PATH.'/conf/langset.php');
+		$langset = require  realpath(THINK_PATH.'/conf/langset.php');
 		return $langset;
 	}
-	function getLangTrans(){
-		$langTrans = require_once  realpath(THINK_PATH.'/conf/langTrans.php');
-		return $langTrans;
-	}
+
+	//同义词
 	function synonym(){
-		$name = I('get.name/s');	
-		$langTrans = $this->getLangTrans();
-		if($name == '中文(繁体)' || $name == '中文(香港)' || $name == '中文(澳门)'){
-			$transTo = $langTrans['繁体中文'];
-		}else{
-			if(strpos($name,'(') === false){
-				$transTo = $langTrans[$name];
-			}else{
-				list($a,$b) = explode('(',$name);
-				$transTo = $langTrans[$a];
-			}
-		}	
+		$lang = I('get.lang/s');	
+		$langset = $this -> getLangCode();
+		$transTo = $langset[$lang]['trans'];
 		$arr = array('transTo' => $transTo);
 		$this->ajaxReturn($arr,'','','json');
 	}
-	
+	//翻译
 	function translate(){		
 		$seman = I("get.seman/s");
 		$langs = C('LANG.SET');
-		//$langs = $this -> getLang();
 		$langset = $this -> getLangCode();
-		$langTrans = $this -> getLangTrans();
 		$result = array();
-		foreach($langs as $v){
-			if($v != 'zh-cn'){
-				if($langset[$v]['name'] == '中文(繁体)' || $langset[$v]['name'] == '中文(香港)' || $langset[$v]['name'] == '中文(澳门)'){
-					$transTo = $langTrans['繁体中文'];
-					$result[$v] = language($seman,'auto',$transTo);
-				}else{
-					if(strpos($langset[$v]['name'],'(') === false){
-						$transTo = $langTrans[$langset[$v]['name']];
-						$result[$v] = language($seman,'auto',$transTo);
-						//$result[$v] = youdaoFanyi($seman);
-					}else{
-						list($a,$b) = explode('(',$langset[$v]['name']);
-						$transTo = $langTrans[$a];
-						$result[$v] = language($seman,'auto',$transTo);
-					}
-				}
-			}
+		foreach($langs as $k => $v){
+			$result[$k] = language($seman,'zh',$langset[$k]['trans']);
 		}
 		$this->ajaxReturn($result,'','','json');
 	}
+	//打开多语言设置
 	function multiLangSet(){
 		$use = C('LANG.USE');
 		$this -> assign('use',$use);
 		$this -> display();
 	}
+	//提交多语言设置
 	function multiLangOpen(){
 		$multiLang = I('post.multiLang');
-
 		//开启、关闭多语言
 		$path = ROOT_PATH . 'Admin/conf/lang.php';
 		if(!file_exists($path)){
@@ -228,57 +178,101 @@ class LangAction extends Action{
 		$conf = include $realpath;
 		if($conf['LANG']['USE'] == false){
 			if(!$multiLang){
-				$this -> ajaxReturn('','多语言未选择',0);
+				$this -> ajaxReturn('','多语言已关闭',1);
 			}
 			$conf['LANG']['USE'] = true;
 			$res = file_put_contents($realpath , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
-			if($res !==false)
+			if($res)
 			$this -> ajaxReturn('','多语言已开启',1);
 		}else{
 			if(!$multiLang){
 				$conf['LANG']['USE'] = false;
 				$res = file_put_contents($realpath , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
-				if($res !==false)
+				if($res)
 				$this -> ajaxReturn('','多语言已关闭',1);
 			}
 			$this -> ajaxReturn('','多语言已开启',1);
 		}
 	}
-	
+	//打开语种管理
 	function langCtgMng(){
-		//$support = join(',',C('LANG.SET'));
-		$langs = C('LANG.SET');
-		$langset = $this -> getLangCode();
-		$langName = array();
-		foreach($langs as $lang){
-			$langName[] = $langset[$lang]['name'];
-		}
-		$support = join(',',$langName);
-		$default = C('LANG.DEFAULT');
-		$default = $langset[$default]['name'];
-		$this -> assign('support',$support);
-		$this -> assign('default',$default);
 		$this -> display();
 	}
-	
+	//添加语言包选项
 	function getMUI(){
 		$langset = $this -> getLangCode();
+		$langs = $this -> getLang();
+		foreach($langs as $v){
+			unset($langset[$v]);
+		}
 		$this->ajaxReturn($langset,'','','json');
 	}
+	
+	//创建语言包
 	function buildMUI(){
 		$mui = I('post.mui');
 		if(!$mui){
 			$this ->ajaxReturn('','未选择语言包',0);
+		}		
+		//判断语言是否存在
+		$langset = $this -> getLangCode();
+		if(!isset($langset[$mui]))
+		{
+			$this->error('语言参数错误');
 		}
-		list($a,$b) = explode('_',$mui);
-		if(!file_exists(LANG_PATH . $a)){
-			$res = mkdir(LANG_PATH . $a);
-			if($res){
-				$this->ajaxReturn('','创建'.$b.'语言包成功',1);
+		if(!file_exists(LANG_PATH . $mui)){
+			$this->recurse_copy(LANG_PATH.'zh-cn',LANG_PATH.$mui);
+			//如果存在自动翻译功能
+			if(isset($langset[$mui]['trans']))
+			{
+				$path = realpath(LANG_PATH.$mui); 
+				$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST); 
+				foreach ($objects as $name => $object) { 
+					if($objects->isFile() && $objects->getExtension()=='php')
+					{
+						$conf = require realpath($name);
+						$fydata = language(array_values($conf),'zh',$langset[$mui]['trans']);
+						foreach($conf as $key=>$val)
+						{
+							if(isset($fydata[$val]))
+							{
+								$conf[$key]=$fydata[$val];
+							}
+						}
+						$res = file_put_contents($name , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
+					}
+				}
 			}
+			//添加系统支持语言
+			$confpath = realpath(ROOT_PATH . 'Admin/conf/lang.php');
+			$langConf = include $confpath;
+			if(!isset($langConf['LANG']['SET'][$mui])){
+				$langConf['LANG']['SET'][$mui] =  $langset[$mui]['dispname'];
+				file_put_contents($confpath,"<?php" ."\n". "return " . var_export($langConf, true) . ";\n?>");
+			}
+			//ajax返回
+			if($res) $this->ajaxReturn('','语言包已创建',1);
 		}else{
-			$this->ajaxReturn('',$b.'语言包已存在',1);
+			$this->ajaxReturn('','语言包已存在',1);
 		}
 	}
+	
+	//复制目录
+	function recurse_copy($src,$dst) {
+        $dir = opendir($src);
+        @mkdir($dst);
+        while(false !== ( $file = readdir($dir)) ) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if ( is_dir($src . '/' . $file) ) {
+                    $this->recurse_copy($src . '/' . $file,$dst . '/' . $file);
+                }
+                else {
+                    copy($src . '/' . $file,$dst . '/' . $file);
+                }
+            }
+        }
+        closedir($dir);
+	}
+
 }
 ?>

@@ -1,4 +1,3 @@
-
 <?php
 defined('APP_NAME') || die('不要非法操作哦!');
 class SmsAction extends CommonAction {

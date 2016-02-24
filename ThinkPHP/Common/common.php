@@ -307,7 +307,7 @@ function R($url,$vars=array()) {
         return false;
 }
 
-// 获取和设置语言定义(不区分大小写)
+//  获取和设置语言定义(不区分大小写)
 function L($name=null, $value=null) {
     static $_lang = array();
     // 空参数返回所有定义
@@ -319,12 +319,17 @@ function L($name=null, $value=null) {
     if (is_string($name)){
         $name = strtoupper($name);
         if (is_null($value)){
-            //return isset($_lang[$name]) ? $_lang[$name] : $name;
-            if(array_key_exists($name,$_lang)){
-            	if($_lang[$name]){
+        	if(!C('LANG.USE')){
+        		//如果没有开启语言管理，则直接运行原始L函数的内容
+            	return isset($_lang[$name]) ? $_lang[$name] : $name;
+            }
+            //如果找到，则返回
+            if(isset($_lang[$name])){
+            	if($_lang[$name] !== false){
             		return $_lang[$name];
             	}
             }else{
+            	//找不到则入库
             	$value = language($name);
             	$trace = debug_backtrace();
             	if(strpos($trace[0]['file'],'Action.class.php') === false && strpos($trace[0]['file'],'.class.php') === false){

@@ -6,15 +6,15 @@
                 <h3>BASISC INFORMATION</h3>
             </div>
             <ul>
-                <li class="infokey">{:L('user1_name_serial')}：</li>	
+                <li class="infokey">{:L('会员编号')}：</li>	
                 <li class="infoval">{$userinfo.编号}</li>	
-                <li class="infokey">{:L('name')}：</li>	
+                <li class="infokey">{:L('姓名')}：</li>	
                 <li class="infoval"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>
                 <foreach name="userlevel" item="lv" key="key">
                 <li class="infokey">{$key}：</li>	
                 <li class="infoval">{$lv.byname}</li>
                 </foreach>	    
-                <li class="infokey">{:L('join_date')}：</li>	
+                <li class="infokey">{:L('注册日期')}：</li>	
                 <li class="infoval">{$userinfo.注册日期|date='Y-m-d',###}</li>
                 <foreach name="funbank" item="fun_bank" key="key">
                 <li class="infokey">{$fun_bank.name}：</li>	

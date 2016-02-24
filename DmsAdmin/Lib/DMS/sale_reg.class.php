@@ -488,6 +488,17 @@
 			/*付款审核完成*/
 			$m_user=M("会员");
 			$m_sale=M("报单");
+            
+            //密保问题
+            if(adminshow('mibao')){
+                $mibao['编号']=$udata['编号'];
+                $mibao['密保问题']=trim($udata['密保问题']);
+                $mibao['密保答案']=trim($udata['密保答案']);
+                $m_mibao=M('密保');
+                $m_mibao->add($mibao);
+                unset($udata['密保问题'],$udata['密保答案'],$mibao);
+            }
+            
 			//得到新数据库ID
 			$udata["id"] = $m_user->add($udata);
 			if($udata['id'] == false)

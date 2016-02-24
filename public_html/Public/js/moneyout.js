@@ -109,7 +109,7 @@ cnyOut.prototype.daozhang = function(){
 		true_daozhang=0
 	}
     $('#getsum').prop('value', out);
-    $('#fee').prop('value', fee);
+    $('#outfee').prop('value', fee);
     $('#true_daozhang').attr("value", this.toDecimal2(true_daozhang));
 }
 //提现表单
@@ -175,7 +175,7 @@ cnyOut.prototype.rmbconfirm = function(){
 	//最大提现额
     out_over = parseFloat($('#out_over').html());
     if($('#outfrom').val()==0){
-    	money+=$('#fee').val();
+    	money+=$('#outfee').val();
     }
     if(money > out_over){
         this.Rfade('#rmbout_showtips', '可用余额不足');

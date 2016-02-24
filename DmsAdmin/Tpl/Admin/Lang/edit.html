@@ -1,6 +1,6 @@
 <div class="pageContent">
 	<form id="form" method="post" action="__URL__/editSave/id/{$list.lid}" class="pageForm required-validate" onsubmit="return validateCallback(this, langdialogAjaxDone);">
-	<input type="hidden" name="ajax" value="1"/>
+	<input type="hidden" name="ajax" id="ajax" value="1"/>
 	<div layoutH="58">
     <table width="95%" cellpadding="5" cellspacing="0" class="view_list">
 		<tr>
@@ -63,15 +63,13 @@
 		DWZ.ajaxDone(json);
 		if (json.statusCode == DWZ.statusCode.ok){
 			navTab.reload();
-			$.pdialog.closeCurrent();
-		}
-	}
-	function _langdialogAjaxDone(json){
-		DWZ.ajaxDone(json);
-		if (json.statusCode == DWZ.statusCode.ok){
-			navTab.reload();
-			var nextid = {$list.lid}+1;
-			$.pdialog.reload('__URL__/edit/id/'+nextid);
+			console.log(json.data.ajax);
+			if(json.data.ajax == 1){
+				$.pdialog.closeCurrent();
+			}else if(json.data.ajax == 2){
+				var nextid = {$list.lid}+1;
+				$.pdialog.reload('__URL__/edit/id/'+nextid);				
+			}
 		}
 	}
 	
@@ -89,6 +87,7 @@
 	$("#global").html('全局 &nbsp;&nbsp;'+global);
 	$("#group" ).html('分组 &nbsp;&nbsp;'+group);
 	$("#module").html('模块 &nbsp;&nbsp;'+module);
+	
 	//选择作用域
 	$("#global,#group,#module").click(function(){
 		$("#global,#group,#module").css('background','');
@@ -108,7 +107,6 @@
 	//翻译
 	$("#translate").click(function(){
 		var seman = $("#seman").val();
-		//var to = {'en_us':'en','zh_tw':'cht'};
 		$.ajax({
 			url:'__URL__/translate',
 			data:{seman:seman},
@@ -116,8 +114,7 @@
 			dataType:'json',
 			success:function(result){
 				$("#zh-cn").val(seman);
-				//console.log(result);
-				$.each(result,function(k,v){
+				$.each(result.data,function(k,v){
 					$("#"+k).val(v);
 				});
 			}
@@ -128,24 +125,25 @@
 	function synonym(name){
 		var seman = $("#seman").val();
 		var seman = encodeURIComponent(seman);
-		//console.log(lang);
 		$.ajax({
 			url:'__URL__/synonym/name/'+name,
 			dataType:'json',
 			success:function(to){
-				console.log(to);
-				open('http://fanyi.baidu.com/translate?aldtype=16047&query=' + seman + '&keyfrom=baidu&smartresult=dict&lang=auto2'+to.transTo);
+				open('http://fanyi.baidu.com/translate?aldtype=16047&query=' + seman + '&keyfrom=baidu&smartresult=dict&lang=auto2'+to.data.transTo);
 			}
 		})
 	}
 	
 	//提交
 	$("#sub1").click(function(){
-		$("#form").attr('onsubmit','return validateCallback(this, langdialogAjaxDone);');
+		$("#ajax").val('1');
 		$("#form").submit();
 	});
 	$("#sub2").click(function(){
-		$("#form").attr('onsubmit','return validateCallback(this, _langdialogAjaxDone);');
+		$("#ajax").val('2');
 		$("#form").submit();
 	});
+	
+	//模拟点击事件，默认为全局选项
+	$("#global").trigger("click")
 </script>

@@ -1,7 +1,8 @@
 <?php
 class LangAction extends Action{
 	function index(){
-		$langs = $this -> getLang();
+		$langs = C('LANG.SET');
+		//$langs = $this -> getLang();
 		$langset = $this -> getLangCode();
 		//print_r ($langset);exit;
 		foreach($langs as $k => $v){
@@ -16,7 +17,8 @@ class LangAction extends Action{
 			'修改'=>array("class"=>"edit",   "href"=>"__URL__/edit/id/{tl_id}","target"=>"dialog", "mask"=>"true","width"=>"700","height"=>"450" )
         ); */ 
         $setButton=array(
-			'添加语言包'=>array("class"=>"add", "href"=>"__URL__/addMUI", "target"=>"dialog", "mask"=>"true","width"=>"600","height"=>"400" ),
+        	'多语言设置'=>array("class"=>"edit", "href"=>"__URL__/multiLangSet", "target"=>"dialog", "mask"=>"true","width"=>"600","height"=>"400" ),
+			'语种管理'=>array("class"=>"edit", "href"=>"__URL__/langCtgMng", "target"=>"dialog", "mask"=>"true","width"=>"600","height"=>"400" ),
         ); 
         import('Admin.Action.TableListAction');
         $list=new TableListAction("langdata"); // 实例化Model 传表名称 
@@ -74,7 +76,8 @@ class LangAction extends Action{
 			return;
 		}		
 		$list = M("langdata") -> find($id);
-		$langs = $this -> getLang();
+		$langs = C('LANG.SET');
+		//$langs = $this -> getLang();
 		$langset = $this -> getLangCode();
 		$langss = array();
 		foreach( $langs as $key => $val){
@@ -91,13 +94,12 @@ class LangAction extends Action{
     public function editSave(){
     	$data = I("post.");
     	if(empty($data['file'])){
-    		$this->error('作用域不可为空');
+    		$this->ajaxReturn('','作用域不可为空',0);
     		return;
     	}
-    	//dump($data);exit;
-    	$find_where = array("name"=>$data['name'],"file"=>$data['file']);
-    	$save_where = array("lid"=>I("get.id/s"));
-    	$langs  = $this -> getLang();
+    	//获取语言包
+    	$langs = C('LANG.SET');
+    	//$langs  = $this -> getLang();
     	foreach($langs as $val){
     		$rela_path = LANG_PATH . $val .'/'. $data['file'];
     		if(!file_exists($rela_path)){
@@ -144,17 +146,13 @@ class LangAction extends Action{
     			file_put_contents($real_path , "<?php" ."\n". "return " . var_export($lang, true) . ";\n?>");
     		}
     	}
-    	
-    	$res = M('langdata') ->where($find_where) -> find();
-    	if($res){
-    		$this->success("此语言标签已经存在");
-    		return;
-    	}
+    	//存到数据表
+    	$where = array("lid"=>I("get.id/s"),"name"=>$data['name']);
     	M()->startTrans();
-    	$result = M('langdata') -> where($save_where) -> save($data);
-		if($result){
+    	$result = M('langdata') -> where($where) -> save($data);
+		if($result !== false){
 			M()->commit();
-			$this->success("保存成功");
+			$this->ajaxReturn(array('ajax'=>$data['ajax']),"保存成功");
 		}else{
 			M()->rollback();
 			$this->error("保存失败");
@@ -183,12 +181,13 @@ class LangAction extends Action{
 			}
 		}	
 		$arr = array('transTo' => $transTo);
-		print_r(json_encode($arr));
+		$this->ajaxReturn($arr,'','','json');
 	}
 	
 	function translate(){		
-		$seman = I("get.seman/s");	
-		$langs = $this -> getLang();
+		$seman = I("get.seman/s");
+		$langs = C('LANG.SET');
+		//$langs = $this -> getLang();
 		$langset = $this -> getLangCode();
 		$langTrans = $this -> getLangTrans();
 		$result = array();
@@ -210,24 +209,75 @@ class LangAction extends Action{
 				}
 			}
 		}
-		print_r(json_encode($result));
+		$this->ajaxReturn($result,'','','json');
+	}
+	function multiLangSet(){
+		$use = C('LANG.USE');
+		$this -> assign('use',$use);
+		$this -> display();
+	}
+	function multiLangOpen(){
+		$multiLang = I('post.multiLang');
+
+		//开启、关闭多语言
+		$path = ROOT_PATH . 'Admin/conf/lang.php';
+		if(!file_exists($path)){
+			file_put_contents($path , "<?php \n return " . var_export(array('LANG'=>array()), true) . ";\n?>");
+		}
+		$realpath = realpath($path);
+		$conf = include $realpath;
+		if($conf['LANG']['USE'] == false){
+			if(!$multiLang){
+				$this -> ajaxReturn('','多语言未选择',0);
+			}
+			$conf['LANG']['USE'] = true;
+			$res = file_put_contents($realpath , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
+			if($res !==false)
+			$this -> ajaxReturn('','多语言已开启',1);
+		}else{
+			if(!$multiLang){
+				$conf['LANG']['USE'] = false;
+				$res = file_put_contents($realpath , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
+				if($res !==false)
+				$this -> ajaxReturn('','多语言已关闭',1);
+			}
+			$this -> ajaxReturn('','多语言已开启',1);
+		}
 	}
 	
-	function addMUI(){
+	function langCtgMng(){
+		//$support = join(',',C('LANG.SET'));
+		$langs = C('LANG.SET');
+		$langset = $this -> getLangCode();
+		$langName = array();
+		foreach($langs as $lang){
+			$langName[] = $langset[$lang]['name'];
+		}
+		$support = join(',',$langName);
+		$default = C('LANG.DEFAULT');
+		$default = $langset[$default]['name'];
+		$this -> assign('support',$support);
+		$this -> assign('default',$default);
 		$this -> display();
 	}
 	
 	function getMUI(){
 		$langset = $this -> getLangCode();
-		print_r(json_encode($langset));
+		$this->ajaxReturn($langset,'','','json');
 	}
 	function buildMUI(){
 		$mui = I('post.mui');
-		if(!file_exists(LANG_PATH . $mui)){
-			$res = mkdir(LANG_PATH . $mui);
+		if(!$mui){
+			$this ->ajaxReturn('','未选择语言包',0);
+		}
+		list($a,$b) = explode('_',$mui);
+		if(!file_exists(LANG_PATH . $a)){
+			$res = mkdir(LANG_PATH . $a);
 			if($res){
-				$this->success('创建'.$mui.'语言包成功');
+				$this->ajaxReturn('','创建'.$b.'语言包成功',1);
 			}
+		}else{
+			$this->ajaxReturn('',$b.'语言包已存在',1);
 		}
 	}
 }

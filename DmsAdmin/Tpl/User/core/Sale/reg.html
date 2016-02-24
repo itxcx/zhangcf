@@ -5,7 +5,7 @@
     </div>
     <div class="core_con" style="overflow:hidden">
         <div id="salereg" style="<present name='regAgreement'>display:none</present>">
-            <form name="form1" method="post" action="__GROUP__/Sale/regSave:__XPATH__" id="form">		
+            <form name="form1" method="post" action="__GROUP__/Sale/regSave:__XPATH__" id="form">
                 <table class="tablebg" id="table1">
                     {//会员编号}
                     <tr>
@@ -50,7 +50,7 @@
                     <!--基本信息-->
                     <if condition="in_array('name',$show) eq true">
                     <tr>
-                        <td class="tbkey" >姓名：</td>
+                        <td class="tbkey" >真实姓名：</td>
                         <td class="tbval" ><span><input type="text" value="" name="name" /></span>&nbsp;&nbsp;<span class="msg" id="state_name"><if condition="in_array('name',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
@@ -65,7 +65,7 @@
                     </if>
                     <if condition="in_array('alias',$show) eq true">
                     <tr>
-                        <td class="tbkey" >昵称：</td>
+                        <td class="tbkey" >别名：</td>
                         <td class="tbval" ><span><input type="text" value="" name="alias" /></span>&nbsp;&nbsp;<span class="msg" id="state_alias"><if condition="in_array('alias',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
@@ -244,13 +244,9 @@
 	               <tr>
 					<td class="tbkey">密保问题：</td>
 					<td class="tbval">
-					 <span><select name="secretsafe_name">
-	                    <option value="">{:L('请选择')}</option>
-	                    <foreach name="SecretSafelist" item="SecretSafe">
-	                    <option value="{$SecretSafe.密保问题}">{:L($SecretSafe['密保问题'])}</option>
-	                    </foreach>
-                        </select>
-                    </span>
+					<span>
+                        <input type="text" value="" name="secretsafe_name" />
+					</span>
                     &nbsp;&nbsp;<span class="msg" id="state_secretsafe_name">*</span>
 					</td>
 				  </tr>

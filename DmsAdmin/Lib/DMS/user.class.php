@@ -73,17 +73,26 @@
 			//随机会员编号
 			if($this->idRand)
 			{
-				$ret = (string)rand(0,pow(10,$this->idLength));
+                if($this->idLength>8){
+                    $str='';
+                    $i=0;
+                    do{
+                        $str.=(string)mt_rand(10000000,99999999);
+                        $i+=8;
+                    }while($this->idLength>$i);
+                    $ret=substr($str,0,$this->idLength);
+                }else{
+                    $ret = (string)mt_rand(0,pow(10,$this->idLength));
+                }
 			}
 			else
 			{
 				$ret = $this->getatt("idSerial");
 				if($ret==null)$ret=1;
 				$this->setatt("idSerial",$ret+1);
-				//$ret =(string)
-			}
-			if($this->idLength>0)
+                if($this->idLength>0)
 				$ret=str_pad($ret,$this->idLength,"0",STR_PAD_LEFT);
+			}
 			if($this->idInDate)
 			$ret=$this->getatt("idYmd").$ret;
 			$ret=$this->idPrefix.$ret;
@@ -101,6 +110,7 @@
             $model=M();
             $model->execute('SET FOREIGN_KEY_CHECKS = 0;');
 			$model->execute('truncate table `dms_会员`');
+            $model->execute('truncate table `dms_密保`');
 			$model->execute('truncate table `dms_货币`');//货币分离
 			$model->execute('truncate table `dms_log_user`');
 			$model->execute('truncate table `dms_报单`');

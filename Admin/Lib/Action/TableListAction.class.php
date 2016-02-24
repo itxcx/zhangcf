@@ -633,11 +633,11 @@ class TableListAction extends Model{
             if($topSearch!=""){
                 $parseStr  .= '<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>';
             }
-            if($this->showSearch && count($this->setSearch())>0 && C('VERSION_SWITCH') == '0'){//必须是豪华版的才能享有高级检索
+            if($this->showSearch && count($this->setSearch())>0){//必须是豪华版的才能享有高级检索
 				$searchHeight = count($this->setShow)*14 + 220;
 				$parseStr  .= '<li><a class="button xsSearchButton" href="javascript:getSearchPageData(\''.$searchHeight.'\',\''.$actionUrl.'/search/1'.$_search.urlencode($searchCondition).'\')"><span>高级检索</span></a></li>';
             }
-            if($this->editList && C('VERSION_SWITCH') == '0'){
+            if($this->editList){
                 $parseStr  .= '<li><a class="button" href="'.$actionUrl.'/_editList/1" target="dialog" mask="true" title="编辑列表" width="320" height="360"  rel="editListXs"><span>编辑</span></a></li>';
             }
             if($this->autoLoad){
@@ -1533,7 +1533,7 @@ class TableListAction extends Model{
 	    $objPHPExcel->getActiveSheet()->getStyle('G')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
 
         if(I("post.searchExcel/s")=="" || I("post.searchExcel/s")!='1'){
-			$this->options['where'] = unserialize(base64_decode(I("request._where/a")));
+			$this->options['where'] = unserialize(base64_decode(I("request._where/s")));
 		}
 
         $datasql = $this->select(false);

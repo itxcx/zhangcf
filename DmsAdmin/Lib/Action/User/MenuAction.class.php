@@ -233,12 +233,6 @@ class MenuAction extends Action {
 			    $menu[$fun_stock->byname."管理"][]=array('model'=>'Fun_stock','action'=>'deal_detail:'.$fun_stock->objPath(),'title'=>L('账户明细'),'level'=>1);
 			}
 		}
-		
-		//语言管理
-		if(adminshow('languageSwitch')){
-			$languageManageName=L('语言管理');
-			$menu[$languageManageName][]=array('model'=>'Language','action'=>'index','title'=>L('语言切换'),'level'=>1);
-		}
 		return $menu;
 	}
 }

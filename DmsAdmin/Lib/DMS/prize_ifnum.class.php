@@ -72,8 +72,6 @@
 				unset($users);
 			}
 			//------------------------------------
-			unset($cons);
-			unset($tops);
 			$this->prizeUpdate();
 		}
 		//计算处理,来源表，产生奖金的会员ID，订单表记录，设置数组

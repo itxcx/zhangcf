@@ -215,7 +215,7 @@ class SalewebAction extends CommonAction {
 				$_SESSION[C('USER_AUTH_KEY')]	=  $authInfo['id'];
 				$_SESSION[C('USER_AUTH_NUM')]	=  $authInfo['编号'];
 				$_SESSION['username']		    =  $authInfo['姓名'];
-				$_SESSION[C('USER_AUTH_TYPE')]  =  $user->name;
+				$_SESSION[C('USER_AUTH_TYPE')]  =  $this->userobj->name;
 				$this->redirect("stateHtml",array("e"=>base64_encode(json_encode(array("status"=>true,"jumpUrl"=>"index.php/?s=Index/index","waitSecond"=>0,"messagestr"=>L('成功注册').$return['userid'])))));
 			}else{
 				$this->redirect("stateHtml",array("e"=>base64_encode(json_encode(array("status"=>true,"jumpUrl"=>I("post.jumpUrl/s"),"waitSecond"=>0,"messagestr"=>L('成功注册').$return['userid'])))));

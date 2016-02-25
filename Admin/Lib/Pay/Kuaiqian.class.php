@@ -353,7 +353,6 @@ EOF;
 				return false;
 			}
 		}
-		return $data;	
 	}
 
 	/*

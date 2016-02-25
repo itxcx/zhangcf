@@ -46,15 +46,11 @@ class FunBankAction extends CommonAction {
         $list=new TableListAction("转账明细");
 		$list->table('dms_转账明细 a');
 		$list->join('dms_会员 as b on a.转出编号=b.编号')->field('a.*,b.姓名');
-        if(isset($button)){
-            $list->setButton = $button;
-        }else{
-            $list->setButton = array(
-            '审核'=>array("class"=>"edit"  ,"href"=>"__URL__/givemoneyacc/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            '撤销'=>array("class"=>"delete","href"=>"__URL__/givemoneyunpage/id/{tl_id}","target"=>"dialog","mask"=>"true","width"=>"520","height"=>"240"),
-            '删除'=>array("class"=>"delete","href"=>"__URL__/givemoneydel/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            );
-        }
+        $list->setButton = array(
+        '审核'=>array("class"=>"edit"  ,"href"=>"__URL__/givemoneyacc/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        '撤销'=>array("class"=>"delete","href"=>"__URL__/givemoneyunpage/id/{tl_id}","target"=>"dialog","mask"=>"true","width"=>"520","height"=>"240"),
+        '删除'=>array("class"=>"delete","href"=>"__URL__/givemoneydel/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        );
 		$list->order("a.id desc");
 		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","searchRow"=>"id")); 
         $list->addshow("状态",array("row"=>array(array(&$this,"mytobankFun"),"[状态]"),"searchRow"=>"a.状态","searchMode"=>"text","searchGet"=>"状态","searchPosition"=>"top","searchSelect"=>array("未审核"=>"未审核","已撤销"=>"已撤销","已审核"=>"已审核")));

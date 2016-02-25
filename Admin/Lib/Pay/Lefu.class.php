@@ -478,7 +478,7 @@ function sign($prestr,$signType)
     }
 	else 
 	{
-        die("暂不支持".$sign_type."类型的签名方式");
+        die("暂不支持".$signType."类型的签名方式");
     }
     return $sign;
 }

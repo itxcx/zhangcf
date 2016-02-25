@@ -146,6 +146,7 @@ class InstallAction extends Action
 				{
 					$val	= call_user_func($function[4],$val);
 				}
+                $check=null;
 				eval('$check='.$val.$func_exp.$func_val.';');
 				if($check)
 				{

@@ -177,7 +177,7 @@ class Fun_bankAction extends CommonAction {
 		    }
         }
 		if($fun_bank->getMoneySmsSwitch){
-			$verify = S($this->userinfo['编号'].'_'.$bank->name.'提现');
+			$verify = S($this->userinfo['编号'].'_'.$fun_bank->name.'提现');
 			if(!$verify || $verify != I('post.getSmsVerfy/d') || I('post.getSmsVerfy/d')>0){
 				$this->error(L('短信验证码错误或已过期!'));
 			}

@@ -122,7 +122,7 @@ class TleAction extends CommonAction {
         $result=$m->join('dms_会员 as b on a.编号=b.编号')->field("a.编号,b.姓名,b.证件号码,b.移动电话,b.开户银行,b.开户地址,b.省份,b.城市,b.银行卡号,a.奖金,a.收入")->where($where)->order("a.计算日期 desc")->select();
 		$temp = array();
 		$total = array(
-			'编号'=>$v["编号"],
+			'编号'=>'',
 			'姓名'=>'',
 			'证件号码'=>'',
 			'移动电话'=>'',

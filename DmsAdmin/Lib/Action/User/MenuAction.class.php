@@ -219,9 +219,9 @@ class MenuAction extends Action {
 	        foreach(X('fun_stock2') as $fun_stock)
 			{
 				$menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'index:'      .$fun_stock->objPath(),'title'=>L('交易大厅'),'level'=>1);
-			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_list:'  .$fun_stock->objPath(),'title'=>L('deal_record'),'level'=>1);
+			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_list:'  .$fun_stock->objPath(),'title'=>L('交易记录'),'level'=>1);
 			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_detail:'.$fun_stock->objPath(),'title'=>L('交易挂单'),'level'=>1);
-			    //$menu[$stockManageName][]=array('model'=>'Fun_deal','action'=>'stock_change','title'=>L('stock_change'),'level'=>1);
+			    //$menu[$stockManageName][]=array('model'=>'Fun_deal','action'=>'stock_change','title'=>L('股票互转'),'level'=>1);
 			}
 			//自由交易股票管理
 			

@@ -26,11 +26,11 @@ class LangTemplateBehavior extends Behavior {
 			{
 				if(LANG_SET == $key)
 				{
-					$tmp = "<li><a href='".$key."' class='langselect'>".$val."</a></li>";
+					$tmp = "<li><a href=" .__ACTION__. "/l/" .$key. " class='langselect'>".$val."</a></li>";
 				}
 				else
 				{
-					$tmp = "<li><a href='".$key."'>".$val."</a></li>";
+					$tmp = "<li><a href=" .__ACTION__. "/l/" .$key. ">".$val."</a></li>";
 				}
 				$link.=$tmp;
 			}

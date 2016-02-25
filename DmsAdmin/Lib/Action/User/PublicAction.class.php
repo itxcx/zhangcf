@@ -103,11 +103,11 @@ class PublicAction extends Action {
 	    			$errnum++;
 	    		}
 	    		if($errnum>=2 && $i==$errnum){
-	    			$this->error("显示验证码");
+	    			$this->error(L("显示验证码"));
 	    		}
 	    	}
 	    	if($errnum>3){
-	    		$this->error("显示验证码");
+	    		$this->error(L("显示验证码"));
 	    	}
     	}
     }
@@ -299,11 +299,11 @@ class PublicAction extends Action {
             if(!empty($mbdata) and $mbdata['密保答案']==trim($user['userda'])){
                 M('会员')->startTrans() ;
                 $m_user=M('会员')->where(array('编号'=>$mbdata['编号']))->save(array('pass1'=>md100($mbdata['编号']),'pass2'=>md100($mbdata['编号'])));
-                $this->success('成功找回密码，新密码与您的帐号相同',U('Index/index'));
+                $this->success(L('成功找回密码，新密码与您的帐号相同'),U('Index/index'));
                 M('会员')->commit() ;
             }
         }
-        $this->error('您的答案不正确');
+        $this->error(L('您的答案不正确'));
     }
     
     //密保AJAX
@@ -327,10 +327,10 @@ class PublicAction extends Action {
 			$res2 = $res->where(array('编号'=>$userid))->find();
 			
 			if(!$res2){
-				$this->error('该会员不存在');
+				$this->error(L('该会员不存在'));
 			}
 			if($res2['移动电话'] != $telephone){
-				$this->error('手机号码不正确');
+				$this->error(L('手机号码不正确'));
 			}
 			$pass1 = rand(100000,999999);
 			$pass2 = rand(100000,999999);
@@ -358,13 +358,13 @@ class PublicAction extends Action {
 			if($result){
 				$this->runThread($result,$coun);
 				M()->commit();
-				$this->success('短信正在发送中',U('Index/index'));
+				$this->success(L('短信正在发送中'),U('Index/index'));
 			}else{
 				M()->rollback();
-				$this->error('短信未发送');
+				$this->error(L('短信未发送'));
 			}
 		}else{
-			$this->error('信息不完整');
+			$this->error(L('信息不完整'));
 		}
 	}
 	//发送短信方法
@@ -397,10 +397,10 @@ class PublicAction extends Action {
 			$res2 = $res->where(array('编号'=>$userid))->find();
 			
 			if(!$res2){
-				$this->error('该会员不存在');
+				$this->error(L('该会员不存在'));
 			}
 			if($res2['email'] != $email){
-				$this->error('邮箱不正确');
+				$this->error(L('邮箱不正确'));
 			}
 			$pass1 = rand(100000,999999);
 			$pass2 = rand(100000,999999);
@@ -422,13 +422,13 @@ class PublicAction extends Action {
 			if($result){
 				$this->sendMail($email,$subject,$content);
 				M()->commit();
-				$this->success('邮件正在发送中',U('Public/login'));
+				$this->success(L('邮件正在发送中'),U('Public/login'));
 			}else{
 				M()->rollback();
-				$this->error('邮件未发送');
+				$this->error(L('邮件未发送'));
 			}
 		}else{
-			$this->error('信息不完整');
+			$this->error(L('信息不完整'));
 		}
 	}
 	public function sendMail($email,$subject,$content)
@@ -485,12 +485,12 @@ class PublicAction extends Action {
 			$model	= M('会员');
 			if($_REQUEST['userid']=='')
 			{
-				$this->ajaxReturn("请输入您的账号","",0);
+				$this->ajaxReturn(L("请输入您的账号"),"",0);
 				die;
 			}
 			if($email=='')
 			{
-				$this->ajaxReturn("请输入您的注册邮箱","",0);
+				$this->ajaxReturn(L("请输入您的注册邮箱"),"",0);
 				die;
 			}
 			$list	= $model->where($where)->find();
@@ -498,7 +498,7 @@ class PublicAction extends Action {
 			{
 				if($list['email']!=$email)
 				{
-					$this->ajaxReturn("邮件错误","",0);
+					$this->ajaxReturn(L("邮件错误"),"",0);
 				}
 				else
 				{
@@ -510,13 +510,13 @@ class PublicAction extends Action {
 					if($this->sendMail($email,$subject,$content)) {
 						$this->ajaxReturn("","",1) ;die;
 					}else{
-						$this->ajaxReturn("邮件发送失败","",0);die;
+						$this->ajaxReturn(L("邮件发送失败"),"",0);die;
 					}
 				}
 			}
 			else
 			{
-				$this->ajaxReturn("账户与邮箱不正确","",0);die;
+				$this->ajaxReturn(L("账户与邮箱不正确"),"",0);die;
 			}
 		}
 		$this->display('login:'.$number.':getPassWord');
@@ -533,12 +533,12 @@ class PublicAction extends Action {
 			$telephone	= $_REQUEST['telephone'];
 			if($_REQUEST['userid']=='')
 			{
-				$this->ajaxReturn("请输入您的账号","",0);
+				$this->ajaxReturn(L("请输入您的账号"),"",0);
 				die;
 			}
 			if($telephone=='')
 			{
-				$this->ajaxReturn("请输入您的手机号码","",0);
+				$this->ajaxReturn(L("请输入您的手机号码"),"",0);
 				die;
 			}
 			$model	= M('会员');
@@ -550,7 +550,7 @@ class PublicAction extends Action {
 			{
 				if($list['移动电话']!=$telephone)
 				{
-					$this->ajaxReturn("手机号码错误","",0);
+					$this->ajaxReturn(L("手机号码错误"),"",0);
 					die;
 				}
 				else
@@ -571,7 +571,7 @@ class PublicAction extends Action {
 			}
 			else
 			{
-				$this->ajaxReturn("账户不正确","",0);
+				$this->ajaxReturn(L("账户不正确"),"",0);
 				die;
 			}
 		}

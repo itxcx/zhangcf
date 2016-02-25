@@ -163,7 +163,7 @@ class xmlCheck
 				/***********判断极差中百分号的有无是否一致**************************/
 				if($nodeName!=$tmpnodeName && strpos($tmpnodeName,'diff')>0 && $nodeName=="_con")
 				{
-					if($attkey=='val') $tmpcon[$tmpnodeName][]=strpos($attval,'%')?1:0;
+					if($attkey=='val') $tmpcon[$tmpnodeName][]=strpos($attval,'%')!==false?1:0;
 				}
 				/***********************************************************************/
 				
@@ -171,7 +171,7 @@ class xmlCheck
 				if($nodeName == '_addval'){
 					if($attkey == 'to'){
 						$newto = $attval;
-						if(strpos($attval,'_'))$newto = substr($attval,strpos($attval,'_')+1);
+						if(strpos($attval,'_')!==false)$newto = substr($attval,strpos($attval,'_')+1);
 						$obj=X('@'.$newto);
 						if(empty($obj->name)){
 							throw_exception('发现【'.$newto.'】的节点并没有创建');

@@ -206,6 +206,8 @@
 			if(!$user){
 				return "系统不存在";
 			}
+            $sqlwhere='';
+            $brabchwhere='';
 			//形成sql语句条件 根据网体net_节点生成查询网体下级的sql语句
 			foreach(X("net_*") as $net){
 				$sqlwhere.=$sqlwhere!=""?" or ":"";
@@ -595,6 +597,7 @@
 			$str = '';
 			foreach($newUsers as $key=>$newUsernum){
 				if($con!=''){
+                    $result='';
 					eval('$result=('.$newUsernum.$con.');');
 					if($result){
 						$str .=",'".$key."'";
@@ -659,6 +662,8 @@
 			foreach($newUsers as $key=>$newUser){
 				if($con3!=''){
 					foreach($newUser as $downkey=>$downnewUser){
+                        //需要先
+                        $downresult=null;
 						eval('$downresult=('.$downnewUser.$con3.');');
 						if(!$downresult){
 							unset($newUser[$downkey]);

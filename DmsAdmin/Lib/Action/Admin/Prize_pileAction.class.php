@@ -26,8 +26,8 @@ class Prize_pileAction extends CommonAction {
 		{
 			$this->error('参数错误');
 		}
-		$info=M($obj->name)->where(array('id'=>$id))->find();
-        $name=$obj->byname."明细修改"; 
+		$info=M($prize_pile->name)->where(array('id'=>$id))->find();
+        $name=$prize_pile->byname."明细修改"; 
 		$this->assign('name',$name);
 		$this->assign('info',$info);
 		$this->display();
@@ -55,7 +55,7 @@ class Prize_pileAction extends CommonAction {
 		$data['开始时间']=strtotime($data['开始时间']);
 		$data['截止时间']=strtotime($data['截止时间']);
 		M()->startTrans();
-		$rs=M($obj->name)->save($data);
+		$rs=M($prize_pile->name)->save($data);
 		if($rs)
 		{
 			M()->commit();

@@ -219,9 +219,9 @@ class MenuAction extends Action {
 	        foreach(X('fun_stock2') as $fun_stock)
 			{
 				$menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'index:'      .$fun_stock->objPath(),'title'=>L('交易大厅'),'level'=>1);
-			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_list:'  .$fun_stock->objPath(),'title'=>L('deal_record'),'level'=>1);
+			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_list:'  .$fun_stock->objPath(),'title'=>L('交易记录'),'level'=>1);
 			    $menu[$fun_stock->byname][]=array('model'=>'Fun_deal','action'=>'deal_detail:'.$fun_stock->objPath(),'title'=>L('交易挂单'),'level'=>1);
-			    //$menu[$stockManageName][]=array('model'=>'Fun_deal','action'=>'stock_change','title'=>L('stock_change'),'level'=>1);
+			    //$menu[$stockManageName][]=array('model'=>'Fun_deal','action'=>'stock_change','title'=>L('股票互转'),'level'=>1);
 			}
 			//自由交易股票管理
 			
@@ -232,12 +232,6 @@ class MenuAction extends Action {
 			    $menu[$fun_stock->byname."管理"][]=array('model'=>'Fun_stock','action'=>'deal_list:'  .$fun_stock->objPath(),'title'=>L('交易记录'),'level'=>1);
 			    $menu[$fun_stock->byname."管理"][]=array('model'=>'Fun_stock','action'=>'deal_detail:'.$fun_stock->objPath(),'title'=>L('账户明细'),'level'=>1);
 			}
-		}
-		
-		//语言管理
-		if(adminshow('languageSwitch')){
-			$languageManageName=L('语言管理');
-			$menu[$languageManageName][]=array('model'=>'Language','action'=>'index','title'=>L('语言切换'),'level'=>1);
 		}
 		return $menu;
 	}

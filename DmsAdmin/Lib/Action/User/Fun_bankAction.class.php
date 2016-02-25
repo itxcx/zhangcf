@@ -30,10 +30,10 @@ class Fun_bankAction extends CommonAction {
         }else{
         	//判断是否可以提现
         	if(in_array(date('w',systemTime()),$fun_bank->getMoneyWeek)){
-        		$this->error("周".str_replace("0","7",implode(",",$fun_bank->getMoneyWeek))."不能提现".$fun_bank->byname);
+        		$this->error(L("周".str_replace("0","7",implode(",",$fun_bank->getMoneyWeek))."不能提现".$fun_bank->byname));
         	}
         	if($fun_bank->getMoneyMday!='' && in_array(date('j',systemTime()),explode(",",$fun_bank->getMoneyMday))){
-        		$this->error("每月的".$fun_bank->getMoneyMday."号不能提现".$fun_bank->byname);
+        		$this->error(L("每月的".$fun_bank->getMoneyMday."号不能提现".$fun_bank->byname));
         	}
         	//已添加的可用银行卡
         	$bankcards=M("银行卡")->where(array("卡号"=>array("neq",""),"户名"=>array("neq",""),"状态"=>"有效"))->select();
@@ -104,7 +104,7 @@ class Fun_bankAction extends CommonAction {
     }
     function dofun($str,$str1,$str2,$bank,$memo){
         if($str == 0){
-            return '<a href="__URL__/getcancel:__XPATH__/id/'.$str1.'"  callback="delete_done">'.L('revoke').'</a>';
+            return '<a href="__URL__/getcancel:__XPATH__/id/'.$str1.'"  callback="delete_done">'.L('撤销失败').'</a>';
         }elseif($str == 1){
         	if($memo != '')
         	{
@@ -179,7 +179,7 @@ class Fun_bankAction extends CommonAction {
 		if($fun_bank->getMoneySmsSwitch){
 			$verify = S($this->userinfo['编号'].'_'.$fun_bank->name.'提现');
 			if(!$verify || $verify != I('post.getSmsVerfy/d') || I('post.getSmsVerfy/d')>0){
-				$this->error(L('短信验证码错误或已过期!'));
+				$this->error(L('短信验证码错误或已过期'));
 			}
 		}
 		if($fun_bank->getSecretSafe){
@@ -190,15 +190,15 @@ class Fun_bankAction extends CommonAction {
         //如果被锁定
         if($this->userinfo[$fun_bank->name.'锁定']==1)
         {
-        	$this->error(L('您的账户处于锁定状态.不能操作'));
+        	$this->error(L('您的账户处于锁定状态,不能操作'));
         }
         $getsum = I("post.getsum/f");
         if(!is_numeric($getsum)|| $getsum <= 0){
-            $mess .=L('金额不能为空<br>');
+            $mess .=L('金额不能为空').'<br>';
         }
         $checktype=M("银行账户")->where(array("userid"=>$this->userinfo['id'],"id"=>I("post.getbanktype/d")))->find();
 		if(!$checktype){
-			$mess .=L('请重新选择提款地址<br>');
+			$mess .=L('请重新选择提款地址').'<br>';
 		}
         if(!transform($fun_bank->getMoneyWhere,$this->userinfo))
         {
@@ -210,7 +210,7 @@ class Fun_bankAction extends CommonAction {
 		$userinfo=M("货币")->where(array("userid"=>$this->userinfo['id']))->find();
 		//if(!M()->autoCheckToken(I("post.")))
 		//{
-		//	$this->error('您已经提交过提现申请,如继续操作,请从新点击提现功能');
+		//	$this->error(L('您已经提交过提现申请,如继续操作,请从新点击提现功能'));
 		//}
         $re = $this->setGet($fun_bank,$userinfo,$checktype);
         if($re == ""){	
@@ -245,7 +245,7 @@ class Fun_bankAction extends CommonAction {
 				sendMail($this->userinfo,$this->userobj->byname.'提现',CONFIG('txmmailContent'));
             }
             M()->commit();
-            $this->success('操作成功');
+            $this->success(L('操作成功'));
         }else{// 错误信息
             $this->error($re);
         }
@@ -274,12 +274,12 @@ class Fun_bankAction extends CommonAction {
 	    	}
 	    	M()->commit();
 	    	if($lastinfo){
-	    		$this->success("修改成功");
+	    		$this->success(L("修改成功"));
 	    	}else{
-	    		$this->success("添加成功");
+	    		$this->success(L("添加成功"));
 	    	}
     	}else{
-    		$this->error("最多可添加十个");
+    		$this->error(L("最多可添加十个"));
     	}
     }
     public function delgetcount(){
@@ -288,9 +288,9 @@ class Fun_bankAction extends CommonAction {
     	if($lastinfo){
     		M("银行账户")->delete($lastinfo['id']);
     		M()->commit();
-	    	$this->success("删除成功");
+	    	$this->success(L("删除成功"));
     	}else{
-    		$this->error("不存在数据，请刷新页面");
+    		$this->error(L("不存在数据，请刷新页面"));
     	}
     }
     public function setgetcount(){
@@ -300,9 +300,9 @@ class Fun_bankAction extends CommonAction {
     		M("银行账户")->where(array("userid"=>$this->userinfo['id'],"状态"=>1))->save(array("状态"=>0));
     		M("银行账户")->save(array("id"=>$lastinfo['id'],"状态"=>1));
     		M()->commit();
-	    	$this->success("设置默认成功");
+	    	$this->success(L("设置默认成功"));
     	}else{
-    		$this->error("不存在数据，请刷新页面");
+    		$this->error(L("不存在数据，请刷新页面"));
     	}
     }
     //  提现  添加会员编号,提现金额,开户行,银行卡号,开户地址,开户名
@@ -338,13 +338,13 @@ class Fun_bankAction extends CommonAction {
            	$banknum	  = $getsum+$data["手续费"];
         }
 		if($getsum < $bank->getMoneyMin ){
-		    return L('不能少于最小提现额')."{$bank->getMoneyMin}！";
+		    return L('不能少于最小提现额')."{$bank->getMoneyMin}";
 		}else if($bank->getMoneyMax > 0 && $getsum > $bank->getMoneyMax){
-			return L('最大提现额不能超过')."{$bank->getMoneyMax}！";
+			return L('最大提现额不能超过')."{$bank->getMoneyMax}";
 		}else if($user[$bank->name] - $banknum < 0){
 			return L('余额不足');
 		}else if($bank->getMoneyInt != 0 && fmod($getsum,$bank->getMoneyInt)!=0){
-			return L('提现金额需为{$bank->getMoneyInt}的倍数！');
+			return L('提现金额需为{$bank->getMoneyInt}的倍数');
 		}else{
             $m_bank=M("提现");
 			//提现汇率换算
@@ -357,7 +357,7 @@ class Fun_bankAction extends CommonAction {
 			    $bank->set( $user["编号"], $user["编号"],-$banknum,$this->userobj->byname.'提现','申请提现扣除：'.$getsum);
 				return "";
 			}else{
-				return L('error_title');
+				return L('操作失败');
 			}
 		}
 	}
@@ -422,12 +422,12 @@ class Fun_bankAction extends CommonAction {
 		$USER_REMIT_MAX=CONFIG('USER_REMIT_MAX');
 		if($USER_REMIT_MIN != ''){
 			if(I("post.金额/f")<$USER_REMIT_MIN){
-				$this->error('填写金额小于最低汇款限制'.$USER_REMIT_MIN);
+				$this->error(L('填写金额小于最低汇款限制'.$USER_REMIT_MIN));
 			}
 		}
 		if($USER_REMIT_MAX>0){
 			if(I("post.金额/f")>$USER_REMIT_MAX){
-				$this->error('填写金额大于最高汇款限制'.$USER_REMIT_MAX);
+				$this->error(L('填写金额大于最高汇款限制'.$USER_REMIT_MAX));
 			}
 		}
 		$data	= $m->create();

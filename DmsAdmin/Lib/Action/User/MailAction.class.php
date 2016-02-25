@@ -54,7 +54,7 @@ class MailAction extends CommonAction {
 			$model = M('邮件');
 			$result = $model->where(array('收件人'=>$this->userinfo['编号'],'收件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
 			if(!$result){
-				$this->error('参数错误!');
+				$this->error(L('参数错误'));
 			}
 			if($result['状态'] == 0){
 				M()->startTrans();
@@ -68,7 +68,7 @@ class MailAction extends CommonAction {
 			$model = M('邮件');
 			$result = $model->where(array('发件人'=>$this->userinfo['编号'],'发件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
 			if(!$result){
-				$this->error('参数错误!');
+				$this->error(L('参数错误'));
 			}
 			$map['id']=I("get.id/d");
 			$this->assign('list',$result);
@@ -79,14 +79,14 @@ class MailAction extends CommonAction {
 		{
 			if(I("request.id/d")<=0)
 			{
-				$this->error("请选择查看的邮件",__URL__."/");
+				$this->error(L("请选择查看的邮件"),__URL__."/");
 			}
 			$model=M('Email');
 			$map['id']=I("request.id/d");
 			$rf=$model->where($map)->find();
 			if($rf['state']==2)
 		    {
-				$this->error('该信件已经回复');
+				$this->error(L('该信件已经回复'));
 			}
 			$this->assign('rf',$rf);
 			$this->display();
@@ -99,7 +99,7 @@ class MailAction extends CommonAction {
 			$where['id'] = I("get.id/d");
 			$result = M("邮件")->where($where)->find();
 			if(!$result){
-				$this->error('参数错误!');
+				$this->error(L('参数错误'));
 			}
 			$this->assign('list',$result);
 			$this->display();
@@ -112,7 +112,7 @@ class MailAction extends CommonAction {
 			$where['id'] = I("post.id/d");
 			$result = $model->where($where)->find();
 			if(!$result){
-				$this->error('参数错误!');
+				$this->error(L('参数错误'));
 			}
 			if(I("post.answerContent/s")==''){
 				$this->error(L('内容不能为空'));

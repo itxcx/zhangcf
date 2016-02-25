@@ -1,35 +1,3 @@
-<script>
-	var disap =0;	
-	var pointX = 0;
-	var pointY = 0;	
-	var Top = 0;
-	var Left = 0;
-	var is_treeimg = '{$is_treeimg}';
-    //判断是否要开启网络图拖拽
-     //判断是否要开启网络图拖拽
-    if(is_treeimg=='true'){
-	$('[name="rectreeContent{$firstUserInfo['id']}"]').bind("mousedown",function(e){
-		disap = 1;
-		pointX = e.clientX;
-		pointY = e.clientY;
-	});
-	$('[name="rectreeContent{$firstUserInfo['id']}"]').bind("mousemove",function(e){
-		if(disap==1){
-			var pointY2 = e.clientY;
-			var pointX2 = e.clientX;
-			Top = $('[name="rectreeContent{$firstUserInfo['id']}"]').scrollTop();
-			Left = $('[name="rectreeContent{$firstUserInfo['id']}"]').scrollLeft();
-			Y = pointY - pointY2;
-			X = pointX - pointX2;
-			$('[name="rectreeContent{$firstUserInfo['id']}"]').scrollTop(Top + Y);
-			$('[name="rectreeContent{$firstUserInfo['id']}"]').scrollLeft(Left + X);
-		}
-	});
-	$('[name="rectreeContent{$firstUserInfo['id']}"]').bind("mouseup",function(e){
-		disap=0;
-	});
-	}
-</script>
 <div name="rectreeContent{$firstUserInfo['id']}" id="treeContent" layoutH='0' style="overflow:scroll; min-height:472px;">
 <div  style="padding-bottom:100px">
 <if condition="$users">

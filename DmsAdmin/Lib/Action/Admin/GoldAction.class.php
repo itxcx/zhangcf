@@ -157,7 +157,7 @@ class GoldAction extends CommonAction {
 			$result=$gold->cancelSell($sellinfo['id']);
 			if(gettype($result)=='string'){
 				$errNum++;
-				$errMsg.=$buyinfo['id']."撤销：".$result.'<br/>';
+				$errMsg.=$sellinfo['id']."撤销：".$result.'<br/>';
 				M()->rollback();
 				continue;
 			}

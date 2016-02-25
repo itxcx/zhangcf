@@ -331,7 +331,7 @@ EOF;
 		$port			= $url_info['scheme']=='https'?443:80;
 		$host			= $url_info['scheme']=='https'?'ssl://'.$url_info["host"]:$url_info["host"];
 
-		$request		.="POST ".$url_info["path"]." HTTP/1.1\n";
+		$request		="POST ".$url_info["path"]." HTTP/1.1\n";
 		$request		.="Host: ".$url_info["host"]."\n";
 		$request		.="Referer: $referrer\n";
 		$request		.="Content-type: application/x-www-form-urlencoded\n";

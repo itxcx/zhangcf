@@ -330,7 +330,7 @@ function L($name=null, $value=null) {
             	}
             }else{
             	//找不到则入库
-            	$value = language($name);
+            	//$value = language($name);
             	$traces = debug_backtrace();
             	//dump($traces);
             	foreach($traces as $trace)

@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class Fun_dealAction extends CommonAction {
 	public function index(fun_stock $fun_stock)
 	{
@@ -8,9 +8,11 @@ class Fun_dealAction extends CommonAction {
 		$lists=M($fun_stock->name."流水")->where(array('编号'=>$userinfo['编号']))->order("addtime desc,id desc")->select();
 		$lists1=M($fun_stock->name."流水")->where(array('编号'=>$userinfo['编号']))->order("addtime desc,id desc")->select();
 		$today=strtotime(date("Y-m-d",systemTime()));
-        if($yeprice==NULL){
+        //这个变量不知道怎么来的
+        //if($yeprice==NULL){
+        
            $yeprice=$price;
-	    }
+	    //}
 	    
 		$list = $this->getxml();
 		//会员总股票
@@ -73,7 +75,7 @@ class Fun_dealAction extends CommonAction {
 	
 	//股票卖出
 	
-	public function stock_sell()
+	public function stock_sell(fun_stock $fun_stock)
 	{
 		//防XSS跨站攻击登入 调用ThinkPHP中的XSSBehavior
 	     B('XSS');

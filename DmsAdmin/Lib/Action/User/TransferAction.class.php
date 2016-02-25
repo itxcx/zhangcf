@@ -26,9 +26,9 @@ class TransferAction extends CommonAction{
 		}
 		if($bank)
 		{
-			$this->ajaxReturn($bank,'成功',1);
+			$this->ajaxReturn($bank,L('成功'),1);
 		}else{
-			$this->ajaxReturn('','失败',0);
+			$this->ajaxReturn('',L('失败'),0);
 		}
 	}
 	//转账验证
@@ -45,7 +45,7 @@ class TransferAction extends CommonAction{
 		}
 		else
 		{
-			$this->ajaxReturn('','失败',0);
+			$this->ajaxReturn('',L('失败'),0);
 		}
 	}
 	//转账提交
@@ -54,13 +54,13 @@ class TransferAction extends CommonAction{
 		//验证转账货币、转账类型是否已选择
 		if(I("post.giveTo/s")=="" || I("post.giveTypes/s")=="" || I("post.giveTypes/s")=='wu')
 		{
-			$this->error('输入的信息不完整!');
+			$this->error(L('输入的信息不完整'));
 		}
 		//验证是否有提交的转账类型
 		$have = M('转账设置')->where(array('id'=>I("post.giveTo/s"),I("post.giveTypes/s")=>1,'status'=>1))->find();
 		if(!$have)
 		{
-			$this->error('操作失败!');
+			$this->error(L('操作失败'));
 		}
 		//获取转账货币的节点
 		$bank=X('fun_bank@'.$have['bank']);
@@ -98,7 +98,7 @@ class TransferAction extends CommonAction{
 		if(CONFIG('giveMoneySmsSwitch')==1){
 			$verify = S($this->userinfo['编号'].'_'.$bank->name.'转账');
 			if(!$verify || $verify != I("post.giveSmsVerfy/s") || I("post.giveSmsVerfy/s")==""){
-				$this->error('短信验证码错误或已过期!');
+				$this->error(L('短信验证码错误或已过期'));
 			}
 		}
 		//如果转账给其他人
@@ -140,7 +140,7 @@ class TransferAction extends CommonAction{
                 $toyoutype=explode(',',$have["toyoutype"]);
                 $typestr=$this->userinfo['服务中心']."-".$fwzx;
                 if(!in_array($typestr,$toyoutype)){
-                    $this->error('转账他人选择受限');
+                    $this->error(L('转账他人选择受限'));
                 }
             }
             //默认编号和数据库一致
@@ -188,7 +188,7 @@ class TransferAction extends CommonAction{
         	{
         		if($top['msg'] == '')
         		{
-        			$this->error('要转入的账户超过限额');
+        			$this->error(L('要转入的账户超过限额'));
         		}
         		else
         		{

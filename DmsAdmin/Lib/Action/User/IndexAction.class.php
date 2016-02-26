@@ -93,13 +93,13 @@ class IndexAction extends CommonAction {
 	{
 		$lang	= $_REQUEST['lang'];
 		cookie('think_language',$lang);
-		$this->ajaxReturn(1,'成功',1);
+		$this->ajaxReturn(1,L('成功'),1);
 	}
 	public function change_color()
 	{
 		$color	= $_REQUEST['color'];
 		cookie('color',$color);
-		$this->ajaxReturn(1,'成功',1);
+		$this->ajaxReturn(1,L('成功'),1);
 	}
 	//二级密码
 	public function secPwd()
@@ -118,7 +118,7 @@ class IndexAction extends CommonAction {
 		}
 		else
 		{
-			$this->error('密码不正确');
+			$this->error(L('密码不正确'));
 		}
 	}
 	//三级密码
@@ -138,7 +138,7 @@ class IndexAction extends CommonAction {
 		}
 		else
 		{
-			$this->error('密码不正确');
+			$this->error(L('密码不正确'));
 		}
 	}
 	//关联账号登录
@@ -194,7 +194,7 @@ class IndexAction extends CommonAction {
 				$this -> error(L('设置失败'));
 			}
 		}else{
-			$this -> error(L('用户id或密码错误'));
+			$this -> error(L('用户编号或密码错误'));
 		}
 	}
 

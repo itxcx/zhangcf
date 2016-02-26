@@ -148,7 +148,6 @@
 				unset($sales);
 			}
 			unset($cons);
-			unset($tops);
 		}
 	}
 ?>

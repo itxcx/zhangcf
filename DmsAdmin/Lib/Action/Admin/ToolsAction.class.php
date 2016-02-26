@@ -932,6 +932,8 @@ class ToolsAction extends CommonAction{
 	//随机压力注册测试
 	public function userBulkInsert()
 	{
+        dump('此功能有定制化写死部分，如需使用还需进行完善');
+        die();
 		define('BULK_INSERT',true);
 		set_time_limit(1800);
 		$bh=(substr(md5(microtime()),0,10));
@@ -979,7 +981,7 @@ class ToolsAction extends CommonAction{
 				$_POST['net_'.$val['pos']]=$user['编号'];
 			}
 			M()->startTrans();
-			$reg = $sale->regSave((I("post.")));
+			$reg = $sale_reg->regSave((I("post.")));
 			M()->commit();
 		}
 		

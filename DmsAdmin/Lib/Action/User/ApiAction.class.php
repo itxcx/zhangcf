@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class ApiAction extends CommonAction {
 
 	//查询会员是否存在  参数 userid  如果存在返回OK 如果不存在返回NO

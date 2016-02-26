@@ -199,6 +199,7 @@
 				"dataid" =>$dataid
 			);
 			$userupdata=array();
+            $userCache =array();
 			$m_bank=M($this->name."明细",'dms_');
 			//$m_bank->lock(true)->where(array('编号'=>$username))->select();
 			if($tlename != '' )

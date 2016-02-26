@@ -74,7 +74,7 @@
 				$sales=$this->getsale($this->where,"*,$this->rowName as t_num");
 				foreach($sales as $sale)
 				{
-					$this->calculate($net,$sale,$sale['userid'],$sale,$rec_maxlayer,$cons,$tops,$num_ratio);
+					$this->calculate($net,$sale,$sale['userid'],$sale,$rec_maxlayer,$cons,$num_ratio);
 				}
 				unset($sales);
 			}
@@ -88,17 +88,16 @@
 				if($users)
 				foreach($users as $user)
 				{
-					$this->calculate($net,$user,$user['id'],null,$rec_maxlayer,$cons,$tops,$num_ratio);
+					$this->calculate($net,$user,$user['id'],null,$rec_maxlayer,$cons,$num_ratio);
 				}
 				unset($users);
 			}
 			//------------------------------------
 			unset($cons);
-			unset($tops);
 			$this->prizeUpdate();
 		}
 		//计算处理
-		public function calculate($net,&$from,$userid,$sale=null,$rec_maxlayer,&$cons,&$tops,$num_ratio)
+		public function calculate($net,&$from,$userid,$sale=null,$rec_maxlayer,&$cons,$num_ratio)
 		{
 				$user   =M("会员")->where(array("id"=>$userid))->lock(true)->find();
 				foreach($cons as $con)
@@ -131,7 +130,9 @@
 					{
 						continue;
 					}
+                    
 					if($con['weighing']!=''){
+                        $usercount=0;
 						foreach($downusers as $downuser){
 							$usercount += transform($con['weighing'],$downuser);
 						}

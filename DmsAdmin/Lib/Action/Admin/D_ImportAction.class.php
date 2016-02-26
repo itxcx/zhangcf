@@ -185,15 +185,15 @@ class D_ImportAction extends CommonAction{
 					'id'=>$user['id'],
 					'pass1'=>md100($this->mymd5($user['pass1'],'DE')),
 					'pass2'=>md100($this->mymd5($user['pass2'],'DE')),
-					'省份'=>isset($rss[$pid])?$rss[$pid]:'',
-					'城市'=>isset($rss[$cid])?$rss[$cid]:'',
-					'地区'=>isset($rss[$aid])?$rss[$aid]:'',
+					//'省份'=>isset($rss[$pid])?$rss[$pid]:'',
+					//'城市'=>isset($rss[$cid])?$rss[$cid]:'',
+					//'地区'=>isset($rss[$aid])?$rss[$aid]:'',
 				);
 				M('会员')->bsave($data);
 			}
 			M('会员')->bUpdate();
 			unset($users);
-			unset($rss);
+			//unset($rss);
 		}
 		//生成奖金记录
 		if($banklog)

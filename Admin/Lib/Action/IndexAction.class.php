@@ -104,6 +104,7 @@ class IndexAction extends CommonAction
 		$this->display();
     }
     public function checkxml(){
+        $addnet=array();
     	foreach(X('sale_*') as $sale)
 		{
 			$addcon=$sale->getcon('addval',array(),true);
@@ -127,8 +128,7 @@ class IndexAction extends CommonAction
 				$prizeNet[$prize->byname]=$prize->netName;
 			}
 		}
-		$html='<div style="float:left;width:400;margin-right:15px;">
-			';
+		$html='<div style="float:left;width:400;margin-right:15px;">';
 		if(isset($prizeNet)){
 			$html.='<table width="300px" class="list">
 				<thead>

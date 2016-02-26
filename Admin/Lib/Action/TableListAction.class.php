@@ -246,114 +246,6 @@ class TableListAction extends Model{
        }
        return $setSearch;
     }
-    public function shiftWhere($idstr){
-    	//获取tablelist 的页面列表字段
-    	$searchArray=$this->setSearch();
-    	//获取对应的内容  以及主键值
-    	if(!isset($searchArray[$idstr]))
-    		return ;
-    	$skey=$idstr;
-    	$svalue=$searchArray[$idstr];
-    	//数据在数组中排列数
-    	$keyArray=array_keys($searchArray);
-    	$i=array_search($idstr,$keyArray);
-    	//循环REQUEST的表单数据
-        foreach(I("request./a") as $key=>$value){
-            if($value == "" || substr($key,0,7) != '_search'){
-            	continue;
-            }
-            if(substr($key,-4)=='mohu'){continue;}
-            $k = substr($key,7,2);
-            $k = intval(trim($k,"_"));
-            if($i == $k){
-            	 //对空格做处理
-            	 $value = trim($value);
-                if($svalue["searchMode"] == 'date'){
-                    $value=strtotime($value);
-                    if(!$value){
-                    	$value=0;
-                    }
-                    if(substr($key,-3)=='end'){
-                        $value = $value + 24*60*60 - 1;
-                    }
-                }
-                if(isset($svalue["searchSelect"])){
-                    if(!is_numeric($value)){
-                        $value = $svalue["searchSelect"][$value];
-                    }
-                }
-                $row = isset($svalue["searchRow"]) ? $svalue["searchRow"] : $svalue["row"] ;
-                $row = preg_replace("/.*\[/","",$row);
-                $row = preg_replace("/\].*/","",$row);
-                $rowarray=explode('.',$row);
-                if(count($rowarray)>1){
-                	$row=$rowarray[1];
-                }
-                if(isset($svalue['searchSql'])){
-					$stringWhere = str_replace('[*]',$value,$svalue['searchSql']);
-					$whereArr['_string'] = $stringWhere;
-                    $whereStr .=  $stringWhere." AND ";
-				}else if(substr($key,-5)=='start'){
-					$whereStr .=  $row . ">=" . $value . " AND ";
-                    if(I("request.".substr($key,0,-5)."end/s") == ''){
-						$whereArr[$row] = array("egt",$value);
-					}else{
-						$whereArr[$row] = array('between',array($value));
-					}
-                }else if(substr($key,-3)=='end'){
-					if(!isset($whereArr[$row])){
-						$whereArr[$row] = array("elt",$value);
-					}else{
-						array_push($whereArr[$row][1],$value);
-					}
-                    $whereStr .=  $row . "<=" . $value . " AND ";
-                    
-                }else if(substr($key,-5)=='other'){
-                    if(strstr($value,',')){
-                        $value=str_replace(",","','",$value);
-                        $whereArr[$row] = array("in",$value);
-                        $whereStr .=  " IN('$value')";
-                    }else{
-                        $mohu="";
-                        foreach(I("request./a") as $key1=>$value1){
-                            if($key1 == substr($key,0,strlen($key)-5).'mohu'){
-                                $mohu = " LIKE '%$value%' AND ";
-                                $arrmohu = array('like',"%$value%");
-                            }
-                        }
-                        if($mohu==""){
-                            $whereArr[$row] = array('eq',$value);
-                            $whereStr .=  $row . "='$value' AND ";
-                            
-                        }else{
-                            $whereArr[$row] = $arrmohu;
-                            $whereStr .=  $row . $mohu;
-                        }
-                    }
-                }
-				if(!isset($svalue['searchShow']) || $svalue['searchShow']){
-					$this->setShow[$skey] =    $svalue;
-				}
-            }
-        }
-        if(isset($options["where"]) && is_array($options["where"])){
-        	$where=$options["where"];
-        	if(isset($where['_logic']) and $where['_logic']=='or')
-        	{
-        		$whereArr['_complex']=$where;
-        		$options["where"] = $whereArr;
-        	}
-        	else
-        	{
-        		$options["where"] = array_merge($options["where"],$whereArr);
-        	}
-        }else{
-            $options['where'] =trim($whereStr,'AND ');
-        }
-        $options['where']=trim($options['where'],'AND ');
-        $this->setShow[$idstr]['select']=false;
-    	return $options['where'];
-    }
     //  添加列表显示列 
     public function addShow($string,$array){
         $this->setShow[$string]=$array;
@@ -469,7 +361,7 @@ class TableListAction extends Model{
             echo $tableResult;
             exit();
         }else{
-            $tableResult=$this->tableList(1,$count,$firstRow,$list,$actionobj,$searchResult[0]);   //  调用table列表生成
+            $tableResult=$this->tableList($count,$firstRow,$list,$actionobj,$searchResult[0]);   //  调用table列表生成
         }
         return $tableResult;
     }
@@ -485,17 +377,17 @@ class TableListAction extends Model{
 			$arrayData = array_slice($arrayData,$firstRow,$this->numPerPage);
 		}
 		if(I("request.loadNextPage/d")==1){
-			$tableResult = json_encode($this->getTbodyData($arrayData,$count,$searchResult[0]));
+			$tableResult = json_encode($this->getTbodyData($arrayData,$count,array()));
 			echo $tableResult;
 			exit();
 		}else{
-			$tableResult=$this->tableList($con,$count,$firstRow,$arrayData);   //  调用table列表生成
+			$tableResult=$this->tableList($count,$firstRow,$arrayData);   //  调用table列表生成
 		}
 		return $tableResult;
 		
 	}
     // table 组件
-    public function tableList($con,$count,$firstRow,$list,$actionobj=null,$options1=null){
+    public function tableList($count,$firstRow,$list,$actionobj=null,$options1=null){
         $title      = $this->title;                         //显示标题名称
         $search     = $this->setSearch;                     //搜索框列表 
         $datasource = $list;                                //数据资源
@@ -1569,6 +1461,7 @@ class TableListAction extends Model{
         $no=2;
 	    $objPHPExcel->setActiveSheetIndex(0);
 	    $datalist = mysql_unbuffered_query($datasql,$this->db->_linkID);
+        $dataval=array();
 		do{
 			$dataval = mysql_fetch_assoc($datalist);
 			if(!$dataval)break;

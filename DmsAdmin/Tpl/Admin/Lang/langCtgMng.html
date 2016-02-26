@@ -1,0 +1,63 @@
+<div class="pageContent">
+	<form id="form" method="post" action="__URL__/buildMUI" class="pageForm required-validate" onsubmit="return validateCallback(this, langdialogAjaxDone);">
+	
+	<div layoutH="58">
+    <table width="95%" cellpadding="5" cellspacing="0" class="view_list">
+		<tr>
+            <td colspan="4" style="text-align:left;padding-left:20px"><b>语种管理</b></td>
+		</tr>
+		<tr>  
+			<td style="width:15%;text-align:right;">添加语言包：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px">
+				<select name="mui" id="mui" style="width:200px"></select>
+			</td>
+		</tr>
+		<tr>  
+			<td style="width:15%;text-align:right;">系统支持语言：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px;color:#99abe8">
+				请到Admin/conf/lang.php文件中SET查看及更改
+			</td>
+		</tr>
+		<tr>  
+			<td style="width:15%;text-align:right;">前台默认语言：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px;color:#99abe8">
+				请到Admin/conf/lang.php文件中DEFAUL查看及更改
+			</td>
+		</tr>
+	</table>
+	</div>
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit" id="submit">保存</button></div></div>
+				</li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script>
+	function langdialogAjaxDone(json){
+		DWZ.ajaxDone(json);
+		if (json.statusCode == DWZ.statusCode.ok){
+			navTab.reload();
+				$.pdialog.closeCurrent();
+		}
+	}
+	
+	$.ajax({
+		url:'__URL__/getMUI',
+		dataType:'json',
+		success:function(result){
+			var output = [];
+			output.push('<option value="">请选择</option>');
+			$.each(result.data, function(key, value){
+				var name=value.name;
+				output.push('<option value="'+ key +'">'+ name +'</option>');
+			});
+			$("#mui").html(output.join(''));
+		}
+	})
+</script>

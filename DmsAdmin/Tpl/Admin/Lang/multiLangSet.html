@@ -1,0 +1,37 @@
+<div class="pageContent">
+	<form id="form" method="post" action="__URL__/multiLangOpen" class="pageForm required-validate" onsubmit="return validateCallback(this, langdialogAjaxDone);">
+	
+	<div layoutH="58">
+    <table width="95%" cellpadding="5" cellspacing="0" class="view_list">
+		<tr>
+            <td colspan="4" style="text-align:left;padding-left:20px"><b>多语言设置</b></td>
+		</tr>
+		<tr>
+			<td style="width:15%;text-align:right;">多语言开关：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px">
+				<input type="checkbox" name="multiLang" value="1" <if condition="$use eq true">checked</if>/>开启
+			</td>	
+		</tr>
+	</table>
+	</div>
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit" id="submit">保存</button></div></div>
+				</li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
+<script>
+	function langdialogAjaxDone(json){
+		DWZ.ajaxDone(json);
+		if (json.statusCode == DWZ.statusCode.ok){
+			navTab.reload();
+			$.pdialog.closeCurrent();
+		}
+	}
+</script>

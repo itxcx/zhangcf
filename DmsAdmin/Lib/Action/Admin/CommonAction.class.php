@@ -182,7 +182,7 @@ class CommonAction extends Action
 						M()->rollback();
 					}
 				}
-				$this->userobj->adduserlog($this->userinfo,get_client_ip(),"自动取消超时付款买入".$gold->name."订单");
+				$this->userobj->adduserlog($this->userinfo,get_client_ip(),"自动取消超时付款买入".$glod->name."订单");
 			}
 			//撤销超时购买未确认 自动确认
 			if($glod->confirmTime>0){
@@ -192,7 +192,7 @@ class CommonAction extends Action
 					M()->startTrans();
 					systemTime($confinfo['付款时间']+$confirmTime);
 					$selluser=M("会员")->where(array("编号"=>$confinfo['买家编号']))->find();
-					$result=$gold->accokTrad($selluser,$confinfo);
+					$result=$glod->accokTrad($selluser,$confinfo);
 					if(gettype($result)!='string'){
 						M()->commit();
 					}else{

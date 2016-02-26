@@ -320,21 +320,7 @@ class CalAction extends CommonAction {
 				break;
 			//审核日期间隔
 			case 'r':
-				$ret=true;
-				$_set=explode(',',$ifday);
-				$_day=(int)$_set[0];
-				$this->_where =" MOD(DATEDIFF(审核日期,'$_caltime'),$_day)=0";
-				$this->_where.=" and DATEDIFF(审核日期,'$_caltime')>=0";
-				//起始期数
-				if(count($_set)>=2)
-				{
-					$this->_where.=" and floor(DATEDIFF(审核日期,'$_caltime')/".abs($_day).")>=".$_set[1];
-				}
-				//结束期数
-				if(count($_set)>=3)
-				{
-					$this->_where.=" and floor(DATEDIFF(审核日期,'$_caltime')/".abs($_day).")<=".$_set[2];
-				}
+                return "周期结";
 				break;
 			break;
 		}
@@ -343,7 +329,6 @@ class CalAction extends CommonAction {
 	public function givePrice(tle $tle)
 	{
 		set_time_limit(1800);
-		
 		if(I("request.id/s")=='' || $tle==false){
 			$this->error('参数错误');
 		}

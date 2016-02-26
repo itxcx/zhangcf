@@ -341,7 +341,7 @@ class SaleAction extends CommonAction {
 			M()->commit();
 			$userMenuPower = $this->userobj->getatt('userMenuPower');
 			if(!$userMenuPower && !in_array('Sale-mysale',$userMenuPower)){
-				$this->success('订购成功',__URL__.'/productmysale');
+				$this->success('订购成功');
 			}else{
 				$this->success('订购成功',__URL__.'/mysale');
 			}

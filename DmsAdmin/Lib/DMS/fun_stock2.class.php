@@ -157,7 +157,7 @@
 						'isSell'=>0
 					);
 					M($this->name.'持有')->add($data);
-					$this->setrecord($name,$sell['价格'],$buynum,'购买ID-'.$sell['id'].'挂单出售');
+					$this->setrecord($name,$sell['价格'],$buynum,'购买ID-'.$sell['id'].'挂单出售',2);
 					//对卖家产生奖金
 					$addvals=$this->getcon('addval',array('to'=>'','val'=>"100%",'tax'=>0));
 					foreach($addvals as $addval){
@@ -200,7 +200,7 @@
 				);
 				
 				M($this->name.'持有')->add($data);
-				$this->setrecord($name,$price,$buynum,'购买公司股');
+				$this->setrecord($name,$price,$buynum,'购买公司股',2);
 				//从剩余交易金额中减少
 				if($buynum * $price>0)
 				{
@@ -250,7 +250,7 @@
 				{
 					//对原有持有记录进行翻倍
 					$haveM->where(array('id'=>$have['id']))->save(array('nownum'=>$have['nownum']*$this->splitMultiple));
-					$this->setrecord($have['编号'],$set['当前价格'],$have['nownum']*($this->splitMultiple-1),'ID为['.$have['id'].']持有'.$this->name.'拆分获得');
+					$this->setrecord($have['编号'],$set['当前价格'],$have['nownum']*($this->splitMultiple-1),'ID为['.$have['id'].']持有'.$this->name.'拆分获得',2);
 					$addsum+=$have['nownum']*($this->splitMultiple-1);
 				}
 				$splitdata=array(
@@ -276,7 +276,7 @@
 				{
 					$haveM->where(array('id'=>$have['id']))->save(array('isSell'=>1));
 					//对原有持有记录进行翻倍
-					$this->setrecord($have['编号'],$set['当前价格'],-$have['nownum'],'挂单出售持有的'.$this->name.'ID-'.$have['id']);
+					$this->setrecord($have['编号'],$set['当前价格'],-$have['nownum'],'挂单出售持有的'.$this->name.'ID-'.$have['id'],2);
 					//当存在会员之间交易时才会在交易表中加入记录
 					if($this->selltype == 1)
 					{
@@ -429,7 +429,7 @@
 					//持有回购
 					M($this->name.'持有','dms_')->save($holdinfo);
 					//更新购买记录
-					$this->setrecord($holdinfo['编号'],$price,$holdinfo["nownum"]*$this->backnum/100,"公司回购".$this->backnum."%");
+					$this->setrecord($holdinfo['编号'],$price,$holdinfo["nownum"]*$this->backnum/100,"公司回购".$this->backnum."%",1);
 					//回购返钱
 					$addvals=$this->getcon('addval',array('to'=>'','val'=>"100%",'tax'=>0));
 					foreach($addvals as $addval){
@@ -437,7 +437,7 @@
 						$bankmoney=$this->getnum($money,$addval['val'],"all");
 						$funbank->set($holdinfo['编号'],$holdinfo['编号'],$bankmoney,"公司回购","公司回购持有".$this->name);
 						if($addval['tax'] != 0){
-							bankset($addval['to'],$sell['编号'],-$money/100*$addval['tax'],$this->name.'出售',$name.'扣除'.$addval['tax'].'%的手续费');
+							bankset($addval['to'],$holdinfo['编号'],-$money/100*$addval['tax'],$this->name.'出售',$this->name.'扣除'.$addval['tax'].'%的手续费');
 						}
 					}
 					//生成新的持有记录
@@ -477,7 +477,7 @@
 			}
 		}
         //增加股票交易流水        会员编号 价格  数量  备注  
-		public function setrecord($userid,$price,$num,$memo)
+		public function setrecord($userid,$price,$num,$memo,$type)
 		{
 			
 			$data=array();
@@ -487,8 +487,6 @@
 			$data['type']	=$type;
 			$data['addtime']=systemTime();
 			$data['memo']   =$memo;
-			$data['tleid']  =$option['tleid'];
-			$data['dataid'] =$option['dataid'];
 			M($this->name."流水",'dms_')->add($data);
 		}
 		//对xml中的$val转换成对应金额

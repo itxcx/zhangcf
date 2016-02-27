@@ -62,7 +62,7 @@
     			//根据设定的比例计算实际奖金
     			//参数:getnum(参考值,比例,小数位,总比例)
     			//详情可以查阅function.php中的getnum方法
-    			$prizenum=getnum($from['t_recnum'],$con['val'],$this->decimalLen,$upuser[$this->name.'比例']);
+    			$prizenum=getnum($m_user['t_recnum'],$con['val'],$this->decimalLen,$upuser[$this->name.'比例']);
     			
     			//对某一个会员增加当前奖金
     			//使用单独方法封装的目的是减少数据库操作提高效率,使用缓存临时存储所有会员的收入信息.

@@ -95,7 +95,7 @@ function compile_compile_if($arguments, $elseif, $while, &$object)
 			case 'is':
 				if ($_args[$i-1] == ')')
 				{
-					$is_arg_start = array_pop($is_arg_stack);
+					$is_arg_start = array_pop($_is_arg_stack);
 				}
 				else
 				{

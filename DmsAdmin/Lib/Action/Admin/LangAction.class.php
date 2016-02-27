@@ -186,7 +186,9 @@ class LangAction extends Action{
 				$this -> ajaxReturn('','多语言已关闭',1);
 			}
 			if(!$appid) $this -> ajaxReturn('','请输入appid',0);
+			if(!preg_match("/^\d{17}$/",$appid)) $this -> ajaxReturn('','输入appid格式不正确',0);
 			if(!$key) $this -> ajaxReturn('','请输入key',0);
+			if(!preg_match("/^[a-zA-Z0-9]{20}$/",$key)) $this -> ajaxReturn('','输入key格式不正确',0);
 			$conf['LANG']['USE'] = true;
 			if($appid !== $conf['BDFY_API']['APPID'])
 				$conf['BDFY_API']['APPID'] = $appid;
@@ -203,7 +205,9 @@ class LangAction extends Action{
 				$this -> ajaxReturn('','多语言已关闭',1);
 			}
 			if(!$appid) $this -> ajaxReturn('','请输入appid',0);
+			if(!preg_match("/^\d{17}$/",$appid)) $this -> ajaxReturn('','输入appid格式不正确',0);
 			if(!$key) $this -> ajaxReturn('','请输入key',0);
+			if(!preg_match("/^[a-zA-Z0-9]{20}$/",$key)) $this -> ajaxReturn('','输入key格式不正确',0);
 			$this -> ajaxReturn('','多语言已开启',1);
 		}
 	}

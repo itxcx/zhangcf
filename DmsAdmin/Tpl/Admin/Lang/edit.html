@@ -112,10 +112,14 @@
 			type:'get',
 			dataType:'json',
 			success:function(result){
-				$.each(result.data,function(k,v){
-					$("#"+k).val(v);
-				});
-				$("#zh-cn").val(seman);
+				if(result.statusCode === 0){
+					alert(result.message);
+				}else{
+					$.each(result.data,function(k,v){
+						$("#"+k).val(v);
+					});
+					$("#zh-cn").val(seman);
+				}
 			}
 		})
 	});

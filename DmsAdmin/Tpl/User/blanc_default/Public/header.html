@@ -126,7 +126,7 @@
 		<div  <if condition="$now_model eq 'Index'"> class="menuTitle_active"<else />class="menuTitle" </if> > <a href="__GROUP__/Index/index"><span class="dh-home"></span>{:L('首页')}</a></div>
 	
 		<foreach name="menu" item="vo" key="key"> 
-			<div  id="{$key}" class="menuTitle" ><span class="dh-signal" oldClass=""></span>{$key}<span class="dh_sec">{$vo|count}</span></div>
+			<div  id="{$key}" class="menuTitle" ><span class="dh-signal" oldClass=""></span><span style="display:inline-block;width:60px">{$key}</span><span class="dh_sec">{$vo|count}</span></div>
 			<div class="menuContent">
 			<ul id="ulstyle">
 			<foreach name="vo" item="val">

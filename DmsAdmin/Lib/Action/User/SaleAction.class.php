@@ -110,10 +110,12 @@ class SaleAction extends CommonAction {
 							//找到这个会员
 							$upuser = M('会员')->where(array('编号'=>$value))->find();
 							//对显示区域的where做判断
-							if($upuser && transform($Region['where'],$upuser))
-							{
-								//判断成功.这个区也可以显示
-								$regiondisp = true;
+							if($Region['where']!="{myrec}"){
+								if($upuser && transform($Region['where'],$upuser))
+								{
+									//判断成功.这个区也可以显示
+									$regiondisp = true;
+								}
 							}
 						}
 					}

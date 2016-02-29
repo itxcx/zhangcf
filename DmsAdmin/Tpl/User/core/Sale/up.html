@@ -4,13 +4,13 @@
 <script src="__PUBLIC__/areaselect/areaselect.js"></script>
 <div class="core_main Sale" id="up">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
         <form name="form1" method="post" action="__GROUP__/Sale/upSave:__XPATH__" id="register">
             <table class="tablebg" id="table1">
                 <tr>
-                    <td class="tbkey" >编号：</td>
+                    <td class="tbkey" >{:L('编号')}：</td>
                     <td class="tbval" >	
                         <if condition="($sale:lockMe eq false)">
                         <input type="text" value="" size="20" name="userid" id="userid" onkeyup="getInfo(this)" autocomplete="off"/>
@@ -28,10 +28,10 @@
                 </tr>
                 </notempty>
                 <tr>
-                    <td class="tbkey" >新{$sale:lvName}：</td>
+                    <td class="tbkey" >{:L('新'.$sale->lvName)}：</td>
                     <td  class="tbval" >
                         <select name='lv' id="lv">
-                            <option value="">请选择</option>
+                            <option value="">{:L('请选择')}</option>
                             <if condition="($sale:lockMe eq true)">
                             <foreach name='levelsopts'  item='level'>
                             <option value="{$level.lv}">{$level.name}</option>
@@ -43,7 +43,7 @@
                 </tr>
                 <if condition="count($area) gt 0">
 			    <tr>
-                        <td class="tbkey" >地址：</td>
+                        <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
                             <div id="address-box">
                                 <div class="input-box" style="display: none;">
@@ -54,11 +54,11 @@
                                     <input class="town" name="town" type="text">
                                 </div>
                                 <div class="country-select arrow-bg">
-                                    <a class="country-now" href="javascript:void(0)">请选择国家</a>
+                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
                                     <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">海外</a></li>
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
                                 <div class="location-box arrow-bg">
@@ -72,10 +72,10 @@
             <if condition="$sale:extra eq true">
             <table class="tablebg" id="table2">
                 <tr>
-                    <td colspan="2"><span>物流信息</span></TD>
+                    <td colspan="2"><span>{:L('物流信息')}</span></TD>
                 </tr>
                 <tr>
-                        <td class="tbkey" >地址：</td>
+                        <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
                             <div id="address-box2">
                                 <div class="input-box" style="display: none;">
@@ -86,11 +86,11 @@
                                     <input class="town" name="town" type="text">
                                 </div>
                                 <div class="country-select arrow-bg">
-                                    <a class="country-now" href="javascript:void(0)">请选择国家</a>
+                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
                                     <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">海外</a></li>
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
                                 <div class="location-box arrow-bg">
@@ -104,18 +104,18 @@
                     </tr>
                 
                 <tr>
-                    <td class="tbkey" >收货人：</TD>
+                    <td class="tbkey" >{:L('收货人')}：</TD>
                     <td class="tbval" ><input name="reciver" id="reciver" type="text" value="{$userinfo.收货人}"/> &nbsp;&nbsp;<span class="msg">*</span></TD>
                     
                 </tr>
                 <tr>
-                    <td class="tbkey" >联系电话：</TD>
+                    <td class="tbkey" >{:L('联系电话')}：</TD>
                     <td class="tbval" ><input name="mobile" id="mobile" type="text" value="{$userinfo.移动电话}"> &nbsp;&nbsp;<span class="msg">*</span></TD>
                     
                 </tr>
                 <tr>
-                    <td class="tbkey" >收货地址：</TD>
-                    <td class="tbval" ><input name="address" id="address" type="text" value="{$userinfo.地址}" size="50"/>&nbsp;&nbsp;<span class="msg">*</span>&nbsp;&nbsp;路况信息及门牌号等</span></font></TD>
+                    <td class="tbkey" >{:L('收货地址')}：</TD>
+                    <td class="tbval" ><input name="address" id="address" type="text" value="{$userinfo.地址}" size="50"/>&nbsp;&nbsp;<span class="msg">*</span>&nbsp;&nbsp;{:L('路况信息及门牌号等')}</span></font></TD>
                     
                 </tr>
             </table>
@@ -144,17 +144,17 @@
                 	<td class="tbkey" style="width:40%">{$bankval.name}（{:$userinfo[$bankval['name']]}）：</td>
                 	<td class="tbval" style="width:20%">&nbsp;&nbsp;
                 		<if condition="$bankval['extra']">{$val}<else/><input  name="accval[{$fkey}]" value="{$val}" type="text" size="7"/></if><if condition="$p">%</if>&nbsp;<span id="money{$fkey}">&nbsp;&nbsp;</span></td>
-                	<td class="msg">&nbsp;<if condition="$p">支付时货币比率<else/>支付时货币金额</if>&nbsp;<if condition="$bankval['extra']">支付额外金额</if>
+                	<td class="msg">&nbsp;<if condition="$p">{:L('支付时货币比率')}<else/>{:L('支付时货币金额')}</if>&nbsp;<if condition="$bankval['extra']">{:L('支付额外金额')}</if>
                 	</td>
                 </tr>
                 </foreach>
-                <tr><td colspan="3" class="msg">提示：设定的比率排除额外支付，相加等于支付订单金额的100%，并且每个货币的余额足够支付的比率！<br><span id="state_accval"></span></td></tr>
+                <tr><td colspan="3" class="msg">{:L('提示：设定的比率排除额外支付，相加等于支付订单金额的100%，并且每个货币的余额足够支付的比率')}<br><span id="state_accval"></span></td></tr>
             </TABLE>
             </present>
             <table class="tablebg" id="table3" style="clear:both">
                 <TR>
                     <TD colspan="3">
-            			<input class="button_text" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()" />
+            			<input class="button_text" type="button" value="{:L('确认')}" name="subbut"  id='subbut' onclick="tijiao()" />
                     </TD>
                 </TR>
             </table>
@@ -179,11 +179,11 @@ function upAjax(id)
 			eval("var json="+data);
 			if( json.status == 0 )
 			{
-				$('#state_userid').html("请输入正确的{$userName}编号！");
+				$('#state_userid').html("{:L('请输入正确的'.$userName.'编号')}");
 			}else{
 				$('#state_userid').html("");
 			}
-			$('#lv').empty().append("<option value=''>请选择</option>");
+			$('#lv').empty().append("<option value=''>{:L('请选择')}</option>");
 			var level_list = json.data;
 			for(i=0;i<level_list.length;i++)
 			{
@@ -193,7 +193,7 @@ function upAjax(id)
 		catch(e)
 		{
 			alert(data);
-			alert("网络异常!");
+			alert("{:L('网络异常!')}");
 		}
 	});
 }
@@ -202,13 +202,13 @@ function tijiao(){
 	var ua = navigator.userAgent.toLowerCase();
 	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
 		$('#subbut').attr('disabled',true);
-		$('#subbut').val('正在提交,请等待...');
+		$('#subbut').val("{:L('正在提交,请等待...')}");
 		$('#register').submit();
-		$('#subbut').val('确认');
+		$('#subbut').val("{:L('确认')}");
 		$('#subbut').attr('disabled',false);
 	} else {
 		$('#subbut').attr('disabled',true);
-		$('#subbut').val('正在提交,请等待...');
+		$('#subbut').val("{:L('正在提交,请等待...')}");
 		$('#register').submit();
 	}
 }

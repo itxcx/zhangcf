@@ -110,10 +110,12 @@ class SaleAction extends CommonAction {
 							//找到这个会员
 							$upuser = M('会员')->where(array('编号'=>$value))->find();
 							//对显示区域的where做判断
-							if($upuser && transform($Region['where'],$upuser))
-							{
-								//判断成功.这个区也可以显示
-								$regiondisp = true;
+							if($Region['where']!="{myrec}"){
+								if($upuser && transform($Region['where'],$upuser))
+								{
+									//判断成功.这个区也可以显示
+									$regiondisp = true;
+								}
 							}
 						}
 					}
@@ -811,10 +813,10 @@ class SaleAction extends CommonAction {
 	}
 	public function checkgeted($status,$id,$haveProduct){
 		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a> <a href='__URL__/confirmget/id/{$id}'>确认收货</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
 			 
 		 }else{
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}
 	public function viewMysale(){

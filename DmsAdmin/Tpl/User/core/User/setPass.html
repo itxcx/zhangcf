@@ -1,6 +1,6 @@
 <div class="core_main User" id="setPass">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
         <form name="form1" method="post" action="__GROUP__/User/passSave">
@@ -15,23 +15,23 @@
             </TR>-->
             <eq name="pwd3Switch" value="false">
             <tr  >
-                <td class="tbkey">确认二级密码：</td>
+                <td class="tbkey">{:L('确认二级密码')}：</td>
                 <td class="tbval"><input name="oldpwd2" type="password" id="oldpwd2"></td>
             </tr>
             </eq>
             <eq name="pwd3Switch" value="true">
             <tr  >
-                <td class="tbkey">确认三级密码：</td>
+                <td class="tbkey">{:L('确认三级密码')}：</td>
                 <td class="tbval"><input name="oldpwd2" type="password" id="oldpwd2"></td>
             </tr>
             </eq>
 
             <tr >
-                <td class="tbkey">一级新密码：</td>
+                <td class="tbkey">{:L('一级新密码')}：</td>
                 <td class="tbval"><input name="pwd1" type="password" id="pwd1" ></td>
               </tr>
             <tr >
-                <td class="tbkey">确认一级新密码：</td>
+                <td class="tbkey">{:L('确认一级新密码')}：</td>
                 <td class="tbval"><input name="repwd1" type="password" id="repwd1" ></td>
             </tr>
             <!--  <TR  class="shuang">
@@ -39,37 +39,37 @@
                 <TD  ><input name="oldpwd1" type="password" id="oldpwd1"></TD>
             </TR>-->
             <tr >
-                <td class="tbkey">二级新密码：</td>
-                <td class="tbval"><input name="pwd2" type="password" id="pwd2" ><span class="msg">至少6位</span></td>
+                <td class="tbkey">{:L('二级新密码')}：</td>
+                <td class="tbval"><input name="pwd2" type="password" id="pwd2" ><span class="msg">{:L('至少6位')}</span></td>
             </tr>
             <tr >
-                <td class="tbkey">确认二级新密码：</td>
+                <td class="tbkey">{:L('确认二级新密码')}：</td>
                 <td class="tbval"><input name="repwd2" type="password" id="repwd2" ></td>
             </tr>
 			<eq name="pwd3Switch" value="true">
 			<tr >
-                <td class="tbkey">三级新密码：</td>
-                <td class="tbval"><input name="pwd3" type="password" id="pwd3" ><span class="msg">至少6位</span></td>
+                <td class="tbkey">{:L('三级新密码')}：</td>
+                <td class="tbval"><input name="pwd3" type="password" id="pwd3" ><span class="msg">{:L('至少6位')}</span></td>
             </tr>
             <tr >
-                <td class="tbkey">确认三级新密码：</td>
+                <td class="tbkey">{:L('确认三级新密码')}：</td>
                 <td class="tbval"><input name="repwd3" type="password" id="repwd3" ></td>
             </tr>
 			</eq>
             <if condition="$verificateSwitch eq 1 and $verificatesmsContent neq ''">
              <tr >
-                <td class="tbkey">短信验证码：</td>
+                <td class="tbkey">{:L('短信验证码')}：</td>
                 <td class="tbval"><input name="repwdSms" type="text" id="repwdSms" ><input style="margin-left:10px" type="button" id="sendMess" value="点击获取" /></td>
             </tr>
             </if>
             <eq name="changePwdmailSwitchyanzheng" value="1">
              <tr >
-                <td class="tbkey">邮件验证：</td>
+                <td class="tbkey">{:L('邮件验证')}：</td>
                 <td class="tbval"><input name="repwdMail" type="text" id="repwdMail" ><input style="margin-left:10px" type="button" id="sendMailMess" value="点击获取" /></td>
             </tr>
             </eq>
             <tr >
-                <td colspan="2" ><button class="button_text" type="submit">确定</button></td>
+                <td colspan="2" ><button class="button_text" type="submit">{:L('确定')}</button></td>
             </tr>
         </table>
     </form>

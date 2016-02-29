@@ -5,19 +5,19 @@
 <div class="core_main Fun_bank" id="get">
 <input id="xpath" type="hidden" value="__XPATH__"/>
      <div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_title">
-	  	<span class="core_title_con">选择一个提款地址</span><span style="float:right;color:#f60;">（修改时请填写已有地址标签）</span>
+	  	<span class="core_title_con">{:L('选择一个提款地址')}</span><span style="float:right;color:#f60;">（{:L('修改时请填写已有地址标签')}）</span>
 	</div>
     <div class="core_con">
 	    <table class="tablebg">
 		<thead>
 			<tr align="center">
-				<th>选择</th>
-				<th>地址标签</th>
-				<th>提款地址</th>
-				<th>操作</th>
+				<th>{:L('选择')}</th>
+				<th>{:L('地址标签')}</th>
+				<th>{:L('提款地址')}</th>
+				<th>{:L('操作')}</th>
 			</tr>
 		</thead>
         <form action="/user_exchange/rmbout" method="post" id="rmbout_con"></form>
@@ -49,13 +49,13 @@
                 <div id="rmb_out_ok">
 				<ul class="bankcon" id="rollout" style="margin-top:10px;">
 					<li>
-						<label>新标签：</label><input type="text" id="new_label">
+						<label>{:L('新标签')}：</label><input type="text" id="new_label">
 						<span id="labelmsg" style="color:red;"></span>
 					</li>
 					<li>
-						<label>银行名称：</label>
+						<label>{:L('银行名称')}：</label>
 						<select name="bank" id="bank" class="loginValue">
-						<option value="">请选择银行</option>
+						<option value="">{:L('请选择银行')}</option>
 						<foreach name='bankcards' item='bankcard'>
 						<option value="{$bankcard["开户行"]}">{$bankcard["开户行"]}</option>
 						</foreach>
@@ -63,28 +63,28 @@
 					    <span style="color:red;" id="bankmsg"></span>
 					</li>
 					<li>
-					    <label>银行卡所在地：</label>
+					    <label>{:L('银行卡所在地')}：</label>
 	                	<select name="country" id="country_id" data-role="none" style="display:none;">
-	                    <option value="">请选择</option>
+	                    <option value="">{:L('请选择')}</option>
 	                	</select>
 	                	<select name="province"  id="province_id" data-role="none" style="">
-	                    <option value="">省份</option>
+	                    <option value="">{:L('省份')}</option>
 	                	</select>
 	                    <select name="city" id="city_id" data-role="none">
-	                    <option value="">城市</option>
+	                    <option value="">{:L('城市')}</option>
 	                	</select>
 	                	<select name="county" id="county_id" data-role="none">
-	                    <option value="">区/县</option>
+	                    <option value="">{:L('区')}/{:L('县')}</option>
 	                	</select>
 	                	<span id="addressmsg" style="color:red;"></span>
 					</li>
 					<li>
-					    <label>银行卡号：</label>
+					    <label>{:L('银行卡号')}：</label>
 					    <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" name="account" id="account" value="" class="loginValue" style="font-size:14px;font-weight:bold;color:#f60;background:#fff7f2;">
 					    <span class="false" id="accountmsg" style="color:red;"></span>
 					</li>
 					<li>
-					    <label>开户姓名：</label>
+					    <label>{:L('开户姓名')}：</label>
 					    <input type="text" name="name" id="name" value="{$userinfo['姓名']}" class="loginValue" <notempty name="userinfo['姓名']">disabled=""</notempty>>
 					    <span class="false" id="accountmsg" style="color:red;"></span>
 					</li>
@@ -92,7 +92,7 @@
 					    <label>&nbsp;</label>
 					    <input type="button" class="addition" id="addNew" onclick="$(this).attr('disabled','disabled');cnyOut.submitNewAddr()" value="确认添加">
 					    <input type="button" class="addition" onclick="$('#newAddress').hide();$('#addAddress_tr').show();" value="取消">
-					    <span id="showMsg_address" style="color:red;">最多添加10条提款地址</span>
+					    <span id="showMsg_address" style="color:red;">{:L('最多添加10条提款地址')}</span>
 					</li>
 				</ul>
                 </div>
@@ -109,52 +109,52 @@
 			$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' );
 			</script>
 			<tr align="center" id="addAddress_tr">
-				<td colspan="4"><a href="javascript:cnyOut.addNewAddr();" id="addNewAddress">点击添加一个新的提款地址</a></td>
+				<td colspan="4"><a href="javascript:cnyOut.addNewAddr();" id="addNewAddress">{:L('点击添加一个新的提款地址')}</a></td>
 			</tr>
 		</tbody>
 	    </table>
 	  </div>
 	    <div class="core_title">
-	    	<span class="core_title_con" style="width:60%;float:left;">可提现余额：<span id="out_over">{:$funbank[$bank->byname]['num']}</span></span>
+	    	<span class="core_title_con" style="width:60%;float:left;">{:L('可提现余额')}：<span id="out_over">{:$funbank[$bank->byname]['num']}</span></span>
 	    	<span style="float:right;font-size:12px;margin-right:20px;color:red;float:right;"><strong id="rmbout_showtips">&nbsp;</strong></span>
 	    </div>
 	 <div class="core_con">
 		<table class="tablebg">
 			<TR class="datalist">
-				<TD class="tbkey">提现金额：</TD>
+				<TD class="tbkey">{:L('提现金额')}：</TD>
 				<TD class="tbval">
 					<span><input type="text" class="sum" name="getsum" id="getsum" onkeyup="cnyOut.daozhang()" autocomplete="off"></span>
 					<span style="color:#f60;">
-					<if condition='$bank:getMoneyMin gt 0'>最小提款额 <span id="out_min">{$bank:getMoneyMin}</span></if>
-					<if condition='$bank:getMoneyMax gt 0'>最大提款额 <span id="out_max">{$bank:getMoneyMax}</span></if>
+					<if condition='$bank:getMoneyMin gt 0'>{:L('最小提款额')} <span id="out_min">{$bank:getMoneyMin}</span></if>
+					<if condition='$bank:getMoneyMax gt 0'>{:L('最大提款额')} <span id="out_max">{$bank:getMoneyMax}</span></if>
 					</span>
 				</TD>
 			</TR>
 			<TR class="datalist">
-				<TD class="tbkey">实际到帐：</TD>
+				<TD class="tbkey">{:L('实际到帐')}：</TD>
 				<TD class="tbval"><input type="text" class="sum" id="true_daozhang" disabled=""> 
-					<span style="color:#f60;">(手续费 <eq name='bank:getTaxFrom' value="0">【额外】</eq><span id="outfee">{$bank:getMoneyTax}</span> %) 
-					<gt name='bank:getMoneyTaxMin' value="0">手续费最小 <span id="outfeemin">{:$bank->getMoneyTaxMin}</span></gt>
-					<gt name='bank:getMoneyTaxMax' value="0">手续费最大 <span id="outfeemax">{:$bank->getMoneyTaxMax}</span></gt>
-					<neq name='bank:getMoneyRatio' value="1">汇率换算 ：1:<span id="outRatio">{:$bank->getMoneyRatio}</span></neq>
+					<span style="color:#f60;">({:L('手续费')} <eq name='bank:getTaxFrom' value="0">【{:L('额外')}】</eq><span id="outfee">{$bank:getMoneyTax}</span> %) 
+					<gt name='bank:getMoneyTaxMin' value="0">{:L('手续费最小')} <span id="outfeemin">{:$bank->getMoneyTaxMin}</span></gt>
+					<gt name='bank:getMoneyTaxMax' value="0">{:L('手续费最大')} <span id="outfeemax">{:$bank->getMoneyTaxMax}</span></gt>
+					<neq name='bank:getMoneyRatio' value="1">{:L('汇率换算')} ：1:<span id="outRatio">{:$bank->getMoneyRatio}</span></neq>
 					</span>
 				</TD>
 			</TR>
 			<if condition="($bank:getMoneyPass2 eq true)">
 			<TR class="datalist">
-				<TD class="tbkey">二级密码：</TD>
+				<TD class="tbkey">{:L('二级密码')}：</TD>
 				<TD class="tbval"><span><input type="password" value="" name="pass2" id="pass2" autocomplete="off"/></span></TD>
 			</TR>
 			</if>
 			<if condition="($bank:getMoneyPass3 eq true)">
 			<TR class="datalist">
-				<TD class="tbkey">三级密码：</TD>
+				<TD class="tbkey">{:L('三级密码')}：</TD>
 				<TD class="tbval"><span><input type="password" value="" name="pass3" id="pass3" autocomplete="off"/></span></TD>
 			</TR>
 			</if>
 			<if condition="($bank:getMoneySmsSwitch eq true)">
 			<tr class="datalist">
-				<TD class="tbkey">短信验证码：</td>
+				<TD class="tbkey">{:L('短信验证码')}：</td>
 				<TD class="tbval"><input name="getSmsVerfy" type="text" id="getSmsVerfy" ><input style="margin-left:10px" type="button" id="sendMess" value="点击获取" /></td>
 			</tr>
 			</if>
@@ -171,10 +171,10 @@
 			</tr>
 			</if>
 			<if condition="isset($onlyLock) && $onlyLock">
-				<td colspan="3" style="text-align:center;padding-right:70px;"><span style="color:#f60;">您有一笔未审核的提现记录，暂不能继续提现</span></td>
+				<td colspan="3" style="text-align:center;padding-right:70px;"><span style="color:#f60;">{:L('您有一笔未审核的提现记录，暂不能继续提现')}</span></td>
 			<else/>
 			<TR>
-				<td colspan="3" style="text-align:center;padding-right:70px;"><input type="button" id="tijiao" class="confirm" onclick="$(this).attr('disabled','disabled');cnyOut.rmbconfirm();" value="确认提交" style="width:80px;"></td>
+				<td colspan="3" style="text-align:center;padding-right:70px;"><input type="button" id="tijiao" class="confirm" onclick="$(this).attr('disabled','disabled');cnyOut.rmbconfirm();" value="{:L('确认提交')}" style="width:80px;"></td>
 			</TR>
 			</if>
 			<input type="hidden" id="outfrom" value="{:$bank->getTaxFrom}"/>
@@ -183,9 +183,9 @@
 		{__TOKEN__}
      </div>
     <div class="core_title">
-    	<span class="core_title_con">{$name}列表</span>
+    	<span class="core_title_con">{:L($name.'列表')}</span>
         <if condition="isset($data['edit'])">
-      	<span class="core_title_edit"><a href="#" onclick="ShowDialog('{$data.edit}',330);return false;">编辑</a></span>
+      	<span class="core_title_edit"><a href="#" onclick="ShowDialog('{$data.edit}',330);return false;">{:L('编辑')}</a></span>
       	</if>        
     </div>
     <div class="core_con">
@@ -205,31 +205,31 @@
         </table>
     </div>
     <div class="core_page">
-        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
-        <if condition="$data['nowPage'] neq 1">
-        <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
-        <else/><span>首页&nbsp;&nbsp;</span>
-        </if>
-        <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][-2])">
-        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][-1])">
-        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
-        </if>
-        {$data.nowPage}&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][1])">
-        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][2])">
-        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
-        </if>
-        <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
-        <if condition="$data['nowPage'] lt $data['totalPages']">
-        <a href="{$data.theEndRow}">尾页</a>
-        <else/><span>尾页</span>
-        </if>
-    </div> 
+	    <span>{:L('共')} {$data.count} {:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')} &nbsp;</span>
+	    <if condition="$data['nowPage'] neq 1">
+	    <a href="{$data.firstRow}">{:L('首页')}</a>&nbsp;&nbsp;
+	    <else/><span>{:L('首页')}&nbsp;&nbsp;</span>
+	    </if>
+	    <a href="{$data.upRow}">{:L('上一页')}</a>&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][-2])">
+	    <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][-1])">
+	    <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+	    </if>
+	    {$data.nowPage}&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][1])">
+	    <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][2])">
+	    <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+	    </if>
+	    <a href="{$data.downRow}">{:L('下一页')}</a>&nbsp;&nbsp;
+	    <if condition="$data['nowPage'] lt $data['totalPages']">
+	    <a href="{$data.theEndRow}">{:L('尾页')}</a>
+	    <else/><span>{:L('尾页')}</span>
+	    </if>  
+    </div>
 </div>
 <script>
 var wait=300;

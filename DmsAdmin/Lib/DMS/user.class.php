@@ -699,6 +699,7 @@
 						}
 					}
 				}
+                $result = null;
 				eval('$result=('.count($newUser).$con2.');');
 				if($result){
 					$str .=",'".$key."'";

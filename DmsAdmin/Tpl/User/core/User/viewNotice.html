@@ -1,49 +1,49 @@
 <div class="core_main User" id="viewNotice">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
         <table class="tablebg">
             <TR class="datafield">
-                <TH ><nobr>标题</nobr></TH>
-                <TH ><nobr>创建时间</nobr></TH>
-                <TH ><nobr>操作</nobr></TH>
+                <TH ><nobr>{:L('标题')}</nobr></TH>
+                <TH ><nobr>{:L('创建时间')}</nobr></TH>
+                <TH ><nobr>{:L('操作')}</nobr></TH>
             </TR>
             <foreach name='data.list' item='name'>
             <TR class="datalist">
                 <TD  ><nobr>{$name.标题}</nobr></TD>
                 <TD  ><nobr>{$name.创建时间|date='Y-m-d H:i:s',###}</nobr></TD>
-                <TD  ><nobr><a href="__URL__/showNotice/id/{$name.id}">查看</a></nobr></TD>
+                <TD  ><nobr><a href="__URL__/showNotice/id/{$name.id}">{:L('查看')}</a></nobr></TD>
             </TR>
             </foreach>
         </table>	
     </div>
     <div class="core_page">
-        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
-        <if condition="$data['nowPage'] neq 1">
-        <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
-        <else/><span>首页&nbsp;&nbsp;</span>
-        </if>
-        <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][-2])">
-        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][-1])">
-        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
-        </if>
-        {$data.nowPage}&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][1])">
-        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][2])">
-        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
-        </if>
-        <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
-        <if condition="$data['nowPage'] lt $data['totalPages']">
-        <a href="{$data.theEndRow}">尾页</a>
-        <else/><span>尾页</span>
-        </if>
-    </div>
+	    <span>{:L('共')} {$data.count} {:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')} &nbsp;</span>
+	    <if condition="$data['nowPage'] neq 1">
+	    <a href="{$data.firstRow}">{:L('首页')}</a>&nbsp;&nbsp;
+	    <else/><span>{:L('首页')}&nbsp;&nbsp;</span>
+	    </if>
+	    <a href="{$data.upRow}">{:L('上一页')}</a>&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][-2])">
+	    <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][-1])">
+	    <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+	    </if>
+	    {$data.nowPage}&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][1])">
+	    <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][2])">
+	    <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+	    </if>
+	    <a href="{$data.downRow}">{:L('下一页')}</a>&nbsp;&nbsp;
+	    <if condition="$data['nowPage'] lt $data['totalPages']">
+	    <a href="{$data.theEndRow}">{:L('尾页')}</a>
+	    <else/><span>{:L('尾页')}</span>
+	    </if>  
+    </div> 
 </div>
 
 

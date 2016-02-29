@@ -366,7 +366,7 @@
                 {
                 	if($sale->ledger!='')
                 	{
-                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name))->sum($sale->ledger);		
+                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name,'报单状态'=>array('not in','空单,回填')))->sum($sale->ledger);		
                 	}
                 }
                 $krate_temp = 0;

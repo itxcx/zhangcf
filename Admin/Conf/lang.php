@@ -10,5 +10,10 @@ return array (
     ),
     'DEFAULT' => 'zh-cn',
   ),
+  'BDFY_API' => 
+  array (
+    'APPID' => '',
+    'KEY' => '',
+  ),
 );
 ?>

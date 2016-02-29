@@ -37,7 +37,13 @@ class TransferAction extends CommonAction{
 		$user='';
 		if(I("post.userid/s")!=$this->userinfo['编号'])
 		{
-			$user = $this->userobj->getuser(I("post.userid/s"));
+			//判断是否开启转账给未激活(状态=无效)会员
+			if(adminshow(zhuanzhang))
+			{
+				$user = $this->userobj->getuser(I("post.userid/s"));
+			}else{
+				$user = M('会员')->where(array('编号'=>I("post.userid/s"),'状态'=>'有效'))->find();
+			}
 		}
 		if($user && I("post.userid/s")!= '')
 		{
@@ -106,9 +112,17 @@ class TransferAction extends CommonAction{
 		if(I("post.giveTypes/s")=='toyou')
 		{
 			$userid = trim(I("post.userid/s"));
-            if($userid =="" || !$this->userobj->have($userid)){
-                $message .= L('转入账户不存在')."<br/>";     //输出会员不存在提示
-    		}
+			//判断是否开启转账给未激活(状态=无效)会员
+			if(adminshow(zhuanzhang))
+			{
+				if($userid =="" || !$this->userobj->have($userid)){
+	                $message .= L('转入账户不存在')."<br/>";     //输出会员不存在提示
+	    		}
+			}else{
+				if($userid =="" || !$this->userobj->haveActive($userid)){
+	                $message .= L('转入账户不存在或未激活')."<br/>";     //输出会员不存在提示
+	    		}
+			}
             if(strtolower($userid) == strtolower($this->userinfo["编号"])){
                 $message .= L('转入账户不能为自己')."<br/>";
             }

@@ -1,22 +1,22 @@
 <div class="core_main Mail" id="send">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
     	<form id="sendform" action="__GROUP__/Mail/send_email" method="post" onsubmit="return form_check()">
             <table class="tablebg" >
             	<if condition="$mailset eq true">
             	<tr>
-            		<td class="tbkey">{:L('收件人：')}</td>
-            		<td class="tbval"><input type="text" name="receiver" id="receiver"><span style="color:red">默认空则发送给管理员,填写会员编号可以发送给其他会员</span></td>
+            		<td class="tbkey">{:L('收件人')}：</td>
+            		<td class="tbval"><input type="text" name="receiver" id="receiver"><span style="color:red">{:L('默认空则发送给管理员,填写会员编号可以发送给其他会员')}</span></td>
             	</tr>
             	</if>
                 <tr>
-                    <td class="tbkey">标题：</td>
+                    <td class="tbkey">{:L('标题')}：</td>
                     <td class="tbval"><input type="text" name="title" id="title"></td>
                 </tr>
                 <tr>
-                    <td class="tbkey">内容：</td>
+                    <td class="tbkey">{:L('内容')}：</td>
                     <td class="tbval"><textarea id="content_1" name="center"   style="width:700px;height:500px;"></textarea>
                   
                     	</td>
@@ -24,7 +24,7 @@
         
                 <tr>
                     <td colspan="2">            	
-                            <INPUT class="button_text" type="submit" value="发送邮件" /> 
+                            <INPUT class="button_text" type="submit" value="{:L('发送邮件')}" /> 
                         
                     </td>
                 </tr>

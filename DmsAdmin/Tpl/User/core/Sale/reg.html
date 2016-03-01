@@ -367,38 +367,38 @@
                     <if condition="in_array('pass1',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('一级密码')}：</td>
-                        <td class="tbval"><span><input type="password" value="" name="pass1" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1"><if condition="in_array('pass1',$require) eq true ">*</if></span></td>
+                        <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass1" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1"><if condition="in_array('pass1',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
                     <if condition="in_array('pass1c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('一级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass1c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1c"><if condition="in_array('pass1c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass1c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1c"><if condition="in_array('pass1c',$require) eq true ">*</if></span></td>
                     </tr>  
                     </if>
                     <if condition="in_array('pass2',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('二级密码')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass2" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2"><if condition="in_array('pass2',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass2" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2"><if condition="in_array('pass2',$require) eq true ">*</if></span></td>
                     </tr> 
                     </if>
                     <if condition="in_array('pass2c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('二级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass2c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2c"><if condition="in_array('pass2c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass2c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2c"><if condition="in_array('pass2c',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
 					<eq name="pwd3Switch" value="true">
 					<if condition="in_array('pass3',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('三级密码')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass3" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3"><if condition="in_array('pass3',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass3" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3"><if condition="in_array('pass3',$require) eq true ">*</if></span></td>
                     </tr> 
                     </if>
                     <if condition="in_array('pass3c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('三级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass3c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3c"><if condition="in_array('pass3c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass3c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3c"><if condition="in_array('pass3c',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
 					</eq>

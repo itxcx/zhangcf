@@ -1,3 +1,4 @@
+<script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script>
 <div class="core_main User" id="edit">
 	<div class="core_title"><span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span></div>
 	<div class="core_con">
@@ -75,50 +76,6 @@
                 </td>
             </tr>
             </if>
-
-            <if condition="in_array('area',$show) eq true">
-            <tr>
-                <td class="tbkey" >地址：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true">
-                <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
-                <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
-                <script src="__PUBLIC__/areaselect/areaselect.js"></script>
-                <div id="address-box">
-                    <div class="input-box" style="display: none;">
-                        <input class="country" name="country" type="text">
-                        <input class="province" name="province" type="text">
-                        <input class="city" name="city" type="text">
-                        <input class="county" name="county" type="text">
-                        <input class="town" name="town" type="text">
-                    </div>
-                    <div class="country-select arrow-bg">
-                        <a class="country-now" href="javascript:void(0)">请选择国家</a>
-                        <ul class="country-list">
-                            <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
-                            <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
-                            <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">海外</a></li>
-                        </ul>
-                    </div>
-                    <div class="location-box arrow-bg">
-                    </div>
-                </div>
-
-                <else />{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            </if>
-            <if condition="in_array('address',$show) eq true">
-            <tr>
-                <td class="tbkey">详细地址：</td>
-                <td class="tbval address">
-                <if condition="in_array('address',$edit) eq true">
-                <input name="address" type="text"  size="35" value="{$userinfo.地址}"> 
-                <else />{$userinfo.地址}</if>
-                <span class="msg"><if condition="in_array('address',$require) eq true ">*</if></span></td>
-            </tr>
-            </if>
-
             <if condition="in_array('id_card',$show) eq true">
             <tr>
                 <td class="tbkey" >证件号码：</td>
@@ -238,6 +195,68 @@
             </tr>
             </if>
 
+            <if condition="in_array('area',$show) eq true">
+            <tr>
+                <td class="tbkey" >国家：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true">
+                <select name="country" id="country_id" data-role="none">
+                    <option value="">请选择</option>
+                </select>
+                <else />{$userinfo.国家}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            <tr>
+                <td class="tbkey" >省/州：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true">
+                <select name="province"  id="province_id" data-role="none" >
+                    <option value="">请选择</option>
+                </select>
+                <else />{$userinfo.省份}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            <tr>
+                <td class="tbkey" >城市：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true" >
+                <select name="city" id="city_id" data-role="none" >
+                    <option value="">请选择</option>
+                </select>
+                <else />{$userinfo.城市}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            <tr>
+                <td class="tbkey" >地区：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true">
+                <select name="county" id="county_id" data-role="none" >
+                    <option value="">请选择</option>
+                </select>
+                <else />{$userinfo.地区}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            <tr>
+                <td class="tbkey" >街道：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true">
+                <select name="town" id="town_id" data-role="none" >
+                    <option value="">请选择</option>
+                </select>
+                <else />{$userinfo.街道}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            </if>
+            <if condition="in_array('address',$show) eq true">
+            <tr>
+                <td class="tbkey" >地址：</td>
+                <td class="tbval address">
+                <if condition="in_array('address',$edit) eq true">
+                <input name="address" type="text"  size="35" value="{$userinfo.地址}"> 
+                <else />{$userinfo.地址}</if>
+                <span class="msg"><if condition="in_array('address',$require) eq true ">*</if></span></td>
+            </tr>
+            </if>
             <tr >
                 <td colspan="2">
                     <button class="button_text" type="submit">确定</button>
@@ -248,5 +267,11 @@
     </div>
 </div>
 <script type="text/javascript">
-    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
+$.area_default_show=true;
+$.area_default_country="{$userinfo['国家']}";
+$.area_default_province="{$userinfo['省份']}";
+$.area_default_city="{$userinfo['城市']}";
+$.area_default_county="{$userinfo['地区']}";
+$.area_default_town="{$userinfo['街道']}";
+$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' );
 </script>

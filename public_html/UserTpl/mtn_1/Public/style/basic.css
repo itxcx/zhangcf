@@ -93,8 +93,6 @@ body {
     border-top: none;
     opacity: .9;
     float: left;
-    position: relative;
-    z-index: 1;
     *position: absolute;
 }
 .navul li a {

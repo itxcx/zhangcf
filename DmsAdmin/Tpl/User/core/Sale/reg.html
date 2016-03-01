@@ -1,3 +1,4 @@
+<!--<script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script>-->
 <div class="core_main Sale" id="usereg">
 	<div class="core_title">
     	<span class="core_title_con"><span>当前位置</span>： {$nowtitle}</span>
@@ -289,6 +290,34 @@
                             </script>
                         </td>
                     </tr>
+                    <!--
+                    <tr>
+                        <td class="tbkey" >国家：</td>
+                        <td class="tbval" >
+                            <select name="country" id="country_id" data-role="none">
+                                <option value="">请选择</option>
+                            </select>
+                            <select name="province"  id="province_id" data-role="none" <if condition="$logistic eq true">onChange="user_getTotalzf('{$sale:name}','Sale');"</if>>
+                                <option value="">省/州</option>
+                            </select>
+                            <select name="city"  id="city_id" data-role="none" >
+                                <option value="">城市</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbkey" >区县：</td>
+                        <td class="tbval" >
+                            <select name="county"  id="county_id" data-role="none" >
+                                <option value="">区/县</option>
+                            </select>
+                            <select name="town"  id="town_id" data-role="none" >
+                                <option value="">街道</option>
+                            </select>
+                            &nbsp;&nbsp;<span class="msg" id="state_town" ><if condition="in_array('area',$require) eq true ">*</if></span>
+                        </td>
+                    </tr>
+                    -->
                     </if>
                     <if condition="in_array('address',$show) eq true">
                     <tr>
@@ -487,6 +516,8 @@ function test(phoneNum, _this) {
     return pattern.test(_this.val());
 }
 
+//$.area_default_show = true; //显示默认区域
+//$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id');
 var vd;
 var lastname;
 function getInfo(e)

@@ -109,13 +109,25 @@ function printGender($gender)
         </if>
         <if condition="in_array('area',$show) eq true">
         <tr >
-          	<td class="tbkey" >地址：</td>
-          	<td class="tbval" >{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}</td>
+          	<td class="tbkey" >国家：</td>
+          	<td class="tbval" >{$userinfo.国家}</td>
+        </tr>
+        <tr >
+          	<td class="tbkey" >省/州：</td>
+          	<td class="tbval" >{$userinfo.省份}</td>
+        </tr>
+        <tr >
+          	<td class="tbkey" >城市：</td>
+          	<td class="tbval" >{$userinfo.城市}</td>
+        </tr>
+        <tr >
+          	<td class="tbkey" >地区：</td>
+          	<td class="tbval" >{$userinfo.地区}</td>
         </tr>
         </if>
         <if condition="in_array('address',$show) eq true">
         <tr >
-          	<td class="tbkey" >详细地址：</td>
+          	<td class="tbkey" >地址：</td>
           	<td class="tbval" >{$userinfo.地址}</td>
         </tr>
         </if>

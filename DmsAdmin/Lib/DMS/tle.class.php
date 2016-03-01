@@ -1000,8 +1000,14 @@
                }
                 //设置当日的奖金的发放状态,默认为未发放
                 $savedata['state']=0;
+                
                 //秒结秒发
                 if($this->secAutoGive && $this->_caltype == 0){
+                    //判断当前为纯秒结算，则默认处于已发放状态
+                    if($this->tleMode == 's')
+                    {
+                        $savedata['state'] = 1;
+                    }
                 	//判断是否以保存本期总账信息
                 	if(isset($thisledger['state'])){
                 		$savedata['state']=$thisledger['state'];

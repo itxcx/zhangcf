@@ -338,38 +338,38 @@
             <if condition="in_array('pass1',$show) eq true">
             <tr>
                 <td class="tbkey"><span><span class="msg" id="state_pass1"><if condition="in_array('pass1',$require) eq true ">*</if></span>一级密码：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass1"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass1"></td>
             </tr>
             </if>
             <if condition="in_array('pass1c',$show) eq true">
             <tr>
                 <td class="tbkey"><span><span class="msg" id="state_pass1c"><if condition="in_array('pass1c',$require) eq true ">*</if></span>一级密码确认：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass1c"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass1c"></td>
             </tr>  
             </if>
             <if condition="in_array('pass2',$show) eq true">
             <tr>
                 <td class="tbkey"><span><if condition="in_array('pass2',$require) eq true ">*</if></span>二级密码：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass2"><span class="msg" id="state_pass2"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass2"><span class="msg" id="state_pass2"></td>
             </tr> 
             </if>
             <if condition="in_array('pass2c',$show) eq true">
             <tr>
                 <td class="tbkey"><span><span class="msg" id="state_pass2c"><if condition="in_array('pass2c',$require) eq true ">*</if></span>二级密码确认：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass2c"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass2c"></td>
             </tr>
             </if>
             <eq name="pwd3Switch" value="true">
             <if condition="in_array('pass3',$show) eq true">
             <tr>
                 <td class="tbkey"><span><span class="msg" id="state_pass3"><if condition="in_array('pass3',$require) eq true ">*</if></span>三级密码：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass3"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass3"></td>
             </tr> 
             </if>
             <if condition="in_array('pass3c',$show) eq true">
             <tr>
                 <td class="tbkey"><span><span class="msg" id="state_pass3c"><if condition="in_array('pass3c',$require) eq true ">*</if></span>三级密码确认：</span></td>
-                <td class="tbval"><input type="password" class="input" name="pass3c"></td>
+                <td class="tbval"><input type="password" autocomplete="off" class="input" name="pass3c"></td>
             </tr>
             </if>
             </eq>

@@ -118,7 +118,7 @@ class CommonAction extends Action{
 				foreach($every as $chld)
 				{
 					if($chld['model']."-".$chld['action'] == MODULE_NAME."-".ACTION_NAME){
-						$nowtitle=L($key).'>>'.L($chld['title']);
+						$nowtitle=$key.'>>'.$chld['title'];
 						$haveDispPower = true;
 						break;
 					}
@@ -130,7 +130,7 @@ class CommonAction extends Action{
 				$actionUrl=MODULE_NAME.'-'.ACTION_NAME;
 				$haveMenuPower = in_array($actionUrl,$userMenuPower);
 				if(!$haveDispPower or !$haveMenuPower){
-					$this->error('无权限访问');
+					$this->error(L('无权限访问'));
 				}
 				if((($NoSecnum && !in_array($actionUrl,$userNoSecPwd)) or ($NoSecnum==0)) && ($_SESSION['logintype'] != "admin")){
 					if(isset($_SESSION[C('SAFE_PWD')])  && ((CONFIG('USER_PASS_TIMEOUT')>0 && (time()-$_SESSION['DmsPass2Time'])/60 > CONFIG('USER_PASS_TIMEOUT')) or (CONFIG('USER_PASS_TIMEOUT')==0 && $actionUrl!=$_SESSION['actionUrl'])))
@@ -397,9 +397,9 @@ class CommonAction extends Action{
 		if($result['status'] == true){
 			S($this->userinfo['编号'].'_'.I("post.type/s"),$verify,300);
 			M()->commit();
-			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),'发送成功!',1);
+			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),L('发送成功'),1);
 		}else{
-			$this->ajaxReturn('','发送失败!',0);
+			$this->ajaxReturn('',L('发送失败'),0);
 		}
 	}
 	//发送短信           用户数据 短信类型  短信内容
@@ -459,9 +459,9 @@ class CommonAction extends Action{
 		$result = sendMail($this->userinfo,I("post.type/s"),$content);
 		if($result == true){
 			S($this->userinfo['编号'].'_'.I("post.type/s"),$verify,300);
-			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),'发送成功!',1);
+			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),L('发送成功'),1);
 		}else{
-			$this->ajaxReturn('','发送失败!',0);
+			$this->ajaxReturn('',L('发送失败'),0);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class SaleshopAction extends CommonAction {
  	/*
     +----------------------------------------------------------
@@ -13,7 +13,7 @@ class SaleshopAction extends CommonAction {
 		}
 		$probj = X("product@".$sale_shop->productName);
 	    if(!$probj){
-	       $this->error("产品不存在");
+	       $this->error(L("产品不存在"));
 	    }
 	    $list = new TableListAction($probj->name);
 		$list->pagenum = 8;
@@ -114,17 +114,17 @@ class SaleshopAction extends CommonAction {
     */
 	function buygouwu(sale_shop $sale_shop){
 		if(!$sale_shop || I("post.proid/d")<=0){
-			$this->error("操作失败");
+			$this->error(L("操作失败"));
 		}
 		if(I("post.buynum/d")<=0){
-			$this->error('请输入购买数量');
+			$this->error(L('请输入购买数量'));
 		}
 		//产品
 		$proid=I("post.proid/d");
 		$buynum=intval(abs(I("post.buynum/d")));
 		$product=M($sale_shop->productName)->where(array("id"=>$proid))->find();
 		if(!$product){
-			$this->error("产品不存在，请重新购买");
+			$this->error(L("产品不存在，请重新购买"));
 		}
 		//判断产此产品在兑换购物车中是否已经存在
 		$buycarmodel = M($sale_shop->name.'购物车');
@@ -136,7 +136,7 @@ class SaleshopAction extends CommonAction {
 			$cha=$product['可订购数量']-$have['数量'];
 			if($cha<0) $cha=0;
 			if($buynum>$cha){
-				$this->error("购物车中已有此产品，您只能再购买{$cha}件");
+				$this->error(L("购物车中已有此产品，您只能再购买{$cha}件"));
 			}
 		}
 		
@@ -158,10 +158,10 @@ class SaleshopAction extends CommonAction {
 		}
 		if($result){
 			M()->commit();
-			$this->success('添加购物车成功',__URL__."/chongxiao_gouwuche:".__XPATH__);
+			$this->success(L('添加购物车成功'),__URL__."/chongxiao_gouwuche:".__XPATH__);
 		}else{
 			M()->rollback();
-			$this->error('添加失败');
+			$this->error(L('添加失败'));
 		}
 	}
  /**
@@ -197,16 +197,16 @@ class SaleshopAction extends CommonAction {
 		$id = I("get.id/d");
 		//获取购物车
 		if(!$sale_shop){
-			$this->error("此购物车不存在");
+			$this->error(L("此购物车不存在"));
 		}
 		M()->startTrans();
 		$res = M($sale_shop->name.'购物车')->where(array('id'=>$id))->delete();
 		if($res){
 			M()->commit();
-			$this->success('操作成功');
+			$this->success(L('操作成功'));
 		}else{
 			M()->rollback();
-			$this->error('操作失败');
+			$this->error(L('操作失败'));
 		}
 	}
  /**
@@ -216,16 +216,16 @@ class SaleshopAction extends CommonAction {
     */
 	function gouwuchechongxiao_del(sale_shop $sale_shop){
 		if(!$sale_shop){
-			$this->error("此购物车不存在");
+			$this->error(L("此购物车不存在"));
 		}
 		M()->startTrans();
 		$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->delete();
 		if($res){
 			M()->commit();
-			$this->success('清空购物车成功');
+			$this->success(L('清空购物车成功'));
 		}else{
 			M()->rollback();
-			$this->error('清空失败');
+			$this->error(L('清空失败'));
 		}
 	}
  /**
@@ -236,7 +236,7 @@ class SaleshopAction extends CommonAction {
     function buygouwu_chongxiao(sale_shop $sale_shop){
     	$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->getField("id,产品id");
     	if(!$res){
-    		$this->error("购物车中没有产品",__URL__."/buy_shop:".__XPATH__);
+    		$this->error(L("购物车中没有产品"),__URL__."/buy_shop:".__XPATH__);
     	}
     	//总价
 		$all_price = 0;
@@ -255,7 +255,7 @@ class SaleshopAction extends CommonAction {
 			//查询此产品
 			$pro_info = M($sale_shop->productName)->where(array('id'=>$res[$key]))->find();
 			if($num>$pro_info['可订购数量']){
-				$this->error("您选择的产品名称为 {$pro_info['名称']} 的库存数量只有{$pro_info['可订购数量']},请修改购物车的数量");
+				$this->error(L("您选择的产品名称为 {$pro_info['名称']} 的库存数量只有{$pro_info['可订购数量']},请修改购物车的数量"));
 			}
 			//查询购物车记录
 			$shopinfo = M($sale_shop->name.'购物车')->where(array('id'=>$key))->find();
@@ -311,11 +311,11 @@ class SaleshopAction extends CommonAction {
 		}
 		
 		if($sale_shop->extra && (I("post.country/s")=='' || I("post.province/s")=='' || I("post.city/s")=='' || I("post.county/s")=='' || I("post.town/s")=='' || I("post.reciver/s")=='' || I("post.address/s")=='' || I("post.mobile/s")=='')){
-			$this->error("请完善收货信息");
+			$this->error(L("请完善收货信息"));
 		}
 		$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->select();
     	if(!$res){
-    		$this->error("购物车中没有产品",__URL__."/buy_shop:".__XPATH__);
+    		$this->error(L("购物车中没有产品"),__URL__."/buy_shop:".__XPATH__);
     	}
 		//判断库存，生成产品数组
 		$productNum=array();
@@ -336,21 +336,21 @@ class SaleshopAction extends CommonAction {
 			foreach($checkResult['error'] as $error){
 				$errorStr .= $error . '<br/>';
 			}
-			$this->error($errorStr);
+			$this->error(L($errorStr));
 		}else{   
 			$rswhere=$sale_shop->iswhere($this->userinfo);
 			if($rswhere !== true){
-				$this->error($rswhere);
+				$this->error(L($rswhere));
 			}
 			$_POST['userid']=$this->userinfo['编号'];
 			$return = $sale_shop->buy(I("post."));
 			
 			if(gettype($return)=='string')
 			{
-				$this->error($return);
+				$this->error(L($return));
 			}
 			M()->commit();
-		    $this->success('订购成功',__GROUP__.'/Sale/productmysale');
+		    $this->success(L('订购成功'),__GROUP__.'/Sale/productmysale');
 		}
 	}
 }

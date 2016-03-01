@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class SaleAction extends CommonAction {
 	//用户注册
 	public function reg(sale_reg $sale_reg){
@@ -110,10 +110,12 @@ class SaleAction extends CommonAction {
 							//找到这个会员
 							$upuser = M('会员')->where(array('编号'=>$value))->find();
 							//对显示区域的where做判断
-							if($upuser && transform($Region['where'],$upuser))
-							{
-								//判断成功.这个区也可以显示
-								$regiondisp = true;
+							if($Region['where']!="{myrec}"){
+								if($upuser && transform($Region['where'],$upuser))
+								{
+									//判断成功.这个区也可以显示
+									$regiondisp = true;
+								}
 							}
 						}
 					}
@@ -318,7 +320,7 @@ class SaleAction extends CommonAction {
 			}
 		}
 		if($sale_buy->extra && (I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')=='' || I('post.reciver/s')=='' || I('post.address/s')=='' || I('post.mobile/s')=='')){
-			$this->error("请完善收货信息");
+			$this->error(L("请完善收货信息"));
 		}
 		$checkResult = $sale_buy->getValidate(I('post.'));   //自动验证
 		if($checkResult['error']){
@@ -341,9 +343,9 @@ class SaleAction extends CommonAction {
 			M()->commit();
 			$userMenuPower = $this->userobj->getatt('userMenuPower');
 			if(!$userMenuPower && !in_array('Sale-mysale',$userMenuPower)){
-				$this->success('订购成功');
+				$this->success('订购成功',__URL__.'/productmysale');
 			}else{
-				$this->success('订购成功',__URL__.'/mysale');
+				$this->success(L('订购成功'),__URL__.'/mysale');
 			}
 		}
 	}
@@ -352,7 +354,7 @@ class SaleAction extends CommonAction {
 	public function up(sale_up $sale_up){
 		if($this->userinfo['状态'] != '有效')
 		{
-			$this->error('状态无效，不能操作');
+			$this->error(L('状态无效，不能操作'));
 		}
 		//是否选产品
 		$zkbool=false;$logistic=false;
@@ -379,7 +381,7 @@ class SaleAction extends CommonAction {
 		$area=$sale_up->getLvArea();
 		$this->assign('area'      ,$area);
 		if(count($levelsopts)==0){
-			$this->error('您已升至最高级别',"__APP__/User/Index/index");
+			$this->error(L('您已升至最高级别'),"__APP__/User/Index/index");
 		}
 		if($sale_up->showRatio){
 			$accbankObj=X("accbank@".$sale_up->accBank);
@@ -408,7 +410,7 @@ class SaleAction extends CommonAction {
 	public function upSave(sale_up $sale_up){
 		if($this->userinfo['状态'] != '有效')
 		{
-			$this->error('状态无效，不能操作');
+			$this->error(L('状态无效，不能操作'));
 		}		
 	   //防XSS跨站攻击登入 调用ThinkPHP中的XSSBehavior
 		 B('XSS');
@@ -418,7 +420,7 @@ class SaleAction extends CommonAction {
 		//判断物流信息
 		if($sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
         {
-			$this->error("请完善物流信息");
+			$this->error(L("请完善物流信息"));
 		}
 		$levels=X('levels@'.$sale_up->lvName);
 		$checkResult = $sale_up->getValidate(I("post."));
@@ -427,12 +429,12 @@ class SaleAction extends CommonAction {
 			foreach($checkResult['error'] as $error){
 				$errorStr .= $error . '<br/>';
 			}
-			$this->error($errorStr);
+			$this->error(L($errorStr));
 		}
 		$return = $sale_up->upSave(I("post."));
 		if(gettype($return)=='string')
 		{
-			$this->error($return);
+			$this->error(L($return));
 		}
 		M()->commit();
 		$userMenuPower = $this->userobj->getatt('userMenuPower');
@@ -454,11 +456,11 @@ class SaleAction extends CommonAction {
 		{
 			$levelsopts		= array();
 			$levelsopts=$sale_up->getLvOption($lv);
-			$this->ajaxReturn($levelsopts,'成功',1);
+			$this->ajaxReturn($levelsopts,L('成功'),1);
 		}
 		else
 		{
-			$this->ajaxReturn('','失败',0);
+			$this->ajaxReturn('',L('失败'),0);
 		}
 	}
 	
@@ -484,7 +486,7 @@ class SaleAction extends CommonAction {
 			}
 		}
 		if($useracc == ''){
-			$this->error('没有操作权限');
+			$this->error(L('没有操作权限'));
 		}else{
 			$useracc = '('.trim($useracc,'or ').')';
 		}
@@ -495,19 +497,19 @@ class SaleAction extends CommonAction {
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20
         $list->order  ="a.购买日期 desc";
-        $list->addshow(L('id')     ,array("row"=>"[编号]")); 
-        //L('join_date')=>array("row"=>"[注册日期]","format"=>"time"),
+        $list->addshow(L('编号')     ,array("row"=>"[编号]")); 
+        //L('注册日期')=>array("row"=>"[注册日期]","format"=>"time"),
         $list->addshow(L('购买日期'),array("row"=>"[购买日期]","format"=>"time"));
-        $list->addshow(L('name')          ,array("row"=>"[姓名]"));
-        $list->addshow(L('level')         ,array("row"=>array(array(&$this,"printUserLevel"),"[{$name}级别]","{$name}级别")));
-		$list->addshow(L('entry_sum')     ,array("row"=>"[报单金额]","searchMode"=>"num"));
+        $list->addshow(L('姓名')          ,array("row"=>"[姓名]"));
+        $list->addshow(L('级别')         ,array("row"=>array(array(&$this,"printUserLevel"),"[{$name}级别]","{$name}级别")));
+		$list->addshow(L('报单金额')     ,array("row"=>"[报单金额]","searchMode"=>"num"));
 		if($this->userobj->haveProduct()){
-			$list->addshow(L('sum')           ,array("row"=>"[购物金额]","searchMode"=>"num"));
+			$list->addshow(L('购物金额')           ,array("row"=>"[购物金额]","searchMode"=>"num"));
 		}
-		//$list->addshow(L('up_level_data') ,array("row"=>"[升级数据]"));
-		$list->addshow(L('status')        ,array("row"=>"[报单状态]"));
-		$list->addshow(L('entry_category'),array("row"=>"[报单类别]"));
-		$list->addshow(L('operating')     ,array("row"=>array(array(&$this,"getsale1"),"[报单类别]","[编号]","[id]"),));
+		//$list->addshow(L('升级数据') ,array("row"=>"[升级数据]"));
+		$list->addshow(L('报单状态')        ,array("row"=>"[报单状态]"));
+		$list->addshow(L('报单类别'),array("row"=>"[报单类别]"));
+		$list->addshow(L('操作')     ,array("row"=>array(array(&$this,"getsale1"),"[报单类别]","[编号]","[id]"),));
 		$data = $list->getData(); 
 		$this ->assign('name',X('user')->byname);
 		$this->assign('data',$data);
@@ -535,7 +537,7 @@ class SaleAction extends CommonAction {
 			}
 		}
 		if($useracc == ''){
-			$this->error('没有操作权限');
+			$this->error(L('没有操作权限'));
 		}else{
 			$useracc = '('.trim($useracc,'or ').')';
 		}
@@ -546,17 +548,17 @@ class SaleAction extends CommonAction {
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20
         $list->order  ="a.购买日期 desc";
-        $list->addshow(L('id')     ,array("row"=>"[编号]"));
-        //L('join_date')=>array("row"=>"[注册日期]","format"=>"time"),
+        $list->addshow(L('报单类别')     ,array("row"=>"[编号]"));
+        //L('注册日期')=>array("row"=>"[注册日期]","format"=>"time"),
         $list->addshow(L('购买日期'),array("row"=>"[购买日期]","format"=>"time"));
-        $list->addshow(L('name')          ,array("row"=>"[姓名]"));
-        $list->addshow(L('level')         ,array("row"=>array(array(&$this,"printUserLevel"),"[{$name}级别]"),));
-		$list->addshow(L('entry_sum')     ,array("row"=>"[报单金额]","searchMode"=>"num"));
+        $list->addshow(L('姓名')          ,array("row"=>"[姓名]"));
+        $list->addshow(L('级别')         ,array("row"=>array(array(&$this,"printUserLevel"),"[{$name}级别]"),));
+		$list->addshow(L('报单金额')     ,array("row"=>"[报单金额]","searchMode"=>"num"));
 		if($this->userobj->haveProduct())
-		$list->addshow(L('sum')           ,array("row"=>"[购物金额]","searchMode"=>"num"));
-		$list->addshow(L('status')        ,array("row"=>"[报单状态]"));
-		$list->addshow(L('entry_category'),array("row"=>"[报单类别]"));
-		$list->addshow(L('operating')     ,array("row"=>array(array(&$this,"getsale1"),"[报单类别]","[编号]","[id]"),));
+		$list->addshow(L('购物金额')           ,array("row"=>"[购物金额]","searchMode"=>"num"));
+		$list->addshow(L('报单状态')        ,array("row"=>"[报单状态]"));
+		$list->addshow(L('报单类别'),array("row"=>"[报单类别]"));
+		$list->addshow(L('操作')     ,array("row"=>array(array(&$this,"getsale1"),"[报单类别]","[编号]","[id]"),));
         $data = $list->getData(); 
 		$this ->assign('name',$this->userobj->byname);
         $this->assign('data',$data);
@@ -565,7 +567,13 @@ class SaleAction extends CommonAction {
 	
 	//l008中的审核时用的审核
 	public function getsale1($salename,$userid,$id){ 
-		return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		//判断是否开启转账给未激活(状态=无效)会员
+		if(adminshow(zhuanzhang))
+		{
+			return "<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}else{
+			return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}
 	}
 	public function getsale($salename,$userid,$id)
 	{ 
@@ -647,7 +655,7 @@ class SaleAction extends CommonAction {
 		$return = $sale->accok($sdata);
 		if($return !== true){
 			M()->rollback();
-			$this->error($return);
+			$this->error(L($return));
 		}
 		M()->commit();
 		M()->startTrans();
@@ -811,10 +819,10 @@ class SaleAction extends CommonAction {
 	}
 	public function checkgeted($status,$id,$haveProduct){
 		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a> <a href='__URL__/confirmget/id/{$id}'>确认收货</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
 			 
 		 }else{
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}
 	public function viewMysale(){
@@ -841,9 +849,9 @@ class SaleAction extends CommonAction {
 		$result		 = $model->where(array('id'=>I("get.id/d"),'编号'=>$this->userinfo['编号']))->save(array('物流状态'=>'已收货','收货日期'=>systemTime()));
 		if($result){
 			M()->commit();
-			$this->success("确认收货成功");
+			$this->success(L("确认收货成功"));
 		}else{
-			$this->error("确认收货失败");
+			$this->error(L("确认收货失败"));
 		}
 	}
 	
@@ -858,13 +866,14 @@ class SaleAction extends CommonAction {
 	public function del(){
 		$saleid		= I("get.id/d");
 		if(!is_numeric($saleid)){
-			$this->error('参数非法');
+			$this->error(L('参数非法'));
 		}
+	
 		//查询推广链接的订单 
 		 $saledata_tj = M('报单')->where(array('id'=>$saleid))->find();
 		 $saledata =$saledata_tj;
 		if(!$saledata){
-			$this->error('订单不存在');
+			$this->error(L('订单不存在'));
 		}
         //判断审核人是否是注册人或者服务中心编号
         if($saledata['服务中心编号']!=$this->userinfo['编号'] && $saledata['注册人编号']!=$this->userinfo['编号']){
@@ -872,9 +881,25 @@ class SaleAction extends CommonAction {
         }
 		if($saledata['报单状态'] != '未确认')
 		{
-			$this->error('此订单不是未确认状态，不能进行删除');
+			$this->error(L('此订单不是未确认状态，不能进行删除'));
 		}
 		$saleobj = X('sale_*@'.$saledata['报单类别']);
+		//判断节点类型
+		if(get_class($saleobj)=='sale_reg')
+		{
+			//获取所有钱包
+			foreach(X('fun_bank') as $bank)
+			{
+				$banks[]=$bank->name;
+			}
+			//计算被删除会员的所有钱包之和
+			$sumMoney = M('货币')->where(array('编号'=>$saledata['编号']))->sum(implode("+",$banks));
+			//判断是否开启转账给未激活(状态=无效)会员
+			if(adminshow(zhuanzhang) && $sumMoney>0)
+			{
+				$this->error(L('非法操作'));
+			}
+		}
 		M()->startTrans();
 		//判断如果是注册订单。则同步删除会员
 		if(get_class($saleobj)=='sale_reg')
@@ -940,7 +965,7 @@ class SaleAction extends CommonAction {
 		$ress['zk']	 = $zhekou;
 		$ress['wlf'] = $wlf;
 		$ress['totalzf'] = $zongjia*$zhekou+$wlf;
-		$this->ajaxReturn($ress,'成功',1);
+		$this->ajaxReturn($ress,L('成功'),1);
     }
 }
 ?>

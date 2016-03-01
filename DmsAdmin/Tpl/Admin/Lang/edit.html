@@ -27,7 +27,7 @@
 			<td style="width:15%;text-align:right;">{$name}：</td>
 			<td colspan="3" style="text-align:left;padding:10px 5px"><input type="text" name="{$lang}"    id="{$lang}"    class="required textInput"  value="{$list.$lang}" size="45"/>
 				<if condition="$lang neq 'zh-cn'">
-				<input type="button" id="{$lang}trans" onclick="synonym('{$name}')" value="相近词" />
+				<input type="button" id="{$lang}trans" onclick="synonym('{$lang}')" value="相近词" />
 				</if>
 			</td>
 		</tr>
@@ -63,7 +63,6 @@
 		DWZ.ajaxDone(json);
 		if (json.statusCode == DWZ.statusCode.ok){
 			navTab.reload();
-			console.log(json.data.ajax);
 			if(json.data.ajax == 1){
 				$.pdialog.closeCurrent();
 			}else if(json.data.ajax == 2){
@@ -113,20 +112,24 @@
 			type:'get',
 			dataType:'json',
 			success:function(result){
-				$("#zh-cn").val(seman);
-				$.each(result.data,function(k,v){
-					$("#"+k).val(v);
-				});
+				if(result.statusCode === 0){
+					alert(result.message);
+				}else{
+					$.each(result.data,function(k,v){
+						$("#"+k).val(v);
+					});
+					$("#zh-cn").val(seman);
+				}
 			}
 		})
 	});
 	
 	//相近词
-	function synonym(name){
+	function synonym(lang){
 		var seman = $("#seman").val();
 		var seman = encodeURIComponent(seman);
 		$.ajax({
-			url:'__URL__/synonym/name/'+name,
+			url:'__URL__/synonym/lang/'+lang,
 			dataType:'json',
 			success:function(to){
 				open('http://fanyi.baidu.com/translate?aldtype=16047&query=' + seman + '&keyfrom=baidu&smartresult=dict&lang=auto2'+to.data.transTo);

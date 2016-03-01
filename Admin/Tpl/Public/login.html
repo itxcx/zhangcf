@@ -284,7 +284,7 @@
                             <tr>
                                 <td align="center" >&nbsp;YUBIKEY：</td>
                                 <td height="40" align="left">
-                                    <input type="password" id="newyubiopt" name='newyubiopt' value="" size='24'/>
+                                    <input type="password" autocomplete="off" id="newyubiopt" name='newyubiopt' value="" size='24'/>
                                 </td>
                             </tr>
                             <tr id="subbutton">
@@ -320,7 +320,7 @@
                             <tr>
                                 <td align="center" >密码:</td>
                                 <td height="30" align="left">
-                                    <input name="password" id="password" onKeyDown="keydown(event)" type="password"  value="<present name='admin'>{$admin.account}</present>" class="bLeftRequire" />
+                                    <input name="password" id="password" onKeyDown="keydown(event)" type="password" autocomplete="off"  value="<present name='admin'>{$admin.account}</present>" class="bLeftRequire" />
                                 </td>
                             </tr>
                             <tr id="verify_tr" style="<eq name='disable_captcha' value='1'>display:none</eq>">

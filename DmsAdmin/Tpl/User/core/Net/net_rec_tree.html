@@ -1,13 +1,13 @@
 <link href="__PUBLIC__/css/netstyle.css" rel="stylesheet" type="text/css" />
 <div class="core_main Net" id="ramus_tree">
     <div class="core_title">
-        <span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+        <span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
         <span class="core_title_edit"></span>
     </div>
     <div class="core_con" style="overflow:auto;">
         <select name="changeStyle" id="changeStyle">
-            <option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>分支节点</option>
-            <option value="dir" <eq name="style" value="dir">selected="true"</eq>>树形目录</option>
+            <option value="ramus" <eq name="style" value="ramus">selected="true"</eq>>{:L('分支节点')}</option>
+            <option value="dir" <eq name="style" value="dir">selected="true"</eq>>{:L('树形目录')}</option>
         </select>
         <if condition="$firstUserInfo">
             <table align="center" cellpadding="0" cellspacing="0" width="100%" style="margin: 0 auto" class="net_table1">
@@ -19,12 +19,12 @@
                                 <td height="30" align="center"> {// 表单查询 }
                                 <form action="__URL__/disp:__XPATH__" method="post" name="form1" id="form1">
                                 <input name="nettype" type="hidden" value="{$style}"/>
-                                    <span class="white">{$userNode:name}编号：</span>
+                                    <span class="white">{:L($userNode->name.'编号')}：</span>
                                     <input type="text" name="uid" value="" size="12"/>
-                                    <input class="button_text" type="submit" value="搜索">
+                                    <input class="button_text" type="submit" value="{:L('搜索')}">
                                     <if condition="$firstUserInfo['编号'] neq $thisUser['编号']">
-                                        <input class="button_text" type="button" name="btnSearch" value="上一层" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__/uid/{:$firstUserInfo[$netName.'_上级编号']}';">
-                                        <input class="button_text" type="button" name="btnSearch" value="置顶" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__';">
+                                        <input class="button_text" type="button" name="btnSearch" value="{:L('上一层')}" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__/uid/{:$firstUserInfo[$netName.'_上级编号']}';">
+                                        <input class="button_text" type="button" name="btnSearch" value="{:L('置顶')}" id="btnSearch"  onclick="location.href='__GROUP__/Net/disp:__XPATH__';">
                                     </if>
                                 </form>
                                 <br>
@@ -52,13 +52,13 @@
                                         {//姓名}
                                         <eq name="netNode:userNameDisp" value="true">
                                         <tr>
-                                             <td class="topLayerTb1Td1 <eq name='firstUserInfo.状态' value='有效'>topLayerTb1De<else/>topLayerTb1St</eq>"><notempty name="firstUserInfo['姓名']">{$firstUserInfo.姓名}<else/>[暂无]</notempty></td>
+                                             <td class="topLayerTb1Td1 <eq name='firstUserInfo.状态' value='有效'>topLayerTb1De<else/>topLayerTb1St</eq>"><notempty name="firstUserInfo['姓名']">{$firstUserInfo.姓名}<else/>[{:L('暂无')}]</notempty></td>
                                         </tr>
                                         </eq>
                                         {//昵称}
                                         <eq name="netNode:userAnotherNameDisp" value="true">
                                         <tr>
-                                            <td class="topLayerTb1Td1 <eq name='firstUserInfo.状态' value='有效'>topLayerTb1De<else/>topLayerTb1St</eq>"><notempty name="firstUserInfo['昵称']">{$firstUserInfo.昵称}<else/>[暂无]</notempty></td>
+                                            <td class="topLayerTb1Td1 <eq name='firstUserInfo.状态' value='有效'>topLayerTb1De<else/>topLayerTb1St</eq>"><notempty name="firstUserInfo['昵称']">{$firstUserInfo.昵称}<else/>[{:L('暂无')}]</notempty></td>
                                         </tr>
                                         </eq>
                                         {//审核日期 或 注册日期}
@@ -86,7 +86,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <!--<td>总:{:$firstUserInfo[$netName.'_团队总人数']}/{:$firstUserInfo[$netName.'_团队人数']}</td>-->
-                                                        <td  align="center" colspan="2">层:{:($firstUserInfo[$netName.'_层数']-$thisUser[$netName.'_层数']+1)}</td>
+                                                        <td  align="center" colspan="2">{:L('层')}:{:($firstUserInfo[$netName.'_层数']-$thisUser[$netName.'_层数']+1)}</td>
                                                     </tr>
                                                 </tbody>
                                             </table></td>

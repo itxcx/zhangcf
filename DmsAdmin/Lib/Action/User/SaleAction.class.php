@@ -110,10 +110,12 @@ class SaleAction extends CommonAction {
 							//找到这个会员
 							$upuser = M('会员')->where(array('编号'=>$value))->find();
 							//对显示区域的where做判断
-							if($upuser && transform($Region['where'],$upuser))
-							{
-								//判断成功.这个区也可以显示
-								$regiondisp = true;
+							if($Region['where']!="{myrec}"){
+								if($upuser && transform($Region['where'],$upuser))
+								{
+									//判断成功.这个区也可以显示
+									$regiondisp = true;
+								}
 							}
 						}
 					}
@@ -565,7 +567,13 @@ class SaleAction extends CommonAction {
 	
 	//l008中的审核时用的审核
 	public function getsale1($salename,$userid,$id){ 
-		return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		//判断是否开启转账给未激活(状态=无效)会员
+		if(adminshow(zhuanzhang))
+		{
+			return "<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}else{
+			return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}
 	}
 	public function getsale($salename,$userid,$id)
 	{ 
@@ -811,10 +819,10 @@ class SaleAction extends CommonAction {
 	}
 	public function checkgeted($status,$id,$haveProduct){
 		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a> <a href='__URL__/confirmget/id/{$id}'>确认收货</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
 			 
 		 }else{
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}
 	public function viewMysale(){
@@ -860,6 +868,7 @@ class SaleAction extends CommonAction {
 		if(!is_numeric($saleid)){
 			$this->error(L('参数非法'));
 		}
+	
 		//查询推广链接的订单 
 		 $saledata_tj = M('报单')->where(array('id'=>$saleid))->find();
 		 $saledata =$saledata_tj;
@@ -875,6 +884,22 @@ class SaleAction extends CommonAction {
 			$this->error(L('此订单不是未确认状态，不能进行删除'));
 		}
 		$saleobj = X('sale_*@'.$saledata['报单类别']);
+		//判断节点类型
+		if(get_class($saleobj)=='sale_reg')
+		{
+			//获取所有钱包
+			foreach(X('fun_bank') as $bank)
+			{
+				$banks[]=$bank->name;
+			}
+			//计算被删除会员的所有钱包之和
+			$sumMoney = M('货币')->where(array('编号'=>$saledata['编号']))->sum(implode("+",$banks));
+			//判断是否开启转账给未激活(状态=无效)会员
+			if(adminshow(zhuanzhang) && $sumMoney>0)
+			{
+				$this->error(L('非法操作'));
+			}
+		}
 		M()->startTrans();
 		//判断如果是注册订单。则同步删除会员
 		if(get_class($saleobj)=='sale_reg')

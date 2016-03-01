@@ -66,7 +66,7 @@ function fleshVerify(type){
               <tr>
                 <td class=style1 height=35 colspan=6>
                帐号:<input style="width:60px" id="txtname" tabindex=1 type="text" name="username" />
-               密码:<input style="width:60px" id="txtpass" tabindex=2 type="password" name="password" />
+               密码:<input style="width:60px" id="txtpass" tabindex=2 type="password" autocomplete="off" name="password" />
 			   <if condition="isset($dispCode) and ($dispCode eq true)">
                验证码:<input style="width: 40px" maxlength="4" id="txtpass" tabindex=2 type="text" name="captcha" />
               <label><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></label>

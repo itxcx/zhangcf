@@ -66,7 +66,7 @@
                         <input type="hidden" name="act" value="verify" />
                         <input id="Uid" name="username" class="input-large span12" type="text" maxlength="255" value="" autocomplete="off" placeholder="客户帐号"/>
                         
-                        <input id="Password" name="password" class="input-large span12" type="password" maxlength="255" value="" autocomplete="off" placeholder="密码"/>	
+                        <input id="Password" name="password" class="input-large span12" type="password" autocomplete="off" maxlength="255" value="" autocomplete="off" placeholder="密码"/>	
                         <if condition="isset($dispCode) and ($dispCode eq true)">
                         <input id="verify" name="captcha" type="text" class="input-large span7" maxlength="6" value="" autocomplete="off" size="8" placeholder="验证代码"/>
                         <div style="width: 104px; height: 22px; background: #FFFFFF; border: 1px solid #CCCCCC; float: right; margin: 5px 0 0 0; padding: 8px; font-size: 20px; font-weight: bold; color: #000000; text-align: center;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer; width: 75px;" align="absmiddle" /></div>

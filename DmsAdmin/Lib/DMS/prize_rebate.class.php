@@ -90,7 +90,7 @@
 					if($this->usesql && $this->K==0){
 						foreach($cons as $con)
 						{
-							$wherestr .= " and ".$this->lvName." between ".$con['minlv']." and ". $con['maxlv'];
+							$wherestr  = " and ".$this->lvName." between ".$con['minlv']." and ". $con['maxlv'];
 							$wherestr .= " and ".delsign($this->where);
 							$wherestr .= " and 状态='有效' and 奖金锁=0";
 							$val = $con['val'];

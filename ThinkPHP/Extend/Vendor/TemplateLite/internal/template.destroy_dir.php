@@ -58,7 +58,7 @@ function template_rm_dir($dir)
 		{
 			if ($f != '.' && $f != '..')
 			{
-				template_rm_dir($dir.$f.DIRECTORY_SEPARATOR, $object);
+				template_rm_dir($dir.$f.DIRECTORY_SEPARATOR);
 			}
 		}
 		@rmdir($dir.$f);

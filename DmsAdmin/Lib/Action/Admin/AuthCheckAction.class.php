@@ -1,11 +1,11 @@
 <?php
 class AuthCheckAction extends  Action{
 	function index1(){
-		//¼ÓÔØMenuAction.class.php
+		//åŠ è½½MenuAction.class.php
 		require_once __dir__.'/MenuAction.class.php';		
 		$menuOjb = new MenuAction();
 		$menu = $menuOjb ->getMenu();
-		//»ñÈ¡MenuActionÖĞÄ£¿éÃûºÍ·½·¨Ãû
+		//è·å–MenuActionä¸­æ¨¡å—åå’Œæ–¹æ³•å
 		$module_name2 = array();
 		$action_name2 = array();
 		foreach( $menu as $val){
@@ -29,13 +29,13 @@ class AuthCheckAction extends  Action{
 			}
 		}
 		
-		//»ñÈ¡/DmsAdmin/Lib/Action/Admin/ÏÂËùÓĞActionÀà
+		//è·å–/DmsAdmin/Lib/Action/Admin/ä¸‹æ‰€æœ‰Actionç±»
 		$items= $this->read(__dir__);
 		foreach( $items as $item){
-			//¼ÓÔØActionÀà
+			//åŠ è½½Actionç±»
 			require_once __dir__.'/'.$item;
 			$class_name = substr($item,0,strpos($item,'.'));
-			//·´Éä·¨,»ñÈ¡ÀàÖĞpublic·½·¨
+			//åå°„æ³•,è·å–ç±»ä¸­publicæ–¹æ³•
 			$r = new ReflectionClass($class_name);
 			foreach( $r->getMethods() as $key =>$methodObj){
 				 if($methodObj->isPublic()){
@@ -44,24 +44,24 @@ class AuthCheckAction extends  Action{
 				 }
 			}
 		}
-		//É¾³ı¼Ì³ĞµÄAction
+		//åˆ é™¤ç»§æ‰¿çš„Action
 		unset($methods2['Action']);
-		//ÅĞ¶Ï$methods1ÖĞÄ£¿éºÍ·½·¨´æ²»´æÔÚ$action_name1ÖĞ
+		//åˆ¤æ–­$methods1ä¸­æ¨¡å—å’Œæ–¹æ³•å­˜ä¸å­˜åœ¨$action_name1ä¸­
 		unset($methods2['CommonAction']);
 		foreach($methods2 as $module => $method){
 			foreach($method as $m){
 				if(!in_array($m,$action_name2[$module]) && substr($m,0,1)!='_'){
 					echo '/DmsAdmin/Lib/Action/Admin/'.$module.'.class.php:';
 					echo $m.'</br>';
-					$i++;
 				}
 			}	
 		}
 	}
 	function index2(){
-		//¼ÓÔØnode.php
-		require_once str_replace('public_html','Admin/conf/node.php',$_SERVER['DOCUMENT_ROOT']);
-		//»ñÈ¡node.phpÖĞmoduleºÍaction
+		//åŠ è½½node.php
+		$arr=require_once str_replace('public_html','Admin/conf/node.php',$_SERVER['DOCUMENT_ROOT']);
+
+		//è·å–node.phpä¸­moduleå’Œaction
 		$module_name1 = array();
 		$action_name1 = array();
 		foreach( $arr as $key => $value ){
@@ -77,17 +77,16 @@ class AuthCheckAction extends  Action{
 				}		
 			}
 		}
-		
-		//»ñÈ¡/DmsAdmin/Lib/Action/Admin/ÏÂËùÓĞActionÀà
+		//è·å–/DmsAdmin/Lib/Action/Admin/ä¸‹æ‰€æœ‰Actionç±»
 		$directory = str_replace('public_html','Admin/Lib/Action',$_SERVER['DOCUMENT_ROOT']);
 		$rsts= $this->read($directory);
 		foreach( $rsts as $item){
 			if($item!='CommonAction.class.php')
 			{
-				//¼ÓÔØActionÀà
+				//åŠ è½½Actionç±»
 				require_once $directory.'/'.$item;
 				$class_name = substr($item,0,strpos($item,'.'));
-				//·´Éä·¨,»ñÈ¡ÀàÖĞpublic·½·¨
+				//åå°„æ³•,è·å–ç±»ä¸­publicæ–¹æ³•
 				$r = new ReflectionClass($class_name);
 				foreach( $r->getMethods() as $key =>$methodObj){
 					 if($methodObj->isPublic()){
@@ -97,22 +96,21 @@ class AuthCheckAction extends  Action{
 				}
 			}
 		}
-		//É¾³ı¼Ì³ĞµÄAction
+		//åˆ é™¤ç»§æ‰¿çš„Action
 		unset($methods1['Action']);
 		unset($methods1['CommonAction']);
 		
-		//ÅĞ¶Ï$methods1ÖĞÄ£¿éºÍ·½·¨´æ²»´æÔÚ$action_name1ÖĞ
+		//åˆ¤æ–­$methods1ä¸­æ¨¡å—å’Œæ–¹æ³•å­˜ä¸å­˜åœ¨$action_name1ä¸­
 		foreach($methods1 as $module => $method){
 			foreach($method as $m){
 				if(!in_array($m,$action_name1[$module]) && substr($m,0,1)!='_'){
 					echo '/Admin/Lib/Action/'.$module.'.class.php:';
 					echo $m.'</br>';
-					$i++;
 				}
 			}
 		}
 	}
-	//¶ÁÈ¡Ä¿Â¼ÏÂµÄÎÄ¼ş
+	//è¯»å–ç›®å½•ä¸‹çš„æ–‡ä»¶
 	function read($path) {
 		if (! file_exists ( $path )) {
 			return false;

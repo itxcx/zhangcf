@@ -123,10 +123,8 @@
 			{
 				$joins = '';
 				$ifor=false;
-
-				// 从数组中将变量导入到当前的符号表
-				extract($val);
-
+                $where=$val['where'];
+                $lv   =$val['lv'];
 				if($where!='')
 				{	
 					if(stripos($where,' or ')!==false)$ifor=true;

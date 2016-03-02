@@ -1176,7 +1176,6 @@ class SaleAction extends CommonAction {
 			}
 			$data[$startTime+$day_i*86400] = $daydata;
 		}
-		$product->name();
 		$this->display();
 		
 	}

@@ -59,11 +59,11 @@
 				unset($sales);
 			}
 			if($this->rowFrom == 0)
-			{
-				if(!$num_ratio&&$this->where=="")
-				{
-					$this->where="($this->rowName)<>0";
-				}
+			{   //$num_ratio并没有定义，如果默认开启此代码，可能会导致固定值奖金无法产生
+				//if(!$num_ratio&&$this->where=="")
+				//{
+				//	$this->where="($this->rowName)<>0";
+				//}
 				$users=$this->getuser($this->where,"*,$this->rowName as t_recnum");
 				foreach($users as $user)
 				{
@@ -72,8 +72,6 @@
 				unset($users);
 			}
 			//------------------------------------
-			unset($cons);
-			unset($tops);
 			$this->prizeUpdate();
 		}
 		//计算处理,来源表，产生奖金的会员ID，订单表记录，设置数组

@@ -1,5 +1,5 @@
 <?php
-defined('APP_NAME') || die(L('not_allow'));
+defined('APP_NAME') || die(L('不要非法操作哦'));
 class UserAction extends CommonAction {
 
 	//修改密码
@@ -27,9 +27,9 @@ class UserAction extends CommonAction {
 		$repass3		= I('post.repwd3/s')!=""?trim(I('post.repwd3/s')):'';
 		//一级密码输入验证
 		if($pass1 !== $repass1){
-			$this->error(L('两次输入的一级密码不一致！'));
+			$this->error(L('两次输入的一级密码不一致'));
 		}elseif(strlen($pass1)<6){
-			$this->error(L('一级密码长度不能小于6位！'));
+			$this->error(L('一级密码长度不能小于6位'));
 		}else{
 			$map['pass1']  =md100($pass1);
 		
@@ -37,17 +37,17 @@ class UserAction extends CommonAction {
 		$pwd3Switch=adminshow('pwd3Switch');
 		//二级密码输入验证
 		if($pass2 !== $repass2){
-			$this->error(L('两次输入的二级密码不一致！'));
+			$this->error(L('两次输入的二级密码不一致'));
 		}elseif(strlen($pass2)<6){
-			$this->error(L('二级密码长度不能小于6位！'));
+			$this->error(L('二级密码长度不能小于6位'));
 		}else{
 			$map['pass2']  = md100($pass2);
 		}
 		//三级密码输入验证
 		if($pwd3Switch && $pass3 !== $repass3){
-			$this->error(L('两次输入的三级密码不一致！'));
+			$this->error(L('两次输入的三级密码不一致'));
 		}elseif($pwd3Switch && strlen($pass3)<6){
-			$this->error(L('三级密码长度不能小于6位！'));
+			$this->error(L('三级密码长度不能小于6位'));
 		}elseif($pwd3Switch){
 			$map['pass3']  = md100($pass3);
 		}
@@ -56,14 +56,14 @@ class UserAction extends CommonAction {
 		if($isyanzheng){
 			$verify = S($this->userinfo['编号'].'_修改密码');
 			if(!$verify || $verify != intval(I('post.repwdSms/s')) || I('post.repwdSms/s')==""){
-				$this->error(L('短信验证码错误或已过期!'));
+				$this->error(L('短信验证码错误或已过期'));
 			}
 		}
 		$isyanzhengmail = CONFIG('changePwdmailSwitchyanzheng');
 		if($isyanzhengmail){
 			$verify = S($this->userinfo['编号'].'_修改密码');
 			if(!$verify || $verify != intval(I('post.repwdMail/s')) || I('post.repwdMail/s')==""){
-				$this->error(L('短信验证码错误或已过期!'));
+				$this->error(L('短信验证码错误或已过期'));
 			}
 		}
 		M()->startTrans();
@@ -71,10 +71,10 @@ class UserAction extends CommonAction {
 		$rs	= M('会员')->where($where)->save($map);
 		if($rs === false){
 			M()->rollback();
-			$this->error(L('修改失败！'));
+			$this->error(L('修改失败'));
 		}elseif($rs===0){
 			M()->rollback();
-			$this->error(L('密码没有发生变化！'));
+			$this->error(L('密码没有发生变化'));
 		}else{
 			//写入会员操作日志
 			$authInfo['姓名']=$this->userinfo['姓名'];
@@ -109,7 +109,7 @@ class UserAction extends CommonAction {
 			}
 			//会员修改密码完成
 			M()->commit();
-			$this->success(L('修改成功！'));
+			$this->success(L('修改成功'));
 		}
 	}
 	//资料修改
@@ -275,7 +275,7 @@ class UserAction extends CommonAction {
 			M('log_user')->add($datalog);
 			//写入会员操作日志结束
 			M()->commit();
-			$this->success(L('success_edit_msg'));
+			$this->success(L('修改成功'));
 		}else{
 			M()->rollback();
 			$this->error(L('修改失败'));
@@ -356,10 +356,10 @@ class UserAction extends CommonAction {
 			$result=M("报单")->where(array('id'=>$_GET["id"]))->save(array('物流状态'=>'已发货','发货日期'=>systemTime()));
 			if($result){
 				M()->commit();
-				$this->success("发货成功！");
+				$this->success(L("发货成功"));
 			}else{
 				M()->rollback();
-				$this->error("发货失败！");
+				$this->error(L("发货失败"));
 			}
 		}
 	}
@@ -439,7 +439,7 @@ class UserAction extends CommonAction {
 			}
 			
 			if(!in_array($list['查看权限'],explode(',',$netshuju))){
-				$this->error('无权限查看');
+				$this->error(L('无权限查看'));
 			}
 		}
 		$this ->assign('list',$list);  

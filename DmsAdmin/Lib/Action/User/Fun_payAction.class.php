@@ -36,11 +36,11 @@ class Fun_payAction extends CommonAction
 	{
 		if( I('post.money/f') <= 0 )
 		{
-			$this->error(L('pay_amount'));
+			$this->error(L('请输入支付金额'));
 		}
 		if( I('post.type/s') == '' )
 		{
-			$this->error("请选择充值货币");
+			$this->error(L("请选择充值货币"));
 		}
 		if( I('post.payment/s') == '' )
 		{
@@ -49,7 +49,7 @@ class Fun_payAction extends CommonAction
 				//判断是否有手机号码
 		if(!$this->userinfo['移动电话'])
 		{
-			$this->error('请先到资料里面去完善自己的联系方式');
+			$this->error(L('请先到资料里面去完善自己的联系方式'));
 		}
 		$payment	= $_REQUEST['payment'];
   		$_POST['tel'] = $this->userinfo['移动电话'];

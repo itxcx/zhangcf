@@ -318,7 +318,7 @@ class Huanxun implements PayInterface{
           ."银行号".$this->pBankCode
           ."产品类型".$this->pProductType;
       file_put_contents(PATH_LOG_FILE,date('y-m-d h:i:s').'提交参数信息:'.$reqParam."\r\n",FILE_APPEND);
-        if($pIsCredit==0)
+        if($this->pIsCredit==0)
          {
              $pBankCode="";
              $pProductType='';

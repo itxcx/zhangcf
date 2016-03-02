@@ -29,6 +29,7 @@ class SyncDmsAdminAdminModel
 					$item=$transtr[$i][2];
 					$content=$transtr[$i][3];
 					$transcontent='';
+                    $transname='';
 					eval("\$transname = ".$name.";");
 					if(is_string($transname))
 					{
@@ -108,6 +109,7 @@ class SyncDmsAdminAdminModel
 					$condition=$transtr[$i][1];
 					$content=$transtr[$i][2];
 					$condition   = $this->parseCondition($condition);
+                    $trancondition=null;
 					eval("\$trancondition = ".$condition.";");
 					if($trancondition)
 					{

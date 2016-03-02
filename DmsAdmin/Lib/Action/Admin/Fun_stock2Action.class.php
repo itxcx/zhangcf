@@ -128,7 +128,6 @@ class Fun_stock2Action extends CommonAction
 	public function trade($fun_stock)
 	{
         $list=new TableListAction($fun_stock->name.'交易');
-        $list->setButton = $setButton;
 		$list->order("addtime desc");
         $list->addshow("时间",array("row"=>"[addtime]","searchMode"=>"date","format"=>"time","order"=>"时间"));
         $list->addshow("买入编号",array("row"=>"[买入编号]","searchMode"=>"text","excelMode"=>"text","order"=>"编号","searchPosition"=>"top"));  
@@ -142,7 +141,6 @@ class Fun_stock2Action extends CommonAction
 	public function saleList($fun_stock)
 	{
         $list=new TableListAction($fun_stock->name.'交易');
-        $list->setButton = $setButton;
 		$list->order("时间 desc");
         $list->addshow("时间",array("row"=>"[时间]","searchMode"=>"date","format"=>"time","order"=>"时间"));
         $list->addshow("会员编号",array("row"=>"[编号]","searchMode"=>"text","excelMode"=>"text","order"=>"编号","searchPosition"=>"top"));  
@@ -156,7 +154,6 @@ class Fun_stock2Action extends CommonAction
 	public function splitList($fun_stock)
 	{
         $list=new TableListAction($fun_stock->name.'拆股');
-        $list->setButton = $setButton;
 		$list->order("addtime desc");
         $list->addshow("时间",array("row"=>"[addtime]","searchMode"=>"date","format"=>"time","order"=>"addtime"));
         $list->addshow("拆股价格",array("row"=>"[price1]","searchMode"=>"text","excelMode"=>"text"));  
@@ -170,7 +167,6 @@ class Fun_stock2Action extends CommonAction
 	public function stockHave($fun_stock)
 	{
         $list=new TableListAction($fun_stock->name.'持有');
-        $list->setButton = $setButton;
 		$list->order("addtime desc");
         $list->addshow("时间",array("row"=>"[addtime]","searchMode"=>"date","format"=>"time","order"=>"addtime"));
         $list->addshow("会员编号",array("row"=>"[编号]","searchMode"=>"text","excelMode"=>"text","order"=>"编号","searchPosition"=>"top"));  
@@ -189,7 +185,6 @@ class Fun_stock2Action extends CommonAction
 	public function record($fun_stock)
 	{
         $list=new TableListAction($fun_stock->name.'流水');
-        $list->setButton = $setButton;
 		$list->order("id asc");
         $list->addshow("时间",array("row"=>"[addtime]","searchMode"=>"date","format"=>"time","order"=>"时间"));
 		$list->addshow("类型",array("row"=>array(array(&$this,"tradetype"),"[type]"),"searchMode"=>"text","searchPosition"=>"top",'searchRow'=>'[type]',"searchSelect"=>array('增加'=>2,"减少"=>1))); 
@@ -279,7 +274,7 @@ class Fun_stock2Action extends CommonAction
 			   $rs=$user_model->where('编号='.$data['编号'])->save(array($fun_stock->name=>array('exp',$fun_stock->name.'+'.$data['num'])));
 			   if($rs){
 				   $data['addtime']=systemTime();
-					  $fun_stock->setrecord($data['编号'],$fun_stock->stockPrice(),$data['num'],$this->userobj->byname.$data['编号']."后台充值".$data['num']."股",3);
+					  $fun_stock->setrecord($data['编号'],$fun_stock->stockPrice(),$data['num'],$this->userobj->byname.$data['编号']."后台充值".$data['num']."股",2);
 					  M()->commit();
 		              $this->success("添加".$fun_stock->byname.'成功');
 	            	}else{
@@ -439,7 +434,7 @@ class Fun_stock2Action extends CommonAction
 			$this->error('数量不合法');
 		}
 		
-		$fun_stock->setrecord($user['编号'],0,$num,I("post.account/s"),I("post.memo/s"),2,true,false);
+		$fun_stock->setrecord($user['编号'],0,$num,I("post.account/s"),I("post.memo/s"),2);
 		M()->commit();
 		$this->success('成功');
 	}	

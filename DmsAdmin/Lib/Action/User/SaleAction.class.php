@@ -785,10 +785,10 @@ class SaleAction extends CommonAction {
 					$saleData=M("报单")->where($map)->lock(true)->find();
 					if($saleData['报单状态']!="空单"){
 						if($saleData['报单状态']=="回填" && $type=="回填转正"){
-							$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已成为回填单"));
+							$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已成为回填单)");
 						}
 						if($saleData['报单状态']!="回填"){
-							$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已回填完成"));
+							$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已回填完成)");
 						}
 					}
 					//申请记录的状态判断
@@ -798,7 +798,7 @@ class SaleAction extends CommonAction {
 					$where['编号']=$saleData['编号'];
 					$applydata=M("申请回填")->where($where)->find();
 					if(isset($applydata)){
-						$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已有申请提交等待审核或者已申请过".$type));
+						$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已有申请提交等待审核或者已申请过)".$type);
 					}
 					//保存申请记录
 					$data=array(

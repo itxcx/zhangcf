@@ -1,7 +1,8 @@
-<if condition="($sale:extra eq true) or (count($area) gt 0)"><script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script></if>
+<if condition="($sale:extra eq true) or (count($area) gt 0)">
 <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
 <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
 <script src="__PUBLIC__/areaselect/areaselect.js"></script>
+</if>
 <div class="core_main Sale" id="up">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
@@ -96,10 +97,6 @@
                                 <div class="location-box arrow-bg">
                                 </div>
                             </div>
-                            <script>
-                                $.areaSelect('#address-box', '__PUBLIC__/areaselect');
-                                $.areaSelect('#address-box2', '__PUBLIC__/areaselect');
-                            </script>
                         </td>
                     </tr>
                 
@@ -213,22 +210,10 @@ function tijiao(){
 	}
 }
 <if condition="(count($area) gt 0)">
-	$.area_default_show=true;
-	//$.area_default_country		= "{$userinfo['代理国家']}";
-	//$.area_default_province		= "{$userinfo['代理省份']}";
-	//$.area_default_city			= "{$userinfo['代理城市']}";
-	//$.area_default_county		= "{$userinfo['代理地区']}";
-	//$.area_default_town			= "{$userinfo['代理街道']}";
-	$.area_select_bind( 'country_id1' , 'province_id1' , 'city_id1' , 'county_id1','town_id1' );
+    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
 </if>
 <if condition="($sale:extra eq true)">
-	$.area_default_show=true;
-	$.area_default_country		= "{$userinfo['国家']}";
-	$.area_default_province		= "{$userinfo['省份']}";
-	$.area_default_city			= "{$userinfo['城市']}";
-	$.area_default_county		= "{$userinfo['地区']}";
-	$.area_default_town			= "{$userinfo['街道']}";
-	$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id' );
+    $.areaSelect('#address-box2', '__PUBLIC__/areaselect');
 </if>
 
 </script>

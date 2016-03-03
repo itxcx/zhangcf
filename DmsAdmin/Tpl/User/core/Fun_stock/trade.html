@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_pay" id="paylist">
 <div class="core_title"> <span class="core_title_con">当前位置：{$stockName}买入/卖出</span></div>
 <div class="core_con">
@@ -118,27 +119,27 @@ function sh(type){
 	var con=true;
 	if((num<0 || num=='')){
 		con=false;
-		alert("{:L('数量输入有误')}");
+        layer.alert("{:L('数量输入有误')}", {title: '提示', btn: '确定'});
 		return;
 	}
 	if((price<0 || price=='')){
 		con=false;
-		alert("{:L('单价输入有误')}");
+        layer.alert("{:L('单价输入有误')}", {title: '提示', btn: '确定'});
 		return;
 	}
 	if(pass==''){
 		con=false;
-		alert("{:L('请输入交易密码')}");
+        layer.alert("{:L('请输入交易密码')}", {title: '提示', btn: '确定'});
 		return;
 	}
 	if(input){
 		if(price<lowprice && lowprice>0){
 			con=false;
-			alert("{:L('交易价格')}{:L('不能低于')}"+lowprice);
+            layer.alert("{:L('交易价格')}{:L('不能低于')}"+lowprice, {title: '提示', btn: '确定'});
 			return;
 		}else if(price>highprice  && highprice>0){
 			con=false;
-			alert("{:L('交易价格')}{:L('不能高于')}"+highprice);
+            layer.alert("{:L('交易价格')}{:L('不能高于')}"+highprice, {title: '提示', btn: '确定'});
 			return;
 		}
 	}

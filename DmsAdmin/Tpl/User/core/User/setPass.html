@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main User" id="setPass">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
@@ -89,10 +90,10 @@ function time(o) {
             
             eval('var data='+data);
             if(data.status == 1){
-                alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
             }else{
                 wait=0;
-                alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
             }
         });
         sta = false;
@@ -124,10 +125,10 @@ function mtime(o) {
             
             eval('var data='+data);
             if(data.status == 1){
-                alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
             }else{
                 mwait=0;
-                alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
             }
         });
         msta = false;

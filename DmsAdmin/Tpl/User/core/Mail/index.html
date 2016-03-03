@@ -1,9 +1,10 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Mail" id="index">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
-        <table class="tablebg" onmouseover="changeto()"  onmouseout="changeback()">
+        <table class="tablebg">
             <tr class="datafield">
                 <th ><nobr>{:L('标题')}</nobr></th>
                 <th ><nobr>{:L('收件时间')}</nobr></th>
@@ -15,7 +16,7 @@
                 <td ><nobr>{$vo.标题}</nobr></td>
                 <td ><nobr>{:date('Y-m-d H:i:s',$vo['发送时间'])}</nobr></td>
                 <td ><if condition="$vo['状态'] eq 0">{:L('未查看')}<elseif condition="$vo['状态'] eq 1"/>{:L('已查看')}<else/>{:L('已回复')}</if></td>
-                <td ><a href="__GROUP__/Mail/view/id/{$vo.id}">{:L('view')}</a>&nbsp;<a  href="__GROUP__/Mail/del/id/{$vo.id}" onclick="return confirm('确定要删除吗?')">{:L('delete')}</a><neq name="vo.状态" value="2">&nbsp;<a href="__GROUP__/Mail/answer/id/{$vo.id}">{:L('回复')}</a></neq></td>
+                <td ><a href="__GROUP__/Mail/view/id/{$vo.id}">{:L('view')}</a>&nbsp;<a href="javascript: laConfirm('__GROUP__/Mail/del/id/{$vo.id}')">{:L('delete')}</a><neq name="vo.状态" value="2">&nbsp;<a href="__GROUP__/Mail/answer/id/{$vo.id}">{:L('回复')}</a></neq></td>
             </tr>
             </foreach>    
         </table>
@@ -46,6 +47,14 @@
 	    <else/><span>{:L('尾页')}</span>
 	    </if>  
     </div>   
+	<script>
+        function laConfirm(url) {
+            layer.confirm("{:L('确定要删除吗')}?", {title:'提示',btn: ['确认', '取消']}, function(index){ 
+                window.location.href = url;
+                layer.close(index); 
+            })
+        }
+    </script>
 </div>
 
 

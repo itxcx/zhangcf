@@ -191,7 +191,7 @@ class ShengPay implements PayInterface{
 			$PayChannel = $this->PayChannel;
 			$PayType= $this->PayType;
 		}
-	
+	    $serverPort			= $_SERVER['SERVER_PORT'];
 		$pageUrl = $this->pageUrl=='' ? 'http://'.$_SERVER['SERVER_NAME'].($serverPort!=80?":{$serverPort}":'').$_SERVER['REQUEST_URI'] : $this->pageUrl;
 		
 		$array=array(
@@ -217,8 +217,6 @@ class ShengPay implements PayInterface{
 	
 		$this->init($array);
 		$this->setKey($this->password);
-		
-	
 		$this->cancel_url	= 'http://'.$_SERVER['SERVER_NAME'].($serverPort!=80?":{$serverPort}":'');
 		$this->params['OrderNo']=$this->orderId;
 		$this->params['OrderAmount']=$this->amount;

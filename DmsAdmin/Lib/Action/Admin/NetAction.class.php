@@ -20,6 +20,7 @@ class NetAction extends CommonAction
 	*/
 	public function editLog(){
 		$list=new TableListAction('log_user');
+        $list->editList=false;
 		$list->table("dms_log_user as a");
 		$list->field('a.id,user_id,content,a.create_time,编号,admin_id,c.account')->where("content like '移动%'");
 		$list->join('dms_会员 as b on a.user_id=b.id');
@@ -30,10 +31,10 @@ class NetAction extends CommonAction
 		$list->setButton = $button;
 		$list->showPage=true;
 		
-		$list->addshow("操作人编号",array("row"=>'[account]'));
-		$list->addshow("会员编号",array("row"=>'[编号]'));
-		$list->addshow("修改内容",array("row"=>'[content]'));
-		$list->addshow("修改时间",array("row"=>"date('Y-m-d H:i:s',[create_time])"));
+		$list->addshow("操作人编号",array("row"=>'[account]',"searchMode"=>"text",'searchRow'=>'c.account',"searchPosition"=>"top"));
+		$list->addshow("会员编号",array("row"=>'[编号]',"searchMode"=>"text",'searchRow'=>'b.编号',"searchPosition"=>"top"));
+		$list->addshow("修改内容",array("row"=>'[content]',"searchMode"=>"text",'searchRow'=>'a.content',"searchPosition"=>"top"));
+		$list->addshow("修改时间",array("row"=>"date('Y-m-d H:i:s',[create_time])","searchMode"=>"date",'searchRow'=>'a.create_time',"searchPosition"=>"top"));
 		$this->assign('list',$list->getHtml());
 		$this->display();
 	}

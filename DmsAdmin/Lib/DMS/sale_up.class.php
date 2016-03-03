@@ -314,10 +314,10 @@
 			$paymoney	     = $this->getPayMoney($option,$sdata);
 			$sdata["accbank"]="";$sdata["accokstr"]="";
 			//生成支付的数据
-			if(isset($data['paycons'])){
+			if(isset($option['paycons'])){
 				$accbankObj = X("accbank@".$this->accBank);
 				if(isset($accbankObj)){
-					$sdata["accbank"]=$accbankObj->makejson($data['paycons']);
+					$sdata["accbank"]=$accbankObj->makejson($option['paycons']);
 				}
 			}
 			$sdata["实付款"] = $paymoney;

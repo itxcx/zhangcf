@@ -238,8 +238,8 @@ class UserAction extends CommonAction {
 			}
 		}
 
-		$where['id']	= $_SESSION['userid'];
-		$updateuser = $model->find($_SESSION['userid']);
+		$where['id']	= $_SESSION[C('USER_AUTH_KEY')];
+		$updateuser = $model->find($_SESSION[C('USER_AUTH_KEY')]);
 		if(I("post.pass2/s",'!!noeditpass!!')!="!!noeditpass!!"){
 			$userDate = $model->where($where)->find();
 			if(!chkpass(I("post.pass2/s"),$userDate['pass2'])){

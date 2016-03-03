@@ -1,0 +1,102 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-image: url(../images/bg.jpg);
+    background-color: #b7d595;
+    background-repeat: repeat-x;
+}
+.content {
+    margin: 0 auto;
+    width: 1000px;
+    height: 600px;
+    background: url(../images/contentbg.jpg) repeat-x;
+}
+.logform {
+    margin-left: 305px;
+    padding-top: 200px;
+    width: 380px;
+    height: 360px;
+    color: #fff;
+}
+.logform h3 {
+    width: 100%;
+    height: 50px;
+    font: normal 12px/50px simson;
+    text-align: center;
+    color: #333;
+}
+.form {
+    width: 100%;
+    height: 225px;
+    background: url(../images/formbg.jpg) no-repeat;
+}
+.form h2 {
+    text-indent: 20px;
+    text-shadow: 2px 2px 2px #000;
+    font: normal 13px/45px simson;
+    color: #fff;
+}
+.formtable {
+    margin-top: 10px;
+    width: 100%;
+    color: #27660b;
+    letter-spacing: 1px;
+    font: normal 12px/30px simson;
+}
+.formtable input {
+    border: 1px solid #a1a0a0;
+    height: 18px;
+    width: 150px;
+    text-indent: 2px;
+}
+.title {
+    width: 100px;
+    padding-right: 10px;
+    height: 30px;
+    text-align: right;
+}
+.formtable .captcha {
+    width: 80px;
+}
+#verifyImg {
+    position: relative;
+    top: 6px;
+    left: -4px;
+    width: 65px;
+    height: 20px;
+    cursor: pointer;
+}
+.capt2 {
+    height: 10px;
+}
+.subbtn span {
+    text-align: center;
+}
+.subbtn button {
+    display: block;
+    float: left;
+    width: 55px;
+    height: 22px;
+    font: normal 12px/20px simson;
+    color: #c4f790;
+    background: #5f9b29;
+    border: 1px solid #a1a0a0;
+    cursor: pointer;
+}
+.subbtn button:hover {
+    font-weight: bold;
+}
+.res {
+    margin-left: 20px;
+}
+.forget td {
+    padding-top: 12px;
+    text-align: right;
+}
+.forget td a {
+    text-decoration: none;
+}
+

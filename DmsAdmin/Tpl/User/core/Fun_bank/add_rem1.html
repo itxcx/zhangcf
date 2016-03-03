@@ -1,5 +1,5 @@
 <load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
-<load href="__PUBLIC__/jquery-1.9.1.min.js" />
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="add_rem">
 	<div class="core_title">
     	<span class="core_title_con">当前位置：添加汇款通知</span>
@@ -87,31 +87,31 @@
 <script type="text/javascript"> 
 function tijiao(){
     if($('#bank').val()==''){
-        alert("请输入开户银行！");
+		layer.alert('请输入开户银行！', {title: '提示', btn: '确定'});
 		$('#bank').focus();
 		return false;
     }
 	if($('#bank_no').val()=='')
 	{
-		alert("请输入银行卡号！");
+		layer.alert('请输入银行卡号！', {title: '提示', btn: '确定'});
 		$('#bank_no').focus();
 		return false;
 	}
 	if($('#money').val()=='')
 	{
-		alert("请输入汇款金额！");
+		layer.alert('请输入汇款金额！', {title: '提示', btn: '确定'});
 		$('#money').focus();
 		return false;
 	}
     if(isNaN($('#money').val()))
 	{
-		alert("汇款金额必须为数字！");
+		layer.alert('汇款金额必须为数字！', {title: '提示', btn: '确定'});
 		$('#money').focus();
 		return false;
 	}
 	if($('#giveTime').val()=='')
 	{
-		alert("请输入汇款时间！");
+		layer.alert('请输入汇款时间！', {title: '提示', btn: '确定'});
 		$('#giveTime').focus();
 		return false;
 	}

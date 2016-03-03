@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="give">
 	<div class="core_title">
     	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
@@ -173,8 +174,8 @@ function giveType(id)
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("网络异常!");
+			layer.alert(data, {title: '提示', btn: '确定'});
+            layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }
@@ -225,8 +226,8 @@ function giveAjax(id)
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("网络异常!");
+			layer.alert(data, {title: '提示', btn: '确定'});
+            layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }
@@ -261,9 +262,9 @@ function giveAjax(id)
 	        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
 	          eval('var data='+data);
 	          if(data.status == 1){
-	            alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
 	          }else{
-	            alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
 	          }
 	        });
 	        sta = false;

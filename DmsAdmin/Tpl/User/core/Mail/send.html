@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Mail" id="send">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
@@ -36,23 +37,25 @@
 </div>
 
 <script type="text/javascript">
+/*
 $(function(){
 KindEditor.create($("#content_1"), {
 	allowFileManager : true,
 	afterBlur: function(){this.sync();}
 });
 })
+*/
 function form_check()
 {
 	if($('#title').val()=='')
 	{
-		alert('请输入标题！');
+        layer.alert('请输入标题！', {title: '提示', btn: '确定'});
 		$('#title').focus();
 		return false;
 	}
 	if($('#content_1').val()=='')
 	{
-		alert('请输入内容！');
+        layer.alert('请输入内容！', {title: '提示', btn: '确定'});
 		$('#content_1').focus();
 		return false;
 	}

@@ -4,6 +4,7 @@ tr,td{vertical-align:top;padding-top:3px;}
 <link rel="stylesheet" href="__PUBLIC__/stock/css/demo.css" type="text/css" media="screen">
 <script src="__PUBLIC__/stock/js/raphael.js"></script>
 <script src="__PUBLIC__/stock/js/popup.js"></script>
+<load href="__PUBLIC__/layer/layer.js" />
 <!--浮动的线条和数字-->
 <!-- <script src="__PUBLIC__/stock/js/jquery.js"></script> -->
 <script src="__PUBLIC__/stock/js/analytics.js"></script>
@@ -121,13 +122,21 @@ tr,td{vertical-align:top;padding-top:3px;}
 		<td class="center nbo">{:(number_format($list['挂单总量']*$list['挂单价'],$decimalLen))}</td>
 		<td class="center nbo">{$list.状态}</td>
 		<td class="center nbo"><!-- AND ($list['type'] eq 2) AND ($list['type'] eq 1)-->
-		<if condition="($list['剩余量'] gt 0) AND ($list['状态'] eq 0) AND ($stockBuycancel eq true)"><button class="button_orange_c" onclick="if(confirm('{:L('确定撤销该订单吗')}')) window.location.href='__GROUP__/Fun_stock/stockcancel:__XPATH__/id/{$list.id}'">{:L('撤销')}</button></if>
+		<if condition="($list['剩余量'] gt 0) AND ($list['状态'] eq 0) AND ($stockBuycancel eq true)"><button class="button_orange_c" onclick="laConfirm('__GROUP__/Fun_stock/stockcancel:__XPATH__/id/{$list.id}')">{:L('撤销')}</button></if>
 		</td>
 	</tr>
 	</foreach>
 	</notempty >
 	</tbody>
 	</table>
+	<script>
+        function laConfirm(url) {
+            layer.confirm("{:L('确定撤销该订单吗')}?", {title:'提示',btn: ['确认', '取消']}, function(index){ 
+                window.location.href = url;
+                layer.close(index); 
+            })
+        }
+    </script>
 </div>
 </div>
 </div>

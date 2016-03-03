@@ -4,6 +4,7 @@ tr,td{vertical-align:top;padding-top:3px;}
 <link rel="stylesheet" href="__PUBLIC__/stock/css/demo.css" type="text/css" media="screen">
 <script src="__PUBLIC__/stock/js/raphael.js"></script>
 <script src="__PUBLIC__/stock/js/popup.js"></script>
+<load href="__PUBLIC__/layer/layer.js" />
 <!--浮动的线条和数字-->
 <!-- <script src="__PUBLIC__/stock/js/jquery.js"></script> -->
 <script src="__PUBLIC__/stock/js/analytics.js"></script>
@@ -142,13 +143,13 @@ function sh(type){
 	var con=true;
 	if((num<0 || num=='') && type!='sell'){
 		con=false;
-		alert("{:L('交易数量')}{:L('不合法')}");
+		layer.alert("{:L('交易数量')}{:L('不合法')}", {title: '提示', btn: '确定'});
 		return;
 	}
 	if(price<startprice  && type!='sell'){
-    con=false;
-	alert("{:L('交易价格')}{:L('不能低于')}"+startprice);
-	return;
+        con=false;
+        layer.alert("{:L('交易价格')}{:L('不能低于')}"+startprice, {title: '提示', btn: '确定'});
+        return;
 	}
 	if(con){
 		if(model =='buy'){

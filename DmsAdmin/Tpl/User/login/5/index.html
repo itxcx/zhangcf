@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 <!--
@@ -53,17 +53,17 @@ function fleshVerify(type){
             border=0>
               <TBODY>
               <TR>
-                <TD align=middle width=81><FONT color=#ffffff>用户名：</FONT></TD>
-                <TD><INPUT maxLength=16 size=16 type=text name="username" id="username" title="请填写用户名"></TD></TR>
+                <TD align=middle width=81><FONT color=#ffffff>{:L('用户名')}：</FONT></TD>
+                <TD><INPUT maxLength=16 size=16 type=text name="username" id="username" title="{:L('请填写用户名')}"></TD></TR>
               <TR>
                 <TD align=middle width=81><FONT 
-                  color=#ffffff>密&nbsp; 码：</FONT></TD>
-                <TD><INPUT maxLength=16 size=16 type=password name="password" id="password" title="请填写密码"></TD></TR>
+                  color=#ffffff>{:L('密码')}：</FONT></TD>
+                <TD><INPUT maxLength=16 size=16 type=password name="password" id="password" title="{:L('请填写密码')}"></TD></TR>
 				<if condition="isset($dispCode) and ($dispCode eq true)">
 				<TR>
 			
-                <TD align=middle width=81><FONT color=#ffffff>验证码：</FONT></TD>
-                <TD><INPUT maxLength="4" size=4 type=text name="captcha" id="verify"  title="请填写验证码"> &nbsp; <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> &nbsp; &nbsp;
+                <TD align=middle width=81><FONT color=#ffffff>{:L('验证码')}：</FONT></TD>
+                <TD><INPUT maxLength="4" size=4 type=text name="captcha" id="verify"  title="{:L('请填写验证码')}"> &nbsp; <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> &nbsp; &nbsp;
               
                
                 </TD></TR>
@@ -84,10 +84,10 @@ function fleshVerify(type){
     <TD rowSpan=3><IMG height=180 alt="" src="UserTpl/login/5/crm_16.gif" 
     width=24></TD>
     <TD><INPUT type=image height=48 alt="" width=86 
-      src="UserTpl/login/5/crm_17.gif" title="登录后台" name="image"></TD>
+      src="UserTpl/login/5/crm_17.gif" title="{:L('登录后台')}" name="image"></TD>
     <TD><IMG height=48 alt="" src="UserTpl/login/5/crm_18.gif" width=21></TD>
     <TD colSpan=2><a href="#"><img border=0 height=48 alt="" 
-      width=84 src="UserTpl/login/5/crm_19.gif" title="返回首页"></a></TD>
+      width=84 src="UserTpl/login/5/crm_19.gif" title="{:L('返回首页')}"></a></TD>
     <TD><IMG height=48 alt="" src="UserTpl/login/5/crm_20.gif" 
 
   width=101></TD></TR>
@@ -119,6 +119,6 @@ function fleshVerify(type){
 
 </TABLE>
 </FORM>
-<div align="center" class="STYLE1" style="margin-top:50px;font-size:12px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="margin-top:50px;font-size:12px"><span>{:L($openTimeStr)}</span></div>
 </BODY>
 </HTML>

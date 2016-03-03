@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="IE=EmulateIE8" http-equiv="X-UA-Compatible">
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <link href="UserTpl/login/31/imgs/login.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 <!--
@@ -34,7 +34,7 @@ function fleshVerify(type){
       
       <p>
         <input name="captcha"  id="captcha" maxlength="4" value=""  class="logininput2">
-        <span style="padding-left:20px;">	<img width="82" height="38" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </span>
+        <span style="padding-left:20px;">	<img width="82" height="38" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </span>
         </p>
      
       <if condition="$usernum eq 1">
@@ -43,7 +43,7 @@ function fleshVerify(type){
       <div onclick="$(this).closest(&#39;form&#39;).submit()" class="longinbtn"></div>
     </form>
     <div class="spacing5"></div>
-    <div class="copy"> Copyright © 2013-2014 版权所有</div>
+    <div class="copy"> Copyright © 2013-2014 {:L('版权所有')}</div>
   </div>
 </div>
 </body>

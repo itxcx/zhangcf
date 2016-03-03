@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 body{margin:0; background:url(UserTpl/login/8/bg.jpg); text-align:center; font-size:12px;}
 .centerbj{width:496px; height:458px; margin:0 auto; background-image:url(UserTpl/login/8/centerbg.jpg); margin-top: 184px; margin-bottom:10px;}
@@ -46,13 +46,13 @@ function fleshVerify(type){
 <tr>
 <td height="32"></td>
 <td align="left" width="162"><input type="password" autocomplete="off" style="width:150px;" name="password" id="password" class="inputclass" /></td>
-<td rowspan="2" align="left"><eq name="isOpenTime" value="0"><span style="color:#000">该时间段暂不可访问</span><else/><input type="image" src="UserTpl/login/8/submit.gif" /><span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span></eq></td>
+<td rowspan="2" align="left"><eq name="isOpenTime" value="0"><span style="color:#000">{:L('该时间段暂不可访问')}</span><else/><input type="image" src="UserTpl/login/8/submit.gif" /><span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span></eq></td>
 </tr>
 
 <tr>
 <td height="32"></td>
 <td align="left"><input name="captcha" id="verify" type="text" maxlength="4" style="width:80px;" class="inputclass" />
-  <span style="color:#333">  &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></span> </td>
+  <span style="color:#333">  &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></span> </td>
 </tr>
 
 <if condition="$usernum eq 1">
@@ -65,6 +65,6 @@ function fleshVerify(type){
 </table>
 </form>
 </div>
-<div align="center" class="STYLE1" style="margin-top:50px;font-size:12px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="margin-top:50px;font-size:12px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

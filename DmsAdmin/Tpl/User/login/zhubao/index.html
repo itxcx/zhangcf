@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>登录_福财珠宝公司</title>
+        <title>{:L('登录_福财珠宝公司')}</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <!--常用CSS-->
@@ -409,7 +409,7 @@
                                 <a href="http://zhubao.wzjianshe.com/" class=>
                                 <div style="margin-top: 0px;">
                                     <p>
-                                        <span>HOME</span><font>首页</font>
+                                        <span>HOME</span><font>{:L('首页')}</font>
                                     </p>
                                 </div> </a>
                             </li>
@@ -418,7 +418,7 @@
                                 <a href="http://zhubao.wzjianshe.com/about/">
                                 <div style="margin-top: 0px;">
                                     <p>
-                                        <span>ABOUT</span>福财
+                                        <span>ABOUT</span>{:L('福财')}
                                     </p>
                                 </div> </a>
                             </li>
@@ -427,7 +427,7 @@
                                 <a href="http://zhubao.wzjianshe.com/products/">
                                 <div style="margin-top: 0px;">
                                     <p>
-                                        <span>PRODUCTS</span>产品
+                                        <span>PRODUCTS</span>{:L('产品')}
                                     </p>
                                 </div> </a>
                             </li>
@@ -436,7 +436,7 @@
                                 <a href="http://zhubao.wzjianshe.com/company/">
                                 <div style="margin-top: 0px;">
                                     <p>
-                                        <span>COMPANY</span>公司
+                                        <span>COMPANY</span>{:L('公司')}
                                     </p>
                                 </div> </a>
                             </li>
@@ -445,7 +445,7 @@
                                 <a href="http://zhubao.wzjianshe.com/news/">
                                 <div style="margin-top: 0px;">
                                     <p>
-                                        <span>NEWS</span>动态
+                                        <span>NEWS</span>{:L('动态')}
                                     </p>
                                 </div> </a>
                             </li>
@@ -453,7 +453,7 @@
                                 <a href=''>
                                 <div style='margin-top: 0px;'>
                                     <p>
-                                        <span>JOB</span>招聘
+                                        <span>JOB</span>{:L('招聘')}
                                     </p>
                                 </div></a>
                             </li>
@@ -462,7 +462,7 @@
                                 <div style="margin-top: 0px;">
                                     <p>
                                         <span>CONTACT</span>
-                                    </p><font>联系</font>
+                                    </p><font>{:L('联系')}</font>
                                 </div></a>
                             </li>
                             <li>
@@ -470,7 +470,7 @@
                                 <div style="margin-top: 0px;">
                                     <p>
                                         <span>LOGIN</span>
-                                    </p><font>会员登录</font>
+                                    </p><font>{:L('会员登录')}</font>
                                 </div></a>
                             </li>
 
@@ -481,10 +481,10 @@
                             <a href="http://zhubao.wzjianshe.com/section-5"> <img src="UserTpl/login/zhubao/images/tel-icoo.png" alt="" /> <span>00852-81912127</span> </a>
                         </li>
                         <li>
-                            <a href="UserTpl/login/zhubao/"> <img src="UserTpl/login/zhubao/images/tel-ico2o.png" alt="" /> <span>招聘小伙伴</span> </a>
+                            <a href="UserTpl/login/zhubao/"> <img src="UserTpl/login/zhubao/images/tel-ico2o.png" alt="" /> <span>{:L('招聘小伙伴')}</span> </a>
                         </li>
                         <li>
-                            <a href="http://wpa.qq.com/msgrd?v=3&uin=2493509674&site=qq&menu=yes" target="blank"> <img src="UserTpl/login/zhubao/images/tel-ico3o.png" alt="" /> <span>点击在线咨询</span> </a>
+                            <a href="http://wpa.qq.com/msgrd?v=3&uin=2493509674&site=qq&menu=yes" target="blank"> <img src="UserTpl/login/zhubao/images/tel-ico3o.png" alt="" /> <span>{:L('点击在线咨询')}</span> </a>
                         </li>
 
                     </ul>
@@ -495,26 +495,26 @@
                     <div class="left">
                         <img src="UserTpl/login/zhubao/images/left.png" height="350" width="450">
                         <div class="l_txt">
-                            <h1>福财复利登录入口</h1>
+                            <h1>{:L('福财复利登录入口')}</h1>
                             <p>
-                                输入您的账号以及密码，登录福财复利系统。
+                                {:L('输入您的账号以及密码，登录福财复利系统。')}
                             </p>
                         </div>
                     </div>
                     <div class="right">
-                        <h1>福财复利系统</h1>
+                        <h1>{:L('福财复利系统')}</h1>
                         <div class="form_box">
                             <form name="form1" method="post" action="__URL__/check">
                                 <input type="hidden" name="act" value="verify" />
                                 <div class="td_txt">
-                                    输入您的用户名
+                                    {:L('输入您的用户名')}
                                 </div>
                                 <div class="txt_input">
                                     <input name="username" class="form_01" placeholder="Usename" type="text">
                                 </div>
 
                                 <div class="mm">
-                                    输入您的密码
+                                    {:L('输入您的密码')}
                                 </div>
                                 <div class="txt_input">
                                     <input name="password" placeholder="Password" class="form_01" type="password" autocomplete="off">
@@ -524,19 +524,19 @@
                                 <if condition="isset($dispCode) and ($dispCode eq true)">
                                 <div class="yzm">
                                     <div class="mm">
-                                        输入验证码
+                                        {:L('输入验证码')}
                                     </div>
                                     <input id="vdcode" name="validate" class="yzm-1" type="text">
-                                    <img id="vdimgck" onClick="fleshVerify()" style="cursor: pointer;" alt="看不清？点击更换" src="__URL__/verify/" align="absmiddle"><a href="#" onClick="fleshVerify()" style="color:#666;">看不清楚</a>
+                                    <img id="vdimgck" onClick="fleshVerify()" style="cursor: pointer;" alt="看不清？点击更换" src="__URL__/verify/" align="absmiddle"><a href="#" onClick="fleshVerify()" style="color:#666;">{:L('看不清楚')}</a>
                                 </div>
                                 </if>
                                 
                                 <div class="txt_input">
                                 <eq name="isOpenTime" value="0">
-                                    对不起，该时间段暂不可访问
+                                    {:L('对不起，该时间段暂不可访问')}
                                     <else/>
-                                    <input name="提交" value="登录" class="form_02" type="submit">
-                                    <a href="#">忘记密码？</a>
+                                    <input name="提交" value="{:L('登录')}" class="form_02" type="submit">
+                                    <a href="#">{:L('忘记密码')}？</a>
                                 </eq>
                                 </div>
                                 
@@ -547,9 +547,9 @@
                         </div>
                         <div class="help_box">
                             <p>
-                                提示：请妥善保管好注册时填写的邮箱，<a href="#">遗忘密码？</a>
+                                {:L('提示：请妥善保管好注册时填写的邮箱')}，<a href="#">{:L('遗忘密码')}？</a>
                                 <br>
-                                请使用<a href="#">忘记密码？</a>找回
+                                {:L('请使用')}<a href="#">{:L('忘记密码')}</a>{:L('找回')}
                             </p>
                         </div>
                     </div>
@@ -557,11 +557,11 @@
                 </div>
                 <div class="work-foot" style="margin-top:0px;">
                     <div class="foot-content2 clearfix">
-                        <span class="fl">有心意 更有新意</span>
+                        <span class="fl">{:L('有心意 更有新意')}</span>
                         <div class="fl clearfix" style="margin-left:47px;">
                             <a target="blank" class="QQ-ico2" href="http://wpa.qq.com/msgrd?v=3&uin=2493509674&site=qq&menu=yes" title="Q我吧"></a><a href="javascript:void(0);" class="WX-ico2"></a><a href="http://zhubao.wzjianshe.com/" target="_blank" class="WB-ico2"></a>
                         </div>
-                        <span class="fr m_wnews clearfix"> <span class="fl">欢迎拨打</span> <span id="miniNewsRegion" class="fl" style="line-height:20px; margin-top:40px;">
+                        <span class="fr m_wnews clearfix"> <span class="fl">{:L('欢迎拨打')}</span> <span id="miniNewsRegion" class="fl" style="line-height:20px; margin-top:40px;">
                                 <div>
                                     &nbsp;&nbsp;00852-81912127
                                 </div> <div></div> </span>
@@ -579,7 +579,7 @@
 
                         </script>
                     </div>
-                    <span class="foot-font2">Copyright &copy; 福财珠宝公司 版权所有 粤ICP备11089992号-1</span>
+                    <span class="foot-font2">Copyright &copy; {:L('福财珠宝公司')} {:L('版权所有')} {:L('粤ICP备11089992号-1')}</span>
                 </div>
 
             </div>

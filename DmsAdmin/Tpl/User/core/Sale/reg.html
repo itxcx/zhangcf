@@ -9,7 +9,7 @@
                 <table class="tablebg" id="table1">
                     {//{:L('会员编号')}}
                     <tr>
-                        <td class="tbkey" >{$user:byname}编号：</td>
+                        <td class="tbkey" >{$user:byname}{:L('编号')}：</td>
                         <td class="tbval" ><if condition="($user:idEdit eq true) and ($user:idAutoEdit eq true)"><input type="text" value="{$userid}" name="userid" id="userid"/>
                             <elseif condition="($user:idAutoEdit eq true)"/>{$userid}<else/><input type="text" value="" name="userid" id="userid"/></if><span class="msg" id="state_userid" style="color: red"></span></td>
                     </tr>
@@ -58,7 +58,7 @@
                     <tr>
                         <td class="tbkey" >{:L('性别')}：</td>
                         <td class="tbval" >
-                            <span><input type="radio" name="sex" value="男" checked/>男<input type="radio" name="sex" value="女" />女</span>
+                            <span><input type="radio" name="sex" value="{:L('男')}" checked/>{:L('男')}<input type="radio" name="sex" value="{:L('女')}" />{:L('女')}</span>
                             &nbsp;&nbsp;<span class="msg" id="state_sex"><if condition="in_array('sex',$require) eq true ">*</if></span>
                         </td>
                     </tr>

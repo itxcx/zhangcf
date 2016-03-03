@@ -51,7 +51,7 @@
 			<div class="row-fluid">
 				<div class="login-box">
 					<div style="text-align: center"><img src="/UserTpl/login/adf/img/adf-logo-blue.png"></div>
-					<h2>会员登陆</h2>
+					<h2>{:L('会员登陆')}</h2>
 					                        
                         <form name="login" class="form-horizontal"  method="post" action="__URL__/check" id="loginform">
                         <fieldset>
@@ -64,27 +64,27 @@
 								
         				</select> -->
                         <input type="hidden" name="act" value="verify" />
-                        <input id="Uid" name="username" class="input-large span12" type="text" maxlength="255" value="" autocomplete="off" placeholder="客户帐号"/>
+                        <input id="Uid" name="username" class="input-large span12" type="text" maxlength="255" value="" autocomplete="off" placeholder="{:L('用户帐号')}"/>
                         
-                        <input id="Password" name="password" class="input-large span12" type="password" autocomplete="off" maxlength="255" value="" autocomplete="off" placeholder="密码"/>	
+                        <input id="Password" name="password" class="input-large span12" type="password" autocomplete="off" maxlength="255" value="" autocomplete="off" placeholder="{:L('密码')}"/>	
                         <if condition="isset($dispCode) and ($dispCode eq true)">
-                        <input id="verify" name="captcha" type="text" class="input-large span7" maxlength="6" value="" autocomplete="off" size="8" placeholder="验证代码"/>
-                        <div style="width: 104px; height: 22px; background: #FFFFFF; border: 1px solid #CCCCCC; float: right; margin: 5px 0 0 0; padding: 8px; font-size: 20px; font-weight: bold; color: #000000; text-align: center;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer; width: 75px;" align="absmiddle" /></div>
+                        <input id="verify" name="captcha" type="text" class="input-large span7" maxlength="6" value="" autocomplete="off" size="8" placeholder="{:L('验证码')}"/>
+                        <div style="width: 104px; height: 22px; background: #FFFFFF; border: 1px solid #CCCCCC; float: right; margin: 5px 0 0 0; padding: 8px; font-size: 20px; font-weight: bold; color: #000000; text-align: center;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer; width: 75px;" align="absmiddle" /></div>
                         </if>
                         <div class="clearfix"></div>
                         <eq name="isOpenTime" value="0">
-                            <span style="padding-left: 50px;">对不起，该时间段暂不可访问</span>
+                            <span style="padding-left: 50px;">{:L('对不起，该时间段暂不可访问')}</span>
                         <else/>
-                        <button class="btn btn-primary span6" style="float: left;">登入</button>
-                        <button type="reset" class="btn btn-primary span6" style="float: right;" onclick="doReset()">撤销</button>
+                        <button class="btn btn-primary span6" style="float: left;">{:L('登录')}</button>
+                        <button type="reset" class="btn btn-primary span6" style="float: right;" onclick="doReset()">{:L('撤销')}</button>
                         </eq>
                         <if condition="$usernum eq 1">
                             <input type="hidden" value="{$users[0]}" name="usertype">
                         </if>
                         <br>
-                        <span style="font-size: 18px;"><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span>
+                        <span style="font-size: 18px;"><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span>
                         <br>
-                        <span style="font-size: 12px;padding-left: 17px;">{$openTimeStr}</span>
+                        <span style="font-size: 12px;padding-left: 17px;">{:L($openTimeStr)}</span>
                         <input type=hidden name="agp" value="10">
 				     	<input type=hidden name="URL" value="login.html">
                         
@@ -92,7 +92,7 @@
                         </form>
                     
                         <p hidden>
-                         <a href="#" >注册</a>
+                         <a href="#" >{:L('注册')}</a>
                         </p> 
                     
      

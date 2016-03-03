@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 body {
 	background-color: #3a6da4; margin: 0px
@@ -65,18 +65,18 @@ function fleshVerify(type){
                 </tr>
               <tr>
                 <td class=style1 height=35 colspan=6>
-               帐号:<input style="width:60px" id="txtname" tabindex=1 type="text" name="username" />
-               密码:<input style="width:60px" id="txtpass" tabindex=2 type="password" autocomplete="off" name="password" />
+               {:L('帐号')}:<input style="width:60px" id="txtname" tabindex=1 type="text" name="username" />
+               {:L('密码')}:<input style="width:60px" id="txtpass" tabindex=2 type="password" autocomplete="off" name="password" />
 			   <if condition="isset($dispCode) and ($dispCode eq true)">
-               验证码:<input style="width: 40px" maxlength="4" id="txtpass" tabindex=2 type="text" name="captcha" />
-              <label><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></label>
+               {:L('验证码')}:<input style="width: 40px" maxlength="4" id="txtpass" tabindex=2 type="text" name="captcha" />
+              <label><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></label>
              </if>
 			<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
-			<eq name="isOpenTime" value="0">对不起，该时间段暂不可访问<else/>
-            <input id=btnlogin value="登录" type=submit name=btnlogin></eq> 
-            <span ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span>
+			<eq name="isOpenTime" value="0">{:L('对不起，该时间段暂不可访问')}<else/>
+            <input id=btnlogin value="{:L('登录')}" type=submit name=btnlogin></eq> 
+            <span ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span>
             </td></tr>
               </tbody></table></td>
           <td width=34>&nbsp;</td></tr>
@@ -88,6 +88,6 @@ function fleshVerify(type){
 </table>
 </div>
 </form>
-<div align="center" class="STYLE1" style="margin-top:50px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="margin-top:50px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

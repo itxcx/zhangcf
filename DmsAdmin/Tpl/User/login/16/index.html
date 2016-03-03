@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 body{margin:0; background-image:url(UserTpl/login/16/bg.png); text-align:center; font-size:12px;}
 #wenzi{ font-size:24px; font-weight:bold; padding-top:40px; margin-bottom:40px;}
@@ -28,28 +28,28 @@ function fleshVerify(type){
 
 <body>
 <div style="position:relative;top:180px;left:0px;height:0px">
-{$openTimeStr}
+{:L($openTimeStr)}
 </div>
 <div id="login">
-<div id="wenzi">企业销售平台</div>
+<div id="wenzi">{:L('企业销售平台')}</div>
 
 <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform encType="multipart/form-data">
 <input type="hidden" name="act" value="verify" />
 <table cellpadding="0" cellspacing="0" width="100%" class="tb">
 <tr>
-<td align="right" width="250">用户名：</td>
+<td align="right" width="250">{:L('用户名')}：</td>
 <td align="left"><input type="text" style="width:180px;" name="username" id="username" /></td>
 </tr>
 <tr>
-<td align="right" width="250">密码：</td>
+<td align="right" width="250">{:L('密码')}：</td>
 <td align="left"><input type="password" autocomplete="off" style="width:180px;" name="password" id="password" /></td>
 </tr>
 <if condition="isset($dispCode) and ($dispCode eq true)">
 <tr>
-<td align="right" width="250">验证码：</td>
+<td align="right" width="250">{:L('验证码')}：</td>
 <td align="left">
 <input name="captcha" maxlength="4" id="verify" type="text" style="width:50px;" /> 
-<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle">
+<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle">
 </td>
 </tr>
 </if>
@@ -58,8 +58,8 @@ function fleshVerify(type){
 </if>
 <tr>
 <td colspan="2" style="text-align:right; padding-top:10px;" align="center">
-<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-right:160px">对不起，该时间段暂不可访问</span><else/>
-<span style="margin-right:170px;"><input type="image" src="UserTpl/login/16/btn.png" value="登陆" /></span>
+<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-right:160px">{:L('对不起，该时间段暂不可访问')}</span><else/>
+<span style="margin-right:170px;"><input type="image" src="UserTpl/login/16/btn.png" value="{:L('登陆')}" /></span>
 </eq>
 </td>
 </tr>

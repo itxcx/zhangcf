@@ -36,12 +36,12 @@ function logincheck(){
 		return false;
 	}
 	if(document.login.password.value==""){
-		alert('温馨提示：请输入密码！');
+		alert('{:L("温馨提示")}：{:L("请输入密码")}！');
 		document.login.password.focus();
 		return false;
 	}
 	if(document.login.captcha.value==""){
-		alert('温馨提示：请输入验证码！');
+		alert('{:L("温馨提示")}：{:L("请输入验证码")}！');
 		document.login.captcha.focus();
 		return false;
 	}
@@ -72,30 +72,30 @@ function logincheck(){
 <table width="1003" border="0" cellpadding="0" cellspacing="0" height="72" class="blogin">
 	<tr>
     	<td width="80"></td>
-        <td width="90" align="right">用户名：</td>
+        <td width="90" align="right">{:L('用户名')}：</td>
         <td width="140"><input type="text" name="username" id="username" class="txt" /></td>
-        <td width="90" align="right">登陆密码：</td>
+        <td width="90" align="right">{:L('登录密码')}：</td>
         <td width="140"><input type="password" autocomplete="off" name="password" id="password" class="txt" /></td>
 		<if condition="isset($dispCode) and ($dispCode eq true)">
-        <td width="80" align="right">验证码：</td>
+        <td width="80" align="right">{:L('验证码')}：</td>
         <td><input type="text" name="captcha" id="verify" maxlength="4" class="i_text" /></td>
-        <td><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+        <td><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
 		</if>
 		<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 		</if>
         <td width="100" align="center">
-        	<input type="submit" class="btn" value="登录">
+        	<input type="submit" class="btn" value="{:L('登录')}">
             <input type="hidden" value="loginnow" id="loginnow" name="loginnow">
             <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="login" />
 			<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="login" />
 			<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBQKtjb3OCAKRhriyAQKWhuSyAQKdhoizAQLKnKDmCekZvlDsjMAA1JpqCyNT5umlK1kL" />
         </td>
-        <td width="100"><!--<a href="addUser.asp">股东申请</a>-->&nbsp;</td>
+        <td width="100"><!--<a href="addUser.asp">{:L('股东申请')}</a>-->&nbsp;</td>
     </tr>
 </table>
 </form>
 </div>
-<div align="center" class="STYLE1" style="font-size:12px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="font-size:12px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

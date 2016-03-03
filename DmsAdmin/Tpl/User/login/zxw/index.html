@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
    <meta charset="utf-8" />
-   <title>企业销售平台</title>
+   <title>{:L('企业销售平台')}</title>
    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
    <meta content="" name="description" />
    <meta content="" name="author" />
@@ -40,12 +40,12 @@ function fleshVerify(type){
 </head>
 <body class="lock">
 <div class="centerbj">
-  <div style="color: #0000;top: 87px;position: relative;left: -3px;height:0px;text-align: center;"> {$openTimeStr} </div>
+  <div style="color: #0000;top: 87px;position: relative;left: -3px;height:0px;text-align: center;"> {:L($openTimeStr)} </div>
   <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform>
     <input type="hidden" name="act" value="verify" />   
 	<div  >
 	<div class='metro double-size blue'>
-		<h1>企业销售平台</h1>
+		<h1>{:L('企业销售平台')}</h1>
 		<H4>QIYEXIAOSHOUPINGTAI</H4>
 	</div>
 	</div>
@@ -53,35 +53,35 @@ function fleshVerify(type){
         <div class="metro single-size red">
             <div class="locked">
                 <i class="icon-lock"></i>
-                <span>登录窗口</span>
+                <span>{:L('登录窗口')}</span>
             </div>
         </div>
         <div class="metro double-size green">          
                 <div class="input-append lock-input" style='margin-top: 25px;'>
-                    <span style="height:80px">用户名：</span><br/><br/>
-					<input type="text" class="" name="username" id="username" placeholder="用户名">
+                    <span style="height:80px">{:L('用户名')}：</span><br/><br/>
+					<input type="text" class="" name="username" id="username" placeholder="{:L('用户名')}">
                 </div>
         </div>
         <div class="metro double-size yellow">           
                 <div class="input-append lock-input" style='margin-top: 25px;'>
-                    <span style="height:80px">密码：</span><br/><br/>
-					<input type="password" autocomplete="off" class="" name="password" id="password" placeholder="密码">
+                    <span style="height:80px">{:L('密码')}：</span><br/><br/>
+					<input type="password" autocomplete="off" class="" name="password" id="password" placeholder="{:L('密码')}">
                 </div>         
         </div>
         <div class="metro single-size terques login">     
-		<eq name="isOpenTime" value="0">对不起，该时间段暂不可访问
+		<eq name="isOpenTime" value="0">{:L('对不起，该时间段暂不可访问')}
         <else/>		
 			<button type="submit" class="btn login-btn">
-				立即登录
+				{:L('立即登录')}
 				<i class=" icon-long-arrow-right"></i>
 			</button>   
 		</eq>      
         </div>
 		<if condition="isset($dispCode) and ($dispCode eq true)">
         <tr>
-          <td align="right" width="176">验证码：</td>
+          <td align="right" width="176">{:L('验证码')}：</td>
           <td align="left"><input name="captcha" id="verify" type="text" maxlength="4" style="width:50px;" />
-            &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </td>
+            &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </td>
         </tr>
 		</if>	  
 		<if condition="$usernum eq 1">

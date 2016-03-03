@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登陆</title>
+<title>{:L('会员登陆')}</title>
 <style type="text/css">
 body{margin:0; background-image:url(UserTpl/login/14/bg.jpg); background-repeat:repeat-x; background-color:#152b5a; font-size:12px; text-align:center;}
 #tl{height:29px; background-image:url(UserTpl/login/14/tl.jpg); background-position:left; background-repeat:no-repeat;}
@@ -34,26 +34,26 @@ function fleshVerify(type){
 <body>
 <div id="tl"></div>
 <div id="logo"></div>
-<div>{$openTimeStr}</div>
+<div>{:L($openTimeStr)}</div>
 <div id="main">
 
 <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform encType="multipart/form-data">
 <input type="hidden" name="act" value="verify" />
 <table cellpadding="0" cellspacing="0" width="100%" class="tb">
 <tr>
-<td align="right" width="310">用户名：</td>
+<td align="right" width="310">{:L('用户名')}：</td>
 <td align="left"><input type="text" style="width:120px;" name="username" id="ussername" /></td>
 </tr>
 <tr>
-<td align="right" width="310">密码：</td>
+<td align="right" width="310">{:L('密码')}：</td>
 <td align="left"><input type="password" autocomplete="off" style="width:120px;" name="password" id="password" /></td>
 </tr>
 <if condition="isset($dispCode) and ($dispCode eq true)">
 <tr>
-<td align="right" width="310">验证码：</td>
+<td align="right" width="310">{:L('验证码')}：</td>
 <td align="left">
 <input name="captcha" maxlength="4" id="verify" type="text" style="width:50px;" />&nbsp;
-<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> 
+<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> 
 </td>
 </tr>
 </if>
@@ -63,9 +63,9 @@ function fleshVerify(type){
 
 <tr>
 <td colspan="2" style="text-align:right;" align="center">
-<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-right:100px;">对不起，该时间段暂不可访问</span><else/>
-<input type="submit" class="btn" value="登陆" />
-<span style="margin-right:130px;"><input type="reset" class="btn" value="重置" /></span>
+<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-right:100px;">{:L('对不起，该时间段暂不可访问')}</span><else/>
+<input type="submit" class="btn" value="{:L('登陆')}" />
+<span style="margin-right:130px;"><input type="reset" class="btn" value="{:L('重置')}" /></span>
 </eq>
 
 </td>

@@ -2,7 +2,7 @@
 <html>
     <head lang="cn">
         <meta charset="UTF-8">
-        <title>系统登录页</title>
+        <title>{:L('系统登录')}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
@@ -24,31 +24,31 @@
             <input type="hidden" name="act" value="verify" />
             <dl class="formtable">
                 <dt>
-                    <h1><span>企业销售平台<i class="icon-user">用户版</i></span></h1>
+                    <h1><span>{:L('企业销售平台')}<i class="icon-user">{:L('用户版')}</i></span></h1>
                     <h2>Enterprise sales platform</h2>
                 </dt>
                 <dd>
                     <label for="username"><img src="UserTpl/login/phone_beta/img/username.png" alt="username"></label>
-                    <input type="text" name="username" id="username" maxlength="20" placeholder="请输入账号" autocomplete="off">
+                    <input type="text" name="username" id="username" maxlength="20" placeholder="{:L('请输入账号')}" autocomplete="off">
                 </dd>
                 <dd>
                     <label for="password"><img src="UserTpl/login/phone_beta/img/password.png" alt="password"></label>
-                    <input type="password" autocomplete="off" name="password" id="password" maxlength="20" placeholder="请输入密码">
+                    <input type="password" autocomplete="off" name="password" id="password" maxlength="20" placeholder="{:L('请输入密码')}">
                 </dd>
                 <if condition="isset($dispCode) and ($dispCode eq true)">
                 <dd>
                     <label for="captcha"><img src="UserTpl/login/phone_beta/img/captcha.png" alt="username"></label>
-                    <input type="text" maxlength="4" name="captcha" id="captcha" placeholder="验证码" autocomplete="off"><img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="点击刷新验证码">
+                    <input type="text" maxlength="4" name="captcha" id="captcha" placeholder="{:L('验证码')}" autocomplete="off"><img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
                 </dd>
                 </if>
                 <dd class="subbtn">
                     <eq name="isOpenTime" value="0">
-                    <span>对不起，该时间段暂不可访问！</span>
+                    <span>{:L('对不起，该时间段暂不可访问')}！</span>
                     <else/>
-                    <button type="submit" class="sub">登　录</button>
+                    <button type="submit" class="sub">{:L('登 录')}</button>
                     </eq>
                 </dd>
-                <dd><p class="open-time">今日开放时间为：<strong><i>0:00-24:00</i></strong> 当前时间可以访问</p></dd>
+                <dd><p class="open-time">{:L('今日开放时间为')}：<strong><i>0:00-24:00</i></strong> &nbsp;{:L('当前时间可以访问')}</p></dd>
             </dl>
         </form>
     </div>

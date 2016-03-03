@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 body{margin:0;padding:0;text-align:center; font-size:12px; background:url(UserTpl/login/2/MainBg.jpg) repeat-x;}
 #MainContainer{background:url(UserTpl/login/2/LoginBox.jpg) no-repeat center top;text-align:left;width:695px;height:365px;padding:188px 0 0 302px;margin:auto;}
@@ -55,18 +55,18 @@ function checkuser(e){
   <td align="left">&nbsp;</td>
 </tr>
 <tr>
-<td width="143" height="30" align="right" class="xx">用户名&nbsp;&nbsp;</td>
+<td width="143" height="30" align="right" class="xx">{:L('用户名')}&nbsp;&nbsp;</td>
 <td align="left" width="168"><input class="Linput" type="text" name="username" id="username" onblur="checkuser(this)"/></td>
 </tr>
 <tr>
-<td width="143" height="20" align="right" class="xx">密　码&nbsp;&nbsp;</td>
+<td width="143" height="20" align="right" class="xx">{:L('密码')}&nbsp;&nbsp;</td>
 <td align="left"><input class="Linput" type="password" autocomplete="off" name="password" id="password" /></td>
 <td width="39" rowspan="2" align="left">&nbsp;</td>
 </tr>
 <if condition="isset($dispCode) and $dispCode eq true">
 <tr id="verify_tr">
-<td width="143" height="36" align="right" class="xx">验证码&nbsp;</td>
-<td align="left"><input name="captcha" maxlength="4" id="verify" type="text" style="width:50px;height:18px;" /> &nbsp; <img id="verifyImg" SRC="__URL__/verify" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+<td width="143" height="36" align="right" class="xx">{:L('验证码')}&nbsp;</td>
+<td align="left"><input name="captcha" maxlength="4" id="verify" type="text" style="width:50px;height:18px;" /> &nbsp; <img id="verifyImg" SRC="__URL__/verify" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
 </tr>
 </if>
 <if condition="$usernum eq 1">
@@ -74,17 +74,17 @@ function checkuser(e){
 </if>
 <tr>
   <td height="36" align="right">&nbsp;</td>
-  <td align="left"><eq name="isOpenTime" value="0">对不起，该时间段暂不可访问<else/><span style="margin:0px 20px 20px 0;">
+  <td align="left"><eq name="isOpenTime" value="0">{:L('对不起，该时间段暂不可访问')}<else/><span style="margin:0px 20px 20px 0;">
     <input type="submit" style="width:48px;height:21px;border:1px solid #a1a0a0;;background:url(UserTpl/login/2/Submit.jpg) no-repeat;margin:0;padding:0;" value=""/>　
     <input type="reset" style="width:48px;height:21px;border:1px solid #a1a0a0;background:url(UserTpl/login/2/Reset.jpg) no-repeat;margin:0;padding:0;" value="" />
   </span>
   
-  </eq></td><td style="width:80px;"><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></td>
+  </eq></td><td style="width:80px;"><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></td>
 </tr>
 </table>
 </form>
 </div>
 </div>
-<div align="center" class="STYLE1"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

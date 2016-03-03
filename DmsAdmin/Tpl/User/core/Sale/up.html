@@ -3,6 +3,7 @@
 <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
 <script src="__PUBLIC__/areaselect/areaselect.js"></script>
 </if>
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Sale" id="up">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
@@ -189,8 +190,8 @@ function upAjax(id)
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("{:L('网络异常!')}");
+		    layer.alert(data, {title: '提示', btn: '确定'});
+		    layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }

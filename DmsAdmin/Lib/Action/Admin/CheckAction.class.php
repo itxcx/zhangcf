@@ -131,7 +131,7 @@ class CheckAction extends CommonAction
 			$icon = '/Public/Images/ExtJSicons/delete.png';
 		}
 		
-        print "<script  type='text/javascript' charset='UTF-8'>parent.addexemsg('$msg','$caltime','$icon');</script>";
+        print "<script  type='text/javascript' charset='UTF-8'>parent.addexemsg('$msg','','$icon');</script>";
         ob_flush(); //强制将缓存区的内容输出
         flush(); //强制将缓冲区的内容发送给客户端
 	}

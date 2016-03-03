@@ -70,15 +70,6 @@ if(adminshow('emailSwitch')){
 		),
 	);
 }
-if(adminshow('languageSwitch')){
-	$arr['简繁设置']=array(
-		'module'	=> 'Language',
-		'sort'		=> 3,
-		'childs'	=> array(
-			'简繁设置'=>array('action'=>'index,mailupdate','parent'=>'简繁设置','setParent'=>"简繁设置"),
-		),
-	);
-}
 if(adminshow('payOnlineSwitch')){
 	$arr['支付接口安装'] = array(
 		'module'	=> 'Pay',

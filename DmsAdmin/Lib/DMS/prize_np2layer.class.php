@@ -19,16 +19,11 @@ class prize_np2layer extends prize
 		{
 			throw_exception($this->name."计算时网络体系获取失败,请检查其netName设置是否正确");
 		}
-		$num_ratio = false;
 		$maxlayer = 0;
 		$minlayer = 9999999;
 		$cons = $this->getcon('con',array("minlayer"=>1,"maxlayer"=>1,"minlv"=>1,"maxlv"=>1,"val"=>"","where"=>""));
 		foreach($cons as $con)
 		{
-			
-			//用于优化,如果VAL全部带有%,而rowname的结果为0,则可以忽略当次计算
-			if(substr($con['val'],-1,1) != '%')
-			$num_ratio=true;
 			//用于优化,得到最大会获取多少层的会员
 			if($maxlayer <= $con['maxlayer'])
 			$maxlayer = $con['maxlayer'];
@@ -74,7 +69,7 @@ class prize_np2layer extends prize
 						{
 							//得到最终数字
 							$prizenum = getnum(1,$con['val'],$this->decimalLen,$upuser[$this->name.'比例']);
-							$sumPrize += $this->addprize($upuser,$prizenum,$upuser,substr($con['val'],-1,1) == '%'?$from['t_recnum'].'*'.$con['val']:'',$thislayer);
+							$sumPrize += $this->addprize($upuser,$prizenum,$upuser,'',$layer);
 						}
 					}
 					$datas[$this->name.'数据'] = serialize($cengset);

@@ -2,6 +2,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/fnc.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/moneyout.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/inputFormat.js"></script>
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="get">
 <input id="xpath" type="hidden" value="__XPATH__"/>
      <div class="core_title">
@@ -241,9 +242,9 @@ function time(o) {
         $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
 			eval('var data='+data);
 			if(data.status == 1){
-				alert('发送成功!');
-			}else{
-				alert('发送失败!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
+            }else{
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
 			}
         });
         sta = false;

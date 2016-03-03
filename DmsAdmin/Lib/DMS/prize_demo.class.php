@@ -50,25 +50,27 @@
 			$cons=$this->getcon('con',array('minlv'=>0,'maxlv'=>0,'val'=>0,'where'=>''));
 			foreach($cons as $con)
 			{
-			
-			}
-			
-			//动态判定
-			//假设奖金计算时,存在产生奖金的人$upuser,产生业绩的人$user,订单$sale
-			$wheredata=array('U'=>&$user,'M'=>&$upuser,'S'=>&$sale);
-			transform($where,array(),$wheredata);
-			//假设奖金计算时,存在产生奖金的人$upuser,产生业绩的人$user,订单$sale
-			
-			//根据设定的比例计算实际奖金
-			//参数:getnum(参考值,比例,小数位,总比例)
-			//详情可以查阅function.php中的getnum方法
-			$prizenum=getnum($from['t_recnum'],$con['val'],$this->decimalLen,$upuser[$this->name.'比例']);
-			
-			//对某一个会员增加当前奖金
-			//使用单独方法封装的目的是减少数据库操作提高效率,使用缓存临时存储所有会员的收入信息.
-			//参数分别为(产生奖金的会员,奖金,产生业绩的会员,计算构成备注,层数)
-			$this->addprize($user,$prizenum,$fromuser,$memo,$thislayer);
-			
+    			//动态判定
+    			//假设奖金计算时,存在产生奖金的人$upuser,产生业绩的人$user,订单$sale
+                $user  =array();//产生业绩的会员
+                $upuser=array();//产生奖金的会员
+                $sale  =array();//订单信息
+    			$wheredata=array('U'=>&$user,'M'=>&$upuser,'S'=>&$sale);
+    			transform($con['where'],array(),$wheredata);
+    			//假设奖金计算时,存在产生奖金的人$upuser,产生业绩的人$user,订单$sale
+    			
+    			//根据设定的比例计算实际奖金
+    			//参数:getnum(参考值,比例,小数位,总比例)
+    			//详情可以查阅function.php中的getnum方法
+    			$prizenum=getnum($m_user['t_recnum'],$con['val'],$this->decimalLen,$upuser[$this->name.'比例']);
+    			
+    			//对某一个会员增加当前奖金
+    			//使用单独方法封装的目的是减少数据库操作提高效率,使用缓存临时存储所有会员的收入信息.
+    			//参数分别为(产生奖金的会员,奖金,产生业绩的会员,计算构成备注,层数)
+                $memo='奖金注释';
+                $thislayer=1;   //当前计算的层数
+    			$this->addprize($upuser,$prizenum,$user,$memo,$thislayer);
+    			}
 			//对addprize方法进行的奖金进行批量更新入库
 			$this->prizeUpdate();
 		}

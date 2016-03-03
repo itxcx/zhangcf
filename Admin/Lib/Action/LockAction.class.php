@@ -295,6 +295,7 @@ class LockAction extends CommonAction {
 		$zip->addblack('.log');
 		$zip->addblack('.zip');
 		$zip->addblack('/.svn');
+        $zip->addblack('/.git');
 		$zip->addblack('dbbackup');
 		if(I("get.encode/s","null")!="null" || $encode)
 		{

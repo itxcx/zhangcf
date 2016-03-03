@@ -12,7 +12,6 @@ class QuickSearchAction extends Action
 		$user = X('user');
 		//编号搜索
 		/****** 编号模糊查询******/
-		$sqlidlike="select * from dms_会员 where 编号 like '%{$name}%'";
 		$finduser=M('会员','dms_')->where(array('编号'=>array('like','%'.$value.'%')))->select();
 		if(empty($finduser))
 		{

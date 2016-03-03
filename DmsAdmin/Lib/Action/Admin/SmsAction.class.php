@@ -413,7 +413,7 @@ class SmsAction extends CommonAction {
 	*/
 	public function getnum(){
 		$model	= M('号码');
-		$numlist= $model->where('编组="'.I("request.id/d").'"')->field('号码 num,姓名 name,编号 id')->select();
+		$numlist= $model->where(array('编组'=>I("request.id/d")))->field('号码 num,姓名 name,编号 id')->select();
 		echo json_encode($numlist);
 	}
 	/*

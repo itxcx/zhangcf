@@ -192,8 +192,8 @@ XML文档约定
 		<_addval from='[报单金额]' to='管理'/>
 	</sale_reg>
 	<sale_reg lvName="会员级别" netname='推荐' name='后台注册' byname="会员注册" user='admin'  fromNoName='服务中心' fromNoWhere="[服务中心]=1" >
-		<_addval from='[报单金额]' to='管理' />
 		<_addval from='[报单金额]' to='管理'     set='1'/>
+		<_addval from='[报单金额]' to='管理' />
 		<_addval from='1' to='两层人数' _netname='管理' _minlayer='1' _maxlayer='2'/>
 	</sale_reg>
 	<sale_up name='前台升级' byname='会员升级' lvname='会员级别' user='会员'  accbank='常规扣款' productname="产品" extra="true">

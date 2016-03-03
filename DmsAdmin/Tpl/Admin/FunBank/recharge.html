@@ -69,29 +69,41 @@ function checkform(){
 
 function giveAjax()
 {
-	var userid	   = $('#userid',navTab.getCurrentPanel()).val();
-	$.post('__URL__/realnameAjax:__XPATH__',{userid:userid},function(data){
-		//alert(data)
-		try
-		{
-			
-			eval("var json="+data);
-			
-			if( json.status == 0 )
-			{
-				$('#realname').html('编号不正确');
-			}
-			else
-			{
-				var userinfo = json.data;
-				$('#realname').html(userinfo['姓名']);
-			}
-		}
-		catch(e)
-		{
-			alert(data);
-			alert("网络异常!");
-		}
-	});
+
+
+    var userid	   = $('#userid',navTab.getCurrentPanel()).val();
+
+
+    $.ajax({
+        url:'__URL__/realnameAjax:__XPATH__',
+        type:'POST',
+        data:{userid:userid},
+        dataType:'text',
+        global:false,
+        success:function (data){
+    		try
+    		{
+    			
+    			eval("var json="+data);
+    			
+    			if( json.status == 0 )
+    			{
+    				$('#realname').html('编号不正确');
+    			}
+    			else
+    			{
+    				var userinfo = json.data;
+    				$('#realname').html(userinfo['姓名']);
+    			}
+    		}
+    		catch(e)
+    		{
+    			alert(data);
+    			alert("网络异常!");
+    		}
+        
+        },
+        error:function (XMLHttpRequest, textStatus, errorThrown){}
+    });
 }
 </script>

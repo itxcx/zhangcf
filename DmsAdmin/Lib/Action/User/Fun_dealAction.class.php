@@ -1,16 +1,18 @@
 <?php
 defined('APP_NAME') || die(L('不要非法操作哦'));
 class Fun_dealAction extends CommonAction {
-	public function index(fun_stock $fun_stock)
+	public function index(fun_stock2 $fun_stock)
 	{
 		$userinfo=$this->userinfo;
 		$price=$fun_stock->getPrice();
 		$lists=M($fun_stock->name."流水")->where(array('编号'=>$userinfo['编号']))->order("addtime desc,id desc")->select();
 		$lists1=M($fun_stock->name."流水")->where(array('编号'=>$userinfo['编号']))->order("addtime desc,id desc")->select();
 		$today=strtotime(date("Y-m-d",systemTime()));
-        if($yeprice==NULL){
+        //这个变量不知道怎么来的
+        //if($yeprice==NULL){
+        
            $yeprice=$price;
-	    }
+	    //}
 	    
 		$list = $this->getxml();
 		//会员总股票
@@ -31,7 +33,7 @@ class Fun_dealAction extends CommonAction {
 		$this->display();
 	}
    //1卖出 2 买入
-	public function stock_buy(fun_stock $fun_stock)
+	public function stock_buy(fun_stock2 $fun_stock)
 	{
 		//防XSS跨站攻击登入 调用ThinkPHP中的XSSBehavior
 	     B('XSS');
@@ -73,7 +75,7 @@ class Fun_dealAction extends CommonAction {
 	
 	//股票卖出
 	
-	public function stock_sell()
+	public function stock_sell(fun_stock2 $fun_stock)
 	{
 		//防XSS跨站攻击登入 调用ThinkPHP中的XSSBehavior
 	     B('XSS');
@@ -91,7 +93,7 @@ class Fun_dealAction extends CommonAction {
 	}
 	
 	//交易记录
-	public function deal_list(fun_stock $fun_stock)
+	public function deal_list(fun_stock2 $fun_stock)
 	{
 		$list = M($fun_stock->name.'流水');
 		
@@ -106,7 +108,7 @@ class Fun_dealAction extends CommonAction {
 		$this->display();
 	}
 	//交易明细
-	public function deal_detail(fun_stock $fun_stock)
+	public function deal_detail(fun_stock2 $fun_stock)
 	{
 		$list = M($fun_stock->name."交易");
 		import("ORG.Util.Page");
@@ -125,7 +127,7 @@ class Fun_dealAction extends CommonAction {
 	
 	
    //股票市场中的交易记录查看
-	public function tradedetail(fun_stock $fun_stock)
+	public function tradedetail(fun_stock2 $fun_stock)
 	{
 		
 	    if(!isset($_REQUEST['id']) || $_REQUEST['id']=='' || $fun_stock===false){
@@ -136,7 +138,7 @@ class Fun_dealAction extends CommonAction {
 		$this->assign("name",L($fun_stock->parent()->name).' '.$info['编号'].L($fun_stock->name).L('交易记录'));
 		$this->display();
 	}
-	public function getxml(fun_stock $fun_stock)
+	public function getxml(fun_stock2 $fun_stock)
 	{
 	   	$model = M($fun_stock->name.'走势');
 		$num = $model->count();

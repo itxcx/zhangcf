@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>会员登录</title>
+    <title>{:L('会员登录')}</title>
     <link rel="stylesheet" href="UserTpl/login/2/style/basic.css">
     <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -37,26 +37,26 @@
                 <if condition="$usernum eq 1">
                 <input type="hidden" value="{$users[0]}" name="usertype">
                 </if>
-                <h2>企业销售平台</h2>
+                <h2>{:L('企业销售平台')}</h2>
                 <table class="formtable">
                     <tr>
-                        <td class="title">用户名</td>
+                        <td class="title">{:L('用户名')}</td>
                         <td class="value">
                             <input type="text" name="username" size="20" onblur="checkuser(this)">
                         </td>
                     </tr>
                     <tr>
-                        <td class="title">密　码</td>
+                        <td class="title">{:L('密　码')}</td>
                         <td class="value">
                             <input type="password" name="password" size="20">
                         </td>
                     </tr>
                     <tr>
 	                <if condition="isset($dispCode) and ($dispCode eq true)">
-                        <td class="title">验证码</td>
+                        <td class="title">{:L('验证码')}</td>
                         <td class="value">
                             <input class="captcha" type="text" maxlength="4" name="captcha" autocomplete="off">
-                            <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="点击刷新验证码">
+                            <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
                         </td>
                         <else />
                         <td class="capt2" colspan="2">&nbsp;</td>
@@ -66,24 +66,24 @@
                         <td></td>
                         <td class="subbtn">
                             <eq name="isOpenTime" value="0">
-                            <span>对不起，该时间段暂不可访问！</span>
+                            <span>{:L('对不起，该时间段暂不可访问！')}</span>
                             <else/>
-                            <button type="submit" class="sub">登 录</button>
-                            <button type="reset" class="res">重 填</button>
+                            <button type="submit" class="sub">{:L('登 录')}</button>
+                            <button type="reset" class="res">{:L('重 填')}重 填</button>
 			                </eq>
                         </td>
                     </tr>
                     <tr class="forget">
                         <td colspan="2">
                             <if condition="adminshow('mimazhaohui') eq true">
-                            <a href="__URL__/getUserPwd2/">忘记密码？&nbsp;</a>
+                            <a href="__URL__/getUserPwd2/">{:L('忘记密码？')}&nbsp;</a>
                             </if>
                         </td>
                     </tr>
                 </table>
             </form>
             <br>
-            <h3>{$openTimeStr}</h3>
+            <h3>{:L($openTimeStr)}</h3>
         </div>
     </div>
 </body>

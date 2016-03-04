@@ -669,7 +669,7 @@ return array (
   '帐号' => 'accounts',
   '密码找回' => 'Password recovery',
   '找回密码' => 'Retrieve password',
-  '短信' => 'message',
+  '短信' => 'short message',
   '密保' => 'Security',
   '邮箱找回' => 'The mailbox to retrieve',
   '请输入要找回的ID' => 'Please input your ID',
@@ -717,7 +717,5 @@ return array (
   '用户版' => 'User version',
   '今日开放时间为' => 'Today the opening time is',
   '当前时间可以访问' => 'the current time can access',
-  '重填' => 'Refill',
-  '重 填' => 'Refill',
 );
 ?>

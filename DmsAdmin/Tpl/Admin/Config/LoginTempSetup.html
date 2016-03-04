@@ -19,10 +19,11 @@
 				<ul style="list-style-type:none;padding:20px 20px 5px 5px">
 					<li style="padding:2px">状&nbsp;&nbsp;态：<if condition="($vo['status'] eq 1)"><font color="green">已使用</font><else/><font color="red">未使用</font></if></li>
 					<li style="padding:2px">模板名称：{$vo.number}</li>
-					<li style="padding:2px">模板目录：{$vo.catalog}</li>
+					<li style="padding:2px">多语言：{$vo.multiLang}</li>
+<!--					<li style="padding:2px">模板目录：{$vo.catalog}</li>
 					<li style="padding:2px">模板描述：{$vo.description}</li>
 					<li style="padding:2px">创建时间：{$vo.fileTime}</li>
-					<li style="padding:2px">
+					<li style="padding:2px"> -->
 						<a class="buttonActive" href="__URL__/tempChange/number/{$vo.number}/index/0" target="ajaxTodo" mask="true"><span>应用</span></a>
 					</li>
 				</ul>

@@ -717,7 +717,5 @@ return array (
   '用户版' => 'User version',
   '今日开放时间为' => 'Today the opening time is',
   '当前时间可以访问' => 'the current time can access',
-  '重填' =>'Refill,
-  '重 填' =>'Refill',
 );
 ?>

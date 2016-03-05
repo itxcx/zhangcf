@@ -6,15 +6,14 @@
         <div id="salereg" style="<present name='regAgreement'>display:none</present>">
             <form name="form1" method="post" action="__GROUP__/Sale/regSave:__XPATH__" id="form">
                 <table class="tablebg" id="table1">
-                    {//{:L('会员编号')}}
                     <tr>
-                        <td class="tbkey" >{$user:byname}{:L('编号')}：</td>
+                        <td class="tbkey" >{:L($user->byname.'编号')}：</td>
                         <td class="tbval" ><if condition="($user:idEdit eq true) and ($user:idAutoEdit eq true)"><input type="text" value="{$userid}" name="userid" id="userid"/>
                             <elseif condition="($user:idAutoEdit eq true)"/>{$userid}<else/><input type="text" value="" name="userid" id="userid"/></if><span class="msg" id="state_userid" style="color: red"></span></td>
                     </tr>
                     <if condition = "($sale:setLv eq true)">
                     <TR>
-                        <td class="tbkey" >{$levels:byname}：</td>
+                        <td class="tbkey" >{:L($levels->byname)}：</td>
                         <td class="tbval" >
                             <select name='lv' id="lv" <if condition="$zkbool eq true">onChange="user_getTotalzf('{$sale:name}','Sale');"</if>>
                                 <foreach name='levelsopt' item='level'>
@@ -233,7 +232,7 @@
                     <!--所属商铺-->
                     <notempty name="shop">
                     <tr>
-                        <td class="tbkey" >{$shop}：</td>
+                        <td class="tbkey" >{:L($shop)}：</td>
                         <td class="tbval" ><span><input type="text" value="" name="shop"  onkeyup="getInfo(this)" id="shop" autocomplete="off"/></span>&nbsp;&nbsp;<span class="msg" id="state_shop"><if condition="in_array('shop',$require) eq true">*</if></span></td>
                     </tr>
                     </notempty>
@@ -271,12 +270,12 @@
                                     <input class="county" name="county" type="text">
                                     <input class="town" name="town" type="text">
                                 </div>
-                                <div class="country-select arrow-bg">
+                                <div class="country-select arrow-bg" style="width:180px">
                                     <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                    <ul class="country-list" style="width:180px">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)"style="width:180px">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)"style="width:180px">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)"style="width:180px">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
                                 <div class="location-box arrow-bg">

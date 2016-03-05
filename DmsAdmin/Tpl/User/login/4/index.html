@@ -23,28 +23,29 @@
            	<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
-
-            <h1 class="title">企业销售平台</h1>
+			
+            <h1 class="title" <if condition="L('企业销售平台') neq '企业销售平台'">style="font-size:35px"</if>>{:L('企业销售平台')}</h1>
+            
 
             <dl>
-                <dt>会员登录</dt>
+                <dt><if condition="L('会员登录') eq '会员登录'">{:L('会员登录')}<else/>{:L('登录')}</if></dt>
                 <dd>
-                    <label for="username">账号：</label>
+                    <label for="username">{:L('账号')}：</label>
                     <input id="username" type="text" name="username">
-                    <label for="">密码：</label>
+                    <label for="">{:L('密码')}：</label>
                     <input id="password" type="password" name="password" autocomplete="off">
 
                     <if condition="isset($dispCode) and ($dispCode eq true)">
-                    <label for="verify">验证码：</label>
+                    <label for="verify">{:L('验证码')}：</label>
                     <input id="verify" type="text" name="captcha" maxlength=4 autocomplete="off">
-                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="点击刷新验证码">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
                     </if>
                 <eq name="isOpenTime" value="0">
-                    <p>对不起，该时间段暂时不可访问</p>
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
                 <else/>
-                    <button type="submit">登录</button>
+                    <button type="submit">{:L('登录')}</button>
                     <if condition="adminshow('mimazhaohui') eq true">
-                        <a href="__URL__/getUserPwd2/">&nbsp;忘记密码？</a>
+                        <a href="__URL__/getUserPwd2/">&nbsp;{:L('忘记密码')}？</a>
                     </if>
                 </eq>
 

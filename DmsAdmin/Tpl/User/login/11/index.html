@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 <!--
 a{
@@ -86,17 +86,17 @@ body {
 			<div>
 			<table>
 			<tr>
-			<td>用户账号：<input type="text" name="username" style=" width:180px;"></td>
-			<td>登录密码：<input type="password" autocomplete="off" name="password" style=" width:180px;"></td>
+			<td>{:L('用户账号')}：<input type="text" name="username" style=" width:180px;"></td>
+			<td>{:L('登录密码')}：<input type="password" autocomplete="off" name="password" style=" width:180px;"></td>
 			
 			<if condition="isset($dispCode) and ($dispCode eq true)">
-			<td>验证码：<input type="text" name="captcha" style=" width:100px;" value='' /></td>
-			<td><img src="__URL__/verify" width="120" height="20" align="absmiddle" onClick="this.src='__URL__/verify/'+Math.random()" alt="点击换一张" style="cursor:pointer; padding-right:3px;" /></td>
+			<td>{:L('验证码')}：<input type="text" name="captcha" style=" width:100px;" value='' /></td>
+			<td><img src="__URL__/verify" width="120" height="20" align="absmiddle" onClick="this.src='__URL__/verify/'+Math.random()" alt="{:L('点击换一张')}" style="cursor:pointer; padding-right:3px;" /></td>
 			</if>
 			<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
-			<td><eq name="isOpenTime" value="0"><span style="font-size:12px">对不起，该时间段暂不可访问</span><else/><a href="#" onClick="loginform.submit()"><div class="btn">登  陆</div></a></eq></td></tr></table></div>
+			<td><eq name="isOpenTime" value="0"><span style="font-size:12px">{:L('对不起，该时间段暂不可访问')}</span><else/><a href="#" onClick="loginform.submit()"><div class="btn">{:L('登 陆')}</div></a></eq></td></tr></table></div>
 			</td>
 	</tr>
 	<tr>
@@ -118,6 +118,6 @@ body {
 </table>
 </form>
 </center>
-<div align="center" class="STYLE1" style="margin-top:10px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="margin-top:10px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

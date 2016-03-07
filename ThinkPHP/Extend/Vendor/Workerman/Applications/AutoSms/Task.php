@@ -22,6 +22,6 @@ class Task extends Worker
     }
     public function tack()
     {
-    	exec('php '.dirname(__FILE__).'/../../../../../../cli.php Api Smsapi index',$ret);
+    	exec('php '.dirname(__DIR__).'/../../../../../../public_html/cli.php Api Smsapi index',$ret);
     }
 }

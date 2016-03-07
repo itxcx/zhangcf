@@ -228,12 +228,16 @@ class InstallModel
 			}
 			if($bktype==1){
 				import("COM.BakRec.BakRec");
+                //判断文件是否存在 权限为最高
+                if(realpath("dbbackup/")===false){
+                    mkdir(ROOT_PATH.'public_html/dbbackup',0777,true);
+                }
 				$BakRec = new BakRec(realpath("dbbackup/"));
-				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'B' . $backname. '.zip');
+				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'B' . $backname. '.xsdb');
 			}else{
 				import("COM.BakRec.BackRec");
 				$BakRec = new BackRec();
-				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'A' . $backname. '.zip');
+				$fileName = $BakRec->trimPath($BakRec->config['path'] . md5(date('YmdHis')) . 'A' . $backname. '.xsdb');
 			}
             //判断PrizeData文件夹是否存在 不存在创建新文件夹
             if(!file_exists(ROOT_PATH.'DmsAdmin/PrizeData')){

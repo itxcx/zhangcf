@@ -151,8 +151,9 @@ class SaleAction extends CommonAction {
 		$banklist	= $Bank->order('id asc')->select();
 		$this->assign('banklist',$banklist);
 		//注册协议
-		//只有豪华版才可以开启注册协议
-		$this->assign('regAgreement',F('regAgreement'));
+        if(X("user")->agreement){
+            $this->assign('regAgreement',F('regAgreement'));
+        }
 		if($sale_reg->showRatio){
 			$accbankObj=X("accbank@".$sale_reg->accBank);
 			$this->assign('bankRatio',$accbankObj->getcon("bank",array("name"=>"","minval"=>'0%',"maxval"=>'100%',"extra"=>false),true));

@@ -72,16 +72,16 @@ td table{margin-bottom:12px;}
 	</tr>
 	<tr>
 		<td style="text-align:right">一级密码：</td>
-		<td style="border-right:none;text-align:left"><input type="password" name="pass1" value="!!noeditpass!!" <if condition="$vo['pass1']!=$olduserary['pass1']">class='diffred'</if>></td>
+		<td style="border-right:none;text-align:left"><input type="password" autocomplete="off" name="pass1" value="!!noeditpass!!" <if condition="$vo['pass1']!=$olduserary['pass1']">class='diffred'</if>></td>
 		</tr>
 		<tr>
 		<td style="text-align:right">二级密码：</td>
-		<td style="border-right:none;text-align:left"><input type="password" name="pass2" value="!!noeditpass!!" <if condition="$vo['pass2']!=$olduserary['pass2']">class='diffred'</if>></td>
+		<td style="border-right:none;text-align:left"><input type="password" autocomplete="off" name="pass2" value="!!noeditpass!!" <if condition="$vo['pass2']!=$olduserary['pass2']">class='diffred'</if>></td>
 		</tr>
 		<eq name="pwd3Switch" value="true">
 		<tr>
 		<td style="text-align:right">三级密码：</td>
-		<td style="border-right:none;text-align:left"><input type="password" name="pass3" value="!!noeditpass!!" <if condition="$vo['pass3']!=$olduserary['pass3']">class='diffred'</if>></td>
+		<td style="border-right:none;text-align:left"><input type="password" autocomplete="off" name="pass3" value="!!noeditpass!!" <if condition="$vo['pass3']!=$olduserary['pass3']">class='diffred'</if>></td>
 		</tr>
 		</eq>
 	<tr>

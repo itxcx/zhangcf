@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 <!--
 a{
@@ -66,7 +66,7 @@ function fleshVerify(type){
 <table id="__01" width="973" height="700" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td style="position: relative">
-            <span style="position: absolute;top: 6px;left: 20px;font-size: 28px;font-family: 黑体;color: #f8ebbf;">客户管理平台</span>
+            <span style="position: absolute;top: 6px;left: 20px;font-size: 28px;font-family: 黑体;color: #f8ebbf;">{:L('客户管理平台')}</span>
 			<img src="UserTpl/login/12/index_01.gif" width="973" height="48" alt=""></td>
 	</tr>
 	<tr>
@@ -78,23 +78,23 @@ function fleshVerify(type){
 			<div>
 			<table>
 			<tr>
-			<td>用户账号：<input type="text" name="username" style=" width:180px;"></td>
-			<td>登录密码：<input type="password" name="password" style=" width:180px;"></td>
+			<td>{:L('用户账号')}：<input type="text" name="username" style=" width:180px;"></td>
+			<td>{:L('登录密码')}：<input type="password" autocomplete="off" name="password" style=" width:180px;"></td>
 			<if condition="isset($dispCode) and ($dispCode eq true)">
-			<td>验证编码：<input type="text" maxlength="4" id="verify" name="captcha" style=" width:150px;"></td>
-			<td><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+			<td>{:L('验证编码')}：<input type="text" maxlength="4" id="verify" name="captcha" style=" width:150px;"></td>
+			<td><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
 			</if>
 <if condition="$usernum eq 1">
 <input type="hidden" value="{$users[0]}" name="usertype">
 </if>
-			<td><eq name="isOpenTime" value="0"><span style="font-size:12px">对不起，该时间段暂不可访问</span><else/><a href="#" onClick="loginform.submit()"><div class="btn">登  陆</div></a></eq></td>
+			<td><eq name="isOpenTime" value="0"><span style="font-size:12px">{:L('对不起，该时间段暂不可访问')}</span><else/><a href="#" onClick="loginform.submit()"><div class="btn">{:L('登 陆')}</div></a></eq></td>
 			</tr>
 			</table>
 			</div>
 			</td>
 	</tr>
 	<tr>
-		<td style="background:url(UserTpl/login/12/index_04.gif) no-repeat;" width="973" height="71" valign="top">{$openTimeStr}</td>
+		<td style="background:url(UserTpl/login/12/index_04.gif) no-repeat;" width="973" height="71" valign="top">{:L($openTimeStr)}</td>
 	</tr>
 </table>
 </form>

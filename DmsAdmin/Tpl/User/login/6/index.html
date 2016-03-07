@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 body{margin:0; background:url(UserTpl/login/6/bj.jpg); text-align:center; font-size:12px;}
 .centerbj{width:556px; height:412px; margin:0 auto; background-image:url(UserTpl/login/6/centerbj.jpg); margin-top: 216px;}
@@ -30,30 +30,30 @@ function fleshVerify(type){
 
 <div class="centerbj">
 <div style="color: #03F;top: 20px;position: relative;left: 30px;height:0px;text-align: center;">
-{$openTimeStr}
+{:L($openTimeStr)}
 </div>
 <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform>
 <input type="hidden" name="act" value="verify" />
 <table width="100%" height="217" cellpadding="0" cellspacing="0" class="tb">
 <tr>
 <td width="83"></td>
-<td height="72" colspan="2" align="center" valign="bottom"><span class="title">企业销售平台</span></td>
+<td height="72" colspan="2" align="center" valign="bottom"><span class="title">{:L('企业销售平台')}</span></td>
 </tr>
 <tr>
 <td height="32">&nbsp;</td>
-<td align="right" width="176">用户名：</td>
+<td align="right" width="176">{:L('用户名')}：</td>
 <td width="295" align="left"><input type="text" style="width:150px;" name="username" id="username" /></td>
 </tr>
 <tr>
 <td height="32"></td>
-<td align="right" width="176">密码：</td>
-<td align="left"><input type="password" style="width:150px;" name="password" id="password" /></td>
+<td align="right" width="176">{:L('密码')}：</td>
+<td align="left"><input type="password" autocomplete="off" style="width:150px;" name="password" id="password" /></td>
 </tr>
 	<if condition="isset($dispCode) and ($dispCode eq true)">
 <tr>
 <td height="42"></td>
-<td align="right" width="176">验证码：</td>
-<td align="left"><input name="captcha" id="verify" type="text" maxlength="4" style="width:50px;" /> &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </td>
+<td align="right" width="176">{:L('验证码')}：</td>
+<td align="left"><input name="captcha" id="verify" type="text" maxlength="4" style="width:50px;" /> &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </td>
 </tr>
 </if>
 <if condition="$usernum eq 1">
@@ -62,9 +62,9 @@ function fleshVerify(type){
 <tr>
 <td></td>
 <td colspan="2" align="center">
-<eq name="isOpenTime" value="0">对不起，该时间段暂不可访问<else/>
+<eq name="isOpenTime" value="0">{:L('对不起，该时间段暂不可访问')}<else/>
 <input type="image" src="UserTpl/login/6/submit.jpg" />
-<span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span>
+<span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span>
 </eq>
 </td>
 </tr>

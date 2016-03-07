@@ -120,25 +120,25 @@
 				$ret[] = array('id_card',array($user,"checkTruth"),'证件号码有误',2,'function',3,array('id_card'));
 			}
 			
-			$ret[] = array('userid','require',L('id_required'),1);
-			$ret[] = array('userid','/^[a-zA-Z0-9_]*$/',L('id_true'),1);
+			$ret[] = array('userid','require',L('编号不能为空'),1);
+			$ret[] = array('userid','/^[a-zA-Z0-9_]*$/',L('编号必须为数字字母组合'),1);
 			//idExp在手工输入编号的时候的正则验证
 			//idExpMsg在手工输入编号校验失败时的提示信息
 			if($user->idExp != '' && !$user->idedit && $user->idAutoEdit)
-			$ret[] = array('userid',$user->idExp,($user->idExpMsg =='' ? L('id_illicit') :$user->idExpMsg));
-			$ret[] = array('userid',array($user,"nothave"),L('id_exist'),2,'function');
+			$ret[] = array('userid',$user->idExp,($user->idExpMsg =='' ? L('您的编号不符合要求') :$user->idExpMsg));
+			$ret[] = array('userid',array($user,"nothave"),L('您的编号已存在'),2,'function');
 			//判定级别
 			if($this->setLv)
 			{
 				//!!校验lv是否为空
-				$ret[] = array('lv','require',L('level_required'),1);
-				$ret[] = array('lv','number',L('is_level'),1);
+				$ret[] = array('lv','require',L('未填写级别信息'),1);
+				$ret[] = array('lv','number',L('级别必须为数字'),1);
 				$iflv = array();
 				foreach($this->getLvOption() as $opt)
 				{
 					$iflv[]=$opt['lv'];
 				}
-				$ret[] = array('lv',$iflv,L('level_illicit'),2,'in');
+				$ret[] = array('lv',$iflv,L('级别不符合要求'),2,'in');
 			}
 			if($this->setNumber){
 				$ret[] = array('setNumber','require',L('单数不能为空'),1);
@@ -191,15 +191,15 @@
 							$ret[] = array('net_'.$net->getPos(),'require',L($net->byname).L('人不能为空'),1);	
 						}
 						
-						$ret[] = array('net_'.$net->getPos(),array($net,"lvHave"),L($net->byname).L('net_not_exist'),2,'function');
+						$ret[] = array('net_'.$net->getPos(),array($net,"lvHave"),L($net->byname).L('人不存在'),2,'function');
 						//非正式会员不能作为上级
 						if(!$net->nullUp)
 						{
-							$ret[] = array('net_'.$net->getPos(),array($user,"isRegular"),L($net->byname).L('net_informal'),2,'function');
+							$ret[] = array('net_'.$net->getPos(),array($user,"isRegular"),L($net->byname).L('人非正式会员'),2,'function');
 						}
 						if($net->maxUser>0)
 						{
-							$ret[] = array('net_'.$net->getPos(),array($net,"isMaxuser"),L($net->byname).L('net_enough'),2,'function');
+							$ret[] = array('net_'.$net->getPos(),array($net,"isMaxuser"),L($net->byname).L('人已排满'),2,'function');
 						}
 						//判定推荐人额外条件
 						$lockcons = $net->getcon('lock',array('where'=>'','msg'=>''));
@@ -238,12 +238,12 @@
 						
 						if(!$net->nullUp)
 						{
-							$ret[] = array('net_'.$net->getPos(),array($user,"isRegular"),L($net->byname).L('net_informal'),2,'function');
+							$ret[] = array('net_'.$net->getPos(),array($user,"isRegular"),L($net->byname).L('人非正式会员'),2,'function');
 						}
 							//如果允许选择区域
 							if($net->setRegion)
 							{
-								$ret[] = array('net_'.$net->getPos().'_Region',$net->getBranch(),L($net->byname).L('net_place_info'),0,'in');
+								$ret[] = array('net_'.$net->getPos().'_Region',$net->getBranch(),L($net->byname).L('区域信息非法'),0,'in');
 								//如果禁止滑落
 								if(!$net->backFall)
 								{
@@ -324,15 +324,15 @@
 									);
 								}
 							}
-							$ret[] = array('net_'.$net->getPos(),array($net,"lvHave"),L($net->byname).L('net_not_exist'),2,'function');
+							$ret[] = array('net_'.$net->getPos(),array($net,"lvHave"),L($net->byname).L('人不存在'),2,'function');
 					}
 					}
 				}
 			}
 			if(isset($data_post['pass1c']))
-			$ret[] = array('pass1c','pass1',L('different_one'),2,'confirm');
+			$ret[] = array('pass1c','pass1',L('一级密码与确认密码不同'),2,'confirm');
 			if(isset($data_post['pass2c']))
-			$ret[] = array('pass2c','pass2',L('different_two'),2,'confirm');
+			$ret[] = array('pass2c','pass2',L('二级密码与确认密码不同'),2,'confirm');
 			//基本信息验证
 			//注册必选内容
 			//两个数组根据值取得交集最后得到$regShow

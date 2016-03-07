@@ -83,7 +83,7 @@ class NetAction extends CommonAction
     //  推荐列表
     function listDisp($rec){
         if(!$rec->userListDisp){
-            $this->error($rec->byname."列表未开启");
+            $this->error(L($rec->byname).L("列表未开启"));
         }
 		if(isset($_GET['userid']) && $_GET['userid']){
 		$userid=$_GET['userid'];
@@ -112,7 +112,7 @@ class NetAction extends CommonAction
 		$first_userid	= I("REQUEST.first_userid/s");
 		if(empty($first_userid)) $first_userid=$this->userinfo['编号'];
         if(!$net_rec->userListDisp){
-            $this->error($net_rec->byname."列表未开启");
+            $this->error(L($net_rec->byname).L("列表未开启"));
         }
         $userLevelArray = array();
 
@@ -223,7 +223,7 @@ class NetAction extends CommonAction
    	   	if(I("REQUEST.tid/s") == 'go'){
    	   		$userz = $model->where(array('编号'=>I("REQUEST.uid/s")))->find();
    	   		if(!$userz){
-				$this->error('会员不存在');
+				$this->error(L('会员不存在'));
 			}
    	   		if(I("REQUEST.uid/s") != $this->userinfo['编号']){
    	   			$upuser = $model->where(array('编号'=>$this->userinfo['编号']))->find();
@@ -238,7 +238,7 @@ class NetAction extends CommonAction
 				}
 				$firstUser = $model->where("id='".$userz['id']."' and (".$where1.")")->find();
 				if(!$firstUser){
-					$this->error(L('该会员不在公排网体下!'));
+					$this->error(L('该会员不在公排网体下'));
 				}
 			}
    	   		$_REQUEST['uid'] = $userz['id'];
@@ -295,7 +295,7 @@ class NetAction extends CommonAction
 		//获取树
 		if(I("REQUEST.uid/s")!=''){
 			if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
-				$this->error('非法表单数据');
+				$this->error(L('非法表单数据'));
 			}
 			if(I("REQUEST.uid/s") != $this->userinfo['编号']){
 				$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
@@ -308,14 +308,14 @@ class NetAction extends CommonAction
 					}
 					
 					if(!in_array($this->userinfo['id'],$firstUserNetArray)){
-						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下!'));
+						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
 					}
 					//超出深度
 					if($userLookLayer>0 && ($firstUser[$netName.'_层数']-$this->userinfo[$netName.'_层数'])>$userLookLayer){
-						$this->error("只允许查看".$userLookLayer."层内的会员");
+						$this->error(L("只允许查看").$userLookLayer.L("层内的会员"));
 					}
 				}else{
-					$this->error(L('该'.$this->userobj->byname.'不存在!'));
+					$this->error(L('该'.$this->userobj->byname.'不存在'));
 				}
 				$firstUserInfo=$firstUser;
 			}
@@ -380,7 +380,7 @@ class NetAction extends CommonAction
 			if( I("REQUEST.uid/s")!='')
 			{
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
-					$this->error('非法表单数据');
+					$this->error(L('非法表单数据'));
 				}
 				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
@@ -393,10 +393,10 @@ class NetAction extends CommonAction
 						}
 						
 						if(!in_array($this->userinfo['id'],$firstUserNetArray)){
-							$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下!'));
+							$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
 						}
 					}else{
-						$this->error(L('该'.$this->userobj->byname.'不存在!'));
+						$this->error(L('该'.$this->userobj->byname.'不存在'));
 					}
 				}
 			}
@@ -464,7 +464,7 @@ class NetAction extends CommonAction
 			if( I("REQUEST.uid/s")!='')
 			{
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
-					$this->error('非法表单数据');
+					$this->error(L('非法表单数据'));
 				}
 				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
@@ -477,14 +477,14 @@ class NetAction extends CommonAction
 						}
 						
 						if(!in_array($this->userinfo['id'],$firstUserNetArray)){
-							$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下!'));
+							$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
 						}
 						//超出深度
 						if($userLookLayer>0 && ($firstUser[$netName.'_层数']-$this->userinfo[$netName.'_层数'])>$userLookLayer){
-							$this->error("只允许查看".$userLookLayer."层内的会员");
+							$this->error(L("只允许查看".$userLookLayer."层内的会员"));
 						}
 					}else{
-						$this->error(L('该'.$this->userobj->byname.'不存在!'));
+						$this->error(L('该'.$this->userobj->byname.'不存在'));
 					}
 				}
 			}
@@ -554,12 +554,12 @@ class NetAction extends CommonAction
 			if( I('REQUEST.uid/s')!='')
 			{
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
-					$this->error('非法表单数据');
+					$this->error(L('非法表单数据'));
 				}
 				if(I('REQUEST.uid/s') != $this->userinfo['编号']){
 					$firstUser = $userModel->where(array("编号"=>trim(I('REQUEST.uid/s')),"_string"=>"find_in_set('{$this->userinfo['id']}',{$netName}_网体数据)"))->find();
 					if(!$firstUser){
-						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下!'));
+						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
 					}
 				}
 			}
@@ -606,16 +606,16 @@ class NetAction extends CommonAction
 			if( I("REQUEST.uid/s")!='')
 			{
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
-					$this->error('非法表单数据');
+					$this->error(L('非法表单数据'));
 				}
 				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s")),"_string"=>"find_in_set('{$this->userinfo['id']}',{$netName}_网体数据)"))->find();
 					if(!$firstUser){
-						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下!'));
+						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
 					}
 					//超出深度
 					if($userLookLayer>0 && ($firstUser[$netName.'_层数']-$this->userinfo[$netName.'_层数'])>$userLookLayer){
-						$this->error("只允许查看".$userLookLayer."层内的会员");
+						$this->error(L("只允许查看".$userLookLayer."层内的会员"));
 					}
 				}
 				

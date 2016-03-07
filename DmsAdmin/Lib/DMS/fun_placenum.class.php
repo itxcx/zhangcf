@@ -172,8 +172,6 @@
 					$region2id[$Region["name"]]=$key+1;
 				}
 			}
-			//业绩缓存
-			//$adddata=array();
 			//网体数据
 			$netstrary=$t_arrs;
 			//循环进业绩
@@ -199,8 +197,7 @@
 				    }
 				    //判断是否可以进业绩
 				    if(($this->firstinto===false && $inval===false) || ($this->firstinto===true && $inval===true)){
-						//$adddata[$data[1]][]=$data[0];
-					    //$region = $region2id[$data[1]];
+					    $region = $region2id[$data[1]];
 					    //插入的语句
 				    	$sql[]  = "($time,$data[0],$fromid,$val,$saleid,$pid,$region)";
 				    	//对会员的本日本月累计进行增加
@@ -300,17 +297,19 @@
 		//当网络进行过移动时
 		public function event_netmove($net,$user)
 		{
+            die('fun_placenum响应网体移动时movetime未定义,还需处理');
 			$uidsql = $users = M('会员')->where($net->name."_网体数据 like '".($user[$net->name.'_网体数据'].','.$user['id'])."%'")->Field('id')->select(false);
 			$ids = M($this->name.'_业绩')->where('pid=0 and userid in '.$uidsql)->Field('id')->getField('id,id id2');
 			if($ids)
 			{
 				M()->execute('delete from dms_'.$this->name.'业绩 where pid in ('.implode(",",$ids).')');
 			}
-			$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
-			foreach($adds as $add)
-			{
-				$this->addUpPv($add['id'],$add['val'],$add['netdata'],$add['uid'],$add['saleid'],$add['time']);
-			}
+            //问题语句
+			//$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
+			//foreach($adds as $add)
+			//{
+			//	$this->addUpPv($add['id'],$add['val'],$add['netdata'],$add['uid'],$add['saleid'],$add['time']);
+			//}
 		}
 	}
 ?>

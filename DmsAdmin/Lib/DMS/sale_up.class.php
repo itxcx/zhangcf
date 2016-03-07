@@ -41,7 +41,7 @@
 			{
 				$iflv[]=$opt['lv'];
 			}
-			$ret[] = array('lv',$iflv,L('level_illicit'),2,'in');			
+			$ret[] = array('lv',$iflv,L('级别不符合要求'),2,'in');			
 			//对级别升级范围的验证
 			$ret[] = array('lv',array($this,"v_iflv"),'此'.$user->name.'已经达到或者超过此级别,不能升级！',2,'function',3,array(trim($data_post['userid'])));
 			//lock配置中的验证条件验证
@@ -314,10 +314,10 @@
 			$paymoney	     = $this->getPayMoney($option,$sdata);
 			$sdata["accbank"]="";$sdata["accokstr"]="";
 			//生成支付的数据
-			if(isset($data['paycons'])){
+			if(isset($option['paycons'])){
 				$accbankObj = X("accbank@".$this->accBank);
 				if(isset($accbankObj)){
-					$sdata["accbank"]=$accbankObj->makejson($data['paycons']);
+					$sdata["accbank"]=$accbankObj->makejson($option['paycons']);
 				}
 			}
 			$sdata["实付款"] = $paymoney;

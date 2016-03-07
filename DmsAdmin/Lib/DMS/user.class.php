@@ -73,17 +73,26 @@
 			//随机会员编号
 			if($this->idRand)
 			{
-				$ret = (string)rand(0,pow(10,$this->idLength));
+                if($this->idLength>8){
+                    $str='';
+                    $i=0;
+                    do{
+                        $str.=(string)mt_rand(10000000,99999999);
+                        $i+=8;
+                    }while($this->idLength>$i);
+                    $ret=substr($str,0,$this->idLength);
+                }else{
+                    $ret = (string)mt_rand(0,pow(10,$this->idLength));
+                }
 			}
 			else
 			{
 				$ret = $this->getatt("idSerial");
 				if($ret==null)$ret=1;
 				$this->setatt("idSerial",$ret+1);
-				//$ret =(string)
-			}
-			if($this->idLength>0)
+                if($this->idLength>0)
 				$ret=str_pad($ret,$this->idLength,"0",STR_PAD_LEFT);
+			}
 			if($this->idInDate)
 			$ret=$this->getatt("idYmd").$ret;
 			$ret=$this->idPrefix.$ret;
@@ -151,6 +160,35 @@
 				return false;
 			}
 		}
+		//判断编号是否存在和会员状态
+		public function haveActive($para=null)
+		{
+			$where=array();
+			if($para !==null){
+				if(is_string($para))
+				{
+					if($para!='')
+					$where['编号']=$para;
+				}else
+				{
+					$where['id']=$para;
+				}
+				$where['状态']='有效';
+			}
+			$m_user=M('会员');
+			if(count($where)!=0)
+			{
+			  $rs = $m_user->where($where)->lock(true)->find();
+			}else{
+			  $rs = $m_user->lock(true)->find();
+			}
+			if($rs)
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}
 		//取得会员编号
 		public function getuser($para,$fromprize=false)
 		{
@@ -197,6 +235,8 @@
 			if(!$user){
 				return "系统不存在";
 			}
+            $sqlwhere='';
+            $brabchwhere='';
 			//形成sql语句条件 根据网体net_节点生成查询网体下级的sql语句
 			foreach(X("net_*") as $net){
 				$sqlwhere.=$sqlwhere!=""?" or ":"";
@@ -586,6 +626,7 @@
 			$str = '';
 			foreach($newUsers as $key=>$newUsernum){
 				if($con!=''){
+                    $result='';
 					eval('$result=('.$newUsernum.$con.');');
 					if($result){
 						$str .=",'".$key."'";
@@ -650,12 +691,15 @@
 			foreach($newUsers as $key=>$newUser){
 				if($con3!=''){
 					foreach($newUser as $downkey=>$downnewUser){
+                        //需要先
+                        $downresult=null;
 						eval('$downresult=('.$downnewUser.$con3.');');
 						if(!$downresult){
 							unset($newUser[$downkey]);
 						}
 					}
 				}
+                $result = null;
 				eval('$result=('.count($newUser).$con2.');');
 				if($result){
 					$str .=",'".$key."'";

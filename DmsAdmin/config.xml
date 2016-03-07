@@ -187,13 +187,17 @@ XML文档约定
         @package sale _discount  折扣率
         @param   $where      ''  享受折扣的条件
         @param   $val        1   折扣比例，1为全折
+        
+        @package sale _updatesale  更新报单表指定字段信息
+        @param   $where      ''  更新条件M[XXXX]会员表字段判断，S[XXX]报单表字段判断(例如:where='S[购物金额]>=1000')
+        @param   $set        ''  更新字段内容(例如:购物金额=1000)<_saleupdate set="购物金额='1000'"/>
 	-->
 	<sale_reg lvName="会员级别" netname='推荐' name='前台注册' byname="会员注册" user='会员'  fromNoName='服务中心' fromNoWhere="[服务中心]=1" confirm="false" productname='产品' accbank="常规扣款" >
 		<_addval from='[报单金额]' to='管理'/>
 	</sale_reg>
 	<sale_reg lvName="会员级别" netname='推荐' name='后台注册' byname="会员注册" user='admin'  fromNoName='服务中心' fromNoWhere="[服务中心]=1" >
-		<_addval from='[报单金额]' to='管理' />
 		<_addval from='[报单金额]' to='管理'     set='1'/>
+		<_addval from='[报单金额]' to='管理' />
 		<_addval from='1' to='两层人数' _netname='管理' _minlayer='1' _maxlayer='2'/>
 	</sale_reg>
 	<sale_up name='前台升级' byname='会员升级' lvname='会员级别' user='会员'  accbank='常规扣款' productname="产品" extra="true">

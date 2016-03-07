@@ -115,27 +115,6 @@
 				throw_exception("属性不匹配,您对".get_class($this)."设置的节点属性<b>$k</b>不存在");
 			}
 		}
-        if(!empty($resetatts))
-		{
-		 foreach($resetatts as $resetatt)
-			{ 
-			   if($this->reSetAction($resetatt['action']) && transform($resetatt['exp'],array()))
-				{
-				  $type=gettype($this->$resetatt['setname']);
-                    if($type=='integer')
-				      {
-				         $this->$resetatt['setname']=(integer)$resetatt['setval'];
-				      }elseif($type=='boolean')
-				      {
-				         $this->$resetatt['setname']=($resetatt['setval'] == 'true' )? true : false;
-				      }elseif($type=="double"){
-							$this->$resetatt['setname']=(double)$resetatt['setval'];
-					  }else{
-				          $this->$resetatt['setname']=$resetatt['setval'];
-				 }
-				}
-			}
-	    }
 		foreach($this as $k=>$v)
 		{
 			$val=$this->getatt($k);

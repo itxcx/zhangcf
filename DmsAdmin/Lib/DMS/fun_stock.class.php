@@ -433,10 +433,14 @@
 			$alllists=M($this->name."市场")->where($where)->select();
 			if(empty($alllists))
 				return;
+            //定义当前回购的价格
+            $thisprice=$this->getPrice();
 			//执行回购操作
 			foreach($alllists as $list){
 				//获取交易的信息数组
 				$tradeinfo=unserialize($list['tradeinfo']);
+                //回购的金额
+                $thismoney=$thisprice*$list['剩余量'];
 				$tradeinfo[]=array(
 					'name'=>"公司回购",
 					'price'=>$thisprice,

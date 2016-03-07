@@ -18,7 +18,7 @@ class PrizeLockAction extends CommonAction {
 		$list->setButton=$butset;
         $where   =array('user.奖金锁'=>1);
         $list->where($where);
-        $list->addshow("编号",array("row"=>"[编号]","css"=>"width:60px","searchMode"=>"text",'searchGet'=>'userid',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'编号'));  
+        $list->addshow("编号",array("row"=>"[编号]","css"=>"width:60px","searchMode"=>"text",'searchGet'=>'userid',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'user.编号'));  
 		$list->addshow('姓名',array('row'=>'[姓名]',"searchMode"=>"text",'searchRow'=>'姓名'));
         $list->addshow("状态",array("row"=>array(array(&$this,"_zhuangtai"),"[状态]"),"css"=>'width:50px'));
         $list->addshow("注册日期",array("row"=>"[注册日期]","format"=>"date","css"=>"width:60px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date","order"=>"[user.注册日期]",'searchRow'=>'user.注册日期'));
@@ -195,6 +195,7 @@ class PrizeLockAction extends CommonAction {
 			$this->error('输入的编号未查到');
 		}
 		$users=$net->getdown($user,0,0,'',false,true);
+		$users[] = $user;
 		foreach($users as $user)
 		{
 			M('会员')->where(array('id'=>$user['id']))->save(array('奖金锁'=>$value));

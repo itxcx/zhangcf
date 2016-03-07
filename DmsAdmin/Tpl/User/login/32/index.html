@@ -32,16 +32,16 @@ function fleshVerify(type){
     <div  id="topText"><img  src="UserTpl/login/32/imgs/ewmSmall.png" hidden> <a  href="UserTpl/login/32/imgs/ewmSmall1.png"  target="_blank" hidden>二维码扫描登陆(點擊查看大圖)</a> &nbsp;&nbsp;&nbsp;&nbsp; <a  href="#"><!--EnglishUserNameCaptcha--></a> <a  href="#"><!--简体--></a> <a  href="#"><!--繁體--></a></div>
     <div  id="loginbody">
       <div  class="InputBox">
-        <input  name="username"  type="text"  value="玩家编号"  maxlength="10"  id="txtUserName"  class="input1" onfocus="Clear_Txt('txtUserName','玩家编号');" >
+        <input  name="username"  type="text"  value="{:L('玩家编号')}"  maxlength="10"  id="txtUserName"  class="input1" onfocus="Clear_Txt('txtUserName','{:L(玩家编号)}');" >
       </div>
       <div  class="InputBox">
-        <input  name="password"  type="password"  maxlength="20"  id="txtUserPass"  class="input1"  value="******" onfocus="Clear_Txt('txtUserPass','******');" >
+        <input  name="password"  type="password" autocomplete="off"  maxlength="20"  id="txtUserPass"  class="input1"  value="******" onfocus="Clear_Txt('txtUserPass','******');" >
       </div>
       <div  class="InputBox">
-        <input  name="captcha"  type="text"  value="验证码"  maxlength="5"  id="txtValidateCode"  class="input2" onfocus="Clear_Txt('txtValidateCode','验证码');" >
-        <span style="padding-left:0px;">	<img width="78" height="28" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </span></div>
+        <input  name="captcha"  type="text"  value="{:L('验证码')}"  maxlength="5"  id="txtValidateCode"  class="input2" onfocus="Clear_Txt('txtValidateCode','{:L(验证码)}');" >
+        <span style="padding-left:0px;">	<img width="78" height="28" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </span></div>
       <div  class="ButtonBox">
-        <input  type="submit"  name="Button1"  value="登陆"  id="Button1"  class="buttom1">
+        <input  type="submit"  name="Button1"  value="{:L('登陆')}"  id="Button1"  class="buttom1">
         <span  id="showText"></span> <a  id="lkGetPass"  href="#"  target="_blank">&nbsp;<!--取回密码--></a></div>
       <div  class="sealSSL"> <a  href="#"  target="_blank"><img  src="UserTpl/login/32/imgs/siteseal_gd_3_h_d_m.gif"  alt="ssl"  border="0"></a> </div>
     </div>

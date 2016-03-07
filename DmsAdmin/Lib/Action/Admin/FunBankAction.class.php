@@ -46,15 +46,11 @@ class FunBankAction extends CommonAction {
         $list=new TableListAction("转账明细");
 		$list->table('dms_转账明细 a');
 		$list->join('dms_会员 as b on a.转出编号=b.编号')->field('a.*,b.姓名');
-        if(isset($button)){
-            $list->setButton = $button;
-        }else{
-            $list->setButton = array(
-            '审核'=>array("class"=>"edit"  ,"href"=>"__URL__/givemoneyacc/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            '撤销'=>array("class"=>"delete","href"=>"__URL__/givemoneyunpage/id/{tl_id}","target"=>"dialog","mask"=>"true","width"=>"520","height"=>"240"),
-            '删除'=>array("class"=>"delete","href"=>"__URL__/givemoneydel/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            );
-        }
+        $list->setButton = array(
+        '审核'=>array("class"=>"edit"  ,"href"=>"__URL__/givemoneyacc/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        '撤销'=>array("class"=>"delete","href"=>"__URL__/givemoneyunpage/id/{tl_id}","target"=>"dialog","mask"=>"true","width"=>"520","height"=>"240"),
+        '删除'=>array("class"=>"delete","href"=>"__URL__/givemoneydel/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        );
 		$list->order("a.id desc");
 		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","searchRow"=>"id")); 
         $list->addshow("状态",array("row"=>array(array(&$this,"mytobankFun"),"[状态]"),"searchRow"=>"a.状态","searchMode"=>"text","searchGet"=>"状态","searchPosition"=>"top","searchSelect"=>array("未审核"=>"未审核","已撤销"=>"已撤销","已审核"=>"已审核")));
@@ -198,14 +194,10 @@ class FunBankAction extends CommonAction {
 		$user=X('user');
         $list=new TableListAction('提现');
         $list->where("撤销申请!=0");
-        if($button){
-            $list->setButton = $button;
-        }else{
-            $list->setButton = array(
-            	'同意'=>array("class"=>"edit","href"=>"__URL__/apply_aggree:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            	'拒绝'=>array("class"=>"delete","href"=>"__URL__/apply_notaggree:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
-            );
-        }
+        $list->setButton = array(
+        	'同意'=>array("class"=>"edit","href"=>"__URL__/apply_aggree:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        	'拒绝'=>array("class"=>"delete","href"=>"__URL__/apply_notaggree:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
+        );
 		$list->order("id desc");
         $list->addshow("状态"    ,array("row"=>array(array(&$this,"mygetFun11"),"[撤销申请]"),"searchRow"=>"撤销申请","searchMode"=>"text","searchGet"=>"撤销申请","searchPosition"=>"top","searchSelect"=>array("未审核"=>"1","已同意"=>"2","已拒绝"=>"3")));  
         $list->addshow("货币名称",array("row"=>"[货币名称]","searchMode"=>"text","searchRow"=>"货币名称"));  
@@ -227,12 +219,11 @@ class FunBankAction extends CommonAction {
         $list->addshow("开户名"  ,array("row"=>"[开户名]","searchMode"=>"text","searchRow"=>"开户名"));
         $list->addshow("联系电话",array("row"=>"[联系电话]","searchMode"=>"text"));
         $list->addExcel("环迅"   ,array("url"=>__URL__."/getHxExcel:__XPATH__",'background'=>'url(__PUBLIC__/Images/excel.jpg) no-repeat scroll 0 2px;'));
-        //dump($list->select(false));
         $this->assign('list',$list->getHtml());
         $this->display('getmoney');
 	}
 	//同意撤销
-	function apply_aggree(){
+	function apply_aggree(fun_bank $bank){
         $m_user=M('会员');
 		$succNum = 0;
 		$errNum = 0; 
@@ -242,8 +233,6 @@ class FunBankAction extends CommonAction {
 			$get = M($bank->name."提现");
 			M()->startTrans();
             $re = $get ->lock(true)->where(array("id"=>$id))->find();
-			
-    		
 			if(!$re){
 				$errNum++;
 				$errMsg .=$id . '：记录不存在！<br/>';

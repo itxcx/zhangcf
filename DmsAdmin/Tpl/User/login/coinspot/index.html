@@ -11,7 +11,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>会员登录</title>
+        <title>{:L('会员登录')}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
@@ -49,7 +49,7 @@
             <!-- BEGIN LOGIN FORM -->
             <form method="POST" action="__URL__/check" accept-charset="UTF-8" class="login-form" id=loginform encType="multipart/form-data" name="login">
                 <input type="hidden" name="act" value="verify" />
-                <h3 class="form-title" style="text-align:center;font-size:35px">会员管理中心</h3>
+                <h3 class="form-title" style="text-align:center;font-size:35px">{:L('会员管理中心')}</h3>
                 <!-- <div class="form-group clearfix">
                     <div class="btn-group btn-block">
                         <button data-toggle="dropdown" class="btn btn-default btn-block dropdown-toggle" type="button">
@@ -72,26 +72,26 @@
                 <div class="form-group ">
 
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">帐号 ID</label>
+                    <label class="control-label visible-ie8 visible-ie9">{:L('帐号')} ID</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="帐号 ID" name="username"/>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{:L('帐号')} ID" name="username"/>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <label class="control-label visible-ie8 visible-ie9">{:L('密码')}</label>
                     <div class="input-icon">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password"/>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" autocomplete="off" placeholder="{:L('密码')}" name="password"/>
                     </div>
                 </div>
                 <div class="form-group  clearfix">
-                    <label class="control-label visible-ie8 visible-ie9">验证码</label>
+                    <label class="control-label visible-ie8 visible-ie9">{:L('验证码')}</label>
                     <div class="input-icon securitycode">
 
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix form-control-code"  id="captcha" type="text" autocomplete="off" placeholder="验证码" name="captcha"/>
-                        <img id="verifyImg" src="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle">
+                        <input class="form-control placeholder-no-fix form-control-code"  id="captcha" type="text" autocomplete="off" placeholder="{:L('验证码')}" name="captcha"/>
+                        <img id="verifyImg" src="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle">
                         <!-- 验证码效果按需调整 -->
                     </div>
                 </div>
@@ -100,16 +100,16 @@
                 </if>    
                 <div class="form-actions">
                     <eq name="isOpenTime" value="0">
-                        对不起，该时间段暂不可访问
+                        {:L('对不起，该时间段暂不可访问')}
                     <else/>
                     <button type="submit" class="btn red">
-                        登入 <i class="m-icon-swapright m-icon-white"></i>
+                        {:L('登入')} <i class="m-icon-swapright m-icon-white"></i>
                     </button>
-                    <a href="#" hidden>忘记密码?</a>
+                    <a href="#" hidden>{:L('忘记密码')}?</a>
                     </eq>
                 </div>
                 <div class="form-group">
-                    {$openTimeStr}
+                    {:L($openTimeStr)}
                 </div>
             </form>
             <!-- END LOGIN FORM -->

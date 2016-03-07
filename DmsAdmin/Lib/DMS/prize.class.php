@@ -469,7 +469,7 @@
 			$ret =  $m_sale->where($calwhere)->field($rows)->select();
 			if($ret === false)
 			{
-				throw_exception($this->name.'获取订单失败,sql信息('.htmlentities($m_user->getDbError(),ENT_COMPAT ,'UTF-8').")");
+				throw_exception($this->name.'获取订单失败,错误信息('.htmlentities($m_sale->getDbError(),ENT_COMPAT ,'UTF-8').")");
 			}
 			return $ret;
 		}

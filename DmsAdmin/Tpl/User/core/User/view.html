@@ -12,34 +12,34 @@ function printGender($gender)
 }
 </php>
 <div class="core_main User" id="view">
-	<div class="core_title"><span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span></div>
+	<div class="core_title"><span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span></div>
 	<div class="core_con">
     <table class="tablebg">
 		<tr>
-	  		<td class="tbkey" >用户编号：</td>
+	  		<td class="tbkey" >{:L('用户编号')}：</td>
 	  		<td class="tbval" >{$userinfo.编号}&nbsp;</td>
 		</tr>
         <if condition="in_array('name',$show) eq true">
         <tr>
-        	<td class="tbkey" >姓名：</td>
+        	<td class="tbkey" >{:L('姓名')}：</td>
         	<td class="tbval" >{$userinfo.姓名}&nbsp;</td>
         </tr>
         </if>
         <if condition="in_array('alias',$show) eq true">
         <tr>
-          	<td class="tbkey" >昵称：</td>
+          	<td class="tbkey" >{:L('昵称')}：</td>
           	<td class="tbval" >{$userinfo.昵称}&nbsp;</td>
         </tr>
         </if>
         <if condition="in_array('sex',$show) eq true">
         <tr>
-          	<td class="tbkey" >性别：</td>
+          	<td class="tbkey" >{:L('性别')}：</td>
           	<td class="tbval" >{$userinfo['性别']}&nbsp;</td>
         </tr>
         </if>
         <if condition="in_array('reciver',$show) eq true">
         <tr>
-          	<td class="tbkey" >收货人：</td>
+          	<td class="tbkey" >{:L('收货人')}：</td>
           	<td class="tbval" >{$userinfo.收货人}&nbsp;</td>
         </tr>
         </if>    
@@ -50,36 +50,36 @@ function printGender($gender)
         </tr>
         </foreach>
         <tr>
-          	<td class="tbkey" >注册时间：</td>
+          	<td class="tbkey" >{:L('注册时间')}：</td>
           	<td class="tbval" >{$userinfo.注册日期|date="Y-m-d H:i:s",###}&nbsp;</td>
         </tr>
         <if condition="in_array('id_card',$show) eq true">
         <tr >
-          	<td class="tbkey" >证件号码：</td>
+          	<td class="tbkey" >{:L('证件号码')}：</td>
           	<td class="tbval" >{$userinfo.证件号码}&nbsp;</td>
         </tr>
         </if>
         <if condition="in_array('bank_apply_name',$show) eq true">
         <tr>
-          	<td class="tbkey" >开户银行：</td>
+          	<td class="tbkey" >{:L('开户银行')}：</td>
           	<td class="tbval" >{$userinfo.开户银行}&nbsp;</td>
         </tr>
         </if>
         <if condition="in_array('bank_card',$show) eq true">
         <tr >
-          	<td class="tbkey" >银行卡号：</td>
+          	<td class="tbkey" >{:L('银行卡号')}：</td>
           	<td class="tbval" >{$userinfo.银行卡号}</td>
         </tr>
         </if>
         <if condition="in_array('bank_name',$show) eq true">
         <tr >
-          	<td class="tbkey" >开户名：</td>
+          	<td class="tbkey" >{:L('开户名')}：</td>
           	<td class="tbval" >{$userinfo.开户名}</td>
         </tr>
         </if>
         <if condition="in_array('bank_apply_addr',$show) eq true">
         <tr >
-          	<td class="tbkey" >开户地址：</td>
+          	<td class="tbkey" >{:L('开户地址')}：</td>
           	<td class="tbval" >{$userinfo.开户地址}</td>
         </tr>
         </if>
@@ -97,42 +97,30 @@ function printGender($gender)
         </if>
         <if condition="in_array('weixin',$show) eq true">
         <tr >
-          	<td class="tbkey" >微信号：</td>
+          	<td class="tbkey" >{:L('微信号')}：</td>
           	<td class="tbval" >{$userinfo.微信账号}</td>
         </tr>
         </if>
         <if condition="in_array('mobile',$show) eq true">
         <tr >
-          	<td class="tbkey" >移动电话：</td>
+          	<td class="tbkey" >{:L('移动电话')}：</td>
           	<td class="tbval" >{$userinfo.移动电话}</td>
         </tr>
         </if>
         <if condition="in_array('area',$show) eq true">
         <tr >
-          	<td class="tbkey" >国家：</td>
-          	<td class="tbval" >{$userinfo.国家}</td>
-        </tr>
-        <tr >
-          	<td class="tbkey" >省/州：</td>
-          	<td class="tbval" >{$userinfo.省份}</td>
-        </tr>
-        <tr >
-          	<td class="tbkey" >城市：</td>
-          	<td class="tbval" >{$userinfo.城市}</td>
-        </tr>
-        <tr >
-          	<td class="tbkey" >地区：</td>
-          	<td class="tbval" >{$userinfo.地区}</td>
+          	<td class="tbkey" >地址：</td>
+          	<td class="tbval" >{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}</td>
         </tr>
         </if>
         <if condition="in_array('address',$show) eq true">
         <tr >
-          	<td class="tbkey" >地址：</td>
+          	<td class="tbkey" >详细地址：</td>
           	<td class="tbval" >{$userinfo.地址}</td>
         </tr>
         </if>
         <tr >
-            <td colspan="2"><button class="button_text" type="button" onclick="history.back();">返回</button></td>
+            <td colspan="2"><button class="button_text" type="button" onclick="history.back();">{:L('返回')}</button></td>
 	</table>
     </div>	
 </div>

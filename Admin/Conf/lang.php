@@ -5,11 +5,15 @@ return array (
     'USE' => false,
     'SET' => 
     array (
-      0 => 'zh-cn',
-      1 => 'en-us',
-      2 => 'zh-tw',
+      'zh-cn' => '中文',
+      'en' => 'English',
     ),
     'DEFAULT' => 'zh-cn',
+  ),
+  'BDFY_API' => 
+  array (
+    'APPID' => '',
+    'KEY' => '',
   ),
 );
 ?>

@@ -366,7 +366,7 @@
                 {
                 	if($sale->ledger!='')
                 	{
-                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name))->sum($sale->ledger);		
+                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name,'报单状态'=>array('not in','空单,回填')))->sum($sale->ledger);		
                 	}
                 }
                 $krate_temp = 0;
@@ -1000,8 +1000,14 @@
                }
                 //设置当日的奖金的发放状态,默认为未发放
                 $savedata['state']=0;
+                
                 //秒结秒发
                 if($this->secAutoGive && $this->_caltype == 0){
+                    //判断当前为纯秒结算，则默认处于已发放状态
+                    if($this->tleMode == 's')
+                    {
+                        $savedata['state'] = 1;
+                    }
                 	//判断是否以保存本期总账信息
                 	if(isset($thisledger['state'])){
                 		$savedata['state']=$thisledger['state'];

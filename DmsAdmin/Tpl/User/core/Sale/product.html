@@ -15,7 +15,7 @@
         <table class="tablebg" id="table1">
             <thead>
                 <tr>
-                    <td colspan="8" >{$sale:productName}选购</td>
+                    <td colspan="8" >{:L($sale->productName.'选购')}</td>
                 </tr>
                 <tr >
                     <td colspan="8" >
@@ -26,15 +26,15 @@
                         </foreach></td>
                 </tr>
                 <tr>
-                    <td >序号</td>
-                    <td >产品名称</td>
-                    <td >图片</td>
-                    <td >数量</td>
-                    <td >{$sale:productMoney}</td>
+                    <td >{:L('序号')}</td>
+                    <td >{:L('产品名称')}</td>
+                    <td >{:L('图片')}</td>
+                    <td >{:L('数量')}</td>
+                    <td >{:L($sale->productMoney)}</td>
                     <eq name="sale:productPV" value="true"><td >PV</td></eq>
-                    <if condition="$logistic eq true"><td >重量</td></if>
+                    <if condition="$logistic eq true"><td >{:L('重量')}</td></if>
                     <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">
-                    <td >库存</td>
+                    <td >{:L('库存')}</td>
                     </if>
                 </tr>
             </thead>
@@ -50,9 +50,9 @@
                        $nums = M($proobj->name.'套餐')->where(array('产品id'=>$vo['id']))->count();
                        if($nums>0){
                     </php>
-                    <a href="__URL__/showProtaocan/proid/{$vo.id}">{$vo.名称}(套餐详情)</a>
+                    <a href="__URL__/showProtaocan/proid/{$vo.id}">{:L($vo['名称'])}({:L('套餐详情')})</a>
                     <php>}else{</php>
-                    <a href="__URL__/showProinfo/id/{$vo.id}">{$vo.名称}</a>
+                    <a href="__URL__/showProinfo/id/{$vo.id}">{:L($vo['名称'])}</a>
                     <php>}</php>
                     </td>
                     <td>
@@ -69,10 +69,10 @@
                     </td>
                     <td><input type="text" name="productNum[{$vo.id}]"  id="productNum_{$vo.id}" productNumInfo="{$vo.id}_{$fenlei}_{$vo.名称}_{$vo[$sale:productMoney]}_{$vo.PV}_{$vo.重量}" pronum="{$vo.可订购数量}" style="width:35px" productimg="{$productimg}" /></td>
                     <td>{$vo[$sale:productMoney]}</td>
-                    <eq name="sale:productPV" value="true"><td>{$vo.PV}</td></eq>
-                    <if condition="$logistic eq true"><td>{$vo.重量}</td></if>		
+                    <eq name="sale:productPV" value="true"><td>{:L($vo['PV'])}</td></eq>
+                    <if condition="$logistic eq true"><td>{:L($vo['重量'])}</td></if>		
                     <if condition="($proobj:productnumCheck eq true) or (adminshow('prostock') eq true)">
-                    <td id="state_productnum{$vo.id}">{$vo.可订购数量}</td>
+                    <td id="state_productnum{$vo.id}">{:L($vo['可订购数量'])}</td>
                     </if>
                 </tr>
                 </volist>
@@ -83,23 +83,23 @@
         <table class="tablebg" id="table2">
             <thead>
                 <tr>
-                    <td colspan="8">已选产品</td>
+                    <td colspan="8">{:L('已选产品')}</td>
                 </tr>
                 <tr>
-                    <td >序号</td>
-                    <td >类别</td>
-                    <td >产品名称</td>
-                    <td >图片</td>
-                    <td >总计数量</td>
-                    <td >总金额</td>
-                    <eq name="sale:productPV" value="true"><td >总PV</td></eq>
-                    <if condition="$logistic eq true"><td>总重量</td></if>
+                    <td >{:L('序号')}</td>
+                    <td >{:L('类别')}</td>
+                    <td >{:L('产品名称')}</td>
+                    <td >{:L('图片')}</td>
+                    <td >{:L('总计数量')}</td>
+                    <td >{:L('总金额')}</td>
+                    <eq name="sale:productPV" value="true"><td >{:L('总PV')}</td></eq>
+                    <if condition="$logistic eq true"><td>{:L('总重量')}</td></if>
                 </tr>
             </thead>
             <tbody id="selectedProduct">
             </tbody>
             <tr>
-                <td colspan="4"  style="text-align:right">汇总：</td>
+                <td colspan="4"  style="text-align:right">{:L('汇总')}：</td>
                 <td id="totalnum">0</td>
 				<td id="totalprice">0</td>
 				<eq name="sale:productPV" value="true"><td id="totalpv">0</td></eq>
@@ -109,11 +109,11 @@
 				<tr>
 					<td colspan="4" style="text-align:right;">
 					<span style="display:inline-block;text-align:left;width:70%">
-					<if condition="$zkbool eq true">折扣：<span id="zk"></span>折</if>
+					<if condition="$zkbool eq true">{:L('折扣')}：<span id="zk"></span>{:L('折')}</if>
 					&nbsp;&nbsp;&nbsp;
-					<if condition="$logistic eq true">物流费：<span id="wlf"></span></if>
+					<if condition="$logistic eq true">{:L('物流费')}：<span id="wlf"></span></if>
 					</span>
-					<span>实际支付:</span>
+					<span>{:L('实际支付')}:</span>
 					</td>
 					<td id="totalzf" colspan="4" style="text-align:center;">0</td>
 				</tr>

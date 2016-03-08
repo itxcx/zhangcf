@@ -1,21 +1,21 @@
-<?php    //¼ÓÔØ¿ò¼ÜÈë¿ÚÎÄ¼þ
+<?php
 ini_set('display_errors','On');
 require '../function.php';
-//ÉèÖÃÏîÄ¿ÐÅÏ¢
+//è®¾ç½®é¡¹ç›®ä¿¡æ¯
 define('APP_NAME', 'DmsAdmin');
 define('APP_PATH', '../DmsAdmin/');
-//ÉèÖÃDEBUGÄ£Ê½
+//è®¾ç½®DEBUGæ¨¡å¼
 $debugstate = require '../Admin/Conf/debug.php';
 define('APP_DEBUG'    , $debugstate['APP_DEBUG']);
-//×öÍÆ¹ã×¢²á´¦Àí
+//åšæŽ¨å¹¿æ³¨å†Œå¤„ç†
 if($_GET && key($_GET)!=='s')
 {
 	$_GET['s']='/User/Saleweb/usereg/rec/'.key($_GET);
 }
-//×öÊ×Ò³µÇÈëÌø×ª
+//åšé¦–é¡µç™»å…¥è·³è½¬
 if(!$_GET)
 {
-	$_GET['s']='/User/Public/login';
+	$_GET['s']='/User/Public/login'; 
 }
 require '../ThinkPHP/ThinkPHP.php';
 ?>

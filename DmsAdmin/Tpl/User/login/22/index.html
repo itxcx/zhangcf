@@ -30,22 +30,22 @@ function fleshVerify(type){
 <div style="height:180px;"></div>
 <table style="margin:0 auto; width:380px;">
 <tr>
-<td style="color:#fff; text-align:right; width:100px; padding:16px 0 0 0;">{:L('id')}</td>
+<td style="color:#fff; text-align:right; width:100px; padding:16px 0 0 0;">{:L('用户名')}</td>
 <td style="padding:16px 0 0 0; text-align:left">
 <input style="background-color:#3a3633; border:0; margin-left:10px; height:20px; width:120px; color:#fff;" type="text" name="username" id="username" />
 </td>
 </tr>
 
 <tr>
-<td style="color:#fff; text-align:right; padding:16px 0 0 0;">{:L('pwd')}</td>
-<td style="padding:16px 0 0 0; text-align:left"><input type="password" style="background-color:#3a3633; color:#fff; border:0; margin-left:10px; height:20px; width:120px;" name="password" id="password" />
-<span style="font-size:10px; color:#f00;"><a href="javascript:getpass()" style="color:#F00;">{:L('forget_pass')}</a></span></td>
+<td style="color:#fff; text-align:right; padding:16px 0 0 0;">{:L('密码')}</td>
+<td style="padding:16px 0 0 0; text-align:left"><input type="password" autocomplete="off" style="background-color:#3a3633; color:#fff; border:0; margin-left:10px; height:20px; width:120px;" name="password" id="password" />
+<span style="font-size:10px; color:#f00;"><a href="javascript:getpass()" style="color:#F00;">{:L('忘记密码')}</a></span></td>
 </tr>
 
 <tr>
-<td style="color:#fff; text-align:right; padding:16px 0 0 0;">{:L('verify')}</td>
+<td style="color:#fff; text-align:right; padding:16px 0 0 0;">{:L('验证码')}</td>
 <td style="padding:16px 0 0 0; text-align:left"><input style="background-color:#3a3633; border:0; color:#fff; margin-left:10px; height:20px; width:67px;" maxlength="4" name="captcha" id="verify" type="text" />&nbsp;&nbsp;&nbsp;<font color="#FFFFFF">
-<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></font>
+<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></font>
 </td>
 </tr>
 		
@@ -62,7 +62,7 @@ function fleshVerify(type){
 </td>
 
 <td colspan="2" style="padding-top:28px; text-align:right; padding-right:2px;">
-<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-left:60px">对不起，该时间段暂不可访问</span><else/>
+<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-left:60px">{:L('对不起，该时间段暂不可访问')}</span><else/>
 <input type="submit" name="submit" value="{:L('login')}" style=" background:url(__ROOT__/UserTpl/login/22/bt.jpg) no-repeat; border:none; margin-right:20px; width:84px; height:25px; color:#FFF; font-weight:bold;"/>
 </eq>
 </td>
@@ -70,7 +70,7 @@ function fleshVerify(type){
 </table>
 </div>
 </form>
-<div align="center" class="STYLE1" style="font-size:12px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="font-size:12px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>
 <script type="text/javascript">

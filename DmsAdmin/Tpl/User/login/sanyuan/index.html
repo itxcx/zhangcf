@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1">
-<title>系统登录</title>
+<title>{:L('系统登录')}</title>
 <link rel="stylesheet" type="text/css" href="UserTpl/login/sanyuan/loginsanyuan.css" media="all" />
 <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-fieldselection.js"></script>
@@ -26,7 +26,7 @@ function fleshVerify(type){
 <div id="login_wrapper">
 <div id="login_main" style="width:900px">
 		<div class="logo">
-			<a href="#"><img src="UserTpl/login/sanyuan/login-logo.png" width="321" height="80" alt="三圆健康俱乐部" /></a>
+			<a href="#"><img src="UserTpl/login/sanyuan/login-logo.png" width="321" height="80" alt="{:L('三圆健康俱乐部')}" /></a>
 		</div>
             
             				<div class="login-form">
@@ -59,18 +59,18 @@ function __doPostBack(eventTarget, eventArgument) {
             <table cellpadding="0" cellspacing="0" border="0">
 				<tbody>
 					<tr>
-						<td class="td1">用户名:</td>
+						<td class="td1">{:L('用户名')}:</td>
 						<td class="td2"><input name="username" type="text" id="username" class="login-inp" />
                         </td>
 					</tr>
 					<tr>
-						<td class="td1">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-						<td class="td2"><div id="MemberPWD"><input id="password" class="login-inp"  type="password" name="password" /></div>
+						<td class="td1">{:L('密码')}:</td>
+						<td class="td2"><div id="MemberPWD"><input id="password" class="login-inp"  type="password" autocomplete="off" name="password" /></div>
                         </td>
 					</tr>
 						<if condition="isset($dispCode) and ($dispCode eq true)">
 					<tr>
-						<td class="td1">验证码:</td>
+						<td class="td1">{:L('验证码')}:</td>
 						<td class="td2">
 							<nobr><input type="text" name="captcha" id="verify" class="login-inp" />&nbsp;</nobr>
 						</td>
@@ -78,19 +78,19 @@ function __doPostBack(eventTarget, eventArgument) {
 					
 						<tr>
 						<td class="td1"></td>
-						<td class="td2"><img id="verifyImg" SRC="__URL__/verify/" onClick="this.src='__URL__/verify/'+Math.random();" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"/></td>
+						<td class="td2"><img id="verifyImg" SRC="__URL__/verify/" onClick="this.src='__URL__/verify/'+Math.random();" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"/></td>
 					</tr>		</if>
 					<tr>
 						<td class="td1">&nbsp;</td>
 						<td class="td2 btns">
-							<a onclick="return Check();" id="LinkButton1" class="btn-login btn1" href="javascript:__doPostBack(&#39;LinkButton1&#39;,&#39;&#39;)">登录</a>
-                            <input type="reset" value="重置" class="btn-login" />
+							<a onclick="return Check();" id="LinkButton1" class="btn-login btn1" href="javascript:__doPostBack(&#39;LinkButton1&#39;,&#39;&#39;)">{:L('登录')}</a>
+                            <input type="reset" value="{:L('重置')}" class="btn-login" />
 						</td>
 					</tr>
 					<tr>
 						<td class="">&nbsp;</td>
 						<td class="">
-						  <a href="javascript:;" onclick="popupURL('找回密码','__URL__/getPassWord');" style="color: #000000;">找回密码</a>
+						  <a href="javascript:;" onclick="popupURL('{:L('找回密码')}','__URL__/getPassWord');" style="color: #000000;">{:L('找回密码')}</a>
 						</td>
 					</tr>
 		 <if condition="$usernum eq 1">

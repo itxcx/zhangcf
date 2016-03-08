@@ -223,7 +223,7 @@ class FunBankAction extends CommonAction {
         $this->display('getmoney');
 	}
 	//同意撤销
-	function apply_aggree(){
+	function apply_aggree(fun_bank $bank){
         $m_user=M('会员');
 		$succNum = 0;
 		$errNum = 0; 

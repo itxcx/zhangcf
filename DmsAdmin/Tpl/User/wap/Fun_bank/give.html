@@ -68,13 +68,13 @@
             <if condition="($bank:giveMoneyPass2 eq true)">
             <tr >
             <td class="tbkey">{:L('二级密码：')}</td>
-            <td class="tbval"><span><input type="password" value="" name="pass2" /></span></td>
+            <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass2" /></span></td>
             </tr>
             </if>
           <if condition="($bank:giveMoneyPass3 eq true)">
           <tr>
             <td class="tbkey">三级密码：</td>
-            <td class="tbval"><span><input type="password" value="" name="pass3" /></span></td>
+            <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass3" /></span></td>
           </tr>
           </if>
           <if condition="($bank:giveMoneySmsSwitch eq true)">

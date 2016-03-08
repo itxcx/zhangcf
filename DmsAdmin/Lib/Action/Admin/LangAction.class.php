@@ -150,7 +150,8 @@ class LangAction extends Action{
 		$this->ajaxReturn($arr,'','','json');
 	}
 	//翻译
-	function translate(){		
+	function translate(){
+		if(!C('LANG.USE')) $this->ajaxReturn('','多语言未开启，翻译不可用',0);		
 		$seman = I("get.seman/s");
 		$langs = C('LANG.SET');
 		$langset = $this -> getLangCode();
@@ -163,12 +164,16 @@ class LangAction extends Action{
 	//打开多语言设置
 	function multiLangSet(){
 		$use = C('LANG.USE');
+		$api = C('BDFY_API');
 		$this -> assign('use',$use);
+		$this -> assign('api',$api);
 		$this -> display();
 	}
 	//提交多语言设置
 	function multiLangOpen(){
 		$multiLang = I('post.multiLang');
+		$appid = I('post.appid');
+		$key = I('post.key');
 		//开启、关闭多语言
 		$path = ROOT_PATH . 'Admin/conf/lang.php';
 		if(!file_exists($path)){
@@ -180,7 +185,15 @@ class LangAction extends Action{
 			if(!$multiLang){
 				$this -> ajaxReturn('','多语言已关闭',1);
 			}
+			if(!$appid) $this -> ajaxReturn('','请输入appid',0);
+			if(!preg_match("/^\d{17}$/",$appid)) $this -> ajaxReturn('','输入appid格式不正确',0);
+			if(!$key) $this -> ajaxReturn('','请输入key',0);
+			if(!preg_match("/^[a-zA-Z0-9]{20}$/",$key)) $this -> ajaxReturn('','输入key格式不正确',0);
 			$conf['LANG']['USE'] = true;
+			if($appid !== $conf['BDFY_API']['APPID'])
+				$conf['BDFY_API']['APPID'] = $appid;
+			if($key !== $conf['BDFY_API']['KEY'])
+				$conf['BDFY_API']['KEY'] = $key;
 			$res = file_put_contents($realpath , "<?php" ."\n". "return " . var_export($conf, true) . ";\n?>");
 			if($res)
 			$this -> ajaxReturn('','多语言已开启',1);
@@ -191,6 +204,10 @@ class LangAction extends Action{
 				if($res)
 				$this -> ajaxReturn('','多语言已关闭',1);
 			}
+			if(!$appid) $this -> ajaxReturn('','请输入appid',0);
+			if(!preg_match("/^\d{17}$/",$appid)) $this -> ajaxReturn('','输入appid格式不正确',0);
+			if(!$key) $this -> ajaxReturn('','请输入key',0);
+			if(!preg_match("/^[a-zA-Z0-9]{20}$/",$key)) $this -> ajaxReturn('','输入key格式不正确',0);
 			$this -> ajaxReturn('','多语言已开启',1);
 		}
 	}
@@ -210,6 +227,7 @@ class LangAction extends Action{
 	
 	//创建语言包
 	function buildMUI(){
+		if(!C('LANG.USE')) $this->ajaxReturn('','多语言未开启，添加语言包不可用',0);
 		$mui = I('post.mui');
 		if(!$mui){
 			$this ->ajaxReturn('','未选择语言包',0);

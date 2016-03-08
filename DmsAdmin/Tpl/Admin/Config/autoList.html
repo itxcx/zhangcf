@@ -87,8 +87,8 @@
      <tfoot>
 		<tr>
 		<td style="border-bottom:1px solid #ededed" >
-			<DIV align=left style="width: 581; height: 300px; overflow-y:scroll;overflow:yes;margin:5px 5px 5px 5px;border: 1px solid #aaaaaa;line-height:18px;padding: 4px" id='autodiv'>
-				<table width='100%' id='automemo'>
+			<DIV align=left style="width: 581; height: 300px; overflow-y:scroll;overflow:yes;margin:5px 5px 5px 5px;border: 1px solid #aaaaaa;line-height:18px;padding: 4px" id='autoclidiv'>
+				<table width='100%' id='autoclimemo'>
 				</table>
 			</div>
 		</td></tr>
@@ -104,8 +104,8 @@ function autoset(autotype,type){
 }
 function addexemsg(title,time,icon)
 {
-	$("<tr><td width='18'><img src='"+icon+"'></td><td align='left' style='text-align: left'>"+title+"</td><td width='80'>("+time+")</td></tr>").appendTo('#automemo',navTab.getCurrentPanel());
-	$('#autodiv',navTab.getCurrentPanel()).scrollTop(1000000);
+	$("<tr><td width='18'><img src='"+icon+"'></td><td align='left' style='text-align: left'>"+title+"</td><td width='80'>("+time+")</td></tr>",navTab.getCurrentPanel()).appendTo('#autoclimemo',navTab.getCurrentPanel());
+	$('#autoclidiv',navTab.getCurrentPanel()).scrollTop(1000000);
 	if(icon == '/Public/Images/ExtJSicons/tick.png'){
 		//刷新状态显示
 		$.post('__URL__/autostatus',{type:'runstatic'},function(data){

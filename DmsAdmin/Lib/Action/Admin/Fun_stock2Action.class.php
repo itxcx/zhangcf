@@ -274,7 +274,7 @@ class Fun_stock2Action extends CommonAction
 			   $rs=$user_model->where('编号='.$data['编号'])->save(array($fun_stock->name=>array('exp',$fun_stock->name.'+'.$data['num'])));
 			   if($rs){
 				   $data['addtime']=systemTime();
-					  $fun_stock->setrecord($data['编号'],$fun_stock->stockPrice(),$data['num'],$this->userobj->byname.$data['编号']."后台充值".$data['num']."股",3);
+					  $fun_stock->setrecord($data['编号'],$fun_stock->stockPrice(),$data['num'],$this->userobj->byname.$data['编号']."后台充值".$data['num']."股",2);
 					  M()->commit();
 		              $this->success("添加".$fun_stock->byname.'成功');
 	            	}else{
@@ -434,7 +434,7 @@ class Fun_stock2Action extends CommonAction
 			$this->error('数量不合法');
 		}
 		
-		$fun_stock->setrecord($user['编号'],0,$num,I("post.account/s"),I("post.memo/s"),2,true,false);
+		$fun_stock->setrecord($user['编号'],0,$num,I("post.account/s"),I("post.memo/s"),2);
 		M()->commit();
 		$this->success('成功');
 	}	

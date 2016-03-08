@@ -15,6 +15,8 @@ $(function () {
         $('.core_title').after('<h3 class="h3 banner-text"></h3>');
         $('.banner-text').html(str);
     }
+    $('#get.Fun_bank').find('.core_title:gt(0)').css({'margin-top':0});
+    $('#get.Fun_bank').find('.core_title:gt(0)').find('.core_title_con').css({'margin-left':0,'width':'100%'});
     //股票界面
     $('#holder').parent('div').width(650);
     //发送邮件

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>会员登录统</title>
+        <title>{:L('会员登录')}</title>
         <style type="text/css">
             body {
                 margin: 0;
@@ -118,32 +118,32 @@
                     <input type="hidden" name="act" value="verify" />
                     <table cellpadding="0" cellspacing="0" style="margin:0 auto;" class="tb">
                         <tr  class="h30">
-                            <td class="al">用户名</td>
-                            <td class="al">密码</td>
-                            <td colspan="4"  class="al">验证码</td>
+                            <td class="al">{:L('用户名')}</td>
+                            <td class="al">{:L('密码')}</td>
+                            <td colspan="4"  class="al">{:L('验证码')}</td>
                         </tr>
                         <tr class="h40">
                             <td style="background:url(UserTpl/login/jdd/yhm.jpg) no-repeat 0 0; width:202px; height:40px;  padding-right: 30px;">
                             <input class="input1 w202" type="text" name="username" id="username" />
                             </td>
                             <td style="background:url(UserTpl/login/jdd/mm.jpg) no-repeat 0 0; width:202px; height:40px;  padding-right: 30px;">
-                            <input class="input1 w202" type="password" name="password" id="password" />
+                            <input class="input1 w202" type="password" autocomplete="off" name="password" id="password" />
                             </td>
                             <td style="background:url(UserTpl/login/jdd/yzm.jpg) no-repeat 0 0; width:153px; height:40px;  padding-right: 10px;">
                             <input class="input1 w153" name="captcha" maxlength="4" id="verify" type="text" />
                             </td>
-                            <td style='padding-right: 30px;'><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+                            <td style='padding-right: 30px;'><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
                             <td style='padding-right: 30px;'>
-                            <input type="submit" class="button1" value="提交" />
+                            <input type="submit" class="button1" value="{:L('提交')}" />
                             </td>
                             <td style='padding-right: 30px;'>
-                            <input type="reset" value="重置" class="button2" />
+                            <input type="reset" value="{:L('重置')}" class="button2" />
                             </td>
                         </tr>
                     </table>
                 </form>
                 <div style="padding-top:20px ;color:#fff;">
-                    {$openTimeStr}
+                    {:L($openTimeStr)}
                 </div>
             </div>
         </div>

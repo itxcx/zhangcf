@@ -81,11 +81,11 @@
                     <td class="tbval" >
                         <div id="address-box">
                             <div class="input-box" style="display: none;">
-                                <input class="country" name="country" type="text">
-                                <input class="province" name="province" type="text">
-                                <input class="city" name="city" type="text">
-                                <input class="county" name="county" type="text">
-                                <input class="town" name="town" type="text">
+                                <input class="country" id="country_id" name="country" type="text">
+                                <input class="province" id="province_id" name="province" type="text">
+                                <input class="city" id="city_id" name="city" type="text">
+                                <input class="county" id="county_id" name="county" type="text">
+                                <input class="town" id="town_id" name="town" type="text">
                             </div>
                             <div class="country-select arrow-bg">
                                 <a class="country-now" href="javascript:void(0)">请选择国家</a>
@@ -169,16 +169,53 @@
     $.areaSelect('#address-box', '__PUBLIC__/areaselect');
 </if>
 function tijiao(){
-	var ua = navigator.userAgent.toLowerCase();
-	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+	<if condition="($sale:productName neq '')">
+		alertcheck();
+	<else/>
 		$('#subbut').attr('disabled',true);
 		$('#subbut').val("{:L('正在提交,请等待...')}");
 		$('#register').submit();
-		$('#subbut').attr('disabled',false);
-	} else {
-		$('#subbut').attr('disabled',true);
-		$('#subbut').val("{:L('正在提交,请等待...')}");
-		$('#register').submit();
-	}
+		$('#subbut').removeAttr('disabled');
+	</if>
 }
 </script>
+
+<if condition="($sale:productName neq '')">
+<!--是否显示确认框-->
+<link rel="stylesheet" href="__PUBLIC__/zxxbox/common.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/zxxbox/jquery.zxxbox.3.0.js"></script>
+<script type="text/javascript">
+function alertcheck(){
+	var alertstr ='<table class="tablebg" style="margin-top:0;">';
+		alertstr+='<tr><td class="tbkey">产品名称</td><td class="tbkey">价格</td><td class="tbkey">数量</td></tr>';
+		$("input[name^='productNum']").each(function(i){
+		    if($(this).val()!='')
+		    {
+		        var product =$(this).attr('productNumInfo').split("_");
+				alertstr+='<tr><td class="tbkey">'+product[2]+'</td><td class="tbkey">'+product[3]+'</td><td class="tbkey">'+$(this).val()+'</td></tr>';
+		    } 
+		});
+		<if condition="($sale:extra eq true)">
+		alertstr+='<tr><td class="tbval">收货地址</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">收货人</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">联系电话</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
+		<else/>
+		alertstr+='<tr><td class="tbval">收货地址</td><td colspan="2" class="tbval">'+"{$userinfo.国家}{$userinfo.省份}{$userinfo.城市}{$userinfo.地区}{$userinfo.街道}"+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">收货人</td><td colspan="2" class="tbval">'+"{$userinfo.收货人}"+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">联系电话</td><td colspan="2" class="tbval">'+"{$userinfo.移动电话}"+'</td></tr>';      
+		</if>
+		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">请确认产品信息，再点击确认</td></tr>';      
+		alertstr+='</table>';
+	$.zxxbox.ask(alertstr, function(){
+		$('#subbut').attr('disabled','true');
+		$('#subbut').val('正在提交,请等待...');
+	    $('#register').submit();
+	    $.zxxbox.hide();
+	    $('#subbut').removeAttr('disabled');
+	}, null, {
+	    title: "友情提示",
+	    fix: true
+	});
+}
+</script>
+</if>

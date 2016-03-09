@@ -218,13 +218,34 @@ class SaleAction extends CommonAction {
 			sendMail($udata,$this->userobj->byname.'注册',CONFIG('regmailContent'));
 		}
 		M()->commit();
-		$userMenuPower = $this->userobj->getatt('userMenuPower');
-		if(!$userMenuPower && !in_array('User-myreg',$userMenuPower)){
-			$this->success(L('注册成功'));
-		}else{
-			$this->success(L('注册成功'),__APP__.'/User/User/myreg');
-		}
+		$this->redirect("/User/Sale/recipt:".__XPATH__."/newuserid/".$return['userid']);
 	}
+    //注册回执页
+    function recipt(sale_reg $sale_reg)
+    {
+        $reciptarr = array();
+        if(adminshow('admin_receipt_myreg'))
+            $reciptarr['我的会员订单']=__APP__.'/User/User/myreg';
+        if(adminshow('admin_receipt_acclist'))
+            $reciptarr['会员订单审核']=__APP__.'/User/Sale/acclist';
+        if(adminshow('admin_receipt_net_rec')){
+            foreach(X('net_rec') as $rec)
+            {
+                if($sale_reg->netName=='all' || in_array($rec->name,explode(',',$sale_reg->netName)))
+                    $reciptarr[$rec->name.'网络']=__APP__.'/User/Net/disp:'.$rec->xpath;
+            }
+        }
+        if(adminshow('admin_receipt_net_place')){
+            foreach(X('net_place') as $place)
+            {
+                if($sale_reg->netName=='all' || in_array($place->name,explode(',',$sale_reg->netName)))
+                    $reciptarr[$place->name.'网络']=__APP__.'/User/Net/disp:'.$rec->xpath;
+            }
+        }
+        $this->assign('newuserid',I('get.newuserid/s'));
+        $this->assign('recipts',$reciptarr);
+        $this->display();
+    }
     function showProtaocan(){
       //查看详情
       	$list=M('产品套餐')->where(array("产品id"=>I('get.proid/d')))->select();

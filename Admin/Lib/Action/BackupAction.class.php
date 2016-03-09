@@ -254,6 +254,7 @@ class BackupAction extends CommonAction  {
 				}
 			}
 		}
+        $bktype = 0;//由于测试和正式权限经常不足，暂时不用outfile备份数据
 		srand((double)microtime() * 1000000); 
 		$encrypt_key = rand(0, 32000);
 		if($bktype==1){

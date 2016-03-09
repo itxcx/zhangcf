@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <style type="text/css">
 <!--
 a{
@@ -89,20 +89,20 @@ function fleshVerify(type){
 			<img src="UserTpl/login/17/index_09.gif" width="63" height="141" alt=""></td>
 		<td style="background-image:url(UserTpl/login/17/index_10.gif); background-repeat:no-repeat;" width="187" height="141">
 			<div>
-			<table><tr><td height="32">账号：</td><td><input type="text" name="username" style=" width:110px;"></td></tr></table>
+			<table><tr><td height="32">{:L('账号')}：</td><td><input type="text" name="username" style=" width:110px;"></td></tr></table>
 			</div>
 
-			<div><table><tr><td>密码：</td><td><input type="password" name="password" style=" width:110px;"></td></tr></table>
+			<div><table><tr><td>{:L('密码')}：</td><td><input type="password" autocomplete="off" name="password" style=" width:110px;"></td></tr></table>
 			
 			</div>
 			<if condition="isset($dispCode) and ($dispCode eq true)">
 			<div>
 			<table>
 			<tr>
-			<td height="32">验证码：</td>
+			<td height="32">{:L('验证码')}：</td>
 			<td>
 				<table>
-				<tr><td><input type="text" maxlength="4" name="captcha" size="4"></td><td> <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+				<tr><td><input type="text" maxlength="4" name="captcha" size="4"></td><td> <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
 				</tr>
 				</table>
 			</td>
@@ -121,7 +121,7 @@ function fleshVerify(type){
 	</tr>
 	<tr>
 		<td colspan="4" rowspan="2" style="background-image:url(UserTpl/login/17/index_12.gif); background-repeat:no-repeat; padding-left:50px; vertical-align:top;" width="284" height="58" >
-			<eq name="isOpenTime" value="0"><span style="font-size:12px;">对不起，该时间段暂不可访问</span><else/><a href="#" onClick="loginform.submit()"><div class="btn" >登陆</div></a><a href="#"><div class="btn">取消</div></a></eq>
+			<eq name="isOpenTime" value="0"><span style="font-size:12px;">{:L('对不起，该时间段暂不可访问')}</span><else/><a href="#" onClick="loginform.submit()"><div class="btn" >{:L('登陆')}</div></a><a href="#"><div class="btn">{:L('取消')}</div></a></eq>
 		</td>
 		<td>
 			<img src="UserTpl/login/17/fenge.gif" width="1" height="57" alt=""></td>
@@ -164,6 +164,6 @@ function fleshVerify(type){
 </table>
 </form>
 </center>
-<div align="center" class="STYLE1"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>

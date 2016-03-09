@@ -1,16 +1,15 @@
-<script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script>
 <div class="core_main User" id="edit">
-	<div class="core_title"><span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span></div>
+	<div class="core_title"><span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span></div>
 	<div class="core_con">
     <form method="post" action="__GROUP__/User/update">
 		<table class="tablebg">
         	<tr>
-            	<td class="tbkey" >用户编号：</td>
+            	<td class="tbkey" >{:L('用户编号')}：</td>
                 <td class="tbval" >{$userinfo.编号}</td>
             </tr>
             <if condition="in_array('name',$show) eq true">
             <tr>
-                <td class="tbkey" >姓名：</td>
+                <td class="tbkey" >{:L('姓名')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('name',$edit) eq true">
                     <input name="name" type="text"  value="{$userinfo.姓名}"/>
@@ -21,7 +20,7 @@
             </if>
             <if condition="in_array('alias',$show) eq true">
             <tr>
-                <td class="tbkey" >昵称：</td>
+                <td class="tbkey" >{:L('昵称')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('alias',$edit) eq true">
                     <input name="alias" type="text"  value="{$userinfo.昵称}">
@@ -32,12 +31,12 @@
             </if>
             <if condition="in_array('sex',$show) eq true">
             <tr>
-                <td class="tbkey" >性别：</td>
+                <td class="tbkey" >{:L('性别')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('sex',$edit) eq true">
                     <select name="sex" id="sex">
-                    <option value="男" <eq name="userinfo['性别']" value="男"> selected="true"</eq>>男</option>
-                    <option value="女" <eq name="userinfo['性别']" value="女"> selected="true"</eq>>女</option>
+                    <option value="男" <eq name="userinfo['性别']" value="男"> selected="true"</eq>>{:L('男')}</option>
+                    <option value="女" <eq name="userinfo['性别']" value="女"> selected="true"</eq>>{:L('女')}</option>
                     </select>
                     <else />{$userinfo.性别}</if>
                     <span class="msg"><if condition="in_array('sex',$require) eq true ">*</if></span>
@@ -46,7 +45,7 @@
             </if>
             <if condition="$reg_safe eq true">
             <TR>
-		      <td class="tbkey" ><span class="tab_font">密保问题：</span></td>
+		      <td class="tbkey" ><span class="tab_font">{:L('密保问题')}：</span></td>
 			  <td class="tbval">
 			  <select name="secretsafe_name">
 					<foreach name="SecretSafelist" item="SecretSafe">
@@ -58,7 +57,7 @@
 		   </TR>
 
 			<TR>
-		      <td class="tbkey" ><span class="tab_font">密保答案：</span></td>
+		      <td class="tbkey" ><span class="tab_font">{:L('密保答案')}：</span></td>
 			  <td class="tbval">
 			  <input type="text" value="{$userinfo.密保答案}" name="secretanswer" />
 			  <span class="msg">*</span>
@@ -67,7 +66,7 @@
 			</if>
             <if condition="in_array('reciver',$show) eq true">
             <tr>
-                <td class="tbkey" >收货人：</td>
+                <td class="tbkey" >{:L('收货人')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('reciver',$edit) eq true">
                     <input name="reciver" type="text"  value="{$userinfo.收货人}">
@@ -76,9 +75,53 @@
                 </td>
             </tr>
             </if>
+
+            <if condition="in_array('area',$show) eq true">
+            <tr>
+                <td class="tbkey" >地址：</td>
+                <td class="tbval" >
+                <if condition="in_array('area',$edit) eq true">
+                <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
+                <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
+                <script src="__PUBLIC__/areaselect/areaselect.js"></script>
+                <div id="address-box">
+                    <div class="input-box" style="display: none;">
+                        <input class="country" name="country" type="text">
+                        <input class="province" name="province" type="text">
+                        <input class="city" name="city" type="text">
+                        <input class="county" name="county" type="text">
+                        <input class="town" name="town" type="text">
+                    </div>
+                    <div class="country-select arrow-bg" style="width:180px">
+                        <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
+                        <ul class="country-list" style="width:180px">
+                            <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
+                            <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
+                            <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                        </ul>
+                    </div>
+                    <div class="location-box arrow-bg">
+                    </div>
+                </div>
+
+                <else />{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}</if>
+                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
+            </tr>
+            </if>
+            <if condition="in_array('address',$show) eq true">
+            <tr>
+                <td class="tbkey">{:L('详细地址')}：</td>
+                <td class="tbval address">
+                <if condition="in_array('address',$edit) eq true">
+                <input name="address" type="text"  size="35" value="{$userinfo.地址}"> 
+                <else />{$userinfo.地址}</if>
+                <span class="msg"><if condition="in_array('address',$require) eq true ">*</if></span></td>
+            </tr>
+            </if>
+
             <if condition="in_array('id_card',$show) eq true">
             <tr>
-                <td class="tbkey" >证件号码：</td>
+                <td class="tbkey" >{:L('证件号码')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('id_card',$edit) eq true">
                     <input name="id_card" type="text" value="{$userinfo.证件号码}">
@@ -89,14 +132,14 @@
             </if>
             <if condition="in_array('bank_apply_name',$show) eq true">
             <tr>
-                <td class="tbkey" >开户银行：</td>
+                <td class="tbkey" >{:L('开户银行')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_apply_name',$edit) eq true">
                     <select name="bank_apply_name" id="bank">
-                        <option value="">请选择</option>
+                        <option value="">{:L('请选择')}</option>
                         <foreach name="banklist" item="bank">
                         <option <eq name="userinfo.开户银行" value="$bank.开户行"> selected="true" </eq>>
-                        {$bank.开户行}
+                        {:L($bank['开户行'])}
                         </option>
                         </foreach>
                     </select>
@@ -107,7 +150,7 @@
             </if>
             <if condition="in_array('bank_card',$show) eq true">
             <tr>
-                <td class="tbkey" >银行卡号：</td>
+                <td class="tbkey" >{:L('银行卡号')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_card',$edit) eq true">
                     <input name="bank_card" type="text"  value="{$userinfo.银行卡号}">
@@ -118,7 +161,7 @@
             </if>
             <if condition="in_array('bank_name',$show) eq true">
             <tr>
-                <td class="tbkey" >开户名：</td>
+                <td class="tbkey" >{:L('开户名')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_name',$edit) eq true">
                     <input name="bank_name" type="text"  value="{$userinfo.开户名}">
@@ -129,7 +172,7 @@
             </if>
             <if condition="in_array('bank_apply_addr',$show) eq true">
             <tr>
-                <td class="tbkey" >开户地址：</td>
+                <td class="tbkey" >{:L('开户地址')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_apply_addr',$edit) eq true">
                     <input name="bank_apply_addr" type="text"  value="{$userinfo.开户地址}">
@@ -162,7 +205,7 @@
             </if>
             <if condition="in_array('weixin',$show) eq true">
             <tr>
-                <td class="tbkey" >微信号：</td>
+                <td class="tbkey" >{:L('微信号')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('weixin',$edit) eq true">
                     <input name="weixin" type="text"  value="{$userinfo.微信账号}"> 
@@ -174,7 +217,7 @@
             <if condition="in_array('country_code',$show) eq true ">
 			<tr>
 			<td class="tbkey" >
-			<if condition="in_array('country_code',$require) eq true ">*</if>国家代码：</td>
+			<if condition="in_array('country_code',$require) eq true ">*</if>{:L('国家代码')}：</td>
 			<td style="border-right:none;text-align:left">
 			     <select name='country_code' id="country_code" style="width: 152px;height: 21px">
 			     	<foreach name='NumCheck' item='data' key='code'>
@@ -186,7 +229,7 @@
 			</if>
             <if condition="in_array('mobile',$show) eq true">
             <tr>
-                <td class="tbkey" >移动电话：</td>
+                <td class="tbkey" >{:L('移动电话')}：</td>
                 <td class="tbval" >
                 <if condition="in_array('mobile',$edit) eq true">
                 <input name="mobile" type="text" value="{$userinfo.移动电话}"> 
@@ -194,72 +237,9 @@
                 <span class="msg"><if condition="in_array('mobile',$require) eq true ">*</if></span></td>
             </tr>
             </if>
-
-            <if condition="in_array('area',$show) eq true">
-            <tr>
-                <td class="tbkey" >国家：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true">
-                <select name="country" id="country_id" data-role="none">
-                    <option value="">请选择</option>
-                </select>
-                <else />{$userinfo.国家}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            <tr>
-                <td class="tbkey" >省/州：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true">
-                <select name="province"  id="province_id" data-role="none" >
-                    <option value="">请选择</option>
-                </select>
-                <else />{$userinfo.省份}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            <tr>
-                <td class="tbkey" >城市：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true" >
-                <select name="city" id="city_id" data-role="none" >
-                    <option value="">请选择</option>
-                </select>
-                <else />{$userinfo.城市}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            <tr>
-                <td class="tbkey" >地区：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true">
-                <select name="county" id="county_id" data-role="none" >
-                    <option value="">请选择</option>
-                </select>
-                <else />{$userinfo.地区}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            <tr>
-                <td class="tbkey" >街道：</td>
-                <td class="tbval" >
-                <if condition="in_array('area',$edit) eq true">
-                <select name="town" id="town_id" data-role="none" >
-                    <option value="">请选择</option>
-                </select>
-                <else />{$userinfo.街道}</if>
-                <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
-            </tr>
-            </if>
-            <if condition="in_array('address',$show) eq true">
-            <tr>
-                <td class="tbkey" >地址：</td>
-                <td class="tbval address">
-                <if condition="in_array('address',$edit) eq true">
-                <input name="address" type="text"  size="35" value="{$userinfo.地址}"> 
-                <else />{$userinfo.地址}</if>
-                <span class="msg"><if condition="in_array('address',$require) eq true ">*</if></span></td>
-            </tr>
-            </if>
             <tr >
                 <td colspan="2">
-                    <button class="button_text" type="submit">确定</button>
+                    <button class="button_text" type="submit">{:L('确定')}</button>
                 </td>
             </tr>
 		</table>
@@ -267,11 +247,5 @@
     </div>
 </div>
 <script type="text/javascript">
-$.area_default_show=true;
-$.area_default_country="{$userinfo['国家']}";
-$.area_default_province="{$userinfo['省份']}";
-$.area_default_city="{$userinfo['城市']}";
-$.area_default_county="{$userinfo['地区']}";
-$.area_default_town="{$userinfo['街道']}";
-$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' );
+    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
 </script>

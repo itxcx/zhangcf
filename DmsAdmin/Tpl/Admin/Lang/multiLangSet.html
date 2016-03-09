@@ -7,9 +7,27 @@
             <td colspan="4" style="text-align:left;padding-left:20px"><b>多语言设置</b></td>
 		</tr>
 		<tr>
-			<td style="width:15%;text-align:right;">多语言开关：</td>
+			<td style="width:30%;text-align:right;">多语言开关：</td>
 			<td style="width:30%;text-align:left;padding:10px 5px">
-				<input type="checkbox" name="multiLang" value="1" <if condition="$use eq true">checked</if>/>开启
+				<input type="checkbox" name="multiLang" id="multiLang" value="1" <if condition="$use eq true">checked</if>/>开启
+			</td>	
+		</tr>
+		<tr>
+			<td style="width:30%;text-align:right;">百度翻译接口appid：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px">
+				<input type="text" name="appid" id="appid" value=""/>
+			</td>	
+		</tr>
+		<tr>
+			<td style="width:30%;text-align:right;">百度翻译接口key：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px">
+				<input type="text" name="key" id="key" value=""/>
+			</td>	
+		</tr>
+		<tr>
+			<td style="width:30%;text-align:right;">申请百度翻译接口：</td>
+			<td style="width:30%;text-align:left;padding:10px 5px">
+				<a href="http://api.fanyi.baidu.com/api/trans/product/index" target="_blank">http://api.fanyi.baidu.com/api/trans/product/index</a>
 			</td>	
 		</tr>
 	</table>
@@ -34,4 +52,22 @@
 			$.pdialog.closeCurrent();
 		}
 	}
+	//默认情况下
+	if($("#multiLang").prop('checked')){
+		$("#appid").val('{$api.APPID}');
+		$("#key").val('{$api.KEY}');
+	}else{
+		$("#appid").val('');
+		$("#key").val('');
+	}
+	//改变情况下
+	$("#multiLang").change(function(){
+		if($("#multiLang").prop('checked')){
+			$("#appid").val('{$api.APPID}');
+			$("#key").val('{$api.KEY}');
+		}else{
+			$("#appid").val('');
+			$("#key").val('');
+		}
+	});
 </script>

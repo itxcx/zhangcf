@@ -991,6 +991,22 @@ class UserAction extends CommonAction
 		if(I("get.id/s")){
 			$sdata = M("会员")->where(array("id"=>array("in",I("get.id/s"))))->getField("id idkey,编号,审核日期,注册日期,状态");
 			$this->assign('ids',I("get.id/s"));
+			//获取所有钱包
+			foreach(X('fun_bank') as $bank)
+			{
+				$banks[]=$bank->name;
+			}
+			foreach($sdata as $userdata)
+			{
+				//计算被删除会员的所有钱包之和
+				$sumMoney = M('货币')->where(array('编号'=>$userdata['编号']))->sum(implode("+",$banks));
+				//判断是否开启转账给未激活(状态=无效)会员
+				if(adminshow(zhuanzhang) && $sumMoney>0)
+				{
+					$result = true;
+					$this->assign('result',$result);
+				}
+			}
 		}
 		$this->assign('sdata',$sdata);
 		$this->display();

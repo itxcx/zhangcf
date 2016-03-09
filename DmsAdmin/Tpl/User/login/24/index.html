@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 <!--
@@ -102,7 +102,7 @@ function fleshVerify(type){
   </tr>
   <tr>
    <td colspan="7" style="background:url(UserTpl/login/24/look_r8_c4.png);width:182px;height:21px;">
-	<input type="password" name="password" style="height: 13px;width: 100px;">&nbsp;&nbsp;&nbsp;<a href="__URL__/getUserPwd2/" style="font-size:12px; text-decoration:none; color:#FF0000;">找回密码？</a>   </td>
+	<input type="password" autocomplete="off" name="password" style="height: 13px;width: 100px;">&nbsp;&nbsp;&nbsp;<a href="__URL__/getUserPwd2/" style="font-size:12px; text-decoration:none; color:#FF0000;">{:L('找回密码')}？</a>   </td>
    <td><img src="UserTpl/login/24/spacer.gif" width="1" height="21" border="0" alt="" /></td>
   </tr>
   <tr>
@@ -117,7 +117,7 @@ function fleshVerify(type){
    <td rowspan="3"><img name="look_r10_c7" src="UserTpl/login/24/look_r10_c7.png" width="10" height="44" border="0" id="look_r10_c7" alt="" /></td>
    <td colspan="2" style="background:url(UserTpl/login/24/look_r10_c8.png);width:54px;height:22px;">
    <div style="z-index:1000;position:absolute">
-  <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle" width="80">
+  <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle" width="80">
    </div>
    </td>
    <td rowspan="4"><img name="look_r10_c10" src="UserTpl/login/24/look_r10_c10.png" width="36" height="76" border="0" id="look_r10_c10" alt="" /></td>
@@ -187,7 +187,7 @@ function fleshVerify(type){
 </form>
 
 </div>
-<div align="center" class="STYLE1" style="font-size:12px"><span>{$openTimeStr}</span></div>
+<div align="center" class="STYLE1" style="font-size:12px"><span>{:L($openTimeStr)}</span></div>
 </body>
 </html>
 <script type="text/javascript">

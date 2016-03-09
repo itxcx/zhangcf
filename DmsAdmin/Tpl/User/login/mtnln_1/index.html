@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>会员登录</title>
+        <title>{:L('会员登录')}</title>
         <style type="text/css">
             body {
                 margin: 0;
@@ -99,14 +99,14 @@
 
         <div id="login">
             <div id="wenzi">
-                企业销售平台
+                {:L('企业销售平台')}
             </div>
 
             <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform encType="multipart/form-data">
                 <input type="hidden" name="act" value="verify" />
                 <table cellpadding="0" cellspacing="0" width="320" class="tb">
                     <tr>
-                         <td>用户名：</td>
+                         <td>{:L('用户名')}：</td>
                     </tr>
                     <tr>
                         <td align="left">
@@ -114,21 +114,21 @@
                         </td>
                     </tr>
                     <tr>
-                         <td>密码：</td>
+                         <td>{:L('密码')}：</td>
                     </tr>
                     <tr>
                         <td align="left">
-                            <input type="password" name="password" id="password" />
+                            <input type="password" autocomplete="off" name="password" id="password" />
                         </td>
                     </tr>
                     <if condition="isset($dispCode) and ($dispCode eq true)">
                     <tr>
-                        <td>验证码：</td>
+                        <td>{:L('验证码')}：</td>
                     </tr>
                     <tr>
                         <td align="left">
                             <input name="captcha" maxlength="4" id="verify" type="text" style="width:220px;" />
-                            <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"></td>
+                            <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"></td>
                     </tr>
                     </if>
                     <if condition="$usernum eq 1">
@@ -137,16 +137,16 @@
                     <tr>
                         <td style="height: 50px;text-align:left; padding-top:10px;">
                             <eq name="isOpenTime" value="0">
-                            <span style="font-size:12px;margin-right:160px">对不起，该时间段暂不可访问</span>
+                            <span style="font-size:12px;margin-right:160px">{:L('对不起，该时间段暂不可访问')}</span>
                             <else/>
                             <span>
-                                <input type="submit" value="登陆" class="logbut" />
+                                <input type="submit" value="{:L('登陆')}" class="logbut" />
                             </span>
                             </eq>
                         </td>
                     </tr>
                     <tr style="border-top: 1px solid #ddd;">
-                        <td>{$openTimeStr}</td>
+                        <td>{:L($openTimeStr)}</td>
                     </tr>
                 </table>
             </form>

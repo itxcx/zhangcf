@@ -1,7 +1,7 @@
 <?php
 	class sale_reg extends sale{
-		public $setLv=true;//注册是否选择级别
-		public $selLv='';//注册是否选择级别
+		public $setLv=true; //注册是否验证等级
+		public $selLv='';   //注册是否选择级别
 		public $dispWhere="";
 		public $fromNoName="";
 		//默认级别

@@ -463,7 +463,7 @@
 					}else{
 						$val=$data['accval'][$acckey];
 					}
-					if(strstr($val,"%"))
+                    if(strstr($accRatio['maxval'],"%"))
 					{
 						$data['paycons'][$accRatio['name']]=$val."%";
 					}

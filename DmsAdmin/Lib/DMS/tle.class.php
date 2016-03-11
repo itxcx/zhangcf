@@ -966,7 +966,7 @@
                 	}
                 }
                 foreach($sumarr as $k=>$val){
-                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单类别'=>array('in',implode(',',$val))))->sum($k);
+                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单状态'=>array('not in','空单,回填'),'报单类别'=>array('in',implode(',',$val))))->sum($k);
                 }
                 //得到当期的奖金收入(得到当日奖金表收入)
                 $thisPrize       += M($this->name)->where(array('计算日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate']))))->sum('收入');
@@ -1000,8 +1000,14 @@
                }
                 //设置当日的奖金的发放状态,默认为未发放
                 $savedata['state']=0;
+                
                 //秒结秒发
                 if($this->secAutoGive && $this->_caltype == 0){
+                    //判断当前为纯秒结算，则默认处于已发放状态
+                    if($this->tleMode == 's')
+                    {
+                        $savedata['state'] = 1;
+                    }
                 	//判断是否以保存本期总账信息
                 	if(isset($thisledger['state'])){
                 		$savedata['state']=$thisledger['state'];

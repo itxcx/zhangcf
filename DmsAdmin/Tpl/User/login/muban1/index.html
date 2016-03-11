@@ -35,12 +35,12 @@
                 </div>
                 <div class="login_info">
                 	<input type="text" placeholder="Username"  name="username" id="username" style="margin-bottom:12px;"/><br/>
-                    <input type="password" placeholder="Password" name="password" id="password" /><br/>
+                    <input type="password" autocomplete="off" placeholder="Password" name="password" id="password" /><br/>
                     <!--<span style="line-height:36px;">Forgot password? &nbsp;<a style="color:#fff;text-decoration:underline" href="javascript:void(0)">Click here</a></span><br />
                     <input type="checkbox" checked="checked"/>Keep me signed in.-->
                 </div>
                 <div class="login_keyin">	<!--background-color:#525151-->
-                	<eq name="isOpenTime" value="0">对不起，该时间段暂不可访问
+                	<eq name="isOpenTime" value="0">{:L('对不起，该时间段暂不可访问')}
         <else/>		
                 	<button style="margin:30px 30px 30px 62px;" type="submit" >Sign In</button>
                     <button type="reset">Reset</button>
@@ -48,9 +48,9 @@
                 </div>
                 	<if condition="isset($dispCode) and ($dispCode eq true)">
         <tr>
-          <td align="right" width="176">验证码：</td>
+          <td align="right" width="176">{:L('验证码')}：</td>
           <td align="left"><input name="captcha" id="verify" type="text" maxlength="4" style="width:50px;" />
-            &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </td>
+            &nbsp;&nbsp;<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </td>
         </tr>
 		</if>	  
 		<if condition="$usernum eq 1">

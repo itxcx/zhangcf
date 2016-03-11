@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="give">
 	<div class="core_title">
     	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
@@ -60,13 +61,13 @@
             <if condition="($bank:giveMoneyPass2 eq true)">
             <tr >
             <td class="tbkey">二级密码：</td>
-            <td class="tbval"><span><input type="password" value="" name="pass2" /></span></td>
+            <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass2" /></span></td>
             </tr>
             </if>
           <if condition="($bank:giveMoneyPass3 eq true)">
           <tr>
             <td class="tbkey">三级密码：</td>
-            <td class="tbval"><span><input type="password" value="" name="pass3" /></span></td>
+            <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass3" /></span></td>
           </tr>
           </if>
           <if condition="($bank:giveMoneySmsSwitch eq true)">
@@ -121,8 +122,8 @@ function giveAjax(id)
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("网络异常!");
+			layer.alert(data, {title: '提示', btn: '确定'});
+		    layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }
@@ -201,7 +202,7 @@ function checkform(){
         $("select[name='giveTo']").focus();
     }
      if(mess !=""){
-        alert(mess);
+        layer.alert(mess, {title: '提示', btn: '确定'});
         $('#subbut').attr('disabled',false);
         $('#subbut').val('提交');
          return false;
@@ -217,10 +218,10 @@ function sendSmsVerify(){
 		
 		eval('var data='+data);
 		if(data.status == 1){
-			alert('发送成功!');
-		}else{
-			alert('发送失败!');
-		}
+		    layer.alert('发送成功!', {title: '提示', btn: '确定'});
+          }else{
+		    layer.alert('发送失败!', {title: '提示', btn: '确定'});
+          }
 	});
 }*/
 var wait=300;
@@ -232,9 +233,9 @@ function time(o) {
         $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
           eval('var data='+data);
           if(data.status == 1){
-            alert('发送成功!');
+		    layer.alert('发送成功!', {title: '提示', btn: '确定'});
           }else{
-            alert('发送失败!');
+		    layer.alert('发送失败!', {title: '提示', btn: '确定'});
           }
         });
         sta = false;

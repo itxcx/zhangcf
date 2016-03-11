@@ -32,7 +32,7 @@
                  <input type="text" style="width:50px;text-align:center" value="{$vo.buynum}"  name="buynum[{$vo['wuliuid']}]" onkeyup="getnum(this.value,{$vo[$sale:productMoney]},this)"  />
                 </nobr></td>
                 <td  ><nobr><span class="allsum">{$vo.sum_price}</span></td>
-                <td  ><nobr><a href="__GROUP__/Saleshop/buygouwuchongxiao_del:__XPATH__/id/{$vo.wuliuid}" onclick="return confirm('您确定要移除购物车里的商品吗')">移除</a></nobr></td>
+                <td  ><nobr><a href="javascript:laConfirm('__GROUP__/Saleshop/buygouwuchongxiao_del:__XPATH__/id/{$vo.wuliuid}');">移除</a></nobr></td>
             </tr>
             </foreach>
         </table>
@@ -40,7 +40,7 @@
             <TR>
                 <td colspan="9" align="right">
                 <input class=button_text  type="button"  value="继续浏览商品" onclick="see_back()" />
-                <input class=button_text  type="button"  value="清空购物车" onclick="delall()"/>
+                <input class=button_text  type="button"  value="清空购物车" onclick="laConfirmAll();"/>
                 <INPUT class=button_text type="submit" value="下一步" > 
                 </TD>
             </TR>
@@ -59,10 +59,16 @@
 	function see_back(){
 		location.href='__GROUP__/Saleshop/buy_shop:__XPATH__';
 	}
-	function delall(){
-		reg = confirm('您真的要清空购物车里的所有商品吗');
-		if(reg==true){
+	function laConfirmAll() {
+        layer.confirm("您真的要清空购物车里的所有商品吗?", {title:'提示',btn: ['确认', '取消']}, function(index){ 
 			location.href='__GROUP__/Saleshop/gouwuchechongxiao_del:__XPATH__';
-		}
-	}
+            layer.close(index); 
+        })
+    }
+	function laConfirm(url) {
+        layer.confirm("您确定要移除购物车里的商品吗?", {title:'提示',btn: ['确认', '取消']}, function(index){ 
+			location.href = url;
+            layer.close(index); 
+        })
+    }
 </script>

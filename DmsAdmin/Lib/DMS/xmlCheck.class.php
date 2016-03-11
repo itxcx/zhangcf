@@ -65,10 +65,10 @@ class xmlCheck
 			}
 		}
 		
-		//回填设置
+		/*//回填设置
 		if((adminshow('admin_backfill') || adminshow('admin_blank')) && (adminshow('user_bank_backfill') || adminshow('admin_bank_backfill')) && X('user')->backbank==''){
 			throw_exception('扣币回填请在XML中，设置user节点的backbank(货币名称)属性.');
-		}
+		}*/
 		//config配置信息有重名的检测,一般xml有重复的会出现此问题，xml重复也已经修正过===name字段已设为唯一属性
 		$repeat_con=M()->query("select name from config group by concat(name) having count(*)>1");
 		if($repeat_con){

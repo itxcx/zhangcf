@@ -377,8 +377,8 @@ function language($value,$from="auto",$to="auto"){
 	#随机数
 	$salt = mt_rand();
 	#您注册的API(appid,Key)
-	$appid="20160204000011063";
-	$key="g2mZMzy6mfqG9Fifx2uQ";
+	$appid = C('BDFY_API.APPID');
+	$key = C('BDFY_API.KEY');
 	#生成签名
 	$sign = md5($appid.$query.$salt.$key);
 	#生成翻译API的URL GET地址

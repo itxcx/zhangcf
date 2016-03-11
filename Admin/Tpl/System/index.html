@@ -29,6 +29,18 @@
 				<td style="color:red;"><a href='http://sc.yidong.9885.net:84/index.php?s=/Nodelc/view/id/10' target="_blank">回填流程（点击）</a></td>
 			</tr>
 			<tr>
+				<td>前台注册回执跳转：</td>
+				<td>&nbsp;</td>
+				<td>
+					我的会员订单<input type="checkbox" name="admin_receipt_myreg" value="1" <if condition="in_array('admin_receipt_myreg',$viewarr) eq true">checked</if>/><br />
+					会员订单审核<input type="checkbox" name="admin_receipt_acclist" value="1" <if condition="in_array('admin_receipt_acclist',$viewarr) eq true">checked</if>/><br />
+					推荐网络<input type="checkbox" name="admin_receipt_net_rec" value="1" <if condition="in_array('admin_receipt_net_rec',$viewarr) eq true">checked</if>/> <br />
+					管理网络<input type="checkbox" name="admin_receipt_net_place" value="1" <if condition="in_array('admin_receipt_net_place',$viewarr) eq true">checked</if>/> <br />
+				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
 				
 				<td>未激活会员分离显示：</td>
 				<td>
@@ -171,6 +183,15 @@
 				<td>&nbsp;</td>	
 				<td>&nbsp;</td>	
 			</tr>
+			<tr>
+				<td>产品套餐显示：</td>
+				<td>
+					<input type="checkbox" name="pro_tc" value="1" <if condition="in_array('pro_tc',$viewarr) eq true">checked</if>/>
+				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>	
+				<td>&nbsp;</td>	
+			</tr>
 		</tbody>
 		<tbody>
 			<tr>
@@ -209,7 +230,7 @@
 		</tbody>
 		<tbody>
 			<tr style="background-color:#fff">
-				<td rowspan="2" style="font-weight:bold;color:#483D8B">财务管理</td>
+				<td rowspan="3" style="font-weight:bold;color:#483D8B">财务管理</td>
 				<td>添加汇款是否选择银行图片：</td>
 				<td>&nbsp;</td>
 				<td>
@@ -222,6 +243,15 @@
 				<td>添加汇款方式：</td>
 				<td>
 					<input type="checkbox" name="huikuan" value="1" <if condition="in_array('huikuan',$viewarr) eq true">checked</if>/>
+				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>	
+				<td style="color:red;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>是否开启转账未激活会员：</td>
+				<td>
+					<input type="checkbox" name="zhuanzhang" value="1" <if condition="in_array('zhuanzhang',$viewarr) eq true">checked</if>/>
 				</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>	

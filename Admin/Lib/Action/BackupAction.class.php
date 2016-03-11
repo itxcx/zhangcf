@@ -33,7 +33,9 @@ class BackupAction extends CommonAction  {
             mkdir($this->config["path"],0777);
         }
     }
-    
+    /*
+    * 数据库备份文件列表
+    */
     function index() {
         $list=$this->backList();
         $list=$this->tsort($list);
@@ -51,12 +53,12 @@ class BackupAction extends CommonAction  {
 		}
 		$this->display();
 	}
-
-	// 备份
+	/*
+    * 备份操作界面
+    */ 
     function back(){
         $this->display();
     }
-	
    	public  function clear(){
         $this->display();
     }
@@ -105,23 +107,6 @@ class BackupAction extends CommonAction  {
         $list=$this->tsort($list);
         return $list;
     }
-    function backAjax(){
-        $list=$this->backList();
-        for($i=0;$i<count($list);$i++){
-            echo '<tr>';
-            echo '<td width="20%">'.$list[$i]["shortname"].'</td>';
-            echo '<td width="15%" align="center">'.$list[$i]["time"].'</td>';
-            echo '<td width="12%" align="center" valign="middle" style="text-align:center;">'.$list[$i]["size"].'</td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_save.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="/Admin/Common/dbbackup/'.$list[$i]["name"].'">下载</a></td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_refresh.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="'.__URL__.'/recover/file/'.$list[$i]["name"].'"  onclick="return backup()">恢复</a></td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_delete.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="'.__URL__.'/deletebak/file/'.$list[$i]["name"].'"  onclick="return confirm(\'是否删除该备份？\')">删除</a></td>';
-            echo '</tr>';
-        }
-    }
-    //获取文件、文件夹大小
     private function getFileSize($file){
         $path = $this->config['path'].$file;
         if(is_dir($path)){
@@ -254,6 +239,7 @@ class BackupAction extends CommonAction  {
 				}
 			}
 		}
+        $bktype = 0;//由于测试和正式权限经常不足，暂时不用outfile备份数据
 		srand((double)microtime() * 1000000); 
 		$encrypt_key = rand(0, 32000);
 		if($bktype==1){

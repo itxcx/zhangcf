@@ -1,6 +1,6 @@
 <?php
 /*
-*  Ò»¸ö¶¨Ê±ÈÎÎñ£¬ÏòÍ¨¹ýworkerman¶¨Ê±Ïò¿Í»§¶Ë·¢ËÍÊý¾Ý
+*  ä¸€ä¸ªå®šæ—¶ä»»åŠ¡ï¼Œå‘é€šè¿‡workermanå®šæ—¶å‘å®¢æˆ·ç«¯å‘é€æ•°æ®
 */
 use \Workerman\Worker;
 use \Workerman\Lib\Timer;
@@ -23,6 +23,6 @@ class Task extends Worker
     public function tack()
     {
     	//self::log()l
-    	exec('php '.dirname(__FILE__).'/../../../../../../cli.php Admin Cal settlementExecute',$ret);
+    	exec('php '.__DIR__.'/../../../../../../public_html/clical.php Admin Cal settlementExecute',$ret);
     }
 }

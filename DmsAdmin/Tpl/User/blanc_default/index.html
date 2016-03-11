@@ -30,7 +30,7 @@ function change(obj){
     <div class="dh_tab">
 		<table border="0" width="96%" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" id="tabless" >
 			<tr>
-				<td  bgcolor="#efefef"><span class="tab_title"></span><span class="tab_font" style="line-height:20px;">基本信息</span></td>
+				<td  bgcolor="#efefef"><span class="tab_title"></span><span class="tab_font" style="line-height:20px;">{:L('基本信息')}</span></td>
 			</tr>
 			<tr>
 			<td  style="border:none;padding:0px;">
@@ -38,7 +38,7 @@ function change(obj){
 		            <li align="right"  style="width:19.1%;">{:L('会员编号')}：</li>	
 		            <li  style="width:26.2%;">{$userinfo.编号}</li>	
 		            <li  style="width:19.1%;" align="right" >{:L('姓名')}：</li>	
-		            <li  style="width:26.2%;"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[暂无]</if></li>	
+		            <li  style="width:26.2%;"><if condition="$userinfo['姓名']">{$userinfo.姓名}<else />[{:L('暂无')}]</if></li>	
 	           </ul>
               </td>
 			</tr>
@@ -46,7 +46,7 @@ function change(obj){
 			<td  width="100%" style="border:none;padding:0px">
 	           <ul>
 	           	<foreach name="funbank" item="fun_bank" key="key">
-		            <li align="right"   style="width:19.1%;">{$fun_bank.name}：</li>	
+		            <li align="right"   style="width:19.1%;">{:L($fun_bank['name'])}：</li>	
 		            <li style="width:26.2%;">{$fun_bank.num}</li>
 		      	</foreach>	
 	           </ul>
@@ -80,7 +80,7 @@ function change(obj){
      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
           <tr>
             <td width="5%" align="center" valign="middle" bgcolor="#efefef" class="dh_border_r"><div><img src="__TMPL__Public/images/breadcrumb.png" width="5" height="10" /></div></td>
-            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">最新公告</span></td>
+            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">{:L('最新公告')}</span></td>
           </tr>
        </table>
      </div>
@@ -106,7 +106,7 @@ function change(obj){
      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
           <tr>
             <td width="5%" align="center" valign="middle" bgcolor="#efefef" class="dh_border_r"><div><img src="__TMPL__Public/images/breadcrumb.png" width="5" height="10" /></div></td>
-            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">最新邮件</span></td>
+            <td colspan="2" bgcolor="#efefef"><span class="tab_font" style="line-height:20px;">{:L('最新邮件')}</span></td>
           </tr>
        </table>
      </div>

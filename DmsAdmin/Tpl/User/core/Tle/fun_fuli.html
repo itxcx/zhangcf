@@ -1,19 +1,19 @@
 <div class="core_main Tle" id="fun_fuli">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
         <table class="tablebg" >
             <tr class="datafield">
-                <td >奖品名</td>
-                <td >提示</td>
-                <td >发放状态</td>
+                <td >{:L('奖品名')}</td>
+                <td >{:L('提示')}</td>
+                <td >{:L('发放状态')}</td>
             </tr>
             <foreach name="data" item="fuli" key="key">
             <tr class="datalist">
                 <td >{$key}</td>
                 <td >{$fuli.msg}</td>
-                <td ><if condition="$fuli.state eq '1'">已发放 <else/>未发放</if></td>
+                <td ><if condition="$fuli.state eq '1'">{:L('已发放')} <else/>{:L('未发放')}</if></td>
             </tr>
             </foreach>
        </table>

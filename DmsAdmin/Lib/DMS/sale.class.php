@@ -623,6 +623,22 @@
 						$updata[$this->lvName]=$sdata['升级数据'];
 						$udata[$this->lvName] =$sdata['升级数据'];
 					}
+                    $lvlog =array(
+						'lvname'=>$this->lvName,
+						'userid'=>$udata['id'],
+						'username'=>$udata['编号'],
+						'time'=>systemTime(),
+						'olv'=>$sdata['old_lv'],
+						'nlv'=>$sdata['升级数据'],
+						'saleid'=> $sdata['id'],
+						'adminid'=>0,
+					);
+					//为升级记录增加adminid
+					if($isAdmin)
+					{
+						$lvlog['adminid']=$_SESSION[ C('RBAC_ADMIN_AUTH_KEY') ];
+					}
+					M('lvlog')->add($lvlog);
 					//更新会员的代理信息
 					if($areabool){
 						$area=$levels->getAreanum($sdata['升级数据']);

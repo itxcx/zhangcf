@@ -102,10 +102,9 @@ class TleAction extends CommonAction
 		return  trim($str,'/');
 	}
     function getDateUrl($str1,$str2){
-        $str2 = date("Y-m-d",$str2);
-        return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
+             $str2 = date("Y-m-d",$str2);
         if(CONFIG('USER_PRIZE_SWITCH')){
-        	return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
+               return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
         }else{
         	return  $str2;
         }

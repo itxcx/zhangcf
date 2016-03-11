@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>会员登录</title>
+<title>{:L('会员登录')}</title>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta content="black" name="apple-mobile-web-app-status-bar-style">
@@ -17,11 +17,11 @@
 <script>
 function frmlogin(frm){
 	if (frm.username.value==''){
-		alert('请输入用户id');
+		alert("{:L('请输入用户id')}");
 		return false;
 	}
 	if (frm.password.value==''){
-		alert('请输入密码');
+		alert("{:L('请输入密码')}");
 		return false;
 	}
 	return true;
@@ -69,7 +69,7 @@ $.mobile.ajaxLinksEnabled = false;
     <header id="header">
         <div class="c-inav">
             <section></section>
-            <section><span>会员登录</span></section>
+            <section><span>{:L('会员登录')}</span></section>
             <section></section>
         </div>
     </header>
@@ -80,27 +80,27 @@ $.mobile.ajaxLinksEnabled = false;
             <fieldset>
                 <div class="field username">
                     <div class="c-form-search">
-    					<input type="text" name="username" id="J_UserNameTxt" placeholder="手机号/会员名" value="">                        
+    					<input type="text" name="username" id="J_UserNameTxt" placeholder="{:L('手机号')}/{:L('会员名')}" value="">                        
                     </div>
                	</div>
                 <div class="field pwd">
-                	<input type="password" autocomplete="off" name="password" id="J_PassWordTxt" placeholder="密码" class="c-form-txt-normal">
+                	<input type="password" autocomplete="off" name="password" id="J_PassWordTxt" placeholder="{:L('密码')}" class="c-form-txt-normal">
                 </div>
 				<div >
-                	<input type="hidden" value="1" name="snpass" id="J_PassWordTxt" placeholder="动态密码" class="c-form-txt-normal">
+                	<input type="hidden" value="1" name="snpass" id="J_PassWordTxt" placeholder="{:L('动态密码')}" class="c-form-txt-normal">
                 </div>
 				 <if condition="$dispCode eq true">
                 <div class="field auth-code">
-                    <input type="text" name="captcha"  id="verify"   placeholder="验证码" class="c-form-txt-normal">
+                    <input type="text" name="captcha"  id="verify"   placeholder="{:L('验证码')}" class="c-form-txt-normal">
                    
-						 <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer; height:34px; width:80px;" align="absmiddle">
+						 <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer; height:34px; width:80px;" align="absmiddle">
                 </div>	
 				</if>
 			<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
                 <div class="field submit-btn">
-                    <input type="submit" class="c-btn-oran-big" value="登 录">
+                    <input type="submit" class="c-btn-oran-big" value="{:L('登 录')}">
                 </div>                    
 			</fieldset>   
 		</form>

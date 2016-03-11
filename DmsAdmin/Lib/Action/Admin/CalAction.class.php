@@ -466,7 +466,7 @@ class CalAction extends CommonAction {
 		{
 			return false;
 		}
-		exec('php '.VENDOR_PATH.'Workerman/start.php AutoCal runstatic',$ret);
+		exec('php '.VENDOR_PATH.'Workerman/start.php runstatic AutoCal',$ret);
 		if( count($ret)>1 && $ret[1]==='runing')
 		{
 			return true;

@@ -25,12 +25,15 @@
 			</if>
 			
             <h1 class="title">{:L('企业销售平台')}</h1>
-            
+            <h2 class="notice">
+                <span class="notice-top" <if condition="L('会员') eq 'member'">style="font-size:50px"</if> >{:L('智赢天下')}</span>
+                <span class="notice-bottom">Intelligence win the world</span>
+            </h2>
 
             <dl>
-                <dt>
-                    <p>我们的文化：诚信经营　感恩合作　我为人人　人人为我</p>
-                    <p>我们的使命：通过资源整合进行交互式合作。帮助更多中国人拥有自己的事业，并最终走上财富自由之路</p>
+                <dt <if condition="L('会员') eq 'member'">style="font-size:14px"</if> >
+                    <p>{:L('我们的文化：诚信经营　感恩合作　我为人人　人人为我')}</p>
+                    <p>{:L('我们的使命：通过资源整合进行交互式合作。帮助更多中国人拥有自己的事业，并最终走上财富自由之路')}</p>
                 </dt>
                 <dd>
                     <label for="username">{:L('账号')}：</label>

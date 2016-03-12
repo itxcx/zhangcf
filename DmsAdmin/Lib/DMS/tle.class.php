@@ -966,7 +966,7 @@
                 	}
                 }
                 foreach($sumarr as $k=>$val){
-                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单类别'=>array('in',implode(',',$val))))->sum($k);
+                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单状态'=>array('not in','空单,回填'),'报单类别'=>array('in',implode(',',$val))))->sum($k);
                 }
                 //得到当期的奖金收入(得到当日奖金表收入)
                 $thisPrize       += M($this->name)->where(array('计算日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate']))))->sum('收入');

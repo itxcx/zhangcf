@@ -54,8 +54,8 @@
                         $(this).next('.city-select-wrap').toggle(0);
                         obj.find('.country-list').hide(0);
                     });
-
-                    $.getJSON(url + '/country.json',function(data){
+                    var myDate = new Date().getTime();
+                    $.getJSON(url + '/country.json?v='+myDate,function(data){
                         var country =  JSON.parse(JSON.stringify(data));
                         $.each(country, function (name, value) {
                             var city_box = '';
@@ -239,8 +239,8 @@
             if (area == 'town') {
                 areaNext = null;
             }
-
-            areaJson = url + '/area_json/area'+(mainkey%110)+'.json';
+            
+            areaJson = url + '/area_json/area'+(mainkey%110)+'.json?v='+new Date().getTime();;
 
             $.getJSON(areaJson,function(data){
                 var parents =  JSON.parse(JSON.stringify(data));
@@ -269,7 +269,8 @@
 
         //其他国家
         loadOther: function (obj, url) {
-            $.getJSON(url + '/other.json',function(data){
+            var myDate = new Date().getTime();
+            $.getJSON(url + '/other.json?v='+myDate,function(data){
                 var json_data =  JSON.parse(JSON.stringify(data));
                 var str = '';
                 str = '<li class="current"><i>&radic;</i><a href="javascript:void(0);">请选择国家</a></li>';

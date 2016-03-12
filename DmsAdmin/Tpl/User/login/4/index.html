@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>{:L('会员登录')}</title>
     <link rel="stylesheet" href="UserTpl/login/4/css/style.css">
     <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -32,7 +32,7 @@
                 <dd>
                     <label for="username">{:L('账号')}：</label>
                     <input id="username" type="text" name="username">
-                    <label for="">{:L('密码')}：</label>
+                    <label for="password">{:L('密码')}：</label>
                     <input id="password" type="password" name="password" autocomplete="off">
 
                     <if condition="isset($dispCode) and ($dispCode eq true)">
@@ -40,6 +40,8 @@
                     <input id="verify" type="text" name="captcha" maxlength=4 autocomplete="off">
                     <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
                     </if>
+                </dd>
+                <dd class="submit">
                 <eq name="isOpenTime" value="0">
                     <p>{:L('对不起，该时间段暂时不可访问')}</p>
                 <else/>

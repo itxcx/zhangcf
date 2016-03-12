@@ -14,8 +14,10 @@ class ProductAction extends CommonAction {
 			"添加"=>array("class"=>"add"   ,"href"=>__APP__."/Admin/Product/add:__XPATH__","target"=>"navTab"  ,"mask"=>"true",'width'=>'600','height'=>'550'),
 			"修改"=>array("class"=>"edit"  ,"href"=>__APP__."/Admin/Product/edit:__XPATH__/id/{tl_id}"  ,"target"=>"navTab"  ,"mask"=>"true",'width'=>'600','height'=>'550'),
 			"删除"=>array("class"=>"delete","href"=>__APP__."/Admin/Product/delete:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要删除该产品吗？如果此产品已经被订购过，将不能使用此功能。请直接修改产品为‘下架’状态"),	
-            "套餐添加产品"=>array("class"=>"add"   ,"href"=>__APP__."/Admin/Product/setpros:__XPATH__/id/{tl_id}","target"=>"navTab"  ,"mask"=>"true"),
             );
+		if(adminshow('pro_tc')){
+        	$setButton["套餐添加产品"]=array("class"=>"add"   ,"href"=>__APP__."/Admin/Product/setpros:__XPATH__/id/{tl_id}","target"=>"navTab"  ,"mask"=>"true");
+    	}
 		if(adminshow('prostock')){
 			$setButton["入库"]=array("class"=>"add"   ,"href"=>__APP__."/Admin/Product/add_pronum:__XPATH__/id/{tl_id}","target"=>"dialog","mask"=>"true",'width'=>'600','height'=>'350');
 		}

@@ -1,7 +1,7 @@
 <?php
 	class sale_reg extends sale{
-		public $setLv=true;//注册是否选择级别
-		public $selLv='';//注册是否选择级别
+		public $setLv=true; //注册是否验证等级
+		public $selLv='';   //注册是否选择级别
 		public $dispWhere="";
 		public $fromNoName="";
 		//默认级别
@@ -18,6 +18,7 @@
 		//匿名注册可以使用的网体
 		public $webRegNetname='all';
 		//此订单扣谁的钱
+       	public $nullreg =true;//空点注册默认不选择产品
 		public $accstr ='注册人编号';
 		public $accview='注册人编号';//审核人（谁能看到此订单）//可增加,服务中心编号,推荐_上级编号,编号
 		public $fieldRelations=array(
@@ -463,7 +464,7 @@
 					}else{
 						$val=$data['accval'][$acckey];
 					}
-					if(strstr($val,"%"))
+                    if(strstr($accRatio['maxval'],"%"))
 					{
 						$data['paycons'][$accRatio['name']]=$val."%";
 					}

@@ -1,243 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+s<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--<link href="UserTpl/login/21/CN_home.css" rel="stylesheet" type="text/css" />
---><title>{:L('会员登录')}</title>
-<style type="text/css">
-<!--
-* {
-	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 14px; TEXT-DECORATION: none; PADDING-TOP: 0px
-}
-HTML {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; BOTTOM: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial; BACKGROUND: #121212; COLOR: #bcb294; FONT-SIZE: 14px; TOP: 0px; RIGHT: 0px; PADDING-TOP: 0px; LEFT: 0px
-}
-BODY {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; BOTTOM: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: Arial; BACKGROUND: #121212; COLOR: #bcb294; FONT-SIZE: 14px; TOP: 0px; RIGHT: 0px; PADDING-TOP: 0px; LEFT: 0px
-}
-A {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-TABLE {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-FORM {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-TD {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-LI {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-UL {
-	FONT-FAMILY: Arial; COLOR: #bcb294; FONT-SIZE: 14px
-}
-.clear {
-	DISPLAY: none; HEIGHT: 0px; CLEAR: both
-}
-#Index {
-	POSITION: absolute; MARGIN-TOP: -380px; WIDTH: 1258px; BACKGROUND: url(UserTpl/login/21/Main.jpg) no-repeat; HEIGHT: 760px; MARGIN-LEFT: 625px; TOP: 50%
-}
-#Top {
-	MARGIN: 0px auto; WIDTH: 1260px; BACKGROUND: url(UserTpl/login/21/Index_Top.jpg) no-repeat; HEIGHT: 96px
-}
-#TopIntro {
-	MARGIN: 0px auto; WIDTH: 1260px; BACKGROUND: url(UserTpl/login/21/TopBg_Intro.jpg) no-repeat right 50%; HEIGHT: 92px; OVERFLOW: hidden
-}
-#Bg2 {
-	POSITION: absolute; MARGIN-TOP: -265px; WIDTH: 1260px; BACKGROUND: #121212; HEIGHT: 760px; TOP: 50%
-}
-#Maintop {
-	MARGIN: 0px auto; WIDTH: 1260px; HEIGHT: 211px
-}
-#Main {
-	MARGIN: 0px auto; WIDTH: 1260px; BACKGROUND: url(UserTpl/login/21/Index_Mid.jpg) no-repeat; HEIGHT: 245px
-}
-#MainMenu {
-	MARGIN: 0px auto; WIDTH: 1260px; BACKGROUND: url(UserTpl/login/21/Index_MenuBg.jpg); HEIGHT: 48px
-}
-#MainMenu H1 {
-	PADDING-BOTTOM: 0px; LINE-HEIGHT: 44px; PADDING-LEFT: 430px; WIDTH: 120px; PADDING-RIGHT: 0px; FONT-FAMILY: "黑体"; FLOAT: left; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter; PADDING-TOP: 4px
-}
-#MainMenu H1 A:link {
-	LINE-HEIGHT: 44px; FONT-FAMILY: "黑体"; FLOAT: left; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#MainMenu H1 A:visited {
-	LINE-HEIGHT: 44px; FONT-FAMILY: "黑体"; FLOAT: left; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#MainMenu H1 A:hover {
-	LINE-HEIGHT: 44px; FONT-FAMILY: "黑体"; FLOAT: left; COLOR: #ff0000; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#MainMenu H2 {
-	PADDING-BOTTOM: 0px; LINE-HEIGHT: 44px; PADDING-LEFT: 0px; WIDTH: 120px; PADDING-RIGHT: 360px; FLOAT: right; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter; PADDING-TOP: 4px
-}
-#MainMenu H2 A:link {
-	LINE-HEIGHT: 44px; FLOAT: left; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#MainMenu H2 A:visited {
-	LINE-HEIGHT: 44px; FLOAT: left; COLOR: #cccccc; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#MainMenu H2 A:hover {
-	LINE-HEIGHT: 44px; FLOAT: left; COLOR: #ff0000; FONT-SIZE: 22px; FONT-WEIGHT: lighter
-}
-#Title {
-	PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-LEFT: 370px; WIDTH: 890px; PADDING-RIGHT: 0px; BACKGROUND: url(UserTpl/login/21/Title_Intro.jpg) no-repeat; HEIGHT: 32px; COLOR: #ffbe00; FONT-SIZE: 20px; OVERFLOW: hidden; PADDING-TOP: 6px
-}
-.DTitleF {
-	TEXT-ALIGN: left; LINE-HEIGHT: 36px; MARGIN: 0px auto; PADDING-LEFT: 12px; WIDTH: 588px; FONT-FAMILY: "黑体"; BACKGROUND: url(UserTpl/login/21/Forgot.jpg) no-repeat; HEIGHT: 36px; COLOR: #ccc; FONT-SIZE: 18px
-}
-#LoginBG {
-	 MARGIN-TOP: -302px; WIDTH: 904px; HEIGHT: 645px;  OVERFLOW: hidden; margin:0 auto;
-}
-#Logo {
-	TEXT-ALIGN: right; MARGIN: 0px auto; WIDTH: 904px; HEIGHT: 118px
-}
-#Login_Main {
-	WIDTH: 904px; BACKGROUND: url(UserTpl/login/21/Login_Bg.jpg) no-repeat; HEIGHT: 447px
-}
-#Login_left {
-	MARGIN: 16px; WIDTH: 288px; BACKGROUND: url(UserTpl/login/21/Login_Img.jpg) no-repeat; FLOAT: left; HEIGHT: 415px
-}
-#Login_r_top {
-	LINE-HEIGHT: 45px; PADDING-LEFT: 4px; WIDTH: 516px; FONT-FAMILY: "黑体"; FLOAT: right; HEIGHT: 45px; COLOR: #d5d1c7; FONT-SIZE: 26px; PADDING-TOP: 36px
-}
-#Login {
-	PADDING-BOTTOM: 40px; PADDING-LEFT: 40px; WIDTH: 390px; PADDING-RIGHT: 40px; FLOAT: right; HEIGHT: 228px; MARGIN-RIGHT: 10px; PADDING-TOP: 70px
-}
-#Login H1 {
-	LINE-HEIGHT: 40px; PADDING-LEFT: 27px; WIDTH: 360px; FLOAT: left; HEIGHT: 40px; COLOR: #ebead9; FONT-SIZE: 14px; FONT-WEIGHT: lighter
-}
-#Login H2 {
-	LINE-HEIGHT: 40px; PADDING-LEFT: 45px; WIDTH: 345px; FLOAT: left; HEIGHT: 40px; COLOR: #ebead9; FONT-SIZE: 14px; FONT-WEIGHT: lighter
-}
-#Login H3 {
-	LINE-HEIGHT: 28px; PADDING-LEFT: 80px; WIDTH: 220px; FLOAT: left; HEIGHT: 58px; COLOR: #ebead9; PADDING-TOP: 10px
-}
-#Login .fangwen {
-	LINE-HEIGHT: 28px; PADDING-LEFT: 0px; WIDTH: 370px; FLOAT: left; HEIGHT: 58px; COLOR: #ebead9; PADDING-TOP: 10px
-}
-#Login H4 {
-	LINE-HEIGHT: 24px; PADDING-LEFT: 16px; WIDTH: 330px; FONT-FAMILY: Verdana; BACKGROUND: url(UserTpl/login/21/Login_Icon.jpg) no-repeat 0px 10px; FLOAT: left; HEIGHT: 24px; COLOR: #e1a02a; MARGIN-LEFT: 36px; FONT-SIZE: 12px; FONT-WEIGHT: lighter
-}
-#Login H5 {
-	LINE-HEIGHT: 40px; PADDING-LEFT: 31px; WIDTH: 125px; FLOAT: left; HEIGHT: 40px; COLOR: #ebead9; FONT-SIZE: 14px; FONT-WEIGHT: lighter
-}
-#Login H6 {
-	LINE-HEIGHT: 40px; MARGIN-TOP: 10px; WIDTH: 55px; PADDING-RIGHT: 160px; FLOAT: right; HEIGHT: 40px; FONT-SIZE: 14px
-}
-#Login_copy {
-	LINE-HEIGHT: 18px; WIDTH: 904px; FLOAT: left; HEIGHT: 60px; COLOR: #717171; FONT-SIZE: 12px
-}
-#bottom {
-	TEXT-ALIGN: center; MARGIN: 0px auto; PADDING-LEFT: 700px; WIDTH: 560px; BACKGROUND: #000000; HEIGHT: 60px; COLOR: #717171; CLEAR: both; FONT-SIZE: 12px; PADDING-TOP: 140px
-}
-A:link {
-	COLOR: #ff9000
-}
-A:visited {
-	COLOR: #ff9000
-}
-A:hover {
-	COLOR: #ffcc00
-}
-A:active {
-	COLOR: #ff9000
-}
-#Menu {
-	TEXT-ALIGN: center; MARGIN: 0px auto; WIDTH: 1002px; HEIGHT: 40px; COLOR: #f6efdb; FONT-SIZE: 16px; PADDING-TOP: 56px
-}
-#Menu A:link {
-	TEXT-ALIGN: center; PADDING-LEFT: 16px; PADDING-RIGHT: 16px; COLOR: #f6efdb; FONT-SIZE: 16px
-}
-#Menu A:visited {
-	TEXT-ALIGN: center; PADDING-LEFT: 16px; PADDING-RIGHT: 16px; COLOR: #f6efdb; FONT-SIZE: 16px
-}
-#Menu A:hover {
-	TEXT-ALIGN: center; COLOR: #ffb800; FONT-SIZE: 16px
-}
-.MN {
-	FONT-FAMILY: Verdana; COLOR: #ff9900; FONT-SIZE: 17px
-}
-.MN A:link {
-	FONT-FAMILY: Verdana; COLOR: #ff9900; FONT-SIZE: 18px
-}
-.MN A:visited {
-	FONT-FAMILY: Verdana; COLOR: #ff9900; FONT-SIZE: 18px
-}
-.MN A:hover {
-	FONT-FAMILY: Verdana; COLOR: #dac9b9; FONT-SIZE: 18px; TEXT-DECORATION: underline
-}
-.MN A:active {
-	FONT-FAMILY: Verdana; COLOR: #ff9900; FONT-SIZE: 18px
-}
-.Botton {
-	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 12px; PADDING-RIGHT: 12px; FONT-FAMILY: "黑体"; BACKGROUND: url(UserTpl/login/21/BotonBg.jpg) repeat-x; HEIGHT: 24px; COLOR: #624300; FONT-SIZE: 16px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
-}
-.Inputtext {
-	BORDER-BOTTOM: #5c584a 1px solid; BORDER-LEFT: #5c584a 1px solid; PADDING-LEFT: 2px; FONT-FAMILY: Verdana; BACKGROUND: #3e3b2e; HEIGHT: 20px; COLOR: #bcb294; BORDER-TOP: #5c584a 1px solid; BORDER-RIGHT: #5c584a 1px solid; PADDING-TOP: 1px
-}
-.InputtextArea {
-	BORDER-BOTTOM: #5c584a 1px solid; BORDER-LEFT: #5c584a 1px solid; PADDING-LEFT: 2px; FONT-FAMILY: Verdana; BACKGROUND: #3e3b2e; COLOR: #bcb294; FONT-SIZE: 12px; BORDER-TOP: #5c584a 1px solid; BORDER-RIGHT: #5c584a 1px solid; PADDING-TOP: 1px
-}
--->
-</style>
-<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-<!--
-function fleshVerify(type){ 
-	//重载验证码
-	var timenow = new Date().getTime();
-	if (type){
-		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
-	}else{
-		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
-	}
-}
-//-->
-</script>
+    <meta charset="UTF-8">
+    <title>{:L('会员登录')}</title>
+    <link rel="stylesheet" href="UserTpl/login/21/css/style.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+    }
+    </script>
+
 </head>
-
 <body>
-<form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform encType="multipart/form-data">
-<input type="hidden" name="act" value="verify" />
-<div id="LoginBG">
-		<div id="Logo"></div>
-	  <div id="Login_Main">
-			<div id="Login_left"></div>
-			<div id="Login_r_top">{:L('用户登陆')}</div>
-			
-			<div id="Login">  
-				<h1>{:L('用户名')}: <input name="username" type="text" id="username" />
-				</h1> 
 
-				<h1>{:L('密码')}: <input name="password" type="password" autocomplete="off" id="password" style="margin-left:10px"/>
-				</h1> 
-<if condition="isset($dispCode) and ($dispCode eq true)">
-				<h5>{:L('验证码')}: <input maxlength="4" name="captcha" type="text" id="verify" style="width:60px;" />
-				</h5>
-				
-				<h5 style="line-height: 200%;padding-top: 9px;padding-left: 5px;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> 
-				</h5>
-				</if>
-<if condition="$usernum eq 1">
-<input type="hidden" value="{$users[0]}" name="usertype">
-</if>
-				<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-left:0px">{:L('对不起，该时间段暂不可访问')}</span><else/>
-				<h2>
-				<input type="submit" name="Loginbtn" value="{:L('登陆')}" id="Loginbtn" class="Botton" /> <span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span></h2>
-				</eq>
+    <div class="login">
 
-			
- 
-			</div>
-			
-		</div>
-		
-	  	<div style="text-align:center;"><br />
-			{:L($openTimeStr)}
-			</div>
-</div>
-</form>
+        <form action="__URL__/check" method="post">
+	        <input type="hidden" name="act" value="verify" />
+           	<if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+
+            <dl>
+                <dt>{:L('企业销售平台')}</dt>
+                <dd>
+                    <label for="username">{:L('用户名')}：</label>
+                    <input id="username" type="text" name="username">
+                </dd>
+                <dd>
+                    <label for="password">{:L('密　码')}：</label>
+                    <input id="password" type="password" name="password" autocomplete="off">
+                </dd>
+	            <if condition="isset($dispCode) and ($dispCode eq true)">
+                <dd>
+                    <label for="verify">{:L('验证码')}：</label>
+                    <input id="verify" type="text" name="captcha" maxlength="4" autocomplete="off">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
+                </dd>
+                </if>
+                <eq name="isOpenTime" value="0">
+                <dd class="opentime">
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
+                </dd>
+                <else/>
+                <dd class="subbutton">
+                    <button class="submit" type="submit">{:L('登录')}</button>
+                    <if condition="adminshow('mimazhaohui') eq true">
+                    <a class="forget" href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a>
+                </dd>
+                </if>
+                </eq>
+
+            </dl>
+
+            <p class="open">{:L($openTimeStr)}</p>
+
+        </form>
+
+
+    </div>
+    
 </body>
 </html>
+

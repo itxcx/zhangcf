@@ -417,6 +417,12 @@ class UserAction extends CommonAction
 		$model		= M('会员');
 		$id			= I("request.id/d");
 		$vo			= $model->table('dms_会员 user inner join dms_货币 b on user.id=b.userid')->where(array("user.id"=>$id))->find();
+        if(adminshow('mibao')){
+            $mibao=M('密保')->where(array("uid"=>$id))->field('密保问题,密保答案')->find();
+            if(!empty($mibao)){
+                $vo=array_merge($vo,$mibao);
+            }
+        }
 		$olduserary = $vo;
 		/*//安置网体业绩修改
 		$netPlaceName = array();
@@ -596,8 +602,6 @@ class UserAction extends CommonAction
 			"userStatus"		=>'状态',
 			"nullStatus"		=>'空点',
 			"weixin"		    =>'微信账号',
-			"secretsafe_name"	=>'密保问题',
-			"secretanswer"		=>'密保答案',
 			"memo"		        =>'备注',
 		);
 		if(adminshow('pwd3Switch')){
@@ -720,6 +724,24 @@ class UserAction extends CommonAction
 				$data['pass3'] = md100( $data['pass3']);
 			}
 		}
+        
+        //设置密保
+        if(adminshow('mibao')){
+            if(I("post.secretsafe_name/s")!="" and I("post.secretanswer/s")!=""){
+                $mbarray= M('密保')->lock(true)->where(array('uid'=>I("post.id/d")))->find();
+                $mibao=array(
+                "密保问题"=>I("post.secretsafe_name/s"),
+                "密保答案"=>I("post.secretanswer/s")
+                );
+                if(empty($mbarray)){
+                    $mibao['uid']=I("post.id/d");
+                    M('密保')->add($mibao);
+                }else{
+                    M('密保')->where(array('uid'=>$mbarray['uid']))->save($mibao);
+                }
+            }
+        }
+        
 		$model_h->where(array('userid'=>I("post.id/d")))->save($data_h);//货币分离
 		$ret=$model->where($where)->save($data);
 		if( $ret !== false){

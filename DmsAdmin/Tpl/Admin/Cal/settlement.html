@@ -50,9 +50,12 @@
 		<td style="text-align:left;border-bottom:1px solid #ededed"  colspan="3">
 			<input type="checkbox" name="backupdb" <if condition="strpos($ips,'127.0.0') === false"> checked</if>/>
 		</td>
-		</tr>
-		<tr style="border-bottom:1px solid #ededed" >
 		
+		<tr style="display:none">
+		<td style="width:120px;border-bottom:1px solid #ededed;text-align:center;color:red" class="tab2_border2" colspan="4" id="tip"></td>		
+		</tr>
+		
+		<tr style="border-bottom:1px solid #ededed" >		
 			<td style="text-align:center;height:25px"  colspan="5" id="buttonSatus">
 			<ELT name="diffday" value="0" >
 			目前不能结算
@@ -109,6 +112,23 @@ function runsetajax()
 	ajaxTodo('__URL__/runset/val/'+$('#runset').val());
 }
 function startsettlement(test){
+	var prizeSwitch = {$prizeSwitch};
+	if(prizeSwitch === 1){
+		var prizedata = {$prizedata};
+		var prize_dise = '';
+		$.each(prizedata,function(k,v){
+			if(v.use == false){
+				prize_dise += v.name+'、';
+			}
+		});
+		if(prize_dise){
+			$("#tip").parent().show();
+			$("#tip").html('奖金管理 >> 奖金开关设置 >> '+prize_dise.substring(prize_dise.lastIndexOf('、'),-1)+' ---- 未开启');
+			$('#settlementbutton').attr('disabled','true');
+			$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled');
+			return false;
+		}
+	}
 	$('#test').val(test);
 	$('#calmemo').html('');
 	$('#settlementbutton').html('正在结算中请等候');

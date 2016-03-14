@@ -227,7 +227,7 @@ CREATE TABLE `dms_密保` (
   `密保问题` varchar(100) DEFAULT '',
   `密保答案` varchar(100) DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`编号`)
+  UNIQUE KEY (`uid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 

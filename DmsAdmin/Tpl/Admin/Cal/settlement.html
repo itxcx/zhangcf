@@ -123,10 +123,7 @@ function startsettlement(test){
 		});
 		if(prize_dise){
 			$("#tip").parent().show();
-			$("#tip").html('奖金管理 >> 奖金开关设置 >> '+prize_dise.substring(prize_dise.lastIndexOf('、'),-1)+' ---- 未开启');
-			$('#settlementbutton').attr('disabled','true');
-			$('#calbutton').removeClass('buttonActive').addClass('buttonDisabled');
-			return false;
+			$("#tip").html('奖金开关设置 >> '+prize_dise.substring(prize_dise.lastIndexOf('、'),-1)+' -- 未开启');
 		}
 	}
 	$('#test').val(test);

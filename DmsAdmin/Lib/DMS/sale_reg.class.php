@@ -491,14 +491,9 @@
 			$m_sale=M("报单");
             
             //密保问题
-            if(adminshow('mibao')){
-                $mibao['编号']=$udata['编号'];
-                $mibao['密保问题']=trim($udata['密保问题']);
-                $mibao['密保答案']=trim($udata['密保答案']);
-                $m_mibao=M('密保');
-                $m_mibao->add($mibao);
-                unset($udata['密保问题'],$udata['密保答案'],$mibao);
-            }
+            $mibao['密保问题']=trim($udata['密保问题']);
+            $mibao['密保答案']=trim($udata['密保答案']);
+            unset($udata['密保问题'],$udata['密保答案']);
             
 			//得到新数据库ID
 			$udata["id"] = $m_user->add($udata);
@@ -507,6 +502,14 @@
 				M()->rollback();
 				throw_exception('注册插入'.$user->name.'失败，原因为'.htmlentities(M()->getDbError(),ENT_COMPAT ,'UTF-8'));
 			}
+            
+            //密保问题
+            if(adminshow('mibao')){
+                $mibao['uid']=$udata["id"];
+                $m_mibao=M('密保')->add($mibao);
+            }
+            unset($mibao);
+            
 			$udata = $m_user->find($udata['id']);
 			//赋值到报单记录中
 			$sdata["userid"]=$udata["id"];

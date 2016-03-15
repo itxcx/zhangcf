@@ -338,6 +338,7 @@ function L($name=null, $value=null) {
             		//adump($trace['file']);
             		if(isset($trace['file']))
             		{
+            			$trace['file']=str_replace('/','\\',$trace['file']);
             			$filearr=explode('\\',$trace['file']);
             			for($i=count($filearr)-1;$i>=0;$i--)
             			{

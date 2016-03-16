@@ -18,6 +18,7 @@
 		//匿名注册可以使用的网体
 		public $webRegNetname='all';
 		//此订单扣谁的钱
+       	public $nullreg =true;//空点注册默认不选择产品
 		public $accstr ='注册人编号';
 		public $accview='注册人编号';//审核人（谁能看到此订单）//可增加,服务中心编号,推荐_上级编号,编号
 		public $fieldRelations=array(
@@ -463,7 +464,7 @@
 					}else{
 						$val=$data['accval'][$acckey];
 					}
-					if(strstr($val,"%"))
+                    if(strstr($accRatio['maxval'],"%"))
 					{
 						$data['paycons'][$accRatio['name']]=$val."%";
 					}
@@ -490,14 +491,9 @@
 			$m_sale=M("报单");
             
             //密保问题
-            if(adminshow('mibao')){
-                $mibao['编号']=$udata['编号'];
-                $mibao['密保问题']=trim($udata['密保问题']);
-                $mibao['密保答案']=trim($udata['密保答案']);
-                $m_mibao=M('密保');
-                $m_mibao->add($mibao);
-                unset($udata['密保问题'],$udata['密保答案'],$mibao);
-            }
+            $mibao['密保问题']=trim($udata['密保问题']);
+            $mibao['密保答案']=trim($udata['密保答案']);
+            unset($udata['密保问题'],$udata['密保答案']);
             
 			//得到新数据库ID
 			$udata["id"] = $m_user->add($udata);
@@ -506,6 +502,14 @@
 				M()->rollback();
 				throw_exception('注册插入'.$user->name.'失败，原因为'.htmlentities(M()->getDbError(),ENT_COMPAT ,'UTF-8'));
 			}
+            
+            //密保问题
+            if(adminshow('mibao')){
+                $mibao['uid']=$udata["id"];
+                $m_mibao=M('密保')->add($mibao);
+            }
+            unset($mibao);
+            
 			$udata = $m_user->find($udata['id']);
 			//赋值到报单记录中
 			$sdata["userid"]=$udata["id"];

@@ -1063,6 +1063,19 @@ class UserAction extends CommonAction
 		$this->saveAdminLog("",'','注册协议保存','注册协议保存数据');
 		$this->success('设置完成!');
 	}
+
+    //购物协议
+    public function Buy_agreement(){
+        $this->assign('Buy_agreement',F('Buy_agreement'));
+        $this->display();
+    }
+    //购物协议设置保存
+    public function saveBuy_agreement(){
+        F('Buy_agreement',get_magic_quotes_gpc() ? stripslashes(I("post.agreementContent/s")) : I("post.agreementContent/s"));
+        $this->saveAdminLog("",'','购物协议保存','购物协议保存数据');
+        $this->success('设置完成!');
+    }
+
 	//删除所有无效会员
 	public function deleteAllInvalidUser(){
 		$num = $this->userobj->deleteAllInvalidUser();

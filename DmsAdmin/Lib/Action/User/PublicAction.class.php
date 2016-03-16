@@ -295,7 +295,7 @@ class PublicAction extends Action {
         $user=I("post.");
         if(!empty($user['userbh']) and !empty($user['userda']) and !is_array($user['userbh']) and !is_array($user['userda']) ){
             $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('编号'=>$user['userbh']))->find();
+            $mbdata=$m_mibao->where(array('uid'=>$user['userbh']))->find();
             if(!empty($mbdata) and $mbdata['密保答案']==trim($user['userda'])){
                 M('会员')->startTrans() ;
                 $m_user=M('会员')->where(array('编号'=>$mbdata['编号']))->save(array('pass1'=>md100($mbdata['编号']),'pass2'=>md100($mbdata['编号'])));
@@ -311,7 +311,7 @@ class PublicAction extends Action {
         $user=I("post.");
         if(!empty($user['id']) and !is_array($user['id'])){
             $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('编号'=>$user['id']))->getField('密保问题');
+            $mbdata=$m_mibao->where(array('uid'=>$user['id']))->getField('密保问题');
             if(!empty($mbdata)){
                 echo json_encode($mbdata);
             }

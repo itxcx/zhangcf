@@ -88,11 +88,7 @@ td table{margin-bottom:12px;}
 	<tr>
 		<td style="text-align:right">密保问题:</td>
 		<td style="border-right:none;text-align:left">
-		<select name="secretsafe_name">
-			<foreach name="SecretSafelist" item="SecretSafe">
-			<option value="{$SecretSafe.密保问题}" <eq name="vo['密保问题']" value="$SecretSafe.密保问题">selected</eq>>{$SecretSafe.密保问题}</option>
-			</foreach>
-			</select>
+			<input type="text" value="{$vo.密保问题}" name="secretsafe_name" />
 		</td>
 		</tr>
 		<tr>

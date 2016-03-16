@@ -1,60 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>{:L('用户登陆')}</title>
-<link href="UserTpl/login/30/img/style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
-<!--
-function fleshVerify(type){ 
-	//重载验证码
-	var timenow = new Date().getTime();
-	if (type){
-		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
-	}else{
-		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
-	}
-}
-//-->
-</script>
-<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
-</head>
-        
-<body>
-<div class="index_dl_bg1"></div>
-<div class="index_dl_bg2">
-<div class="index_dl_bg2_mid">
-<div class="index_dl_bg2_mid_l" style="width:400px;">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{:L('会员登录')}</title>
+    <link rel="stylesheet" href="UserTpl/login/30/css/style.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+    }
+    </script>
 
-       <form action="__URL__/check" method="post" name="login" id=loginform encType="multipart/form-data">
-<input type="hidden" name="act" value="verify" />	
-                        <div class="index_dl_bg2_mid_l_dl">
-                            <span>{:L('账号')}：</span><input name="username" type="text" id="username" class="text_dl">
-                        </div>
-                        <div class="index_dl_bg2_mid_l_dl">
-                            <span>{:L('密码')}：</span><input name="password" type="password" autocomplete="off" id="password" class="text_dl">
-                        </div>
-                        <if condition="isset($dispCode) and ($dispCode eq true)">
-                        <div class="index_dl_bg2_mid_l_dl">
-                            <span>{:L('验证码')}：</span><input type="text" name="captcha" id="captcha" maxlength="4" value="" class="zc_text3"><span style="padding-left:12px;">	<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> </span>
-                        </div>
-                        </if>
-                        <div class="index_dl_bg2_mid_l_dl">
-                            <input type="submit" class="text_dl2" value="{:L('下一步')}"><!--<span style="font-size:12px; width:100px; padding-left:20px; line-height:33px;"><a href="./img/default_getpass.php" class="text_fff">{:L('忘记密码')}？</a></span>-->
-                        	<span  ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span>
-                        </div>
-                        <if condition="$usernum eq 1">
-						<input type="hidden" value="{$users[0]}" name="usertype">
-						</if>
-                    </form>
-                </div>
-                <div class="index_dl_bg2_mid_r">
-                    <p>
-                        <span style="color:#9c0007; font-size:14px; font-weight:bold;">{:L('小提示')}：</span>{:L('建议使用IE 6.0以上浏览器，使用 IE (Internet Explorer) 8.0 浏览器，可达到最佳使用效果')}。
-                    </p>
-                </div>
-                
-            </div>
+</head>
+<body>
+
+    <div class="login">
+        <div class="title">
+            {:L('会员管理')}
         </div>
-        <div class="index_dl_bg3"></div>
+
+        <form action="__URL__/check" method="post">
+	        <input type="hidden" name="act" value="verify" />
+           	<if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+
+            <dl>
+                <dt>{:L('会员登录')}</dt>
+                <dd>
+                    <label for="username">{:L('用户名')}：</label>
+                    <input id="username" type="text" name="username">
+                </dd>
+                <dd>
+                    <label for="password">{:L('密　码')}：</label>
+                    <input id="password" type="password" name="password" autocomplete="off">
+                </dd>
+	            <if condition="isset($dispCode) and ($dispCode eq true)">
+                <dd>
+                    <label for="verify">{:L('验证码')}：</label>
+                    <input id="verify" type="text" name="captcha" maxlength="4" autocomplete="off">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
+                </dd>
+                </if>
+                <eq name="isOpenTime" value="0">
+                <dd class="opentime">
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
+                </dd>
+                <else/>
+                <dd class="subbutton">
+                    <button class="submit" type="submit">{:L('提交')}</button>
+                    <if condition="adminshow('mimazhaohui') eq true">
+                    <a class="forget" href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a>
+                    </if>
+                </dd>
+                </eq>
+
+            </dl>
+            <div class="open"><span>{:L('提示')}：</span>{:L($openTimeStr)}</div>
+        </form>
+
+    </div>
     
-</body></html>
+</body>
+</html>
+

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!--<link href="UserTpl/login/21/CN_home.css" rel="stylesheet" type="text/css" />
---><title>会员登录</title>
+--><title>{:L('会员登录')}</title>
 <style type="text/css">
 <!--
 * {
@@ -205,27 +205,27 @@ function fleshVerify(type){
 		<div id="Logo"></div>
 	  <div id="Login_Main">
 			<div id="Login_left"></div>
-			<div id="Login_r_top">用户登陆</div>
+			<div id="Login_r_top">{:L('用户登陆')}</div>
 			
 			<div id="Login">  
-				<h1>用户名 : <input name="username" type="text" id="username" />
+				<h1>{:L('用户名')}: <input name="username" type="text" id="username" />
 				</h1> 
 
-				<h2>密码: <input name="password" type="password" id="password" />
-				</h2> 
+				<h1>{:L('密码')}: <input name="password" type="password" autocomplete="off" id="password" style="margin-left:10px"/>
+				</h1> 
 <if condition="isset($dispCode) and ($dispCode eq true)">
-				<h5>验证码: <input maxlength="4" name="captcha" type="text" id="verify" style="width:60px;" />
+				<h5>{:L('验证码')}: <input maxlength="4" name="captcha" type="text" id="verify" style="width:60px;" />
 				</h5>
 				
-				<h5 style="line-height: 200%;padding-top: 9px;padding-left: 5px;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> 
+				<h5 style="line-height: 200%;padding-top: 9px;padding-left: 5px;"><img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> 
 				</h5>
 				</if>
 <if condition="$usernum eq 1">
 <input type="hidden" value="{$users[0]}" name="usertype">
 </if>
-				<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-left:0px">对不起，该时间段暂不可访问</span><else/>
-				<h3>
-				<input type="submit" name="Loginbtn" value="登陆" id="Loginbtn" class="Botton" /> <span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span></h3>
+				<eq name="isOpenTime" value="0"><span style="font-size:12px;margin-left:0px">{:L('对不起，该时间段暂不可访问')}</span><else/>
+				<h2>
+				<input type="submit" name="Loginbtn" value="{:L('登陆')}" id="Loginbtn" class="Botton" /> <span class="wjmm" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span></h2>
 				</eq>
 
 			
@@ -235,7 +235,7 @@ function fleshVerify(type){
 		</div>
 		
 	  	<div style="text-align:center;"><br />
-			{$openTimeStr}
+			{:L($openTimeStr)}
 			</div>
 </div>
 </form>

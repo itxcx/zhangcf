@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main User" id="setPass">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
@@ -16,44 +17,44 @@
             <eq name="pwd3Switch" value="false">
             <tr  >
                 <td class="tbkey">{:L('确认二级密码')}：</td>
-                <td class="tbval"><input name="oldpwd2" type="password" id="oldpwd2"></td>
+                <td class="tbval"><input name="oldpwd2" type="password" autocomplete="off" id="oldpwd2"></td>
             </tr>
             </eq>
             <eq name="pwd3Switch" value="true">
             <tr  >
                 <td class="tbkey">{:L('确认三级密码')}：</td>
-                <td class="tbval"><input name="oldpwd2" type="password" id="oldpwd2"></td>
+                <td class="tbval"><input name="oldpwd2" type="password" autocomplete="off" id="oldpwd2"></td>
             </tr>
             </eq>
 
             <tr >
                 <td class="tbkey">{:L('一级新密码')}：</td>
-                <td class="tbval"><input name="pwd1" type="password" id="pwd1" ></td>
+                <td class="tbval"><input name="pwd1" type="password" autocomplete="off" id="pwd1" ></td>
               </tr>
             <tr >
                 <td class="tbkey">{:L('确认一级新密码')}：</td>
-                <td class="tbval"><input name="repwd1" type="password" id="repwd1" ></td>
+                <td class="tbval"><input name="repwd1" type="password" autocomplete="off" id="repwd1" ></td>
             </tr>
             <!--  <TR  class="shuang">
                 <TD class="tbkey"><label>原二级密码</label>:</TD>
-                <TD  ><input name="oldpwd1" type="password" id="oldpwd1"></TD>
+                <TD  ><input name="oldpwd1" type="password" autocomplete="off" id="oldpwd1"></TD>
             </TR>-->
             <tr >
                 <td class="tbkey">{:L('二级新密码')}：</td>
-                <td class="tbval"><input name="pwd2" type="password" id="pwd2" ><span class="msg">{:L('至少6位')}</span></td>
+                <td class="tbval"><input name="pwd2" type="password" autocomplete="off" id="pwd2" ><span class="msg">{:L('至少6位')}</span></td>
             </tr>
             <tr >
                 <td class="tbkey">{:L('确认二级新密码')}：</td>
-                <td class="tbval"><input name="repwd2" type="password" id="repwd2" ></td>
+                <td class="tbval"><input name="repwd2" type="password" autocomplete="off" id="repwd2" ></td>
             </tr>
 			<eq name="pwd3Switch" value="true">
 			<tr >
                 <td class="tbkey">{:L('三级新密码')}：</td>
-                <td class="tbval"><input name="pwd3" type="password" id="pwd3" ><span class="msg">{:L('至少6位')}</span></td>
+                <td class="tbval"><input name="pwd3" type="password" autocomplete="off" id="pwd3" ><span class="msg">{:L('至少6位')}</span></td>
             </tr>
             <tr >
                 <td class="tbkey">{:L('确认三级新密码')}：</td>
-                <td class="tbval"><input name="repwd3" type="password" id="repwd3" ></td>
+                <td class="tbval"><input name="repwd3" type="password" autocomplete="off" id="repwd3" ></td>
             </tr>
 			</eq>
             <if condition="$verificateSwitch eq 1 and $verificatesmsContent neq ''">
@@ -89,10 +90,10 @@ function time(o) {
             
             eval('var data='+data);
             if(data.status == 1){
-                alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
             }else{
                 wait=0;
-                alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
             }
         });
         sta = false;
@@ -124,10 +125,10 @@ function mtime(o) {
             
             eval('var data='+data);
             if(data.status == 1){
-                alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
             }else{
                 mwait=0;
-                alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
             }
         });
         msta = false;

@@ -17,7 +17,7 @@
 			 </tr>
 			 <tr>
 				 <td style="text-align:right;width:100px;border-bottom:1px solid #EDEDED">用户密码：</td>
-				 <td style="padding-left:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><input type="password" name="pwdsmsPsw" value="{$smsPsw}"/></td>
+				 <td style="padding-left:5px;text-align:left;width:350px;border-bottom:1px solid #EDEDED" ><input type="password" autocomplete="off" name="pwdsmsPsw" value="{$smsPsw}"/></td>
 			 </tr>
 			 <tr>
 				 <td style="text-align:right;width:100px;border-bottom:1px solid #EDEDED">手机号码：</td>
@@ -89,7 +89,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td style="padding:5px;text-align:right;width:140px;border-bottom:1px solid #EDEDED">会员转账转出：<input type="checkbox" name="Switch[]" value="zhzhsmsSwitch" <eq name="vo.zhzhsmsSwitch" value="1">checked</eq>/>开启</td>
-		 		<td style="padding:5px;width:350px;text-align:left;border-bottom:1px solid #EDEDED" ><textarea cols="60" rows="2" name="zhzhsmsContent" id='zhzhsmsContent'>{$vo.zhzhsmsContent}</textarea>（注：发送内容替换字段：[转出编号] 替换为转出会员编号，[转入编号] 替换为转入会员编号，[转账金额] 替换为转账的金额等用户信息）</td>
+		 		<td style="padding:5px;width:350px;text-align:left;border-bottom:1px solid #EDEDED" ><textarea cols="60" rows="2" name="zhzhsmsContent" id='zhzhsmsContent'>{$vo.zhzhsmsContent}</textarea>（注：发送内容替换字段：[转出编号] 替换为转出会员编号，[转入编号] 替换为转入会员编号，[转入金额] 替换为转账的金额等用户信息）</td>
 		 		<td style="padding:5px;text-align:left;border-bottom:1px solid #EDEDED" >监听手机号：<input name="zhzhsmsMobile" type="text" value="{$vo.zhzhsmsMobile}" size="30"/></td>
 		 		<td style="padding:5px;border-bottom:1px solid #EDEDED" >
 				 <div class="buttonActive" style=";margin-top:5px;">

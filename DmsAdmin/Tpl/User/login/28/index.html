@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员登陆</title>
+<title>{:L('会员登陆')}</title>
 <style>
 <!--
 
@@ -66,19 +66,19 @@ function fleshVerify(type){
 		<td>
 			<table border="0" cellpadding="0" cellspacing="0" width="391" id="form_table" height="202">
 				<tr>
-				<td align="right" width="85" class="name">用户名: </td>
+				<td align="right" width="85" class="name">{:L('用户名')}: </td>
 				<td align="left"><input type="text" style="width:220px;" name="username" id="ussername" class="inp" /></td>
 				</tr>
 				<tr>
-				<td align="right" width="85" class="name">密码: </td>
-				<td align="left"><input type="password"  class="inp" style="width:220px;" name="password" id="password" /></td>
+				<td align="right" width="85" class="name">{:L('密码')}: </td>
+				<td align="left"><input type="password" autocomplete="off"  class="inp" style="width:220px;" name="password" id="password" /></td>
 				</tr>
 				<if condition="$dispCode eq true">
 				<tr>
-				<td align="right" width="85" class="name">验证码: </td>
+				<td align="right" width="85" class="name">{:L('验证码')}: </td>
 				<td align="left">
 				<input  class="inp" name="captcha" maxlength="4" id="verify" type="text" style="width:90px;" />&nbsp;
-				<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> 
+				<img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle"> 
 				</td>
 				</tr>
 				</if>

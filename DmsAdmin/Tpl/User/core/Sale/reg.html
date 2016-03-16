@@ -1,4 +1,3 @@
-<!--<script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script>-->
 <div class="core_main Sale" id="usereg">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>： {$nowtitle}</span>
@@ -7,15 +6,14 @@
         <div id="salereg" style="<present name='regAgreement'>display:none</present>">
             <form name="form1" method="post" action="__GROUP__/Sale/regSave:__XPATH__" id="form">
                 <table class="tablebg" id="table1">
-                    {//{:L('会员编号')}}
                     <tr>
-                        <td class="tbkey" >{$user:byname}编号：</td>
+                        <td class="tbkey" >{:L($user->byname.'编号')}：</td>
                         <td class="tbval" ><if condition="($user:idEdit eq true) and ($user:idAutoEdit eq true)"><input type="text" value="{$userid}" name="userid" id="userid"/>
                             <elseif condition="($user:idAutoEdit eq true)"/>{$userid}<else/><input type="text" value="" name="userid" id="userid"/></if><span class="msg" id="state_userid" style="color: red"></span></td>
                     </tr>
                     <if condition = "($sale:setLv eq true)">
                     <TR>
-                        <td class="tbkey" >{$levels:byname}：</td>
+                        <td class="tbkey" >{:L($levels->byname)}：</td>
                         <td class="tbval" >
                             <select name='lv' id="lv" <if condition="$zkbool eq true">onChange="user_getTotalzf('{$sale:name}','Sale');"</if>>
                                 <foreach name='levelsopt' item='level'>
@@ -58,7 +56,7 @@
                     <tr>
                         <td class="tbkey" >{:L('性别')}：</td>
                         <td class="tbval" >
-                            <span><input type="radio" name="sex" value="男" checked/>男<input type="radio" name="sex" value="女" />女</span>
+                            <span><input type="radio" name="sex" value="{:L('男')}" checked/>{:L('男')}<input type="radio" name="sex" value="{:L('女')}" />{:L('女')}</span>
                             &nbsp;&nbsp;<span class="msg" id="state_sex"><if condition="in_array('sex',$require) eq true ">*</if></span>
                         </td>
                     </tr>
@@ -234,7 +232,7 @@
                     <!--所属商铺-->
                     <notempty name="shop">
                     <tr>
-                        <td class="tbkey" >{$shop}：</td>
+                        <td class="tbkey" >{:L($shop)}：</td>
                         <td class="tbval" ><span><input type="text" value="" name="shop"  onkeyup="getInfo(this)" id="shop" autocomplete="off"/></span>&nbsp;&nbsp;<span class="msg" id="state_shop"><if condition="in_array('shop',$require) eq true">*</if></span></td>
                     </tr>
                     </notempty>
@@ -272,12 +270,12 @@
                                     <input class="county" name="county" type="text">
                                     <input class="town" name="town" type="text">
                                 </div>
-                                <div class="country-select arrow-bg">
+                                <div class="country-select arrow-bg" style="width:180px">
                                     <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                    <ul class="country-list" style="width:180px">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)"style="width:180px">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)"style="width:180px">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)"style="width:180px">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
                                 <div class="location-box arrow-bg">
@@ -290,34 +288,6 @@
                             </script>
                         </td>
                     </tr>
-                    <!--
-                    <tr>
-                        <td class="tbkey" >{:L('国家')}：</td>
-                        <td class="tbval" >
-                            <select name="country" id="country_id" data-role="none">
-                                <option value="">{:L('请选择')}</option>
-                            </select>
-                            <select name="province"  id="province_id" data-role="none" <if condition="$logistic eq true">onChange="user_getTotalzf('{$sale:name}','Sale');"</if>>
-                                <option value="">{:L('省')}/{:L('州')}</option>
-                            </select>
-                            <select name="city"  id="city_id" data-role="none" >
-                                <option value="">{:L('城市')}</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tbkey" >区县：</td>
-                        <td class="tbval" >
-                            <select name="county"  id="county_id" data-role="none" >
-                                <option value="">区/县</option>
-                            </select>
-                            <select name="town"  id="town_id" data-role="none" >
-                                <option value="">街道</option>
-                            </select>
-                            &nbsp;&nbsp;<span class="msg" id="state_town" ><if condition="in_array('area',$require) eq true ">*</if></span>
-                        </td>
-                    </tr>
-                    -->
                     </if>
                     <if condition="in_array('address',$show) eq true">
                     <tr>
@@ -367,38 +337,38 @@
                     <if condition="in_array('pass1',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('一级密码')}：</td>
-                        <td class="tbval"><span><input type="password" value="" name="pass1" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1"><if condition="in_array('pass1',$require) eq true ">*</if></span></td>
+                        <td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass1" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1"><if condition="in_array('pass1',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
                     <if condition="in_array('pass1c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('一级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass1c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1c"><if condition="in_array('pass1c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass1c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass1c"><if condition="in_array('pass1c',$require) eq true ">*</if></span></td>
                     </tr>  
                     </if>
                     <if condition="in_array('pass2',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('二级密码')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass2" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2"><if condition="in_array('pass2',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass2" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2"><if condition="in_array('pass2',$require) eq true ">*</if></span></td>
                     </tr> 
                     </if>
                     <if condition="in_array('pass2c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('二级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass2c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2c"><if condition="in_array('pass2c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass2c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass2c"><if condition="in_array('pass2c',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
 					<eq name="pwd3Switch" value="true">
 					<if condition="in_array('pass3',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('三级密码')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass3" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3"><if condition="in_array('pass3',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass3" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3"><if condition="in_array('pass3',$require) eq true ">*</if></span></td>
                     </tr> 
                     </if>
                     <if condition="in_array('pass3c',$show) eq true">
                     <tr>
                         <td class="tbkey" >{:L('三级密码确认')}：</td>
-                        <td class="tbval" ><span><input type="password" value="" name="pass3c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3c"><if condition="in_array('pass3c',$require) eq true ">*</if></span></td>
+                        <td class="tbval" ><span><input type="password" autocomplete="off" value="" name="pass3c" /></span>&nbsp;&nbsp;<span class="msg" id="state_pass3c"><if condition="in_array('pass3c',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
 					</eq>
@@ -516,8 +486,6 @@ function test(phoneNum, _this) {
     return pattern.test(_this.val());
 }
 
-//$.area_default_show = true; //显示默认区域
-//$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id','town_id');
 var vd;
 var lastname;
 function getInfo(e)

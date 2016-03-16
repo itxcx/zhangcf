@@ -11,6 +11,7 @@ function printStatus($status)
 	}
 }
 </php>
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="rem">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>    
@@ -55,7 +56,7 @@ function printStatus($status)
             <TD ><nobr>{$vo.开户名}</nobr></TD>
             <TD ><nobr>{$vo.备注}</nobr></TD>
             <TD ><nobr>{:printStatus($vo['状态'])}</nobr></TD>
-            <TD ><nobr><if condition="($vo['状态'] neq 1)"><a href="__GROUP__/Fun_bank/rem_delete/id/{$vo.id}" onclick="return confirm('确定要删除吗?')">{:L('删除')}</a></if></nobr></TD>
+            <TD ><nobr><if condition="($vo['状态'] neq 1)"><a href="javascript:laConfirm('__GROUP__/Fun_bank/rem_delete/id/{$vo.id}')">{:L('删除')}</a></if></nobr></TD>
            
         </TR>
         </foreach>
@@ -86,6 +87,14 @@ function printStatus($status)
     <a href="{$data.theEndRow}">{:L('尾页')}</a>
     <else/><span>{:L('尾页')}</span>
     </if>  
-    </div>   
+    </div> 
+	<script>
+        function laConfirm(url) {
+            layer.confirm('确定要删除吗?', {title:'提示',btn: ['确认', '取消']}, function(index){ 
+                window.location.href = url;
+                layer.close(index); 
+            })
+        }
+    </script>	
 </div>
 

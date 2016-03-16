@@ -69,21 +69,21 @@ function fleshVerify(type){
           <TD style="HEIGHT: 40px" vAlign=top align=middle colSpan=2>
             <TABLE id=RadioButtonList1 border=0>
               <TBODY>
-           </TBODY></TABLE>{$openTimeStr}</TD></TR>
+           </TBODY></TABLE>{:L($openTimeStr)}</TD></TR>
         <TR>
           <TD width="63%">
             <TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
               <TBODY>
               <TR>
-                <TD align=right width="45%"><div id="yonghu">用户名</div></TD>
+                <TD align=right width="45%"><div id="yonghu">{:L('用户名')}</div></TD>
                 <TD width="55%"><input name="username" type="text" id="username" class=textinput /></TD></TR>
               <TR>
-                <TD align=right><div id="mima">密码</div></TD>
-                <TD><input name="password" type="password" id="password"  class=textinput /></TD></TR>
+                <TD align=right><div id="mima">{:L('密码')}</div></TD>
+                <TD><input name="password" type="password" autocomplete="off" id="password"  class=textinput /></TD></TR>
 				
               <TR>
 			  <if condition="isset($dispCode) and ($dispCode eq true)">
-                <TD align=right><div id="yanzheng">验证码</div></TD>
+                <TD align=right><div id="yanzheng">{:L('验证码')}</div></TD>
                 <TD class=code>
                   <TABLE cellSpacing=0 cellPadding=0 width="96%" border=0>
                     <TBODY>
@@ -91,15 +91,15 @@ function fleshVerify(type){
                       <TD><input class="textinput1" name="captcha" maxlength="4" type="text" id="verify"/></TD>
                       <TD width="100%">
 					  &nbsp;&nbsp;
-					  <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle">
+					  <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="{:L('点击刷新验证码')}" style="cursor:pointer" align="absmiddle">
 					  </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
 					  </if>
 <if condition="$usernum eq 1">
 <input type="hidden" value="{$users[0]}" name="usertype">
 </if>
           <TD>
-         <eq name="isOpenTime" value="0"><span style="font-size:12px">对不起，该时间段暂不可访问</span><else/>
-          <INPUT class=loginbt type="submit" name="提交" value="" >  <span class="textinput1" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">忘记密码？</a></if></span>
+         <eq name="isOpenTime" value="0"><span style="font-size:12px">{:L('对不起，该时间段暂不可访问')}</span><else/>
+          <INPUT class=loginbt type="submit" name="提交" value="" >  <span class="textinput1" ><if condition="adminshow('mimazhaohui') eq true"><a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a></if></span>
 		 </eq>
         </TD></TR></TBODY></FORM></TABLE></TD></TR></TBODY>
 </TABLE> 

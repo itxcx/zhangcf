@@ -1,9 +1,10 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Mail" id="sendbox">
 	<div class="core_title">
     	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
-    	<table class="tablebg" onmouseover="changeto()"  onmouseout="changeback()">
+    	<table class="tablebg">
             <TR class="datafield">
                 <TH ><nobr>{:L('标题')}</nobr></TH>
                 <TH ><nobr>{:L('发件时间')}</nobr></TH>
@@ -15,7 +16,7 @@
                 <td ><nobr>{$vo.标题}</nobr></td>
                 <td ><nobr>{:date('Y-m-d H:i:s',$vo['发送时间'])}</nobr></td>
                 <td ><eq name="vo.状态" value="2">{:L('已回复')}<else/>{:L('已发送')}</eq></td>
-                <td ><center><a href="__GROUP__/Mail/sendview/id/{$vo.id}">{:L('view')}</a>&nbsp;<a href="__GROUP__/Mail/del/id/{$vo.id}" onclick="return confirm('{:L('确定要删除吗?')}');">{:L('delete')}</a></center></td>
+                <td ><center><a href="__GROUP__/Mail/sendview/id/{$vo.id}">{:L('view')}</a>&nbsp;<a href="javascript:laConfirm('__GROUP__/Mail/del/id/{$vo.id}')">{:L('delete')}</a></center></td>
             </TR>
             </foreach>
         </table>
@@ -45,7 +46,16 @@
 	    <a href="{$data.theEndRow}">{:L('尾页')}</a>
 	    <else/><span>{:L('尾页')}</span>
 	    </if>  
-    </div> 
+    </div>
+
+	<script>
+        function laConfirm(url) {
+            layer.confirm("{:L('确定要删除吗')}?", {title:'提示',btn: ['确认', '取消']}, function(index){ 
+                window.location.href = url;
+                layer.close(index); 
+            })
+        }
+    </script>	
     
 </div>
 

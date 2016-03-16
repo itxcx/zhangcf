@@ -449,6 +449,27 @@
 				}
 				unset($updatecon);
 			}
+			//添加updatesale节点更新报单表字段
+			$updatesalecon=$this->getcon("saleupdate",array('set'=>'','now'=>1,'where'=>''));
+			if(!empty($updatesalecon)){
+				foreach($updatesalecon as $k=>$v)
+				{
+					//非审核订单
+					if($sdata['报单状态']!='已确认' && $v['now']!=1){
+						continue;
+					}
+					if(transform($v['where'],array(),array('M'=>$udata,'S'=>$sdata)))
+					{
+						$set = $v['set'];
+						$sql = "update dms_报单 set " . $set . " where id= '".$sdata['id']."'";
+						$rs=M()->execute($sql);
+						if($rs===false){
+							throw_exception("在处理".$this->name."时UPDATESALE出现错误：".htmlentities($sql,ENT_COMPAT ,'UTF-8'));
+						}
+					}
+				}
+				unset($updatesalecon);
+			}
 			return ;
 		}
 		//回填奖金发放的货币扣除 用来回填报单

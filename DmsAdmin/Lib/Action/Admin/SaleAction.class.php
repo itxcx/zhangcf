@@ -1006,7 +1006,7 @@ class SaleAction extends CommonAction {
 	{
 		$sdata = array();
 		if(I("get.id/s")!=""){
-			$sdata = M("报单")->where(array("id"=>array("in",("get.id/s"))))->getField("id idkey,编号,购买日期,报单金额,购物金额,报单状态");
+			$sdata = M("报单")->where(array("id"=>array("in",I("get.id/s"))))->getField("id idkey,编号,购买日期,报单金额,购物金额,报单状态");
 			$this->assign('ids',I("get.id/s"));
 		}
 		$this->assign('sdata',$sdata);

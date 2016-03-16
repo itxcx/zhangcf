@@ -2,6 +2,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/fnc.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/moneyout.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/inputFormat.js"></script>
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="get">
 <input id="xpath" type="hidden" value="__XPATH__"/>
      <div class="core_title">
@@ -143,13 +144,13 @@
 			<if condition="($bank:getMoneyPass2 eq true)">
 			<TR class="datalist">
 				<TD class="tbkey">{:L('二级密码')}：</TD>
-				<TD class="tbval"><span><input type="password" value="" name="pass2" id="pass2" autocomplete="off"/></span></TD>
+				<TD class="tbval"><span><input type="password" autocomplete="off" value="" name="pass2" id="pass2" autocomplete="off"/></span></TD>
 			</TR>
 			</if>
 			<if condition="($bank:getMoneyPass3 eq true)">
 			<TR class="datalist">
 				<TD class="tbkey">{:L('三级密码')}：</TD>
-				<TD class="tbval"><span><input type="password" value="" name="pass3" id="pass3" autocomplete="off"/></span></TD>
+				<TD class="tbval"><span><input type="password" autocomplete="off" value="" name="pass3" id="pass3" autocomplete="off"/></span></TD>
 			</TR>
 			</if>
 			<if condition="($bank:getMoneySmsSwitch eq true)">
@@ -241,9 +242,9 @@ function time(o) {
         $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
 			eval('var data='+data);
 			if(data.status == 1){
-				alert('发送成功!');
-			}else{
-				alert('发送失败!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
+            }else{
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
 			}
         });
         sta = false;

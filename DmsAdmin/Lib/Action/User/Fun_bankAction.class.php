@@ -104,7 +104,7 @@ class Fun_bankAction extends CommonAction {
     }
     function dofun($str,$str1,$str2,$bank,$memo){
         if($str == 0){
-            return '<a href="__URL__/getcancel:__XPATH__/id/'.$str1.'"  callback="delete_done">'.L('撤销失败').'</a>';
+            return '<a href="__URL__/getcancel:__XPATH__/id/'.$str1.'"  callback="delete_done">'.L('撤销').'</a>';
         }elseif($str == 1){
         	if($memo != '')
         	{

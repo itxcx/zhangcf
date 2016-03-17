@@ -13,7 +13,7 @@
         <table class="tablebg" id="table4">
             <tr>
                 <td>
-                    <a href="###" onclick="history.back()"/> 继续注册</a>
+                    <a href="###" onclick="self.location=document.referrer;"/> 继续注册</a>
                     <foreach name="recipts" item="vo" key='rkey'>
                     <a href="{$vo}"/> {$rkey}</a>
                     </foreach>

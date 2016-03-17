@@ -50,9 +50,6 @@ class PublicAction extends Action {
 			$_SESSION['logintype']='';
 		}
 		
-		$usernum=M('会员')->count();
-		$this->assign('usernum',$usernum);
-
 		//检测登录次数,超过三次显示验证码
 		$USER_LOGIN_VERIFY=CONFIG('USER_LOGIN_VERIFY');
 		if($USER_LOGIN_VERIFY==1){
@@ -74,7 +71,7 @@ class PublicAction extends Action {
 		}
 		//判定手机版
 	    B('CheckAccess');
-		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile'])
+		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile']===true)
 		{
 			$this->display('login:phone:index');
 		}

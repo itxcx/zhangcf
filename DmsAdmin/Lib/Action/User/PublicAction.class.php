@@ -50,9 +50,6 @@ class PublicAction extends Action {
 			$_SESSION['logintype']='';
 		}
 		
-		$usernum=M('会员')->count();
-		$this->assign('usernum',$usernum);
-
 		//检测登录次数,超过三次显示验证码
 		$USER_LOGIN_VERIFY=CONFIG('USER_LOGIN_VERIFY');
 		if($USER_LOGIN_VERIFY==1){
@@ -74,7 +71,7 @@ class PublicAction extends Action {
 		}
 		//判定手机版
 	    B('CheckAccess');
-		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile'])
+		if(isset($_SESSION['isMobile']) && $_SESSION['isMobile']===true)
 		{
 			$this->display('login:phone:index');
 		}
@@ -294,13 +291,15 @@ class PublicAction extends Action {
     public function mibao(){
         $user=I("post.");
         if(!empty($user['userbh']) and !empty($user['userda']) and !is_array($user['userbh']) and !is_array($user['userda']) ){
-            $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('uid'=>$user['userbh']))->find();
-            if(!empty($mbdata) and $mbdata['密保答案']==trim($user['userda'])){
-                M('会员')->startTrans() ;
-                $m_user=M('会员')->where(array('编号'=>$mbdata['编号']))->save(array('pass1'=>md100($mbdata['编号']),'pass2'=>md100($mbdata['编号'])));
-                $this->success(L('成功找回密码，新密码与您的帐号相同'),U('Index/index'));
-                M('会员')->commit() ;
+            M()->startTrans();
+            $m_user=M('会员')->where(array('编号'=>$user['userbh']))->find();
+            if(!empty($m_user)){
+                $mbdata=M('密保')->where(array('uid'=>$m_user['id']))->find();
+                if(!empty($mbdata) and $mbdata['密保答案']==trim($user['userda'])){
+                    $m_user=M('会员')->where(array('编号'=>$mbdata['编号']))->save(array('pass1'=>md100($mbdata['编号']),'pass2'=>md100($mbdata['编号'])));
+                    M('会员')->commit() ;
+                    $this->success(L('成功找回密码，新密码与您的帐号相同'),U('Index/index'));
+                }
             }
         }
         $this->error(L('您的答案不正确'));
@@ -310,10 +309,12 @@ class PublicAction extends Action {
     public function mibaoajax(){
         $user=I("post.");
         if(!empty($user['id']) and !is_array($user['id'])){
-            $m_mibao=M('密保');
-            $mbdata=$m_mibao->where(array('uid'=>$user['id']))->getField('密保问题');
-            if(!empty($mbdata)){
-                echo json_encode($mbdata);
+            $m_user=M('会员')->where(array('编号'=>$user['id']))->find();
+            if(!empty($m_user)){
+                $mbdata=M('密保')->where(array('uid'=>$m_user['id']))->getField('密保问题');
+                if(!empty($mbdata)){
+                    echo json_encode($mbdata);
+                }
             }
         }
     }

@@ -8,7 +8,7 @@
     	<span class="core_title_con"><span>{:L('当前位置')}：</span>{$nowtitle}</span>
     </div>
     <div class="core_con">
-        <form name="form1" method="post" action="__GROUP__/Sale/buySave:__XPATH__"  id="register">
+        <form name="form1" method="post" action="__GROUP__/Sale/buySave:__XPATH__"   id="register" style="<present name='Buy_agreement'>display:none</present>" >
         <table class="tablebg" id="table1">
             <TR>
                 <td class="tbkey" >{:L('会员编号')}：</td>
@@ -160,6 +160,21 @@
             </table>
          
     </form>
+    <present name='Buy_agreement'>
+    <div id="Buy_agreement" style="display:block;">
+        <table class="tablebg" id="table4">
+            <tr>
+                <td class="tbkey" style="text-align:center;" >{:L('购物协议内容')}</td>
+            </tr>
+            <tr>
+                <td class="tbval">{$Buy_agreement}</td>
+            </tr>
+            <tr>
+                <td class="tbkey"  style="text-align:center;" ><INPUT class="button_text" type="button" value="{:L('同意并购物')}" onclick="$('#Buy_agreement').hide();$('#register').show()"/></td>
+            </tr>
+        </table>
+    </div>
+    </present>
     </div>
     <div style="clear:both;"></div>
     <div class="core_page"></div>

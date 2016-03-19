@@ -125,7 +125,7 @@ cnyOut.prototype.rmbconfirm = function(){
 		return false;
 	}
     if(money < out_min || empty_money < out_min){
-		this.Rfade('#rmbout_showtips', '最小提现为'+this.toDecimal2(cnyout_min)+'元');
+		this.Rfade('#rmbout_showtips', '最小提现为'+this.toDecimal2(out_min)+'元');
 		$("#tijiao").removeAttr('disabled');
 		return false;
     }

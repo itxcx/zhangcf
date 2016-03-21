@@ -41,6 +41,7 @@ class BackupAction extends CommonAction  {
         $list=$this->tsort($list);
         $this->assign("dbname",$this->dbName);
         $this->assign('list', $list);
+        $this->assign ('if_cli'  ,(adminshow('cliSwitch')?1:0));
         $this->display();
     }
 	function men_index(){

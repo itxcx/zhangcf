@@ -399,7 +399,7 @@ class BackupAction extends CommonAction  {
         		import("COM.BakRec.BackRec");
 				$BakRec  = new BackRec();
         	}
-            $message = $BakRec->recoverFile(urldecode($backname));
+            $message = $BakRec->recoverFile(str_replace(" ","+",urldecode($backname)));
             if(IS_CLI){
 				if ($message =="") {
 					$this->saveAdminLog('','',"数据库还原",'还原备份：'.$name);

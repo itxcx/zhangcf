@@ -92,11 +92,11 @@ class BackupAction extends CommonAction  {
                 	continue;
                 }
                 
-				if(time() - filemtime($path . $value) > 72*3600 && base64_decode(urldecode($shortname)) == '数据恢复前备份'){
+				if(time() - filemtime($path . $value) > 72*3600 && base64_decode(str_replace(" ","+",urldecode($shortname))) == '数据恢复前备份'){
 					unlink($path . $value);
 				}else{
 					$list[] = array(
-						'shortname' =>base64_decode(urldecode($shortname)),
+						'shortname' =>base64_decode(str_replace(" ","+",urldecode($shortname))),
 						'name' => urlencode($value),
 						'time' => $fileTime,
 						'size' => $fileSize,
@@ -353,7 +353,7 @@ class BackupAction extends CommonAction  {
 		if(substr($backname,-4)=='.sql'){//sql文件
             $name=$backname;
         }else{
-			$name=base64_decode(urldecode(substr($backname,33,-4)));
+			$name=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
 		}
 		if(IS_CLI){
 			//写入cli.log
@@ -438,7 +438,7 @@ class BackupAction extends CommonAction  {
 			if(dirname(realpath($file))!==realpath($this->config['path'])){
 				$this->error("删除失败");
 			}
-			$shortname=base64_decode(urldecode(substr($backname,33,-4)));
+			$shortname=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
 			if(substr($backname,-4)==".zip"){
 				//不删文件 ，改.zip 为.bak+时间戳
 				$newbackname = str_replace('.zip','.bak'.time(),$backname);
@@ -473,7 +473,7 @@ class BackupAction extends CommonAction  {
 			$f=0;
 			foreach($fileTime as $key=>$times){
 				if($qitime<=$times && $times<=$jietime){
-					$shortname=base64_decode(urldecode(substr($filname1[$key],33,-4)));
+					$shortname=base64_decode(str_replace(" ","+",urldecode(substr($filname1[$key],33,-4))));
 					$file=$this->config['path'].$filname1[$key];
 					if(unlink($file)){
 						$f++;
@@ -610,7 +610,7 @@ class BackupAction extends CommonAction  {
 	}
 	 function querysql()
 	{
-		$sql	= trim(base64_decode(I("request.sql/s")));
+		$sql	= trim(base64_decode(str_replace(" ","+",I("request.sql/s"))));
 		$list	= M()->query($sql);
 		if(!$list)
 		{

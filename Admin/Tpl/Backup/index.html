@@ -70,7 +70,8 @@ function mylocation(url,title,width,height){
 
 var curline = 0;
 var flushflag = 1;
-getstate();
+if({$if_cli})
+	getstate();
 function getstate()
 {
 	$.ajax({

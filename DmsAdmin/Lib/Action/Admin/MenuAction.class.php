@@ -119,10 +119,17 @@ class MenuAction extends Action
 			}
 		}
 		//注册协议设置
-		if($user->agreement){
+		if($user->agreement || adminshow('agreement')){
 			$menu[]=array('model'=>'User','action'=>'agreement','title'=>'注册协议','level'=>1,'parent'=>$parent,'setParent'=>'注册协议');
 			$menu[]=array('model'=>'User','action'=>'saveAgreement','title'=>'注册协议修改','level'=>2,'parent'=>$parent,'setParent'=>'注册协议');
 		}
+
+		//购物协议设置
+		if(adminshow('Buy_agreement')){
+			$menu[]=array('model'=>'User','action'=>'Buy_agreement','title'=>'购物协议','level'=>1,'parent'=>$parent,'setParent'=>'购物协议');
+			$menu[]=array('model'=>'User','action'=>'saveBuy_agreement','title'=>'购物协议修改','level'=>2,'parent'=>$parent,'setParent'=>'购物协议');
+		}
+
 		//密保
 		if(adminshow('mibao')){
 			$menu[]=array('model'=>'Secret','action'=>'index','title'=>'密保管理','level'=>1,'parent'=>$parent,'setParent'=>'密保管理');

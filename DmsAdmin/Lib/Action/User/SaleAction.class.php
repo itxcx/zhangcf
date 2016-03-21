@@ -151,7 +151,7 @@ class SaleAction extends CommonAction {
 		$banklist	= $Bank->order('id asc')->select();
 		$this->assign('banklist',$banklist);
 		//注册协议
-        if(X("user")->agreement){
+        if(X("user")->agreement || adminshow('agreement')){
             $this->assign('regAgreement',F('regAgreement'));
         }
 		if($sale_reg->showRatio){
@@ -312,6 +312,10 @@ class SaleAction extends CommonAction {
 			$banks[] = X('fun_bank@'.$accbank['name']);
 		}
 		$this->assign('banks',$banks);
+		//购物协议
+        if(adminshow('agreement')){
+            $this->assign('Buy_agreement',F('Buy_agreement'));
+        }
 		$this->display($sale_buy->template);
 	}
 	//重复消费AJAX验证

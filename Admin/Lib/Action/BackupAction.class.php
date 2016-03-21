@@ -41,7 +41,6 @@ class BackupAction extends CommonAction  {
         $list=$this->tsort($list);
         $this->assign("dbname",$this->dbName);
         $this->assign('list', $list);
-        $this->assign ('if_cli'  ,(adminshow('cliSwitch')?1:0));
         $this->display();
     }
 	function men_index(){
@@ -399,7 +398,7 @@ class BackupAction extends CommonAction  {
         		import("COM.BakRec.BackRec");
 				$BakRec  = new BackRec();
         	}
-            $message = $BakRec->recoverFile(urldecode($backname));
+            $message = $BakRec->recoverFile(str_replace(" ","+",urldecode($backname)));
             if(IS_CLI){
 				if ($message =="") {
 					$this->saveAdminLog('','',"数据库还原",'还原备份：'.$name);

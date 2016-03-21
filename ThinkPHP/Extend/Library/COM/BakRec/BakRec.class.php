@@ -176,10 +176,11 @@ class BakRec
 				if($zip->open($fileName)===TRUE){
 					$this->remove_directory(ROOT_PATH."DmsAdmin/PrizeData/",false);//删除prizedata文件夹下内容
    					//解压缩到文件夹
-       				if(IS_WIN){
-                            $tmpdir = dirname($fileName)."/tmp/";
-                        }else{
-                            $tmpdir = sys_get_temp_dir()."/tmp/";
+                    $tmpname = $_SERVER['HTTP_HOST'];
+   					if(IS_WIN){
+                        $tmpdir = dirname($fileName)."/".$tmpname."/";
+                    }else{
+                        $tmpdir = sys_get_temp_dir()."/".$tmpname."/";
                     }
    				   	$this->remove_directory($tmpdir);
 					$zip->extractTo($tmpdir);

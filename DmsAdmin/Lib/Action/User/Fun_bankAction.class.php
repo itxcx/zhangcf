@@ -264,7 +264,7 @@ class Fun_bankAction extends CommonAction {
 	    		"开户名"=>I("post.bankname/s"),
 	    		"省份"=>I("post.province/s"),
 	    		"城市"=>I("post.city/s"),
-	    		"区县"=>I("post.city/s"),
+	    		"区县"=>I("post.county/s"),
 	    		"时间"=>systemTime()
 	    	);
 	    	if($lastinfo){

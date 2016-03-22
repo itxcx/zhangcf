@@ -61,7 +61,7 @@ class DdkSms {
 				//发送短信
 				if($autoset){
 					//发送即发
-					$this->autoSend($smsid);
+					self::autoSend($smsid);
 				}
 			}
 			return true;

@@ -4162,14 +4162,16 @@ td.red {
     padding: 4px 10px;
 }
 .form-control-code {
-  
-  width: 55%;
+  width: 63%;
 }
 .securitycode img, .securitycode input{
     float:left;
 }
 .securitycode img{
     margin-left:5px;
+    width:106px;
+    height:33px;
+    cursor:pointer;
 }
 .digit {
   color: #FFFFFF;

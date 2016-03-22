@@ -56,8 +56,12 @@ Login page
 }
 
 .login .content .form-title {
-  font-weight: 300;
   margin-bottom: 25px;
+  height: 38px;
+  font-weight: 300;
+  font-size: 28px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .login .content .form-actions {

@@ -1,58 +1,58 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf8">
-        <title>{:L('会员登录')}</title>
-        <link rel="stylesheet" href="UserTpl/login/fundcnn/css/style.css">
-        <script src="Public/jquery-1.8.3.min.js"></script>
-    </head>
-    <body>
-        <table border="0" width="100%" cellpadding="0" cellspacing="0">
-            <tbody>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td class="logo" height="100">{:L('基金交易系统')}</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td style="border-top:4px solid #4883BD" width="900"><img src="UserTpl/login/fundcnn/images/insurance_new2.jpg" width="900"></td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td style="background: url(UserTpl/login/fundcnn/images/bg-map.gif)  center top no-repeat" height="250">
-                    <form action="__URL__/check" method="post" style="margin:0px; padding:0px" id="loginform" name="form1">
-                        <input type="hidden" name="act" value="verify" />
-                        <div class="con_left">
-                            <div class="label_01">
-                                <div class="name">
-                                    {:L('用户名')}：
-                                </div>
-                                <label>
-                                    <input name="username" class="input_name" id="name" type="text"  title="{:L('用户名')}">
-                                </label>
-                            </div>
-                            <div class="name">
-                                {:L('密　码')}：
-                            </div>
-                            <label>
-                                <input name="password" class="input_name" id="password" type="password" autocomplete="off" title="{:L('密码')}">
-                            </label>
-                        </div>
-                        <div class="con_right">
-                            <eq name="isOpenTime" value="0">
-                                <span id="nologin">{:L('对不起，该时间段暂不可访问')}</span>
-                            <else/>
-                                <input class="submit button" id="Submit1" onClick="loginform.submit()" src="UserTpl/login/fundcnn/images/login1.gif" border="0" height="37" type="image" width="96">
-                            </eq> 
-                        </div>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{:L('会员登录')}</title>
+    <link rel="stylesheet" href="UserTpl/login/fundcnn/css/style.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+    }
+    </script>
 
-                    </form>
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
-    </body>
+</head>
+<body>
+
+    <div class="login">
+
+        <form action="__URL__/check" method="post">
+	        <input type="hidden" name="act" value="verify" />
+           	<if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+			
+            <h1 class="title">{:L('企业销售平台')}</h1>
+            
+            <dl>
+                <dd>
+                    <label for="username">{:L('账号')}：</label>
+                    <input id="username" type="text" name="username">
+                    <label for="password">{:L('密码')}：</label>
+                    <input id="password" type="password" name="password" autocomplete="off">
+
+                    <if condition="isset($dispCode) and ($dispCode eq true)">
+                    <label for="verify">{:L('验证码')}：</label>
+                    <input id="verify" type="text" name="captcha" maxlength=4 autocomplete="off">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
+                    </if>
+                <eq name="isOpenTime" value="0">
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
+                <else/>
+                    <button type="submit">{:L('登录')}</button>
+                    <if condition="adminshow('mimazhaohui') eq true">
+                        <a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a>
+                    </if>
+                </eq>
+                </dd>
+            </dl>
+            <p class="open">{:L($openTimeStr)}</p>
+        </form>
+
+    </div>
+    
+</body>
 </html>
+

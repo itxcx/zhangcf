@@ -651,7 +651,7 @@ function CONFIG($name=NULL,$val=NULL) {
 			}
 			$result = DdkSms::send($this->userinfo['移动电话'],$content,$_POST['type'],$this->userinfo['编号']);
 			//S($this->userinfo['编号'].'_'.$_POST['type'],$verify,300);
-			if($result['status'] == true){
+			if($result == true){
 				S($this->userinfo['编号'].'_'.$_POST['type'],$verify,300);
 				$this->ajaxReturn(S($this->userinfo['编号'].'_'.$_POST['type']),'发送成功!',1);
 			}else{

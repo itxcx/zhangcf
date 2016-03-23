@@ -119,10 +119,17 @@ class MenuAction extends Action
 			}
 		}
 		//注册协议设置
-		if($user->agreement){
+		if($user->agreement || adminshow('agreement')){
 			$menu[]=array('model'=>'User','action'=>'agreement','title'=>'注册协议','level'=>1,'parent'=>$parent,'setParent'=>'注册协议');
 			$menu[]=array('model'=>'User','action'=>'saveAgreement','title'=>'注册协议修改','level'=>2,'parent'=>$parent,'setParent'=>'注册协议');
 		}
+
+		//购物协议设置
+		if(adminshow('Buy_agreement')){
+			$menu[]=array('model'=>'User','action'=>'Buy_agreement','title'=>'购物协议','level'=>1,'parent'=>$parent,'setParent'=>'购物协议');
+			$menu[]=array('model'=>'User','action'=>'saveBuy_agreement','title'=>'购物协议修改','level'=>2,'parent'=>$parent,'setParent'=>'购物协议');
+		}
+
 		//密保
 		if(adminshow('mibao')){
 			$menu[]=array('model'=>'Secret','action'=>'index','title'=>'密保管理','level'=>1,'parent'=>$parent,'setParent'=>'密保管理');
@@ -190,18 +197,20 @@ class MenuAction extends Action
 			//产品
 			$menu[]=array('model'=>'Product','action'=>'index:'.$xpath.',UploadPhoto:{$xpath}',			'title'=>$product->byname."列表",	'level'=>1,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
             $menu[]=array('model'=>'Product','action'=>"UploadPhoto:".$xpath.",UploadPhotoSave:".$xpath,	'title'=>$product->byname."产品图片上传",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
-            $menu[]=array('model'=>'Product','action'=>"setpros:".$xpath.",setprosSave:".$xpath,			'title'=>"套餐添加产品",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
-            $menu[]=array('model'=>'Product','action'=>"setprosdel:".$xpath,		'title'=>"套餐删除产品",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
 			$menu[]=array('model'=>'Product','action'=>"add:".$xpath.",addSave:".$xpath,			'title'=>$product->byname."添加",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
 			$menu[]=array('model'=>'Product','action'=>"edit:".$xpath.",editSave:".$xpath,			'title'=>$product->byname."修改",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
 			$menu[]=array('model'=>'Product','action'=>"delete:".$xpath,		'title'=>$product->byname."删除",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
             
             //产品套餐设置
-			$menu[]=array('model'=>'Producttaoset','action'=>"index:".$xpath,	'title'=>$product->byname."套餐列表",'level'=>1,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
-			$menu[]=array('model'=>'Producttaoset','action'=>"edit:".$xpath.",editSave:".$xpath,'title'=>"修改",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
-			$menu[]=array('model'=>'Producttaoset','action'=>"delete:".$xpath,'title'=>"删除",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
-			$menu[]=array('model'=>'Producttaoset','action'=>"UploadPhoto",'title'=>"上传产品图片",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
-			$menu[]=array('model'=>'Producttaoset','action'=>"UploadPhotoSave",'title'=>"上传产品图片保存",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+            if(adminshow('pro_tc')){
+	            $menu[]=array('model'=>'Product','action'=>"setpros:".$xpath.",setprosSave:".$xpath,			'title'=>"套餐添加产品",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
+	            $menu[]=array('model'=>'Product','action'=>"setprosdel:".$xpath,		'title'=>"套餐删除产品",	'level'=>2,	'parent'=>$parent,'setParent'=>$product->byname.'列表管理');
+				$menu[]=array('model'=>'Producttaoset','action'=>"index:".$xpath,	'title'=>$product->byname."套餐列表",'level'=>1,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+				$menu[]=array('model'=>'Producttaoset','action'=>"edit:".$xpath.",editSave:".$xpath,'title'=>"修改",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+				$menu[]=array('model'=>'Producttaoset','action'=>"delete:".$xpath,'title'=>"删除",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+				$menu[]=array('model'=>'Producttaoset','action'=>"UploadPhoto",'title'=>"上传产品图片",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+				$menu[]=array('model'=>'Producttaoset','action'=>"UploadPhotoSave",'title'=>"上传产品图片保存",'level'=>2,'parent'=>$parent,'setParent'=>$product->byname.'套餐列表');
+            }
             
 			//出入库
 			if(adminshow('prostock')){

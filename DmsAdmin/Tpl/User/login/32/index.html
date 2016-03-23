@@ -1,55 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html  xmlns="http://www.w3.org/1999/xhtml"  class="hb-loaded">
-<head  id="Head1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta content="IE=EmulateIE8" http-equiv="X-UA-Compatible">
-<title>FREECREATORS</title>
-<link  rel="shortcut icon"  href="UserTpl/login/32/imgs/favicon.ico">
-<link  rel="stylesheet"  type="text/css"  href="UserTpl/login/32/imgs/memberlogin.css">
-<script  type="text/javascript"  src="UserTpl/login/32/imgs/jquery.js"></script>
-<script  type="text/javascript"  src="UserTpl/login/32/imgs/Common.js"></script>
-<script  type="text/javascript"  src="UserTpl/login/32/imgs/ChkMemberLogin.js"></script>
-<script type="text/javascript">
-<!--
-function fleshVerify(type){ 
-	//重载验证码
-	var timenow = new Date().getTime();
-	if (type){
-		$('#verifyImg').attr("src", '__URL__/verify/adv/1/'+timenow);
-	}else{
-		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
-	}
-}
-//-->
-</script>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{:L('会员登录')}</title>
+    <link rel="stylesheet" href="UserTpl/login/32/css/style.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+    }
+    </script>
 
 </head>
+<body>
 
-<body  huaban_collector_injected="true"  youdao="bind"  ryt11110="1">
-<form  name="form1"  method="post"  action="__URL__/check"  id="form1">
-<input type="hidden" name="act" value="verify" />
-  <div  id="wrap">
-    <div  id="topText"><img  src="UserTpl/login/32/imgs/ewmSmall.png" hidden> <a  href="UserTpl/login/32/imgs/ewmSmall1.png"  target="_blank" hidden>二维码扫描登陆(點擊查看大圖)</a> &nbsp;&nbsp;&nbsp;&nbsp; <a  href="#"><!--EnglishUserNameCaptcha--></a> <a  href="#"><!--简体--></a> <a  href="#"><!--繁體--></a></div>
-    <div  id="loginbody">
-      <div  class="InputBox">
-        <input  name="username"  type="text"  value="玩家编号"  maxlength="10"  id="txtUserName"  class="input1" onfocus="Clear_Txt('txtUserName','玩家编号');" >
-      </div>
-      <div  class="InputBox">
-        <input  name="password"  type="password"  maxlength="20"  id="txtUserPass"  class="input1"  value="******" onfocus="Clear_Txt('txtUserPass','******');" >
-      </div>
-      <div  class="InputBox">
-        <input  name="captcha"  type="text"  value="验证码"  maxlength="5"  id="txtValidateCode"  class="input2" onfocus="Clear_Txt('txtValidateCode','验证码');" >
-        <span style="padding-left:0px;">	<img width="78" height="28" id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle"> </span></div>
-      <div  class="ButtonBox">
-        <input  type="submit"  name="Button1"  value="登陆"  id="Button1"  class="buttom1">
-        <span  id="showText"></span> <a  id="lkGetPass"  href="#"  target="_blank">&nbsp;<!--取回密码--></a></div>
-      <div  class="sealSSL"> <a  href="#"  target="_blank"><img  src="UserTpl/login/32/imgs/siteseal_gd_3_h_d_m.gif"  alt="ssl"  border="0"></a> </div>
+    <div class="login">
+        
+        <form action="__URL__/check" method="post">
+	        <input type="hidden" name="act" value="verify" />
+           	<if condition="$usernum eq 1">
+			<input type="hidden" value="{$users[0]}" name="usertype">
+			</if>
+
+            <dl>
+                <dt>{:L('会员登录')}</dt>
+                <dd>
+                    <input id="username" type="text" name="username" placeholder="{:L('用户名')}">
+                </dd>
+                <dd>
+                    <input id="password" type="password" name="password" autocomplete="off" placeholder="{:L('密　码')}">
+                </dd>
+	            <if condition="isset($dispCode) and ($dispCode eq true)">
+                <dd>
+                    <input id="verify" type="text" name="captcha" maxlength="4" autocomplete="off" placeholder="{:L('验证码')}">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
+                </dd>
+                </if>
+                <eq name="isOpenTime" value="0">
+                <dd class="opentime">
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
+                </dd>
+                <else/>
+                <dd class="subbutton">
+                    <button class="submit" type="submit">{:L('提交')}</button>
+                    <if condition="adminshow('mimazhaohui') eq true">
+                    <a class="forget" href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a>
+                    </if>
+                </dd>
+                </eq>
+
+            </dl>
+            <p class="open">{:L($openTimeStr)}</p>
+        </form>
+
     </div>
-  </div>
-   <if condition="$usernum eq 1">
-	<input type="hidden" value="{$users[0]}" name="usertype">
-	</if>
-</form>
-
+    
 </body>
 </html>
+

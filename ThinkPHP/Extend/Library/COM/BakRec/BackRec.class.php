@@ -157,10 +157,11 @@ class BackRec
 				$fileid=0;
 				if($zip->open($fileName)===TRUE){
 					//解压缩到文件夹
+                    $tmpname = $_SERVER['HTTP_HOST'];
    					if(IS_WIN){
-                        $tmpdir = dirname($fileName)."/tmp/";
+                        $tmpdir = dirname($fileName)."/".$tmpname."/";
                     }else{
-                        $tmpdir = sys_get_temp_dir()."/tmp/";
+                        $tmpdir = sys_get_temp_dir()."/".$tmpname."/";
                     }
    				   	$this->remove_directory($tmpdir);
 					$zip->extractTo($tmpdir);

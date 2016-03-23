@@ -366,7 +366,7 @@
                 {
                 	if($sale->ledger!='')
                 	{
-                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name))->sum($sale->ledger);		
+                		$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$this->_caltime),array('lt',$this->_caltime+86400)),'报单类别'=>$sale->name,'报单状态'=>array('not in','空单,回填')))->sum($sale->ledger);		
                 	}
                 }
                 $krate_temp = 0;
@@ -704,7 +704,7 @@
             	$bhs[]=$val['编号'];
             	if(count($bhs)>1000 || $i==$tlelistcnt){
             		//查询会员的信息以及货币
-            		$haveSupsub = M("会员")->table("dms_会员 u")->join("dms_货币 f on u.id=f.userid")->where(array('u.编号'=>array('in',$bhs)))->getField("u.编号 keyid,u.id,u.编号,f.".$bank->name." num".$wherestr);
+            		$haveSupsub = M("会员")->table("dms_会员 u")->join("dms_货币 f on u.id=f.userid")->where(array('u.编号'=>array('in',$bhs)))->getField("u.编号 keyid,f.id,u.编号,f.".$bank->name." num".$wherestr);
          			$haveSups = $haveSupsub+$haveSups;
          			$bhs=array();
          		}
@@ -966,7 +966,7 @@
                 	}
                 }
                 foreach($sumarr as $k=>$val){
-                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单类别'=>array('in',implode(',',$val))))->sum($k);
+                	$thisAchievement += M('报单')->where(array('到款日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate'])),'报单状态'=>array('not in','空单,回填'),'报单类别'=>array('in',implode(',',$val))))->sum($k);
                 }
                 //得到当期的奖金收入(得到当日奖金表收入)
                 $thisPrize       += M($this->name)->where(array('计算日期'=> array(array('egt',$modeData['sdate']),array('elt',$modeData['edate']))))->sum('收入');
@@ -1000,8 +1000,14 @@
                }
                 //设置当日的奖金的发放状态,默认为未发放
                 $savedata['state']=0;
+                
                 //秒结秒发
                 if($this->secAutoGive && $this->_caltype == 0){
+                    //判断当前为纯秒结算，则默认处于已发放状态
+                    if($this->tleMode == 's')
+                    {
+                        $savedata['state'] = 1;
+                    }
                 	//判断是否以保存本期总账信息
                 	if(isset($thisledger['state'])){
                 		$savedata['state']=$thisledger['state'];

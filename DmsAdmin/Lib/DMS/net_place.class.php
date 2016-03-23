@@ -126,7 +126,7 @@
 				//得到结算日
 				$movetime =  CONFIG('CAL_START_TIME');
 				//得到当前所属日期所对应的周结算起始日
-				$movetime -= (date('N',$movetime)-$tleDay-1 + ((date('N',$movetime) <= $this->tleDay) ? 7 :0)) * 86400;
+				$movetime -= (date('N',$movetime)-$this->tleDay-1 + ((date('N',$movetime) <= $this->tleDay) ? 7 :0)) * 86400;
 			}
 			//到款日期,如果大于结算起始日.则表示这个订单的业绩还没有参与计算.可以进行撤单
 			if($movetime > 0 && $sale['到款日期'] >= $movetime )
@@ -487,6 +487,7 @@
 				    $inval=false;
 				    //条件中的数值转换  层数
 				    if($notwhere){
+						eval("\$notaddwhere = \"$notwhere\";");
 				    	$inval=transform($notwhere,array(),array());
 				    }
 				    //判断是否累计
@@ -1162,7 +1163,7 @@
 				//得到结算日
 				$movetime =  CONFIG('CAL_START_TIME');
 				//得到当前所属日期所对应的周结算起始日
-				$movetime -= (date('N',$movetime)-$tleDay-1 + ((date('N',$movetime) <= $tleDay) ? 7 :0)) * 86400;
+				$movetime -= (date('N',$movetime)-$this->tleDay-1 + ((date('N',$movetime) <= $this->tleDay) ? 7 :0)) * 86400;
 			}
 			if($movetime>0)
 			{

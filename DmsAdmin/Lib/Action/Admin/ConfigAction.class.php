@@ -515,9 +515,15 @@ class ConfigAction extends CommonAction{
                 }else{
                     $template['status'] = "0";
                 }
+                if($num == ''){
+                	$multiLang = '不支持';
+                }else{
+                	$multiLang = '支持';
+                }
 				$path1	= "UserTpl/login/".$num.'/preview.jpg';
 				$template['path']	= $path1;
 				$template['number'] = $num;
+				$template['multiLang'] = $multiLang;
 				$template['fileTime'] = $fileTime;
 				$template['description'] = '[暂无]';
 				//$template['catalog'] = $path.$num."/";

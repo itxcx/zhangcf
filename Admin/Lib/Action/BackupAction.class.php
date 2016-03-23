@@ -33,12 +33,15 @@ class BackupAction extends CommonAction  {
             mkdir($this->config["path"],0777);
         }
     }
-    
+    /*
+    * 数据库备份文件列表
+    */
     function index() {
         $list=$this->backList();
         $list=$this->tsort($list);
         $this->assign("dbname",$this->dbName);
         $this->assign('list', $list);
+        $this->assign ('if_cli'  ,(adminshow('cliSwitch')?1:0));
         $this->display();
     }
 	function men_index(){
@@ -51,12 +54,12 @@ class BackupAction extends CommonAction  {
 		}
 		$this->display();
 	}
-
-	// 备份
+	/*
+    * 备份操作界面
+    */ 
     function back(){
         $this->display();
     }
-	
    	public  function clear(){
         $this->display();
     }
@@ -90,11 +93,11 @@ class BackupAction extends CommonAction  {
                 	continue;
                 }
                 
-				if(time() - filemtime($path . $value) > 72*3600 && base64_decode(urldecode($shortname)) == '数据恢复前备份'){
+				if(time() - filemtime($path . $value) > 72*3600 && base64_decode(str_replace(" ","+",urldecode($shortname))) == '数据恢复前备份'){
 					unlink($path . $value);
 				}else{
 					$list[] = array(
-						'shortname' =>base64_decode(urldecode($shortname)),
+						'shortname' =>base64_decode(str_replace(" ","+",urldecode($shortname))),
 						'name' => urlencode($value),
 						'time' => $fileTime,
 						'size' => $fileSize,
@@ -105,23 +108,6 @@ class BackupAction extends CommonAction  {
         $list=$this->tsort($list);
         return $list;
     }
-    function backAjax(){
-        $list=$this->backList();
-        for($i=0;$i<count($list);$i++){
-            echo '<tr>';
-            echo '<td width="20%">'.$list[$i]["shortname"].'</td>';
-            echo '<td width="15%" align="center">'.$list[$i]["time"].'</td>';
-            echo '<td width="12%" align="center" valign="middle" style="text-align:center;">'.$list[$i]["size"].'</td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_save.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="/Admin/Common/dbbackup/'.$list[$i]["name"].'">下载</a></td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_refresh.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="'.__URL__.'/recover/file/'.$list[$i]["name"].'"  onclick="return backup()">恢复</a></td>';
-            echo '<td width="3%" style="border-right:none;"><img src="/Public/Admin/images/database_delete.png" width="16" height="16" /></td>';
-            echo '<td width="6%" style="border-right:none;"><a href="'.__URL__.'/deletebak/file/'.$list[$i]["name"].'"  onclick="return confirm(\'是否删除该备份？\')">删除</a></td>';
-            echo '</tr>';
-        }
-    }
-    //获取文件、文件夹大小
     private function getFileSize($file){
         $path = $this->config['path'].$file;
         if(is_dir($path)){
@@ -254,6 +240,7 @@ class BackupAction extends CommonAction  {
 				}
 			}
 		}
+        $bktype = 0;//由于测试和正式权限经常不足，暂时不用outfile备份数据
 		srand((double)microtime() * 1000000); 
 		$encrypt_key = rand(0, 32000);
 		if($bktype==1){
@@ -367,7 +354,7 @@ class BackupAction extends CommonAction  {
 		if(substr($backname,-4)=='.sql'){//sql文件
             $name=$backname;
         }else{
-			$name=base64_decode(urldecode(substr($backname,33,-4)));
+			$name=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
 		}
 		if(IS_CLI){
 			//写入cli.log
@@ -412,7 +399,7 @@ class BackupAction extends CommonAction  {
         		import("COM.BakRec.BackRec");
 				$BakRec  = new BackRec();
         	}
-            $message = $BakRec->recoverFile(urldecode($backname));
+            $message = $BakRec->recoverFile(str_replace(" ","+",urldecode($backname)));
             if(IS_CLI){
 				if ($message =="") {
 					$this->saveAdminLog('','',"数据库还原",'还原备份：'.$name);
@@ -452,7 +439,7 @@ class BackupAction extends CommonAction  {
 			if(dirname(realpath($file))!==realpath($this->config['path'])){
 				$this->error("删除失败");
 			}
-			$shortname=base64_decode(urldecode(substr($backname,33,-4)));
+			$shortname=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
 			if(substr($backname,-4)==".zip"){
 				//不删文件 ，改.zip 为.bak+时间戳
 				$newbackname = str_replace('.zip','.bak'.time(),$backname);
@@ -487,7 +474,7 @@ class BackupAction extends CommonAction  {
 			$f=0;
 			foreach($fileTime as $key=>$times){
 				if($qitime<=$times && $times<=$jietime){
-					$shortname=base64_decode(urldecode(substr($filname1[$key],33,-4)));
+					$shortname=base64_decode(str_replace(" ","+",urldecode(substr($filname1[$key],33,-4))));
 					$file=$this->config['path'].$filname1[$key];
 					if(unlink($file)){
 						$f++;
@@ -624,7 +611,7 @@ class BackupAction extends CommonAction  {
 	}
 	 function querysql()
 	{
-		$sql	= trim(base64_decode(I("request.sql/s")));
+		$sql	= trim(base64_decode(str_replace(" ","+",I("request.sql/s"))));
 		$list	= M()->query($sql);
 		if(!$list)
 		{

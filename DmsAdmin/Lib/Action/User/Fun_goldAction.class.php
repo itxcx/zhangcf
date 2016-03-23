@@ -434,7 +434,7 @@ class Fun_goldAction extends CommonAction {
 		import("ORG.Util.UploadFile");
         $upload						= new UploadFile();                         // 实例化上传类
         $upload->maxSize			= 838860;                                   // 默认允许上传的附件大小(800K)
-        $upload->allowExts			= $allowExts;								// 默认允许上传的附件类型
+        $upload->allowExts			= array('jpg', 'gif', 'png', 'jpeg');								// 默认允许上传的附件类型
         $upload->thumb				= true;                                     // 是否对图片进行缩略处理
         $upload->thumbPrefix        = 't_';										// 默认缩略图前缀
         $upload->thumbRemoveOrigin  = true;										// 默认缩略图片并删除原图

@@ -16,6 +16,7 @@ class CalAction extends CommonAction {
     	$tleobjs=X('tle');
     	$tles=array();
     	$calbut=false;
+    	$prizedata=array();
     	foreach($tleobjs as $tle)
     	{
     		$tles[]=array("name"=>$tle->name,"modename"=>$this->tlemodename($tle->tleMode));
@@ -23,7 +24,18 @@ class CalAction extends CommonAction {
     		{
     			$calbut=true;
     		}
+    		//获取奖金开关设置
+			foreach(X('prize_*',$tle) as $p)
+			{
+				if(get_class($p)!='prize_sql')
+				{
+					$prizedata[]=array('name'=>$p->byname,'use'=>$p->use);
+				}
+			}
+			
     	}
+    	$this->assign('prizeSwitch',adminshow('PrizeSwitch')? 1 : 0);
+		$this->assign('prizedata',json_encode($prizedata));    	
     	$this->assign ('tles',$tles);
     	$this->assign ('calbut',$calbut);
     	$this->assign ('CAL_START_TIME'  ,CONFIG('CAL_START_TIME'));
@@ -466,7 +478,7 @@ class CalAction extends CommonAction {
 		{
 			return false;
 		}
-		exec('php '.VENDOR_PATH.'Workerman/start.php AutoCal runstatic',$ret);
+		exec('php '.VENDOR_PATH.'Workerman/start.php runstatic AutoCal',$ret);
 		if( count($ret)>1 && $ret[1]==='runing')
 		{
 			return true;

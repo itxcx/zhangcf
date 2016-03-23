@@ -1,0 +1,27 @@
+<div class="core_main Sale" id="viewMysale">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：注册</span>
+    </div>
+    <div class="core_con">
+		<table class="tablebg" id="table1">
+            <tr>
+                <td style="vertical-align:middle" >
+                    <img src="__PUBLIC__/Images/ExtJSicons/arrow/accept.png" style="display:inline"/>&nbsp;<span  >恭喜，您已成功注册会员{$newuserid}。</span>
+                </td>
+            </tr>
+        </table>
+        <table class="tablebg" id="table4">
+            <tr>
+                <td>
+                    <a href="###" onclick="self.location=document.referrer;"/> 继续注册</a>
+                    <foreach name="recipts" item="vo" key='rkey'>
+                    <a href="{$vo}"/> {$rkey}</a>
+                    </foreach>
+                    <a href="__APP__/User/Index/index"/> 返回首页</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="core_page"></div>
+</div>

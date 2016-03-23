@@ -110,10 +110,12 @@ class SaleAction extends CommonAction {
 							//找到这个会员
 							$upuser = M('会员')->where(array('编号'=>$value))->find();
 							//对显示区域的where做判断
-							if($upuser && transform($Region['where'],$upuser))
-							{
-								//判断成功.这个区也可以显示
-								$regiondisp = true;
+							if($Region['where']!="{myrec}"){
+								if($upuser && transform($Region['where'],$upuser))
+								{
+									//判断成功.这个区也可以显示
+									$regiondisp = true;
+								}
 							}
 						}
 					}
@@ -149,8 +151,9 @@ class SaleAction extends CommonAction {
 		$banklist	= $Bank->order('id asc')->select();
 		$this->assign('banklist',$banklist);
 		//注册协议
-		//只有豪华版才可以开启注册协议
-		$this->assign('regAgreement',F('regAgreement'));
+        if(X("user")->agreement || adminshow('agreement')){
+            $this->assign('regAgreement',F('regAgreement'));
+        }
 		if($sale_reg->showRatio){
 			$accbankObj=X("accbank@".$sale_reg->accBank);
 			$this->assign('bankRatio',$accbankObj->getcon("bank",array("name"=>"","minval"=>'0%',"maxval"=>'100%',"extra"=>false),true));
@@ -215,13 +218,34 @@ class SaleAction extends CommonAction {
 			sendMail($udata,$this->userobj->byname.'注册',CONFIG('regmailContent'));
 		}
 		M()->commit();
-		$userMenuPower = $this->userobj->getatt('userMenuPower');
-		if(!$userMenuPower && !in_array('User-myreg',$userMenuPower)){
-			$this->success(L('注册成功'));
-		}else{
-			$this->success(L('注册成功'),__APP__.'/User/User/myreg');
-		}
+		$this->redirect("/User/Sale/recipt:".__XPATH__."/newuserid/".$return['userid']);
 	}
+    //注册回执页
+    function recipt(sale_reg $sale_reg)
+    {
+        $reciptarr = array();
+        if(adminshow('admin_receipt_myreg'))
+            $reciptarr['我的会员订单']=__APP__.'/User/User/myreg';
+        if(adminshow('admin_receipt_acclist'))
+            $reciptarr['会员订单审核']=__APP__.'/User/Sale/acclist';
+        if(adminshow('admin_receipt_net_rec')){
+            foreach(X('net_rec') as $rec)
+            {
+                if($sale_reg->netName=='all' || in_array($rec->name,explode(',',$sale_reg->netName)))
+                    $reciptarr[$rec->name.'网络']=__APP__.'/User/Net/disp:'.$rec->xpath;
+            }
+        }
+        if(adminshow('admin_receipt_net_place')){
+            foreach(X('net_place') as $place)
+            {
+                if($sale_reg->netName=='all' || in_array($place->name,explode(',',$sale_reg->netName)))
+                    $reciptarr[$place->name.'网络']=__APP__.'/User/Net/disp:'.$rec->xpath;
+            }
+        }
+        $this->assign('newuserid',I('get.newuserid/s'));
+        $this->assign('recipts',$reciptarr);
+        $this->display();
+    }
     function showProtaocan(){
       //查看详情
       	$list=M('产品套餐')->where(array("产品id"=>I('get.proid/d')))->select();
@@ -288,6 +312,10 @@ class SaleAction extends CommonAction {
 			$banks[] = X('fun_bank@'.$accbank['name']);
 		}
 		$this->assign('banks',$banks);
+		//购物协议
+        if(adminshow('agreement')){
+            $this->assign('Buy_agreement',F('Buy_agreement'));
+        }
 		$this->display($sale_buy->template);
 	}
 	//重复消费AJAX验证
@@ -341,7 +369,7 @@ class SaleAction extends CommonAction {
 			M()->commit();
 			$userMenuPower = $this->userobj->getatt('userMenuPower');
 			if(!$userMenuPower && !in_array('Sale-mysale',$userMenuPower)){
-				$this->success(L('订购成功'));
+				$this->success('订购成功',__URL__.'/productmysale');
 			}else{
 				$this->success(L('订购成功'),__URL__.'/mysale');
 			}
@@ -565,7 +593,13 @@ class SaleAction extends CommonAction {
 	
 	//l008中的审核时用的审核
 	public function getsale1($salename,$userid,$id){ 
-		return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		//判断是否开启转账给未激活(状态=无效)会员
+		if(adminshow(zhuanzhang))
+		{
+			return "<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}else{
+			return "<a href='__URL__/del/id/{$id}'>".L('删除')."</a>&nbsp;&nbsp;&nbsp;<a href='__URL__/tj_accok/id/{$id}/userid/{$userid}'>".L('激活')."</a>";
+		}
 	}
 	public function getsale($salename,$userid,$id)
 	{ 
@@ -777,10 +811,10 @@ class SaleAction extends CommonAction {
 					$saleData=M("报单")->where($map)->lock(true)->find();
 					if($saleData['报单状态']!="空单"){
 						if($saleData['报单状态']=="回填" && $type=="回填转正"){
-							$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已成为回填单"));
+							$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已成为回填单)");
 						}
 						if($saleData['报单状态']!="回填"){
-							$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已回填完成"));
+							$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已回填完成)");
 						}
 					}
 					//申请记录的状态判断
@@ -790,7 +824,7 @@ class SaleAction extends CommonAction {
 					$where['编号']=$saleData['编号'];
 					$applydata=M("申请回填")->where($where)->find();
 					if(isset($applydata)){
-						$this->error(L(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."报单已有申请提交等待审核或者已申请过".$type));
+						$this->error(date("Y-m-d H:i:s",$saleData['购买日期']).$saleData['报单类别']."L(报单已有申请提交等待审核或者已申请过)".$type);
 					}
 					//保存申请记录
 					$data=array(
@@ -811,10 +845,10 @@ class SaleAction extends CommonAction {
 	}
 	public function checkgeted($status,$id,$haveProduct){
 		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a> <a href='__URL__/confirmget/id/{$id}'>确认收货</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
 			 
 		 }else{
-			 return "<a href='__URL__/viewMysale/id/{$id}'>查看</a>";
+			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}
 	public function viewMysale(){
@@ -860,6 +894,7 @@ class SaleAction extends CommonAction {
 		if(!is_numeric($saleid)){
 			$this->error(L('参数非法'));
 		}
+	
 		//查询推广链接的订单 
 		 $saledata_tj = M('报单')->where(array('id'=>$saleid))->find();
 		 $saledata =$saledata_tj;
@@ -875,6 +910,22 @@ class SaleAction extends CommonAction {
 			$this->error(L('此订单不是未确认状态，不能进行删除'));
 		}
 		$saleobj = X('sale_*@'.$saledata['报单类别']);
+		//判断节点类型
+		if(get_class($saleobj)=='sale_reg')
+		{
+			//获取所有钱包
+			foreach(X('fun_bank') as $bank)
+			{
+				$banks[]=$bank->name;
+			}
+			//计算被删除会员的所有钱包之和
+			$sumMoney = M('货币')->where(array('编号'=>$saledata['编号']))->sum(implode("+",$banks));
+			//判断是否开启转账给未激活(状态=无效)会员
+			if(adminshow(zhuanzhang) && $sumMoney>0)
+			{
+				$this->error(L('非法操作'));
+			}
+		}
 		M()->startTrans();
 		//判断如果是注册订单。则同步删除会员
 		if(get_class($saleobj)=='sale_reg')

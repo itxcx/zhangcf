@@ -1,3 +1,4 @@
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="give">
 	<div class="core_title">
     	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
@@ -71,13 +72,13 @@
             <if condition="($giveMoneyPass2 eq 1)">
             <tr >
             	<td class="tbkey">二级密码：</td>
-            	<td class="tbval"><span><input type="password" value="" name="pass2" /></span></td>
+            	<td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass2" /></span></td>
             </tr>
             </if>
           	<if condition="($giveMoneyPass3 eq 1)">
           	<tr>
             	<td class="tbkey">三级密码：</td>
-            	<td class="tbval"><span><input type="password" value="" name="pass3" /></span></td>
+            	<td class="tbval"><span><input type="password" autocomplete="off" value="" name="pass3" /></span></td>
           	</tr>
           	</if>
           	<!--短信验证-->
@@ -173,8 +174,8 @@ function giveType(id)
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("网络异常!");
+			layer.alert(data, {title: '提示', btn: '确定'});
+            layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }
@@ -217,16 +218,16 @@ function giveAjax(id)
 				$('#giveidname').html('编号不正确');
 			}
 			else
-			{
-				//var userinfo = json.data;
-				//$('#giveidname').html(userinfo['姓名']);
-				$('#giveidname').html('');
+			{	
+				var userinfo = json.data;
+				$('#giveidname').html(userinfo['姓名']);
+				//$('#giveidname').html('');
 			}
 		}
 		catch(e)
 		{
-			alert(data);
-			alert("网络异常!");
+			layer.alert(data, {title: '提示', btn: '确定'});
+            layer.alert("网络异常!", {title: '提示', btn: '确定'});
 		}
 	});
 }
@@ -261,9 +262,9 @@ function giveAjax(id)
 	        $.post('__URL__/sendSmsVerify',{type:type,content:content},function(data){
 	          eval('var data='+data);
 	          if(data.status == 1){
-	            alert('发送成功!');
+                layer.alert('发送成功!', {title: '提示', btn: '确定'});
 	          }else{
-	            alert('发送失败!');
+                layer.alert('发送失败!', {title: '提示', btn: '确定'});
 	          }
 	        });
 	        sta = false;

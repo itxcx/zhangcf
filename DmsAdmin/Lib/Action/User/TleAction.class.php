@@ -73,11 +73,11 @@ class TleAction extends CommonAction
 				array_push($totalRowArr,'['.$netName.'_'.$nameconf['name'].'区累计业绩]');
 				$totalRowStr .= $netName.'_'.$nameconf['name'].'区累计业绩+';
  			}
-			$list ->addshow("新增业绩",array('row'=>$addRowArr));
+			$list ->addshow(L('新增业绩'),array('row'=>$addRowArr));
 			if($this->is_BumpPrize()){
-				$list ->addshow("结转业绩",array('row'=>$remianRowArr));
+				$list ->addshow(L('结转业绩'),array('row'=>$remianRowArr));
 			}
-			$list ->addshow("累计业绩",array('row'=>$totalRowArr));
+			$list ->addshow(L('累计业绩'),array('row'=>$totalRowArr));
 		}
 		$prizeStr = '';
         foreach(X('prize_*',$tle) as $prize)
@@ -102,10 +102,9 @@ class TleAction extends CommonAction
 		return  trim($str,'/');
 	}
     function getDateUrl($str1,$str2){
-        $str2 = date("Y-m-d",$str2);
-        return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
+             $str2 = date("Y-m-d",$str2);
         if(CONFIG('USER_PRIZE_SWITCH')){
-        	return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
+               return  '<a href="__GROUP__/Tle/prizeForm:__XPATH__/id/'.$str1.'">'.$str2.'</a>';
         }else{
         	return  $str2;
         }

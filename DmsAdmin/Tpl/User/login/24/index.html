@@ -1,210 +1,69 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-<title>会员登录</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #4586fb;
-	overflow:hidden;
-}
-.STYLE1 {
-	color: #000000;
-	font-size: 12px;
-}
--->
-</style>
-<style type="text/css">td img {display: block;}</style>
-<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.2.util.js"></script>
+    <meta charset="UTF-8">
+    <title>{:L('会员登录')}</title>
+    <link rel="stylesheet" href="UserTpl/login/24/css/style.css">
+    <script src="__PUBLIC__/jquery-1.x.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function fleshVerify(type){ 
+        //重载验证码
+        var timenow = new Date().getTime();
+        $('#verifyImg').attr("src", '__URL__/verify/'+timenow);
+    }
+    </script>
 
-<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/area_select.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/colorbox/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/Js/My97DatePicker/WdatePicker.js"></script>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/colorbox.css" />
-<script src="__PUBLIC__/jquery-1.8.3.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-function fleshVerify(type){ 
-	//重载验证码
-	var timenow = new Date().getTime();
-	if (type){
-		$('#verifyImg').attr("src", '__URL__/verifys/adv/1/'+timenow);
-	}else{
-		$('#verifyImg').attr("src", '__URL__/verify/'+timenow);
-	}
-}
-</script>
 </head>
-<body bgcolor="#ffffff">
-<div style="margin:auto;width:100%;text-align:center">
+<body>
 
-<form action="__URL__/check" method="post" style="margin:0px; padding:0px" id=loginform encType="multipart/form-data">
-<table border="0" cellpadding="0" cellspacing="0" width="1200" align="center">
-<input type="hidden" name="act" value="verify" />
-  <tr>
-   <td><img src="UserTpl/login/24/spacer.gif" width="339" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="165" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="34" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="38" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="23" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="21" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="10" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="40" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="14" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="36" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="108" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="372" height="1" border="0" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="1" border="0" alt="" /></td>
-  </tr>
+    <div class="login">
 
-  <tr>
-   <td colspan="12"><img name="look_r1_c1" src="UserTpl/login/24/look_r1_c1.png" width="1200" height="72" border="0" id="look_r1_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="72" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="12"><img name="look_r2_c1" src="UserTpl/login/24/look_r2_c1.png" width="1200" height="87" border="0" id="look_r2_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="87" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="12"><img name="look_r3_c1" src="UserTpl/login/24/look_r3_c1.png" width="1200" height="71" border="0" id="look_r3_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="71" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="12"><img name="look_r4_c1" src="UserTpl/login/24/look_r4_c1.png" width="1200" height="58" border="0" id="look_r4_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="58" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="11"><img name="look_r5_c1" src="UserTpl/login/24/look_r5_c1.png" width="339" height="156" border="0" id="look_r5_c1" alt="" /></td>
-   <td colspan="10"><img name="look_r5_c2" src="UserTpl/login/24/look_r5_c2.png" width="489" height="3" border="0" id="look_r5_c2" alt="" /></td>
-   <td rowspan="12"><img name="look_r5_c12" src="UserTpl/login/24/look_r5_c12.png" width="372" height="180" border="0" id="look_r5_c12" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="3" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="6" colspan="2"><img name="look_r6_c2" src="UserTpl/login/24/look_r6_c2.png" width="199" height="107" border="0" id="look_r6_c2" alt="" /></td>
-
-   <td colspan="7" style="background:url(UserTpl/login/24/look_r6_c4.png);width:182px;height:24px;">
-	<input type="text" name="username" style="height: 14px;width: 175px;">
-   </td>
-   <td rowspan="8"><img name="look_r6_c11" src="UserTpl/login/24/look_r6_c11.png" width="108" height="141" border="0" id="look_r6_c11" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="24" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="7"><img name="look_r7_c4" src="UserTpl/login/24/look_r7_c4.png" width="182" height="9" border="0" id="look_r7_c4" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="9" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="7" style="background:url(UserTpl/login/24/look_r8_c4.png);width:182px;height:21px;">
-	<input type="password" name="password" style="height: 13px;width: 100px;">&nbsp;&nbsp;&nbsp;<a href="__URL__/getUserPwd2/" style="font-size:12px; text-decoration:none; color:#FF0000;">找回密码？</a>   </td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="21" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="7"><img name="look_r9_c4" src="UserTpl/login/24/look_r9_c4.png" width="182" height="11" border="0" id="look_r9_c4" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="11" border="0" alt="" /></td>
-  </tr>
-   
-  <tr>
-   <td colspan="3" style="background:url(UserTpl/login/24/look_r10_c4.png);width:82px;height:22px;text-align:left">
-   <input type="text" maxlength="4" name="captcha"  style="width: 63px;height: 13px;" />
-   </td>
-   <td rowspan="3"><img name="look_r10_c7" src="UserTpl/login/24/look_r10_c7.png" width="10" height="44" border="0" id="look_r10_c7" alt="" /></td>
-   <td colspan="2" style="background:url(UserTpl/login/24/look_r10_c8.png);width:54px;height:22px;">
-   <div style="z-index:1000;position:absolute">
-  <img id="verifyImg" SRC="__URL__/verify/" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle" width="80">
-   </div>
-   </td>
-   <td rowspan="4"><img name="look_r10_c10" src="UserTpl/login/24/look_r10_c10.png" width="36" height="76" border="0" id="look_r10_c10" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="22" border="0" alt="" /></td>
-  </tr>
-  </if>
-  <tr>
-   <td colspan="3"><img name="look_r11_c4" src="UserTpl/login/24/look_r11_c4.png" width="82" height="20" border="0" id="look_r11_c4" alt="" /></td>
-   <td rowspan="2" colspan="2"><img name="look_r11_c8" src="UserTpl/login/24/look_r11_c8.png" width="54" height="22" border="0" id="look_r11_c8" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="20" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="2"><img name="look_r12_c2" src="UserTpl/login/24/look_r12_c2.png" width="165" height="34" border="0" id="look_r12_c2" alt="" /></td>
-   <td rowspan="3" colspan="2">
-   <a href="#" onClick="loginform.submit()">
-   <img name="look_r12_c3" src="UserTpl/login/24/look_r12_c3.png" width="72" height="36" border="0" id="look_r12_c3" alt="" /></a>
-
-   </td>
-   <td colspan="2"><img name="look_r12_c5" src="UserTpl/login/24/look_r12_c5.png" width="44" height="2" border="0" id="look_r12_c5" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="2" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td><img name="look_r13_c5" src="UserTpl/login/24/look_r13_c5.png" width="23" height="32" border="0" id="look_r13_c5" alt="" /></td>
-   <td rowspan="2" colspan="3"><img name="look_r13_c6" src="UserTpl/login/24/look_r13_c6.png" width="71" height="34" border="0" id="look_r13_c6" alt="" /></td>
-   <td><img name="look_r13_c9" src="UserTpl/login/24/look_r13_c9.png" width="14" height="32" border="0" id="look_r13_c9" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="32" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="5"><img name="look_r14_c2" src="UserTpl/login/24/look_r14_c2.png" width="165" height="72" border="0" id="look_r14_c2" alt="" /></td>
-   <td rowspan="5"><img name="look_r14_c5" src="UserTpl/login/24/look_r14_c5.png" width="23" height="72" border="0" id="look_r14_c5" alt="" /></td>
-   <td rowspan="5" colspan="3"><img name="look_r14_c9" src="UserTpl/login/24/look_r14_c9.png" width="158" height="72" border="0" id="look_r14_c9" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="2" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="4" colspan="2"><img name="look_r15_c3" src="UserTpl/login/24/look_r15_c3.png" width="72" height="70" border="0" id="look_r15_c3" alt="" /></td>
-   <td rowspan="4" colspan="3"><img name="look_r15_c6" src="UserTpl/login/24/look_r15_c6.png" width="71" height="70" border="0" id="look_r15_c6" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="10" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="3"><img name="look_r16_c1" src="UserTpl/login/24/look_r16_c1.png" width="339" height="60" border="0" id="look_r16_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="24" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td rowspan="2"><img name="look_r17_c12" src="UserTpl/login/24/look_r17_c12.png" width="372" height="36" border="0" id="look_r17_c12" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="25" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="11" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="12"><img name="look_r19_c1" src="UserTpl/login/24/look_r19_c1.png" width="1200" height="46" border="0" id="look_r19_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="46" border="0" alt="" /></td>
-  </tr>
-  <tr>
-   <td colspan="12"><img name="look_r20_c1" src="UserTpl/login/24/look_r20_c1.png" width="1200" height="1" border="0" id="look_r20_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="1" border="0" alt="" /></td>
-  </tr>
-  
-			<if condition="$usernum eq 1">
+        <form action="__URL__/check" method="post">
+	        <input type="hidden" name="act" value="verify" />
+           	<if condition="$usernum eq 1">
 			<input type="hidden" value="{$users[0]}" name="usertype">
 			</if>
-  <tr>
-   <td colspan="12"><img name="look_r21_c1" src="UserTpl/login/24/look_r21_c1.png" width="1200" height="50" border="0" id="look_r21_c1" alt="" /></td>
-   <td><img src="UserTpl/login/24/spacer.gif" width="1" height="50" border="0" alt="" /></td>
-  </tr>
-</table>
-</form>
 
-</div>
-<div align="center" class="STYLE1" style="font-size:12px"><span>{$openTimeStr}</span></div>
+            <dl>
+                <dt>{:L('会员登录')}</dt>
+                <dd>
+                    <label for="username">{:L('用户名')}：</label>
+                    <input id="username" type="text" name="username">
+                </dd>
+                <dd>
+                    <label for="password">{:L('密　码')}：</label>
+                    <input id="password" type="password" name="password" autocomplete="off">
+                </dd>
+	            <if condition="isset($dispCode) and ($dispCode eq true)">
+                <dd>
+                    <label for="verify">{:L('验证码')}：</label>
+                    <input id="verify" type="text" name="captcha" maxlength="4" autocomplete="off">
+                    <img id="verifyImg" src="__URL__/verify/" onclick="fleshVerify()" alt="{:L('点击刷新验证码')}">
+                </dd>
+                </if>
+                <eq name="isOpenTime" value="0">
+                <dd class="opentime">
+                    <p>{:L('对不起，该时间段暂时不可访问')}</p>
+                </dd>
+                <else/>
+                <dd class="subbutton">
+                    <button class="submit" type="submit">{:L('提交')}</button>
+                    <button class="reset" type="reset">{:L('取消')}</button>
+                </dd>
+                <dd class="forget">
+                <if condition="adminshow('mimazhaohui') eq true">
+                    <a href="__URL__/getUserPwd2/">{:L('忘记密码')}？</a>
+                </if>
+                </dd>
+                </eq>
+
+            </dl>
+
+        </form>
+        <p class="open">{:L($openTimeStr)}</p>
+
+    </div>
+    
 </body>
 </html>
-<script type="text/javascript">
-function pass_zhaohui(id)
-{
-	$.colorbox(
-	{
-		href:'__URL__/pass_zhaohui/',
-		iframe:true,
-		scrolling:true, 
-		innerWidth:400, 
-		innerHeight:200, 
-		opacity:'0.1',
-		onClosed:function()	       
-		{ 
-			//window.location.reload();
-		}
-	});
-}
-</script>
+

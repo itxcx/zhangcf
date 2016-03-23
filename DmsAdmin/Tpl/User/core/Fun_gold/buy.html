@@ -1,4 +1,5 @@
 <load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_ep_deal" id="deal_list">
      <div class="core_title">
     	<span class="core_title_con">当前位置：{$nowtitle}</span>
@@ -55,7 +56,7 @@
 function checknum(e){
 	//判断是否是数字
 	if(isNaN($(e).val())){
-		alert("非法数字");
+		layer.alert("非法数字", {title: '提示', btn: '确定'});
 		return false;
 	}
 	if($(e).val()>$('#sellnum').html()){

@@ -160,6 +160,35 @@
 				return false;
 			}
 		}
+		//判断编号是否存在和会员状态
+		public function haveActive($para=null)
+		{
+			$where=array();
+			if($para !==null){
+				if(is_string($para))
+				{
+					if($para!='')
+					$where['编号']=$para;
+				}else
+				{
+					$where['id']=$para;
+				}
+				$where['状态']='有效';
+			}
+			$m_user=M('会员');
+			if(count($where)!=0)
+			{
+			  $rs = $m_user->where($where)->lock(true)->find();
+			}else{
+			  $rs = $m_user->lock(true)->find();
+			}
+			if($rs)
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}
 		//取得会员编号
 		public function getuser($para,$fromprize=false)
 		{
@@ -670,6 +699,7 @@
 						}
 					}
 				}
+                $result = null;
 				eval('$result=('.count($newUser).$con2.');');
 				if($result){
 					$str .=",'".$key."'";

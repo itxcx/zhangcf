@@ -417,6 +417,12 @@ class UserAction extends CommonAction
 		$model		= M('会员');
 		$id			= I("request.id/d");
 		$vo			= $model->table('dms_会员 user inner join dms_货币 b on user.id=b.userid')->where(array("user.id"=>$id))->find();
+        if(adminshow('mibao')){
+            $mibao=M('密保')->where(array("uid"=>$id))->field('密保问题,密保答案')->find();
+            if(!empty($mibao)){
+                $vo=array_merge($vo,$mibao);
+            }
+        }
 		$olduserary = $vo;
 		/*//安置网体业绩修改
 		$netPlaceName = array();
@@ -596,8 +602,6 @@ class UserAction extends CommonAction
 			"userStatus"		=>'状态',
 			"nullStatus"		=>'空点',
 			"weixin"		    =>'微信账号',
-			"secretsafe_name"	=>'密保问题',
-			"secretanswer"		=>'密保答案',
 			"memo"		        =>'备注',
 		);
 		if(adminshow('pwd3Switch')){
@@ -720,6 +724,24 @@ class UserAction extends CommonAction
 				$data['pass3'] = md100( $data['pass3']);
 			}
 		}
+        
+        //设置密保
+        if(adminshow('mibao')){
+            if(I("post.secretsafe_name/s")!="" and I("post.secretanswer/s")!=""){
+                $mbarray= M('密保')->lock(true)->where(array('uid'=>I("post.id/d")))->find();
+                $mibao=array(
+                "密保问题"=>I("post.secretsafe_name/s"),
+                "密保答案"=>I("post.secretanswer/s")
+                );
+                if(empty($mbarray)){
+                    $mibao['uid']=I("post.id/d");
+                    M('密保')->add($mibao);
+                }else{
+                    M('密保')->where(array('uid'=>$mbarray['uid']))->save($mibao);
+                }
+            }
+        }
+        
 		$model_h->where(array('userid'=>I("post.id/d")))->save($data_h);//货币分离
 		$ret=$model->where($where)->save($data);
 		if( $ret !== false){
@@ -991,6 +1013,22 @@ class UserAction extends CommonAction
 		if(I("get.id/s")){
 			$sdata = M("会员")->where(array("id"=>array("in",I("get.id/s"))))->getField("id idkey,编号,审核日期,注册日期,状态");
 			$this->assign('ids',I("get.id/s"));
+			//获取所有钱包
+			foreach(X('fun_bank') as $bank)
+			{
+				$banks[]=$bank->name;
+			}
+			foreach($sdata as $userdata)
+			{
+				//计算被删除会员的所有钱包之和
+				$sumMoney = M('货币')->where(array('编号'=>$userdata['编号']))->sum(implode("+",$banks));
+				//判断是否开启转账给未激活(状态=无效)会员
+				if(adminshow(zhuanzhang) && $sumMoney>0)
+				{
+					$result = true;
+					$this->assign('result',$result);
+				}
+			}
 		}
 		$this->assign('sdata',$sdata);
 		$this->display();
@@ -1047,6 +1085,19 @@ class UserAction extends CommonAction
 		$this->saveAdminLog("",'','注册协议保存','注册协议保存数据');
 		$this->success('设置完成!');
 	}
+
+    //购物协议
+    public function Buy_agreement(){
+        $this->assign('Buy_agreement',F('Buy_agreement'));
+        $this->display();
+    }
+    //购物协议设置保存
+    public function saveBuy_agreement(){
+        F('Buy_agreement',get_magic_quotes_gpc() ? stripslashes(I("post.agreementContent/s")) : I("post.agreementContent/s"));
+        $this->saveAdminLog("",'','购物协议保存','购物协议保存数据');
+        $this->success('设置完成!');
+    }
+
 	//删除所有无效会员
 	public function deleteAllInvalidUser(){
 		$num = $this->userobj->deleteAllInvalidUser();

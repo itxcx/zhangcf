@@ -41,7 +41,7 @@
 					}else{
 						$val=$data['accval'][$acckey];
 					}
-					if(strstr($val,"%"))
+					if(strstr($accRatio['maxval'],"%"))
 					{
 						$data['paycons'][$accRatio['name']]=$val."%";
 					}
@@ -213,7 +213,7 @@
 			if($m->create() === false){
 				$error = $m->getError();  //错误信息
 			}else{
-					if(isset($data_post['postname']) && strpos($data_post["postname"],'shop') !== false && !isset($errs['shop']))
+					if(isset($data_post['postname']) && strpos($data_post["postname"],'shop') !== false)
 					{
 						$where['编号']	= $data_post['shop'];
 						$error['shop']=M('会员')->where($where)->getfield('姓名');

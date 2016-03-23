@@ -394,7 +394,7 @@ class CommonAction extends Action{
 		}
 		$result = DdkSms::send($this->userinfo['移动电话'],$content,I("post.type/s"),$this->userinfo['编号']);
 		//S($this->userinfo['编号'].'_'.$_POST['type'],$verify,300);
-		if($result['status'] == true){
+		if($result == true){
 			S($this->userinfo['编号'].'_'.I("post.type/s"),$verify,300);
 			M()->commit();
 			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),L('发送成功'),1);

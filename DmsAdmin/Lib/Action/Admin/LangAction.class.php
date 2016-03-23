@@ -39,7 +39,7 @@ class LangAction extends Action{
 	}
 	
 	function getLang(){
-		$langDir = realpath(APP_PATH.'/lang');
+		$langDir = realpath(APP_PATH.'/Lang');
 		if(!file_exists($langDir)){
 			$this->error('语言包目录不存在');
 			return;

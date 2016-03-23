@@ -487,6 +487,7 @@
 				    $inval=false;
 				    //条件中的数值转换  层数
 				    if($notwhere){
+						eval("\$notaddwhere = \"$notwhere\";");
 				    	$inval=transform($notwhere,array(),array());
 				    }
 				    //判断是否累计

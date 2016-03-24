@@ -44,6 +44,16 @@
 					<label style="float: left;width: 150px; text-align: right;">提现发放换算比</label>
 					<input type="text" value="{$bank:getMoneyRatio}" name="getMoneyRatio" class="number"/>
 				</p>
+
+				<!-- 张伟添加 -->
+				<if condition="($oldtixian eq 1) OR ($oldtixian eq true) ">
+				<p style="width: 350px;">
+					<label style="float: left;width: 150px; text-align: right;">提现时单独输入银行账号：</label>
+					<input type="radio" value="true" name="getMoneyBank" <if condition="($bank:getMoneyBank eq 1) OR ($bank:getMoneyBank eq true)">checked</if> />是
+	    			<input type="radio" value="false" name="getMoneyBank" <if condition="($bank:getMoneyBank eq 0) OR ($bank:getMoneyBank eq false)">checked</if>/>否
+				</p>
+				</if>
+
 				<p style="width: 350px;">
 					<label style="float: left;width: 150px; text-align: right;">提现确认后清除银行信息：</label>
 					<input type="radio" value="true" name="getMoneyBankClear" <if condition="($bank:getMoneyBankClear eq 1) OR ($bank:getMoneyBankClear eq true)">checked</if>/>是

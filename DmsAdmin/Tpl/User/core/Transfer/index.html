@@ -218,10 +218,10 @@ function giveAjax(id)
 				$('#giveidname').html('编号不正确');
 			}
 			else
-			{
-				//var userinfo = json.data;
-				//$('#giveidname').html(userinfo['姓名']);
-				$('#giveidname').html('');
+			{	
+				var userinfo = json.data;
+				$('#giveidname').html(userinfo['姓名']);
+				//$('#giveidname').html('');
 			}
 		}
 		catch(e)

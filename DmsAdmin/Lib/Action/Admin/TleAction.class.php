@@ -412,7 +412,7 @@ class TleAction extends CommonAction {
 			}
 		}
 		
-        $list->addshow("计算日期",array("row"=>"[计算日期]","format"=>"date","searchMode"=>"date",'order'=>'计算日期','searchGet'=>'计算日期',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'[计算日期]'));
+        $list->addshow("计算日期",array("row"=>"[计算日期]","format"=>"date","searchMode"=>"date","url"=>__APP__."/Admin/Tle/prizeForm:".__XPATH__."/id/[id]","target"=>"dialog",'order'=>'计算日期',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'a.计算日期'));
 		$list->addshow("新增".$this->userobj->byname,array("row"=>"[新增会员]","searchMode"=>"text","excelMode"=>"text"));
         $list->addshow("本期奖金",array("row"=>array(array(&$this,'bqjj'),"[本期奖金]","[本期业绩]"),"searchMode"=>"text","excelMode"=>"text"));
 	if(adminshow('allzongzhang')>0){

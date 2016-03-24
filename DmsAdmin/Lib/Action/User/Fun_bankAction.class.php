@@ -74,7 +74,11 @@ class Fun_bankAction extends CommonAction {
             $this->assign('user',$this->userobj->byname);
             $this->assign('name',$fun_bank->byname."提现");  // 货币名称
             $this->assign('bank',$fun_bank);
-            $this->display();
+            if(adminshow('oldtixian')){ // 张伟修改 老版本提现页面
+            	$this->display('getold');
+            }else{
+            	$this->display();
+            }
         }
     }
     //显示状态
@@ -250,6 +254,106 @@ class Fun_bankAction extends CommonAction {
             $this->error($re);
         }
     }
+
+    // 保存提现信息(老版本)
+    public function getSaveold(fun_bank $fun_bank){
+    	//防XSS跨站攻击登入 调用ThinkPHP中的XSSBehavior
+		B('XSS');
+		$bank=$fun_bank;
+		M()->startTrans();
+		if(!$bank->getMoneyBank){
+			if($this->userinfo['银行卡号']=="" || $this->userinfo['开户银行']=="" || $this->userinfo['开户名']==""){
+				$this->error('请完善你的银行卡信息');
+			}
+		}else{
+			if($_POST['cardnumble']=="" || $_POST['bankname']=="" || $_POST['cardname']==""){
+				$this->error('请完善你的银行卡信息');
+			}
+		}
+		
+        $mess = "";
+		if($bank->getMoneyPass2){
+		    if(!chkpass($_POST["pass2"],$this->userinfo["pass2"])){
+		        $mess = L('二级密码错误');
+		    }
+		}
+        if($bank->getMoneyPass3){
+            if(!chkpass($_POST["pass3"],$this->userinfo["pass3"])){
+		        $mess .= L('三级密码错误');
+		    }
+        }
+		if($bank->getMoneySmsSwitch){
+			$verify = S($this->userinfo['编号'].'_'.$bank->name.'提现');
+			if(!$verify || $verify != intval($_POST['getSmsVerfy']) || !$_POST['getSmsVerfy']){
+				$this->error(L('短信验证码错误或已过期!'));
+			}
+		}
+		if($bank->getSecretSafe){
+            if($this->userinfo["密保答案"] != $_POST["getsafeanswer"]){
+		        $this->error(L('密保答案有误'));
+		    }
+        }
+        //如果被锁定
+        if($this->userinfo[$bank->name.'锁定']==1)
+        {
+        	$mess=L('您的账户处于锁定状态.不能操作');
+        }
+        $getsum = $_POST["getsum"];
+        if(!is_numeric($getsum)|| $getsum <= 0){
+            $mess .=L('金额不能为空');
+        }
+        if(!transform($bank->getMoneyWhere,$this->userinfo))
+        {
+        	$mess=$bank->getMoneyMsg;
+        }
+        if($mess != ""){
+            $this->error($mess);
+		}
+		if(!M()->autoCheckToken($_POST))
+		{
+			$this->error('您已经提交过提现申请,如继续操作,请从新点击提现功能');
+		}
+
+
+        $re = $this->setGetold($bank,$this->userinfo);
+        if($re == ""){	
+	        //写入会员操作日志
+			$authInfo['姓名']=$this->userinfo['姓名'];
+			$authInfo['编号']=$this->userinfo['编号'];
+			$authInfo['id']=$this->userinfo['id'];
+			$data = array();
+			$datalog['user_id']=$authInfo['id'];
+			$datalog['user_name']=$authInfo['姓名'];
+			$datalog['user_bh']=$authInfo['编号'];
+			$datalog['ip']=$_SESSION['ip'];
+			$datalog['content']='会员提现';
+			$datalog['create_time']=time();
+			//获取会员的IP地址
+			import("ORG.Net.IpLocation");
+			$IpLocation				= new IpLocation("qqwry.dat");
+			$loc					= $IpLocation->getlocation();
+			$country				= mb_convert_encoding ($loc['country'] , 'UTF-8','GBK' );
+			$area					= mb_convert_encoding ($loc['area'] , 'UTF-8','GBK' );
+			$datalog['address']		= $country.$area;
+			M('log_user')->add($datalog);
+			//写入会员操作日志结束
+			// 防止点击多次提交按钮，重复提交
+			$checks = M('会员');
+			M()->commit();
+            M()->startTrans();
+				//发送的验证码注销
+			S($this->userinfo['编号'].'_'.$bank->name.'提现',null,300);
+            //添加会员提现邮件提醒
+            if(CONFIG('txmmailSwitch')){
+                sendMail($this->userinfo,$this->userobj->byname.'提现',CONFIG('txmmailContent'));
+            }
+            M()->commit();
+            $this->success('操作成功');
+        }else{// 错误信息
+            $this->error($re);
+        }
+    }
+
     public function addgetcount(){
     	M()->startTrans();
     	//提现账户数量
@@ -361,6 +465,76 @@ class Fun_bankAction extends CommonAction {
 			}
 		}
 	}
+
+	// 老版本提现处理 张伟添加
+    //  提现  添加会员编号,提现金额,开户行,银行卡号,开户地址,开户名
+	public function setGetold($bank,$user){
+	    
+        $m_bank=M("提现");
+        $getsum = I("post.getsum/f");
+        if($bank->getMoneyBank){
+            $bankname    = $_POST["bankname"];
+            $cardnumble  = $_POST["cardnumble"];
+            $cardaddress = $_POST["cardaddress"];
+            $cardname    = $_POST["cardname"];
+            $cardtel     = isset($_POST["cardtel"])?$_POST["cardtel"]:'';
+        }else{
+            $bankname    = $user["开户银行"];
+            $cardnumble  = $user["银行卡号"];
+            $cardaddress = $user["开户地址"];
+            $cardname    = $user["开户名"];
+            $cardtel     = isset($_POST["移动电话"])?$_POST["移动电话"]:'';
+        }
+		$data=array(
+			"编号"=>$this->userinfo['编号'],
+			"提现额"=>$getsum,
+			"开户行"=>$bankname,
+			"银行卡号"=>$cardnumble,
+			"开户地址"=>$cardaddress,
+			"开户名"=>$cardname,
+			"联系电话"=>$cardtel,
+			"操作时间"=>systemTime(),
+		);
+
+		if($getsum < $bank->getMoneyMin ){
+		    return L('不能少于最小提现额')."{$bank->getMoneyMin}！";
+		}else if($bank->getMoneyMax > 0 && $getsum > $bank->getMoneyMax){
+			return L('最大提现额不能超过')."{$bank->getMoneyMax}";
+		}else if($bank->getMoneyInt != 0 && fmod($getsum,$bank->getMoneyInt)!=0){
+			return L('提现金额需为{$bank->getMoneyInt}的倍数！');
+		}
+        $data['类型']=$bank->name;
+		$data["手续费"] = ($bank->getMoneyTax/100) * $getsum;
+        if($data["手续费"] < $bank->getMoneyTaxMin){
+            $data["手续费"] = $bank->getMoneyTaxMin;
+        }else if($bank->getMoneyTaxMax != 0 && $data["手续费"] > $bank->getMoneyTaxMax){
+            $data["手续费"] = $bank->getMoneyTaxMax;
+        }
+        if($bank->getTaxFrom==1){
+          	$data["实发"] = $getsum - $data["手续费"];
+           	$banknum	  = $getsum;
+        }else{
+            $data["实发"] = $getsum;
+           	$banknum	  = $getsum+$data["手续费"];
+        }
+	    if($user[$bank->name] - $banknum < 0){
+			return L('余额不足');
+		}
+
+		//提现汇率换算
+		if($bank->getMoneyRatio){
+			$data["换算后实发"]=$data["实发"]*$bank->getMoneyRatio;
+		}
+        $data["状态"] = "0";
+		$re2=$m_bank->add($data);
+		if($re2){
+		    $bank->set( $user["编号"], $user["编号"],-$banknum,$this->userobj->byname.'提现','申请提现扣除：'.$getsum);
+			return "";
+		}else{
+			return L('error_title');
+		}
+	}
+
 	//汇款通知列表
 	public function rem()
 	{

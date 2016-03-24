@@ -1142,6 +1142,7 @@ class FunBankAction extends CommonAction {
         $this->assign('givecon',$fun_bank->giveCon);
 		//dump($thisbank->giveCon);
 		$this->assign('xpath',$fun_bank->objPath());
+		$this->assign('oldtixian',adminshow('oldtixian'));// 张伟添加
         $this->display();
 	}
    //对货币的配置进行更新

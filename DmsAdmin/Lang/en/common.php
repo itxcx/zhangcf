@@ -727,5 +727,9 @@ return array (
   '汇款开户名' => 'Remittance account name',
   '汇款留言' => 'Remittance message',
   '发件人' => 'Sender',
+  '邮件详情' => 'Mail details',
+  '收件人' => 'addressee',
+  '已发送' => 'has been sent',
+  '确定要删除吗' => 'Are you sure you want to delete it',
 );
 ?>

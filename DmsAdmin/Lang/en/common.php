@@ -722,5 +722,10 @@ return array (
   '我们的文化：诚信经营　感恩合作　我为人人　人人为我' => 'Our culture: the integrity of the operation of Thanksgiving cooperation I for everyone and everyone for me',
   '我们的使命：通过资源整合进行交互式合作。帮助更多中国人拥有自己的事业，并最终走上财富自由之路' => 'Our mission: to conduct interactive cooperation through resource integration. To help more Chinese people have their own business, and ultimately to the wealth of The Freedom Trail',
   '智赢天下' => 'Wisdom wins the world',
+  '汇款银行' => 'Remittance bank',
+  '汇款卡号' => 'Remittance card number',
+  '汇款开户名' => 'Remittance account name',
+  '汇款留言' => 'Remittance message',
+  '发件人' => 'Sender',
 );
 ?>

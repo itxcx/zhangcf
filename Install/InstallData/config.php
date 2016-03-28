@@ -1,7 +1,7 @@
 <?PHP
 $condata=array();
 //管理员可以访问的菜单项
-$condata['ADMIN_SHOW']     = 'baodan_wuliu_pro,kuaidi_pro';
+$condata['ADMIN_SHOW']     = 'baodan_wuliu_pro,kuaidi_pro,oldtixian';
 //是否自动备份数据库(如发现没有本日数据库则自动备份)
 $condata['AUTOBACKUP']     = 0;
 //时间偏移小时时间

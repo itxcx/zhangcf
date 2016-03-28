@@ -116,16 +116,16 @@ cnyOut.prototype.daozhang = function(){
 cnyOut.prototype.rmbconfirm = function(){
 	data = {};
     money = parseFloat($('#getsum').val());
-    empty_money = $('#getsum').val();
-    out_min = $('#out_min').html();
-    out_max = $('#out_max').html();
+    empty_money = parseFloat($('#getsum').val());
+    out_min = parseFloat($('#out_min').html());
+    out_max = parseFloat($('#out_max').html());
 	if(!money){
 		this.Rfade('#rmbout_showtips', '请填写提现金额');
 		$("#tijiao").removeAttr('disabled');
 		return false;
 	}
     if(money < out_min || empty_money < out_min){
-		this.Rfade('#rmbout_showtips', '最小提现为'+this.toDecimal2(cnyout_min)+'元');
+		this.Rfade('#rmbout_showtips', '最小提现为'+this.toDecimal2(out_min)+'元');
 		$("#tijiao").removeAttr('disabled');
 		return false;
     }
@@ -155,7 +155,7 @@ cnyOut.prototype.rmbconfirm = function(){
 	//短信 getSmsVerfy
 	if($('#getSmsVerfy').val()!=undefined){
 		getSmsVerfy=$('#getSmsVerfy').val();
-		if(!pass3){
+		if(!getSmsVerfy){
 	    	this.Rfade('#rmbout_showtips', '请输入正确的短信验证码');
 	    	$("#tijiao").removeAttr('disabled');
 	    	return false;
@@ -165,8 +165,8 @@ cnyOut.prototype.rmbconfirm = function(){
 	//密保 getSmsVerfy
 	if($('#getsafeanswer').val()!=undefined){
 		getsafeanswer=$('#getsafeanswer').val();
-		if(!pass3){
-	    	this.Rfade('#rmbout_showtips', '请输入正确的短信验证码');
+		if(!getsafeanswer){
+	    	this.Rfade('#rmbout_showtips', '请输入正确的密保答案');
 	    	$("#tijiao").removeAttr('disabled');
 	    	return false;
 	    }
@@ -182,7 +182,7 @@ cnyOut.prototype.rmbconfirm = function(){
         $("#tijiao").removeAttr('disabled');
         return false;
     }
-    var checktype=$("input:radio[class='getbanktype']:checked").val();
+    var checktype=$("input:radio[name='xuanzhong']:checked").val();
 	if(!checktype || checktype<=0){
 		this.Rfade('#rmbout_showtips', '请选择提款地址');
 		$("#tijiao").removeAttr('disabled');
@@ -190,7 +190,7 @@ cnyOut.prototype.rmbconfirm = function(){
 	}
 	xpath=$("#xpath").val();
     data['getsum']=money;
-    data['getbanktype']=$("input:radio[class='getbanktype']:checked").val();
+    data['getbanktype']=$("input:radio[name='xuanzhong']:checked").val();
     this.ajaxSubmit(data, '/index.php?s=/User/Fun_bank/getSave:'+xpath, 'post', false);
     $("#tijiao").removeAttr('disabled');
 }

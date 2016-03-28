@@ -487,6 +487,7 @@
 				    $inval=false;
 				    //条件中的数值转换  层数
 				    if($notwhere){
+						eval("\$notaddwhere = \"$notwhere\";");
 				    	$inval=transform($notwhere,array(),array());
 				    }
 				    //判断是否累计
@@ -679,6 +680,9 @@
 					$res = explode('-',$data);
 					$sql="update dms_会员 set {$this->name}_{$res[1]}区层深={$thislayer}-{$this->name}_层数 where {$this->name}_{$res[1]}区层深<{$thislayer}-{$this->name}_层数 and id = {$res[0]}";
 					M()->execute($sql);
+					//更新左右区团队人数
+                    $sql1="update dms_会员 set {$this->name}_{$res[1]}区团队人数={$this->name}_{$res[1]}区团队人数+1 where id = {$res[0]}";					
+					M()->execute($sql1);
 				}
 			}
 		}

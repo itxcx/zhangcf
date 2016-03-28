@@ -244,7 +244,7 @@
 		</tbody>
 		<tbody>
 			<tr style="background-color:#fff">
-				<td rowspan="3" style="font-weight:bold;color:#483D8B">财务管理</td>
+				<td rowspan="4" style="font-weight:bold;color:#483D8B">财务管理</td>
 				<td>添加汇款是否选择银行图片：</td>
 				<td>&nbsp;</td>
 				<td>
@@ -257,6 +257,15 @@
 				<td>添加汇款方式：</td>
 				<td>
 					<input type="checkbox" name="huikuan" value="1" <if condition="in_array('huikuan',$viewarr) eq true">checked</if>/>
+				</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>	
+				<td style="color:red;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>老版本提现：</td>
+				<td>
+					<input type="checkbox" name="oldtixian" value="1" <if condition="in_array('oldtixian',$viewarr) eq true">checked</if>/>
 				</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>	

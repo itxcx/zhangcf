@@ -153,8 +153,9 @@ class MailAction extends CommonAction {
 			if(I("post.center/s")==""){
 				$this->error(L('内容不能为空'));
 			}
-			 B('XSS');
+             B('XSS');
             $content=get_magic_quotes_gpc() ? stripslashes(I("post.center/s")) : I("post.center/s");
+           
 			$model=M('邮件');
 			$data=array();
 			if(I("post.receiver/s")==''){

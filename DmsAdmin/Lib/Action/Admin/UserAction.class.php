@@ -525,11 +525,11 @@ class UserAction extends CommonAction
             }
         }
         //把后台会员资料查看里面显示的0、1替换成男、女
-        if($vo['性别']==0){
+       /* if($vo['性别']==0){
            $vo['性别']='男';
         }elseif($vo['性别']==1){
            $vo['性别']='女';
-        }
+        }*/
         $this->assign('pwd3Switch',adminshow('pwd3Switch'));
         $this->assign('name',$this->userobj->byname);
         $this->assign('netPlaceName',$netPlaceName);

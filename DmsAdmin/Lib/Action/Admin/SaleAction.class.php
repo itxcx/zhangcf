@@ -46,7 +46,7 @@ class SaleAction extends CommonAction {
 		}
 		//是否有服务中心
 		if($this->userobj->shopWhere!=''){
-        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text"));
+        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
 		}
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text",));
 		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text")); 
@@ -105,7 +105,7 @@ class SaleAction extends CommonAction {
 	        $list->addshow("收货日期"  ,array("row"=>"[收货日期]",'format'=>'time',"order"=>"收货日期","searchMode"=>"date"));
 		}
 		if($this->userobj->shopWhere!=''){
-        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text"));
+        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
         }
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text","css"=>"width:90px;"));
 		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text","css"=>"width:90px;",'searchRow'=>'a.注册人编号')); 

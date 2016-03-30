@@ -428,7 +428,7 @@ class TleAction extends CommonAction {
 		$list ->addshow("全部".$this->userobj->byname,array("row"=>"[全部会员]","searchMode"=>"text","excelMode"=>"text"));
 		$list ->addshow("本期业绩",array("row"=>"[本期业绩]","searchMode"=>"text","excelMode"=>"text"));
 		$list ->addshow("总业绩",array("row"=>"[总业绩]","searchMode"=>"text","excelMode"=>"text"));
-		$list ->addshow("状态",array("row"=>array(array(&$this,"tleState"),"[state]"),"searchMode"=>"text","searchPosition"=>"top","searchSelect"=>array("已发放"=>"1","未发放"=>"0"),"searchRow"=>"[state]"));
+		$list ->addshow("状态",array("row"=>array(array(&$this,"tleState"),"[state]"),"searchMode"=>"text","searchPosition"=>"top","searchSelect"=>array("已发放"=>"1","未发放"=>"0"),"searchRow"=>"[a.state]"));
 		$list ->addshow("操作",array("row"=>array(array(&$this,'outdayA'),"[id]")));
         $this->assign('list',$list->getHtml());
         $this->display();

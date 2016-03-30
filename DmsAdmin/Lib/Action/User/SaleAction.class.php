@@ -443,6 +443,9 @@ class SaleAction extends CommonAction {
 		set_time_limit(1800);
 		ini_set('memory_limit','500M');
 		M()->startTrans();
+        if($sale_up->lockMe==true){
+           $_POST['userid'] = $this->userinfo['编号'];
+        }	
 		//判断物流信息
 		if($sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
         {

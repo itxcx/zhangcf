@@ -166,7 +166,6 @@ function to_guid_string($mix) {
     }
     return md5($mix);
 }
-
 // 加载扩展配置文件
 function load_ext_file() {
     // 加载自定义外部文件
@@ -180,9 +179,16 @@ function load_ext_file() {
     // 加载自定义的动态配置文件
     if(C('LOAD_EXT_CONFIG')) {
         $configs =  C('LOAD_EXT_CONFIG');
+        //转换成数组循环
         if(is_string($configs)) $configs =  explode(',',$configs);
+        //判断配置文件地址
+        if(C('LOAD_EXT_CONFIG_PATH')!=""){
+            $CONFIG_PATH=C('LOAD_EXT_CONFIG_PATH');
+        }else{
+            $CONFIG_PATH=CONF_PATH;
+        }
         foreach ($configs as $key=>$config){
-            $file   = CONF_PATH.$config.'.php';
+            $file   = $CONFIG_PATH.$config.'.php';
             if(is_file($file)) {
                 is_numeric($key)?C(include $file):C($key,include $file);
             }

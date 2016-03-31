@@ -324,6 +324,7 @@
 			$this->callevent('userdelete',array('user'=>$userdata));
 			//货币分离
 			M('货币')->where("userid = $userid")->delete();
+            M('密保')->where("uid = $userid")->delete();
 			M('会员')->where("id = $userid")->delete();
 			return true;
 		}

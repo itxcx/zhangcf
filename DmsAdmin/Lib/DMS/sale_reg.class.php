@@ -548,8 +548,8 @@
 			if($confirm)
 			{
 				//处理审核操作
-				$this->runconfirm($udata,$sdata,$product);
 				X('user')->callevent("user_verify" ,array("user"=>$udata));
+				$this->runconfirm($udata,$sdata,$product);
 			 }
 			 $return=array();
 			 $return['saleid'] = $sdata["id"];

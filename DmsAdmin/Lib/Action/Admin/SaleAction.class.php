@@ -126,8 +126,8 @@ class SaleAction extends CommonAction {
         	$list->addshow("原级别",array("row"=>array(array(&$this,'_printUserLevel'),'[old_lv]','','[报单类别]'),"searchMode"=>"num","css"=>"width:100px;"));
         	$list->addshow("新级别" ,array("row"=>array(array(&$this,'_printUserLevel'),'[升级数据]','','[报单类别]',"[id]"),"searchMode"=>"num","css"=>"width:100px;"));
         }
-        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;"));
-        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;"));
+        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;",'searchRow'=>'[a.收货人]'));
+        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;",'searchRow'=>'[a.联系电话]'));
         $list->addshow("收货地址"  ,array("row"=>"[收货省份][收货城市][收货地区][收货街道][收货地址]","searchMode"=>"text","css"=>"width:350px;"));
         $list->addshow("产品信息"  ,array("row"=>array(array(&$this,'allPro'),'[id]','[报单类别]'),"searchMode"=>"text","css"=>"width:350px;",'hide'=>true));
      
@@ -258,7 +258,7 @@ class SaleAction extends CommonAction {
 		//	$list->addshow('升级数据',array("row"=>array(array(&$this,"_printUserLevel"),"[升级数据]","","[报单类别]","[id]")));
 		}
 		if($this->userobj->shopWhere != ''){
-			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text"));
+			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text","searchRow"=>'a.服务中心编号'));
 		}
 		$list->addshow('报单状态',array("row"=>"[报单状态]"));
 		$list->addshow('报单类别',array("row"=>"[报单类别]"));

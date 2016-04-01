@@ -49,7 +49,7 @@ class SaleAction extends CommonAction {
         	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
 		}
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text",));
-		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text")); 
+		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text",'searchRow'=>'[a.注册人编号]')); 
         $list->addshow("订单类别"  ,array("row"=>"[报单类别]","searchMode"=>"text","searchPosition"=>"top",'searchGet'=>'saletype','searchRow'=>'[byname]',"searchSelect"=>$select));
         $list->addshow("报单金额"  ,array("row"=>"[报单金额]","searchMode"=>"num","sum"=>"报单金额","order"=>"报单金额","excelMode"=>"#,###0.00"));
 		

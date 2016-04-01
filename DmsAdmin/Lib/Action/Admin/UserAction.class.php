@@ -236,7 +236,7 @@ class UserAction extends CommonAction
         	$list->addshow($levels->byname,array("row"=>array(array(&$this,"_printUserLevel"),"[".$levels->name."]",$levels->name),"searchMode"=>"num","searchSelect"=>$_temp,"searchRow"=>"user.".$levels->name."","order"=>'user.'.$levels->name));
         }
 		foreach(X('fun_bank') as $banks){
-			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"searchRow"=>"user.".$banks->name,"searchMode"=>"num","order"=>'user.'.$banks->name));
+			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"searchRow"=>"b.".$banks->name,"searchMode"=>"num","order"=>'b.'.$banks->name));
 		}
         //显示网络上级姓名的额外字段
         $netnamerow='';

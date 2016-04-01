@@ -19,7 +19,7 @@ class PrizeLockAction extends CommonAction {
         $where   =array('user.奖金锁'=>1);
         $list->where($where);
         $list->addshow("编号",array("row"=>"[编号]","css"=>"width:60px","searchMode"=>"text",'searchGet'=>'userid',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'user.编号'));  
-		$list->addshow('姓名',array('row'=>'[姓名]',"searchMode"=>"text",'searchRow'=>'姓名'));
+		$list->addshow('姓名',array('row'=>'[姓名]',"searchMode"=>"text",'searchRow'=>'user.姓名'));
         $list->addshow("状态",array("row"=>array(array(&$this,"_zhuangtai"),"[状态]"),"css"=>'width:50px'));
         $list->addshow("注册日期",array("row"=>"[注册日期]","format"=>"date","css"=>"width:60px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date","order"=>"[user.注册日期]",'searchRow'=>'user.注册日期'));
         $list->addshow("审核日期",array("row"=>"[审核日期]","format"=>"date","css"=>"width:60px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date",'order'=>'[user.审核日期]','searchRow'=>'user.审核日期'));

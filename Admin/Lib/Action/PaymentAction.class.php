@@ -12,10 +12,10 @@ class PaymentAction extends Action{
 	
 	//处理支付运营商返回信息
 	public function receive(){
-		if(!empty(I("requset./a"))){
+		if(I("request./a")){
 			M()->startTrans();
 			//记录返回的数据
-           	F('paytest',I("requset./a"));
+           	F('paytest',I("request./a"));
            	//获取支付接口的信息
 			$lista=F('interface_data');
 			//获取已安装的接口的直联银行信息
@@ -25,7 +25,7 @@ class PaymentAction extends Action{
 			//循环获得支付的订单单号
 			foreach($listc as $key=>$value){
 				//如果找到了订单号  则跳出执行回调处理订单状态
-				if(!empty(I("requset.".$value['order_key']."/s"))){
+				if(I("request.".$value['order_key']."/s")){
 					$where['orderId']=I("requset.".$value['order_key']."/s");
 					import("Admin.Pay.Pay");
 					//根据订单号找到要处理的订单

@@ -317,7 +317,7 @@ class UserAction extends CommonAction
         $list->where($where);
         $list->order("审核日期 desc");
         
-		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","order"=>"id"));
+		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","order"=>"user.id",'searchRow'=>'user.id'));
         $list->addshow($this->userobj->byname."编号",array("row"=>array(array(&$this,"_dispUserId"),'[编号]','[状态]','[空点]','[登陆锁定]'),"searchRow"=>"[编号]","searchMode"=>"text","searchRow"=>'user.编号',"searchGet"=>"userid","excelMode"=>"text","searchPosition"=>"top"));
 		
         $list->addshow("姓名",array("row"=>array(array(&$this,"_printName"),"[姓名]"),"searchRow"=>'user.姓名',"searchMode"=>"text"));
@@ -343,6 +343,11 @@ class UserAction extends CommonAction
 			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"css"=>"width:70px","searchRow"=>"b.".$banks->name,"searchMode"=>"num","order"=>'b.'.$banks->name,"sum"=>'b.'.$banks->name));
 		}
         $list->addshow("累计收入",array("row"=>"[累计收入]","searchMode"=>"num","order"=>"累计收入"));
+		$filestr='user.*';
+		foreach(X('fun_bank') as $fun_bank){
+			$filestr.=",b.".$fun_bank->name;
+		}
+		$list->field($filestr);//货币分离
         $this->assign('list',$list->getHtml());     
         $this->display();		
     }
@@ -525,11 +530,11 @@ class UserAction extends CommonAction
             }
         }
         //把后台会员资料查看里面显示的0、1替换成男、女
-        if($vo['性别']==0){
+       /* if($vo['性别']==0){
            $vo['性别']='男';
         }elseif($vo['性别']==1){
            $vo['性别']='女';
-        }
+        }*/
         $this->assign('pwd3Switch',adminshow('pwd3Switch'));
         $this->assign('name',$this->userobj->byname);
         $this->assign('netPlaceName',$netPlaceName);

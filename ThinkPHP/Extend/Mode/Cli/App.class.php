@@ -13,13 +13,18 @@
  * ThinkPHP 命令模式应用程序类
  */
 class App {
- 
     /**
      * 执行应用程序
      * @access public
      * @return void
      */
     static public function run() {
+    	// 项目初始化标签
+        // 设置系统时区
+        date_default_timezone_set(C('DEFAULT_TIMEZONE'));
+        // 加载动态项目公共文件和配置
+        load_ext_file();
+        
         if(C('URL_MODEL')==1) {// PATHINFO 模式URL下面 采用 index.php module/action/id/4
             $depr = C('URL_PATHINFO_DEPR');
             $path   = isset($_SERVER['argv'][1])?$_SERVER['argv'][1]:'';

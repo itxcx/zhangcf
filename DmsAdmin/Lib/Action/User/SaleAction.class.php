@@ -202,6 +202,10 @@ class SaleAction extends CommonAction {
 			}
 			$this->error($errorStr);
 		}
+		$xjbsy=I('post.xjbsy/d');
+		if($xjbsy<=50){
+            $this->error("您的现金币使用不得低于50%");
+		}
 		//注册过程中产生错误
 		$return=$sale_reg->regSave(I('post.'));
 		if(gettype($return)=='string')
@@ -705,6 +709,9 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('购买日期'),array("row"=>'[购买日期]','format'=>'time'));
 		$list ->addshow( L('付款日期'), array("row"=>'[到款日期]','format'=>'time'));
 		$list ->addshow( L('报单金额'), array("row"=>"[报单金额]","searchMode"=>"num"));
+	if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
 		
@@ -732,6 +739,9 @@ class SaleAction extends CommonAction {
 				$list ->addshow( L('购物PV'), array("row"=>"[购物PV]","searchMode"=>"num"));
 			}
 		}
+			if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		//$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","[saleid]","[编号]","[id]"),));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));

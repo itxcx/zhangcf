@@ -295,7 +295,8 @@
 			
 			$money=$this->getSaleMoneys($option);
 			$sdata["报单金额"]    =$money['pvmoney'];
-			$sdata["报单单数"]    =$money['num'];
+           	$sdata["报单PV"]      =$money['pv'];
+			$sdata["报单单数"]    =$money['number'];
 			$sdata["实付款"]      =$money['money'];
 				
 			//产品
@@ -329,6 +330,7 @@
 			//不累计业绩
 			if(isset($option['point']) && $option['point']!=0){
 				$sdata["报单金额"]    =0;
+               	$sdata["报单PV"]      =0;
 				$sdata["报单单数"]    =0;
 			}
 			//回填
@@ -402,7 +404,8 @@
 			$new_level = $levels->getlevel($newlv);
             $ret['pvmoney']= $this->diff ? $new_level['pvmoney'] - $old_level['pvmoney'] : $new_level['pvmoney'];
 			$ret['money']  = $this->diff ? $new_level['money']   - $old_level['money']   : $new_level['money'];
-			$ret['num'] = $this->diff ? $new_level['num']  - $old_level['num']  : $new_level['num'];
+           	$ret['pv']=$this->diff ? $new_level['pv'] - $old_level['pv']: $new_level['pv'];
+          	$ret['number']=$this->diff ? $new_level['number'] - $old_level['number']: $new_level['number'];
 			return $ret;
 		}
 		//级别为最大级locakme='false'菜单不显示

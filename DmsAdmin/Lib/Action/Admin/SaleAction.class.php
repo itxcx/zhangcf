@@ -52,7 +52,9 @@ class SaleAction extends CommonAction {
 		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text",'searchRow'=>'[a.注册人编号]')); 
         $list->addshow("订单类别"  ,array("row"=>"[报单类别]","searchMode"=>"text","searchPosition"=>"top",'searchGet'=>'saletype','searchRow'=>'[byname]',"searchSelect"=>$select));
         $list->addshow("报单金额"  ,array("row"=>"[报单金额]","searchMode"=>"num","sum"=>"报单金额","order"=>"报单金额","excelMode"=>"#,###0.00"));
-		
+	    if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"实付款","order"=>"实付款","excelMode"=>"#,###0.00"));
         //有升级
         //if($this->userobj->haveUp()){
@@ -116,6 +118,9 @@ class SaleAction extends CommonAction {
         if(adminshow('sale_pv')){
         	$list->addshow("购物PV"    ,array("row"=>"[购物PV]"  ,"searchMode"=>"num","sum"=>"[购物PV]",'order'=>'购物PV'));
         }
+         if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"[实付款]",'order'=>'实付款'));
         if($logistic){
 	        //添加物流费显示
@@ -840,11 +845,13 @@ class SaleAction extends CommonAction {
 	//转正会员
 	public function addapply(){
 		$username="";
+
 		if(I("get.uid/s")!=""){
 			$username=I("get.uid/s");
 			$map['报单状态']=array("in","空单,回填");
 	    	$map['编号']=$username;
 	    	$saleData=M("报单")->where($map)->find();
+
 	    	if(!$saleData){
 	    		$this->error("会员".$username."没有要回填的订单");
 	    	}

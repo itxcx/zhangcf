@@ -142,6 +142,13 @@
 				<td>&nbsp;</td>
 			</tr>
 			<tr>
+		    	<td>报单PV显示：</td>
+				<td><input type="checkbox" class="show_pv" name="bd_pv" value="pv" <if condition="in_array('bd_pv',$viewarr) eq true"> checked</if>></td>
+				<td><input type="checkbox" name="bd_pv_head" value="1" <if condition="in_array('bd_pv_head',$viewarr) eq true">checked</if>/></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
 				<td>推广链接单独审核：</td>
 				<td>
 					<input type="checkbox" name="order_tuiguang" value="1" <if condition="in_array('order_tuiguang',$viewarr) eq true">checked</if>/>

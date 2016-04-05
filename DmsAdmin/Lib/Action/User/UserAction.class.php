@@ -314,7 +314,9 @@ class UserAction extends CommonAction {
 		$list->addshow(L('付款日期') ,array('row'=>'[到款日期]',"format"=>"time"));
 		//$list->addshow(L('报单状态') ,array('row'=>'[报单状态]'));
 		$list->addshow(L('报单金额') ,array('row'=>'[报单金额]'));
-
+       if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
         $list->addshow(L('注册日期'),array("row"=>"[注册日期]","format"=>"time"));
         $list->addshow(L('姓名')     ,array("row"=>"[姓名]"));
 

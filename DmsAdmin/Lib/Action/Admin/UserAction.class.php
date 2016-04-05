@@ -196,8 +196,10 @@ class UserAction extends CommonAction
 	public function noConfirm()
 	{
         $list=new TableListAction('会员');
-        $list->table('dms_会员 user');
-		$list->where("user.状态='无效'");
+        //货币分离
+        $table='dms_会员 user inner join dms_货币 b on user.id=b.userid';
+        $list->table($table);
+        $list->where("user.状态='无效'");
         $list->order("user.id desc");
         $button=array(
 			"查看"=>array("class"=>"edit","href"=>__APP__."/Admin/User/view/id/{tl_id}","target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png'),
@@ -234,7 +236,7 @@ class UserAction extends CommonAction
         	$list->addshow($levels->byname,array("row"=>array(array(&$this,"_printUserLevel"),"[".$levels->name."]",$levels->name),"searchMode"=>"num","searchSelect"=>$_temp,"searchRow"=>"user.".$levels->name."","order"=>'user.'.$levels->name));
         }
 		foreach(X('fun_bank') as $banks){
-			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"searchRow"=>"user.".$banks->name,"searchMode"=>"num","order"=>'user.'.$banks->name));
+			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"searchRow"=>"b.".$banks->name,"searchMode"=>"num","order"=>'b.'.$banks->name));
 		}
         //显示网络上级姓名的额外字段
         $netnamerow='';
@@ -246,7 +248,11 @@ class UserAction extends CommonAction
         }
 		$list->addshow("注册人",array("row"=>"[注册人编号]","searchMode"=>"text","searchPosition"=>"top","searchRow"=>'user.注册人编号'));
 		$list->addshow("注册日期",array("row"=>"[注册日期]","format"=>"time","searchMode"=>"date","searchRow"=>'user.注册日期',"order"=>"[user.注册日期]"));
-		$list->field('user.*'.$netnamerow);
+		$filestr='user.*'.$netnamerow;
+		foreach(X('fun_bank') as $fun_bank){
+			$filestr.=",b.".$fun_bank->name;
+		}
+		$list->field($filestr);
         $this->assign('list',$list->getHtml());
         $this->display();
     }

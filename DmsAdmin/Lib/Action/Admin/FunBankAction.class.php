@@ -340,7 +340,7 @@ class FunBankAction extends CommonAction {
             );
         }
 		$list->order("a.id desc");
-		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","searchRow"=>"id")); 
+		$list->addshow("ID",array("row"=>"[id]","searchMode"=>"text","searchRow"=>"a.id")); 
         $list->addshow("状态"    ,array("row"=>array(array(&$this,"mygetFun"),"[状态]"),"searchRow"=>"a.状态","searchMode"=>"text","searchGet"=>"状态","searchPosition"=>"top","searchSelect"=>array("未审核"=>"0","已撤销"=>1,"已审核"=>"2")));  
         $list->addshow("货币名称",array("row"=>"[类型]","searchMode"=>"text","searchRow"=>"类型"));  
         $list->addshow("申请时间",array("row"=>"[操作时间]","format"=>"time","searchMode"=>"date","searchRow"=>"a.操作时间"));  

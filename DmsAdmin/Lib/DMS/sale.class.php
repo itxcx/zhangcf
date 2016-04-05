@@ -19,10 +19,10 @@
 		public $setNumber = false;
 		//报单金额,-1表示不启用
 		public $money = -1;
-		//报单单数,-1表示不启用
-		public $num = -1;
 		//报单pvmoney,-1表示不启用
 		public $pvmoney = -1;
+		//报单pv,-1表示不启用
+		public $pv = -1;
 		//报单完成是否生效
 		public $confirm =true;
 		//审核货币

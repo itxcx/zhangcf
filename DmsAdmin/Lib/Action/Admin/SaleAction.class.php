@@ -49,10 +49,12 @@ class SaleAction extends CommonAction {
         	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
 		}
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text",));
-		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text")); 
+		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text",'searchRow'=>'[a.注册人编号]')); 
         $list->addshow("订单类别"  ,array("row"=>"[报单类别]","searchMode"=>"text","searchPosition"=>"top",'searchGet'=>'saletype','searchRow'=>'[byname]',"searchSelect"=>$select));
         $list->addshow("报单金额"  ,array("row"=>"[报单金额]","searchMode"=>"num","sum"=>"报单金额","order"=>"报单金额","excelMode"=>"#,###0.00"));
-		
+	    if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"实付款","order"=>"实付款","excelMode"=>"#,###0.00"));
         //有升级
         //if($this->userobj->haveUp()){
@@ -116,6 +118,9 @@ class SaleAction extends CommonAction {
         if(adminshow('sale_pv')){
         	$list->addshow("购物PV"    ,array("row"=>"[购物PV]"  ,"searchMode"=>"num","sum"=>"[购物PV]",'order'=>'购物PV'));
         }
+         if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"[实付款]",'order'=>'实付款'));
         if($logistic){
 	        //添加物流费显示
@@ -126,8 +131,8 @@ class SaleAction extends CommonAction {
         	$list->addshow("原级别",array("row"=>array(array(&$this,'_printUserLevel'),'[old_lv]','','[报单类别]'),"searchMode"=>"num","css"=>"width:100px;"));
         	$list->addshow("新级别" ,array("row"=>array(array(&$this,'_printUserLevel'),'[升级数据]','','[报单类别]',"[id]"),"searchMode"=>"num","css"=>"width:100px;"));
         }
-        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;"));
-        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;"));
+        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;",'searchRow'=>'[a.收货人]'));
+        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;",'searchRow'=>'[a.联系电话]'));
         $list->addshow("收货地址"  ,array("row"=>"[收货省份][收货城市][收货地区][收货街道][收货地址]","searchMode"=>"text","css"=>"width:350px;"));
         $list->addshow("产品信息"  ,array("row"=>array(array(&$this,'allPro'),'[id]','[报单类别]'),"searchMode"=>"text","css"=>"width:350px;",'hide'=>true));
      
@@ -258,7 +263,7 @@ class SaleAction extends CommonAction {
 		//	$list->addshow('升级数据',array("row"=>array(array(&$this,"_printUserLevel"),"[升级数据]","","[报单类别]","[id]")));
 		}
 		if($this->userobj->shopWhere != ''){
-			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text"));
+			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text","searchRow"=>'a.服务中心编号'));
 		}
 		$list->addshow('报单状态',array("row"=>"[报单状态]"));
 		$list->addshow('报单类别',array("row"=>"[报单类别]"));
@@ -840,11 +845,13 @@ class SaleAction extends CommonAction {
 	//转正会员
 	public function addapply(){
 		$username="";
+
 		if(I("get.uid/s")!=""){
 			$username=I("get.uid/s");
 			$map['报单状态']=array("in","空单,回填");
 	    	$map['编号']=$username;
 	    	$saleData=M("报单")->where($map)->find();
+
 	    	if(!$saleData){
 	    		$this->error("会员".$username."没有要回填的订单");
 	    	}

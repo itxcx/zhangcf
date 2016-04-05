@@ -29,7 +29,7 @@ class ProductAction extends CommonAction {
 		
 		if($product->image)
 		{
-			$list->addshow('图片',array('row'=>array(array($this,'getimg'),'[图片]'),"searchMode"=>"text"));
+			$list->addshow('图片',array('row'=>array(array($this,'getimg'),'[图片]')));
 		}
 		if($product->cost)
 		{
@@ -416,7 +416,7 @@ class ProductAction extends CommonAction {
 		$list ->setButton = array(
 			"入库"=>array("class"=>"add","href"=>__APP__."/Admin/Product/add_pronum:__XPATH__/id/{tl_id}","target"=>"dialog","mask"=>"true",'width'=>'600','height'=>'350'),
 		);
-		$list->addshow('产品ID',array('row'=>'[id]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"id","order"=>"id"));
+		$list->addshow('产品ID',array('row'=>'[id]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"b.id","order"=>"b.id"));
 		$list->addshow('名称',array('row'=>'[名称]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"名称"));
 		$list->addshow('分类',array('row'=>'[分类]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"分类",'searchSelect'=>$categoryArr));
 		if($product->image)
@@ -444,7 +444,7 @@ class ProductAction extends CommonAction {
 		$list ->setButton = array(
 			"入库"=>array("class"=>"add","href"=>__APP__."/Admin/Product/add_pronum:__XPATH__/id/{tl_id}","target"=>"dialog","mask"=>"true",'width'=>'600','height'=>'350'),
 		);
-		$list->addshow('产品ID',array('row'=>'[id]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"id","order"=>"id"));
+		$list->addshow('产品ID',array('row'=>'[id]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"b.id","order"=>"b.id"));
 		$list->addshow('订单ID',array('row'=>'[报单id]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"报单id","order"=>"报单id"));
 		$list->addshow('名称',array('row'=>'[名称]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"名称"));
 		$list->addshow('分类',array('row'=>'[分类]',"searchMode"=>"text",'searchPosition'=>'top',"searchRow"=>"分类",'searchSelect'=>$categoryArr));

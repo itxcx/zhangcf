@@ -414,7 +414,7 @@ class TleAction extends CommonAction {
 		
         $list->addshow("计算日期",array("row"=>"[计算日期]","format"=>"date","searchMode"=>"date","url"=>__APP__."/Admin/Tle/prizeForm:".__XPATH__."/id/[id]","target"=>"dialog",'order'=>'计算日期',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'a.计算日期'));
 		$list->addshow("新增".$this->userobj->byname,array("row"=>"[新增会员]","searchMode"=>"text","excelMode"=>"text"));
-        $list->addshow("本期奖金",array("row"=>array(array(&$this,'bqjj'),"[本期奖金]","[本期业绩]"),"searchMode"=>"text","excelMode"=>"text"));
+        $list->addshow("本期奖金",array("row"=>array(array(&$this,'bqjj'),"[本期奖金]","[本期业绩]"),"searchMode"=>"text","searchRow"=>"[a.本期奖金]"));
 	if(adminshow('allzongzhang')>0){
 		foreach(X('prize_*',$tle) as $prize)
 		{
@@ -424,10 +424,10 @@ class TleAction extends CommonAction {
 			 }
 		}
     }
-		$list ->addshow("总奖金",array("row"=>array(array(&$this,'zjj'),"[总奖金]","[总业绩]"),"searchMode"=>"text","excelMode"=>"text"));
-		$list ->addshow("全部".$this->userobj->byname,array("row"=>"[全部会员]","searchMode"=>"text","excelMode"=>"text"));
-		$list ->addshow("本期业绩",array("row"=>"[本期业绩]","searchMode"=>"text","excelMode"=>"text"));
-		$list ->addshow("总业绩",array("row"=>"[总业绩]","searchMode"=>"text","excelMode"=>"text"));
+		$list ->addshow("总奖金",array("row"=>array(array(&$this,'zjj'),"[总奖金]","[总业绩]"),"searchMode"=>"text","searchRow"=>"[a.总奖金]"));
+		$list ->addshow("全部".$this->userobj->byname,array("row"=>"[全部会员]"));
+		$list ->addshow("本期业绩",array("row"=>"[本期业绩]","searchMode"=>"text","searchRow"=>"[a.本期业绩]"));
+		$list ->addshow("总业绩",array("row"=>"[总业绩]","searchMode"=>"text","searchRow"=>"[a.总业绩]"));
 		$list ->addshow("状态",array("row"=>array(array(&$this,"tleState"),"[state]"),"searchMode"=>"text","searchPosition"=>"top","searchSelect"=>array("已发放"=>"1","未发放"=>"0"),"searchRow"=>"[a.state]"));
 		$list ->addshow("操作",array("row"=>array(array(&$this,'outdayA'),"[id]")));
         $this->assign('list',$list->getHtml());

@@ -68,7 +68,7 @@ class ShopAction extends CommonAction
         $list->addshow("ID",array("row"=>'[id]'));
         $list->addshow($this->userobj->byname."编号",array("row"=>array(array(&$this,"_dispUserId"),'[编号]','[状态]','[空点]','[登陆锁定]'),"searchRow"=>"[编号]","searchMode"=>"text","searchRow"=>'user.编号',"searchGet"=>"userid","excelMode"=>"text","searchPosition"=>"top"));
         $list->addshow("姓名",array("row"=>array(array(&$this,"_printName"),"[姓名]"),"searchRow"=>'user.姓名',"searchMode"=>"text"));
-        $list->addshow("昵称",array("row"=>"[别名]","searchMode"=>"text","searchRow"=>'user.别名'));
+        $list->addshow("昵称",array("row"=>"[昵称]","searchMode"=>"text","searchRow"=>'user.昵称'));
         $list->addshow("审核日期",array("row"=>"[审核日期]","format"=>"time","css"=>"width:120px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date",'order'=>'[user.审核日期]','searchRow'=>'user.审核日期'));   
 		$list->addshow("空点",array("row"=>array(array(&$this,"_printNull"),"[空点]"),"searchMode"=>"text","searchSelect"=>array("是"=>"1","否"=>"0"),'searchRow'=>'user.空点',"hide"=>true));
 		$list->addshow("移动电话",array("row"=>"[移动电话]","searchMode"=>"text",'searchRow'=>'user.移动电话',"hide"=>true));

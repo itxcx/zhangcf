@@ -157,7 +157,7 @@ class BackRec
 				$fileid=0;
 				if($zip->open($fileName)===TRUE){
 					//解压缩到文件夹
-                    $tmpname = $_SERVER['HTTP_HOST'];
+                    $tmpname = MD5(systemTime());
    					if(IS_WIN){
                         $tmpdir = dirname($fileName)."/".$tmpname."/";
                     }else{

@@ -1001,5 +1001,21 @@ function callog($str)
 		}else{
 			return false;
 		}
-	}	
+	}
+    //base64加密 处理特殊字符
+     function base64encode($str)
+     {
+         $str = base64_encode($str);
+         $str = str_replace('/','_',$str);
+         $str = str_replace('+','-',$str);
+         return $str;
+     }
+     //base64解密 处理特殊字符
+     function base64decode($str)
+     {
+        $str = str_replace('_','/',$str);
+        $str = str_replace('-','+',$str);
+		$str=base64_decode($str);
+        return $str;
+     }		
 ?>

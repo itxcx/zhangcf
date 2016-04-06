@@ -37,7 +37,7 @@ class LogAction extends CommonAction
         $list=new TableListAction("log"); // 实例化Model 传表名称 
 		$list->table('log a');
 		$list->hint = "非电信以及联通带宽线路可能会出现异地IP,如发现IP异常,请先<a href='http://www.ip138.com/' target='_break'>确认当前登入IP</a>是否正常。";
-		$list->join(C('PREFIX_DB').'admin b on a.admin_id=b.id');
+		$list->join('left join admin b on a.admin_id=b.id');
 		$list->field('a.*,b.account');
 		$list->order("a.create_time desc,a.id desc");  //定义查询条件
         $list->addshow("id",array("row"=>"[id]"));      // 增加列表显示字段

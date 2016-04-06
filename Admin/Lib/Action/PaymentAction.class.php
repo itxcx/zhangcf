@@ -34,14 +34,18 @@ class PaymentAction extends Action{
 					if(!empty($info)){
 						$payment= $info['payment_class'];		//获取支付接口名
 						$pay=new Pay($payment,false);			//这里交给核心类处理
-						$pay->receive($where['orderId']);				//支付接口判断支付成功还是失败
+						$result = $pay->receive($where['orderId']);				//支付接口判断支付成功还是失败
 					}
 					break;
 				}
 			}
-			unset($lista,$listc,$where,$PayOrder,$info,$payment,$pay);
-			$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-         	echo "<script language='javascript'>location.href='" . $http_type . $_SERVER['HTTP_HOST'] . "';</script>";
+			unset($lista,$listc,$where,$PayOrder,$payment,$pay);
+		}
+		$this->assign('info',$info);
+		if($result){
+			$this->display('pay_success');
+		}else{
+			$this->display('pay_fail');
 		}
 	}
 }

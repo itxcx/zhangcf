@@ -119,7 +119,7 @@ class TleAction extends CommonAction {
 		$where = unserialize(base64_decode($_REQUEST['_where']));
 		//$whereArr = explode(' ',$where);
 		//$where = preg_replace("/(\S+)\s*[=><]/U",'a.$0',$where);
-        $result=$m->join('dms_会员 as b on a.编号=b.编号')->field("a.编号,b.姓名,b.证件号码,b.移动电话,b.开户银行,b.开户地址,b.省份,b.城市,b.银行卡号,a.奖金,a.收入")->where($where)->order("a.计算日期 desc")->select();
+        $result=$m->join('left join dms_会员 as b on a.编号=b.编号')->field("a.编号,b.姓名,b.证件号码,b.移动电话,b.开户银行,b.开户地址,b.省份,b.城市,b.银行卡号,a.奖金,a.收入")->where($where)->order("a.计算日期 desc")->select();
 		$temp = array();
 		$total = array(
 			'编号'=>'',
@@ -207,7 +207,7 @@ class TleAction extends CommonAction {
 		$where = unserialize(base64_decode($_REQUEST['_where']));
 		//$whereArr = explode(' ',$where);
 		//$where = preg_replace("/(\S+)\s*[=><]/U",'a.$0',$where);
-        $result=$m->join('dms_会员 as b on a.编号=b.编号')->field("b.姓名,b.证件号码,b.移动电话,b.开户银行,b.开户地址,b.省份,b.城市,b.银行卡号,a.收入")->where($where)->order("a.计算日期 desc")->select();
+        $result=$m->join('left join dms_会员 as b on a.编号=b.编号')->field("b.姓名,b.证件号码,b.移动电话,b.开户银行,b.开户地址,b.省份,b.城市,b.银行卡号,a.收入")->where($where)->order("a.计算日期 desc")->select();
 		$temp = array();
 		foreach($result as $v){
 			$key1 = $v["姓名"].','.$v["证件号码"].','.$v["移动电话"].','.$v["开户银行"].','.$v["开户地址"].','.$v["省份"].','.$v["城市"].','.$v["银行卡号"];
@@ -386,7 +386,7 @@ class TleAction extends CommonAction {
 		//总账表显示
         $list=new TableListAction($tle->name."总账");
         $list->table("dms_{$tle->name}总账 as a");
-		$list->join("dms_{$tle->name} as b on b.计算日期=a.计算日期");
+		$list->join("left join dms_{$tle->name} as b on b.计算日期=a.计算日期");
         if(adminshow('allzongzhang')>0){
            		$pricestr="";
     		foreach(X('prize_*',$tle) as $price)

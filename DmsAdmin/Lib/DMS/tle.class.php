@@ -704,7 +704,7 @@
             	$bhs[]=$val['编号'];
             	if(count($bhs)>1000 || $i==$tlelistcnt){
             		//查询会员的信息以及货币
-            		$haveSupsub = M("会员")->table("dms_会员 u")->join("dms_货币 f on u.id=f.userid")->where(array('u.编号'=>array('in',$bhs)))->getField("u.编号 keyid,f.id,u.编号,f.".$bank->name." num".$wherestr);
+            		$haveSupsub = M("会员")->table("dms_会员 u")->join("left join dms_货币 f on u.id=f.userid")->where(array('u.编号'=>array('in',$bhs)))->getField("u.编号 keyid,f.id,u.编号,f.".$bank->name." num".$wherestr);
          			$haveSups = $haveSupsub+$haveSups;
          			$bhs=array();
          		}

@@ -202,10 +202,6 @@ class SaleAction extends CommonAction {
 			}
 			$this->error($errorStr);
 		}
-		$xjbsy=I('post.xjbsy/d');
-		if($xjbsy<=50){
-            $this->error("您的现金币使用不得低于50%");
-		}
 		//注册过程中产生错误
 		$return=$sale_reg->regSave(I('post.'));
 		if(gettype($return)=='string')
@@ -525,7 +521,7 @@ class SaleAction extends CommonAction {
 		}
 		$list = new TableListAction('报单');
 		$list->table('dms_报单 a');
-        $list->join(C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and  是否推广链接='0'");
+        $list->join('left join '.C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and  是否推广链接='0'");
         $list->field("a.id,b.编号,b.注册日期,b.姓名,b.{$name}级别,b.{$net_rec_name}_上级编号,b.注册人编号,b.服务中心编号,a.报单状态,a.报单金额,a.服务中心编号,a.购买日期,a.购物金额,a.升级数据,a.报单类别");
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20
@@ -576,7 +572,7 @@ class SaleAction extends CommonAction {
 		}
 		$list = new TableListAction('报单');
 		$list->table('dms_报单 a');
-        $list->join(C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and 是否推广链接='1'");
+        $list->join('left join '.C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and 是否推广链接='1'");
         $list->field("a.id,b.编号,b.注册日期,b.姓名,b.{$name}级别,b.{$net_rec_name}_上级编号,b.注册人编号,b.服务中心编号,a.报单状态,a.报单金额,a.服务中心编号,a.购买日期,a.购物金额,a.升级数据,a.报单类别");
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20

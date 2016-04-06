@@ -106,7 +106,7 @@ class UserAction extends CommonAction
 	        	$list->addshow($net->byname."累计业绩",array("row"=>str_replace("@","累计业绩",$bras),"hide"=>true));
         	}
         	$list->addshow($net->byname."上级",array("row"=>array(array(&$this,"_dispNetUp"),'[编号]',"[".$net->name."_上级编号]",$net->name,$net->objPath()),"searchMode"=>"text","searchPosition"=>"top","excelMode"=>"text",'searchRow'=>"[user.".$net->name."_上级编号]"));
-	       	$list->join('dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
+	       	$list->join('left join dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
         	$netnamerow.=",{$net->name}.姓名 as netname".$net->getPos();
         	$list->addshow($net->byname."人姓名",array("row"=>"[netname".$net->getPos()."]","searchMode"=>"text","excelMode"=>"text",'searchRow'=>"{$net->name}.姓名"));
         	$list->addshow($net->byname."层数",array("row"=>"[".$net->name."_层数]","searchMode"=>"num",'searchRow'=>"user.".$net->name."_层数","order"=>"user.".$net->name."_层数"));
@@ -470,7 +470,7 @@ class UserAction extends CommonAction
 		$this->assign ( 'funval', $funval );
 		$this->assign ( 'vo', $vo );
 		$this->assign ( 'shop', $this->userobj->shopWhere =='[服务中心]=1');
-		//$lists=M()->table('dms_修改日志 a')->join('admin b on a.修改人=b.id')->where(array("userid"=>$id))->field('a.*,b.account')->order('a.id desc')->select();
+		//$lists=M()->table('dms_修改日志 a')->join('left join admin b on a.修改人=b.id')->where(array("userid"=>$id))->field('a.*,b.account')->order('a.id desc')->select();
 		//$this->assign('lists',$lists);
 		$this->display (); 
 	}

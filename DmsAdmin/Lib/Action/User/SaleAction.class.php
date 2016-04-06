@@ -202,10 +202,6 @@ class SaleAction extends CommonAction {
 			}
 			$this->error($errorStr);
 		}
-		$xjbsy=I('post.xjbsy/d');
-		if($xjbsy<=50){
-            $this->error("您的现金币使用不得低于50%");
-		}
 		//注册过程中产生错误
 		$return=$sale_reg->regSave(I('post.'));
 		if(gettype($return)=='string')

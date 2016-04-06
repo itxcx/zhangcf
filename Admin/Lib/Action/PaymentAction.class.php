@@ -26,15 +26,16 @@ class PaymentAction extends Action{
 			foreach($listc as $key=>$value){
 				//如果找到了订单号  则跳出执行回调处理订单状态
 				if(I("request.".$value['order_key']."/s")){
-					$where['orderId']=I("requset.".$value['order_key']."/s");
+					$where['orderId'] = I("request.".$value['order_key']."/s");
 					import("Admin.Pay.Pay");
 					//根据订单号找到要处理的订单
 					$PayOrder= M('PayOrder');
-					$info=$PayOrder->where($where)->find();		//根据订单号查询订单库
+					$info=$PayOrder->where($where)->find();		//根据订单号查询订单库					
 					if(!empty($info)){
+						//$arr['info'] = $info;
 						$payment= $info['payment_class'];		//获取支付接口名
 						$pay=new Pay($payment,false);			//这里交给核心类处理
-						$result = $pay->receive($where['orderId']);				//支付接口判断支付成功还是失败
+						$result = $pay->receive($where['orderId']);	//支付接口判断支付成功还是失败
 					}
 					break;
 				}

@@ -46,23 +46,23 @@
 			    <tr>
                         <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
-                            <div id="address-box">
+                            <div id="address-box" class="address-box">
                                 <div class="input-box" style="display: none;">
-                                    <input class="country" id="country1_id" name="country1" type="text">
-                                    <input class="province" id="province1_id" name="province1" type="text">
-                                    <input class="city" id="city1_id" name="city1" type="text">
-                                    <input class="county" id="county1_id" name="county1" type="text">
-                                    <input class="town" id="town1_id" name="town1" type="text">
+                                    <input class="country" name="country" type="text">
+                                    <input class="province" name="province" type="text">
+                                    <input class="city" name="city" type="text">
+                                    <input class="county" name="county" type="text">
+                                    <input class="town" name="town" type="text">
                                 </div>
-                                <div class="country-select arrow-bg" style="width:180px">
-                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list" style="width:180px">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                                <div class="country-select">
+                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <ul class="country-list">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
-                                <div class="location-box arrow-bg">
+                                <div class="location-box">
                                 </div>
                             </div>
                         </td>
@@ -78,23 +78,23 @@
                 <tr>
                         <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
-                            <div id="address-box2">
+                            <div id="address-box2" class="address-box">
                                 <div class="input-box" style="display: none;">
-                                    <input class="country" id="country_id" name="country" type="text">
-                                    <input class="province" id="province_id" name="province" type="text">
-                                    <input class="city" id="city_id" name="city" type="text">
-                                    <input class="county" id="county_id" name="county" type="text">
-                                    <input class="town" id="town_id" name="town" type="text">
+                                    <input class="country" name="country" type="text">
+                                    <input class="province" name="province" type="text">
+                                    <input class="city" name="city" type="text">
+                                    <input class="county" name="county" type="text">
+                                    <input class="town" name="town" type="text">
                                 </div>
-                                <div class="country-select arrow-bg" style="width:180px">
-                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list" style="width:180px">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                                <div class="country-select">
+                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <ul class="country-list">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
-                                <div class="location-box arrow-bg">
+                                <div class="location-box">
                                 </div>
                             </div>
                         </td>
@@ -210,10 +210,16 @@ function tijiao(){
 	}
 }
 <if condition="(count($area) gt 0)">
-    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
+    $.areaSelect('#address-box', '__PUBLIC__', {
+		'country': "{:L('中国')}",
+		'level':'town',
+	});
 </if>
 <if condition="($sale:extra eq true)">
-    $.areaSelect('#address-box2', '__PUBLIC__/areaselect');
+    $.areaSelect('#address-box2', '__PUBLIC__', {
+		'country': "{:L('中国')}",
+		'level':'town',
+	});
 </if>
 
 </script>

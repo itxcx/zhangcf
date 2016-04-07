@@ -292,7 +292,7 @@ class UserAction extends CommonAction {
         $list = new TableListAction('报单');
 		$list ->table('dms_报单 as a');
         //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=$this->userinfo['编号']"));
-        $list->join("dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='{$this->userinfo['编号']}' or a.注册人编号='{$this->userinfo['编号']}') and a.报单类别 in ({$baodan_string})");
+        $list->join("left join dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='{$this->userinfo['编号']}' or a.注册人编号='{$this->userinfo['编号']}') and a.报单类别 in ({$baodan_string})");
 		$list->order("a.id desc");
 		$fieldStr = '';
 		foreach(X('net_rec') as $netRec){

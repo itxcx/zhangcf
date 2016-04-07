@@ -22,8 +22,8 @@ class NetAction extends CommonAction
 		$list=new TableListAction('log_user');
 		$list->table("dms_log_user as a");
 		$list->field('a.id,user_id,content,a.create_time,编号,admin_id,c.account')->where("content like '移动%'");
-		$list->join('dms_会员 as b on a.user_id=b.id');
-		$list->join('admin as c on a.admin_id=c.id');
+		$list->join('left join dms_会员 as b on a.user_id=b.id');
+		$list->join('left join admin as c on a.admin_id=c.id');
 		$list->order("a.id desc");
 		
 		$button=Array("修改"=>array("class"=>"edit","href"=>__APP__."/Admin/Net/editList","target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_edit.png'));
@@ -365,7 +365,7 @@ class NetAction extends CommonAction
         {
 		$searchSql = "FIND_IN_SET((SELECT id FROM dms_会员 where `编号`='[*]'),user.`{$net->name}_网体数据`)";
 		//$list->addshow($net->name."上级",array("row"=>"[".$net->name."_上级编号]","searchMode"=>"text","excelMode"=>"text"));
-	    $list->join('dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
+	    $list->join('left join dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
 	    $list->addshow("姓名",array("row"=>"[姓名]","searchRow"=>'user.姓名',"searchMode"=>"text","searchPosition"=>"top"));
         //$netnamerow.=",{$net->name}.姓名 as netname".$net->getPos();
         //$list->addshow($net->name."姓名",array("row"=>"[netname".$net->getPos()."]","searchMode"=>"text","excelMode"=>"text"));

@@ -159,7 +159,7 @@
 			if($ids)
 			{
 				M()->execute('delete from dms_'.$this->name.'_业绩 where pid in ('.implode(",",$ids).')');
-				$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('a.id in ('.implode(",",$ids).')')->select();
+				$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('left join dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('a.id in ('.implode(",",$ids).')')->select();
 				foreach($adds as $add)
 				{
 					$this->addUpPv($add['id'],$add['val'],$add['netdata'],$add['uid'],$add['saleid'],$add['time']);

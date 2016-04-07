@@ -50,7 +50,7 @@ class Product extends Model
         //获取产品的基本信息（库存数啦，销售价啦）
         $productAttrModel = M('product_attribute');
         //这条sql暂时没有问题因为没有字段发生歧义
-        $productBaseInfo = $productAttrModel->join('shop_product p ON p.id = product_id')->
+        $productBaseInfo = $productAttrModel->join('left join shop_product p ON p.id = product_id')->
                                             where(array('product_id'=>$productID,'template_id'=>$templateID,'options_tag'=>$options_tag))->
                                             find();
         

@@ -521,7 +521,7 @@ class SaleAction extends CommonAction {
 		}
 		$list = new TableListAction('报单');
 		$list->table('dms_报单 a');
-        $list->join(C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and  是否推广链接='0'");
+        $list->join('left join '.C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and  是否推广链接='0'");
         $list->field("a.id,b.编号,b.注册日期,b.姓名,b.{$name}级别,b.{$net_rec_name}_上级编号,b.注册人编号,b.服务中心编号,a.报单状态,a.报单金额,a.服务中心编号,a.购买日期,a.购物金额,a.升级数据,a.报单类别");
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20
@@ -572,7 +572,7 @@ class SaleAction extends CommonAction {
 		}
 		$list = new TableListAction('报单');
 		$list->table('dms_报单 a');
-        $list->join(C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and 是否推广链接='1'");
+        $list->join('left join '.C('DB_PREFIX') . $name ." as b on b.编号=a.编号")->where($useracc." and a.报单状态 = '未确认' and 是否推广链接='1'");
         $list->field("a.id,b.编号,b.注册日期,b.姓名,b.{$name}级别,b.{$net_rec_name}_上级编号,b.注册人编号,b.服务中心编号,a.报单状态,a.报单金额,a.服务中心编号,a.购买日期,a.购物金额,a.升级数据,a.报单类别");
         $list->title="订单审核列表";            // 列表标题
         $list->pagenum=15;                   // 每页显示数量  默认20
@@ -705,6 +705,9 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('购买日期'),array("row"=>'[购买日期]','format'=>'time'));
 		$list ->addshow( L('付款日期'), array("row"=>'[到款日期]','format'=>'time'));
 		$list ->addshow( L('报单金额'), array("row"=>"[报单金额]","searchMode"=>"num"));
+	if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
 		
@@ -732,6 +735,9 @@ class SaleAction extends CommonAction {
 				$list ->addshow( L('购物PV'), array("row"=>"[购物PV]","searchMode"=>"num"));
 			}
 		}
+			if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		//$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","[saleid]","[编号]","[id]"),));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));

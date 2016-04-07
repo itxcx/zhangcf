@@ -63,15 +63,17 @@ class Pay
 		$payResult			= $this->payment->receive();
 		if( $payResult )
 		{
-			$this->printMessage($this->payment->getMessage());
+			//$this->printMessage($this->payment->getMessage());
 			//支付成功
 			$this->touchEvent('success',$orderId);
+			return true;
 		}
 		else
 		{
-			$this->printMessage($this->payment->getMessage());
+			//$this->printMessage($this->payment->getMessage());
 			//支付失败
 			//$this->touchEvent('fail',$orderId);
+			return false;
 		}
 	}
 	//执行事件调用

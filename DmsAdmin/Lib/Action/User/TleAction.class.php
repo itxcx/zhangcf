@@ -38,7 +38,7 @@ class TleAction extends CommonAction
         //
         $where['a.编号']  =$this->userinfo["编号"];
         if(!$tle->notgiveshow){
-        	$list->join(C('DB_PREFIX').$tle->name.'总账 as b on a.计算日期=b.计算日期')->field('a.*');
+        	$list->join('left join '.C('DB_PREFIX').$tle->name.'总账 as b on a.计算日期=b.计算日期')->field('a.*');
         	$where['b.state']=array('NEQ',0);
         }
 		if(I("post.startTime/s")!=''){

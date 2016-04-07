@@ -135,7 +135,7 @@
                 <td class="tbkey" >{:L('开户银行')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_apply_name',$edit) eq true">
-                    <select name="bank_apply_name" id="bank">
+                    <select name="bank_apply_name" id="bank" style="min-width:100px;width:auto">
                         <option value="">{:L('请选择')}</option>
                         <foreach name="banklist" item="bank">
                         <option <eq name="userinfo.开户银行" value="$bank.开户行"> selected="true" </eq>>
@@ -253,7 +253,7 @@
         'city': "{$userinfo.省份}",
         'county': "{$userinfo.城市}",
         'town': "{$userinfo.地区}",
-        'level':'town',
+        'level':'town'
     });
 </script>
 

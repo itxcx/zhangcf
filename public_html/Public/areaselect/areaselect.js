@@ -9,7 +9,7 @@
 
         //点击加载
         clickLoad: function(obj, url, def) {
-            obj.parents('.core_con').css({'min-height':'410px'});
+            //obj.parents('.core_con').css({'min-height':'410px'});
 
             obj.find('.country-select').click(function (e) {
                 e.stopPropagation();

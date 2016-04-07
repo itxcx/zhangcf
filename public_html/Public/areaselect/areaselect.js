@@ -9,6 +9,7 @@
 
         //点击加载
         clickLoad: function(obj, url, def) {
+            //页面调整
             //obj.parents('.core_con').css({'min-height':'410px'});
 
             obj.find('.country-select').click(function (e) {

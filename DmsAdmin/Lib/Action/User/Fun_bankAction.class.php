@@ -87,7 +87,7 @@ class Fun_bankAction extends CommonAction {
         if($status == 0){
             return L('未审核');
         }elseif($status == 1){
-            return L('已撤销');//"<a href='javascript:alert(\"撤销理由：".$memo."\")'>".L('已撤销').'</a>';
+            return "<a href='javascript:alert(\"撤销理由：".$memo."\")'>".L('已撤销').'</a>';
         }elseif($status == 3){
             return L('已发放');
         }else{

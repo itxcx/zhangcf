@@ -9,10 +9,12 @@
 
         //点击加载
         clickLoad: function(obj, url, def) {
+            //页面调整
+            //obj.parents('.core_con').css({'min-height':'410px'});
 
             obj.find('.country-select').click(function (e) {
                 e.stopPropagation();
-                var cH = $(this).find('.country-now').outerHeight();
+                var cH = (obj.find('.country-select').outerHeight() + obj.find('.country-now').outerHeight()) / 2;
                 $(this).find('.country-list').toggle(0);
                 $(this).find('.country-list').css('top', cH);
                 $(this).find('.city-select-wrap').hide(0);
@@ -40,7 +42,7 @@
                 if (locat != 0) {
                     obj.find('.location-box').show(0);
                     obj.find('.location-box').html($.addLocation(locat));
-                    var aH = obj.find('.city-title').outerHeight();
+                    var aH = (obj.find('.location-box').outerHeight() + obj.find('.city-title').outerHeight()) / 2;
                     obj.find('.city-select-wrap').css('top', aH);
                 }
 
@@ -52,6 +54,8 @@
                     obj.find('.city-title').click(function (e) {
                         e.stopPropagation()
                         $(this).next('.city-select-wrap').toggle(0);
+                        var aH = (obj.find('.location-box').outerHeight() + obj.find('.city-title').outerHeight()) / 2;
+                        obj.find('.city-select-wrap').css('top', aH);
                         obj.find('.country-list').hide(0);
                     });
 
@@ -347,7 +351,7 @@
                 };
                 str = '<ul class="overseas-list">' + str + '</ul>';
                 obj.find('.overseas-box').html(str);
-                obj.find('.overseas-box').css('top', obj.find('.city-title').outerHeight());
+                obj.find('.overseas-box').css('top', (obj.find('.location-box') + obj.find('.city-title').outerHeight()) / 2);
 
                 obj.find('.overseas-list>li').click(function () {
                     $.init(obj);

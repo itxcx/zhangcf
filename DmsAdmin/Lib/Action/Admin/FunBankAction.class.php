@@ -764,7 +764,7 @@ class FunBankAction extends CommonAction {
         }
         $list->addshow("汇款时间",array("row"=>"[汇款时间]",'css'=>'width:70px;',"format"=>"time","searchMode"=>"date"));
         $list->addshow("备注",array("row"=>"[备注]",'css'=>'width:80px;'));
-        $list->addshow("状态",array("row"=>array(array(&$this,"dispFunction"),"[状态]",'css'=>'width:50px;')));  
+       $list->addshow("状态",array("row"=>array(array(&$this,"dispFunction"),"[状态]",'css'=>'width:50px;'),"searchMode"=>"text",'searchRow'=>'状态',"searchSelect"=>array("未审核"=>"0","已审核"=>"1"),"searchPosition"=>"top"));  
         if(adminshow('huikuan')){
           $list->addshow("汇款方式",array("row"=>array(array(&$this,"huikuan_type"),"[汇款方式]")));  
         }
@@ -785,7 +785,7 @@ class FunBankAction extends CommonAction {
 	{
 		if($status==0)
 		{
-			return "未审核";
+			return "<span style='color:red'>未审核</span>";
 		}
 		else
 		{

@@ -118,7 +118,7 @@ class CommonAction extends Action{
 				foreach($every as $chld)
 				{
 					if($chld['model']."-".$chld['action'] == MODULE_NAME."-".ACTION_NAME){
-						$nowtitle=$key.'>>'.$chld['title'];
+						$nowtitle=L($key).'>>'.L($chld['title']);
 						$haveDispPower = true;
 						break;
 					}

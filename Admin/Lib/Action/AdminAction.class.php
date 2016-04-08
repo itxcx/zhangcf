@@ -9,7 +9,7 @@ class AdminAction extends CommonAction
 			'修改管理员'=>array("class"=>"edit","href"=>"__APP__/Admin/edit/id/{tl_id}","target"=>"navTab"),
 			'删除管理员'=>array("class"=>"delete","href"=>"__APP__/Admin/delete/id/{tl_id}","target"=>"ajaxTodo","title"=>"确定要删除吗?"),
 			'重置权限列表'=>array("class"=>"delete","href"=>"__APP__/Admin/updateNode","target"=>"ajaxTodo","title"=>"重置权限后需取消除超管外的权限?"),
-			'后台登陆域名绑定'=>array("class"=>"edit","href"=>"__APP__/Admin/bind","target"=>"dialog","title"=>"确定要删除吗?"),
+			'后台登陆域名绑定'=>array("class"=>"edit","href"=>"__APP__/Admin/binddomain","target"=>"dialog","title"=>"确定要删除吗?"),
         );
         $list=new TableListAction("admin"); // 实例化Model 传表名称
         $list->table("admin as a")->join("left join (select c.admin_id,d.name from role_admin c inner join role d on c.role_id=d.id ) as b on b.admin_id=a.id");

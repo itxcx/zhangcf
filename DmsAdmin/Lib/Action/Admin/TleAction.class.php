@@ -369,6 +369,8 @@ class TleAction extends CommonAction {
 		M('会员')->where(array('编号'=>$tledata['编号']))->setInc('累计收入',$data['收入']-$tledata['收入']);
 		//更新总账的本期奖金
 		M($tle->name.'总账')->where(array('计算日期'=>$tledata['计算日期']))->setInc('本期奖金',$data['收入']-$tledata['收入']);
+        //更细总账的累计收入
+        $m->where(array('计算日期'=>array("egt",$tledata['计算日期'])))->setInc("累计收入",$data['收入']-$tledata['收入']);
 		//更新总账的总奖金
 		M($tle->name.'总账')->where("计算日期 >= {$tledata['计算日期']}")->setInc('总奖金',$data['收入']-$tledata['收入']);
 		

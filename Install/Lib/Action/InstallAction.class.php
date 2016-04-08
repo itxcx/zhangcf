@@ -294,6 +294,8 @@ class InstallAction extends Action
 
 		if($super_admin=='') exit( '请输入管理员帐号' );
 
+		//生成随机密码文件
+		$this->rand_pass();
 
 		//创建核心配置文件
 		$result	= $Install->create_core_config($db_host, $db_port, $db_user, $db_pass, $db_name, $timezone, $super_admin, $this->langs);
@@ -444,16 +446,6 @@ class InstallAction extends Action
 			if(!in_array($clientip,$passed_ips)){
 				file_put_contents(ROOT_PATH.'Install/install.lock','重新安装请删除该文件!');
 			}
-			!is_dir(ROOT_PATH.'ThinkPHP/config') && mkdir(ROOT_PATH.'ThinkPHP/config',0777,true);
-			$dh = opendir(ROOT_PATH.'ThinkPHP/config');
-			while ($file=readdir($dh)) {
-				if($file!='.' && $file!='..') {
-					$fullpath=ROOT_PATH.'ThinkPHP/config/'.$file;
-					if(!is_dir($fullpath)) {
-						unlink($fullpath);
-					}
-				}
-			}
 			$t = true;
 			B('SaveConfig',$t);
 			
@@ -467,6 +459,33 @@ class InstallAction extends Action
 	public function done()
 	{
 		$this->display();
+	}
+	
+	/*
+	* 生成随机密码文件
+	*/
+	public function rand_pass()
+	{
+		!is_dir(THINK_PATH .'config') && mkdir(THINK_PATH .'config',0777,true);
+		$dh = opendir(THINK_PATH.'config');
+		while ($file=readdir($dh)) {
+			if($file != '.' && $file != '..' && $file != 'password.php') {
+				$fullpath = THINK_PATH .'config/'.$file;
+				if(!is_dir($fullpath)) {
+					unlink($fullpath);
+				}
+			}
+		}
+		if(!file_exists(THINK_PATH .'config/password.php')){ 
+			$rand = '';
+			$str = '0123456789abcdefghijklmnopkrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$length = strlen($str);
+			for($i=0;$i<512;$i++){
+				$start = mt_rand(0,$length-1);
+				$rand .= substr($str,$start,1);
+			}
+			file_put_contents(THINK_PATH .'config/password.php',"<?php\nreturn '" . $rand . "';\n?>");
+		}
 	}
 }
 ?>

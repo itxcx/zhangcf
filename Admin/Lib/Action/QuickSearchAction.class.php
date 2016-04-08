@@ -51,7 +51,7 @@ class QuickSearchAction extends Action
                 //得到福利奖的明细
 				foreach(X('fun_fuli') as $fuli)
 				{
-                    $html.='<tr><td><img src="/Public/Images/ExtJSicons/package.png"></td><td style="float:left;height:20px" ><a href="/index.php?s=/Admin/Fun_fuli/index/userid/'.$userid.'/args/'.$fuli->objPath().'" rel="admin_edit" target="navTab" title="'.$user->name.$userid.$fuli->name.'"><span>'.$fuli->name.'查询</span></a></td></tr>';
+                    $html.='<tr><td><img src="/Public/Images/ExtJSicons/package.png"></td><td style="float:left;height:20px" ><a href="/index.php?s=/Admin/FunFuli/index/userid/'.$userid.'/args/'.$fuli->objPath().'" rel="admin_edit" target="navTab" title="'.$user->name.$userid.$fuli->name.'"><span>'.$fuli->name.'查询</span></a></td></tr>';
 				}
 				$salenum = M('报单','dms_')->where(array('编号'=>$userid))->count();
 				//得到订单列表

@@ -81,7 +81,7 @@ class BackupAction extends CommonAction  {
                 if(substr($value,-4)=='.zip'){
                     $shortname=substr($value,33,-4);
                 }else if(substr($value,-4)=='.sql'){//sql文件
-                    $shortname=base64_encode($value);
+                    $shortname=base64encode($value);
                 }else if(substr($value,-5)=='.xsdb'){//sql文件
                     $shortname=substr($value,33,-5);
                 }else if(strpos($value,'.bak')){//删除两天前.bak+time()的文件
@@ -92,12 +92,11 @@ class BackupAction extends CommonAction  {
                 }else{
                 	continue;
                 }
-                
-				if(time() - filemtime($path . $value) > 72*3600 && base64_decode(str_replace(" ","+",urldecode($shortname))) == '数据恢复前备份'){
+				if(time() - filemtime($path . $value) > 72*3600 && base64decode(urldecode($shortname)) == '数据恢复前备份'){
 					unlink($path . $value);
 				}else{
 					$list[] = array(
-						'shortname' =>base64_decode(str_replace(" ","+",urldecode($shortname))),
+						'shortname' =>base64decode(urldecode($shortname)),
 						'name' => urlencode($value),
 						'time' => $fileTime,
 						'size' => $fileSize,
@@ -218,7 +217,7 @@ class BackupAction extends CommonAction  {
         $name = I("get.backname/s")!=""?I("get.backname/s"): $name;
         $backname=trim($name);
         $backname=str_replace(" ","",$backname);
-        $backname = base64_encode($backname);///???
+        $backname = base64encode($backname);///???
 		$tables = $this->getTables();
 		
 		$bktype = 0;//原始备份方式
@@ -354,7 +353,7 @@ class BackupAction extends CommonAction  {
 		if(substr($backname,-4)=='.sql'){//sql文件
             $name=$backname;
         }else{
-			$name=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
+			$name=base64decode(urldecode(substr($backname,33,-4)));
 		}
 		if(IS_CLI){
 			//写入cli.log
@@ -399,7 +398,10 @@ class BackupAction extends CommonAction  {
         		import("COM.BakRec.BackRec");
 				$BakRec  = new BackRec();
         	}
-            $message = $BakRec->recoverFile(urldecode($backname));
+            if(IS_CLI)//cli模式还原的时候url编码了两次
+                $message = $BakRec->recoverFile(urldecode(urldecode($backname)));
+            else
+                $message = $BakRec->recoverFile(urldecode($backname));
             if(IS_CLI){
 				if ($message =="") {
 					$this->saveAdminLog('','',"数据库还原",'还原备份：'.$name);
@@ -433,13 +435,13 @@ class BackupAction extends CommonAction  {
 		$errNum = 0; 
 		foreach(explode(',',I("get.file/s")) as $id){
 			if($id == '') continue;
-			$backname = str_replace(' ','+',$id);
+			$backname = $id;
 			$file=$this->config['path'].$backname;
 			//	判断目录 防止删除其他文件
 			if(dirname(realpath($file))!==realpath($this->config['path'])){
 				$this->error("删除失败");
 			}
-			$shortname=base64_decode(str_replace(" ","+",urldecode(substr($backname,33,-4))));
+			$shortname=base64decode(urldecode(substr($backname,33,-4)));
 			if(substr($backname,-4)==".zip"){
 				//不删文件 ，改.zip 为.bak+时间戳
 				$newbackname = str_replace('.zip','.bak'.time(),$backname);
@@ -474,7 +476,7 @@ class BackupAction extends CommonAction  {
 			$f=0;
 			foreach($fileTime as $key=>$times){
 				if($qitime<=$times && $times<=$jietime){
-					$shortname=base64_decode(str_replace(" ","+",urldecode(substr($filname1[$key],33,-4))));
+					$shortname=base64decode(urldecode(substr($filname1[$key],33,-4)));
 					$file=$this->config['path'].$filname1[$key];
 					if(unlink($file)){
 						$f++;
@@ -611,7 +613,7 @@ class BackupAction extends CommonAction  {
 	}
 	 function querysql()
 	{
-		$sql	= trim(base64_decode(str_replace(" ","+",I("request.sql/s"))));
+		$sql	= trim(base64decode(I("request.sql/s")));
 		$list	= M()->query($sql);
 		if(!$list)
 		{

@@ -335,8 +335,8 @@ class MenuAction extends Action
         
 		foreach(X('fun_fuli') as $fuli){
 			$xpath=$fuli->xpath;
-			$menu[]=array('model'=>'Fun_fuli','action'=>"index:".$xpath ,'title'=>$fuli->byname."查询",		'level'=>1,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
-			$menu[]=array('model'=>'Fun_fuli','action'=>"fafang:".$xpath,'title'=>$fuli->byname."发放奖励", 'level'=>2,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
+			$menu[]=array('model'=>'FunFuli','action'=>"index:".$xpath ,'title'=>$fuli->byname."查询",		'level'=>1,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
+			$menu[]=array('model'=>'FunFuli','action'=>"fafang:".$xpath,'title'=>$fuli->byname."发放奖励", 'level'=>2,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
 		}
 		$menu[]=array('model'=>'PrizeLock','action'=>'index', 'title'=>'奖金黑名单'  , 'level'=>1, 'parent'=>'奖金管理', 'setParent'=>$parent);
 		$menu[]=array('model'=>'PrizeLock','action'=>'editByName,editByNameRun', 'title'=>'根据编号修改'  , 'level'=>1, 'parent'=>'奖金管理', 'setParent'=>$parent);

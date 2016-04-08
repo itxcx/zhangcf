@@ -125,7 +125,7 @@ class GoldAction extends CommonAction {
         $list=new TableListAction($gold->name."挂单");
 		$list->table("dms_".$gold->name."挂单 a");
         $list->setButton = $setButton;       // 定义按钮显示
-		$list->join('dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
+		$list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
         $list->where("1=1")->order("a.时间 desc,a.id desc");
         $list->addshow("挂单时间",array("row"=>"[时间]","url"=>__APP__."/Admin/Gold/tradelist:__XPATH__/idstr/[购买数据]","target"=>"navTab","urlAttr"=>'mask="true" width="700" height="480" title="交易明细"',"searchMode"=>"date","format"=>"time","order"=>"时间",'searchRow'=>'a.时间'));
         $list->addshow($this->userobj->byname."编号",array("row"=>"[编号]","searchMode"=>"text",'searchGet'=>'userid',"excelMode"=>"text","searchPosition"=>"top",'searchRow'=>'a.编号'));   
@@ -181,7 +181,7 @@ class GoldAction extends CommonAction {
         $list=new TableListAction($gold->name."购买");
 		$list->table("dms_".$gold->name."购买 a");
         $list->setButton = $setButton;       // 定义按钮显示
-		$list->join('dms_会员 as b on a.编号=b.编号');
+		$list->join('left join dms_会员 as b on a.编号=b.编号');
 		if(I("request.idstr/s")){
 			$list->where(array("a.id"=>array("in",I("request.idstr/s"))));
 		}

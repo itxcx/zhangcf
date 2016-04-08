@@ -8,6 +8,7 @@
 	<field name='{$this->name}网络显示'   type='varchar(255)' default='自动'/>
 	<foreach name="{$this->getBranch()}" item="vo">
 		<field name='{$this->name}_{$vo}区'  type='varchar(50)' default=''/>
+		<field name='{$this->name}_{$vo}区团队人数'  type='int' default='0'/>
 		<field name='{$this->name}_{$vo}区层深'  type='int' default='0'/>
 		<field name='{$this->name}_{$vo}区本期业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>
 		<field name='{$this->name}_{$vo}区本日业绩'  type="decimal({:C('decimalLon')},{:C('decimalLen')})" default='0'/>

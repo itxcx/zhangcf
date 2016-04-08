@@ -2,7 +2,7 @@
 <load href="__PUBLIC__/layer/layer.js" />
 <div class="core_main Fun_bank" id="add_rem">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：<span>添加汇款通知</span></span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：<span>{:L('添加汇款通知')}</span></span>
 	
         <span class="core_title_edit"></span>
     </div>
@@ -19,7 +19,7 @@
             </TR>
 		<else/>
             <TR>
-              <TD class="tbkey">汇入账户：</TD>
+              <TD class="tbkey">{:L('汇入账户')}：</TD>
               <TD class="tbval"><select name="汇入账户" id="tobank">
               <foreach name="bank" item="vo">
               <option <eq name="userinfo.开户银行" value="$vo.开户行"> selected="true" </eq>>{$vo.卡号}(<span>{$vo.开户行}</span>,<span>{$vo.户名}</span>)</option>
@@ -29,34 +29,34 @@
             </TR>
 		</if>
             <TR>
-              <TD class="tbkey">汇款银行：</td>
+              <TD class="tbkey">{:L('汇款银行')}：</td>
               <TD class="tbval"><input type="text" id="bank" name="开户银行" value="{$userinfo['开户银行']}"></td>
             </TR>
             <TR>
-              <TD class="tbkey">汇款卡号：</td>
+              <TD class="tbkey">{:L('汇款卡号')}：</td>
               <TD class="tbval"><input type="text" id="bank_no" name="银行卡号" value="{$userinfo['银行卡号']}"></td>
             </TR>
             <TR>
-              <TD class="tbkey">汇款开户名：</td>
+              <TD class="tbkey">{:L('汇款开户名')}：</td>
               <TD class="tbval"><input type="text" name="开户名" value="{$userinfo['开户名']}"></td>
             </TR>
             <TR>
-              <TD class="tbkey">汇款金额：</td>
+              <TD class="tbkey">{:L('汇款金额')}：</td>
               <TD class="tbval"><input type="text" name="金额" id="money" value="">&nbsp;&nbsp;<span id='hkts' style='color:red'></span></td>
             </TR>
             <TR>
-              <TD class="tbkey">汇款时间：</td>
+              <TD class="tbkey">{:L('汇款时间')}：</td>
               <TD class="tbval"><input type="text" name="汇款时间" title="点击选择汇款日期" onclick="new WdatePicker({dateFmt:'yyyy-M-d H:mm:ss'})" id="giveTime" value="" /></td>
             </TR>
             <TR>
-              <TD class="tbkey">汇款留言：</td>
+              <TD class="tbkey">{:L('汇款留言')}：</td>
               <TD class="tbval"><textarea value="" name="备注"></textarea></td>
             </TR>
             <TR>		
                 <TD colspan="2">
                 <input type="hidden" name="编号" value="{$userinfo.编号}"/>
-                <input  class="button_text" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()"/>
-                <input class="button_text"  type="button"  id="but" value="返回" name="but" onclick="history.back();"/>
+                <input  class="button_text" type="button" value="{:L('确认')}" name="subbut"  id='subbut' onclick="tijiao()"/>
+                <input class="button_text"  type="button"  id="but" value="{:L('返回')}" name="but" onclick="history.back();"/>
                 </td>
             </TR>
         </TABLE> 

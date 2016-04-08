@@ -487,6 +487,7 @@
 				    $inval=false;
 				    //条件中的数值转换  层数
 				    if($notwhere){
+						eval("\$notaddwhere = \"$notwhere\";");
 				    	$inval=transform($notwhere,array(),array());
 				    }
 				    //判断是否累计
@@ -679,6 +680,9 @@
 					$res = explode('-',$data);
 					$sql="update dms_会员 set {$this->name}_{$res[1]}区层深={$thislayer}-{$this->name}_层数 where {$this->name}_{$res[1]}区层深<{$thislayer}-{$this->name}_层数 and id = {$res[0]}";
 					M()->execute($sql);
+					//更新左右区团队人数
+                    $sql1="update dms_会员 set {$this->name}_{$res[1]}区团队人数={$this->name}_{$res[1]}区团队人数+1 where id = {$res[0]}";					
+					M()->execute($sql1);
 				}
 			}
 		}
@@ -881,11 +885,11 @@
 		        {
 		        	$lstr=$this->name.'_'.$Branch.'区';
 		        	//本期业绩连表
-		        	$user_m->join('(select userid,sum(val) '.$lstr.'本日业绩 from dms_'.$this->name.'_业绩 where time>='.$caltime.' and time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
+		        	$user_m->join('left join (select userid,sum(val) '.$lstr.'本日业绩 from dms_'.$this->name.'_业绩 where time>='.$caltime.' and time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
 		        	//结转业绩连表
-					$user_m->join('(select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
+					$user_m->join('left join (select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
 					//累计业绩连表
-					$user_m->join('(select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
+					$user_m->join('left join (select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
 		        	$rows['new'.$key.'.'.$lstr.'本日业绩'] = 1;
 		        	$rows['jie'.$key.'.'.$lstr.'结转业绩'] = 1;
 		        	$rows['sum'.$key.'.'.$lstr.'累计业绩'] = 1;
@@ -1216,7 +1220,7 @@
 			if($movetime>0 && $ids)
 			{
 				//找到所有需要增加业绩的记录,并附带网体数据
-				$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('dms_会员 b on b.id=a.userid')->field('b.'.$this->name.'_网体数据 netdata,b.'.$this->name.'_位置,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
+				$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('left join dms_会员 b on b.id=a.userid')->field('b.'.$this->name.'_网体数据 netdata,b.'.$this->name.'_位置,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
 				foreach($adds as $add)
 				{
 					$notinstr='';

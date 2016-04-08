@@ -12,10 +12,10 @@ class PaymentAction extends Action{
 	
 	//处理支付运营商返回信息
 	public function receive(){
-		if(!empty(I("requset./a"))){
+		if(I("request./a")){
 			M()->startTrans();
 			//记录返回的数据
-           	F('paytest',I("requset./a"));
+           	F('paytest',I("request./a"));
            	//获取支付接口的信息
 			$lista=F('interface_data');
 			//获取已安装的接口的直联银行信息
@@ -25,7 +25,7 @@ class PaymentAction extends Action{
 			//循环获得支付的订单单号
 			foreach($listc as $key=>$value){
 				//如果找到了订单号  则跳出执行回调处理订单状态
-				if(!empty(I("requset.".$value['order_key']."/s"))){
+				if(I("request.".$value['order_key']."/s")){
 					$where['orderId']=I("requset.".$value['order_key']."/s");
 					import("Admin.Pay.Pay");
 					//根据订单号找到要处理的订单
@@ -34,14 +34,18 @@ class PaymentAction extends Action{
 					if(!empty($info)){
 						$payment= $info['payment_class'];		//获取支付接口名
 						$pay=new Pay($payment,false);			//这里交给核心类处理
-						$pay->receive($where['orderId']);				//支付接口判断支付成功还是失败
+						$result = $pay->receive($where['orderId']);				//支付接口判断支付成功还是失败
 					}
 					break;
 				}
 			}
-			unset($lista,$listc,$where,$PayOrder,$info,$payment,$pay);
-			$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-         	echo "<script language='javascript'>location.href='" . $http_type . $_SERVER['HTTP_HOST'] . "';</script>";
+			unset($lista,$listc,$where,$PayOrder,$payment,$pay);
+		}
+		$this->assign('info',$info);
+		if($result){
+			$this->display('pay_success');
+		}else{
+			$this->display('pay_fail');
 		}
 	}
 }

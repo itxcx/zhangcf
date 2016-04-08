@@ -16,7 +16,7 @@
                 <td ><nobr>{$vo.标题}</nobr></td>
                 <td ><nobr>{:date('Y-m-d H:i:s',$vo['发送时间'])}</nobr></td>
                 <td ><eq name="vo.状态" value="2">{:L('已回复')}<else/>{:L('已发送')}</eq></td>
-                <td ><center><a href="__GROUP__/Mail/sendview/id/{$vo.id}">{:L('view')}</a>&nbsp;<a href="javascript:laConfirm('__GROUP__/Mail/del/id/{$vo.id}')">{:L('delete')}</a></center></td>
+                <td ><center><a href="__GROUP__/Mail/sendview/id/{$vo.id}">{:L('查看')}</a>&nbsp;<a href="javascript:laConfirm('__GROUP__/Mail/del/id/{$vo.id}')">{:L('删除')}</a></center></td>
             </TR>
             </foreach>
         </table>

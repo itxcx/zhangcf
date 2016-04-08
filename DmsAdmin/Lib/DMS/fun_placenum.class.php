@@ -88,11 +88,11 @@
 		        {
 		        	$lstr=$this->name.'_'.$Branch.'区';
 		        	//本期业绩连表
-		        	$user_m->join('(select userid,sum(val) '.$lstr.'本期业绩 from dms_'.$this->name.'_业绩 where time>='.$caltime.' and time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
+		        	$user_m->join('left join (select userid,sum(val) '.$lstr.'本期业绩 from dms_'.$this->name.'_业绩 where time>='.$caltime.' and time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
 		        	//结转业绩连表
-					$user_m->join('(select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
+					$user_m->join('left join (select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
 					//累计业绩连表
-					$user_m->join('(select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
+					$user_m->join('left join (select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->name.'_业绩 where time<'.$caltime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
 		        	$rows['new'.$key.'.'.$lstr.'本期业绩'] = 1;
 		        	$rows['jie'.$key.'.'.$lstr.'结转业绩'] = 1;
 		        	$rows['sum'.$key.'.'.$lstr.'累计业绩'] = 1;
@@ -305,7 +305,7 @@
 				M()->execute('delete from dms_'.$this->name.'业绩 where pid in ('.implode(",",$ids).')');
 			}
             //问题语句
-			//$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
+			//$adds = M()->table('dms_'.$this->name.'_业绩 a')->join('left join dms_会员 b on b.id=a.userid')->field('b.'.$net->name.'_网体数据 netdata,b.id uid,a.val,a.id,a.saleid,a.time')->where('pid=0 and `time` >='.$movetime)->select();
 			//foreach($adds as $add)
 			//{
 			//	$this->addUpPv($add['id'],$add['val'],$add['netdata'],$add['uid'],$add['saleid'],$add['time']);

@@ -133,7 +133,7 @@
 			$surplus = $num;
 			//如果优先购买公司发售股,下面有段一样的代码，是后购买
 			$uparray=array();
-			if($type == self::TRADE_BUY && $this->getPrice()<=$price){
+			if($type == self::TRADE_BUY && round($this->getPrice(),$this->priceLen)<=round($price,$this->priceLen)){
 				//购买公司原始股
 				$comnum=$this->isbuyComStock($username,$surplus,$price,$uparray);
 				//剩余交易量
@@ -150,7 +150,7 @@
 					'剩余量'=>array('gt',0),
 					'状态'=>'挂单中',
 					);
-				$lists=$order_m->order(($type==1 ? "挂单价 desc," : "挂单价 asc,") . "挂单时间 asc")
+				$lists=$order_m->order(($type=='卖出' ? "挂单价 desc," : "挂单价 asc,") . "挂单时间 asc")
 							   ->where($where)
 							   ->select();
 				//定义交易期间的剩余成交量
@@ -235,7 +235,7 @@
 			}
 			//如果还有没购买的则购买公司发售股,公司股不优先
 			if($surplus>0){
-				if($type == self::TRADE_BUY && $this->getPrice()<=$price){
+				if($type == self::TRADE_BUY && round($this->getPrice(),$this->priceLen)<=round($price,$this->priceLen)){
 					//购买公司原始股
 					$comnum=$this->isbuyComStock($username,$surplus,$price,$uparray,false);
 					$surplus-=$comnum;

@@ -61,8 +61,8 @@ class Order extends Model
     {
         $orderModel = M('order');
         $orderInfo = $orderModel->field('`order`.*,product_name,op.product_id,op.warehouse_id,op.sale_num')
-                                ->join('order_product op ON order.id=op.order_id')
-                                ->join('product p ON p.id = op.product_id')
+                                ->join('left join order_product op ON order.id=op.order_id')
+                                ->join('left join product p ON p.id = op.product_id')
                                 ->where(array('order.id'=>$orderID))
                                 ->select();
 

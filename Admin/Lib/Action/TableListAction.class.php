@@ -1460,6 +1460,7 @@ class TableListAction extends Model{
 	    //导出数据内容
         $no=2;
 	    $objPHPExcel->setActiveSheetIndex(0);
+	    mysql_unbuffered_query("set names 'utf8'",$this->db->_linkID);
 	    $datalist = mysql_unbuffered_query($datasql,$this->db->_linkID);
         $dataval=array();
 		do{

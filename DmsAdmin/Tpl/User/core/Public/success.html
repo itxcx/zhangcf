@@ -1,6 +1,6 @@
 <div class="core_main core_Sale" id="up">
 	<div class="core_title">
-    	<span class="core_title_con">{$msgTitle}</span>
+    	<span class="core_title_con">{:L($msgTitle)}</span>
     </div>
     <div class="core_con">
     
@@ -21,16 +21,16 @@
             </present>
             <present name="closeWin" >
                 <tr class="row">
-                <td>系统将在 <span id="wait" style="color:blue;font-weight:bold">{$waitSecond}</span> 
+                <td>{:L('系统将在')} <span id="wait" style="color:blue;font-weight:bold">{$waitSecond}</span> 
         
-        秒后自动关闭，如果不想等待,直接点击 <a id="href" href="{$jumpUrl}">这里</a> 关闭</td>
+        {:L('秒后自动关闭，如果不想等待,直接点击')} <a id="href" href="{$jumpUrl}">{:L('这里')}</a> {:L('关闭')}</td>
             </tr>
             </present>
             <notpresent name="closeWin" >
             <tr class="row">
-                <td>系统将在 <span id="wait" style="color:blue;font-weight:bold">{$waitSecond}</span> 
+                <td>{:L('系统将在')} <span id="wait" style="color:blue;font-weight:bold">{$waitSecond}</span> 
         
-        秒后自动跳转,如果不想等待,直接点击 <a id="href" href="{$jumpUrl}">这里</a> 跳转</td>
+        {:L('秒后自动跳转,如果不想等待,直接点击')} <a id="href" href="{$jumpUrl}">{:L('这里')}</a> {:L('跳转')}</td>
             </tr>
             </notpresent>
             <tr>

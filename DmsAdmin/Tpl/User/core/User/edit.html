@@ -84,7 +84,7 @@
                 <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
                 <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
                 <script src="__PUBLIC__/areaselect/areaselect.js"></script>
-                <div id="address-box">
+                <div id="address-box" class="address-box">
                     <div class="input-box" style="display: none;">
                         <input class="country" name="country" type="text">
                         <input class="province" name="province" type="text">
@@ -92,15 +92,15 @@
                         <input class="county" name="county" type="text">
                         <input class="town" name="town" type="text">
                     </div>
-                    <div class="country-select arrow-bg" style="width:180px">
-                        <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                        <ul class="country-list" style="width:180px">
-                            <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
-                            <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
-                            <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                    <div class="country-select">
+                        <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                        <ul class="country-list">
+                            <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                            <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                            <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                         </ul>
                     </div>
-                    <div class="location-box arrow-bg">
+                    <div class="location-box">
                     </div>
                 </div>
 
@@ -135,7 +135,7 @@
                 <td class="tbkey" >{:L('开户银行')}：</td>
                 <td class="tbval" >
                     <if condition="in_array('bank_apply_name',$edit) eq true">
-                    <select name="bank_apply_name" id="bank">
+                    <select name="bank_apply_name" id="bank" style="min-width:100px;width:auto">
                         <option value="">{:L('请选择')}</option>
                         <foreach name="banklist" item="bank">
                         <option <eq name="userinfo.开户银行" value="$bank.开户行"> selected="true" </eq>>
@@ -246,6 +246,14 @@
 	</form>
     </div>
 </div>
-<script type="text/javascript">
-    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
+<script>
+    $.areaSelect('#address-box', '__PUBLIC__', {
+        'country': "{:L('中国')}",
+        'province': "{$userinfo.国家}",
+        'city': "{$userinfo.省份}",
+        'county': "{$userinfo.城市}",
+        'town': "{$userinfo.地区}",
+        'level':'town'
+    });
 </script>
+

@@ -93,7 +93,7 @@
 				/*
 				**提交注册的表单数组，可根据结算中的注册流程，在提交sale_reg节点的数组做相应的修改
 				*/
-				if(!X("user")->have() && ($regdata['lv']==1 || !isset($regdata['lv']))){
+				if(!CONFIG('HAVEUSER') && ($regdata['lv']==1 || !isset($regdata['lv']))){
 					$regdata['lv']=5;
 				}else{
 					$regdata['lv']=1;

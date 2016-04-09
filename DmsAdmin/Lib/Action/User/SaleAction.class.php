@@ -172,7 +172,7 @@ class SaleAction extends CommonAction {
 		$this->assign('show',$show);						//注册显示项
 		
 		$this->assign('funReg',$funReg);
-		$this->assign('haveuser',$this->userobj->have(''));			//是否为第一个会员
+		$this->assign('haveuser',CONFIG('HAVEUSER'));			//是否为第一个会员
 		$this->display($sale_reg->template);
 	}
 	//用户注册完成
@@ -217,6 +217,7 @@ class SaleAction extends CommonAction {
 		if(CONFIG('regmailSwitch')){
 			sendMail($udata,$this->userobj->byname.'注册',CONFIG('regmailContent'));
 		}
+		CONFIG('HAVEUSER') == false && CONFIG('HAVEUSER',true);
 		M()->commit();
 		$this->redirect("/User/Sale/recipt:".__XPATH__."/newuserid/".$return['userid']);
 	}

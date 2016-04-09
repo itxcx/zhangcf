@@ -274,12 +274,13 @@ class AdminAction extends CommonAction
     	}
     	M()->startTrans();
 		M('node')->where('level>1')->delete();
-		M()->commit();
+	
 		M()->execute("truncate table admin_access");
 		M()->execute("truncate table role_access");
 		//重新保存所有权限节点
 		$Sync	= D('Sync');
 		$Sync->syncAppNodeList();
+        M()->commit();
 		$this->success('重置完成');
 	}
 	//绑定后台登陆域名

@@ -562,7 +562,7 @@ class SaleAction extends CommonAction {
 		$this->assign('show',$show);
 		$this->assign('pwd3Switch',adminshow('pwd3Switch'));
 		$this->assign('levelsopt',$levelsopt);
-		$this->assign('haveuser',$this->userobj->have(''));
+		$this->assign('haveuser',CONFIG('HAVEUSER'));
 		//空点回填模式
 		$regtype=array(0=>"实点");
 		//有空点
@@ -604,6 +604,7 @@ class SaleAction extends CommonAction {
 			{
 				$this->error($return);
 			}
+			CONFIG('HAVEUSER') == false && CONFIG('HAVEUSER',true);
 			$m_user->commit();
 			$this->saveAdminLog('','',I("post.userid/s")."注册成功");
 			$this->success('注册成功！');

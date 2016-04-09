@@ -289,6 +289,15 @@ XML文档约定
 	<fun_fuli name="福利奖">
 		<_con name='出国旅游' where='[累计收入]>=10000'/>
 	</fun_fuli>
+
+
+
+    <fun_stock name="至宝股"  byname='至宝' tradeBank="电子货币">
+   	  	<_selldo mode='Inbank' val='10%' from='all' bank='消费货币' bankmemo='至宝交易'  bankmode='出售至宝'/>
+        <_selldo mode='Inbank' val='10%' from='all' bank='消费货币' bankmemo='至宝交易'  bankmode='出售至宝'/>
+    </fun_stock>
+
+
 	<!--
 	@package fun_bank   货币节点,此节点是系统中非常重要的节点
 	@param  $name             ''    货币名称

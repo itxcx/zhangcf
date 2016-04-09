@@ -1,11 +1,11 @@
 <?php
 defined('APP_NAME') || die('不要非法操作哦!');
-class Fun_fuliAction extends CommonAction
+class FunFuliAction extends CommonAction
 {
 	public function index($fun_fuli)
 	{
 		$setButton=array(
-			'发放奖励'=>array("class"=>"edit","href"=>__APP__."/Admin/Fun_fuli/fafang:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要发放该奖励？"),
+			'发放奖励'=>array("class"=>"edit","href"=>__APP__."/Admin/FunFuli/fafang:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true","title"=>"确定要发放该奖励？"),
         );
         $list=new TableListAction($fun_fuli->name);
 		$list->setButton = $setButton;   

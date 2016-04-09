@@ -437,10 +437,11 @@
 	//密码加密
 	function md100($str)
 	{
-		for($md_i=0;$md_i <= 100;$md_i++)
-		{
-			$str=md5($str);
+		if(!file_exists(THINK_PATH.'config/password.php')){ 
+			throw_exception('程序文件错误，请重新安装');
 		}
+		$rand = require THINK_PATH.'config/password.php';
+		$str = md5($str . $rand);
 		return $str;
 	}
 /*密码校验

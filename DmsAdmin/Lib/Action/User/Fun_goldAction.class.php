@@ -240,7 +240,7 @@ class Fun_goldAction extends CommonAction {
 		$list = new TableListAction($fun_gold->name."购买");
 		$list->table("dms_".$fun_gold->name."购买 as a");
 		$list->pagenum = 15;
-		$list->join("dms_".$fun_gold->name."挂单 b on b.id=a.pid");
+		$list->join("left join dms_".$fun_gold->name."挂单 b on b.id=a.pid");
 		if(I("get.idstr/s")==""){
 			$where="find_in_set(a.id,'".I("get.idstr/s")."')";
 		}else{

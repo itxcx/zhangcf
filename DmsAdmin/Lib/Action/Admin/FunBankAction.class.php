@@ -24,7 +24,7 @@ class FunBankAction extends CommonAction {
         $list=new TableListAction($bank->name."明细");
 		$list->table('dms_'.$bank->name."明细 a");
         $list->setButton = $setButton;       // 定义按钮显示
-		$list->join('dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
+		$list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
         $list->where("a.删除=0")->order("a.时间 desc,a.id desc");
         $list->addshow("时间",array("row"=>"[时间]","css"=>"width:80px;","searchMode"=>"date","format"=>"time","order"=>"时间",'searchRow'=>'a.时间',"searchPosition"=>"top"));
         $list->addshow("编号",array("row"=>"[编号]","css"=>"width:50px;","searchMode"=>"text",'searchGet'=>'userid',"excelMode"=>"text","order"=>"a.编号","searchPosition"=>"top",'searchRow'=>'a.编号'));   
@@ -45,7 +45,7 @@ class FunBankAction extends CommonAction {
 		$user=X("user");
         $list=new TableListAction("转账明细");
 		$list->table('dms_转账明细 a');
-		$list->join('dms_会员 as b on a.转出编号=b.编号')->field('a.*,b.姓名');
+		$list->join('left join dms_会员 as b on a.转出编号=b.编号')->field('a.*,b.姓名');
         $list->setButton = array(
         '审核'=>array("class"=>"edit"  ,"href"=>"__URL__/givemoneyacc/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
         '撤销'=>array("class"=>"delete","href"=>"__URL__/givemoneyunpage/id/{tl_id}","target"=>"dialog","mask"=>"true","width"=>"520","height"=>"240"),
@@ -323,7 +323,7 @@ class FunBankAction extends CommonAction {
 		}
         $list=new TableListAction("提现");
 		$list->table('dms_提现 a');
-		$list->join('dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
+		$list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
         if($isShowRadio)
         {
         	$list->hint='当前列表中的实发额度,显示为货币提现汇率折算后的实际人民币额度.';
@@ -369,7 +369,7 @@ class FunBankAction extends CommonAction {
 		$whereArr = explode(' ',$where);
 		$where = preg_replace("/(\S+)\s*[=><]/U",'a.$0',$where);
         $m= M("提现");
-        $result = $m->table('dms_提现 as a')->join(C('DB_PREFIX').'会员 as b on a.编号=b.编号')->group('a.银行卡号')->field("a.开户名,b.证件号码,a.联系电话,a.开户行,b.开户地址,b.省份,b.城市,a.银行卡号,sum(a.换算后实发) as 换算后实发,count(*) 笔数")->where($where)->select();
+        $result = $m->table('dms_提现 as a')->join('left join '.C('DB_PREFIX').'会员 as b on a.编号=b.编号')->group('a.银行卡号')->field("a.开户名,b.证件号码,a.联系电话,a.开户行,b.开户地址,b.省份,b.城市,a.银行卡号,sum(a.换算后实发) as 换算后实发,count(*) 笔数")->where($where)->select();
 		import('DmsAdmin.DMS.fun_bank.'.$class);
 		$class::runget($result);
 	}
@@ -764,7 +764,7 @@ class FunBankAction extends CommonAction {
         }
         $list->addshow("汇款时间",array("row"=>"[汇款时间]",'css'=>'width:70px;',"format"=>"time","searchMode"=>"date"));
         $list->addshow("备注",array("row"=>"[备注]",'css'=>'width:80px;'));
-        $list->addshow("状态",array("row"=>array(array(&$this,"dispFunction"),"[状态]",'css'=>'width:50px;')));  
+       $list->addshow("状态",array("row"=>array(array(&$this,"dispFunction"),"[状态]",'css'=>'width:50px;'),"searchMode"=>"text",'searchRow'=>'状态',"searchSelect"=>array("未审核"=>"0","已审核"=>"1"),"searchPosition"=>"top"));  
         if(adminshow('huikuan')){
           $list->addshow("汇款方式",array("row"=>array(array(&$this,"huikuan_type"),"[汇款方式]")));  
         }
@@ -785,7 +785,7 @@ class FunBankAction extends CommonAction {
 	{
 		if($status==0)
 		{
-			return "未审核";
+			return "<span style='color:red'>未审核</span>";
 		}
 		else
 		{
@@ -1120,7 +1120,7 @@ class FunBankAction extends CommonAction {
         $list=new TableListAction('会员');
         $list->table($sqlm->select(false).' a');
         //$list->setButton = $setButton;       // 定义按钮显示
-		$list->join(C('DB_PREFIX').$user->name .' as b on a.编号=b.编号')->field('a.*,b.姓名');
+		$list->join('left join '.C('DB_PREFIX').$user->name .' as b on a.编号=b.编号')->field('a.*,b.姓名');
 		$list->order('时间 desc');
 		$list->where("adminuser <> ''");
         $list->addshow("时间",array("row"=>"[时间]","css"=>"width:200px","searchMode"=>"date","format"=>"time","order"=>"时间",'searchRow'=>'a.时间'));

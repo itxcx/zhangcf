@@ -819,7 +819,8 @@
 			//报单金额
 			$bdmoney=$this->getSaleMoneys($data);
 			$sdata["报单金额"]    =$bdmoney['pvmoney'];
-			$sdata["报单单数"]    =$bdmoney['num'];
+           	$sdata["报单PV"]    =$bdmoney['pv'];
+			$sdata["报单单数"]    =$bdmoney['number'];
 			$sdata["实付款"]	  =$bdmoney['money'];
 			//产品数据
 			$sdata['物流费']      =0;
@@ -879,14 +880,13 @@
 			//得到实际级别
 			$lv =$this->setLv ? (int)$data["lv"] : $this->defaultLv;
 			//得到LEVELS对象设置
-			$lvcons=X('levels@'.$this->lvName)->getcon('con',array('lv'=>0,"money"=>0,"pvmoney"=>-1,"num"=>0,'number'=>1));
+			$lvcons=X('levels@'.$this->lvName)->getcon('con',array('lv'=>0,"money"=>0,"pvmoney"=>-1,"num"=>0,"pv"=>0,'number'=>1));
 			foreach($lvcons as $lvcon)
 			{
 				if($lvcon["lv"]==$lv)
 				{
 					if($this->setNumber){
 						$number = intval($data['setNumber']);
-						$this->num = $number;//报单单数=设定单数
 					}else{
 						$number = $lvcon['number'];
 					}
@@ -900,14 +900,17 @@
 					}else{
 						$pvmoney = $lvcon["pvmoney"];
 					}
-					if($this->num != -1){
-						$num = $this->num;
+           			if($this->pv != -1){
+						$pv = $this->pv;
 					}else{
-						$num = $lvcon['num'];
+						$pv = $lvcon['pv'];
 					}
+                    
+                    
 					$ret['money']  =$money * $number;
 					$ret['pvmoney']=($pvmoney == -1 ? $money : $pvmoney)*$number;
-					$ret['num']    =$num;
+					$ret['number']    =$number;
+                   	$ret['pv']     =$pv * $number;
 					break;
 				}
 			}

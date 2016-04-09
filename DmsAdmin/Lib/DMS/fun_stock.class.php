@@ -150,7 +150,7 @@
 					'剩余量'=>array('gt',0),
 					'状态'=>'挂单中',
 					);
-				$lists=$order_m->order(($type==1 ? "挂单价 desc," : "挂单价 asc,") . "挂单时间 asc")
+				$lists=$order_m->order(($type=='卖出' ? "挂单价 desc," : "挂单价 asc,") . "挂单时间 asc")
 							   ->where($where)
 							   ->select();
 				//定义交易期间的剩余成交量

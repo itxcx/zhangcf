@@ -9,6 +9,7 @@ a {
 }
 body {
     margin: 0 auto;
+    min-width: 1200px;
     font-family: 微软雅黑;
     font-size: 13px;
     background: #f0f0f0;

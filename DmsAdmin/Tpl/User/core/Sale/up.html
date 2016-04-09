@@ -46,7 +46,7 @@
 			    <tr>
                         <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
-                            <div id="address-box">
+                            <div id="address-box" class="address-box">
                                 <div class="input-box" style="display: none;">
                                     <input class="country" id="country1_id" name="country1" type="text">
                                     <input class="province" id="province1_id" name="province1" type="text">
@@ -54,15 +54,15 @@
                                     <input class="county" id="county1_id" name="county1" type="text">
                                     <input class="town" id="town1_id" name="town1" type="text">
                                 </div>
-                                <div class="country-select arrow-bg" style="width:180px">
-                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list" style="width:180px">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                                <div class="country-select">
+                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <ul class="country-list">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
-                                <div class="location-box arrow-bg">
+                                <div class="location-box">
                                 </div>
                             </div>
                         </td>
@@ -78,7 +78,7 @@
                 <tr>
                         <td class="tbkey" >{:L('地址')}：</td>
                         <td class="tbval" >
-                            <div id="address-box2">
+                            <div id="address-box2" class="address-box">
                                 <div class="input-box" style="display: none;">
                                     <input class="country" id="country_id" name="country" type="text">
                                     <input class="province" id="province_id" name="province" type="text">
@@ -86,15 +86,15 @@
                                     <input class="county" id="county_id" name="county" type="text">
                                     <input class="town" id="town_id" name="town" type="text">
                                 </div>
-                                <div class="country-select arrow-bg" style="width:180px">
-                                    <a class="country-now" href="javascript:void(0)">{:L('请选择国家')}</a>
-                                    <ul class="country-list" style="width:180px">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)" style="width:180px">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)" style="width:180px">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)" style="width:180px">{:L('海外')}</a></li>
+                                <div class="country-select">
+                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <ul class="country-list">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
                                     </ul>
                                 </div>
-                                <div class="location-box arrow-bg">
+                                <div class="location-box">
                                 </div>
                             </div>
                         </td>
@@ -210,10 +210,16 @@ function tijiao(){
 	}
 }
 <if condition="(count($area) gt 0)">
-    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
+    $.areaSelect('#address-box', '__PUBLIC__', {
+		'country': "{:L('中国')}",
+		'level':'town',
+	});
 </if>
 <if condition="($sale:extra eq true)">
-    $.areaSelect('#address-box2', '__PUBLIC__/areaselect');
+    $.areaSelect('#address-box2', '__PUBLIC__', {
+		'country': "{:L('中国')}",
+		'level':'town',
+	});
 </if>
 
 </script>
@@ -224,12 +230,12 @@ function tijiao(){
 <script type="text/javascript">
 function alertcheck(){
 	var alertstr ='<table class="tablebg" style="margin-top:0;">';
-		alertstr+='<tr><td class="tbval">新级别</td><td colspan="2" class="tbval">'+$("#lv").find("option:selected").text();+'</td></tr>';    
+		alertstr+='<tr><td class="tbval">{:L("新级别")}</td><td colspan="2" class="tbval">'+$("#lv").find("option:selected").text();+'</td></tr>';    
 		<if condition="count($area) gt 0">
-		alertstr+='<tr><td class="tbval">选择区域</td><td colspan="2" class="tbval">'+$("#country1_id").val()+$("#province1_id").val()+$("#city1_id").val()+$("#county1_id").val()+$("#town1_id").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("选择区域")}</td><td colspan="2" class="tbval">'+$("#country1_id").val()+$("#province1_id").val()+$("#city1_id").val()+$("#county1_id").val()+$("#town1_id").val()+'</td></tr>';      
 		</if>
 		<if condition="($sale:productName neq '')">  
-		alertstr+='<tr><td class="tbkey">产品名称</td><td class="tbkey">价格</td><td class="tbkey">数量</td></tr>';
+		alertstr+='<tr><td class="tbkey">{:L("产品名称")}</td><td class="tbkey">{:L("价格")}</td><td class="tbkey">{:L("数量")}</td></tr>';
 		$("input[name^='productNum']").each(function(i){
 		    if($(this).val()!='')
 		    {
@@ -239,20 +245,20 @@ function alertcheck(){
 		});
 		</if>
 		<if condition="($sale:extra eq true)">
-		alertstr+='<tr><td class="tbval">收货地址</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">收货人</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">联系电话</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
 		</if>
-		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">请确认升级信息，再点击确认</td></tr>';      
+		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">{:L("请确认升级信息，再点击确认")}</td></tr>';      
 		alertstr+='</table>';
 	$.zxxbox.ask(alertstr, function(){
 		$('#subbut').attr('disabled','true');
-		$('#subbut').val('正在提交,请等待...');
+		$('#subbut').val('{:L("正在提交,请等待...")}');
 	    $('#register').submit();
 	    $.zxxbox.hide();
 	    $('#subbut').removeAttr('disabled');
 	}, null, {
-	    title: "友情提示",
+	    title: "{:L('友情提示')}",
 	    fix: true
 	});
 }

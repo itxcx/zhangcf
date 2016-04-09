@@ -375,7 +375,15 @@ if('{$showinfo}'==true){
 		$("#checkxml").html(data);
 	})
 }
-
+//获取url中#值,显示系统维护
+$(function(){
+	if(document.location.hash == '#weihu'){
+		$("#navMenu li").removeClass();
+		$("#sysmenu").show().addClass('selected');
+		$(".app_menu_div").hide();
+		$("#xitongweihu").show();
+	}
+});
 
 /*$("body").keydown(function(e){
 	var ev = window.event || e;

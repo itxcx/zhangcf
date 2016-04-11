@@ -165,7 +165,12 @@
                     eval("var json = " + data);
                     if (json.status == 1) {
                         $('#result').html('<span style="color:white">登录成功！正在跳转到后台～</span>');
-                        window.top.location = '__URL__';
+                        var hash = document.location.hash;
+                      	if(hash == '#weihu'){
+                      		window.top.location = '__URL__#weihu';
+                      	}else{
+                        	window.top.location = '__URL__';
+                        }
                     } else {
                         if (json.info == '验证码必须！') {
                             $('#verify_tr').show();

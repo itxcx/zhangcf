@@ -126,12 +126,12 @@
 		<div  <if condition="$now_model eq 'Index'"> class="menuTitle_active"<else />class="menuTitle" </if> > <a href="__GROUP__/Index/index"><span class="dh-home"></span>{:L('首页')}</a></div>
 	
 		<foreach name="menu" item="vo" key="key"> 
-			<div  id="{$key}" class="menuTitle" ><span class="dh-signal" oldClass=""></span><span style="display:inline-block;width:60px">{$key}</span><span class="dh_sec">{$vo|count}</span></div>
+			<div  id="{$key}" class="menuTitle" ><span class="dh-signal" oldClass=""></span><span style="display:inline-block;width:60px">{:L($key)}</span><span class="dh_sec">{$vo|count}</span></div>
 			<div class="menuContent">
 			<ul id="ulstyle">
 			<foreach name="vo" item="val">
 			<if condition="!$userMenuPower or in_array($val['model'].'-'.$val['action'],$userMenuPower)">
-				<li id="{$val.title}"><a href="__GROUP__/{$val.model}/{$val.action}">{$val.title}</a></li>
+				<li id="{$val.title}"><a href="__GROUP__/{$val.model}/{$val.action}">{:L($val['title'])}</a></li>
 			</if>
 			</foreach>
 			</ul>

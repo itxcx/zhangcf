@@ -369,6 +369,8 @@ class TleAction extends CommonAction {
 		M('会员')->where(array('编号'=>$tledata['编号']))->setInc('累计收入',$data['收入']-$tledata['收入']);
 		//更新总账的本期奖金
 		M($tle->name.'总账')->where(array('计算日期'=>$tledata['计算日期']))->setInc('本期奖金',$data['收入']-$tledata['收入']);
+        //更细总账的累计收入
+        $m->where(array('计算日期'=>array("egt",$tledata['计算日期'])))->setInc("累计收入",$data['收入']-$tledata['收入']);
 		//更新总账的总奖金
 		M($tle->name.'总账')->where("计算日期 >= {$tledata['计算日期']}")->setInc('总奖金',$data['收入']-$tledata['收入']);
 		
@@ -385,10 +387,10 @@ class TleAction extends CommonAction {
 	{
 		//总账表显示
         $list=new TableListAction($tle->name."总账");
-        $list->table("dms_{$tle->name}总账 as a");
-		$list->join("left join dms_{$tle->name} as b on b.计算日期=a.计算日期");
-        if(adminshow('allzongzhang')>0){
-           		$pricestr="";
+        //货币分离
+		$pricestr="a.*";
+        if(adminshow('allzongzhang')){
+           		
     		foreach(X('prize_*',$tle) as $price)
     		{
     			if($price->prizeMode>=1)
@@ -396,12 +398,11 @@ class TleAction extends CommonAction {
     				$pricestr.=",sum(b.".$price->name.") as price".$price->getPos();
     			}
     		}
-            $list->field("a.*".$pricestr);
-        }else{
-        $list->field("a.*");
+            
         }
-        $list->order("计算日期 desc")->group('a.计算日期');
-		if(!$tle->autoGive && !$tle->weekAutoGive){
+		$table="(select {$pricestr} from dms_{$tle->name}总账 as a left join dms_{$tle->name} as b on a.计算日期=b.计算日期 group by a.计算日期 ) aa ";
+        $list->table($table);
+    		if(!$tle->autoGive && !$tle->weekAutoGive){
 			$list->setButton = array(
 			   "发放"    =>array("class"=>"add","href"=>"__APP__/Admin/Cal/givePrice:__XPATH__/id/{tl_id}","target"=>"ajaxTodo","title"=>'确定发放吗?'),
 			);
@@ -412,10 +413,10 @@ class TleAction extends CommonAction {
 			}
 		}
 		
-        $list->addshow("计算日期",array("row"=>"[计算日期]","format"=>"date","searchMode"=>"date","url"=>__APP__."/Admin/Tle/prizeForm:".__XPATH__."/id/[id]","target"=>"dialog",'order'=>'计算日期',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'a.计算日期'));
+        $list->addshow("计算日期",array("row"=>"[计算日期]","format"=>"date","searchMode"=>"date","url"=>__APP__."/Admin/Tle/prizeForm:".__XPATH__."/id/[id]","target"=>"dialog",'order'=>'计算日期',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'aa.计算日期'));
 		$list->addshow("新增".$this->userobj->byname,array("row"=>"[新增会员]","searchMode"=>"text","excelMode"=>"text"));
-        $list->addshow("本期奖金",array("row"=>array(array(&$this,'bqjj'),"[本期奖金]","[本期业绩]"),"searchMode"=>"text","searchRow"=>"[a.本期奖金]"));
-	if(adminshow('allzongzhang')>0){
+        $list->addshow("本期奖金",array("row"=>array(array(&$this,'bqjj'),"[本期奖金]","[本期业绩]"),"searchMode"=>"text","searchRow"=>"[aa.本期奖金]"));
+		if(adminshow('allzongzhang')){
 		foreach(X('prize_*',$tle) as $prize)
 		{
 		 if($prize->prizeMode>=1)
@@ -424,13 +425,14 @@ class TleAction extends CommonAction {
 			 }
 		}
     }
-		$list ->addshow("总奖金",array("row"=>array(array(&$this,'zjj'),"[总奖金]","[总业绩]"),"searchMode"=>"text","searchRow"=>"[a.总奖金]"));
+		$list ->addshow("总奖金",array("row"=>array(array(&$this,'zjj'),"[总奖金]","[总业绩]"),"searchMode"=>"text","searchRow"=>"[aa.总奖金]"));
 		$list ->addshow("全部".$this->userobj->byname,array("row"=>"[全部会员]"));
-		$list ->addshow("本期业绩",array("row"=>"[本期业绩]","searchMode"=>"text","searchRow"=>"[a.本期业绩]"));
-		$list ->addshow("总业绩",array("row"=>"[总业绩]","searchMode"=>"text","searchRow"=>"[a.总业绩]"));
-		$list ->addshow("状态",array("row"=>array(array(&$this,"tleState"),"[state]"),"searchMode"=>"text","searchPosition"=>"top","searchSelect"=>array("已发放"=>"1","未发放"=>"0"),"searchRow"=>"[a.state]"));
+		$list ->addshow("本期业绩",array("row"=>"[本期业绩]","searchMode"=>"text","searchRow"=>"[aa.本期业绩]"));
+		$list ->addshow("总业绩",array("row"=>"[总业绩]","searchMode"=>"text","searchRow"=>"[aa.总业绩]"));
+		$list ->addshow("状态",array("row"=>array(array(&$this,"tleState"),"[state]"),"searchMode"=>"text","searchPosition"=>"top","searchSelect"=>array("已发放"=>"1","未发放"=>"0"),"searchRow"=>"[aa.state]"));
 		$list ->addshow("操作",array("row"=>array(array(&$this,'outdayA'),"[id]")));
         $this->assign('list',$list->getHtml());
+		
         $this->display();
 	}
 	public function outdayA($id){

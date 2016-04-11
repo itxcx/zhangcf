@@ -10,7 +10,6 @@ class InstallAction extends Action
 
 	function _initialize()
     {
-		if(version_compare(PHP_VERSION,'5.3.0','<'))  throw_exception('当前php版本小于5.3！请使用5.3及以上版本');
 		if((isset($_REQUEST['step']) ? $_REQUEST['step']:'') !='done' && ACTION_NAME != 'done' && file_exists('./install.lock')){
 			die('重新安装请删除/Install/install.lock文件');
 		}

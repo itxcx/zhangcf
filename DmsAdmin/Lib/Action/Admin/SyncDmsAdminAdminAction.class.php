@@ -148,7 +148,7 @@ class SyncDmsAdminAdminAction extends Action implements SyncInterface,QuickSearc
                 //得到福利奖的明细
 				foreach(X('fun_fuli') as $fuli)
 				{
-                    $rs.='<a href="/index.php?s=/Admin/Fun_fuli/index:'.$fuli->objPath().'/userid/'.$userid.'" rel="admin_edit" target="navTab" title="'.$userobj->byname.$userid.$fuli->byname.'"><span>['.$fuli->byname.'查询]</span></a>&nbsp;&nbsp;&nbsp;';
+                    $rs.='<a href="/index.php?s=/Admin/FunFuli/index:'.$fuli->objPath().'/userid/'.$userid.'" rel="admin_edit" target="navTab" title="'.$userobj->byname.$userid.$fuli->byname.'"><span>['.$fuli->byname.'查询]</span></a>&nbsp;&nbsp;&nbsp;';
 				}
 				 //得到股票的明细
 				foreach(X('fun_stock') as $fun_stock)

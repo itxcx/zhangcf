@@ -71,7 +71,7 @@
 			//如果设置了店铺
 		    if($this->fromNoName !='') {
 		    	//如果存在会员
-				if(X('user')->have('')){
+				if(CONFIG('HAVEUSER')){
 					//根据店铺编号取得会员
 				    $shopinfo=M("会员")->where(array("编号"=>trim($data_post['shop'])))->find();
 				    //如果没有店铺存在,则提示

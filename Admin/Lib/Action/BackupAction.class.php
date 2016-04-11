@@ -503,6 +503,7 @@ class BackupAction extends CommonAction  {
         	$this->backall('清空数据库前备份',true);
         	M()->startTrans();
             $this->cleanfun();
+            CONFIG('HAVEUSER',false);
             M()->commit();
             //删除奖金构成文件
             import("COM.BakRec.BakRec");

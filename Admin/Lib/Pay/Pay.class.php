@@ -352,8 +352,8 @@ class Pay
 		if(!empty($a)){
 			foreach($a as $key=>&$value){
 				if(strtolower($value['credit'])==strtolower('Yes')){
-					import($this->interface_data['app'].".Pay.".$value['pay_type']);
-					$va=$value['pay_type']::getBankList();
+					import("Admin.Pay.".$value['pay_type']);
+					$va=$value['pay_type']::getBankList();			
 					$banklist=F('banklist');
 					$value['banklist']=array_flip(array_intersect(array_flip($va),$banklist[$value['pay_type']]));
 				}

@@ -132,7 +132,7 @@ $zhongliang=0;
 	<td  align="center"  class= "tdborder">{$paydata['总价']}</td>
 	<if condition="$pvshow eq true">
 	<td  align="center"  class= "tdborder">{$paydata['总PV']}</td>
-    </if>\
+    </if>
 </tr>
 <php>
 $zhongliang+=$paydata['总重量'];
@@ -141,7 +141,7 @@ $i++;
 </php>
 </foreach>
 <tr>
-	     <td colspan="<if condition="$pvshow eq true">6<else />4</if>" style="text-align:right">实付款：{$vo.实付款}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇总：</td>
+	     <td colspan="<if condition="$pvshow eq true">5<else />3</if>" style="text-align:right">实付款：{$vo.实付款}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;汇总：</td>
 	            <td>{$shuliang}</td>
 	            <td>{$zhongliang}</td>
 				<td>{$vo.购物金额}</td>

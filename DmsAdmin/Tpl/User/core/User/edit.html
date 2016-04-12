@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <else />{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}</if>
+                <else />{$userinfo.国家} {$userinfo.省份} {$userinfo.城市} {$userinfo.地区}{$userinfo.街道}</if>
                 <span class="msg"><if condition="in_array('area',$require) eq true ">*</if></span></td>
             </tr>
             </if>
@@ -248,11 +248,11 @@
 </div>
 <script>
     $.areaSelect('#address-box', '__PUBLIC__', {
-        'country': "{:L('中国')}",
-        'province': "{$userinfo.国家}",
-        'city': "{$userinfo.省份}",
-        'county': "{$userinfo.城市}",
-        'town': "{$userinfo.地区}",
+        'country': "{$userinfo.国家}",
+        'province': "{$userinfo.省份}",
+        'city': "{$userinfo.城市}",
+        'county': "{$userinfo.地区}",
+        'town': "{$userinfo.街道}",
         'level':'town'
     });
 </script>

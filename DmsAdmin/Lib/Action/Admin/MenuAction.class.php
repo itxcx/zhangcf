@@ -62,7 +62,7 @@ class MenuAction extends Action
 		//会员订单查询
 		if($user->haveProduct()){
 		    $menu[]=array('model'=>'Sale','action'=>'proIndex' ,'title'=>"产品订单查询",'level'=>1,'parent'=>$parent,'setParent'=>"订单列表");
-             $menu[]=array('model'=>'Sale','action'=>'outlist' ,'title'=>"产品订单导出",'level'=>3,'parent'=>$parent,'setParent'=>"订单列表");
+            $menu[]=array('model'=>'Sale','action'=>'outlist' ,'title'=>"产品订单导出",'level'=>3,'parent'=>$parent,'setParent'=>"订单列表");
 		}
 		$menu[]=array('model'=>'Sale','action'=>'index','title'=>"会员操作记录查询",'level'=>1,'parent'=>$parent,'setParent'=>"订单列表");
 		$menu[]=array('model'=>'Sale','action'=>'view,print_index','title'=>"订单查看",'level'=>2,'parent'=>$parent,'setParent'=>"订单列表");

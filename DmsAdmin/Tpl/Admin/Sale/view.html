@@ -166,7 +166,7 @@ $i++;
 	快递:<if condition="$vo['快递公司']">{$vo.快递公司}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递单号:<if condition="$vo['快递订单']">{$vo.快递订单}<else />暂无</if>&nbsp;&nbsp;&nbsp;快递备注:<if condition="$vo['快递备注']">{$vo.快递备注}<else />
 	无</if>
 	<br/>
-		&nbsp;&nbsp;&nbsp;	<a href="__URL__/outlist/id/{$vo.id}"><span style="font-size:14px;color:green;font-weight:bold">导出订单信息</span></a>
+		&nbsp;&nbsp;&nbsp;	<a href="__URL__/outlist/id/{$vo.id}"  target="dialog" ><span style="font-size:14px;color:green;font-weight:bold">导出订单信息</span></a>
 	</td>
 </tr>
 </table>

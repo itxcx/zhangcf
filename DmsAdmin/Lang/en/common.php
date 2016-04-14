@@ -764,5 +764,10 @@ return array (
   '查看公告' => 'View announcement',
   '已回复' => 'Already reply',
   '发表回复' => 'Post reply',
+  '订购成功' => 'Order success',
+  '请确认产品信息，再点击确认' => 'Please confirm the product information, and then click OK',
+  '您已升至最高级别' => 'You have risen to the highest level',
+  '记录' => 'record',
+  '到款日期' => 'Date of payment',
 );
 ?>

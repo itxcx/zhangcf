@@ -170,7 +170,7 @@
 				}
 			}
 			//对所有的网络关系进行校验
-			if($user->have())
+			if(CONFIG('HAVEUSER'))
 			{
 				foreach(X('net_rec') as $net)
 				{
@@ -714,7 +714,7 @@
 						if($netup) $udata[$net->name.'_上级编号'] =$netup['编号'];
 					}
 					//判断不是注册第一个人
-					if(X("user")->have()){
+					if(CONFIG('HAVEUSER')){
 						//强制选择位置
 						if($net->setRegion)
 						{

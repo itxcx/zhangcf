@@ -62,6 +62,7 @@ class MenuAction extends Action
 		//会员订单查询
 		if($user->haveProduct()){
 		    $menu[]=array('model'=>'Sale','action'=>'proIndex' ,'title'=>"产品订单查询",'level'=>1,'parent'=>$parent,'setParent'=>"订单列表");
+            $menu[]=array('model'=>'Sale','action'=>'outlist' ,'title'=>"产品订单导出",'level'=>3,'parent'=>$parent,'setParent'=>"订单列表");
 		}
 		$menu[]=array('model'=>'Sale','action'=>'index','title'=>"会员操作记录查询",'level'=>1,'parent'=>$parent,'setParent'=>"订单列表");
 		$menu[]=array('model'=>'Sale','action'=>'view,print_index','title'=>"订单查看",'level'=>2,'parent'=>$parent,'setParent'=>"订单列表");
@@ -335,8 +336,8 @@ class MenuAction extends Action
         
 		foreach(X('fun_fuli') as $fuli){
 			$xpath=$fuli->xpath;
-			$menu[]=array('model'=>'Fun_fuli','action'=>"index:".$xpath ,'title'=>$fuli->byname."查询",		'level'=>1,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
-			$menu[]=array('model'=>'Fun_fuli','action'=>"fafang:".$xpath,'title'=>$fuli->byname."发放奖励", 'level'=>2,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
+			$menu[]=array('model'=>'FunFuli','action'=>"index:".$xpath ,'title'=>$fuli->byname."查询",		'level'=>1,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
+			$menu[]=array('model'=>'FunFuli','action'=>"fafang:".$xpath,'title'=>$fuli->byname."发放奖励", 'level'=>2,'parent'=>$parent,'setParent'=>$fuli->byname.'管理');
 		}
 		$menu[]=array('model'=>'PrizeLock','action'=>'index', 'title'=>'奖金黑名单'  , 'level'=>1, 'parent'=>'奖金管理', 'setParent'=>$parent);
 		$menu[]=array('model'=>'PrizeLock','action'=>'editByName,editByNameRun', 'title'=>'根据编号修改'  , 'level'=>1, 'parent'=>'奖金管理', 'setParent'=>$parent);

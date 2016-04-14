@@ -169,33 +169,35 @@
           <if condition="in_array('area',$show) eq true">
           <tr>
               <td class="tbkey">地址：</td>
-              <td class="tbval">
-                  <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
-                    <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
-                    <script src="__PUBLIC__/areaselect/areaselect.js"></script>
-                    <div id="address-box">
-                        <div class="input-box" style="display: none;">
-                            <input class="country" name="country" type="text">
-                            <input class="province" name="province" type="text">
-                            <input class="city" name="city" type="text">
-                            <input class="county" name="county" type="text">
-                            <input class="town" name="town" type="text">
-                        </div>
-                        <div class="country-select arrow-bg">
-                            <a class="country-now" href="javascript:void(0)">请选择国家</a>
-                            <ul class="country-list">
-                                <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
-                                <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
-                                <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">海外</a></li>
-                            </ul>
-                        </div>
-                        <div class="location-box arrow-bg">
-                        </div>
+              <td class="tbval" >
+                <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
+                <div id="address-box" class="address-box">
+                    <div class="input-box" style="display: none;">
+                        <input class="country" name="country" type="text">
+                        <input class="province" name="province" type="text">
+                        <input class="city" name="city" type="text">
+                        <input class="county" name="county" type="text">
+                        <input class="town" name="town" type="text">
                     </div>
-                    <script>
-                    $.areaSelect('#address-box', '__PUBLIC__/areaselect');
-                    </script>
-
+                    <div class="country-select">
+                        <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                        <ul class="country-list">
+                            <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                            <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                            <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                        </ul>
+                    </div>
+                    <div class="location-box">
+                    </div>
+                </div>
+                <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
+                <script src="__PUBLIC__/areaselect/areaselect.js"></script>
+                <script>
+                    $.areaSelect('#address-box', '__PUBLIC__', {
+                        'country': "{:L('中国')}",
+                        'level':'town',
+                    });
+                </script>
               </td>
               <td class="msg">&nbsp;<span id="state_country" ><if condition="in_array('area',$require) eq true ">*</if></span></td>
           </tr>
@@ -218,7 +220,7 @@
           <TR>
               <TD class="tbkey">开户行：</TD>
               <TD class="tbval">
-                  <select name="bank_apply_name" id="bank">
+                  <select name="bank_apply_name" id="bank" style="min-width:100px;width:auto;">
                       <option value="">请选择</option>
                       <foreach name="banklist" item="bank">
                       <option value="{$bank.开户行}">{$bank.开户行}</option>

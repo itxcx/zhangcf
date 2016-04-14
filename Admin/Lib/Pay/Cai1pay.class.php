@@ -56,6 +56,7 @@ class Cai1pay implements PayInterface{
 		    $data_arr = unserialize($arr['pay_attr']);//是一个二维数组 
 		    //查询金额最小的金额的记录
 		    $data = array();
+	   		//dump($data_arr);
 			foreach($data_arr as $key=>$v)
 			{
 				$data[$key] = $v;
@@ -66,8 +67,9 @@ class Cai1pay implements PayInterface{
 			$key						= $data[self::$pay_interface['pay_ename'].'_key'];
 			$credit						= $data[self::$pay_interface['pay_ename'].'_credit'];
 			$proxy						= $data[self::$pay_interface['pay_ename'].'_proxy'];
-			//商城转发url
 			$this->ServerLocationUrl	= $proxy?$proxy:'';
+			//商城转发url
+			
 			$this->MerCode				= $account?$account:'';     //账户号
 			$this->MerCert				= $key?$key:'';             //证书
 			$this->DoCredit		        = $credit=='Yes'?1:0;
@@ -133,7 +135,7 @@ class Cai1pay implements PayInterface{
 		return '财易付';
 	}
 	
-    //返回支付失败的提示信息
+    //返回支付失败]的提示信息
 	public function getMessage()
 	{
 		return $this->message;
@@ -256,7 +258,7 @@ class Cai1pay implements PayInterface{
         		
         	//付完款后跳转的页面 要用 http://格式的完整路径，不允许加?id=123这类自定义参数
         	$return_url = $http_type.$_SERVER['HTTP_HOST']."/payrecive.php";
-			$this->ServerUrl .= $return_url;
+
 		}
 		//订单日期
 		$this->OrderDate = date('Ymd');
@@ -268,6 +270,7 @@ class Cai1pay implements PayInterface{
 		if($this->DoCredit== 0 ){
 			$this->BankCode= '';
 		}
+		
 		?>
 			<html>
 			  <head>
@@ -283,12 +286,12 @@ class Cai1pay implements PayInterface{
 			      <input type="hidden" name="Currency" value="<?php echo $this->Currency ?>">
 			      <input type="hidden" name="GatewayType" value="<?php echo $this->GatewayType ?>">
 			      <input type="hidden" name="Language" value="<?php echo $this->Language ?>">
-			      <input type="hidden" name="ReturnUrl" value="<?php echo $this->ReturnUrl ?>">
+			      <input type="hidden" name="ReturnUrl" value="<?php echo $return_url ?>">
 			      <input type="hidden" name="GoodsInfo" value="<?php echo $this->GoodsInfo ?>">
 			      <input type="hidden" name="OrderEncodeType" value="<?php echo $this->OrderEncodeType ?>">
 			      <input type="hidden" name="RetEncodeType" value="<?php echo $this->RetEncodeType ?>">
 			      <input type="hidden" name="Rettype" value="<?php echo $this->Rettype ?>">
-			      <input type="hidden" name="ServerUrl" value="<?php echo $this->ServerUrl ?>">
+			      <input type="hidden" name="ServerUrl" value="<?php echo $return_url ?>">
 			      <input type="hidden" name="SignMD5" value="<?php echo $this->SignMD5 ?>">
 			   	  <input type="hidden" name="DoCredit" value="<?php echo $this->DoCredit ?>">
 			      <input type="hidden" name="BankCode" value="<?php echo $this->BankCode ?>">
@@ -328,14 +331,15 @@ class Cai1pay implements PayInterface{
 		$signature_1ocal = md5($content . $cert);
 		if($signature_1ocal == $signature){
 			if ($succ == 'Y'){
-				M('Fun_pay')->success($billno);
-			    $this->message = '交易成功';				
+			    $this->message = '交易成功';
+			    return true;				
 			}else{
-				M('Fun_pay')->fail($billno);
-			    $this->message = '交易失败';			
+			    $this->message = '交易失败';	
+			    return false;		
 			}
 		}else{
 			$this->message = '签名不正确';	
+			return false;	
 		}
 	}
 
@@ -363,12 +367,15 @@ class Cai1pay implements PayInterface{
 		$signature_1ocal = md5($content . $cert);
 		if($signature_1ocal == $signature){
 			if ($succ == 'Y'){
-			    $this->message = '交易成功';				
+			    $this->message = '交易成功';
+			    return true;				
 			}else{
-			    $this->message ='交易失败';			
+			    $this->message = '交易失败';	
+			    return false;		
 			}
 		}else{
 			$this->message = '签名不正确';	
+			return false;	
 		}
 	}
 

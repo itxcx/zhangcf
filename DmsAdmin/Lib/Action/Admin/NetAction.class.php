@@ -139,6 +139,7 @@ class NetAction extends CommonAction
 		/************************************************/
 		//提示删除完成  删除了多少人
 		if($succNum >0){
+			M('会员')->find() == false && CONFIG('HAVEUSER',false);
 			M()->commit();
 			$this->success("删除成功：".$succNum);
 		}else{

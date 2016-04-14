@@ -2,21 +2,21 @@
 
     $.extend({
 
-        areaSelect: function(obj, url) {
+        areaSelect: function(obj, url, def) {
             var obj = $(obj);
-            var url = url;
-            $.init(obj);
-            $.clickLoad(obj, url);
+            $.clickLoad(obj, url, def);
         },
 
         //点击加载
-        clickLoad: function(obj, url) {
+        clickLoad: function(obj, url, def) {
+            //页面调整
+            //obj.parents('.core_con').css({'min-height':'410px'});
 
             obj.find('.country-select').click(function (e) {
                 e.stopPropagation();
-                $('.city-select-wrap').hide(0);
-                $('.overseas-box').hide(0);
+                var cH = (obj.find('.country-select').outerHeight() + obj.find('.country-now').outerHeight()) / 2;
                 $(this).find('.country-list').toggle(0);
+                $(this).find('.country-list').css('top', cH);
                 $(this).find('.city-select-wrap').hide(0);
             });
 
@@ -36,12 +36,14 @@
 
                 $(this).siblings('li').removeClass('current');
                 $(this).addClass('current');
-                obj.find('.country-now').html($(this).find('a').html());
+                obj.find('.country-now').val($(this).find('a').html());
                 obj.find('.country').val($(this).find('a').html());
 
                 if (locat != 0) {
                     obj.find('.location-box').show(0);
                     obj.find('.location-box').html($.addLocation(locat));
+                    var aH = (obj.find('.location-box').outerHeight() + obj.find('.city-title').outerHeight()) / 2;
+                    obj.find('.city-select-wrap').css('top', aH);
                 }
 
 
@@ -52,10 +54,12 @@
                     obj.find('.city-title').click(function (e) {
                         e.stopPropagation()
                         $(this).next('.city-select-wrap').toggle(0);
+                        var aH = (obj.find('.location-box').outerHeight() + obj.find('.city-title').outerHeight()) / 2;
+                        obj.find('.city-select-wrap').css('top', aH);
                         obj.find('.country-list').hide(0);
                     });
-                    var myDate = new Date().getTime();
-                    $.getJSON(url + '/country.json?v='+myDate,function(data){
+
+                    $.getJSON(url + '/areaselect/provinces.json?v='+new Date().getTime(),function(data){
                         var country =  JSON.parse(JSON.stringify(data));
                         $.each(country, function (name, value) {
                             var city_box = '';
@@ -71,7 +75,7 @@
                             obj.find('.city-select.city-province').append(city_box);
 
                         });
-                        $.areaList('province', obj, url);
+                        $.areaList('province', obj, url, def);
                         $.tabChange(obj);
                     });
                 } else {
@@ -82,20 +86,55 @@
                         obj.find('.country-list').hide(0);
                     });
                     $.loadOther(obj, url);
-                    
                 }
 
             });
+
+            $.init(obj, def);
 
 
         },
 
         //初始化
-        init: function(obj) {
-            obj.find('.province').val('');
-            obj.find('.city').val('');
-            obj.find('.county').val('');
-            obj.find('.town').val('');
+        init: function(obj, def) {
+            if (!!def) {
+                var str = '';
+                if (def.country && def.country != ' ') {
+                    obj.find('.country').val(def.country);
+                    obj.find('.country-now').val(def.country);
+                    obj.find('.location-box').show(0);
+                    if (def.province) {
+                        obj.find('.province').val(def.province);
+                        str += (' / ' + def.province);
+
+                        if (def.city) {
+                            obj.find('.city').val(def.city);
+                            str += (' / ' + def.city);
+
+                            if (def.county) {
+                                obj.find('.county').val(def.county);
+                                str += (' / ' + def.county);
+
+                                if (def.town) {
+                                    obj.find('.town').val(def.town);
+                                    str += (' / ' + def.town);
+                                }
+                            }
+                        }
+                    } else {
+                        str = '请选择地址';
+                    }
+
+                    obj.find('.country-list').find('li').eq(1).click();
+                    obj.find('.location-box .city-title').val(str);
+                    obj.find('.country-list').toggle();
+                }
+            } else {
+                obj.find('.province').val('');
+                obj.find('.city').val('');
+                obj.find('.county').val('');
+                obj.find('.town').val('');
+            }
         },
 
         //初始框架
@@ -106,7 +145,7 @@
                 case 0:
                     break;
                 case 1:
-                    str += '<div class="city-title"><span>请选择省市区</span></div>';
+                    str += '<input class="city-title arrow-bg" type="text" value="请选地址" readonly>';
                     strtab = '<div class="city-select-tab">'+
                            '<a class="a-province current" href="javascript:void(0)">省份</a>'+
                            '<a class="a-city" href="javascript:void(0)">城市</a>'+
@@ -126,7 +165,7 @@
                                 '</div>';
                     break;
                 case 2:
-                    str += '<div class="city-title"><span>请选择国家</span></div><div class="overseas-box"></div>';
+                    str += '<input class="city-title arrow-bg" type="text" value="请选择国家" readonly><div class="overseas-box"></div>';
                     break;
                 default: 
                     return '<span>输入有误！</span>';
@@ -162,7 +201,7 @@
         },
 
         //地址列表点击事件
-        areaList: function(area, obj, url) {
+        areaList: function(area, obj, url, def) {
             obj.find('.city-' + area + ' .city-box').find('dd>a').click(function (e) {
                 e.stopPropagation();
                 var str = '';
@@ -173,74 +212,110 @@
                     town: obj.find('.town')
                 }
 
-                if (area == 'town') {
+                if (!!def && !!def.level) {
+                    level = def.level;
+                } else {
+                    level = 'town';
+                }
+                if (area == level) {
                     obj.find('.city-select-wrap').hide(0);
-                    obj.find('.city-select').hide(0);
-                    obj.find('.city-town').show(0);
                 } else {
                     obj.find('.city-select').hide(0);
                     obj.find('.city-' + area).next().show(0);
-                }
-                $(this).parents('.city-select').find('.current').removeClass('current');
-                $(this).addClass('current');
-                if (!!(obj.find('.city-select-tab').find('.a-' + area).next().get(0))) {
-                    obj.find('.city-select-tab').find('a').removeClass('current');
-                    obj.find('.city-select-tab').find('.a-' + area).next().addClass('current');
+                    $(this).parents('.city-select').find('.current').removeClass('current');
+                    $(this).addClass('current');
+                    if (!!(obj.find('.city-select-tab').find('.a-' + area).next().get(0))) {
+                        obj.find('.city-select-tab').find('a').removeClass('current');
+                        obj.find('.city-select-tab').find('.a-' + area).next().addClass('current');
+                    }
                 }
 
                 obj.find('.' + area).val($(this).html());
                 switch (area) {
                     case 'province':
                         output.city.val('');
+                        obj.find('.city-city').html('');
                     case 'city':
                         output.county.val('');
+                        obj.find('.city-county').html('');
                     case 'county':
                         output.town.val('');
+                        obj.find('.city-town').html('');
                     case 'town':
                         break;
                     default:
                         return 0;
                 }
 
-                $.loadArea(area, $(this), obj, url);
+                $.loadArea(area, $(this), obj, url, def);
 
                 if (!!output.province.val())
-                    str += output.province.val() + '<span>/</span>';
+                    str += output.province.val() + ' / ';
                 if (!!output.city.val()) {
-                    if (!(output.city.val() == '市辖区' || output.city.val() == '县')) {
-                        str += output.city.val() + '<span>/</span>';
+                    if (!(output.city.val() == '市辖区' || output.city.val() == '县' || output.city.val() == '省直辖县级行政单位')) {
+                        str += output.city.val() + ' / ';
                     }
                 }
                 if (!!output.county.val())
                     if (!(output.county.val() == '市辖区')) {
-                        str += output.county.val() + '<span>/</span>';
+                        str += output.county.val() + ' / ';
                     }
                 if (!!output.town.val())
                     str += output.town.val();
-                obj.find('.city-title').html(str);
+                obj.find('.city-title').val(str);
             });
         },
 
         //载入地址列表
-        loadArea: function(area, _this, obj, url) {
+        loadArea: function(area, _this, obj, url, def) {
             var main = _this.attr('data-value');
             var mainkey = main.replace('CN','0');
             var areaNext = '';
             var areaJson = '';
-            if (area == 'province') {
-                areaNext = 'city';
+            if (!def) {
+                def = {};
+                def.level = 'town';
             }
-            if (area == 'city') {
-                areaNext = 'county';
+            switch(area) {
+                case 'province':
+                    areaNext = 'city';
+                    areakey = 1;
+                    break;
+                case 'city': 
+                    areaNext = 'county';
+                    areakey = 2;
+                    break;
+                case 'county': 
+                    areaNext = 'town';
+                    areakey = 3;
+                    break;
+                case 'town': 
+                    areaNext = ('town');
+                    areakey = 4;
+                    break;
+                default:
+                    areakey = 4;
+                    break;
             }
-            if (area == 'county') {
-                areaNext = 'town';
+            switch(def.level) {
+                case 'province':
+                    level = 1;
+                    break;
+                case 'city':
+                    level = 2;
+                    break;
+                case 'county':
+                    level = 3;
+                    break;
+                case 'town':
+                    level = 4;
+                    break;
+                default:
+                    level = 4;
+                    break;
             }
-            if (area == 'town') {
-                areaNext = null;
-            }
-            
-            areaJson = url + '/area_json/area'+(mainkey%110)+'.json?v='+new Date().getTime();;
+
+            areaJson = url + '/areaselect/area_json/area'+(mainkey%110)+'.json';
 
             $.getJSON(areaJson,function(data){
                 var parents =  JSON.parse(JSON.stringify(data));
@@ -248,7 +323,7 @@
                 var city_box = '';
                 var str = '';
 
-                if (!!son_json) {
+                if (!!son_json && areakey < level) {
                     for (i in son_json) {
                         str +=  '<a data-value="' + i + '" href="javascript:void(0);">' + son_json[i] + '</a>'
                     };
@@ -257,20 +332,16 @@
                                '</dl>';
                     obj.find('.city-select.city-'+areaNext).html(city_box);
 
-                    $.areaList(areaNext, obj, url);
+                    $.areaList(areaNext, obj, url, def);
                 } else {
-                    if (!!areaNext) {
-                        obj.find('.city-select-wrap').hide(0);
-                        obj.find('.city-select-' + areaNext).html('');
-                    }
+                    obj.find('.city-select-wrap').hide(0);
                 }
             });
         },
 
         //其他国家
         loadOther: function (obj, url) {
-            var myDate = new Date().getTime();
-            $.getJSON(url + '/other.json?v='+myDate,function(data){
+            $.getJSON(url + '/areaselect/other.json?v='+new Date().getTime(),function(data){
                 var json_data =  JSON.parse(JSON.stringify(data));
                 var str = '';
                 str = '<li class="current"><i>&radic;</i><a href="javascript:void(0);">请选择国家</a></li>';
@@ -279,13 +350,14 @@
                 };
                 str = '<ul class="overseas-list">' + str + '</ul>';
                 obj.find('.overseas-box').html(str);
+                obj.find('.overseas-box').css('top', (obj.find('.location-box') + obj.find('.city-title').outerHeight()) / 2);
 
                 obj.find('.overseas-list>li').click(function () {
                     $.init(obj);
                     $(this).siblings('.current').removeClass('current');
                     $(this).addClass('current');
                     obj.find('.country').val($(this).find('a').text());
-                    obj.find('.city-title').html($(this).find('a').text());
+                    obj.find('.city-title').val($(this).find('a').text());
                 });
             });
         }

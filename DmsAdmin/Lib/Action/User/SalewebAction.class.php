@@ -160,7 +160,7 @@ class SalewebAction extends CommonAction {
 		$this->assign('show',$show);						//注册显示项
 		$this->assign('levelsopt',$levelsopt);				//会员级别数组
 		$this->assign('funReg',$funReg);
-		$this->assign('haveuser',$this->userobj->have(''));
+		$this->assign('haveuser',CONFIG('HAVEUSER'));
 		$this->display();
 	}
 	public function regSave(sale_reg $sale_reg){
@@ -208,6 +208,7 @@ class SalewebAction extends CommonAction {
 					die;
 				}
 			}
+			CONFIG('HAVEUSER') == false && CONFIG('HAVEUSER',true);
 			M()->commit();
 			if($this->userobj->unaccLog){
 				//直接登录

@@ -1,4 +1,3 @@
-<script type="text/javascript" src="__PUBLIC__/directSell/area_select.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/fnc.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/moneyout.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/inputFormat.js"></script>
@@ -55,7 +54,7 @@
 					</li>
 					<li>
 						<label>{:L('银行名称')}：</label>
-						<select name="bank" id="bank" class="loginValue">
+						<select name="bank" id="bank" class="loginValue" style="min-width:100px;width:auto;">
 						<option value="">{:L('请选择银行')}</option>
 						<foreach name='bankcards' item='bankcard'>
 						<option value="{$bankcard["开户行"]}">{$bankcard["开户行"]}</option>
@@ -65,18 +64,28 @@
 					</li>
 					<li>
 					    <label>{:L('银行卡所在地')}：</label>
-	                	<select name="country" id="country_id" data-role="none" style="display:none;">
-	                    <option value="">{:L('请选择')}</option>
-	                	</select>
-	                	<select name="province"  id="province_id" data-role="none" style="">
-	                    <option value="">{:L('省份')}</option>
-	                	</select>
-	                    <select name="city" id="city_id" data-role="none">
-	                    <option value="">{:L('城市')}</option>
-	                	</select>
-	                	<select name="county" id="county_id" data-role="none">
-	                    <option value="">{:L('区')}/{:L('县')}</option>
-	                	</select>
+                            <link rel="stylesheet" href="__PUBLIC__/areaselect/style.css">
+                            <!--[if lt IE 8]><script src="__PUBLIC__/areaselect/json2.js"></script><![endif]-->
+                            <script src="__PUBLIC__/areaselect/areaselect.js"></script>
+                            <div id="address-box" class="address-box">
+                                <div class="input-box" style="display: none;">
+                                    <input class="country" name="country" type="text">
+                                    <input class="province" name="province" type="text">
+                                    <input class="city" name="city" type="text">
+                                    <input class="county" name="county" type="text">
+                                    <input class="town" name="town" type="text">
+                                </div>
+                                <div class="country-select" style="display:none;">
+                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <ul class="country-list">
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
+                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="location-box">
+                                </div>
+                            </div>
 	                	<span id="addressmsg" style="color:red;"></span>
 					</li>
 					<li>
@@ -103,11 +112,13 @@
 		    $('#account').inputFormat('account');
 			</script>
 			<script type="text/javascript">
-			$.area_default_show=true;
-			$.area_default_country="中国";
-			$.area_default_province="{$userinfo['省份']}";
-			$.area_default_city="{$userinfo['城市']}";
-			$.area_select_bind( 'country_id' , 'province_id' , 'city_id' , 'county_id', 'town_id' );
+			$.areaSelect('#address-box', '__PUBLIC__', {
+                'country': "{:L('中国')}",
+                'province': "{$userinfo.国家}",
+                'city': "{$userinfo.省份}",
+                'county': "{$userinfo.城市}",
+                'level':'county'
+            });
 			</script>
 			<tr align="center" id="addAddress_tr">
 				<td colspan="4"><a href="javascript:cnyOut.addNewAddr();" id="addNewAddress">{:L('点击添加一个新的提款地址')}</a></td>

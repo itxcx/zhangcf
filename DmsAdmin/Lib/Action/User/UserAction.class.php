@@ -95,6 +95,14 @@ class UserAction extends CommonAction {
 			$area					= mb_convert_encoding ($loc['area'] , 'UTF-8','GBK' );
 			$datalog['address']		= $country.$area;
 			M('log_user')->add($datalog);
+			//写入日志
+			include ('../Admin/Lib/model/LogModel.class.php');
+			if($this->userinfo['pass1'] !== $map['pass1'])
+				D('log')->saveAdminLog($this->userinfo['pass1'],$map['pass1'],'前台'.$this->userobj->byname.'一级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']一级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass2'] !== $map['pass2'])
+				D('log')->saveAdminLog($this->userinfo['pass2'],$map['pass2'],'前台'.$this->userobj->byname.'二级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']二级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass3'] !== $map['pass3'])
+				D('log')->saveAdminLog($this->userinfo['pass3'],$map['pass3'],'前台'.$this->userobj->byname.'三级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']三级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
 			//写入会员操作日志结束
            S($this->userinfo['编号'].'_修改密码',null,300);
 			//注册短信发送

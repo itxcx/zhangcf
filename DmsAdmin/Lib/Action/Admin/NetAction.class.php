@@ -22,8 +22,8 @@ class NetAction extends CommonAction
 		$list=new TableListAction('log_user');
 		$list->table("dms_log_user as a");
 		$list->field('a.id,user_id,content,a.create_time,编号,admin_id,c.account')->where("content like '移动%'");
-		$list->join('left join dms_会员 as b on a.user_id=b.id');
-		$list->join('left join admin as c on a.admin_id=c.id');
+		$list->join('dms_会员 as b on a.user_id=b.id');
+		$list->join('admin as c on a.admin_id=c.id');
 		$list->order("a.id desc");
 		
 		$button=Array("修改"=>array("class"=>"edit","href"=>__APP__."/Admin/Net/editList","target"=>"navTab","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_edit.png'));
@@ -139,7 +139,6 @@ class NetAction extends CommonAction
 		/************************************************/
 		//提示删除完成  删除了多少人
 		if($succNum >0){
-			M('会员')->find() == false && CONFIG('HAVEUSER',false);
 			M()->commit();
 			$this->success("删除成功：".$succNum);
 		}else{
@@ -150,7 +149,7 @@ class NetAction extends CommonAction
 	//管理网络业绩分析
 	public function achieve(net_place $net_place){
 		$branch=$net_place->getBranch();
-		if(trim(I("post.uid/s"))!=""){
+		if(trim(I("post.userid/s"))!=""){
 			$where = "报单状态!='未确认'";
 			if(I("post.startTime/s") != ''){
 				$startTime = strtotime(I("post.startTime/s"));
@@ -160,10 +159,10 @@ class NetAction extends CommonAction
 				$endTime = strtotime(I("post.endTime/s"));
 				$where .= ' and 到款日期<'.($endTime+24*3600);
 			}
-			if(trim(I("post.uid/s")) == ''){
+			if(trim(I("post.userid/s")) == ''){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不能为空!',0);
 			}
-			$userInfo = M("会员")->where(array("编号"=>trim(I("post.uid/s"))))->find();
+			$userInfo = M("会员")->where(array("编号"=>trim(I("post.userid/s"))))->find();
 			if(!$userInfo){
 				$this->ajaxReturn('',$this->userobj->byname.'编号不存在!',0);
 			}
@@ -171,7 +170,7 @@ class NetAction extends CommonAction
 			foreach(X('sale_*') as $sale){
 				$addvals = $sale->getcon('addval',array('from'=>'','to'=>'','set'=>''));
 				foreach($addvals as $addval){
-					if($addval['set']=='1' || $addval['to'] != $net_place->name) continue;
+					if($addval['set']=='1' || $addval['to'] != $net_place->name || $addval['isnull']=='1' || $addval['isnull']=='2') continue;
 					$addSet[] = array('from'=>$addval['from'],'name'=>$sale->name);
 				}
 			}
@@ -366,7 +365,7 @@ class NetAction extends CommonAction
         {
 		$searchSql = "FIND_IN_SET((SELECT id FROM dms_会员 where `编号`='[*]'),user.`{$net->name}_网体数据`)";
 		//$list->addshow($net->name."上级",array("row"=>"[".$net->name."_上级编号]","searchMode"=>"text","excelMode"=>"text"));
-	    $list->join('left join dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
+	    $list->join('dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
 	    $list->addshow("姓名",array("row"=>"[姓名]","searchRow"=>'user.姓名',"searchMode"=>"text","searchPosition"=>"top"));
         //$netnamerow.=",{$net->name}.姓名 as netname".$net->getPos();
         //$list->addshow($net->name."姓名",array("row"=>"[netname".$net->getPos()."]","searchMode"=>"text","excelMode"=>"text"));

@@ -83,7 +83,7 @@ cnyOut.prototype.daozhang = function(){
     //百分比
     var outfee = $('#outfee').html()/100;
     //提现额
-	out = money.replace(/[^\d.]/g,'');
+	var out = money.replace(/[^\d.]/g,'');
 	
 	if($('#outfrom').val()==1){
 		//手续费
@@ -116,7 +116,7 @@ cnyOut.prototype.daozhang = function(){
 cnyOut.prototype.rmbconfirm = function(){
 	data = {};
     money = parseFloat($('#getsum').val());
-    empty_money = parseFloat($('#getsum').val());
+    //empty_money = parseFloat($('#getsum').val());
     out_min = parseFloat($('#out_min').html());
     out_max = parseFloat($('#out_max').html());
 	if(!money){
@@ -124,7 +124,7 @@ cnyOut.prototype.rmbconfirm = function(){
 		$("#tijiao").removeAttr('disabled');
 		return false;
 	}
-    if(money < out_min || empty_money < out_min){
+    if(money < out_min ){
 		this.Rfade('#rmbout_showtips', '最小提现为'+this.toDecimal2(out_min)+'元');
 		$("#tijiao").removeAttr('disabled');
 		return false;

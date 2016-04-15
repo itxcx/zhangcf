@@ -154,7 +154,7 @@
             <table class="tablebg" id="table3">
                 <TR>
                     <td colspan="2" >
-                <input class="button_text" type="button" value="确认" name="subbut"  id='subbut' onclick="tijiao()" />
+                <input class="button_text" type="button" value="{:L('确认')}" name="subbut"  id='subbut' onclick="tijiao()" />
                     </TD>
                 </TR>
             </table>
@@ -205,7 +205,7 @@ function tijiao(){
 <script type="text/javascript">
 function alertcheck(){
 	var alertstr ='<table class="tablebg" style="margin-top:0;">';
-		alertstr+='<tr><td class="tbkey">产品名称</td><td class="tbkey">价格</td><td class="tbkey">数量</td></tr>';
+		alertstr+='<tr><td class="tbkey">{:L("产品名称")}</td><td class="tbkey">{:L("价格")}</td><td class="tbkey">{:L("数量")}</td></tr>';
 		$("input[name^='productNum']").each(function(i){
 		    if($(this).val()!='')
 		    {
@@ -214,24 +214,24 @@ function alertcheck(){
 		    } 
 		});
 		<if condition="($sale:extra eq true)">
-		alertstr+='<tr><td class="tbval">收货地址</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">收货人</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">联系电话</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
 		<else/>
-		alertstr+='<tr><td class="tbval">收货地址</td><td colspan="2" class="tbval">'+"{$userinfo.国家}{$userinfo.省份}{$userinfo.城市}{$userinfo.地区}{$userinfo.街道}"+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">收货人</td><td colspan="2" class="tbval">'+"{$userinfo.收货人}"+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">联系电话</td><td colspan="2" class="tbval">'+"{$userinfo.移动电话}"+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+"{$userinfo.国家}{$userinfo.省份}{$userinfo.城市}{$userinfo.地区}{$userinfo.街道}"+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+"{$userinfo.收货人}"+'</td></tr>';      
+		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+"{$userinfo.移动电话}"+'</td></tr>';      
 		</if>
-		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">请确认产品信息，再点击确认</td></tr>';      
+		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">{:L("请确认产品信息，再点击确认")}</td></tr>';      
 		alertstr+='</table>';
 	$.zxxbox.ask(alertstr, function(){
 		$('#subbut').attr('disabled','true');
-		$('#subbut').val('正在提交,请等待...');
+		$('#subbut').val('{:L("正在提交,请等待...")}');
 	    $('#register').submit();
 	    $.zxxbox.hide();
 	    $('#subbut').removeAttr('disabled');
 	}, null, {
-	    title: "友情提示",
+	    title: "{:L('友情提示')}",
 	    fix: true
 	});
 }

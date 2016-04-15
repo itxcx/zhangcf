@@ -22,12 +22,12 @@
 			//获得USER
 			$user=$this->parent();
 			//当需要手动填写会员编号时
-			$ret[] = array('userid','require','编号不能为空！',1);
+			$ret[] = array('userid','require','编号不能为空',1);
 			$ret[] = array('userid',array($user,"have"),"您的编号不存在",2,'function');
 			$ret[] = array('userid',array($this,"haveNull"),"您已经有未审核的申请存在，请不要重复提交",2,'function');
 			
 			//!!校验lv是否为空
-			$ret[] = array('lv','require','未填写级别信息！',1);
+			$ret[] = array('lv','require','未填写级别信息',1);
 			$ret[] = array('lv',array($this,"areaNull"),"请选择级别对应的代理地区",2,'function',3,array($data_post));
 			$ret[] = array('lv',array($this,"areaHave"),"您选择的区域代理人数已达上限",2,'function',3,array($data_post));
 			//产品

@@ -1,6 +1,6 @@
 <div class="core_main Sale" id="viewMysale">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <notempty name="saleData">
     <div class="core_con">
@@ -8,50 +8,50 @@
     <foreach name="saleData" item="vo">
         <table class="tablebg" id="table1">
             <tr >
-                <td class="tbkey"><nobr>编号：</nobr></td>
+                <td class="tbkey"><nobr>{:L('编号')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.编号}</nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>购买日期：</nobr></td>
+                <td class="tbkey"><nobr>{:L('购买日期')}：</nobr></td>
                 <td class="tbval"><nobr><if condition="$vo['购买日期']">{$vo.购买日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>报单类别：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单类别')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.报单类别}</nobr></td>
             </tr>                
             <tr >
-                <td class="tbkey"><nobr>报单状态：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单状态')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.报单状态}</nobr></td>
             </tr>
             <if condition="$vo['报单金额'] neq 0">
             <tr >
-                <td class="tbkey"><nobr>报单金额：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单金额')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.报单金额}</nobr></td>
             </tr>
             </if>
             <if condition="$vo['产品'] eq 1">
 	            <tr >
-	                <td class="tbkey"><nobr>购物金额：</nobr></td>
+	                <td class="tbkey"><nobr>{:L('购物金额')}：</nobr></td>
 	                <td class="tbval"><nobr>{$vo.购物金额}</nobr></td>
 	            </tr>
             </if> 
              <tr >
-                <td class="tbkey"><nobr>回填金额：</nobr></td>
+                <td class="tbkey"><nobr>{:L('回填金额')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.回填金额}</nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>已回金额：</nobr></td>
+                <td class="tbkey"><nobr>{:L('已回金额')}：</nobr></td>
                 <td class="tbval"><nobr>{$vo.已回金额}</nobr></td>
             </tr>
         </table>
         <table class="tablebg" id="table2">
 			<tr>
-				<td class="tbkey">转正方式：</td>
+				<td class="tbkey">{:L('转正方式')}：</td>
 				<td class="tbval">
 					<select name="type[{$vo['id']}]">
-						<if condition="count($saleData) gt 1"><option value="0">不申请</option></if>
-						<notempty name="backfill"><option value="回填转正">回填转正（奖金回填）</option></notempty>
-						<option value="立即转正">立即转正（扣除货币或现金）</option>
+						<if condition="count($saleData) gt 1"><option value="0">{:L('不申请')}</option></if>
+						<notempty name="backfill"><option value="回填转正">{:L('回填转正')}（{:L('奖金回填')}）</option></notempty>
+						<option value="立即转正">{:L('立即转正')}（{:L('扣除货币或现金')}）</option>
 					</select>
 				</td>
 			</tr>
@@ -60,7 +60,7 @@
         <table class="tablebg" id="table4">
             <tr>
                 <td>
-                    <input class="button_text" type="submit" value="申请"/> 
+                    <input class="button_text" type="submit" value="{:L('申请')}"/> 
                 </td>
             </tr>
         </table>
@@ -68,7 +68,7 @@
     </div>
     </notempty>
     <div class="title">
-    	<span class="core_title_con">{$nowtitle}记录</span>
+    	<span class="core_title_con">{$nowtitle} {:L('记录')}</span>
     </div>
     <div class="core_con">
         <table class="tablebg">
@@ -87,29 +87,29 @@
         </table>
     </div>
     <div class="core_page">
-        <span>共{$data.count}条记录 {$data.nowPage}/{$data.totalPages}页 &nbsp;</span>
-        <if condition="$data['nowPage'] neq 1">
-        <a href="{$data.firstRow}">首页</a>&nbsp;&nbsp;
-        <else/><span>首页&nbsp;&nbsp;</span>
-        </if>
-        <a href="{$data.upRow}">上一页</a>&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][-2])">
-        <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][-1])">
-        <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
-        </if>
-        {$data.nowPage}&nbsp;&nbsp;
-        <if condition="isset($data['rollPage'][1])">
-        <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
-        </if>
-        <if condition="isset($data['rollPage'][2])">
-        <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
-        </if>
-        <a href="{$data.downRow}">下一页</a>&nbsp;&nbsp;
-        <if condition="$data['nowPage'] lt $data['totalPages']">
-        <a href="{$data.theEndRow}">尾页</a>
-        <else/><span>尾页</span>
-        </if>  
+	    <span>{:L('共')} {$data.count} {:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')} &nbsp;</span>
+	    <if condition="$data['nowPage'] neq 1">
+	    <a href="{$data.firstRow}">{:L('首页')}</a>&nbsp;&nbsp;
+	    <else/><span>{:L('首页')}&nbsp;&nbsp;</span>
+	    </if>
+	    <a href="{$data.upRow}">{:L('上一页')}</a>&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][-2])">
+	    <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][-1])">
+	    <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+	    </if>
+	    {$data.nowPage}&nbsp;&nbsp;
+	    <if condition="isset($data['rollPage'][1])">
+	    <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+	    </if>
+	    <if condition="isset($data['rollPage'][2])">
+	    <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+	    </if>
+	    <a href="{$data.downRow}">{:L('下一页')}</a>&nbsp;&nbsp;
+	    <if condition="$data['nowPage'] lt $data['totalPages']">
+	    <a href="{$data.theEndRow}">{:L('尾页')}</a>
+	    <else/><span>{:L('尾页')}</span>
+	    </if>  
     </div>
 </div>

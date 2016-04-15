@@ -1,46 +1,46 @@
 <div class="core_main Sale" id="viewMysale">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
     </div>
     <div class="core_con">
         <table class="tablebg" id="table1">
             <tr >
-                <td class="tbkey"><nobr>编号：</nobr></td>
+                <td class="tbkey"><nobr>{:L('编号')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.编号}</nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>购买日期：</nobr></td>
+                <td class="tbkey"><nobr>{:L('购买日期')}：</nobr></td>
                 <td class="tbval"><nobr><if condition="$saleData['购买日期']">{$saleData.购买日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             <if condition="$saleData['到款日期'] gt 0">
             <tr >
-                <td class="tbkey"><nobr>到款日期：</nobr></td>
+                <td class="tbkey"><nobr>{:L('到款日期')}：</nobr></td>
                 <td class="tbval"><nobr><if condition="$saleData['到款日期']">{$saleData.到款日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             </if>
             <if condition="$saleData['发货日期'] gt 0">
             <tr >
-                <td class="tbkey"><nobr>发货日期：</nobr></td>
+                <td class="tbkey"><nobr>{:L('发货日期')}：</nobr></td>
                 <td class="tbval"><nobr><if condition="$saleData['发货日期']">{$saleData.发货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             </if>
 			<if condition="$saleData['收货日期'] gt 0">
             <tr >
-                <td class="tbkey"><nobr>收货日期：</nobr></td>
+                <td class="tbkey"><nobr>{:L('收货日期')}：</nobr></td>
                 <td class="tbval"><nobr><if condition="$saleData['收货日期']">{$saleData.收货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             </if>
             <tr >
-                <td class="tbkey"><nobr>报单类别：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单类别')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.报单类别}</nobr></td>
             </tr>                
             <tr >
-                <td class="tbkey"><nobr>报单状态：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单状态')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.报单状态}</nobr></td>
             </tr>
             <if condition="$saleData['报单金额'] neq 0">
             <tr >
-                <td class="tbkey"><nobr>报单金额：</nobr></td>
+                <td class="tbkey"><nobr>{:L('报单金额')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.报单金额}</nobr></td>
             </tr>
             </if>
@@ -48,18 +48,18 @@
            
             <if condition="$saleData['产品'] eq 1">
 	            <tr >
-	                <td class="tbkey"><nobr>购物金额：</nobr></td>
+	                <td class="tbkey"><nobr>{:L('购物金额')}：</nobr></td>
 	                <td class="tbval"><nobr>{$saleData.购物金额}</nobr></td>
 	            </tr>
 	            <if condition="$adminshow eq true">
 	            <tr >
-	                <td class="tbkey"><nobr>购物PV：</nobr></td>
+	                <td class="tbkey"><nobr>{:L('购物PV')}：</nobr></td>
 	                <td class="tbval"><nobr>{$saleData.购物PV}</nobr></td>
 	            </tr>
 	            </if> 
             </if> 
              <tr >
-                <td class="tbkey"><nobr>实付款：</nobr></td>
+                <td class="tbkey"><nobr>{:L('实付款')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.实付款}</nobr></td>
             </tr>
         </table>
@@ -67,61 +67,61 @@
         <table class="tablebg" id="table2">
             <if condition="$saleData['升级数据'] gt 0">
 			<tr>
-				<td class="tbkey">原始级别：</td>
+				<td class="tbkey">{:L('原始级别')}：</td>
 				<td class="tbval">{$oldlevel}</td>
 			</tr>
 			<tr>
-				<td class="tbkey">升至级别：</td>
+				<td class="tbkey">{:L('升至级别')}：</td>
 				<td class="tbval">{$nowlevel}</td>
 			</tr>
 			</if>
             
             <if condition="$saleData['物流费'] gt 0">
 			<tr>
-				<td class="tbkey">产品重量：</td>
+				<td class="tbkey">{:L('产品重量')}：</td>
 				<td class="tbval">{$saleData['产品总重量']}</td>
 			</tr>
 			
 			<tr>
-				<td class="tbkey">物流费：</td>
+				<td class="tbkey">物流费')}：</td>
 				<td class="tbval">{$saleData['物流费']}</td>
 			</tr>
 			</if>
 			<if condition="$saleData['发货方式'] neq ''">
 			<tr>
-				<td class="tbkey">发货方式：</td>
+				<td class="tbkey">{:L('发货方式')}：</td>
 				<td class="tbval">{$saleData['发货方式']}</td>
 			</tr>
 			</if>
 			<if condition="($saleData['产品'] eq 1) or (adminshow('baodan_wuliu') eq true)">
             <tr >
-                <td class="tbkey"><nobr>收货人：</nobr></td>
+                <td class="tbkey"><nobr>{:L('收货人')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.收货人}</nobr></td>
             </tr>
              <tr >
-                <td class="tbkey"><nobr>联系电话：</nobr></td>
+                <td class="tbkey"><nobr>{:L('联系电话')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.联系电话}</nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>收货地址：</nobr></td>
+                <td class="tbkey"><nobr>{:L('收货地址')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.收货省份}{$saleData.收货城市}{$saleData.收货地区}{$saleData.收货街道}{$saleData.收货地址}</nobr></td>
             </tr>
             <tr >
-                <td class="tbkey"><nobr>物流状态：</nobr></td>
+                <td class="tbkey"><nobr>{:L('物流状态')}：</nobr></td>
                 <td class="tbval"><nobr>{$saleData.物流状态}</nobr></td>
             </tr>
             </if>
            <if condition="$saleData['快递公司'] neq ''">
 			<tr>
-				<td class="tbkey">快递公司</td>
+				<td class="tbkey">{:L('快递公司')}</td>
 				<td class="tbval">{$saleData.快递公司}</td>
 			</tr>
 			<tr>
-				<td class="tbkey">快递单号：</td>
+				<td class="tbkey">{:L('快递单号')}：</td>
 				<td class="tbval">{$saleData.快递订单}</td>
 			</tr>
 			<tr>
-				<td class="tbkey">快递备注：</td>
+				<td class="tbkey">{:L('快递备注')}：</td>
 				<td class="tbval">{$saleData.快递备注}</td>
 			</tr>
 			</if>
@@ -130,18 +130,18 @@
         <present name="productData">	
         <table class="tablebg" id="table3">
             <tr >
-                <th colspan="6">产品选购信息</th>
+                <th colspan="6">{:L('产品选购信息')}</th>
             </tr>
             <tr class="datafield">
-                <td >产品名称</td>
-                <td >数量</td>
-                <td >价格</td>
+                <td >{:L('产品名称')}</td>
+                <td >{:L('数量')}</td>
+                <td >{:L('价格')}</td>
                 <if condition="$adminshow eq true">
-                <td >PV</td>
+                <td >{:L('PV')}</td>
                 </if>
-                <td >总价</td>
+                <td >{:L('总价')}</td>
                 <if condition="$adminshow eq true">
-                <td >总PV</td>
+                <td >{:L('总PV')}</td>
                 </if>
             </tr >
             <foreach name="productData" item="paydata">
@@ -159,7 +159,7 @@
             </tr>
             </foreach>
             <tr class="datalist">
-                <td colspan="3">汇总：</td>
+                <td colspan="3">{:L('汇总')}：</td>
                 <td >{$saleData.购物金额}</td>
                 <if condition="$adminshow eq true">
                 <td >{$saleData.购物PV}</td>
@@ -171,7 +171,7 @@
         <table class="tablebg" id="table4">
             <tr>
                 <td>
-                    <input class="button_text" type="button" value="返回" onclick="history.back()"/> 
+                    <input class="button_text" type="button" value="{:L('返回')}" onclick="history.back()"/> 
                 </td>
             </tr>
         </table>

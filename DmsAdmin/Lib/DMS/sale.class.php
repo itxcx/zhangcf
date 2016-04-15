@@ -19,10 +19,10 @@
 		public $setNumber = false;
 		//报单金额,-1表示不启用
 		public $money = -1;
-		//报单单数,-1表示不启用
-		public $num = -1;
 		//报单pvmoney,-1表示不启用
 		public $pvmoney = -1;
+		//报单pv,-1表示不启用
+		public $pv = -1;
 		//报单完成是否生效
 		public $confirm =true;
 		//审核货币
@@ -71,7 +71,7 @@
 			//如果设置了店铺
 		    if($this->fromNoName !='') {
 		    	//如果存在会员
-				if(X('user')->have('')){
+				if(CONFIG('HAVEUSER')){
 					//根据店铺编号取得会员
 				    $shopinfo=M("会员")->where(array("编号"=>trim($data_post['shop'])))->find();
 				    //如果没有店铺存在,则提示

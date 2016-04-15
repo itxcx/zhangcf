@@ -87,7 +87,7 @@ class Fun_bankAction extends CommonAction {
         if($status == 0){
             return L('未审核');
         }elseif($status == 1){
-            return "<a href='javascript:alert(\"撤销理由：".$memo."\")'>".L('已撤销').'</a>';
+            return L('已撤销');//"<a href='javascript:alert(\"撤销理由：".$memo."\")'>".L('已撤销').'</a>';
         }elseif($status == 3){
             return L('已发放');
         }else{
@@ -313,6 +313,10 @@ class Fun_bankAction extends CommonAction {
 		{
 			$this->error('您已经提交过提现申请,如继续操作,请从新点击提现功能');
 		}
+        if($fun_bank->getOnly && M('提现')->where(array('编号'=>$this->userinfo['编号'],'状态'=>0))->find())
+        {
+            $this->error('您有一笔未审核的提现记录，暂不能继续提现');
+        }
 
 
         $re = $this->setGetold($bank,$this->userinfo);

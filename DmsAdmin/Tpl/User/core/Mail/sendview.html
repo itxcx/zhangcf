@@ -1,6 +1,6 @@
 <div class="core_main Mail" id="sendview">
 	<div class="core_title">
-    	<span class="core_title_con"><span>当前位置</span>：{$nowtitle}</span>
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
 	
         <span class="core_title_edit"></span>
     </div>
@@ -30,17 +30,17 @@
                         </tr>                
                         <eq name="list.状态" value="2">
                         <tr >
-                            <td >{:L('response_time')}：</td>
+                            <td >{:L('回复时间')}：</td>
                             <td>&nbsp;{$list.回复时间|date="Y-m-d H:i:s",###}</td>
                         </tr>
                         <tr >
-                            <td >{:L('response_content')}：</td>
+                            <td >{:L('回复内容')}：</td>
                             <td>&nbsp;{$list.回复内容}</td>
                         </tr>			                 
                         </eq>
                         <tr>
                             <td colspan="2" >
-                                <center><input class="button_text" type="button" onClick="history.back();" value="{:L('back')}"/></center></td>
+                                <center><input class="button_text" type="button" onClick="history.back();" value="{:L('返回')}"/></center></td>
                         </tr>
                     </table>
                 </td>

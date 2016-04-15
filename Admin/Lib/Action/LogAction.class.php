@@ -37,15 +37,16 @@ class LogAction extends CommonAction
         $list=new TableListAction("log"); // 实例化Model 传表名称 
 		$list->table('log a');
 		$list->hint = "非电信以及联通带宽线路可能会出现异地IP,如发现IP异常,请先<a href='http://www.ip138.com/' target='_break'>确认当前登入IP</a>是否正常。";
-		$list->join(C('PREFIX_DB').'admin b on a.admin_id=b.id');
-		$list->field('a.*,b.account');
+		$list->join('left join admin b on a.admin_id=b.id');
+		$list->join('left join dms_会员 c on a.user_id=c.编号');
+		$list->field('a.*,b.account,c.编号');
 		$list->order("a.create_time desc,a.id desc");  //定义查询条件
         $list->addshow("id",array("row"=>"[id]"));      // 增加列表显示字段
         $list->addshow("应用",array("row"=>"[application]","searchMode"=>"text","excelMode"=>"text",'hide'=>true)); 
         $list->addshow("分组",array("row"=>"[group]","searchMode"=>"text","excelMode"=>"text",'hide'=>true));
         $list->addshow("模块",array("row"=>"[module]","searchMode"=>"text",'hide'=>true));
         $list->addshow("方法",array("row"=>"[action]","searchMode"=>"text",'hide'=>true)); 
-		$list->addshow("操作人",array("row"=>'[account]',"searchMode"=>"text",'searchPosition'=>'top','searchRow'=>'account'));
+		$list->addshow("操作人",array("row"=>array(array($this,'showOpt'),'[编号]','[account]'),"searchMode"=>"text",'searchPosition'=>'top','searchRow'=>'account'));
 		$list->addshow("操作内容",array("row"=>'[content]',"searchMode"=>"text",'searchPosition'=>'top'));
         $list->addshow("操作时间",array("row"=>"[create_time]",'searchMode'=>'date','searchPosition'=>'top',"format"=>"time",'searchRow'=>'a.create_time'));
 		$list->addshow("IP",array("row"=>"[ip]","searchMode"=>"text","excelMode"=>"text"));
@@ -55,6 +56,10 @@ class LogAction extends CommonAction
 		$list ->listLayoutH = 110;
 		$this->assign('list',$list->getHtml());
         $this->display();
+	}
+	//显示操作人
+	public function showOpt($userid,$account){
+		return $userid ? $userid : $account;
 	}
 	//删除日志
     public  function del_log(){

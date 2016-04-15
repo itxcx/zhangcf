@@ -156,11 +156,11 @@ class NetTreeAction extends CommonAction
 	    {
 	    	$lstr=$this->net->name.'_'.$Branch.'区';
 	    	//本期业绩连表
-        	$user_m->join('(select userid,sum(val) '.$lstr.'本日业绩 from dms_'.$this->net->name.'_业绩 where time>='.$pvtime.' and time<'.$pvtime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
+        	$user_m->join('left join (select userid,sum(val) '.$lstr.'本日业绩 from dms_'.$this->net->name.'_业绩 where time>='.$pvtime.' and time<'.$pvtime.'+86400 and region='.($key+1).' and pid>0 group by userid) new'.$key.' on dms_会员.id = new'.$key.'.userid');
         	//结转业绩连表
-			$user_m->join('(select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->net->name.'_业绩 where time<'.$pvtime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
+			$user_m->join('left join (select userid,sum(val) '.$lstr.'结转业绩 from dms_'.$this->net->name.'_业绩 where time<'.$pvtime.' and region='.($key+1).' and pid<>0 group by userid) jie'.$key.' on dms_会员.id = jie'.$key.'.userid');
 			//累计业绩连表
-			$user_m->join('(select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->net->name.'_业绩 where time<'.$pvtime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
+			$user_m->join('left join (select userid,sum(val) '.$lstr.'累计业绩 from dms_'.$this->net->name.'_业绩 where time<'.$pvtime.'+86400 and region='.($key+1).' and pid>0 group by userid) sum'.$key.' on dms_会员.id = sum'.$key.'.userid');
         	$rows['new'.$key.'.'.$lstr.'本日业绩'] = 1;
         	$rows['jie'.$key.'.'.$lstr.'结转业绩'] = 1;
         	$rows['sum'.$key.'.'.$lstr.'累计业绩'] = 1;

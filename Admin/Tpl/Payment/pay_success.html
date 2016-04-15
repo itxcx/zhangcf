@@ -1,0 +1,25 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>支付成功</title>
+</head>
+<body>
+<div style="text-align:center;margin-top:120px;">
+	<img src="/Public/Images/pay/payover.jpg"/>
+	<div style="position:relative;top:-105px;e-index;z-index:9999;">
+		<span style="background:#FFF;display:inline-block;width:202px;text-align:left;height:40px">
+			<span style="font:12px/1em microsoft yahei;text-decoration:none;color:#999999">订单编号：{$info.orderId}</span>
+			<span style="font:12px/1em microsoft yahei;text-decoration:none;color:#999999">支付金额：{$info.realmoney}</span>
+		<span>
+	</div>
+	<div style="position:relative;top:-100px;e-index;z-index:9999">
+		<span style="background:#FFF;display:inline-block;width:200px;text-align:left">
+			<a href="__ROOT__/index.php?s=/User/Fun_pay/paylist" style="font:bold 12px/1em microsoft yahei;text-decoration:none;color:#0066CC">查看订单</a>
+			<a href="__ROOT__/" style="font:bold 12px/1em microsoft yahei;text-decoration:none;color:#0066CC;margin:0 10px">返回首页</a>
+			<a href="__ROOT__/index.php?s=/User/Fun_pay/index" style="font:bold 12px/1em microsoft yahei;text-decoration:none;color:#0066CC">继续支付</a>
+		</span>
+	</div>
+</div>
+</body>
+</html>

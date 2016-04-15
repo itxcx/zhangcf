@@ -19,7 +19,7 @@ class PrizeLockAction extends CommonAction {
         $where   =array('user.奖金锁'=>1);
         $list->where($where);
         $list->addshow("编号",array("row"=>"[编号]","css"=>"width:60px","searchMode"=>"text",'searchGet'=>'userid',"searchPosition"=>"top","excelMode"=>"text",'searchRow'=>'user.编号'));  
-		$list->addshow('姓名',array('row'=>'[姓名]',"searchMode"=>"text",'searchRow'=>'姓名'));
+		$list->addshow('姓名',array('row'=>'[姓名]',"searchMode"=>"text",'searchRow'=>'user.姓名'));
         $list->addshow("状态",array("row"=>array(array(&$this,"_zhuangtai"),"[状态]"),"css"=>'width:50px'));
         $list->addshow("注册日期",array("row"=>"[注册日期]","format"=>"date","css"=>"width:60px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date","order"=>"[user.注册日期]",'searchRow'=>'user.注册日期'));
         $list->addshow("审核日期",array("row"=>"[审核日期]","format"=>"date","css"=>"width:60px","url"=>__APP__."/Admin/User/userForm/id/[id]/","target"=>"dialog","urlAttr"=>'mask="true" width="960" height="480" title="会员明细"',"searchMode"=>"date",'order'=>'[user.审核日期]','searchRow'=>'user.审核日期'));
@@ -50,10 +50,6 @@ class PrizeLockAction extends CommonAction {
 			//货币分离
 			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"css"=>"width:90px","searchRow"=>"b.".$banks->name,"searchMode"=>"num","order"=>'b.'.$banks->name,"sum"=>'b.'.$banks->name));
 		}
-		foreach(X('fun_stock') as $fskey=>$fun_stock)
-        {
-        	$list->addshow($fun_stock->byname,array("row"=>array(array($this,"_shownum"),"[fs".$fskey."num]","[编号]",$fun_stock->objPath()),"searchRow"=>"fs".$fskey.".数量","searchMode"=>"num","order"=>"fs".$fskey.".数量","sum"=>"fs".$fskey.".数量"));
-        }
         //显示网络上级姓名的额外字段
         $netnamerow='';
         //网络信息
@@ -81,7 +77,7 @@ class PrizeLockAction extends CommonAction {
 	        	$list->addshow($net->byname."累计业绩",array("row"=>str_replace("@","累计业绩",$bras),"hide"=>true));
         	}
         	$list->addshow($net->byname."上级",array("row"=>array(array(&$this,"_dispNetUp"),'[编号]',"[".$net->name."_上级编号]",$net->name,$net->objPath()),"searchMode"=>"text","searchPosition"=>"top","excelMode"=>"text",'searchRow'=>"[user.".$net->name."_上级编号]"));
-	       	$list->join('dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
+	       	$list->join('left join dms_会员 as '.$net->name.' on user.'.$net->name.'_上级编号='.$net->name.'.编号');
         	$netnamerow.=",{$net->name}.姓名 as netname".$net->getPos();
         	//$list->addshow($net->byname."人姓名",array("row"=>"[netname".$net->getPos()."]","searchMode"=>"text","excelMode"=>"text",'searchRow'=>"{$net->name}.姓名"));
         	$list->addshow($net->byname."层数",array("row"=>"[".$net->name."_层数]","searchMode"=>"num",'searchRow'=>"user.".$net->name."_层数","order"=>"user.".$net->name."_层数"));
@@ -114,10 +110,8 @@ class PrizeLockAction extends CommonAction {
 		foreach(X('fun_bank') as $fun_bank){
 			$filestr.=",b.".$fun_bank->name;
 		}
-		foreach(X('fun_stock') as $fskey=>$fun_stock)
-        {
-        	$filestr.=",fs".$fskey.".数量 as fs".$fskey."num";
-        }
+		
+
 		$list->field($filestr);//货币分离        
 		echo $list->getHtml();
 	}

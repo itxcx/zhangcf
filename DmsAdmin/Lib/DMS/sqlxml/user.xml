@@ -95,6 +95,7 @@
 <field name='代理地区'  type="varchar(50)" default=""/>
 <field name='代理街道'  type="varchar(50)" default=""/>
 <field name='报单金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='报单PV' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
 <field name='报单单数'   type="int(11)" default="0"/>
 <field name='购物金额' type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
 <field name='购物PV'   type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>

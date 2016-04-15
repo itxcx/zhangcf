@@ -22,12 +22,12 @@
 			//获得USER
 			$user=$this->parent();
 			//当需要手动填写会员编号时
-			$ret[] = array('userid','require','编号不能为空！',1);
+			$ret[] = array('userid','require','编号不能为空',1);
 			$ret[] = array('userid',array($user,"have"),"您的编号不存在",2,'function');
 			$ret[] = array('userid',array($this,"haveNull"),"您已经有未审核的申请存在，请不要重复提交",2,'function');
 			
 			//!!校验lv是否为空
-			$ret[] = array('lv','require','未填写级别信息！',1);
+			$ret[] = array('lv','require','未填写级别信息',1);
 			$ret[] = array('lv',array($this,"areaNull"),"请选择级别对应的代理地区",2,'function',3,array($data_post));
 			$ret[] = array('lv',array($this,"areaHave"),"您选择的区域代理人数已达上限",2,'function',3,array($data_post));
 			//产品
@@ -295,7 +295,8 @@
 			
 			$money=$this->getSaleMoneys($option);
 			$sdata["报单金额"]    =$money['pvmoney'];
-			$sdata["报单单数"]    =$money['num'];
+           	$sdata["报单PV"]      =$money['pv'];
+			$sdata["报单单数"]    =$money['number'];
 			$sdata["实付款"]      =$money['money'];
 				
 			//产品
@@ -329,6 +330,7 @@
 			//不累计业绩
 			if(isset($option['point']) && $option['point']!=0){
 				$sdata["报单金额"]    =0;
+               	$sdata["报单PV"]      =0;
 				$sdata["报单单数"]    =0;
 			}
 			//回填
@@ -402,7 +404,8 @@
 			$new_level = $levels->getlevel($newlv);
             $ret['pvmoney']= $this->diff ? $new_level['pvmoney'] - $old_level['pvmoney'] : $new_level['pvmoney'];
 			$ret['money']  = $this->diff ? $new_level['money']   - $old_level['money']   : $new_level['money'];
-			$ret['num'] = $this->diff ? $new_level['num']  - $old_level['num']  : $new_level['num'];
+           	$ret['pv']=$this->diff ? $new_level['pv'] - $old_level['pv']: $new_level['pv'];
+          	$ret['number']=$this->diff ? $new_level['number'] - $old_level['number']: $new_level['number'];
 			return $ret;
 		}
 		//级别为最大级locakme='false'菜单不显示

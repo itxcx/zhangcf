@@ -95,6 +95,14 @@ class UserAction extends CommonAction {
 			$area					= mb_convert_encoding ($loc['area'] , 'UTF-8','GBK' );
 			$datalog['address']		= $country.$area;
 			M('log_user')->add($datalog);
+			//写入日志
+			include ('../Admin/Lib/model/LogModel.class.php');
+			if($this->userinfo['pass1'] !== $map['pass1'])
+				D('log')->saveAdminLog($this->userinfo['pass1'],$map['pass1'],'前台'.$this->userobj->byname.'一级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']一级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass2'] !== $map['pass2'])
+				D('log')->saveAdminLog($this->userinfo['pass2'],$map['pass2'],'前台'.$this->userobj->byname.'二级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']二级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass3'] !== $map['pass3'])
+				D('log')->saveAdminLog($this->userinfo['pass3'],$map['pass3'],'前台'.$this->userobj->byname.'三级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']三级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
 			//写入会员操作日志结束
            S($this->userinfo['编号'].'_修改密码',null,300);
 			//注册短信发送
@@ -292,7 +300,7 @@ class UserAction extends CommonAction {
         $list = new TableListAction('报单');
 		$list ->table('dms_报单 as a');
         //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=$this->userinfo['编号']"));
-        $list->join("dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='{$this->userinfo['编号']}' or a.注册人编号='{$this->userinfo['编号']}') and a.报单类别 in ({$baodan_string})");
+        $list->join("left join dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='{$this->userinfo['编号']}' or a.注册人编号='{$this->userinfo['编号']}') and a.报单类别 in ({$baodan_string})");
 		$list->order("a.id desc");
 		$fieldStr = '';
 		foreach(X('net_rec') as $netRec){
@@ -314,7 +322,9 @@ class UserAction extends CommonAction {
 		$list->addshow(L('付款日期') ,array('row'=>'[到款日期]',"format"=>"time"));
 		//$list->addshow(L('报单状态') ,array('row'=>'[报单状态]'));
 		$list->addshow(L('报单金额') ,array('row'=>'[报单金额]'));
-
+       if(adminshow('bd_pv_head')){
+		$list ->addshow( L('报单PV'), array("row"=>"[报单PV]","searchMode"=>"num"));
+	}
         $list->addshow(L('注册日期'),array("row"=>"[注册日期]","format"=>"time"));
         $list->addshow(L('姓名')     ,array("row"=>"[姓名]"));
 

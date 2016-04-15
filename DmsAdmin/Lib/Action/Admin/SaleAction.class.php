@@ -27,7 +27,7 @@ class SaleAction extends CommonAction {
         }
         $list=new TableListAction("报单");
         $list->table("dms_报单 as a");
-        $list->join('dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
+        $list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
         $list->where(array("a.产品"=>0,"a.报单状态"=>array('neq','未确认')));
  
         $list->setButton = $setButton;       // 定义按钮显示
@@ -46,13 +46,15 @@ class SaleAction extends CommonAction {
 		}
 		//是否有服务中心
 		if($this->userobj->shopWhere!=''){
-        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text"));
+        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
 		}
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text",));
-		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text")); 
+		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text",'searchRow'=>'[a.注册人编号]')); 
         $list->addshow("订单类别"  ,array("row"=>"[报单类别]","searchMode"=>"text","searchPosition"=>"top",'searchGet'=>'saletype','searchRow'=>'[byname]',"searchSelect"=>$select));
         $list->addshow("报单金额"  ,array("row"=>"[报单金额]","searchMode"=>"num","sum"=>"报单金额","order"=>"报单金额","excelMode"=>"#,###0.00"));
-		
+	    if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"实付款","order"=>"实付款","excelMode"=>"#,###0.00"));
         //有升级
         //if($this->userobj->haveUp()){
@@ -90,7 +92,7 @@ class SaleAction extends CommonAction {
        
         $list=new TableListAction("报单");
         $list->table("dms_报单 as a");
-        $list->join('dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
+        $list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
         $list->where(array("a.产品"=>1,"a.报单状态"=>array('neq','未确认')));
         $list->setButton = $setButton;       // 定义按钮显示
         $list->order("购买日期 desc");
@@ -105,7 +107,7 @@ class SaleAction extends CommonAction {
 	        $list->addshow("收货日期"  ,array("row"=>"[收货日期]",'format'=>'time',"order"=>"收货日期","searchMode"=>"date"));
 		}
 		if($this->userobj->shopWhere!=''){
-        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text"));
+        	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
         }
         $list->addshow("付款人"    ,array("row"=>"[付款人编号]","searchMode"=>"text","css"=>"width:90px;"));
 		$list->addshow("注册人"  ,array("row"=>"[注册人编号]","searchMode"=>"text","css"=>"width:90px;",'searchRow'=>'a.注册人编号')); 
@@ -116,6 +118,9 @@ class SaleAction extends CommonAction {
         if(adminshow('sale_pv')){
         	$list->addshow("购物PV"    ,array("row"=>"[购物PV]"  ,"searchMode"=>"num","sum"=>"[购物PV]",'order'=>'购物PV'));
         }
+         if(adminshow('bd_pv')){
+        	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
+        }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"[实付款]",'order'=>'实付款'));
         if($logistic){
 	        //添加物流费显示
@@ -126,8 +131,8 @@ class SaleAction extends CommonAction {
         	$list->addshow("原级别",array("row"=>array(array(&$this,'_printUserLevel'),'[old_lv]','','[报单类别]'),"searchMode"=>"num","css"=>"width:100px;"));
         	$list->addshow("新级别" ,array("row"=>array(array(&$this,'_printUserLevel'),'[升级数据]','','[报单类别]',"[id]"),"searchMode"=>"num","css"=>"width:100px;"));
         }
-        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;"));
-        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;"));
+        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;",'searchRow'=>'[a.收货人]'));
+        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;",'searchRow'=>'[a.联系电话]'));
         $list->addshow("收货地址"  ,array("row"=>"[收货省份][收货城市][收货地区][收货街道][收货地址]","searchMode"=>"text","css"=>"width:350px;"));
         $list->addshow("产品信息"  ,array("row"=>array(array(&$this,'allPro'),'[id]','[报单类别]'),"searchMode"=>"text","css"=>"width:350px;",'hide'=>true));
      
@@ -231,7 +236,7 @@ class SaleAction extends CommonAction {
         $where="a.报单状态 = '未确认'";
         //推广链接审核
         if(adminshow('tj_tuiguang') && adminshow('order_tuiguang')) $where.=" and a.是否推广链接=0";
-		$list->join("dms_会员 as b on b.编号=a.编号")->where($where);
+		$list->join("left join dms_会员 as b on b.编号=a.编号")->where($where);
         $list->field($lvNodeName."b.姓名,a.*");
         $list->order("a.购买日期 desc");
 		$list ->setShow = array(
@@ -258,7 +263,7 @@ class SaleAction extends CommonAction {
 		//	$list->addshow('升级数据',array("row"=>array(array(&$this,"_printUserLevel"),"[升级数据]","","[报单类别]","[id]")));
 		}
 		if($this->userobj->shopWhere != ''){
-			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text"));
+			$list->addshow('服务中心',array("row"=>"[服务中心编号]","searchMode"=>"text","searchRow"=>'a.服务中心编号'));
 		}
 		$list->addshow('报单状态',array("row"=>"[报单状态]"));
 		$list->addshow('报单类别',array("row"=>"[报单类别]"));
@@ -276,7 +281,7 @@ class SaleAction extends CommonAction {
 			'确认审核'=>array("class"=>"edit","href"=>__URL__.'/tj_accok/id/{tl_id}',"target"=>"ajaxTodo","mask"=>"true","title"=>"是否确认审核！"),
 			"删除"=>array("class"=>"delete","href"=>__URL__."/pre_delete/id/{tl_id}","target"=>"dialog","mask"=>"true"),
         );
-		$list->join("dms_会员 as b on b.编号=a.编号")->where("a.报单状态 = '未确认' and 是否推广链接='1'");
+		$list->join("left join dms_会员 as b on b.编号=a.编号")->where("a.报单状态 = '未确认' and 是否推广链接='1'");
         $list->field($lvNodeName."a.id,b.编号,b.注册日期,b.推荐_上级编号,b.姓名,a.报单状态,a.报单金额,a.服务中心编号,a.购物金额,a.购物PV,a.报单类别");
         $list->order("a.购买日期 desc");
 		$list ->setShow = array(
@@ -557,7 +562,7 @@ class SaleAction extends CommonAction {
 		$this->assign('show',$show);
 		$this->assign('pwd3Switch',adminshow('pwd3Switch'));
 		$this->assign('levelsopt',$levelsopt);
-		$this->assign('haveuser',$this->userobj->have(''));
+		$this->assign('haveuser',CONFIG('HAVEUSER'));
 		//空点回填模式
 		$regtype=array(0=>"实点");
 		//有空点
@@ -599,6 +604,7 @@ class SaleAction extends CommonAction {
 			{
 				$this->error($return);
 			}
+			CONFIG('HAVEUSER') == false && CONFIG('HAVEUSER',true);
 			$m_user->commit();
 			$this->saveAdminLog('','',I("post.userid/s")."注册成功");
 			$this->success('注册成功！');
@@ -840,11 +846,13 @@ class SaleAction extends CommonAction {
 	//转正会员
 	public function addapply(){
 		$username="";
+
 		if(I("get.uid/s")!=""){
 			$username=I("get.uid/s");
 			$map['报单状态']=array("in","空单,回填");
 	    	$map['编号']=$username;
 	    	$saleData=M("报单")->where($map)->find();
+
 	    	if(!$saleData){
 	    		$this->error("会员".$username."没有要回填的订单");
 	    	}
@@ -919,7 +927,7 @@ class SaleAction extends CommonAction {
 		foreach(explode(',',I("request.id/s")) as $id){
 			if(!$id) continue;
 			M()->startTrans();
-			$apply=M('申请回填')->table("dms_申请回填 as a")->join('dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>$id))->lock(true)->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->find();
+			$apply=M('申请回填')->table("dms_申请回填 as a")->join('left join dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>$id))->lock(true)->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->find();
 			if(!$apply){
 				$errNum++;
 				$errMsg .= '转正申请：'.$id.'不存在<br/>';
@@ -948,7 +956,7 @@ class SaleAction extends CommonAction {
 		if(I("request.id/s")==""){
 			$this->error("参数错误");
 		}
-		$applydatas=M('申请回填')->table("dms_申请回填 as a")->join('dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>array("in",I("request.id/s"))))->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->select();
+		$applydatas=M('申请回填')->table("dms_申请回填 as a")->join('left join dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>array("in",I("request.id/s"))))->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->select();
 		$this->assign('applydatas',$applydatas);
 		$this->assign('adminshow',adminshow('sale_pv'));
 		$this->assign('idstrs',I("request.id/s"));
@@ -969,7 +977,7 @@ class SaleAction extends CommonAction {
 		foreach(explode(',',I("request.idstrs/s")) as $id){
 			if(!$id) continue;
 			M()->startTrans();
-			$applydata=M('申请回填')->table("dms_申请回填 as a")->join('dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>$id))->lock(true)->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->find();
+			$applydata=M('申请回填')->table("dms_申请回填 as a")->join('left join dms_报单 as b on b.编号=a.编号 and b.id=a.saleid')->where(array("a.id"=>$id))->lock(true)->field("a.id as pid,a.saleid,a.编号,a.申请日期,a.申请状态,a.转正方式,b.*")->find();
 			$sale=X("@".$applydata['报单类别']);
 			$return=$sale->applyok($applydata,$accbank);
 			if($return !== true){
@@ -1188,7 +1196,7 @@ class SaleAction extends CommonAction {
 		$where = preg_replace("/(\S+)\s*[=><]/U",'a.$0',$where);
 		$m= M("报单");
         $m->table("dms_报单 as a");	
-	    $result=$m->join('dms_会员 as b on a.编号=b.编号')->field("a.id,a.编号,b.姓名,a.报单状态,a.到款日期,a.物流状态,a.发货日期,a.收货日期,a.服务中心编号,a.付款人编号,a.注册人编号,a.报单类别,a.报单金额,a.购物金额,a.购物PV")->where($where)->select();
+	    $result=$m->join('left join dms_会员 as b on a.编号=b.编号')->field("a.id,a.编号,b.姓名,a.报单状态,a.到款日期,a.物流状态,a.发货日期,a.收货日期,a.服务中心编号,a.付款人编号,a.注册人编号,a.报单类别,a.报单金额,a.购物金额,a.购物PV")->where($where)->select();
 		if(Extension_Loaded('zlib')){
 			Ob_Start('ob_gzhandler');
 		}

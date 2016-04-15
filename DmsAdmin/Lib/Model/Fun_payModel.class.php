@@ -54,6 +54,7 @@ class Fun_payModel
 		        $amount = $arr['pay_amount']+$args['money'];
 	           	M('pay_onlineaccount',' ')->where(array('id'=>$arr['id']))->save(array('pay_amount'=>$amount));
            	}
+            	M()->commit();
 		}
 	}
 	//支付失败

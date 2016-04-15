@@ -20,17 +20,19 @@
 		//开启区域选择
 		public $area=false;
 		public $lv_cache=array();
-		public $conFilter=array('con'=>array("lv",'name',"pvmoney","num",'money','number','where','use','update','area','only'));
+		public $conFilter=array('con'=>array("lv",'name',"pvmoney","pv",'money','number','where','use','update','area','only'));
 		//升级时获取奖金参数，计算差额
 		public function getlevel($lv)
-		{
-			$cons=$this->getcon("con",array("lv"=>0,"pvmoney"=>-1,'money'=>0,"num"=>0,'number'=>1));
+		{                                                                           //报单单数
+			$cons=$this->getcon("con",array("lv"=>0,"pvmoney"=>-1,'pv'=>0,'money'=>0,'number'=>1));
 			foreach($cons as $con)
 			{
 				if($con["lv"] == (int)$lv)
 				{
 					$con['pvmoney'] = $con["pvmoney"]== -1 ? $con['money']*$con['number'] : $con["pvmoney"]*$con['number'];
 					$con['money']   = $con['money']*$con['number'];
+                   	$con[$this->name."PV"]  =$con["pv"]*$con["number"];
+                    $con[$this->name."单数"]  =$con["number"];
 					return $con;
 				}
 			}

@@ -437,10 +437,11 @@
 	//密码加密
 	function md100($str)
 	{
-		for($md_i=0;$md_i <= 100;$md_i++)
-		{
-			$str=md5($str);
+		if(!file_exists(THINK_PATH.'config/password.php')){ 
+			throw_exception('程序文件错误，请重新安装');
 		}
+		$rand = require THINK_PATH.'config/password.php';
+		$str = md5($str . $rand);
 		return $str;
 	}
 /*密码校验
@@ -1001,5 +1002,21 @@ function callog($str)
 		}else{
 			return false;
 		}
-	}	
+	}
+    //base64加密 处理特殊字符
+     function base64encode($str)
+     {
+         $str = base64_encode($str);
+         $str = str_replace('/','_',$str);
+         $str = str_replace('+','-',$str);
+         return $str;
+     }
+     //base64解密 处理特殊字符
+     function base64decode($str)
+     {
+        $str = str_replace('_','/',$str);
+        $str = str_replace('-','+',$str);
+		$str=base64_decode($str);
+        return $str;
+     }		
 ?>

@@ -153,7 +153,7 @@ class CalAction extends CommonAction {
     		//resetStd(LOG_PATH.'callog/'.Date('YmdHis').'_'.($s1*10000000).'.txt');
     	}
     	set_time_limit(0);
-		ini_set('memory_limit','2000M');
+		ini_set('memory_limit','10000M');
 		//结算前备份数据库
 		if(isset($post) && isset($post['backupdb']) || isset($post) && !isset($post['caltime']) || IS_CLI){
 			calmsg('进行结算前数据库备份',"/Public/Images/ExtJSicons/database_save.png");

@@ -63,15 +63,17 @@ class Pay
 		$payResult			= $this->payment->receive();
 		if( $payResult )
 		{
-			$this->printMessage($this->payment->getMessage());
+			//$this->printMessage($this->payment->getMessage());
 			//支付成功
 			$this->touchEvent('success',$orderId);
+			return true;
 		}
 		else
 		{
-			$this->printMessage($this->payment->getMessage());
+			//$this->printMessage($this->payment->getMessage());
 			//支付失败
 			//$this->touchEvent('fail',$orderId);
+			return false;
 		}
 	}
 	//执行事件调用
@@ -350,8 +352,8 @@ class Pay
 		if(!empty($a)){
 			foreach($a as $key=>&$value){
 				if(strtolower($value['credit'])==strtolower('Yes')){
-					import($this->interface_data['app'].".Pay.".$value['pay_type']);
-					$va=$value['pay_type']::getBankList();
+					import("Admin.Pay.".$value['pay_type']);
+					$va=$value['pay_type']::getBankList();			
 					$banklist=F('banklist');
 					$value['banklist']=array_flip(array_intersect(array_flip($va),$banklist[$value['pay_type']]));
 				}

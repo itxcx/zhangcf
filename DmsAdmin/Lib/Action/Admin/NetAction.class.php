@@ -170,7 +170,7 @@ class NetAction extends CommonAction
 			foreach(X('sale_*') as $sale){
 				$addvals = $sale->getcon('addval',array('from'=>'','to'=>'','set'=>''));
 				foreach($addvals as $addval){
-					if($addval['set']=='1' || $addval['to'] != $net_place->name) continue;
+					if($addval['set']=='1' || $addval['to'] != $net_place->name || $addval['isnull']=='1' || $addval['isnull']=='2') continue;
 					$addSet[] = array('from'=>$addval['from'],'name'=>$sale->name);
 				}
 			}

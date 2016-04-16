@@ -37,7 +37,7 @@
 					$tblstr .= "select * from dms_".$tbl;
 				}
 				$rs=M('会员')->alias('a')->join("inner join (SELECT 编号,sum(收入)cnt FROM (".$tblstr.")c  group by 编号)b on a.编号=b.编号 and a.累计收入<>b.cnt")->getField('id');
-				dump(M()->_sql());
+				// dump(M()->_sql());
 				if(!empty($rs)){
 					return "<span style='color:red;'>会员表中累计收入与实际收入不符</span><br>";
 				}else{

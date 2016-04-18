@@ -1,139 +1,128 @@
 <?php
-defined('APP_NAME') || die('不要非法操作哦!');
-class CheckAction extends CommonAction
-{
-	//奖金配置节点，中的数值设置，与目前实际设置不符
-	public function index()
-	{
-		
-		$this->display();
-		$con=$this->con;
-		//对tleset节点遍历。寻找用户目前系统不相符或者重复的配置=================
-		$xml   =$con->xml;
-		$xpath = new DOMXPath($xml->ownerDocument);
-		$tleset =$xpath->query('tleset//tr/*',$xml);
-		
-		$tlearray=array();
-		$filearray=array();
-		//读取默认模板设置
-		$fixsets=$xpath->query('fixset',$xml);
-		foreach($fixsets as $fixset)
-		{
-			$Theme=$fixset->getAttribute('theme');
-			if($Theme!='')
-			{
-					$filearray['DEFAULT_THEME'] = $Theme;
-					$tlearray['DEFAULT_THEME'] = array(
-						'app'=>$this->APP,
-						'name'=>'DEFAULT_THEME',
-						'data'=>$Theme,
-						);
-			}
-		}		
-		
-		$connames=array();
-		foreach($tleset as $v)
-		{
-			if(is_numeric($v->getAttribute('xname'))){
-				throw_exception("config.xml中有xname属性值为纯数字,".$v->getAttribute('xname'));
-			}
-			
-			$nodename=$v->nodeName;//get_class($v);
-			if($nodename=='num')
-			{
-				$xname=$v->getAttribute('xname');
-				$val=$v->getAttribute('val');
-				if(strpos($xname,','))
-				{
-					$xname=explode(',',$xname);
-					$val  =explode(',',$val);
-					foreach($xname as $xname_k=>$xname_v)
-					{
-						if(in_array($xname_v,$connames))
-						{
-							$this->msg($xname_v.'有重复',2);
-						}
-						else
-						{
-							$connames[]=$xname_v;
-						}
-						if(floatval($val[$xname_k]) != CONFIG($xname_v))
-						{
-							$this->msg($xname_v.'的默认值('.floatval($val[$xname_k]).')'.
-							'与当前设置('.CONFIG($xname_v).')有差异',1);
-						}
-					}
-				}
-				else
-				{
-					if(in_array($v->getAttribute('xname'),$connames))
-					{
-						$this->msg('配置项'.$v->getAttribute('xname').'有重复',2);
-					}
-					else
-					{
-						$connames[]=$v->getAttribute('xname');
-					}
-					
-					if(floatval($v->getAttribute('val')) != CONFIG($v->getAttribute('xname')))
-					{
-						$this->msg($v->getAttribute('xname').'的默认值('.floatval($v->getAttribute('val')).')'.
-						'与当前设置('.CONFIG($v->getAttribute('xname')).')有差异',1);
-					}
-				}
-			}
-		} 
-		//检查数据库是否支持innoDB===========================================================================
-		$engines = M()->query("show engines");
-		$find_innodb=false;
-		foreach($engines as $engine)
-		{
-			if($engine['Engine'] == 'InnoDB' && ($engine['Support'] == 'YES' || $engine['Support'] == 'DEFAULT'))
-			{
-				$find_innodb=true;
-			}
-		}
-		if(!$find_innodb)
-		{
-			$this->msg('当前数据库环境不支持innodb环境');
-		}
-		//订单节点检查======================================================
-		$sales=X('sale_*');
-		foreach($sales as $sale)
-		{
-			if($sale->accBank=='' && $sale->user != 'admin' && $sale->confirm)
-			{
-				if($sale->use)
-				{
-					$this->msg('前台存在未经货币审核并可以直接生效的订单'.$sale->name);
-				}
-				else
-				{
-					$this->msg('前台存在未经货币审核并可以直接生效的订单'.$sale->name.'但是已被禁用',1);
-				}
-			}
-			//
-		}
-		//
-		//时间校准检查
-		
-	}
-	//消息显示函数
-	public function msg($msg,$type=2)
-	{
-		if($type==1)
-		{
-			$icon = '/Public/Images/ExtJSicons/error.png';
-		}
 
-		if($type==2)
-		{
-			$icon = '/Public/Images/ExtJSicons/delete.png';
+/*
+	检查的项目:
+
+
+	-----------------货币明细与当前货币余额不对应
+
+	-----------------prize奖金prizemode=1的奖金，在奖金表记录中为负数
+	-----------------prize奖金prizemode=2的奖金，在奖金表记录中为正数
+
+	net_place会员表中 管理_x区累计 ，新增，结转  与 管理_业绩不符
+
+	net_place  net_rec网络数据异常，层数异常  ，上级不存在 ，大小写不相符。
+	推荐人数的检查
+	相关子表，如报单表，---明细表，管理_业绩表等找不到对应会员的
+
+
+	----------------累计收入
+
+	----------------奖金明细中奖金或者收入为负
+
+*/
+
+defined('APP_NAME') || die('不要非法操作哦!');
+class CheckAction extends Action {
+    public function index() {
+    	$error='';
+    	//报单表与货币表中会员与会员表不对应
+    	import ( 'DmsAdmin.CHECK.sale_CK');
+     	$sale = new sale_CK;
+		$callback = call_user_func_array(array($sale,"check"),array());
+		if($callback !=1 )$error .= $callback."<br>";
+    	/*****************货币相关*********************
+		货币明细与当前货币余额不对应
+		货币明细中会员与会员表不对应
+		**********************************************/
+     	import ( 'DmsAdmin.CHECK.funbank_CK');
+     	$funbank = new funbank_CK;
+   		foreach(X('fun_bank') as $banks){
+			$callback = call_user_func_array(array($funbank,"check"),array($banks->name));
+			if($callback !=1 )$error .= $callback."<br>";
 		}
 		
-        print "<script  type='text/javascript' charset='UTF-8'>parent.addexemsg('$msg','','$icon');</script>";
-        ob_flush(); //强制将缓存区的内容输出
-        flush(); //强制将缓冲区的内容发送给客户端
-	}
+		/*****************奖金相关*********************
+		prize奖金prizemode=1的奖金，在奖金表记录中为负数
+		prize奖金prizemode=2的奖金，在奖金表记录中为正数
+		各个奖金累计与会员表中的累计不符
+		奖金明细中奖金或者收入为负
+		累计收入不对应
+		**********************************************/
+     	import ( 'DmsAdmin.CHECK.prize_CK');
+     	$prizes = new prize_CK;
+     	$tlearr = array();
+     	foreach(X("tle") as $tle)
+        {
+			foreach(X('prize_*',$tle) as $prize)
+			{
+				if($prize->prizeMode >= 0)
+				{
+					$callback = call_user_func_array(array($prizes,"check"),array($tle->name,$prize->name,$prize->prizeMode));
+					if($callback !=1 )$error .= $callback."<br>";
+					$callback = call_user_func_array(array($prizes,"checklj"),array($tle->name,$prize->name,$prize->prizeMode));
+					if($callback !=1 )$error .= $callback."<br>";
+				}
+				if(get_class($prize)=='prize_bump'){
+					//检查奖金表中结转业绩和累计业绩
+					$cons  = $prize->getcon('con',array("bump"=>"","val"=>"","where"=>"",'only'=>false,'top'=>0));
+					$callback = call_user_func_array(array($prizes,"checkTlePv"),array($tle->name,get_class(X("@".$prize->netName)),$cons));
+					if($callback !=1 )$error .= $callback."<br>";
+				}
+			}
+			$callback = call_user_func_array(array($prizes,"checkTle"),array($tle->name,$prize->name,$prize->prizeMode));
+			if($callback !=1 )$error .= $callback."<br>";
+			
+			
+			//所有奖金表
+			$tlearr[]=$tle->name;
+		}
+		if(!empty($tlearr)){//检查会员表中累计收入
+			$callback = call_user_func_array(array($prizes,"checklj"),array($tlearr));
+			if($callback !=1 )$error .= $callback."<br>";
+		}
+		
+		/*****************网络相关*********************
+		net_place会员表中 管理_x区累计 ，新增，结转  与 管理_业绩不符
+		net_place  net_rec网络数据异常，层数异常  ，上级不存在 ，大小写不相符。
+		推荐人数的检查
+		**********************************************/
+     	import ( 'DmsAdmin.CHECK.net_CK');
+     	$nets = new net_CK;
+		foreach(X('net_rec,net_place') as $net)
+        {
+        	//上级编号是否存在（包括大小写不相符）
+        	$callback = call_user_func_array(array($nets,"check"),array($net->name));
+        	if($callback !=1 )$error .= $callback."<br>"; 
+        	
+        	//检测网体数据
+        	$callback = call_user_func_array(array($nets,"checknetdata"),array($net->name,$net));
+        	if($callback !=1 )$error .= $callback."<br>"; 
+        	
+          	if(get_class($net)=='net_place' && $net->pvFun)
+        	{
+        		//管理层数不符合
+        		$callback = call_user_func_array(array($nets,"checkceng"),array($net->name));
+        		if($callback !=1 )$error .= $callback."<br>";
+        		//管理_x区累计 ，新增，结转  与 管理_业绩不符
+        		$callback = call_user_func_array(array($nets,"checkyj"),array($net->name,$net));
+        		if($callback !=1 )$error .= $callback."<br>";
+        		
+        	}
+        	if(get_class($net)=='net_rec')
+        	{
+        		//推荐人数不符合
+        		$callback = call_user_func_array(array($nets,"checktjs"),array($net->name));
+        		if($callback !=1 )$error .= $callback."<br>";
+        		//推荐层数不符合
+        		$callback = call_user_func_array(array($nets,"checkceng"),array($net->name));
+        		if($callback !=1 )$error .= $callback."<br>";
+        	}
+        }	
+		
+		if($error=='')echo "<br><span style='color:green;'>无异常</span>";
+		else echo $error;
+		
+    }
 }
 ?>

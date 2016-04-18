@@ -165,7 +165,7 @@ class Fun_stockAction extends CommonAction {
 		$stockSec=$fun_stock->getatt('stockSec');
 		//10秒内只允许提交一次交易委托
 		if($stockSec>0){
-			$rschk=M($fun_stock->name."市场")->where("编号='".$this->userinfo['编号']."' and  (挂单时间+".$stockSec.")>".systemTime())->field('id')->find();
+			$rschk=M($fun_stock->name."市场")->where("编号='".USER_NAME."' and  (挂单时间+".$stockSec.")>".systemTime())->field('id')->find();
 			if ($rschk['id']){
 				$hint.=$stockSec."秒内只允许提交一次交易委托<br>";
 			}
@@ -382,7 +382,7 @@ class Fun_stockAction extends CommonAction {
 	public function deal_list(fun_stock $fun_stock)
 	{
 		$list = new TableListAction($fun_stock->name."交易");
-        $list ->where(array('买入编号'=>$this->userinfo['编号'],"卖出编号"=>$this->userinfo['编号'],"_logic"=>"or"))->order("成交时间 desc,id desc")->limit(15);
+        $list ->where(array('买入编号'=>USER_NAME,"卖出编号"=>USER_NAME,"_logic"=>"or"))->order("成交时间 desc,id desc")->limit(15);
         $list ->setShow = array(
             L('成交时间')=>array("row"=>"[成交时间]","format"=>"time"),
             L('买入编号')=>array("row"=>array(array($this,"showuser"),"[买入编号]")),
@@ -395,7 +395,7 @@ class Fun_stockAction extends CommonAction {
 		$this->display();
 	}
 	function showuser($username){
-		if($username==$this->userinfo['编号']){
+		if($username==USER_NAME){
 			return "<span style='color:green'>".$username."</span>";
 		}else{
 			return "<span style='color:red'>".$username."</span>";
@@ -405,7 +405,7 @@ class Fun_stockAction extends CommonAction {
 	public function deal_detail(fun_stock $fun_stock)
 	{
 		$list = new TableListAction($fun_stock->name."明细");
-        $list ->where(array('编号'=>$this->userinfo['编号']))->order("时间 desc,id desc")->limit(15);
+        $list ->where(array('编号'=>USER_NAME))->order("时间 desc,id desc")->limit(15);
         $list ->setShow = array(
             L('时间')=>array("row"=>"[时间]","format"=>"time"),
             L('数量')=>array("row"=>"[数量]"),
@@ -421,7 +421,7 @@ class Fun_stockAction extends CommonAction {
 	//挂单列表
 	public function selllist(fun_stock $fun_stock){
 		$list = new TableListAction($fun_stock->name.'市场');
-        $list ->where(array('编号'=>$this->userinfo['编号']))->order("挂单时间 desc,id desc")->limit(15);
+        $list ->where(array('编号'=>USER_NAME))->order("挂单时间 desc,id desc")->limit(15);
         $list ->setShow = array(
             L('挂单日期')=>array("row"=>"[挂单时间]","format"=>"time"),
             L('类型')=>array("row"=>"[类型]"),

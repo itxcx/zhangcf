@@ -8,7 +8,7 @@ class MailAction extends CommonAction {
 		   //$this->assign('list',$list);
            
             $list = new TableListAction('邮件');
-            $list ->where(array('收件人'=>$this->userinfo['编号'],'收件人类型'=>$this->userobj->name))->order("发送时间 desc");
+            $list ->where(array('收件人'=>USER_NAME,'收件人类型'=>$this->userobj->name))->order("发送时间 desc");
 			$list->pageCon	= 'p1';
 			$list->pagenum = 5;
 			//dump($list);
@@ -17,7 +17,7 @@ class MailAction extends CommonAction {
 
 			//发件箱
 			$list1 = new TableListAction('邮件');
-            $list1 ->where(array('发件人'=>$this->userinfo['编号'],'发件人类型'=>$this->userobj->name))->order('发送时间 desc');
+            $list1 ->where(array('发件人'=>USER_NAME,'发件人类型'=>$this->userobj->name))->order('发送时间 desc');
 			$list1->pageCon	= 'p2';
 			$list1->pagenum = 5;
             $data1 = $list1->getData();
@@ -43,7 +43,7 @@ class MailAction extends CommonAction {
 		public function sendbox()
 		{
             $list = new TableListAction('邮件');
-            $list->where(array('发件人'=>$this->userinfo['编号'],'发件人类型'=>$this->userobj->name))->order('发送时间 desc');
+            $list->where(array('发件人'=>USER_NAME,'发件人类型'=>$this->userobj->name))->order('发送时间 desc');
             $data = $list->getData();
 			
             $this->assign('data',$data);
@@ -52,7 +52,7 @@ class MailAction extends CommonAction {
 		//查看邮件详细
 		public function view(){
 			$model = M('邮件');
-			$result = $model->where(array('收件人'=>$this->userinfo['编号'],'收件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
+			$result = $model->where(array('收件人'=>USER_NAME,'收件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
 			if(!$result){
 				$this->error(L('参数错误'));
 			}
@@ -66,7 +66,7 @@ class MailAction extends CommonAction {
 		}
 		public function sendview(){
 			$model = M('邮件');
-			$result = $model->where(array('发件人'=>$this->userinfo['编号'],'发件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
+			$result = $model->where(array('发件人'=>USER_NAME,'发件人类型'=>$this->userobj->name,'id'=>I("get.id/d")))->find();
 			if(!$result){
 				$this->error(L('参数错误'));
 			}
@@ -94,7 +94,7 @@ class MailAction extends CommonAction {
 		//回复邮件
 		public function answer(){
 			$where = array();
-			$where['收件人'] = $this->userinfo['编号'];
+			$where['收件人'] = USER_NAME;
 			$where['收件人类型'] = $this->userobj->name;
 			$where['id'] = I("get.id/d");
 			$result = M("邮件")->where($where)->find();
@@ -107,7 +107,7 @@ class MailAction extends CommonAction {
 		public function answerSave(){
 			$model=M("邮件");
 			$where = array();
-			$where['收件人'] = $this->userinfo['编号'];
+			$where['收件人'] = USER_NAME;
 			$where['收件人类型'] = $this->userobj->name;
 			$where['id'] = I("post.id/d");
 			$result = $model->where($where)->find();
@@ -119,7 +119,7 @@ class MailAction extends CommonAction {
 			}
 			$data=array();
 			$data['id']=I("post.id/d");
-			$data['回复人']=$this->userinfo['编号'];
+			$data['回复人']=USER_NAME;
 			$data['回复内容']=I("post.answerContent/s");
 			$data['回复时间']=systemTime();
 			$data['状态']=2;
@@ -161,7 +161,7 @@ class MailAction extends CommonAction {
 			if(I("post.receiver/s")==''){
 				$data['收件人类型']='管理员';
 			}else{
-				if(trim(I("post.receiver/s"))==$this->userinfo['编号']){
+				if(trim(I("post.receiver/s"))==USER_NAME){
 					$this->error(L('不能发送给自己'));
 				}
 				if(M('会员')->where(array("编号"=>trim(I("post.receiver/s"))))->find()){
@@ -175,7 +175,7 @@ class MailAction extends CommonAction {
 			$data['内容'] = $content;
 			$data['发送时间']=systemTime();
 			//$data['收件人类型']='管理员';
-			$data['发件人'] = $this->userinfo['编号'];
+			$data['发件人'] = USER_NAME;
 			$data['发件人类型']= $this->userobj->name;
 			$data['回复人']= '';
 			$data['回复内容']= '';
@@ -191,7 +191,7 @@ class MailAction extends CommonAction {
 			//遍历所选
 			$model	  = M('邮件');
 			$map['id']= I("get.id/d");
-			$map['_string'] = "(收件人='".$this->userinfo['编号']."' AND 收件人类型='".$this->userobj->name."') or (发件人='".$this->userinfo['编号']."' AND 发件人类型='".$this->userobj->name."')";
+			$map['_string'] = "(收件人='".USER_NAME."' AND 收件人类型='".$this->userobj->name."') or (发件人='".USER_NAME."' AND 发件人类型='".$this->userobj->name."')";
 			M()->startTrans();
 			$result1  = $model->where($map)->delete();
 			if($result1){

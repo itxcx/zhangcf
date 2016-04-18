@@ -173,7 +173,7 @@ class IndexAction extends CommonAction {
 	}
 	//添加关联账号
 	public function addRelatedUser(){
-		if($this->userinfo['编号'] == I("post.relatedUser/s")){
+		if(USER_NAME == I("post.relatedUser/s")){
 			$this ->error(L('关联账号不能为自己'));
 		}
 		if($this->userinfo['关联账号']!='0'){
@@ -203,8 +203,8 @@ class IndexAction extends CommonAction {
 	  
 	  $m = M('会员');
 	  if($this->userinfo['关联账号'] == 0){
-		 $parentUser = array('编号'=>$this->userinfo['编号']);
-		 $childUsers = $m ->field('编号')->where(array('关联账号'=>$this->userinfo['编号']))->select();
+		 $parentUser = array('编号'=>USER_NAME);
+		 $childUsers = $m ->field('编号')->where(array('关联账号'=>USER_NAME))->select();
 	  }else{
 		 $parentUser = $m ->field('编号')->where(array('编号'=>$this->userinfo['关联账号']))->find();
 		 $childUsers = $m ->field('编号')->where(array('关联账号'=>$parentUser['编号']))->select();

@@ -16,7 +16,7 @@ class Fun_dealAction extends CommonAction {
 	    
 		$list = $this->getxml();
 		//会员总股票
-		$nums = M($fun_stock->name.'持有')->field('sum(nownum) as num,isSell,price')->where(array('isSell'=>0,'编号'=>$this->userinfo['编号']))->find();
+		$nums = M($fun_stock->name.'持有')->field('sum(nownum) as num,isSell,price')->where(array('isSell'=>0,'编号'=>USER_NAME))->find();
 		
 		$uprate=(floatval($price)-floatval($yeprice))*100/floatval($yeprice);
 		$this->list = $list;
@@ -42,7 +42,7 @@ class Fun_dealAction extends CommonAction {
 		if($fun_stock->getatt('stockClose') == true){
 			$this->error(L($fun_stock->getatt('stockCloseMsg')));
 		}
-		$user = M("会员")->lock(true)->where(array('编号'=>$this->userinfo['编号']))->find();
+		$user = M("会员")->lock(true)->where(array('编号'=>USER_NAME))->find();
 		$money=$_REQUEST['money'];
 	
 		if($money>$this->userinfo[$fun_stock->tradeBank]){
@@ -98,9 +98,9 @@ class Fun_dealAction extends CommonAction {
 		$list = M($fun_stock->name.'流水');
 		
 		import("ORG.Util.Page");
-		$count = M($fun_stock->name."流水")->where(array('编号'=>$this->userinfo['编号']))->count();
+		$count = M($fun_stock->name."流水")->where(array('编号'=>USER_NAME))->count();
 		$Page  = new Page($count,10);
-		$list = $list->where(array('编号'=>$this->userinfo['编号'],))->order('addtime')->limit($Page->firstRow.','.$Page->listRows)->select();
+		$list = $list->where(array('编号'=>USER_NAME,))->order('addtime')->limit($Page->firstRow.','.$Page->listRows)->select();
 		$show       = $Page->show();
 		$this->assign('page',$show);
 		$this->assign('lists',$list);
@@ -112,9 +112,9 @@ class Fun_dealAction extends CommonAction {
 	{
 		$list = M($fun_stock->name."交易");
 		import("ORG.Util.Page");
-		$count = $list->where(array('编号'=>$this->userinfo['编号']))->count();
+		$count = $list->where(array('编号'=>USER_NAME))->count();
 		$Page  = new Page($count,10);
-		$list = $list->where(array('编号'=>$this->userinfo['编号'],))->limit($Page->firstRow.','.$Page->listRows)->select();
+		$list = $list->where(array('编号'=>USER_NAME,))->limit($Page->firstRow.','.$Page->listRows)->select();
 		$show       = $Page->show();
 		
 		$this->assign('data',$show);

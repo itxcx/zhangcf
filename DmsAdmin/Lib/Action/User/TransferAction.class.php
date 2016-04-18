@@ -35,7 +35,7 @@ class TransferAction extends CommonAction{
 	public function giveAjax()
 	{
 		$user='';
-		if(I("post.userid/s")!=$this->userinfo['编号'])
+		if(I("post.userid/s")!=USER_NAME)
 		{
 			//判断是否开启转账给未激活(状态=无效)会员
 			if(adminshow(zhuanzhang))
@@ -102,7 +102,7 @@ class TransferAction extends CommonAction{
             exit();
         }
 		if(CONFIG('giveMoneySmsSwitch')==1){
-			$verify = S($this->userinfo['编号'].'_'.$bank->name.'转账');
+			$verify = S(USER_NAME.'_'.$bank->name.'转账');
 			if(!$verify || $verify != I("post.giveSmsVerfy/s") || I("post.giveSmsVerfy/s")==""){
 				$this->error(L('短信验证码错误或已过期'));
 			}
@@ -280,7 +280,7 @@ class TransferAction extends CommonAction{
             X("user")->adduserlog($this->userinfo,$_SESSION['ip'],'会员转账');
             //写入会员操作日志结束
 			//发送的验证码注销
-			S($this->userinfo['编号'].'_'.$bank->name.'转账',null,300);
+			S(USER_NAME.'_'.$bank->name.'转账',null,300);
 			//写入会员操作日志结束
 			//添加会员转账短信提醒
             /*if($this->userobj->getatt('zhzhmsmsSwitch')){
@@ -297,7 +297,7 @@ class TransferAction extends CommonAction{
             //添加结束
            	M()->commit();
            	M()->startTrans();
-           	sendSms('zhzh',$this->userinfo['编号'],$this->userobj->byname.'转账',$data);
+           	sendSms('zhzh',USER_NAME,$this->userobj->byname.'转账',$data);
 			if(CONFIG('sureGiveMoney')==1){
 				sendSms('zhzhget',$userid,$this->userobj->byname.'转账',$data);
 			}

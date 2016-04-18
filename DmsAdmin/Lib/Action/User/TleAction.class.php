@@ -153,7 +153,7 @@ class TleAction extends CommonAction
 	public function fun_fuli(fun_fuli $fun_fuli)
 	{
 		$data=array();
-		$where['编号']=$this->userinfo['编号'];
+		$where['编号']=USER_NAME;
 		$rs=M($fun_fuli->name)->where($where)->select();
 		if($rs == null)
 		{

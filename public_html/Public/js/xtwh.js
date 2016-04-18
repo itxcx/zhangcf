@@ -85,7 +85,7 @@ $(function(){
 									'</a>'+
 								'</li>'+
 								'<li>'+
-									'<a rel="wh12" target="navTab" title="系统自检" href="/index.php?s=/Check/Index/index">'+
+									'<a rel="wh12" target="navTab" title="系统自检" href="/index.php?s=/Admin/Check/index">'+
 										'系统自检'+
 									'</a>'+
 								'</li>'+

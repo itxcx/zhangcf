@@ -94,6 +94,8 @@ $condata['USER_REMIT_RATIO_USE']=false;
 $condata['USER_REMIT_RATIO']=1;
 //系统维护密码信息
 $condata['SYSTEM_PASS_KEY']=md100($_SERVER['HTTP_HOST']);
+//判断是否存在用户
+$condata['HAVEUSER']=false;
 return $condata;
 
 ?>

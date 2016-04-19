@@ -20,7 +20,7 @@ class BackupAction extends CommonAction  {
 		//$this->con=new stru();
         parent::_initialize();
         set_time_limit(0);                                                      //不超时
-        ini_set('memory_limit','1500M');
+        ini_set('memory_limit','10000M');
         $this->config = array(
             'path' => "dbbackup/",                          //备份文件存在哪里
             'isCompress' => 0,                                                  //是否开启gzip压缩 
@@ -503,6 +503,7 @@ class BackupAction extends CommonAction  {
         	$this->backall('清空数据库前备份',true);
         	M()->startTrans();
             $this->cleanfun();
+            CONFIG('HAVEUSER',false);
             M()->commit();
             //删除奖金构成文件
             import("COM.BakRec.BakRec");

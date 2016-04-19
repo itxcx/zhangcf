@@ -1073,6 +1073,9 @@ class UserAction extends CommonAction
 				//$this->success("删除成功！");
 			}
 		}
+		M()->startTrans();		
+		M('会员')->find() == false && CONFIG('HAVEUSER',false);
+		M()->commit();
 		echo json_encode($errMsg);
 		/*if($errNum !=0){
 			$this->error("删除成功：".$succNum .'条记录；删除失败：'.$errNum .'条记录；<br/>'.$errMsg);

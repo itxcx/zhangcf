@@ -103,7 +103,6 @@
                     obj.find('.country').val(def.country);
                     obj.find('.country-now').val(def.country);
                     obj.find('.location-box').show(0);
-                    str += def.country;
                     if (def.province) {
                         obj.find('.province').val(def.province);
                         str += (' / ' + def.province);

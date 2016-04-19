@@ -1,0 +1,41 @@
+<include file="Public:header" />
+<div id="main" class="center">
+
+    <div class="notice">
+        <div class="notice-news">
+            <h2>{$nownotice[0].标题}</h2>
+            <p>{$nownotice[0].内容|strip_tags}</p>
+            <a class="notice-more" href="__GROUP__/User/showNotice/id/{$nownotice[0].id}">查看详情</a>
+        </div>
+        <ul class="notice-list">
+            <li><a href="__GROUP__/User/view">个人资料</a></li>
+            <li><a href="__GROUP__/User/notice">系统公告</a></li>
+            <li><a href="__GROUP__/User/viewNotice">个人邮件</a></li>
+        </ul>
+    </div>
+
+    <div class="fund">
+        <ul class="fund-ul">
+            <li class="first">
+                <h2>用户编号</h2>
+                <img src="__TMPL__Public/images/ico1.png" alt="用户编号">
+                <p>{$userinfo.编号}</p>
+            </li>
+            <php>
+            $ico = 2;
+            </php>
+            <foreach name="funbank" item="fun_bank" key="key">
+            <li>
+                <h2>{$fun_bank.name}</h2>
+                <img src="__TMPL__Public/images/ico{$ico++}.png" alt="{$fun_bank.name}">
+                <p>{$fun_bank.num}</p>
+            </li>
+            </foreach>
+        </ul>
+    </div>
+
+    <div class="space"></div>
+
+</div>
+<include file="Public:footer" />
+

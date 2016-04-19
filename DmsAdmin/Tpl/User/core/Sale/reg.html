@@ -298,7 +298,7 @@
                         <td class="tbval" ><span><input type="text"  value="" name="address" /></span>&nbsp;&nbsp;<span class="msg" id="state_address" ><if condition="in_array('address',$require) eq true ">*</if></span></td>
                     </tr>
                     </if>
-                    <if condition="in_array('reciver',$show) eq true">
+                    <if condition="in_array('reciver',$show) eq true and adminshow('baodan_wuliu') eq true">
                     <tr>
                         <td class="tbkey" >{:L('收货人')}：</td>
                         <td class="tbval" ><span><input type="text" value="" name="reciver" /></span>&nbsp;&nbsp;<span class="msg" id="state_reciver" ><if condition="in_array('reciver',$require) eq true ">*</if></span></td>

@@ -37,7 +37,7 @@ function printGender($gender)
           	<td class="tbval" >{$userinfo['性别']}&nbsp;</td>
         </tr>
         </if>
-        <if condition="in_array('reciver',$show) eq true">
+        <if condition="in_array('reciver',$show) eq true and adminshow('baodan_wuliu') eq true">
         <tr>
           	<td class="tbkey" >{:L('收货人')}：</td>
           	<td class="tbval" >{$userinfo.收货人}&nbsp;</td>

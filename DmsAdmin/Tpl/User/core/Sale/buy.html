@@ -61,6 +61,7 @@
             </tr>
             </notempty>
         </table>
+        <if condition="$wuliu eq true">
         <if condition="$sale:extra eq true">
             <table class="tablebg" id="table2">
                 <tr>
@@ -118,6 +119,7 @@
                 </tr>
                 
             </table>
+        </if>
         </if>
         <div style="margin-top: 10px;margin-left: 10px;float: left;margin: 5px;font-size: 14px;color: red;"><span id="state_lockcon"></span></div>
 	        <present name="productArr">
@@ -213,15 +215,17 @@ function alertcheck(){
 				alertstr+='<tr><td class="tbkey">'+product[2]+'</td><td class="tbkey">'+product[3]+'</td><td class="tbkey">'+$(this).val()+'</td></tr>';
 		    } 
 		});
-		<if condition="($sale:extra eq true)">
-		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
-		<else/>
-		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+"{$userinfo.国家}{$userinfo.省份}{$userinfo.城市}{$userinfo.地区}{$userinfo.街道}"+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+"{$userinfo.收货人}"+'</td></tr>';      
-		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+"{$userinfo.移动电话}"+'</td></tr>';      
-		</if>
+		if( {$wuliu} == 1 ){
+			<if condition="($sale:extra eq true)">
+			alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
+			alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
+			alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
+			<else/>
+			alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+"{$userinfo.国家}{$userinfo.省份}{$userinfo.城市}{$userinfo.地区}{$userinfo.街道}"+'</td></tr>';      
+			alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+"{$userinfo.收货人}"+'</td></tr>';      
+			alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+"{$userinfo.移动电话}"+'</td></tr>';      
+			</if>
+		}
 		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">{:L("请确认产品信息，再点击确认")}</td></tr>';      
 		alertstr+='</table>';
 	$.zxxbox.ask(alertstr, function(){

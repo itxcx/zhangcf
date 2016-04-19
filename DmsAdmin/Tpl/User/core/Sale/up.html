@@ -70,6 +70,7 @@
 				</if>
                
             </table> 
+            <if condition="$wuliu eq true">
             <if condition="$sale:extra eq true">
             <table class="tablebg" id="table2">
                 <tr>
@@ -116,6 +117,7 @@
                     
                 </tr>
             </table>
+        </if>
         </if>
         <div style="margin-top: 10px;margin-left: 10px;float: left;margin: 5px;font-size: 14px;color: red;"><span id="state_lockcon"></span></div>
             <present name="productArr">
@@ -244,11 +246,13 @@ function alertcheck(){
 		    } 
 		});
 		</if>
+		if( {$wuliu} == 1 ){
 		<if condition="($sale:extra eq true)">
 		alertstr+='<tr><td class="tbval">{:L("收货地址")}</td><td colspan="2" class="tbval">'+$("#country_id").val()+$("#province_id").val()+$("#city_id").val()+$("#county_id").val()+$("#town_id").val()+$("#address").val()+'</td></tr>';      
 		alertstr+='<tr><td class="tbval">{:L("收货人")}</td><td colspan="2" class="tbval">'+$("#reciver").val()+'</td></tr>';      
 		alertstr+='<tr><td class="tbval">{:L("联系电话")}</td><td colspan="2" class="tbval">'+$("#mobile").val()+'</td></tr>';      
 		</if>
+		}
 		alertstr+='<tr><td colspan="3" class="tbval" style="text-align:center;">{:L("请确认升级信息，再点击确认")}</td></tr>';      
 		alertstr+='</table>';
 	$.zxxbox.ask(alertstr, function(){

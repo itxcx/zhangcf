@@ -62,7 +62,7 @@ class Fun_payAction extends CommonAction
 				'model'		=> 'Fun_pay',
 				'method'	=> 'success',
 				'args'		=> array(
-					'userid'	=> $this->userinfo['编号'],
+					'userid'	=> USER_NAME,
                     'type'  =>I('post.type/s'),
 				    'money' =>I('post.money/f'),
 				    'payment'=>$payment,
@@ -76,7 +76,7 @@ class Fun_payAction extends CommonAction
 				'model'		=> 'Fun_pay',
 				'method'	=> 'fail',
 				'args'		=> array(
-					'userid'	=> $this->userinfo['编号'],
+					'userid'	=> USER_NAME,
                     'type'  => I('post.type/s'),
 				    'money'=> I('post.money/f'),
 				    'payment'=> $payment,
@@ -109,7 +109,7 @@ class Fun_payAction extends CommonAction
 	public function paylist()
 	{
 		$list = new TableListAction("onlinepay");
-		$list->where("编号='".$this->userinfo['编号']."'");
+		$list->where("编号='".USER_NAME."'");
         $list->setShow = array(
            '订单号'=>array("row"=>"[订单号]"),
            "金额"=>array("row"=>"[金额]"),

@@ -27,7 +27,7 @@
 				<td><input type="radio" name='xuanzhong' class="getbanktype" value="{$mycard['id']}" <if condition="$mycard['状态'] eq 1">checked</if>/></td>
 				<td>{$mycard['标签']}</td>
 				<td>{$mycard['银行']}&nbsp;|&nbsp;{$mycard['银行卡号']}&nbsp;|&nbsp;{$mycard['开户名']}&nbsp;|&nbsp;{$mycard['省份']}&nbsp;|&nbsp;{$mycard['城市']}&nbsp;|&nbsp;{$mycard['区县']}</td>
-				<td><a href="javascript:;" onclick="cnyOut.delAddr({$mycard['id']})">删除</a>&nbsp;&nbsp;&nbsp;<eq name="mycard['状态']" value="1"><span style='color:#f60;'>默认</span><else/><a href="javascript:;" onclick="cnyOut.setAddr({$mycard['id']})">默认</a></eq></td>
+				<td><a href="javascript:;" onclick="cnyOut.delAddr({$mycard['id']})">{:L(删除)}</a>&nbsp;&nbsp;&nbsp;<eq name="mycard['状态']" value="1"><span style='color:#f60;'>{:L(默认)}</span><else/><a href="javascript:;" onclick="cnyOut.setAddr({$mycard['id']})">{:L(默认)}</a></eq></td>
 			</tr>
 			</foreach>
 			<style>

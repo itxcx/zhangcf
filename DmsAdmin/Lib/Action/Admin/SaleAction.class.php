@@ -15,7 +15,7 @@ class SaleAction extends CommonAction {
 			"删除"=>array("class"=>"delete","href"=>"__URL__/pre_delete/id/{tl_id}","target"=>"dialog","mask"=>"true"),
         );
         
-        if(adminshow('baodan_wuliu'))
+/*        if(adminshow('baodan_wuliu'))
         {
         	if(adminshow('kuaidi')){
           		$setButton["发货/查看物流"]=array("class"=>"sended","href"=>'__URL__/send/id/{tl_id}/',"target"=>"dialog","height"=>"500","width"=>"800","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
@@ -24,7 +24,7 @@ class SaleAction extends CommonAction {
 	        }else{
 	          	$setButton["发货"]=array("class"=>"sended","href"=>'__URL__/sended/id/{tl_id}/',"target"=>"ajaxTodo","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	        }
-        }
+        }*/
         $list=new TableListAction("报单");
         $list->table("dms_报单 as a");
         $list->join('left join dms_会员 as b on a.编号=b.编号')->field('a.*,b.姓名');
@@ -37,13 +37,13 @@ class SaleAction extends CommonAction {
         $list->addshow("姓名",array("row"=>"[姓名]","css"=>"width:100px","searchMode"=>"text","excelMode"=>"text")); 
         $list->addshow("订单状态"  ,array("row"=>"[报单状态]","searchPosition"=>"top","searchMode"=>"text","searchSelect"=>array('未确认'=>'未确认','已确认'=>'已确认','已结算'=>'已结算'),"order"=>"报单状态"));
         $list->addshow("付款日期"  ,array("row"=>"[到款日期]","format"=>"time","order"=>"到款日期","searchMode"=>"date",'searchGetStart'=>'daytimestart','searchGetEnd'=>'daytimeend')); 
-        //是否有发货
+/*        //是否有发货
         if(adminshow('baodan_wuliu'))
         {
 	        $list->addshow("物流状态"  ,array("row"=>"[物流状态]",'searchGet'=>'sendstate',"searchPosition"=>"top","searchMode"=>"text","searchSelect"=>array('未发货'=>'未发货','已发货'=>'已发货','已收货'=>'已收货'))); 
 	        $list->addshow("发货日期"  ,array("row"=>"[发货日期]",'format'=>'time',"order"=>"发货日期","searchMode"=>"date"));
 	        $list->addshow("收货日期"  ,array("row"=>"[收货日期]",'format'=>'time',"order"=>"收货日期","searchMode"=>"date"));
-		}
+		}*/
 		//是否有服务中心
 		if($this->userobj->shopWhere!=''){
         	$list->addshow("服务中心"  ,array("row"=>"[服务中心编号]","searchMode"=>"text",'searchRow'=>'a.服务中心编号'));
@@ -80,14 +80,14 @@ class SaleAction extends CommonAction {
 			"查看"=>array("class"=>"edit","href"=>__APP__."/Admin/Sale/view/id/{tl_id}","target"=>"dialog","height"=>"500","width"=>"800","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png'),
 			"删除"=>array("class"=>"delete","href"=>"__URL__/delete/id/{tl_id}","target"=>"ajaxTodo","mask"=>"true"),
         );
-        if(adminshow('baodan_wuliu_pro')){
-	        if(adminshow('kuaidi_pro')){
+        if(adminshow('baodan_wuliu')){
+	        //if(adminshow('kuaidi_pro')){
 	          	$setButton["发货/查看物流"]=array("class"=>"sended","href"=>'__URL__/send/id/{tl_id}/',"target"=>"dialog","height"=>"500","width"=>"800","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
 	          	//判断是否是豪华版 如果是豪华版的话自动快递查询
           		$setButton["快递查询"]=array("class"=>"edit","href"=>"http://www.kuaidi100.com/frame/app/index2.html","target"=>"_blank");
-	        }else{
+	        //}else{
 	          	$setButton["发货"]=array("class"=>"sended","href"=>'__URL__/sended/id/{tl_id}/',"target"=>"ajaxTodo","mask"=>"true",'icon'=>'/Public/Images/ExtJSicons/application/application_form_magnify.png');
-	        }
+	        //}
         }
        
         $list=new TableListAction("报单");
@@ -101,7 +101,7 @@ class SaleAction extends CommonAction {
         $list->addshow("姓名",array("row"=>"[姓名]","css"=>"width:100px","searchMode"=>"text","excelMode"=>"text")); 
         $list->addshow("订单状态"  ,array("row"=>"[报单状态]","searchPosition"=>"top","searchMode"=>"text","searchSelect"=>array('未确认'=>'未确认','已确认'=>'已确认','已结算'=>'已结算'),"order"=>"报单状态"));
         $list->addshow("付款日期"  ,array("row"=>"[到款日期]","searchPosition"=>"top","format"=>"time","order"=>"到款日期","searchMode"=>"date",'searchGetStart'=>'daytimestart','searchGetEnd'=>'daytimeend')); 
-        if(adminshow('baodan_wuliu_pro')){
+        if(adminshow('baodan_wuliu')){
 	        $list->addshow("物流状态"  ,array("row"=>"[物流状态]",'searchGet'=>'sendstate',"searchPosition"=>"top","searchMode"=>"text","searchSelect"=>array('未发货'=>'未发货','已发货'=>'已发货','已收货'=>'已收货'),)); 
 	        $list->addshow("发货日期"  ,array("row"=>"[发货日期]",'format'=>'time',"order"=>"发货日期","searchMode"=>"date"));
 	        $list->addshow("收货日期"  ,array("row"=>"[收货日期]",'format'=>'time',"order"=>"收货日期","searchMode"=>"date"));
@@ -122,21 +122,25 @@ class SaleAction extends CommonAction {
         	$list->addshow("报单PV"    ,array("row"=>"[报单PV]"  ,"searchMode"=>"num","sum"=>"[报单PV]",'order'=>'报单PV'));
         }	
         $list->addshow("实付款"  ,array("row"=>"[实付款]","searchMode"=>"num","sum"=>"[实付款]",'order'=>'实付款'));
-        if($logistic){
-	        //添加物流费显示
-	        $list->addshow("物流费"  ,array("row"=>"[物流费]","searchMode"=>"num")); 
+        if(adminshow('baodan_wuliu')){
+	        if($logistic){       	
+		        //添加物流费显示
+		        $list->addshow("物流费"  ,array("row"=>"[物流费]","searchMode"=>"num")); 
+		    }    
         }
         //有升级
         if($this->userobj->haveProUp()){
         	$list->addshow("原级别",array("row"=>array(array(&$this,'_printUserLevel'),'[old_lv]','','[报单类别]'),"searchMode"=>"num","css"=>"width:100px;"));
         	$list->addshow("新级别" ,array("row"=>array(array(&$this,'_printUserLevel'),'[升级数据]','','[报单类别]',"[id]"),"searchMode"=>"num","css"=>"width:100px;"));
         }
-        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;",'searchRow'=>'[a.收货人]'));
-        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;",'searchRow'=>'[a.联系电话]'));
-        $list->addshow("收货地址"  ,array("row"=>"[收货省份][收货城市][收货地区][收货街道][收货地址]","searchMode"=>"text","css"=>"width:350px;"));
-        $list->addshow("产品信息"  ,array("row"=>array(array(&$this,'allPro'),'[id]','[报单类别]'),"searchMode"=>"text","css"=>"width:350px;",'hide'=>true));
+        if(adminshow('baodan_wuliu')){
+	        $list->addshow("收货人"  ,array("row"=>"[收货人]","searchMode"=>"text","css"=>"width:70px;",'searchRow'=>'[a.收货人]'));
+	        $list->addshow("联系电话"  ,array("row"=>"[联系电话]","searchMode"=>"text","css"=>"width:80px;",'searchRow'=>'[a.联系电话]'));
+	        $list->addshow("收货地址"  ,array("row"=>"[收货省份][收货城市][收货地区][收货街道][收货地址]","searchMode"=>"text","css"=>"width:350px;"));
+	    }
+	        $list->addshow("产品信息"  ,array("row"=>array(array(&$this,'allPro'),'[id]','[报单类别]'),"searchMode"=>"text","css"=>"width:350px;",'hide'=>true));
      
-
+	
         $this->assign('list',$list->getHtml());
         $this->display();
 	}
@@ -1085,8 +1089,9 @@ class SaleAction extends CommonAction {
 		$express=M("快递")->where(array("state"=>'是'))->field('company')->select();
 		$this->assign('express',$express);
 		//收货信息编辑
-		$edit=false;
-		if(($sale['产品']==0 && adminshow('kuaidi_edit')) || ($sale['产品']==1 && adminshow('kuaidi_edit_pro'))) $edit=true;
+		//$edit=false;
+		//if(($sale['产品']==0 && adminshow('kuaidi_edit')) || ($sale['产品']==1 && adminshow('kuaidi_edit_pro'))) 
+		$edit=true;
 		$this->assign("edit",$edit);
 		$this->assign('error','');
 		$this->display();
@@ -1131,15 +1136,15 @@ class SaleAction extends CommonAction {
 			$saledata['发货类型']='后台';
 			$saledata['发货人']=$_SESSION['loginAdminAccount'];
 			//快递选择
-			if((adminshow('kuaidi') && $saledata['产品']==0) || (adminshow('kuaidi_pro') && $saledata['产品']==1)){
+			//if((adminshow('kuaidi') && $saledata['产品']==0) || (adminshow('kuaidi_pro') && $saledata['产品']==1)){
 				if(I("post.company/s")=='' || I("post.kddd/s")=='') 
 					$this->error("请完善快递信息");
 				$saledata['快递公司']=I("post.company/s");
 				$saledata['快递订单']=I("post.kddd/s");
 				$saledata['快递备注']=I("post.kdmemo/s");
-			}
+			//}
 			//收货信息
-			if((adminshow('kuaidi_edit') && $saledata['产品']==0) || (adminshow('kuaidi_edit_pro') && $saledata['产品']==1)){
+			//if((adminshow('kuaidi_edit') && $saledata['产品']==0) || (adminshow('kuaidi_edit_pro') && $saledata['产品']==1)){
 				if(I("post.city/s")=='' || I("post.receiver/s")=='' || I("post.mobile/s")=='' || I("post.address/s")=='')
 					$this->error("请完善收货信息");
 				$saledata['收货国家']=I("post.country/s");
@@ -1150,7 +1155,7 @@ class SaleAction extends CommonAction {
 				$saledata['收货人']	=I("post.receiver/s");
 				$saledata['联系电话']=I("post.mobile/s");
 				$saledata['收货地址']=I("post.address/s");
-			}
+			//}
 			$result=M("报单")->where(array('id'=>$id))->save($saledata);
 			$succNum++;
 			$this->saveAdminLog($saledata,'','订单发货','['.$userid.']'."的订单发货");

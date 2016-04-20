@@ -341,37 +341,26 @@ class PublicAction extends Action {
 			}
 			$pass1 = rand(100000,999999);
 			$pass2 = rand(100000,999999);
-		
+			
 			$hy['pass1'] = md100($pass1);
 			$hy['pass2'] = md100($pass2);
 			
 			M()->startTrans();
 			$res->where(array('编号'=>$userid))->save($hy);
-			$content = "尊敬的会员".$userid."!您通过短信找回密码，您的一级密码：".$pass1.",二级密码：".$pass2."。请尽快登录网站修改您的密码。";
-			$coun = 1;
-			$model = M('短信');
-			$data['内容'] = $content;
-			$data['发送时间'] = time();
-			$data['待发数量'] = $coun;
-			$result = $model->add($data);
-
-			$model1 = M('短信详细');
-			$data1['d_id'] = $result;
-			$data1['接收号码'] = $telephone;
-			$data1['接收人'] = $res2['姓名'];
-			$data1['内容'] = $content;
-			$data1['状态'] = 0;
-			$result1 = $model1->add($data1);
-			if($result){
-				$this->runThread($result,$coun);
-				M()->commit();
-				$this->success(L('短信正在发送中'),U('Index/index'));
-			}else{
-				M()->rollback();
-				$this->error(L('短信未发送'));
-			}
-		}else{
-			$this->error(L('信息不完整'));
+		 if($res){
+		 	 //发送找回密码的短信
+		 	  $content = "尊敬的会员".$userid."!您通过短信找回密码，您的一级密码：".$pass1.",二级密码：".$pass2."。请尽快登录网站修改您的密码。";
+		 	   $memo='会员找回密码';
+		 	    //加载短信发送的类
+		 	    import('COM.SMS.DdkSms');
+		 	    $sms = new DdkSms();
+		 	    $sms::send($telephone,$content,$memo,$userid);
+		 	     M()->commit();
+		 	     $this->success('短信正在发送中',U('Index/index'));
+		 	      }
+		 	       else{
+		 	       	   $this->error('信息不完整');
+		 	       }
 		}
 	}
 	//发送短信方法

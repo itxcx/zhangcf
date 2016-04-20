@@ -1,0 +1,94 @@
+<php>
+function printStatus($status)
+{
+	if($status==0)
+	{
+		return L("未汇款");
+	}elseif($status==1)
+	{
+		return L("未审核");
+	}elseif($status==2)
+	{
+		return L("已审核");
+	}
+	else
+	{
+		return L("已撤销");
+	}
+}
+</php>
+<div class="core_main Fun_bank" id="rem">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>    
+    </div>
+    <div class="core_con">
+        <table class="tablebg">
+        <TR class="datafield" >
+            <TH ><nobr>{:L('匹配时间')}</nobr></TH>
+            <TH ><nobr>{:L('超时时间')}</nobr></TH>
+            <TH ><nobr>{:L('金额')}</nobr></TH>
+            <TH ><nobr>{:L('汇入编号')}</nobr></TH>
+            <TH ><nobr>{:L('编号')}</nobr></TH><!--
+            <TH ><nobr>{:L('汇入账户卡号')}</nobr></TH>
+            <TH ><nobr>{:L('汇入账户开户名')}</nobr></TH>
+            <TH ><nobr>{:L('汇入账户开户行')}</nobr></TH>
+            <TH ><nobr>{:L('微信号')}</nobr></TH>
+            <TH ><nobr>{:L('联系电话')}</nobr></TH>
+            <TH ><nobr>{:L('支付宝账号')}</nobr></TH>
+            <TH ><nobr>{:L('银行流水')}</nobr></TH>-->
+            <TH ><nobr>{:L('状态')}</nobr></TH>
+            <!--<TH ><nobr>备注</nobr></TH>-->
+            <TH ><nobr>{:L('操作')}</nobr></TH>            <TH ><nobr>{:L('申诉情况')}</nobr></TH>
+        </TR>
+        <foreach name='data.list' item='vo'>
+        <TR class="datalist">
+            <TD ><nobr>{:date('Y-m-d H:i:s',$vo['匹配时间'])}</nobr></TD>
+            <TD ><nobr>{:date('Y-m-d H:i:s',$vo['超时时间'])}</nobr></TD>
+            <TD ><nobr>{$vo.金额}</nobr></TD>
+            <TD ><nobr>{$vo.收款会员}</nobr></TD>
+            <TD ><nobr>{$vo.付款会员}</nobr></TD><!--
+            <TD ><nobr>{$vo.汇入账户卡号}</nobr></TD>
+            <TD ><nobr>{$vo.汇入账户开户名}</nobr></TD>
+            <TD ><nobr>{$vo.汇入账户开户行}</nobr></TD>
+            <TD ><nobr>{$vo.微信账号}</nobr></TD>
+            <TD ><nobr>{$vo.移动电话}</nobr></TD>
+            <TD ><nobr>{$vo.支付宝账号}</nobr></TD>
+            <TD ><nobr>{$vo.银行流水}</nobr></TD>
+            <!--<TD ><nobr>{$vo.备注}</nobr></TD>-->
+            <TD ><nobr>{:printStatus($vo['状态'])}</nobr></TD>
+            <TD ><nobr>{$vo.操作}</nobr></TD>            <TD ><nobr>{$vo.申诉情况}</nobr></TD>
+        </TR>
+        </foreach>
+        <TR class="datalist">
+            <TD colspan='14'><nobr>{:L('提示：超时将冻结会员，信誉度清零。接受汇款会员可以操作延时一次')}。</nobr></TD>
+        </TR>
+        </table>
+    </div>
+    <div class="core_page">
+    <span>{:L('共')}{$data.count}{:L('条记录')} {$data.nowPage}/{$data.totalPages}{:L('页')} &nbsp;</span>
+    <if condition="$data['nowPage'] neq 1">
+    <a href="{$data.firstRow}">{:L('首页')}</a>&nbsp;&nbsp;
+    <else/><span>{:L('首页')}&nbsp;&nbsp;</span>
+    </if>
+    <a href="{$data.upRow}">{:L('上一页')}</a>&nbsp;&nbsp;
+    <if condition="isset($data['rollPage'][-2])">
+    <a href="{$data.rollPage.-2}">{$data['nowPage']-2}</a>&nbsp;&nbsp;
+    </if>
+    <if condition="isset($data['rollPage'][-1])">
+    <a href="{$data.rollPage.-1}">{$data['nowPage']-1}</a>&nbsp;&nbsp;
+    </if>
+    {$data.nowPage}&nbsp;&nbsp;
+    <if condition="isset($data['rollPage'][1])">
+    <a href="{$data.rollPage.1}">{$data['nowPage']+1}</a>&nbsp;&nbsp;
+    </if>
+    <if condition="isset($data['rollPage'][2])">
+    <a href="{$data.rollPage.2}">{$data['nowPage']+2}</a>&nbsp;&nbsp;
+    </if>
+    <a href="{$data.downRow}">{:L('下一页')}</a>&nbsp;&nbsp;
+    <if condition="$data['nowPage'] lt $data['totalPages']">
+    <a href="{$data.theEndRow}">{:L('尾页')}</a>
+    <else/><span>{:L('尾页')}</span>
+    </if>
+    </div>    
+</div>
+

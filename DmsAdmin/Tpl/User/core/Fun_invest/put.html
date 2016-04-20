@@ -1,0 +1,38 @@
+<div class="core_main Sale" id="up">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{$nowtitle}</span>
+    </div>
+    <div class="core_con">
+        <form name="form1" method="post" action="__GROUP__/Fun_invest/putSave" id="register">            <table class="tablebg" id="table1" >                <tr>                    <td class="tbkey" >{:L('提供资助金额')}￥：</td>                    <td  class="tbval" >                        <input type="text" value="" size="20" name="tzmoney" id="tzmoney"/><span>{$putMultiple}--{$putMax}<if condition="$putMultiple gt 0">,{:L('必须是')}&nbsp;{$putMultiple}&nbsp;{:L('的整数倍')}</if></span>                    </td>               </tr>              <tr>                    <td class="tbkey" >{:L('二级密码')}：</td>                    <td  class="tbval" >                    	<input name="oldpwd2" type="password" id="oldpwd2">                    </td>               </tr>            </table>
+            <table class="tablebg" id="table2" style="clear:both">
+                <TR rowspan='2'>
+                    <TD colspan="3" >
+            			<input class="button_text" type="button" value="{:L('提供资助')}" name="subbut"  id='subbut' onclick="tijiao()" />
+                    </TD>
+                </TR>
+                <TR rowspan='2'>
+                    <TD colspan="3">                        <if condition="$putFee gt 0">
+            			{:L('提示：免费排队一次扣')}{:L($putFeeName)}{$putFee}{:L('元')}，{:L('若您的账户没有报单币可向公司或报单中心购买')}                        </if>
+                    </TD>
+                </TR>
+            </table>
+        </form>
+    </div>
+    <div class="core_page"></div>
+</div>
+<script type="text/javascript">
+function tijiao(){
+	var ua = navigator.userAgent.toLowerCase();
+	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+		$('#subbut').val('确认');
+		$('#subbut').attr('disabled',false);
+	} else {
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+	}
+}
+</script>

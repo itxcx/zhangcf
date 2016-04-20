@@ -1,0 +1,61 @@
+<style>
+table th {
+    border-bottom: 1px solid #D0D0D0;
+    font-weight: bolder;
+    line-height: 21px;
+    padding: 1px 2px;
+	background-color:#F1F1F1;
+	line-height:30px;
+	text-align:left;
+	font-size:14px;
+
+}
+
+</style>
+<div layoutH="0">
+<form action="__APP__/Admin/Fun_invest/updateTimeSave" id="form2" style="width:600px;" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneOpen)">
+<input type="hidden" name="id" value="{$vo.id}" />
+<input type="hidden" name="callbackType" value="closeCurrent" />
+<input type="hidden" name="navTabId" value="{:md5(__APP__.'/Admin/Fun_invest/getList')}"/>
+<input type="hidden" name="forwardUrl" value="__APP__/Admin/Fun_invest/getList"/>
+<input type="hidden" name="navTabTitle" value="接受资助列表"/>
+<table width="260"  style="float:left;" id='disp1' class='user_edit_title'>
+	<thead>
+	<tr>
+	<th colspan="4" align="left" valign="middle">&nbsp; &nbsp;  修改解冻时间</th>
+	</tr>
+	</thead>
+	<tr>
+	<td style="text-align:right;padding-top:10px;">编号：</td>
+	<td style="border-right:none;text-align:left">
+	{$vo.编号}
+	</td>
+	</tr>
+	<tr>
+	<td   style="text-align:right">当前解冻时间：</td>
+	<td  style="text-align:left">
+		{$vo.解冻时间}
+	</td>
+	</tr>
+	
+	
+	<tr>
+	<td style="text-align:right">
+	<if condition="in_array('id_card',$require) eq true ">*</if>向前偏移小时数：</td>
+	<td style="border-right:none;text-align:left">
+	<input type="num" name="moveHour" value="" size='10px'>
+	</td>
+	</tr>
+	<tr><td height=10px;></td></tr>
+<tr>
+<td>
+
+       <div class="buttonContent" ><button type="submit">保存修改</button></div>
+</td><td>
+	<div class="buttonContent" ><button type="button" onclick="navTab.closeCurrentTab('{:md5(__APP__.'/Admin/Fun_invest/jieshoutouziliebiao')}')">取消返回</button></div>
+
+</td>
+</tr>
+</table>
+</form>
+</div>

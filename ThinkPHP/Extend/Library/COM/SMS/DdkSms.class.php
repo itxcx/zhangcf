@@ -7,18 +7,23 @@
 
 class DdkSms {
 
-	protected static $_config = array(
-		'gateway_url'	=> 'http://210.5.158.31:9011',
+	protected static $_config = array(		
+		'sms_type'      => NULL,    //短信平台
 		'sms_account'	=> NULL,	//短信网关帐号
-		'sms_passwd'	=> NULL,    //短信网关密码
+		'sms_passwd'	=> NULL,    //短信网关密码	
+		'sms_key'	    => NULL,    //短信网关密钥
+		'sms_sign'	    => NULL,		
 	);
 
 	public static function getconfig()
 	{
 		if(self::$_config['sms_account']==NULL)
 		{
+			self::$_config['sms_type']    = CONFIG('smsType');
 			self::$_config['sms_account'] = CONFIG('smsUser');
-			self::$_config['sms_passwd'] = CONFIG('smsPsw');
+			self::$_config['sms_passwd']  = CONFIG('smsPsw');
+			self::$_config['sms_key']     = CONFIG('smsKey');
+			self::$_config['sms_sign']    = CONFIG('smsSign');
 		}
 	}
 	/*
@@ -67,11 +72,65 @@ class DdkSms {
 			return true;
 		}
 	}
+	//发送url
+	//DDK
+	public static function _sendDDK($name,$pass,$mobile,$content)
+	{
+		$gateway_url = 'http://210.5.158.31:9011';
+		$pass = md5($pass);
+		return $gateway_url . "/hy/?uid={$name}&auth={$pass}&mobile={$mobile}&msg={$content}&expid=0&encode=utf-8";
+	}
+	//ML
+	public static function _sendML($name,$pass,$mobile,$content)
+	{
+		$gateway_url = 'http://m.5c.com.cn';
+		$pass        = md5($pass);
+		$apikey      = self::$_config['sms_key'];
+		$sign		 = self::$_config['sms_sign'];
+		$content     = iconv("UTF-8","GBK",$sign.$content);
+		$content     = urlencode($content);
+		return $gateway_url . "/api/send/index.php?username={$name}&password_md5={$pass}&apikey={$apikey}&mobile={$mobile}&content={$content}";
+	}
+	//MLGJ
+	public static function _sendMLGJ($name,$pass,$mobile,$content)
+	{
+		$gateway_url = 'http://m.5c.com.cn';
+		$apikey      = self::$_config['sms_key'];
+		$sign		 = self::$_config['sms_sign'];
+		$content     = iconv("UTF-8","GBK",$sign.$content);
+		$content     = urlencode($content);
+		return $gateway_url . "/api/send/?username={$name}&password={$pass}&apikey={$apikey}&mobile={$mobile}&content={$content}";
+	}
+	//余额查看url
+	//DDK
+	public static function _lookDDK($name,$pass)
+	{
+		$gateway_url = 'http://210.5.158.31:9011';
+		$pass = md5($pass);
+		return $gateway_url . "/hy/?uid={$name}&auth={$pass}";
+	}
+	//ML
+	public static function _lookML($name,$pass)
+	{
+		$gateway_url = 'http://m.5c.com.cn';
+		$apikey      = self::$_config['sms_key'];
+		return $gateway_url . "/api/query/index.php?username={$name}&password={$pass}&apikey={$apikey}";
+	}
+	//MLGJ
+	public static function _lookMLGJ($name,$pass)
+	{
+		$gateway_url = 'http://m.5c.com.cn';
+		$apikey      = self::$_config['sms_key'];
+		return $gateway_url . "/api/query/?username={$name}&password={$pass}&apikey={$apikey}";
+	}
+	
+	//发送短信
 	public function autoSend($smsid=0){
 		self::getconfig();
 		$user				= self::$_config['sms_account'];
-		$pwd				= md5( self::$_config['sms_passwd'] );
-		$gateway_url		=self::$_config['gateway_url'];
+		$pwd				= self::$_config['sms_passwd'];
+		$sms_type           = self::$_config['sms_type'];
+		//$gateway_url		=self::$_config['gateway_url'];
 		if($smsid>0){
 			$where=array(
 				"id"=>$smsid,
@@ -93,9 +152,14 @@ class DdkSms {
 				if($lastsms){
 					continue;
 				}
-				$mobiles			= $smslist['接收号码'];
-				$content			= $smslist['内容'];
-				$url				= $gateway_url."/hy/?uid={$user}&auth={$pwd}&mobile={$mobiles}&msg={$content}&expid=0&encode=utf-8";
+				$mobiles	= $smslist['接收号码'];
+				$content	= $smslist['内容'];
+				//$url      = call_user_func_array(array('DdkSms','_send'.$sms_type,array($user,$pwd,$mobiles,$content)));
+				$func       = '_send'.$sms_type;
+				$url        = self::$func($user,$pwd,$mobiles,$content);
+				//file_put_contents('c:\ddd.txt',print_r($url,true));
+				
+				//dump($url);die;
 				$result = self::getResult($url);
 				if($result['status'] == true){
 					$data['发送时间']=systemTime();
@@ -121,11 +185,14 @@ class DdkSms {
 	{
 		self::getconfig();
 		$user				= self::$_config['sms_account'];
+		$pwd				= self::$_config['sms_passwd'];
+		$sms_type           = self::$_config['sms_type'];
 		if($user == ''){
 			return '-1';
 		}
-		$pwd				= md5( self::$_config['sms_passwd'] );
-		$url				= self::$_config['gateway_url']."/hy/m?uid={$user}&auth={$pwd}";
+		//$url				= call_user_func_array(array('DdkSms','_look'.$sms_type,array($user,$pwd,$key)));
+		$func               = '_look'.$sms_type;
+		$url                = self::$func($user,$pwd);
 		$result				= self::getResult($url);
 		if( $result['status'] )
 		{

@@ -383,6 +383,35 @@ class MenuAction extends Action
 				$menu[]=array('model'=>$model,'action'=>"stockSplit:".$xpath.",intwp,splitSave:".$xpath  ,'title'=>$stock->byname."拆分"    ,'level'=>1,'parent'=>$parent);			
 			$menu[]=array('model'=>$model,'action'=>"stockTrend:".$xpath  ,'title'=>$stock->byname."走势"    ,'level'=>1,'parent'=>$parent);
 		}
+        //MMM系统菜单
+        if($invest = X('fun_invest@'))
+        {
+            $parent="投资管理";
+			$xpath = $invest->xpath;
+            $menu[]=array('model'=>'Fun_invest','action'=>'putList','title'=>"付款列表",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+            $menu[]=array('model'=>'Fun_invest','action'=>'put_delete:' .$xpath,'title'=>"hide",'level'=>2,'parent'=>$parent,'setParent'=>'初始排队列表');
+            $menu[]=array('model'=>'Fun_invest','action'=>'remit_disp:'.$xpath,'title'=>"查看匹配"    ,'level'=>2,'parent'=>$parent,'setParent'=>'初始排队列表');
+            
+            
+            $menu[]=array('model'=>'Fun_invest','action'=>'getList','title'=>"收款列表",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+            $menu[]=array('model'=>'Fun_invest','action'=>'deleteJieshouzizhu:'.$xpath,'title'=>"删除接受投资",'level'=>2,'parent'=>$parent,'setParent'=>'接受投资列表');
+            $menu[]=array('model'=>'Fun_invest','action'=>"updateTime:".$xpath.",updateTimeSave:".$xpath,	'title'=>"修改解冻时间",'level'=>2,'parent'=>$parent,'setParent'=>'接受投资列表');
+            $menu[]=array('model'=>'Fun_invest','action'=>'remFromJieshouzizhu:'.$xpath,'title'=>"查看匹配",'level'=>2,'parent'=>$parent,'setParent'=>'接受投资列表');
+			
+			$menu[]=array('model'=>'Fun_invest','action'=>'remitDisp','title'=>'汇款列表','level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+			$menu[]=array('model'=>'Fun_invest','action'=>'confirm:'.$xpath,'title'=>"确认收款",'level'=>2,'parent'=>$parent,'setParent'=>'汇款列表');
+			$menu[]=array('model'=>'Fun_invest','action'=>'yanshi:'.$xpath,'title'=>"延时",'level'=>2,'parent'=>$parent,'setParent'=>'汇款列表');
+			
+			$menu[]=array('model'=>'Fun_invest','action'=>'appealList','title'=>'申诉列表','level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+			$menu[]=array('model'=>'Fun_invest','action'=>'dakuanchakan:'.$xpath,'title'=>"打款查看",'level'=>2,'parent'=>$parent,'setParent'=>'申诉列表');
+			$menu[]=array('model'=>'Fun_invest','action'=>'houtaishensuxinxi:'.$xpath,'title'=>"申诉查看",'level'=>2,'parent'=>$parent,'setParent'=>'申诉列表');
+            $menu[]=array('model'=>'Fun_invest','action'=>"applyGiver",	'title'=>"支持提供资助方",'level'=>3,'parent'=>$parent,'setParent'=>'申诉查看');
+			$menu[]=array('model'=>'Fun_invest','action'=>"applyGeter",	'title'=>"支持接受资助方",'level'=>3,'parent'=>$parent,'setParent'=>'申诉查看');
+            $menu[]=array('model'=>'Fun_invest','action'=>'zhengshipaiduiliebiao','title'=>"正式排队列表",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+			$menu[]=array('model'=>'Fun_invest','action'=>'shoudongpipei:'.$xpath,'title'=>"手动匹配",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+            $menu[]=array('model'=>'Fun_invest','action'=>'statistics' ,'title'=>"数据汇总",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+            $menu[]=array('model'=>'Fun_invest','action'=>'config'     ,'title'=>"投资设置",'level'=>1,'parent'=>$parent,'setParent'=>'投资管理');
+        }
 		/*信息管理*/
 		$menu[]=array('model'=>'Mail','action'=>'index','title'=>'站内邮件列表','level'=>1,'parent'=>'信息管理','setParent'=>'站内邮件管理');
 		$menu[]=array('model'=>'Mail','action'=>'view','title'=>'站内邮件查看','level'=>2,'parent'=>'信息管理','setParent'=>'站内邮件管理');

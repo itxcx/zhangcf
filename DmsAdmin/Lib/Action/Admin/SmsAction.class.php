@@ -2,10 +2,13 @@
 defined('APP_NAME') || die('不要非法操作哦!');
 class SmsAction extends CommonAction {
     public function index(){
+    	$smsType = CONFIG('smsType');//短信平台
 		$telNumber = CONFIG('telNumber');//手机号码
 		$companyCode = CONFIG('companyCode');//企业代码
 		$smsUser = CONFIG('smsUser');//短信账号
 		$smsPsw = CONFIG('smsPsw');//密码
+		$smsKey = CONFIG('smsKey');//密钥
+		$smsSign = CONFIG('smsSign');
 		$adminLogin = CONFIG('adminLogin');//通知管理员
 		//保存的数据
         $vo = array();
@@ -33,12 +36,16 @@ class SmsAction extends CommonAction {
 		$vo['zhzhgetsmsSwitch'] = CONFIG("zhzhgetsmsSwitch") == 1 ? 1 : 0;
 		$vo['txmsmsSwitch'] = CONFIG("txmsmsSwitch") == 1 ? 1 : 0;
 		//查询余额
-		import('COM.SMS.DdkSms');
-		$surplus = DdkSms::lookSurplus();
-		if($surplus !='-1'){
-			$remained = $surplus;
-		}else{
+		if($smsType == false){
 			$remained = '';
+		}else{
+			import('COM.SMS.DdkSms');
+			$surplus = DdkSms::lookSurplus();
+			if($surplus !='-1'){
+				$remained = $surplus;
+			}else{
+				$remained = '';
+			}
 		}
 		if($smsPsw !=''){
 			$smsPsw = '***********';
@@ -46,9 +53,12 @@ class SmsAction extends CommonAction {
 		//user={$web_duanxin_user}&pass={$web_duanxin_paw}&mobile={$mobile}&content={$content1}
 		$this->assign('remained',$remained);
 		$this->assign('companyCode',$companyCode);
+		$this->assign('smsType',$smsType);
 		$this->assign("telNumber",$telNumber);
 		$this->assign("smsUser",$smsUser);
 		$this->assign("smsPsw",$smsPsw);
+		$this->assign("smsKey",$smsKey);
+		$this->assign("smsSign",$smsSign);
         $this->assign("adminLogin",$adminLogin);
         $this->assign("vo",$vo);
     	$this->display();
@@ -56,13 +66,26 @@ class SmsAction extends CommonAction {
     public function setSms(){
         //验证平台公司代码 以便保存密码
         M()->startTrans();
-        if(I("post.pwdsmsPsw/s")!="" && I("post.pwdsmsPsw/s")!= '***********'){
-			if(I("post.companyCode/s")==""){
-	        	$this->error("请输入公司代码");
-	        }
-			$smsPsw = CONFIG('smsPsw',I("post.companyCode/s").I("post.pwdsmsPsw/s"));
+        if(I("post.smsType/s") == "") $this->error("请选择短信平台");
+        if(I("post.smsUser/s") == "") $this->error("请填写用户账号");
+        if(I("post.pwdsmsPsw/s") == "") $this->error("请填写用户密码");
+        $smsType = I("post.smsType/s");
+        if($smsType == "DDK"){
+	        if(I("post.pwdsmsPsw/s")!="" && I("post.pwdsmsPsw/s")!= '***********'){
+				if(I("post.companyCode/s")==""){
+		        	$this->error("请输入公司代码");
+		        }
+				$smsPsw = CONFIG('smsPsw',I("post.companyCode/s").I("post.pwdsmsPsw/s"));
+			}
+			CONFIG('companyCode',I("post.companyCode/s"));
+			CONFIG('smsType',$smsType);
+		}elseif($smsType == "ML" || $smsType == "MLGJ"){
+			if(I("post.key/s") == "") $this->error("请填写接口密钥");
+			CONFIG('smsPsw',I("post.pwdsmsPsw/s"));
+			CONFIG('smsType',$smsType);
+			CONFIG('smsKey',I("post.key/s"));
+			CONFIG('smsSign',I("post.sign/s"));
 		}
-		CONFIG('companyCode',I("post.companyCode/s"));
 		if(I("post.adminLogin/s")!=""){
             $adminLogin = true;
         }else{
@@ -121,8 +144,17 @@ class SmsAction extends CommonAction {
 		//获取账号余额
 		if(CONFIG('smsUser')!='' && CONFIG('smsPsw')!=''){
 			$duanxin_name = CONFIG('smsUser');//用户账户
-			$duanxin_paw  = md5(CONFIG('smsPsw'));//用户密码
-			$url ="http://210.5.158.31/hy/m?uid={$duanxin_name}&auth={$duanxin_paw}";
+			$duanxin_paw  = CONFIG('smsPsw');//用户密码
+			if(CONFIG('smsType') == 'DDK'){
+				$duanxin_paw = md5($duanxin_paw);
+				$url ="http://210.5.158.31/hy/m?uid={$duanxin_name}&auth={$duanxin_paw}";
+			}elseif(CONFIG('smsType') == 'ML'){
+				$key  = CONFIG('smsKey');
+				$url ="http://m.5c.com.cn/api/query/index.php?username={$duanxin_name}&password={$duanxin_paw}&apikey={$key}";
+			}elseif(CONFIG('smsType') == 'MLGJ'){
+				$key  = CONFIG('smsKey');
+				$url ="http://m.5c.com.cn/api/query/?username={$duanxin_name}&password={$duanxin_paw}&apikey={$key}";
+			}
 			$smsreturn= $this-> smsGet($url);
 			if($smsreturn<0){
 				$smsreturn = $this->print_sms($smsreturn);
@@ -165,8 +197,17 @@ class SmsAction extends CommonAction {
 		//获取账号余额
 		if(CONFIG('smsUser')!='' && CONFIG('smsPsw')!=''){
 			$duanxin_name = CONFIG('smsUser');//用户账户
-			$duanxin_paw  = md5(CONFIG('smsPsw'));//用户密码
-			$url ="http://210.5.158.31/hy/m?uid={$duanxin_name}&auth={$duanxin_paw}";
+			$duanxin_paw  = CONFIG('smsPsw');//用户密码
+			if(CONFIG('smsType') == 'DDK'){
+				$duanxin_paw = md5($duanxin_paw);
+				$url ="http://210.5.158.31/hy/m?uid={$duanxin_name}&auth={$duanxin_paw}";
+			}elseif(CONFIG('smsType') == 'ML'){
+				$key  = CONFIG('smsKey');
+				$url ="http://m.5c.com.cn/api/query/index.php?username={$duanxin_name}&password={$duanxin_paw}&apikey={$key}";
+			}elseif(CONFIG('smsType') == 'MLGJ'){
+				$key  = CONFIG('smsKey');
+				$url ="http://m.5c.com.cn/api/query/?username={$duanxin_name}&password={$duanxin_paw}&apikey={$key}";
+			}
 			$smsreturn= $this-> smsGet($url);
 			if($smsreturn<0){
 				$smsreturn=$this->print_sms($smsreturn);
@@ -245,15 +286,31 @@ class SmsAction extends CommonAction {
 		$state=0;
 		$did=$_GET['id'];
 		$duanxin_name = CON('smsUser');//用户账户
-		$duanxin_paw  = md5(CON('smsPsw'));//用户密码
+		$duanxin_paw  = CON('smsPsw');//用户密码
 		$smsnum=M('短信')->where('id="'.$did.'" and 待发数量>=0')->find();
 		if($smsnum['待发数量']<=0){$state=2;}
 		$smss=M('短信详细')->where('d_id="'.$did.'" and 状态="'.$state.'"')->order('id asc')->select();//查询未发送成功的所有记录
 		//循环发送未成功的记录
 		if($smss){
 			foreach($smss as $sms){
-				$contents = rawurlencode(trim($sms['内容']));
-				$url="http://210.5.158.31:9011/hy/?uid={$duanxin_name}&auth={$duanxin_paw}&mobile={$sms['接收号码']}&msg={$contents}&expid=0&encode=utf-8";
+				if(CONFIG('smsType') == 'DDK'){
+					$duanxin_paw = md5($duanxin_paw);
+					$contents = rawurlencode(trim($sms['内容']));
+					$url="http://210.5.158.31:9011/hy/?uid={$duanxin_name}&auth={$duanxin_paw}&mobile={$sms['接收号码']}&msg={$contents}&expid=0&encode=utf-8";
+				}elseif(CONFIG('smsType') == 'ML'){
+					$duanxin_paw = md5($duanxin_paw);
+					$key  = CONFIG('smsKey');
+					$sign = CONFIG('smsSign');
+					$content = iconv("UTF-8","GBK",$sign.trim($sms['内容']));
+					$content = urlencode($content);
+					$url = "http://m.5c.com.cn/api/send/index.php?username={$duanxin_name}&password_md5={$duanxin_paw}&apikey={$key}&mobile={$sms['接收号码']}&content={$content}";
+				}elseif(CONFIG('smsType') == 'MLGJ'){
+					$key  = CONFIG('smsKey');
+					$sign = CONFIG('smsSign');
+					$content = iconv("UTF-8","GBK",$sign.trim($sms['内容']));
+					$content = urlencode($content);
+					$url = "http://m.5c.com.cn/api/send/?username={$duanxin_name}&password={$duanxin_paw}&apikey={$key}&mobile={$sms['接收号码']}&content={$content}";
+				}
 				$smsreturn=$this->smsGet($url);//执行发送
 				$smsary	= explode(',',$smsreturn);
 				$smsfalse=$this->print_sms($smsary[0]);

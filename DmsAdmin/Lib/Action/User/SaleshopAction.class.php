@@ -128,7 +128,7 @@ class SaleshopAction extends CommonAction {
 		}
 		//判断产此产品在兑换购物车中是否已经存在
 		$buycarmodel = M($sale_shop->name.'购物车');
-		$have = $buycarmodel->where(array('产品id'=>$proid,'编号'=>$this->userinfo['编号']))->find();
+		$have = $buycarmodel->where(array('产品id'=>$proid,'编号'=>USER_NAME))->find();
 		//判断库存是否不足
 		if($buynum>$product['可订购数量']){
 			$this->error('库存不足，请减少一些试试哦');
@@ -150,7 +150,7 @@ class SaleshopAction extends CommonAction {
 			$data = array(
 				'产品id'=>$proid,
 				'数量'=>$buynum,
-				'编号'=>$this->userinfo['编号'],
+				'编号'=>USER_NAME,
 				'操作时间'=>systemTime()
 			);
 			//添加新的记录到购物车当中
@@ -172,10 +172,10 @@ class SaleshopAction extends CommonAction {
 	function chongxiao_gouwuche(sale_shop $sale_shop){
 		import('ORG.Util.Page');// 导入分页类
 		$buycarmodel = M($sale_shop->name.'购物车');
-		$count      = $buycarmodel->where(array('编号'=>$this->userinfo['编号']))->count();
+		$count      = $buycarmodel->where(array('编号'=>USER_NAME))->count();
 		$Page       = new Page($count,6);
 		$show       = $Page->show();// 分页显示输出
-		$list = M()->query("select a.*,b.数量 as buynum,b.操作时间,b.id as wuliuid from dms_".$sale_shop->productName." as a right join dms_".$sale_shop->name."购物车 as b on a.id=b.产品id where b.编号='{$this->userinfo['编号']}' and a.状态='使用' order by b.操作时间 asc   limit {$Page->firstRow},{$Page->listRows}");
+		$list = M()->query("select a.*,b.数量 as buynum,b.操作时间,b.id as wuliuid from dms_".$sale_shop->productName." as a right join dms_".$sale_shop->name."购物车 as b on a.id=b.产品id where b.编号='".USER_NAME."' and a.状态='使用' order by b.操作时间 asc   limit {$Page->firstRow},{$Page->listRows}");
 		foreach($list as $key=>$v){
 			//每个产品的总价
 			$list[$key]['sum_price'] = $v['buynum']*$v[$sale_shop->productMoney]; 
@@ -219,7 +219,7 @@ class SaleshopAction extends CommonAction {
 			$this->error(L("此购物车不存在"));
 		}
 		M()->startTrans();
-		$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->delete();
+		$res = M($sale_shop->name.'购物车')->where(array('编号'=>USER_NAME))->delete();
 		if($res){
 			M()->commit();
 			$this->success(L('清空购物车成功'));
@@ -234,7 +234,7 @@ class SaleshopAction extends CommonAction {
     +----------------------------------------------------------
     */
     function buygouwu_chongxiao(sale_shop $sale_shop){
-    	$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->getField("id,产品id");
+    	$res = M($sale_shop->name.'购物车')->where(array('编号'=>USER_NAME))->getField("id,产品id");
     	if(!$res){
     		$this->error(L("购物车中没有产品"),__URL__."/buy_shop:".__XPATH__);
     	}
@@ -313,7 +313,7 @@ class SaleshopAction extends CommonAction {
 		if($sale_shop->extra && (I("post.country/s")=='' || I("post.province/s")=='' || I("post.city/s")=='' || I("post.county/s")=='' || I("post.town/s")=='' || I("post.reciver/s")=='' || I("post.address/s")=='' || I("post.mobile/s")=='')){
 			$this->error(L("请完善收货信息"));
 		}
-		$res = M($sale_shop->name.'购物车')->where(array('编号'=>$this->userinfo['编号']))->select();
+		$res = M($sale_shop->name.'购物车')->where(array('编号'=>USER_NAME))->select();
     	if(!$res){
     		$this->error(L("购物车中没有产品"),__URL__."/buy_shop:".__XPATH__);
     	}
@@ -342,7 +342,7 @@ class SaleshopAction extends CommonAction {
 			if($rswhere !== true){
 				$this->error(L($rswhere));
 			}
-			$_POST['userid']=$this->userinfo['编号'];
+			$_POST['userid']=USER_NAME;
 			$return = $sale_shop->buy(I("post."));
 			
 			if(gettype($return)=='string')

@@ -5,7 +5,7 @@ class LogModel extends Model
 	/*
 	* 保存后台日志
 	*/
-	public function saveAdminLog($oldData,$newData=null,$content=null,$memo=null)
+	public function saveAdminLog($oldData,$newData=null,$content=null,$memo=null,$userId='',$ip=null,$address=null)
 	{
 		//过滤所有的pass 保存信息为********
 		if(isset($_POST)){
@@ -43,17 +43,23 @@ class LogModel extends Model
 		$data['module']			= MODULE_NAME;
 		$data['action']			= ACTION_NAME;
 		$data['admin_id']		= isset($_SESSION[C ('RBAC_ADMIN_AUTH_KEY')])?$_SESSION[C ('RBAC_ADMIN_AUTH_KEY')]:'0';
+		$data['user_id']        = $userId;
 		$data['old_data']		= $oldData?json_encode($oldData):'';
 		$data['new_data']		= $newData?json_encode($newData):'';
 		$data['post_data']		= $_POST?json_encode($_POST):'';
 		$data['get_data']		= $_GET?json_encode($_GET):'';
-		$data['ip']				= IS_CLI ? '0' : get_client_ip() ;
+		$data['ip']				= IS_CLI ? '0' : ($ip ? $ip : get_client_ip());
 		$data['create_time']	= time();
 		$data['memo']			= $memo?$memo:'';
 		if(IS_CLI)
 		{
 			$country='';
 			$area='';
+			$data['address']	= $country.$area;
+		}
+		elseif($address)
+		{			
+			$data['address']		= $address;
 		}
 		else
 		{
@@ -62,8 +68,8 @@ class LogModel extends Model
 			$loc					= $IpLocation->getlocation();
 			$country				= mb_convert_encoding ($loc['country'] , 'UTF-8','GBK' );
 			$area					= mb_convert_encoding ($loc['area'] , 'UTF-8','GBK' );
-		}
-		$data['address']		= $country.$area;
+			$data['address']		= $country.$area;
+		}		
 		return M()->table('log')->add($data);
 	}
 }

@@ -54,14 +54,14 @@ class UserAction extends CommonAction {
 		
 		$isyanzheng = CONFIG('verificatesmsSwitch');
 		if($isyanzheng){
-			$verify = S($this->userinfo['编号'].'_修改密码');
+			$verify = S(USER_NAME.'_修改密码');
 			if(!$verify || $verify != intval(I('post.repwdSms/s')) || I('post.repwdSms/s')==""){
 				$this->error(L('短信验证码错误或已过期'));
 			}
 		}
 		$isyanzhengmail = CONFIG('changePwdmailSwitchyanzheng');
 		if($isyanzhengmail){
-			$verify = S($this->userinfo['编号'].'_修改密码');
+			$verify = S(USER_NAME.'_修改密码');
 			if(!$verify || $verify != intval(I('post.repwdMail/s')) || I('post.repwdMail/s')==""){
 				$this->error(L('短信验证码错误或已过期'));
 			}
@@ -78,7 +78,7 @@ class UserAction extends CommonAction {
 		}else{
 			//写入会员操作日志
 			$authInfo['姓名']=$this->userinfo['姓名'];
-			$authInfo['编号']=$this->userinfo['编号'];
+			$authInfo['编号']=USER_NAME;
 			$authInfo['id']=$this->userinfo['id'];
 			$data = array();
 			$datalog['user_id']=$authInfo['id'];
@@ -95,14 +95,22 @@ class UserAction extends CommonAction {
 			$area					= mb_convert_encoding ($loc['area'] , 'UTF-8','GBK' );
 			$datalog['address']		= $country.$area;
 			M('log_user')->add($datalog);
+			//写入日志
+			include ('../Admin/Lib/model/LogModel.class.php');
+			if($this->userinfo['pass1'] !== $map['pass1'])
+				D('log')->saveAdminLog($this->userinfo['pass1'],$map['pass1'],'前台'.$this->userobj->byname.'一级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']一级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass2'] !== $map['pass2'])
+				D('log')->saveAdminLog($this->userinfo['pass2'],$map['pass2'],'前台'.$this->userobj->byname.'二级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']二级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
+			if($this->userinfo['pass3'] !== $map['pass3'])
+				D('log')->saveAdminLog($this->userinfo['pass3'],$map['pass3'],'前台'.$this->userobj->byname.'三级密码修改','前台'.$this->userobj->name.'['.$authInfo['编号'].']三级密码修改',$authInfo['编号'],$datalog['ip'],$country.$area);
 			//写入会员操作日志结束
-           S($this->userinfo['编号'].'_修改密码',null,300);
+           S(USER_NAME.'_修改密码',null,300);
 			//注册短信发送
 			$user_mm = $authInfo['编号'];
 	        $udata = M('会员')->where("编号 = '$user_mm'")->find();
 	        $udata['一级新密码']=$pass1;
 	        $udata['二级新密码']=$pass2;
-			sendSms("changePwd",$this->userinfo['编号'],'会员修改密码',$udata);
+			sendSms("changePwd",USER_NAME,'会员修改密码',$udata);
 			//会员修改密码发送邮件
 			if(CONFIG('changePwdmailSwitch')){
 	           	sendMail($udata,$this->userobj->byname.'修改密码',CONFIG('changePwdmailContent'));
@@ -256,7 +264,7 @@ class UserAction extends CommonAction {
 			M('修改日志')->add($updateuser);
 			//写入会员操作日志
 			$authInfo['姓名']=$this->userinfo['姓名'];
-			$authInfo['编号']=$this->userinfo['编号'];
+			$authInfo['编号']=USER_NAME;
 			$authInfo['id']=$this->userinfo['id'];
 			$data = array();
 			$datalog['user_id']=$authInfo['id'];
@@ -291,8 +299,8 @@ class UserAction extends CommonAction {
 		$baodan_string = implode(',',$baodanleibie);
         $list = new TableListAction('报单');
 		$list ->table('dms_报单 as a');
-        //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=$this->userinfo['编号']"));
-        $list->join("left join dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='{$this->userinfo['编号']}' or a.注册人编号='{$this->userinfo['编号']}') and a.报单类别 in ({$baodan_string})");
+        //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=".USER_NAME));
+        $list->join("left join dms_会员 as b on b.编号=a.编号")->where("(a.服务中心编号='".USER_NAME."' or a.注册人编号='".USER_NAME."') and a.报单类别 in ({$baodan_string})");
 		$list->order("a.id desc");
 		$fieldStr = '';
 		foreach(X('net_rec') as $netRec){
@@ -370,8 +378,8 @@ class UserAction extends CommonAction {
 		$map=array(
 		    '_complex'=>array(
 		        '_logic'=>'or',
-		        '服务中心编号'=>$this->userinfo['编号'],
-		        '注册人编号'=>$this->userinfo['编号']
+		        '服务中心编号'=>USER_NAME,
+		        '注册人编号'=>USER_NAME
 		    ),
 		    'id'=>$_GET['id']
 		);

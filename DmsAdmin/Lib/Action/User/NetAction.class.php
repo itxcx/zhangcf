@@ -110,7 +110,7 @@ class NetAction extends CommonAction
     function listDisps_down(net_rec $net_rec){
 		
 		$first_userid	= I("REQUEST.first_userid/s");
-		if(empty($first_userid)) $first_userid=$this->userinfo['编号'];
+		if(empty($first_userid)) $first_userid=USER_NAME;
         if(!$net_rec->userListDisp){
             $this->error(L($net_rec->byname).L("列表未开启"));
         }
@@ -225,8 +225,8 @@ class NetAction extends CommonAction
    	   		if(!$userz){
 				$this->error(L('会员不存在'));
 			}
-   	   		if(I("REQUEST.uid/s") != $this->userinfo['编号']){
-   	   			$upuser = $model->where(array('编号'=>$this->userinfo['编号']))->find();
+   	   		if(I("REQUEST.uid/s") != USER_NAME){
+   	   			$upuser = $model->where(array('编号'=>USER_NAME))->find();
    	   			$where1 = '';
    	   			foreach($net->getcon("region",array("name"=>"")) as $key=>$val)
 				{ 
@@ -247,7 +247,7 @@ class NetAction extends CommonAction
 		if(I("REQUEST.uid/s")!=''){
 			$upnode = $model->where(array('id'=>I("REQUEST.uid/s")))->find();
 		}else{
-			$upnode = $model->where(array('编号'=>$this->userinfo['编号']))->find();
+			$upnode = $model->where(array('编号'=>USER_NAME))->find();
 		}
 	
 		if(!$upnode)
@@ -297,7 +297,7 @@ class NetAction extends CommonAction
 			if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
 				$this->error(L('非法表单数据'));
 			}
-			if(I("REQUEST.uid/s") != $this->userinfo['编号']){
+			if(I("REQUEST.uid/s") != USER_NAME){
 				$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
 				if($firstUser){
 					$firstUserNetInfos = explode(',',$firstUser[$netName.'_网体数据']);
@@ -382,7 +382,7 @@ class NetAction extends CommonAction
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
 					$this->error(L('非法表单数据'));
 				}
-				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
+				if(I("REQUEST.uid/s") != USER_NAME){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
 					if($firstUser){
 						$firstUserNetInfos = explode(',',$firstUser[$netName.'_网体数据']);
@@ -415,7 +415,7 @@ class NetAction extends CommonAction
 				$result = M('会员')->where($where)->select();
 			}else{
 				$where = array(
-					'编号'=>array('eq',$this->userinfo['编号']),
+					'编号'=>array('eq',USER_NAME),
 					$netName.'_层数'=>array('gt','0')
 				);
 				$result = M('会员')->where($where)->select();
@@ -466,7 +466,7 @@ class NetAction extends CommonAction
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
 					$this->error(L('非法表单数据'));
 				}
-				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
+				if(I("REQUEST.uid/s") != USER_NAME){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s"))))->find();
 					if($firstUser){
 						$firstUserNetInfos = explode(',',$firstUser[$netName.'_网体数据']);
@@ -502,7 +502,7 @@ class NetAction extends CommonAction
 				$result = M('会员')->where($where)->select();
 			}else{
 				$where = array(
-					'编号'=>array('eq',$this->userinfo['编号']),
+					'编号'=>array('eq',USER_NAME),
 					$netName.'_层数'=>array('gt','0')
 				);
 				$result = M('会员')->where($where)->select();
@@ -556,7 +556,7 @@ class NetAction extends CommonAction
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
 					$this->error(L('非法表单数据'));
 				}
-				if(I('REQUEST.uid/s') != $this->userinfo['编号']){
+				if(I('REQUEST.uid/s') != USER_NAME){
 					$firstUser = $userModel->where(array("编号"=>trim(I('REQUEST.uid/s')),"_string"=>"find_in_set('{$this->userinfo['id']}',{$netName}_网体数据)"))->find();
 					if(!$firstUser){
 						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
@@ -608,7 +608,7 @@ class NetAction extends CommonAction
 				if( preg_match('/\'|\"|;|select|truncate|drop|insert|update|delete|join|union|into|load_file|outfile/i', I("REQUEST.uid/s"), $matches) ){
 					$this->error(L('非法表单数据'));
 				}
-				if(I("REQUEST.uid/s") != $this->userinfo['编号']){
+				if(I("REQUEST.uid/s") != USER_NAME){
 					$firstUser = $userModel->where(array("编号"=>trim(I("REQUEST.uid/s")),"_string"=>"find_in_set('{$this->userinfo['id']}',{$netName}_网体数据)"))->find();
 					if(!$firstUser){
 						$this->error(L('该'.$this->userobj->byname.'不在'.$netName.'网体下'));
@@ -667,11 +667,11 @@ class NetAction extends CommonAction
 		$netName = $net->byname;
 		//获得当前会员的点位
 		$firstUser=array();
-		$firstUser=M($net->name)->where(array("状态"=>0,"编号"=>$this->userinfo['编号']))->order("time asc")->find();
+		$firstUser=M($net->name)->where(array("状态"=>0,"编号"=>USER_NAME))->order("time asc")->find();
 		$result=array();
 		if($firstUser){
 			$upuser=array();
-			if(I("REQUEST.uid/s") != "" and I("REQUEST.uid/s") != $this->userinfo['编号']){
+			if(I("REQUEST.uid/s") != "" and I("REQUEST.uid/s") != USER_NAME){
 				$where=array("编号"=>I("request.uid/s"),"状态"=>0,"网体"=>$firstUser['网体'],"排序"=>array("gt",$firstUser['排序']));
 				if(I("request.u_num/d")>0){
 					$where['排序']=I("request.u_num/d");

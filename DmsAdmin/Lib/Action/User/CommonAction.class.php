@@ -59,6 +59,9 @@ class CommonAction extends Action{
 		if(isset($_SESSION[C('USER_AUTH_NUM')])){
 			//会员信息
 			$this->userinfo=M('会员')->where(array('id'=>$_SESSION[C('USER_AUTH_KEY')]))->find();
+			// 定义会员编号常量
+			define('USER_NAME',$this->userinfo['编号']);
+			define('USER_ID',$this->userinfo['id']);
 			$this->huobi=M('货币')->where(array('userid'=>$_SESSION[C('USER_AUTH_KEY')]))->find();//货币分离
 			$this->userinfo = array_merge($this->huobi,$this->userinfo);
 		}
@@ -255,7 +258,7 @@ class CommonAction extends Action{
 			//撤销超时购买未付款 自动撤销购买
 			if($gold->payTime>0){
 				$paytime=$gold->payTime*60;
-				$buyinfos=M($gold->name."购买")->where("(编号='".$this->userinfo['编号']."' or 卖家编号='".$this->userinfo['编号']."') and 购买时间+".$paytime."<=".systemTime()." and 状态='待付'")->select();
+				$buyinfos=M($gold->name."购买")->where("(编号='".USER_NAME."' or 卖家编号='".USER_NAME."') and 购买时间+".$paytime."<=".systemTime()." and 状态='待付'")->select();
 				foreach($buyinfos as $buyinfo){
 					M()->startTrans();
 					systemTime($buyinfo['付款时间']+$paytime);
@@ -271,7 +274,7 @@ class CommonAction extends Action{
 			//撤销超时购买未确认 自动确认
 			if($gold->confirmTime>0){
 				$confirmTime=$gold->confirmTime*60;
-				$confinfos=M($gold->name."购买")->where("(编号='".$this->userinfo['编号']."' or 卖家编号='".$this->userinfo['编号']."') and 付款时间+".$confirmTime."<=".systemTime()." and 状态='已付'")->select();
+				$confinfos=M($gold->name."购买")->where("(编号='".USER_NAME."' or 卖家编号='".USER_NAME."') and 付款时间+".$confirmTime."<=".systemTime()." and 状态='已付'")->select();
 				foreach($confinfos as $confinfo){
 					M()->startTrans();
 					systemTime($confinfo['付款时间']+$confirmTime);
@@ -392,12 +395,12 @@ class CommonAction extends Action{
 			$str2=$matchs[1][$i];
 			$content=str_replace($str1,$this->userinfo[$str2],$content);
 		}
-		$result = DdkSms::send($this->userinfo['移动电话'],$content,I("post.type/s"),$this->userinfo['编号']);
-		//S($this->userinfo['编号'].'_'.$_POST['type'],$verify,300);
+		$result = DdkSms::send($this->userinfo['移动电话'],$content,I("post.type/s"),USER_NAME);
+		//S(USER_NAME.'_'.$_POST['type'],$verify,300);
 		if($result == true){
-			S($this->userinfo['编号'].'_'.I("post.type/s"),$verify,300);
+			S(USER_NAME.'_'.I("post.type/s"),$verify,300);
 			M()->commit();
-			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),L('发送成功'),1);
+			$this->ajaxReturn(S(USER_NAME.'_'.I("post.type/s")),L('发送成功'),1);
 		}else{
 			$this->ajaxReturn('',L('发送失败'),0);
 		}
@@ -458,8 +461,8 @@ class CommonAction extends Action{
 		}
 		$result = sendMail($this->userinfo,I("post.type/s"),$content);
 		if($result == true){
-			S($this->userinfo['编号'].'_'.I("post.type/s"),$verify,300);
-			$this->ajaxReturn(S($this->userinfo['编号'].'_'.I("post.type/s")),L('发送成功'),1);
+			S(USER_NAME.'_'.I("post.type/s"),$verify,300);
+			$this->ajaxReturn(S(USER_NAME.'_'.I("post.type/s")),L('发送成功'),1);
 		}else{
 			$this->ajaxReturn('',L('发送失败'),0);
 		}

@@ -43,6 +43,9 @@
     				float: left;
     				text-align: right;
 				}
+                .address-box input {
+                    margin-top: 5px;
+                }
 			</style>
             <tr>
 				<td colspan="4" id="newAddress" style="display:none;">
@@ -76,11 +79,11 @@
                                     <input class="town" name="town" type="text">
                                 </div>
                                 <div class="country-select" style="display:none;">
-                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <input class="country-now arrow-bg" type="text" value="请选择国家" readonly>
                                     <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
+                                        <!--<li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>-->
                                     </ul>
                                 </div>
                                 <div class="location-box">
@@ -113,11 +116,11 @@
 			</script>
 			<script type="text/javascript">
 			$.areaSelect('#address-box', '__PUBLIC__', {
-                'country': "{:L('中国')}",
-                'province': "{$userinfo.国家}",
-                'city': "{$userinfo.省份}",
-                'county': "{$userinfo.城市}",
-                'level':'county'
+                'country': "中国",
+				'province': "{$userinfo.省份}",
+				'city': "{$userinfo.城市}",
+				'county': "{$userinfo.地区}",
+				'level':'county'
             });
 			</script>
 			<tr align="center" id="addAddress_tr">

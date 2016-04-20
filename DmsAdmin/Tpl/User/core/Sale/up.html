@@ -55,11 +55,11 @@
                                     <input class="town" id="town1_id" name="town1" type="text">
                                 </div>
                                 <div class="country-select">
-                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <input class="country-now arrow-bg" type="text" value="请选择国家" readonly>
                                     <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
+                                        <!--<li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>-->
                                     </ul>
                                 </div>
                                 <div class="location-box">
@@ -88,11 +88,11 @@
                                     <input class="town" id="town_id" name="town" type="text">
                                 </div>
                                 <div class="country-select">
-                                    <input class="country-now arrow-bg" type="text" value="{:L('请选择国家')}" readonly>
+                                    <input class="country-now arrow-bg" type="text" value="请选择国家" readonly>
                                     <ul class="country-list">
-                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">{:L('请选择国家')}</a></li>
-                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">{:L('中国')}</a></li>
-                                        <li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>
+                                        <li class="current"><i>&radic;</i><a data-value="0" href="javascript:void(0)">请选择国家</a></li>
+                                        <li><i>&radic;</i><a data-value="1" href="javascript:void(0)">中国</a></li>
+                                        <!--<li><i>&radic;</i><a data-value="2" href="javascript:void(0)">{:L('海外')}</a></li>-->
                                     </ul>
                                 </div>
                                 <div class="location-box">
@@ -213,13 +213,13 @@ function tijiao(){
 }
 <if condition="(count($area) gt 0)">
     $.areaSelect('#address-box', '__PUBLIC__', {
-		'country': "{:L('中国')}",
+		'country': "中国",
 		'level':'town',
 	});
 </if>
 <if condition="($sale:extra eq true)">
     $.areaSelect('#address-box2', '__PUBLIC__', {
-		'country': "{:L('中国')}",
+		'country': "中国",
 		'level':'town',
 	});
 </if>

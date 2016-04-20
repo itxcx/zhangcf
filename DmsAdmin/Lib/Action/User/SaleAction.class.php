@@ -317,6 +317,8 @@ class SaleAction extends CommonAction {
         if(adminshow('agreement')){
             $this->assign('Buy_agreement',F('Buy_agreement'));
         }
+		//物流发货     
+        adminshow('baodan_wuliu') ? $this->assign('wuliu',1) : $this->assign('wuliu',0) ; 
 		$this->display($sale_buy->template);
 	}
 	//重复消费AJAX验证
@@ -346,7 +348,7 @@ class SaleAction extends CommonAction {
 				$this->error($sale_buy->onlyMsg);
 			}
 		}
-		if($sale_buy->extra && (I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')=='' || I('post.reciver/s')=='' || I('post.address/s')=='' || I('post.mobile/s')=='')){
+		if(adminshow('baodan_wuliu') && $sale_buy->extra && (I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')=='' || I('post.reciver/s')=='' || I('post.address/s')=='' || I('post.mobile/s')=='')){
 			$this->error(L("请完善收货信息"));
 		}
 		$checkResult = $sale_buy->getValidate(I('post.'));   //自动验证
@@ -414,6 +416,8 @@ class SaleAction extends CommonAction {
 			$accbankObj=X("accbank@".$sale_up->accBank);
 			$this->assign('bankRatio',$accbankObj->getcon("bank",array("name"=>"","minval"=>'0%',"maxval"=>'100%',"extra"=>false),true));
 		}
+		//物流发货    
+        adminshow('baodan_wuliu') ? $this->assign('wuliu',1) : $this->assign('wuliu',0) ; 
 		$this->assign('sale',$sale_up);
 		$this->assign('levels',$levels);
 		$this->assign('shop',$shop);
@@ -448,7 +452,7 @@ class SaleAction extends CommonAction {
            $_POST['userid'] = USER_NAME;
         }	
 		//判断物流信息
-		if($sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
+		if(adminshow('baodan_wuliu') && $sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
         {
 			$this->error(L("请完善物流信息"));
 		}
@@ -712,10 +716,10 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
 		
-		if($this->userobj->haveProduct())
-		{
-			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
-		}
+//		if($this->userobj->haveProduct())
+//		{
+//			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+//		}
 		$list ->addshow( L('操作'), array("row"=>array(array(&$this,"checkgeted"),"[物流状态]","[id]",$this->userobj->haveProduct())));
         $list ->pagenum=15;
 		$data = $list->getData();
@@ -742,10 +746,11 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		//$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","[saleid]","[编号]","[id]"),));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
-		
+		if(adminshow('baodan_wuliu')){
 		if($this->userobj->haveProduct())
-		{
-			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+			{
+				$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+			}
 		}
 		$list ->addshow( L('操作'), array("row"=>array(array(&$this,"checkgeted"),"[物流状态]","[id]",$this->userobj->haveProduct())));
         $list ->pagenum=15;
@@ -854,10 +859,14 @@ class SaleAction extends CommonAction {
 		$this->success(L("申请已提交，请等待审核..."));
 	}
 	public function checkgeted($status,$id,$haveProduct){
-		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
-			 
-		 }else{
+		if(adminshow('baodan_wuliu')){
+			 if($status=='已发货' && $haveProduct){
+				 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
+				 
+			 }else{
+				 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
+			 }
+		}else{
 			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}

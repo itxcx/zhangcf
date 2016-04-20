@@ -1,0 +1,54 @@
+<div class="core_main User" id="view">
+	<div class="core_title"><span class="core_title_con"><span>{:L('首页')}</span>：{:L('收款人信息')}</span></div>
+	<div class="core_con">
+    <table class="tablebg">
+		<tr>
+	  		<td class="tbkey" >{:L('汇款人推荐人')}：</td>
+	  		<td class="tbval" >{$data.推荐_上级编号}&nbsp;</td>
+		</tr>
+        <tr>
+        	<td class="tbkey" >{:L('汇款人推荐人昵称')}：</td>
+        	<td class="tbval" >{$data.tjnc}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人推荐人联系手机')}：</td>
+          	<td class="tbval" >{$data.tjphone}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人会员编号')}：</td>
+          	<td class="tbval" >{$data['编号']}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人名字')}：</td>
+          	<td class="tbval" >{$data.姓名}&nbsp;</td>
+        </tr> 
+
+		<tr>
+	  		<td class="tbkey" >{:L('汇款人手机')}：</td>
+	  		<td class="tbval" >{$data.移动电话}&nbsp;</td>
+		</tr>
+        <tr>
+        	<td class="tbkey" >{:L('汇款人qq')}：</td>
+        	<td class="tbval" >{$data.QQ}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人邮箱')}：</td>
+          	<td class="tbval" >{$data.邮箱}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人开户行')}：</td>
+          	<td class="tbval" >{$data['开户银行']}&nbsp;</td>
+        </tr>
+        <tr>
+          	<td class="tbkey" >{:L('汇款人银行开户名')}：</td>
+          	<td class="tbval" >{$data.开户名}&nbsp;</td>
+        </tr> 
+		<tr>
+          	<td class="tbkey" >{:L('汇款人银行卡号')}：</td>
+          	<td class="tbval" >{$data.银行卡号}&nbsp;</td>
+        </tr> 
+        <tr >
+            <td colspan="2"><button class="button_text" type="button" onclick="history.back();">{:L('返回')}</button></td>
+	</table>
+    </div>	
+</div>

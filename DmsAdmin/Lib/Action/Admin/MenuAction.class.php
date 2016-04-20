@@ -222,7 +222,7 @@ class MenuAction extends Action
 			}
 		}
 		//快递（物流）公司
-		if(adminshow('kuaidi') || adminshow('kuaidi_pro')){
+		if(adminshow('baodan_wuliu')){
 			$menu[]=array('model'=>'ProductLogistics','action'=>"express",'title'=>"快递公司管理",'level'=>1,'parent'=>$parent,'setParent'=>'快递公司管理');
 			$menu[]=array('model'=>'ProductLogistics','action'=>"addexpress,saveExpress",'title'=>"快递添加",'level'=>2,'parent'=>$parent,'setParent'=>'快递公司管理');
 			$menu[]=array('model'=>'ProductLogistics','action'=>"editexpress,saveEditexpress",'title'=>"快递修改",'level'=>2,'parent'=>$parent,'setParent'=>'快递公司管理');

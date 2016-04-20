@@ -1,0 +1,23 @@
+<div class="core_main Mail" id="send">
+	<div class="core_title">
+    	<span class="core_title_con"><span>当前位置</span>：{:L('提供资助者申诉')}</span>
+    </div>
+    <div class="core_con">
+    	<form id="sendform" action="__GROUP__/Fun_invest/putAppealSave" method="post" enctype="multipart/form-data">
+            <table class="tablebg" >
+                <tr>
+                    <td class="tbkey">{:L('申诉描述：')}</td>
+                    <td class="tbval"><input type="text" name="shensu" id="title"></td>
+                </tr>
+                <tr>
+                <tr>
+                    <td colspan="2">  
+                    	<input type="hidden" name="cid" value="{$cid}">
+                            <INPUT class="button_text" type="submit" value="{:L('提交')}" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="core_page"></div>
+</div>

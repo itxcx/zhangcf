@@ -79,7 +79,7 @@ class SaleAction extends CommonAction {
 			*/
 			
 			if(get_class($net)=='net_rec' && $sale_reg->dispWhere==''){
-				$value	= $this->userinfo['编号'];
+				$value	= USER_NAME;
 			}
 			//$position	= $net->getRegion();
 			if(isset($net->setRegion) && $net->setRegion==true)
@@ -172,7 +172,7 @@ class SaleAction extends CommonAction {
 		$this->assign('show',$show);						//注册显示项
 		
 		$this->assign('funReg',$funReg);
-		$this->assign('haveuser',$this->userobj->have(''));			//是否为第一个会员
+		$this->assign('haveuser',CONFIG('HAVEUSER'));			//是否为第一个会员
 		$this->display($sale_reg->template);
 	}
 	//用户注册完成
@@ -217,6 +217,7 @@ class SaleAction extends CommonAction {
 		if(CONFIG('regmailSwitch')){
 			sendMail($udata,$this->userobj->byname.'注册',CONFIG('regmailContent'));
 		}
+		CONFIG('HAVEUSER') == false && CONFIG('HAVEUSER',true);
 		M()->commit();
 		$this->redirect("/User/Sale/recipt:".__XPATH__."/newuserid/".$return['userid']);
 	}
@@ -340,7 +341,7 @@ class SaleAction extends CommonAction {
 			die;
 		}
 		if($sale_buy->onlyMsg!=''){
-			$have=M("报单")->where(array("编号"=>$this->userinfo['编号'],"报单类别"=>$sale_buy->name))->find();
+			$have=M("报单")->where(array("编号"=>USER_NAME,"报单类别"=>$sale_buy->name))->find();
 			if($have){
 				$this->error($sale_buy->onlyMsg);
 			}
@@ -360,7 +361,7 @@ class SaleAction extends CommonAction {
 			if($rswhere !== true){
 				$this->error($rswhere);
 			}
-			//$_POST['userid']=$this->userinfo['编号'];
+			//$_POST['userid']=USER_NAME;
 			$return = $sale_buy->buy(I('post.'));
 			if(gettype($return)=='string')
 			{
@@ -369,7 +370,7 @@ class SaleAction extends CommonAction {
 			M()->commit();
 			$userMenuPower = $this->userobj->getatt('userMenuPower');
 			if(!$userMenuPower && !in_array('Sale-mysale',$userMenuPower)){
-				$this->success('订购成功',__URL__.'/productmysale');
+				$this->success(L('订购成功'),__URL__.'/productmysale');
 			}else{
 				$this->success(L('订购成功'),__URL__.'/mysale');
 			}
@@ -444,7 +445,7 @@ class SaleAction extends CommonAction {
 		ini_set('memory_limit','500M');
 		M()->startTrans();
         if($sale_up->lockMe==true){
-           $_POST['userid'] = $this->userinfo['编号'];
+           $_POST['userid'] = USER_NAME;
         }	
 		//判断物流信息
 		if($sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
@@ -506,7 +507,7 @@ class SaleAction extends CommonAction {
 					$useracc.=" and (";
 					$accuser=explode(",",$sale->accview);
 					foreach($accuser as $uname){
-						$useracc.=("b.".$uname."='".$this->userinfo['编号']."' or ");
+						$useracc.=("b.".$uname."='".USER_NAME."' or ");
 					}
 					$useracc=trim($useracc,'or ');
 					$useracc.=")";
@@ -557,7 +558,7 @@ class SaleAction extends CommonAction {
 					$useracc.=" and (";
 					$accuser=explode(",",$sale->accview);
 					foreach($accuser as $uname){
-						$useracc.=("b.".$uname."='".$this->userinfo['编号']."' or ");
+						$useracc.=("b.".$uname."='".USER_NAME."' or ");
 					}
 					$useracc=trim($useracc,'or ');
 					$useracc.=")";
@@ -757,7 +758,7 @@ class SaleAction extends CommonAction {
     public function apply_back(){
     	//查询注册订单显示到页面中
     	$map['报单状态']=array("in","空单,回填");
-	    $map['编号']=$this->userinfo['编号'];
+	    $map['编号']=USER_NAME;
 		$saleData=M("报单")->where($map)->select();
 		if(!$saleData){
 			//$this->error(L('没有需要回填的订单'));
@@ -768,8 +769,8 @@ class SaleAction extends CommonAction {
 		$this->assign("backfill",X("prize_backfill"));
 		$list = new TableListAction("报单");
 		$list->table("dms_报单 a");
-		$list->join("inner join (select * from dms_申请回填 where 编号='".$this->userinfo['编号']."') b on a.id=b.saleid");
-        $list ->where(array('a.编号'=>$this->userinfo['编号']))->order("b.id desc");
+		$list->join("inner join (select * from dms_申请回填 where 编号='".USER_NAME."') b on a.id=b.saleid");
+        $list ->where(array('a.编号'=>USER_NAME))->order("b.id desc");
         $list->field('a.*,b.*');
         $list ->setShow = array(
             L('申请日期')=>array("row"=>"[申请日期]","format"=>"time"),
@@ -811,7 +812,7 @@ class SaleAction extends CommonAction {
 		}
 		M()->startTrans();
 		$map['报单状态']=array("in","空单,回填");
-	    $map['编号']=$this->userinfo['编号'];
+	    $map['编号']=USER_NAME;
 		if(I("post.type/a")){
 			foreach(I("post.type/a") as $saleid=>$type){
 				if($type){
@@ -838,7 +839,7 @@ class SaleAction extends CommonAction {
 					//保存申请记录
 					$data=array(
 						"saleid"=>$saleData['id'],
-						"编号"=>$this->userinfo['编号'],
+						"编号"=>USER_NAME,
 						"转正方式"=>$type,
 						"申请日期"=>systemTime(),
 						"申请状态"=>"未审核"
@@ -861,7 +862,7 @@ class SaleAction extends CommonAction {
 		 }
 	}
 	public function viewMysale(){
-		$saleData = M('报单')->where(array('编号'=>$this->userinfo['编号'],'id'=>I("get.id/d")))->find();
+		$saleData = M('报单')->where(array('编号'=>USER_NAME,'id'=>I("get.id/d")))->find();
 		if($saleData['产品'] == 1){
 			$productData = M('产品订单')->where(array('报单id'=>I("get.id/d")))->select();
 			
@@ -881,7 +882,7 @@ class SaleAction extends CommonAction {
 	public function confirmget(){
 		M()->startTrans();
 		$model		= M("报单");
-		$result		 = $model->where(array('id'=>I("get.id/d"),'编号'=>$this->userinfo['编号']))->save(array('物流状态'=>'已收货','收货日期'=>systemTime()));
+		$result		 = $model->where(array('id'=>I("get.id/d"),'编号'=>USER_NAME))->save(array('物流状态'=>'已收货','收货日期'=>systemTime()));
 		if($result){
 			M()->commit();
 			$this->success(L("确认收货成功"));
@@ -911,7 +912,7 @@ class SaleAction extends CommonAction {
 			$this->error(L('订单不存在'));
 		}
         //判断审核人是否是注册人或者服务中心编号
-        if($saledata['服务中心编号']!=$this->userinfo['编号'] && $saledata['注册人编号']!=$this->userinfo['编号']){
+        if($saledata['服务中心编号']!=USER_NAME && $saledata['注册人编号']!=USER_NAME){
            $this->error(L('您无权操作'));
         }
 		if($saledata['报单状态'] != '未确认')

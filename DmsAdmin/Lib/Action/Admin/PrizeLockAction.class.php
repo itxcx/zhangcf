@@ -50,10 +50,6 @@ class PrizeLockAction extends CommonAction {
 			//货币分离
 			$list->addshow($banks->byname,array("row"=>array(array(&$this,"_base64User"),'[编号]',$banks->objPath(),"[".$banks->name."]"),"css"=>"width:90px","searchRow"=>"b.".$banks->name,"searchMode"=>"num","order"=>'b.'.$banks->name,"sum"=>'b.'.$banks->name));
 		}
-		foreach(X('fun_stock') as $fskey=>$fun_stock)
-        {
-        	$list->addshow($fun_stock->byname,array("row"=>array(array($this,"_shownum"),"[fs".$fskey."num]","[编号]",$fun_stock->objPath()),"searchRow"=>"fs".$fskey.".数量","searchMode"=>"num","order"=>"fs".$fskey.".数量","sum"=>"fs".$fskey.".数量"));
-        }
         //显示网络上级姓名的额外字段
         $netnamerow='';
         //网络信息
@@ -114,10 +110,8 @@ class PrizeLockAction extends CommonAction {
 		foreach(X('fun_bank') as $fun_bank){
 			$filestr.=",b.".$fun_bank->name;
 		}
-		foreach(X('fun_stock') as $fskey=>$fun_stock)
-        {
-        	$filestr.=",fs".$fskey.".数量 as fs".$fskey."num";
-        }
+		
+
 		$list->field($filestr);//货币分离        
 		echo $list->getHtml();
 	}

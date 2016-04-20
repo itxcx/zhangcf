@@ -726,13 +726,16 @@ class UserAction extends CommonAction
 		$where['id']	= I("post.id/d");
 		if(I("post.pass1/s")!="!!noeditpass!!"){
 			$data['pass1']	= md100($data['pass1']);
+			$this->saveAdminLog($updateuser['pass1'],md100($data['pass1']),'一级密码修改',$this->userobj->name.'['.$updateuser['编号'].']一级密码修改');
 		}
 		if(I("post.pass2/s")!="!!noeditpass!!"){
 			$data['pass2']	= md100($data['pass2']);
+			$this->saveAdminLog($updateuser['pass2'],md100($data['pass2']),'二级密码修改',$this->userobj->name.'['.$updateuser['编号'].']二级密码修改');
 		}
 		if(adminshow('pwd3Switch')){
 			if(I("post.pass3/s")!="!!noeditpass!!"){
 				$data['pass3'] = md100( $data['pass3']);
+				$this->saveAdminLog($updateuser['pass3'],md100( $data['pass3']),'三级密码修改',$this->userobj->name.'['.$updateuser['编号'].']三级密码修改');
 			}
 		}
         
@@ -1073,6 +1076,9 @@ class UserAction extends CommonAction
 				//$this->success("删除成功！");
 			}
 		}
+		M()->startTrans();		
+		M('会员')->find() == false && CONFIG('HAVEUSER',false);
+		M()->commit();
 		echo json_encode($errMsg);
 		/*if($errNum !=0){
 			$this->error("删除成功：".$succNum .'条记录；删除失败：'.$errNum .'条记录；<br/>'.$errMsg);

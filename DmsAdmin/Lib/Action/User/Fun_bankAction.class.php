@@ -5,8 +5,8 @@ class Fun_bankAction extends CommonAction {
 	public function index(fun_bank $fun_bank)
 	{
         $list = new TableListAction($fun_bank->name.'明细');
-        //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=$this->userinfo['编号']"));
-        $list ->where(array('编号'=>$this->userinfo['编号']))->order("时间 desc,id desc");
+        //$list ->field('时间,来源,金额,余额,类型,备注')->where("编号=".USER_NAME));
+        $list ->where(array('编号'=>USER_NAME))->order("时间 desc,id desc");
         //$list ->setSearch = array('time'=>array('row'=>'时间','exp'=>'gt'),'leavemoney'=>array('row'=>'余额'));
         $list ->setShow = array(
             L('时间')=>array("row"=>"[时间]","format"=>"time"),
@@ -43,7 +43,7 @@ class Fun_bankAction extends CommonAction {
         	$this->assign('mycards',$mycards);
         	//提现列表
             $list = new TableListAction("提现");
-            $list ->where(array('编号'=>$this->userinfo['编号'],'类型'=>$fun_bank->name))->order("id desc");
+            $list ->where(array('编号'=>USER_NAME,'类型'=>$fun_bank->name))->order("id desc");
             $list ->setShow = array(
                 L('时间')=>array("row"=>"[操作时间]","format"=>"time"),
                 L('开户行')=>array("row"=>"[开户行]"),
@@ -66,7 +66,7 @@ class Fun_bankAction extends CommonAction {
 			$list ->addShow(L('操作'),array("row"=>array(array(&$this,"dofun"),"[状态]","[id]",$fun_bank->objPath(),$fun_bank,"[撤销理由]")));
             $data = $list->getData();
             /*对getOnly的处理，如果已存在未审核提现，则不能继续提现*/
-            if($fun_bank->getOnly && M('提现')->where(array('编号'=>$this->userinfo['编号'],'状态'=>0))->find())
+            if($fun_bank->getOnly && M('提现')->where(array('编号'=>USER_NAME,'状态'=>0))->find())
             {
             	$this->assign('onlyLock',true);
             }
@@ -121,7 +121,7 @@ class Fun_bankAction extends CommonAction {
         M()->startTrans();
         $getModel = M("提现");
         $where['id'] = I("get.id/d");
-        $where['编号'] = $this->userinfo['编号'];
+        $where['编号'] = USER_NAME;
         $re = $getModel -> where($where)->find();
         $bank	= X('fun_bank@'.$re['类型']);
 		if(!$bank->allowBack){
@@ -155,7 +155,7 @@ class Fun_bankAction extends CommonAction {
 			    $data["审核时间"] = systemTime();          
 			    $res = $getModel->save($data);
 			    if($res){
-			    	$bank->set($this->userinfo['编号'],$this->userinfo['编号'],($re["实发"]+$re['手续费']),'撤销提现','撤销提现返还：'.($re["实发"]+$re['手续费']));
+			    	$bank->set(USER_NAME,USER_NAME,($re["实发"]+$re['手续费']),'撤销提现','撤销提现返还：'.($re["实发"]+$re['手续费']));
 			    	M()->Commit();
 			        $this->success(L('撤销成功'),__URL__.'/get:__XPATH__');
 			    } else{
@@ -181,7 +181,7 @@ class Fun_bankAction extends CommonAction {
 		    }
         }
 		if($fun_bank->getMoneySmsSwitch){
-			$verify = S($this->userinfo['编号'].'_'.$fun_bank->name.'提现');
+			$verify = S(USER_NAME.'_'.$fun_bank->name.'提现');
 			if(!$verify || $verify != I('post.getSmsVerfy/d')){
 				$this->error(L('短信验证码错误或已过期'));
 			}
@@ -220,7 +220,7 @@ class Fun_bankAction extends CommonAction {
         if($re == ""){	
 	        //写入会员操作日志
 			$authInfo['姓名']=$this->userinfo['姓名'];
-			$authInfo['编号']=$this->userinfo['编号'];
+			$authInfo['编号']=USER_NAME;
 			$authInfo['id']=$this->userinfo['id'];
 			$data = array();
 			$datalog['user_id']=$authInfo['id'];
@@ -243,7 +243,7 @@ class Fun_bankAction extends CommonAction {
 			M()->commit();
 			M()->startTrans();
 			//发送的验证码注销
-			S($this->userinfo['编号'].'_'.$fun_bank->name.'提现',null,300);
+			S(USER_NAME.'_'.$fun_bank->name.'提现',null,300);
 			//添加会员提现邮件提醒
             if(CONFIG('txmmailSwitch')){
 				sendMail($this->userinfo,$this->userobj->byname.'提现',CONFIG('txmmailContent'));
@@ -283,7 +283,7 @@ class Fun_bankAction extends CommonAction {
 		    }
         }
 		if($bank->getMoneySmsSwitch){
-			$verify = S($this->userinfo['编号'].'_'.$bank->name.'提现');
+			$verify = S(USER_NAME.'_'.$bank->name.'提现');
 			if(!$verify || $verify != intval($_POST['getSmsVerfy']) || !$_POST['getSmsVerfy']){
 				$this->error(L('短信验证码错误或已过期!'));
 			}
@@ -313,7 +313,7 @@ class Fun_bankAction extends CommonAction {
 		{
 			$this->error('您已经提交过提现申请,如继续操作,请从新点击提现功能');
 		}
-        if($fun_bank->getOnly && M('提现')->where(array('编号'=>$this->userinfo['编号'],'状态'=>0))->find())
+        if($fun_bank->getOnly && M('提现')->where(array('编号'=>USER_NAME,'状态'=>0))->find())
         {
             $this->error('您有一笔未审核的提现记录，暂不能继续提现');
         }
@@ -323,7 +323,7 @@ class Fun_bankAction extends CommonAction {
         if($re == ""){	
 	        //写入会员操作日志
 			$authInfo['姓名']=$this->userinfo['姓名'];
-			$authInfo['编号']=$this->userinfo['编号'];
+			$authInfo['编号']=USER_NAME;
 			$authInfo['id']=$this->userinfo['id'];
 			$data = array();
 			$datalog['user_id']=$authInfo['id'];
@@ -346,7 +346,7 @@ class Fun_bankAction extends CommonAction {
 			M()->commit();
             M()->startTrans();
 				//发送的验证码注销
-			S($this->userinfo['编号'].'_'.$bank->name.'提现',null,300);
+			S(USER_NAME.'_'.$bank->name.'提现',null,300);
             //添加会员提现邮件提醒
             if(CONFIG('txmmailSwitch')){
                 sendMail($this->userinfo,$this->userobj->byname.'提现',CONFIG('txmmailContent'));
@@ -422,7 +422,7 @@ class Fun_bankAction extends CommonAction {
         $cardname    = $checktype["开户名"];
         $cardtel     = $this->userinfo["移动电话"];
 		$data=array(
-			"编号"=>$this->userinfo['编号'],
+			"编号"=>USER_NAME,
 			"提现额"=>$getsum,
 			"开户行"=>$bankname,
 			"银行卡号"=>$cardnumble,
@@ -490,7 +490,7 @@ class Fun_bankAction extends CommonAction {
             $cardtel     = isset($_POST["移动电话"])?$_POST["移动电话"]:'';
         }
 		$data=array(
-			"编号"=>$this->userinfo['编号'],
+			"编号"=>USER_NAME,
 			"提现额"=>$getsum,
 			"开户行"=>$bankname,
 			"银行卡号"=>$cardnumble,
@@ -543,7 +543,7 @@ class Fun_bankAction extends CommonAction {
 	public function rem()
 	{
         $list = new TableListAction('汇款通知');
-        $list ->where(array('编号'=>"{$this->userinfo['编号']}"))->order("id desc");
+        $list ->where(array('编号'=>USER_NAME))->order("id desc");
        
         $data = $list->getData();
          if(adminshow('huikuan')){
@@ -716,7 +716,7 @@ class Fun_bankAction extends CommonAction {
 	{
 		$m = M('汇款通知');
 		$where['id']	= I("get.id/d");
-		$where['编号']  = $this->userinfo['编号'];
+		$where['编号']  = USER_NAME;
 		M()->startTrans();
 		$m->where($where)->delete();
 		M()->commit();

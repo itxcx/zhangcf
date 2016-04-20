@@ -148,7 +148,7 @@
 <field name='INDEX (`saleid`)' type="KEY"/>
 <field name='INDEX (`编号`)' type="KEY"/>
 </table>
-<table name='汇款通知' engine="MyISAM">
+<table name='汇款通知' engine="InnoDB">
 <field name="id"       type="int(11)" auto_increment="1" primary="1" />
 <field name='汇入账户卡号'      type="varchar(255)" default=""/>
 <field name='汇入账户'      type="varchar(255)" default=""/>

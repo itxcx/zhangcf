@@ -43,6 +43,9 @@
     				float: left;
     				text-align: right;
 				}
+                .address-box input {
+                    margin-top: 5px;
+                }
 			</style>
             <tr>
 				<td colspan="4" id="newAddress" style="display:none;">
@@ -113,7 +116,7 @@
 			</script>
 			<script type="text/javascript">
 			$.areaSelect('#address-box', '__PUBLIC__', {
-                'country': "{$userinfo.国家}",
+                'country': "{:L('中国')}",
 				'province': "{$userinfo.省份}",
 				'city': "{$userinfo.城市}",
 				'county': "{$userinfo.地区}",

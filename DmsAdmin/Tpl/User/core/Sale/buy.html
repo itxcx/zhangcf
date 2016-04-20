@@ -61,8 +61,7 @@
             </tr>
             </notempty>
         </table>
-        <if condition="$wuliu eq true">
-        <if condition="$sale:extra eq true">
+        <if condition="$sale:extra eq true and adminshow('baodan_wuliu') eq true">
             <table class="tablebg" id="table2">
                 <tr>
                     <td colspan="2"><span>{:L('物流信息')}</span></TD>
@@ -119,7 +118,6 @@
                 </tr>
                 
             </table>
-        </if>
         </if>
         <div style="margin-top: 10px;margin-left: 10px;float: left;margin: 5px;font-size: 14px;color: red;"><span id="state_lockcon"></span></div>
 	        <present name="productArr">

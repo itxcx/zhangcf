@@ -79,7 +79,7 @@ class SaleAction extends CommonAction {
 			*/
 			
 			if(get_class($net)=='net_rec' && $sale_reg->dispWhere==''){
-				$value	= $this->userinfo['编号'];
+				$value	= USER_NAME;
 			}
 			//$position	= $net->getRegion();
 			if(isset($net->setRegion) && $net->setRegion==true)
@@ -317,6 +317,8 @@ class SaleAction extends CommonAction {
         if(adminshow('agreement')){
             $this->assign('Buy_agreement',F('Buy_agreement'));
         }
+		//物流发货     
+        adminshow('baodan_wuliu') ? $this->assign('wuliu',1) : $this->assign('wuliu',0) ; 
 		$this->display($sale_buy->template);
 	}
 	//重复消费AJAX验证
@@ -341,12 +343,12 @@ class SaleAction extends CommonAction {
 			die;
 		}
 		if($sale_buy->onlyMsg!=''){
-			$have=M("报单")->where(array("编号"=>$this->userinfo['编号'],"报单类别"=>$sale_buy->name))->find();
+			$have=M("报单")->where(array("编号"=>USER_NAME,"报单类别"=>$sale_buy->name))->find();
 			if($have){
 				$this->error($sale_buy->onlyMsg);
 			}
 		}
-		if($sale_buy->extra && (I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')=='' || I('post.reciver/s')=='' || I('post.address/s')=='' || I('post.mobile/s')=='')){
+		if(adminshow('baodan_wuliu') && $sale_buy->extra && (I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')=='' || I('post.reciver/s')=='' || I('post.address/s')=='' || I('post.mobile/s')=='')){
 			$this->error(L("请完善收货信息"));
 		}
 		$checkResult = $sale_buy->getValidate(I('post.'));   //自动验证
@@ -361,7 +363,7 @@ class SaleAction extends CommonAction {
 			if($rswhere !== true){
 				$this->error($rswhere);
 			}
-			//$_POST['userid']=$this->userinfo['编号'];
+			//$_POST['userid']=USER_NAME;
 			$return = $sale_buy->buy(I('post.'));
 			if(gettype($return)=='string')
 			{
@@ -414,6 +416,8 @@ class SaleAction extends CommonAction {
 			$accbankObj=X("accbank@".$sale_up->accBank);
 			$this->assign('bankRatio',$accbankObj->getcon("bank",array("name"=>"","minval"=>'0%',"maxval"=>'100%',"extra"=>false),true));
 		}
+		//物流发货    
+        adminshow('baodan_wuliu') ? $this->assign('wuliu',1) : $this->assign('wuliu',0) ; 
 		$this->assign('sale',$sale_up);
 		$this->assign('levels',$levels);
 		$this->assign('shop',$shop);
@@ -445,10 +449,10 @@ class SaleAction extends CommonAction {
 		ini_set('memory_limit','500M');
 		M()->startTrans();
         if($sale_up->lockMe==true){
-           $_POST['userid'] = $this->userinfo['编号'];
+           $_POST['userid'] = USER_NAME;
         }	
 		//判断物流信息
-		if($sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
+		if(adminshow('baodan_wuliu') && $sale_up->extra && (I('post.reciver/s')=='' || I('post.mobile/s')=='' || I('post.address/s')=='' || I('post.country/s')=='' || I('post.province/s')=='' || I('post.city/s')=='' || I('post.county/s')=='' || I('post.town/s')==''))
         {
 			$this->error(L("请完善物流信息"));
 		}
@@ -507,7 +511,7 @@ class SaleAction extends CommonAction {
 					$useracc.=" and (";
 					$accuser=explode(",",$sale->accview);
 					foreach($accuser as $uname){
-						$useracc.=("b.".$uname."='".$this->userinfo['编号']."' or ");
+						$useracc.=("b.".$uname."='".USER_NAME."' or ");
 					}
 					$useracc=trim($useracc,'or ');
 					$useracc.=")";
@@ -558,7 +562,7 @@ class SaleAction extends CommonAction {
 					$useracc.=" and (";
 					$accuser=explode(",",$sale->accview);
 					foreach($accuser as $uname){
-						$useracc.=("b.".$uname."='".$this->userinfo['编号']."' or ");
+						$useracc.=("b.".$uname."='".USER_NAME."' or ");
 					}
 					$useracc=trim($useracc,'or ');
 					$useracc.=")";
@@ -712,10 +716,10 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
 		
-		if($this->userobj->haveProduct())
-		{
-			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
-		}
+//		if($this->userobj->haveProduct())
+//		{
+//			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+//		}
 		$list ->addshow( L('操作'), array("row"=>array(array(&$this,"checkgeted"),"[物流状态]","[id]",$this->userobj->haveProduct())));
         $list ->pagenum=15;
 		$data = $list->getData();
@@ -742,10 +746,11 @@ class SaleAction extends CommonAction {
 		$list ->addshow( L('订单类别'), array('row'=>'[报单类别]'));
 		//$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","[saleid]","[编号]","[id]"),));
 		$list ->addshow( L('订单状态'), array('row'=>array(array(&$this,"operate"),"[报单状态]","","[编号]","[id]"),));
-		
+		if(adminshow('baodan_wuliu')){
 		if($this->userobj->haveProduct())
-		{
-			$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+			{
+				$list ->addshow( L('物流状态'), array("row"=>'[物流状态]'));
+			}
 		}
 		$list ->addshow( L('操作'), array("row"=>array(array(&$this,"checkgeted"),"[物流状态]","[id]",$this->userobj->haveProduct())));
         $list ->pagenum=15;
@@ -758,7 +763,7 @@ class SaleAction extends CommonAction {
     public function apply_back(){
     	//查询注册订单显示到页面中
     	$map['报单状态']=array("in","空单,回填");
-	    $map['编号']=$this->userinfo['编号'];
+	    $map['编号']=USER_NAME;
 		$saleData=M("报单")->where($map)->select();
 		if(!$saleData){
 			//$this->error(L('没有需要回填的订单'));
@@ -769,8 +774,8 @@ class SaleAction extends CommonAction {
 		$this->assign("backfill",X("prize_backfill"));
 		$list = new TableListAction("报单");
 		$list->table("dms_报单 a");
-		$list->join("inner join (select * from dms_申请回填 where 编号='".$this->userinfo['编号']."') b on a.id=b.saleid");
-        $list ->where(array('a.编号'=>$this->userinfo['编号']))->order("b.id desc");
+		$list->join("inner join (select * from dms_申请回填 where 编号='".USER_NAME."') b on a.id=b.saleid");
+        $list ->where(array('a.编号'=>USER_NAME))->order("b.id desc");
         $list->field('a.*,b.*');
         $list ->setShow = array(
             L('申请日期')=>array("row"=>"[申请日期]","format"=>"time"),
@@ -812,7 +817,7 @@ class SaleAction extends CommonAction {
 		}
 		M()->startTrans();
 		$map['报单状态']=array("in","空单,回填");
-	    $map['编号']=$this->userinfo['编号'];
+	    $map['编号']=USER_NAME;
 		if(I("post.type/a")){
 			foreach(I("post.type/a") as $saleid=>$type){
 				if($type){
@@ -839,7 +844,7 @@ class SaleAction extends CommonAction {
 					//保存申请记录
 					$data=array(
 						"saleid"=>$saleData['id'],
-						"编号"=>$this->userinfo['编号'],
+						"编号"=>USER_NAME,
 						"转正方式"=>$type,
 						"申请日期"=>systemTime(),
 						"申请状态"=>"未审核"
@@ -854,15 +859,19 @@ class SaleAction extends CommonAction {
 		$this->success(L("申请已提交，请等待审核..."));
 	}
 	public function checkgeted($status,$id,$haveProduct){
-		 if($status=='已发货' && $haveProduct){
-			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
-			 
-		 }else{
+		if(adminshow('baodan_wuliu')){
+			 if($status=='已发货' && $haveProduct){
+				 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a> <a href='__URL__/confirmget/id/{$id}'>" . L('确认收货') . "</a>";
+				 
+			 }else{
+				 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
+			 }
+		}else{
 			 return "<a href='__URL__/viewMysale/id/{$id}'>" . L('查看') . "</a>";
 		 }
 	}
 	public function viewMysale(){
-		$saleData = M('报单')->where(array('编号'=>$this->userinfo['编号'],'id'=>I("get.id/d")))->find();
+		$saleData = M('报单')->where(array('编号'=>USER_NAME,'id'=>I("get.id/d")))->find();
 		if($saleData['产品'] == 1){
 			$productData = M('产品订单')->where(array('报单id'=>I("get.id/d")))->select();
 			
@@ -882,7 +891,7 @@ class SaleAction extends CommonAction {
 	public function confirmget(){
 		M()->startTrans();
 		$model		= M("报单");
-		$result		 = $model->where(array('id'=>I("get.id/d"),'编号'=>$this->userinfo['编号']))->save(array('物流状态'=>'已收货','收货日期'=>systemTime()));
+		$result		 = $model->where(array('id'=>I("get.id/d"),'编号'=>USER_NAME))->save(array('物流状态'=>'已收货','收货日期'=>systemTime()));
 		if($result){
 			M()->commit();
 			$this->success(L("确认收货成功"));
@@ -912,7 +921,7 @@ class SaleAction extends CommonAction {
 			$this->error(L('订单不存在'));
 		}
         //判断审核人是否是注册人或者服务中心编号
-        if($saledata['服务中心编号']!=$this->userinfo['编号'] && $saledata['注册人编号']!=$this->userinfo['编号']){
+        if($saledata['服务中心编号']!=USER_NAME && $saledata['注册人编号']!=USER_NAME){
            $this->error(L('您无权操作'));
         }
 		if($saledata['报单状态'] != '未确认')

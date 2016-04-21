@@ -18,17 +18,19 @@
                 <td class="tbval"><nobr><if condition="$saleData['到款日期']">{$saleData.到款日期|date='Y-m-d H:i:s',###}</if></nobr></td>
             </tr>
             </if>
-            <if condition="$saleData['发货日期'] gt 0">
-            <tr >
-                <td class="tbkey"><nobr>{:L('发货日期')}：</nobr></td>
-                <td class="tbval"><nobr><if condition="$saleData['发货日期']">{$saleData.发货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
-            </tr>
-            </if>
-			<if condition="$saleData['收货日期'] gt 0">
-            <tr >
-                <td class="tbkey"><nobr>{:L('收货日期')}：</nobr></td>
-                <td class="tbval"><nobr><if condition="$saleData['收货日期']">{$saleData.收货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
-            </tr>
+            <if condition="adminshow('baodan_wuliu') eq true">
+	            <if condition="$saleData['发货日期'] gt 0">
+	            <tr >
+	                <td class="tbkey"><nobr>{:L('发货日期')}：</nobr></td>
+	                <td class="tbval"><nobr><if condition="$saleData['发货日期']">{$saleData.发货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+	            </tr>
+	            </if>
+				<if condition="$saleData['收货日期'] gt 0">
+	            <tr >
+	                <td class="tbkey"><nobr>{:L('收货日期')}：</nobr></td>
+	                <td class="tbval"><nobr><if condition="$saleData['收货日期']">{$saleData.收货日期|date='Y-m-d H:i:s',###}</if></nobr></td>
+	            </tr>
+	            </if>
             </if>
             <tr >
                 <td class="tbkey"><nobr>{:L('报单类别')}：</nobr></td>
@@ -75,55 +77,56 @@
 				<td class="tbval">{$nowlevel}</td>
 			</tr>
 			</if>
-            
-            <if condition="$saleData['物流费'] gt 0">
-			<tr>
-				<td class="tbkey">{:L('产品重量')}：</td>
-				<td class="tbval">{$saleData['产品总重量']}</td>
-			</tr>
-			
-			<tr>
-				<td class="tbkey">物流费')}：</td>
-				<td class="tbval">{$saleData['物流费']}</td>
-			</tr>
-			</if>
-			<if condition="$saleData['发货方式'] neq ''">
-			<tr>
-				<td class="tbkey">{:L('发货方式')}：</td>
-				<td class="tbval">{$saleData['发货方式']}</td>
-			</tr>
-			</if>
-			<if condition="($saleData['产品'] eq 1) or (adminshow('baodan_wuliu') eq true)">
-            <tr >
-                <td class="tbkey"><nobr>{:L('收货人')}：</nobr></td>
-                <td class="tbval"><nobr>{$saleData.收货人}</nobr></td>
-            </tr>
-             <tr >
-                <td class="tbkey"><nobr>{:L('联系电话')}：</nobr></td>
-                <td class="tbval"><nobr>{$saleData.联系电话}</nobr></td>
-            </tr>
-            <tr >
-                <td class="tbkey"><nobr>{:L('收货地址')}：</nobr></td>
-                <td class="tbval"><nobr>{$saleData.收货省份}{$saleData.收货城市}{$saleData.收货地区}{$saleData.收货街道}{$saleData.收货地址}</nobr></td>
-            </tr>
-            <tr >
-                <td class="tbkey"><nobr>{:L('物流状态')}：</nobr></td>
-                <td class="tbval"><nobr>{$saleData.物流状态}</nobr></td>
-            </tr>
-            </if>
-           <if condition="$saleData['快递公司'] neq ''">
-			<tr>
-				<td class="tbkey">{:L('快递公司')}</td>
-				<td class="tbval">{$saleData.快递公司}</td>
-			</tr>
-			<tr>
-				<td class="tbkey">{:L('快递单号')}：</td>
-				<td class="tbval">{$saleData.快递订单}</td>
-			</tr>
-			<tr>
-				<td class="tbkey">{:L('快递备注')}：</td>
-				<td class="tbval">{$saleData.快递备注}</td>
-			</tr>
+            <if condition="adminshow('baodan_wuliu') eq true">
+	            <if condition="$saleData['物流费'] gt 0" >
+				<tr>
+					<td class="tbkey">{:L('产品重量')}：</td>
+					<td class="tbval">{$saleData['产品总重量']}</td>
+				</tr>
+				
+				<tr>
+					<td class="tbkey">物流费')}：</td>
+					<td class="tbval">{$saleData['物流费']}</td>
+				</tr>
+				</if>
+				<if condition="$saleData['发货方式'] neq ''">
+				<tr>
+					<td class="tbkey">{:L('发货方式')}：</td>
+					<td class="tbval">{$saleData['发货方式']}</td>
+				</tr>
+				</if>
+				<if condition="$saleData['产品'] eq 1">
+	            <tr >
+	                <td class="tbkey"><nobr>{:L('收货人')}：</nobr></td>
+	                <td class="tbval"><nobr>{$saleData.收货人}</nobr></td>
+	            </tr>
+	             <tr >
+	                <td class="tbkey"><nobr>{:L('联系电话')}：</nobr></td>
+	                <td class="tbval"><nobr>{$saleData.联系电话}</nobr></td>
+	            </tr>
+	            <tr >
+	                <td class="tbkey"><nobr>{:L('收货地址')}：</nobr></td>
+	                <td class="tbval"><nobr>{$saleData.收货省份}{$saleData.收货城市}{$saleData.收货地区}{$saleData.收货街道}{$saleData.收货地址}</nobr></td>
+	            </tr>
+	            <tr >
+	                <td class="tbkey"><nobr>{:L('物流状态')}：</nobr></td>
+	                <td class="tbval"><nobr>{$saleData.物流状态}</nobr></td>
+	            </tr>
+	            </if>
+	           <if condition="$saleData['快递公司'] neq ''">
+				<tr>
+					<td class="tbkey">{:L('快递公司')}</td>
+					<td class="tbval">{$saleData.快递公司}</td>
+				</tr>
+				<tr>
+					<td class="tbkey">{:L('快递单号')}：</td>
+					<td class="tbval">{$saleData.快递订单}</td>
+				</tr>
+				<tr>
+					<td class="tbkey">{:L('快递备注')}：</td>
+					<td class="tbval">{$saleData.快递备注}</td>
+				</tr>
+				</if>
 			</if>
         </table>
     

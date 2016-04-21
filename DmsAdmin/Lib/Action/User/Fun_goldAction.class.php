@@ -13,7 +13,7 @@ class Fun_goldAction extends CommonAction {
 		$list = new TableListAction($fun_gold->name."挂单");
 		$list->table('dms_'.$fun_gold->name."挂单 a")->join(" inner join dms_会员 u on u.编号=a.编号");
 		$list->pagenum = 15;
-		$list->where("a.编号!='".$this->userinfo['编号']."' and a.未成交数量>0");
+		$list->where("a.编号!='".USER_NAME."' and a.未成交数量>0");
 		$list->pagenum = 15;
 		$list ->addShow(L('交易编号'),array("row"=>"[编号]"));
 		if($fun_gold->creditStyle!=""){
@@ -64,7 +64,7 @@ class Fun_goldAction extends CommonAction {
 		//我的挂单记录
 		$list = new TableListAction($fun_gold->name."挂单");
 		$list->pagenum = 15;
-		$list->where("编号='".$this->userinfo['编号']."'");
+		$list->where("编号='".USER_NAME."'");
 		$list->pagenum = 15;
 		$list ->addShow(L('时间'),array("row"=>"[时间]","format"=>"time"));
 		$list ->addShow(L('出售数量'),array("row"=>"[数量]"));
@@ -157,14 +157,14 @@ class Fun_goldAction extends CommonAction {
 		//今日挂单量
 		if($fun_gold->sellDayNum>0){
 			/* 撤销是否计算在内 默认不计算在内了 */
-			$sellDayNum=M($fun_gold->name."挂单")->where(array("编号"=>$this->userinfo['编号'],"时间"=>array(array("gt",strtotime(date("Y-m-d",systemTime()))),array("lt",systemTime()))))->sum("数量-撤销数量");
+			$sellDayNum=M($fun_gold->name."挂单")->where(array("编号"=>USER_NAME,"时间"=>array(array("gt",strtotime(date("Y-m-d",systemTime()))),array("lt",systemTime()))))->sum("数量-撤销数量");
 			if(($sellDayNum+I("post.num/d"))>$fun_gold->sellDayNum){
 				$this->error(L("今日超出挂单量".$fun_gold->sellDayNum."，超出".(($sellDayNum+I("post.num/d"))-$fun_gold->sellDayNum)));
 			}
 		}
 		//未成交挂单量
 		if($fun_gold->sellMax>0){
-			$sellMax=M($fun_gold->name."挂单")->where(array("编号"=>$this->userinfo['编号'],"状态"=>"有效"))->sum("数量-撤销数量");
+			$sellMax=M($fun_gold->name."挂单")->where(array("编号"=>USER_NAME,"状态"=>"有效"))->sum("数量-撤销数量");
 			if(($sellMax+I("post.num/d"))>$fun_gold->sellMax){
 				$this->error(L("已超出挂单量".$fun_gold->sellMax."，超出".(($sellMax+I("post.num/d"))-$fun_gold->sellMax)));
 			}
@@ -215,14 +215,14 @@ class Fun_goldAction extends CommonAction {
 		//每日购买量
 		if($fun_gold->buyDayNum>0){
 			/* 撤销是否计算在内 默认不计算在内了 */
-			$buyDayNum=M($fun_gold->name."购买")->where(array("编号"=>$this->userinfo['编号'],"购买时间"=>array(array("gt",strtotime(date("Y-m-d",systemTime()))),array("lt",systemTime())),"状态"=>array("neq","取消")))->sum("数量");
+			$buyDayNum=M($fun_gold->name."购买")->where(array("编号"=>USER_NAME,"购买时间"=>array(array("gt",strtotime(date("Y-m-d",systemTime()))),array("lt",systemTime())),"状态"=>array("neq","取消")))->sum("数量");
 			if(($buyDayNum+$buynum)>$fun_gold->buyDayNum){
 				$this->error(L("今日超出购买量".$fun_gold->buyDayNum."，超出".(($buyDayNum+$buynum)-$fun_gold->buyDayNum)));
 			}
 		}
 		//未成交挂单量
 		if($fun_gold->buyMax>0){
-			$buyMax=M($fun_gold->name."购买")->where(array("编号"=>$this->userinfo['编号'],"状态"=>array("in","待付,已付,完成")))->sum("数量");
+			$buyMax=M($fun_gold->name."购买")->where(array("编号"=>USER_NAME,"状态"=>array("in","待付,已付,完成")))->sum("数量");
 			if(($buyMax+$buynum)>$fun_gold->buyMax){
 				$this->error(L("已超出购买量".$fun_gold->buyMax."，超出".(($buyMax+$buynum)-$fun_gold->buyMax)));
 			}
@@ -244,7 +244,7 @@ class Fun_goldAction extends CommonAction {
 		if(I("get.idstr/s")==""){
 			$where="find_in_set(a.id,'".I("get.idstr/s")."')";
 		}else{
-			$where="((a.编号='".$this->userinfo['编号']."' and a.买家删除!=1) or (b.编号='".$this->userinfo['编号']."' and a.卖家删除!=1))";
+			$where="((a.编号='".USER_NAME."' and a.买家删除!=1) or (b.编号='".USER_NAME."' and a.卖家删除!=1))";
 		}
 		$list->where($where." and a.状态!='取消'")->field("a.*,b.编号 as 出售编号");
 		$list->pagenum = 15;
@@ -262,32 +262,32 @@ class Fun_goldAction extends CommonAction {
 	//操作
 	function bshowdo($id,$status,$buyname,$sellname){
 		if($status=="待付"){
-			if($this->userinfo['编号']==$sellname){
+			if(USER_NAME==$sellname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|等待汇款";
-			}else if($this->userinfo['编号']==$buyname){
+			}else if(USER_NAME==$buyname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a> | <a href='__URL__/addrem:__XPATH__/id/{$id}'>汇款</a> | <a href='__URL__/cancelBuy:__XPATH__/id/{$id}'>取消</a>";
 			}
 		}elseif($status=="已付"){
-			if($this->userinfo['编号']==$sellname){
+			if(USER_NAME==$sellname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|<a href='__URL__/apply:__XPATH__/id/{$id}'>申请仲裁</a>|<a href='__URL__/accokrem:__XPATH__/id/{$id}'>确认</a>";
-			}else if($this->userinfo['编号']==$buyname){
+			}else if(USER_NAME==$buyname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|等待确认";
 			}
 		/*
 		}elseif($status=="完成"){
-			if($this->userinfo['编号']==$sellname){
+			if(USER_NAME==$sellname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|<a href='__URL__/delhide:__XPATH__/id/{$id}'>删除</a>";
-			}else if($this->userinfo['编号']==$buyname){
+			}else if(USER_NAME==$buyname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|<a href='__URL__/delhide:__XPATH__/id/{$id}'>删除</a>";
 			}*/
 		}elseif($status=="仲裁"){
-			if($this->userinfo['编号']==$sellname){
+			if(USER_NAME==$sellname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|等待后台审核";
-			}else if($this->userinfo['编号']==$buyname){
+			}else if(USER_NAME==$buyname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>|<a href='__URL__/updateimg:__XPATH__/id/{$id}'>提交凭据</a>";
 			}
 		}else{
-			if($this->userinfo['编号']==$sellname || $this->userinfo['编号']==$buyname){
+			if(USER_NAME==$sellname || USER_NAME==$buyname){
 				$str="<a href='__URL__/detailview:__XPATH__/id/{$id}'>查看</a>";
 			}
 		}
@@ -307,7 +307,7 @@ class Fun_goldAction extends CommonAction {
 	}
 	public function addrem(fun_gold $fun_gold){
 		
-		$buyinfo=M($fun_gold->name."购买")->where(array("id"=>I("get.id/d"),"编号"=>$this->userinfo['编号']))->find();
+		$buyinfo=M($fun_gold->name."购买")->where(array("id"=>I("get.id/d"),"编号"=>USER_NAME))->find();
 		if(!$buyinfo){
 			$this->error(L("未找到出售挂单"));
 		}
@@ -320,7 +320,7 @@ class Fun_goldAction extends CommonAction {
 		$this->display();
 	}
 	public function remsave(fun_gold $fun_gold){
-		$buyinfo=M($fun_gold->name."购买")->where(array("id"=>I("post.id/d"),"编号"=>$this->userinfo['编号']))->find();
+		$buyinfo=M($fun_gold->name."购买")->where(array("id"=>I("post.id/d"),"编号"=>USER_NAME))->find();
 		$result=$fun_gold->checkbank(I("post."),explode(',',$fun_gold->buyInput));
 		if($result){
 			$this->error($result);
@@ -377,7 +377,7 @@ class Fun_goldAction extends CommonAction {
 		if(!$buyinfo){
 			$this->error(L("错误数据"));
 		}
-		if($buyinfo['编号']==$this->userinfo['编号']){
+		if($buyinfo['编号']==USER_NAME){
 			$buyinfo['买家删除']=1;
 			$show="买家删除";
 		}else{

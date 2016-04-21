@@ -1,0 +1,129 @@
+<table name='会员' engine="InnoDB">
+<field name='支付宝账号'  type="varchar(50)" default=""/>
+<field name='mmm超时'     type="int(14)"     default="0"/>
+<field name='mmm超时记录' type="int(14)"     default="0"/>
+</table>
+<table name='mmm匹配' engine="innodb">
+<field name="id"       type="int(14)" auto_increment="1" primary="1" />
+<field name="付款id"       type="int(14)"  default="0"/><!--对应的初始排队表id-->
+<field name="收款id"       type="int(14)"  default="0"/><!--匹配网络列表的id-->
+<field name='付款会员'	   type="varchar(50)" null="1"  default=""/>
+<field name='收款会员'	   type="varchar(50)" null="1"  default=""/>
+<field name='汇入账户卡号'      type="varchar(255)" default=""/>
+<field name='汇入账户'      type="varchar(255)" default=""/>
+<field name='汇入账户开户名'      type="varchar(255)" default=""/>
+<field name='汇入账户开户行'      type="varchar(255)" default=""/>
+<field name='开户银行' type="varchar(50)" default=""/>
+<field name='银行卡号' type="varchar(50)" default=""/>
+<field name='开户名'   type="varchar(50)" default=""/>
+<field name='匹配时间' type="int(11)" default="0"/>
+<field name='汇款时间' type="int(11)" default="0"/>
+<field name='确认时间' type="int(11)" default="0"/>
+<field name='超时时间' type="int(11)" default="0"/>
+<field name='撤销时间' type="int(11)" default="0"/>
+<field name='状态'	   type="tinyint(1)" default="0"/><!--0未打款 1已打款 2 已收款 3已撤销-->
+<field name='金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='换算后金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='延时'	   type="tinyint(1)" default="0"/><!--0未延时，1已进行过延时-->
+
+<field name='备注'	   type="varchar(255)" default=""/>
+<field name='申诉'	   type="varchar(255)" default=""/>
+<field name="申诉图片" type="varchar(1000)" default=""/>
+<field name='提现申诉'	   type="varchar(255)" default=""/>
+<field name="提现申诉图片" type="varchar(1000)" default=""/>
+<field name='申诉处理结果'	     type="tinyint(1)" default="0"/><!--0 正常完成交易 1 申诉完成交易（支持提供资助方） 2申诉完成交易（支持接受资助方）-->
+
+<field name='INDEX (`付款id`)'   type="KEY"/>
+<field name='INDEX (`收款id`)'   type="KEY"/>
+<field name='INDEX (`付款会员`)' type="KEY"/>
+<field name='INDEX (`收款会员`)' type="KEY"/>
+<field name='INDEX (`状态`)'     type="KEY"/>
+</table>
+<table name='mmm付款' engine="InnoDB">
+<field name="id"             type="int(11)" auto_increment="1" primary="1" />
+<field name='userid'         type="varchar(50)" default=""/><!--供结算奖金使用-->
+<field name='编号'           type="varchar(50)" default=""/>
+<field name='钱包编号'       type="varchar(50)" default=""/>
+<field name='总金额'         type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='待匹配金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已匹配金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已完成金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已撤销金额'     type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='状态'	         type="tinyint(1)" default="0"/><!--0未匹配 1部分匹配 2完全匹配 3完成汇款 4已撤销-->
+<field name='添加时间'	     type="int(11)"    default="0"/>
+<field name='删除'	         type="tinyint(1)" default="0"/><!--0未删除 1已删除 0217添加-->
+<field name='信誉度'	     type="int(11)"    default="0"/>
+<field name='序号'     type="int(11)"    default="0"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`状态`)' type="KEY"/>
+<field name='INDEX (`删除`)' type="KEY"/>
+<field name='INDEX (`添加时间`)' type="KEY"/>
+</table>
+<table name='mmm收款' engine="InnoDB">
+<field name="id"       type="int(14)" auto_increment="1" primary="1" />
+<field name='编号'        type="varchar(50)" default=""/>
+<field name='钱包编号'    type="varchar(50)" default=""/>
+<field name='总金额'      type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='待匹配金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已匹配金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已完成金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='已撤销金额'  type="numeric({:C('decimalLon')},{:C('decimalLen')})" default="0"/>
+<field name='添加时间'	  type="int(11)"  default="0"/>
+<field name='解冻时间'	  type="int(11)"  default="0"/>
+<field name='撤销时间'	  type="int(11)"  default="0"/>
+<!--<field name='类型'	   type="tinyint(1)" default="0"/>0本金利息，不冻结，无复投限制    1 来自动态管理奖，有冻结，有复投限制 -->
+<field name='状态'	      type="tinyint(1)" default="0"/><!--0未匹配 1部分匹配 2完成匹配 3完成汇款 4已撤销 -->
+<field name='删除'	      type="tinyint(1)" default="0"/><!--0未删除 1已删除 0217添加-->
+<field name='信誉度'	  type="int(11)"  default="0"/>
+<field name='序号'     type="int(11)"    default="0"/>
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`解冻时间`)' type="KEY"/>
+<!--<field name='INDEX (`类型`)' type="KEY"/>-->
+<field name='INDEX (`状态`)' type="KEY"/>
+<field name='INDEX (`删除`)' type="KEY"/>
+</table>
+<table name='信誉记录' engine="InnoDB">
+<field name="id"       type="int(14)" auto_increment="1" primary="1" />
+<field name='编号'     type="varchar(50)" default=""/>
+<field name='matchid'  type="int(14)" default="0"/><!--汇款记录id-->
+<field name='val'      type="int(14)" default="0"/>
+<field name='类型'	   type="tinyint(1)" default="0"/><!--0正常加减 1清零-->
+<field name='INDEX (`编号`)' type="KEY"/>
+<field name='INDEX (`matchid`)' type="KEY"/>
+<field name='INDEX (`类型`)' type="KEY"/>
+</table>
+<table name='mmm倒计时' engine="InnoDB">
+    <field name="id"        type="int(11)"      auto_increment="1" primary="1" />
+    <field name='编号'      type="varchar(50)"  default=""/>
+    <field name='类型'	    type="varchar(50)"  default=""/><!--start stop-->
+    <field name='备注'	    type="varchar(255)" default=""/>
+    <field name='添加时间'  type="int(11)"      default="0"/>
+    <field name='设定时间'  type="int(11)"      default="0"/>
+    <field name='isover'    type="tinyint(1)"   default="0"/>
+    <field name='INDEX (`编号`)' type="KEY"/>
+    <field name='INDEX (`isover`)' type="KEY"/>
+</table>
+<table name='正式排队' engine="InnoDB">
+    <field name="id"        type="int(11)"      auto_increment="1" primary="1" />
+    <field name="userid"    type="varchar(50)"  default=""/>
+    <field name="所属编号"  type="varchar(50)"  default=""/>
+    <field name='序号'  type="int(11)"      default="0"/>
+    <field name='上级序号'  type="int(11)"      default="0"/>
+    <field name='层数'  type="int(11)"      default="0"/>
+    <field name='本金'  type="numeric({:C('decimalLon')},{:C('decimalLen')})"      default="0"/>
+    <field name='利息'  type="numeric({:C('decimalLon')},{:C('decimalLen')})"      default="0"/>
+    <field name='编号'      type="varchar(50)"  default=""/>
+    <field name='类型'	    type="varchar(50)"  default=""/><!--start stop-->
+    <field name='备注'	    type="varchar(255)" default=""/>
+    <field name='添加时间'  type="int(11)"      default="0"/>
+    <field name='出局时间'  type="int(11)"      default="0"/>
+    <field name="钱包编号"  type="varchar(50)"  default=""/>
+    <field name="状态"      type="tinyint(1)"   default="0"/>
+</table>
+<table name='见点奖金来源' engine="innodb">
+<field name="id"         type="int(14)" auto_increment="1" primary="1" />
+<field name="序号"       type="varchar(50)"  default=""/><!--对应的初始排队表id-->
+<field name="拿见点序号" type="varchar(500)"  default=""/><!--对应的初始排队表id-->
+<field name="见点金额"   type="decimal(14,2)"  default="0"/><!--匹配网络列表的id-->
+<field name='封顶数'	 type="int(10)" default="0"/>
+</table>

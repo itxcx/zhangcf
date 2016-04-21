@@ -1,0 +1,28 @@
+{$list}
+<script>
+function selectList(obj,event){
+    //alert('ss');
+    event = event? event: window.event
+    input_eventSrc = event.srcElement ? event.srcElement:event.target;
+    var left = $(obj).offset().left - $("#sidebar").width();
+    //alert($(".selectListDiv").css("left"));
+    $(".selectListDiv").css("left",left-95);
+    $(".selectListDiv").css("top",'25px');
+    //alert($(".selectListDiv").css("display"))
+    $(".selectListDiv").css('display','block');
+    $(".selectListDiv li").mousemove(function(){
+        $(this).css('background-color','#8ABAE7');
+        $(this).css('color','#FFF');
+    }).mouseout(function(){
+        $(this).css('background-color','#fff');
+        $(this).css('color','#000');
+    });
+    $("*").click(function(event){
+        event = event? event: window.event
+        var thissrc=event.srcElement ? event.srcElement:event.target;
+        if(input_eventSrc != thissrc){
+            $(".selectListDiv").css("display","none");
+        }
+    });
+}
+</script>

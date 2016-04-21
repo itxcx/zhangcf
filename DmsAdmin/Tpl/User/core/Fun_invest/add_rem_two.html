@@ -1,0 +1,50 @@
+<load href="__PUBLIC__/My97DatePicker/WdatePicker.js" />
+<load href="__PUBLIC__/jquery-1.9.1.min.js" />
+<div class="core_main Fun_bank" id="add_rem">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：<span>{:L('添加汇款通知')}</span></span>
+	
+        <span class="core_title_edit"></span>
+    </div>
+    <div class="core_con">
+        <form action="__GROUP__/Fun_invest/rem_save_two" method="post"  id="register" name='register' enctype="multipart/form-data">
+        <table class="tablebg">
+            <TR>
+              <TD class="tbkey">{:L('支付方式')}：</TD>
+              <TD class="tbval">
+              <span>{$remit.汇入账户卡号}({$remit.汇入账户开户行},{$remit.汇入账户开户名}) </span>
+              <input type="hidden" name="汇入账户" value="{$remit.汇入账户卡号}({$remit.汇入账户开户行},{$remit.汇入账户开户名})">
+              </TD>
+            </TR>
+            <TR>
+              <TD class="tbkey">{:L('汇款人姓名')}：</td>
+              <TD class="tbval"><input type="text" name="开户名" value="{$userinfo['开户名']}"></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">{:L('汇款金额')}：</td>
+              <TD class="tbval"><span>{$remit['金额']}</span>&nbsp;&nbsp;<span id='hkts' style='color:red'></span></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">{:L('银行流水')}：</td>
+              <TD class="tbval"><input type="text" name="银行流水" value=""></td>
+            </TR>
+            <TR>
+              <TD class="tbkey">{:L('汇款留言：')}</td>
+              <TD class="tbval"><textarea value="" name="备注"></textarea></td>
+            </TR>            <TR>		                <TD colspan="2">                <input type="hidden" name="id" value="{$remit.id}"/>                <input  class="button_text" type="button" value="{:L('确认')}" name="subbut"  id='subbut' onclick="tijiao()"/>                <input class="button_text"  type="button"  id="but" value="{:L('返回')}" name="but" onclick="history.back();"/>                </td>            </TR>        </TABLE>         </form>    </div>    <div class="core_page"></div></div>
+<script type="text/javascript"> 
+function tijiao(){	var ua = navigator.userAgent.toLowerCase();
+	var s;
+	if ((/firefox\/([\d.]+)/).test(ua)) { //判断火狐浏览器
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+		$('#subbut').val('确认');
+		$('#subbut').attr('disabled',false);
+	} else {
+		$('#subbut').attr('disabled',true);
+		$('#subbut').val('正在提交,请等待...');
+		$('#register').submit();
+	}
+}
+</script>

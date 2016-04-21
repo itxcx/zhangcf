@@ -1,0 +1,24 @@
+<div class="core_main User" id="setPass">
+	<div class="core_title">
+    	<span class="core_title_con"><span>{:L('当前位置')}</span>：{:L('延时操作')}</span>
+    </div>
+    <div class="core_con">
+        <form name="form1" method="post" action="__GROUP__/Fun_invest/addTimeSave">
+        <table class="tablebg"><!--
+			 <tr >
+                <td class="tbkey">{:L('汇款人编号')}：</td>
+                <td class="tbval"><input name="fromUser" type="text" id="fromUser" value='{$bh}' readonly /></td>
+            </tr>-->
+            <tr >
+                <td class="tbkey">{:L('延时时间')}：</td>
+                <td class="tbval"><input name="addhours" type="text" id="addhours" />小时</td>
+            </tr>
+            <tr >
+            	<input name="id" type="hidden" id="id" value='{$id}'/>
+                <td colspan="2" ><button class="button_text" type="submit" >{:L('确定')}</button></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+    <div class="core_page"></div>
+</div>

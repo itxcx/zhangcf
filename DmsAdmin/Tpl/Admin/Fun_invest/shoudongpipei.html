@@ -1,0 +1,175 @@
+<div layoutH="0">
+<!--数据统计-->
+<div id="tb">
+<table width="1000" class="list">
+	  <thead>
+	      <tr>
+	        <th colspan="4" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;&nbsp;数据统计</th>
+	      </tr>
+	  </thead>
+	  <tbody>
+	      <tr><td style="text-align:middle">提供资助排队总额:</td><td style="text-align:left">{$tigongzizhuAll}</td><td style="text-align:middle">接受资助排队总额:</td><td style="text-align:left">{$jieshouzizhuAll}</td></tr>
+	 </tbody>
+</table>
+<table>
+<tr>
+<td colspan="2"  style="text-align:left;">
+	<form action="__URL__/shoudongpipei" method="post"  class="pageForm required-validate" onsubmit="return navTabSearch(this)">
+	<span>付款会员<input name='userid' type='text' value='{$Think.post.userid}' /></span>
+    <span>收款会员<input name='userid2' type='text' value='{$Think.post.userid2}' /></span>
+    <!--
+	<span>金额<input name='money' type='text' value='' /></span>
+    
+	<span>起始时间<input style="margin-left:5px;width:3cm"  type="text" class="date" dateFmt="yyyy-MM-dd HH:mm:ss" name="stime" value="{$stime|date='Y-m-d H:i:s',###}"/></span>
+	<span>结束时间<input style="margin-left:5px;width:3cm"  type="text" class="date" dateFmt='yyyy-MM-dd HH:mm:ss' name="etime" value="{$etime|date='Y-m-d H:i:s',###}"/></span>
+    -->
+	<span><button type="submit">搜索</button></span>
+	</form>
+</td>
+</tr>
+<tr>
+<td  valign="top" >
+<!--付款方开始-->
+<!--显示具体待匹配记录-->
+<table width="500" class="list">
+  <thead>
+      <tr>
+        <th colspan="8" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;&nbsp;申请资助列表</th>
+      </tr>
+  </thead>
+  <tbody>
+	  <!--搜索-->
+	  <tr>
+	      <td colspan='8' >
+	      	<div style='vertical-align:middle'>
+
+	      	</div>
+		 </td>
+	 </tr>
+	 
+	 
+	 <tr>
+	 	<td>选择</td><td>申请资助者</td><td>订单总额</td><td>已匹配金额</td><td>已成交金额</td><td>添加时间</td><td>状态</td>
+	 </tr>
+	 <tr>
+	 	<td colspan='8' style='text-align:left' ><input id='zizhuCheckAll' type='checkbox' />全选</td>
+	 </tr>
+	 <foreach name="tigongData" item='record' >
+		<tr>
+
+	 		<td><input type='checkbox' name='zizhuids' value="{$record['id']}" /></td><td>{$record['编号']}</td><td>{:intval($record['总金额']/100)/10}k</td><td>{:intval($record['已匹配金额']/100)/10}k</td><td>{:intval($record['已完成金额']/100)/10}k</td><td>{$record['添加时间']|date='y/m/d h:i',###}</td><td><if condition="$record['状态'] eq 0">未匹配<elseif condition="$record['状态'] eq 1" />部分匹配<else/>错误显示</if></td>
+	 	</tr>
+	</foreach>
+	
+	<tr>
+	 	<td colspan='8' >{$page}</td>
+	 </tr>
+ 	</tbody>
+   </table>
+   <!--付款方结束-->
+</td>
+<td  valign="top" >
+<!--收款方开始-->
+<table width="500" class="list">
+  <thead>
+      <tr>
+        <th colspan="8" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;&nbsp;接受资助列表</th>
+      </tr>
+  </thead>
+  <tbody>
+	  <!--搜索-->
+	  
+	  <tr>
+	      <td colspan='8' >
+	      	<div style='vertical-align:middle'>
+	      	</div>
+		 </td>
+	 </tr>
+	 
+	 <tr>
+	 	<td>选择</td><td>接受资助者</td><td>订单总额</td><td>已匹配金额</td><td>已成交金额</td><td>解冻时间</td><td>状态</td>
+	 </tr>
+	 <tr>
+	 	<td colspan='8' style='text-align:left' ><input id='jieshouCheckAll' type='checkbox' />全选</td>
+	 </tr>
+	 <foreach name="jieshouData" item='record' >
+		<tr>
+	 		<td><input type='checkbox' name='jieshouids' value="{$record['id']}" ></td><td>{$record['编号']}</td><td>{:intval($record['总金额']/100)/10}k</td><td>{:intval($record['已匹配金额']/100)/10}k</td><td>{:intval($record['已完成金额']/100)/10}k</td><td>{$record['解冻时间']|date='y/m/d h:i',###}</td><td><if condition="$record['状态'] eq 0">未匹配<elseif condition="$record['状态'] eq 1" />部分匹配<else/>错误显示</if><!--<if condition="$record['状态'] eq 0">未匹配<elseif condition="$record['状态'] eq 1" />部分匹配<else />错误显示</if>--></td>
+	 	</tr>
+	</foreach>
+	<tr>
+	 	<td colspan='8' >{$page2}</td>
+	 </tr>
+ 	</tbody>
+   </table>
+<!--收款方结束-->
+</td>
+</table>
+
+   
+</div>
+
+<form id='doManualMatch' action="__URL__/doManualMatch" method="post"  class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)"><input type="hidden" name="callbackType" value="forward" />
+<table width="1000" class="list">
+  <thead>
+      <tr>
+        <th colspan="2" style="text-align:left;"><img src="__PUBLIC__/Images/user_add.png" style="vertical-align:middle" />&nbsp;&nbsp;&nbsp;提交自动匹配选择</th>
+      </tr>
+  </thead>
+  <tbody>
+         <td colspan="2" valign="top" >
+          <div class="buttonActive" style="margin-left:450px;margin-top:5px;">
+          <input type='hidden' name='zizhuidstr' id='zizhuidstr' value='' />
+          <input type='hidden' name='jieshouidstr' id='jieshouidstr' value='' />
+          <div class="buttonContent" >
+            <button type="button" id='pipeitijiao' onclick="tijiao()">确定</button>
+          </div>
+          </div>
+         </tr>
+         </tbody>
+   </table>
+</form>
+
+</div>
+<!----->
+</div>
+
+
+<script>
+	function tijiao()
+	{
+		$('#zizhuidstr').val('');
+        var zizhuidval = '';
+        $("input[name='zizhuids']:checked").each(function () {
+            zizhuidval += this.value + ',';
+        });
+       $('#zizhuidstr').val(zizhuidval);
+	
+		$('#jieshouidstr').val('');
+        var jieshouidval = '';
+        $("input[name='jieshouids']:checked").each(function () {
+            jieshouidval += this.value + ',';
+        });
+       $('#jieshouidstr').val(jieshouidval);
+       
+		$('#doManualMatch').submit();
+		
+	}
+	$(function(){
+		$('#zizhuCheckAll').click(function(){
+			$('input[name="zizhuids"]').attr('checked',this.checked);
+		});	
+		var zizhuidsBox = $('input[name="zizhuids"]');
+		zizhuidsBox.click(function(){
+			$('#zizhuCheckAll').attr('checked',zizhuidsBox.length == $('input[name="zizhuids"]:checked').length);
+		});
+		
+		$('#jieshouCheckAll').click(function(){
+			$('input[name="jieshouids"]').attr('checked',this.checked);
+		});	
+		var jieshouidsBox = $('input[name="jieshouids"]');
+		jieshouidsBox.click(function(){
+			$('#jieshouCheckAll').attr('checked',jieshouidsBox.length == $('input[name="jieshouids"]:checked').length);
+		});
+	});
+</script>

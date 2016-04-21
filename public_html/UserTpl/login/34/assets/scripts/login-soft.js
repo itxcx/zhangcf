@@ -250,9 +250,9 @@ var Login = function () {
             handleRegister();        
 	       
 	       	$.backstretch([
-		        "/UserTpl/login/coinspot/assets/img/bg/1.jpg",
+		        "/UserTpl/login/34/assets/img/bg/1.jpg",
 		        
-		        "/UserTpl/login/coinspot/assets/img/bg/2.jpg"
+		        "/UserTpl/login/34/assets/img/bg/2.jpg"
 		        ], {
 		          fade: 1000,
 		          duration: 8000

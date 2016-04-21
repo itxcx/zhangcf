@@ -207,6 +207,21 @@ class MenuAction extends Action {
 				$menu[$goldManageName][]=array('model'=>'Fun_gold','action'=>'sell:'  .$gold->objPath(),'title'=>$gold->name."挂出",'level'=>1);
 			}
 		}
+		//投资模块
+        if(X('fun_invest')){
+			$investManageName=L('交易中心');
+			foreach(X('fun_invest') as $invest)
+			{
+                $menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'put'               ,'title'=>L('提供资助'),'level'=>1,"secPwd"=>'false');
+                $menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'zhengshipaidui'    ,'title'=>L('正式排队'),'level'=>1,"secPwd"=>'false');
+                $menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'get'               ,'title'=>L('接受资助'),'level'=>1,"secPwd"=>'false');
+        		$menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'putNotStatusList'  ,'title'=>L('初始排队列表'),'level'=>1);
+				$menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'putList'           ,'title'=>L('申请资助列表'),'level'=>1);
+        		$menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'getList'           ,'title'=>L('接受资助列表'),'level'=>1);
+				$menu[$investManageName][]=array('model'=>'Fun_invest','action'=>'zhengshipaiduiList','title'=>L('正式排队列表'),'level'=>1);
+                $menu[$investManageName][]=array('model'=>'Fun_bankdelay','action'=>'index','title'=>'资金排队列表','level'=>1);
+			}
+		}
 		//信息管理
 		$messManageName='信息管理';
 		$menu[$messManageName][]=array('model'=>'Mail','action'=>'index'     ,'title'=>'邮件列表','level'=>1);

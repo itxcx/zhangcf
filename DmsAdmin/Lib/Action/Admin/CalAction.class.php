@@ -155,7 +155,7 @@ class CalAction extends CommonAction {
     	set_time_limit(0);
 		ini_set('memory_limit','10000M');
 		//结算前备份数据库
-		if(isset($post) && isset($post['backupdb']) || isset($post) && !isset($post['caltime']) || IS_CLI){
+		if(isset($post) && isset($post['backupdb']) || isset($post) && !isset($post['caltime']) || IS_CLI || I("get.calpass/s")!='' && I("get.calpass/s") == F('calpass')){
 			calmsg('进行结算前数据库备份',"/Public/Images/ExtJSicons/database_save.png");
 			R('Admin://Backup/backall',array(Date('Ymd',$starday).'-'.Date('Ymd',$calovertime).'结算前备份',true));
 		}
@@ -491,6 +491,8 @@ class CalAction extends CommonAction {
 	//自动结算地址
 	public function AutoSet()
 	{
+        if(F('calpass')==false)
+		$this->SetCalPass(false);
 		$this->assign('url',U('/Cal/settlementExecute?calpass='.F('calpass'),'',true,false,true));
 		$this->assign('time',F('autoRunTime'));
 		$qrurl='http://'.$_SERVER['HTTP_HOST'].'/';
@@ -515,6 +517,15 @@ class CalAction extends CommonAction {
 		$this->assign('serverrun',$serverrun);
 		$this->display();
 	}
+    public function SetCalPass($ajaxReturn = true)
+    {
+        $newpass = '';
+        for ($i = 0; $i < 10; $i++)
+        {
+            $randstr .= chr(mt_rand(65, 90));
+        }
+        F('calpass', $randstr);
+     }
 	function runset()
 	{
 		M()->startTrans();

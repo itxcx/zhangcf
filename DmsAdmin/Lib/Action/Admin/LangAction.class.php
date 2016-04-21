@@ -6,11 +6,11 @@ class LangAction extends Action{
 		$langset = $this -> getLangCode();
 		foreach($langs as $k => $v){
 			if(!in_array($k,$langBao)){
-				$this->error('Admin/conf/lang.php中SET配置的 '.$k.' 语言未在语言包目录中,请重新配置或者添加 '.$k.' 语言包');
+				$this->error('Admin/Conf/lang.php中SET配置的 '.$k.' 语言未在语言包目录中,请重新配置或者添加 '.$k.' 语言包');
 				return;
 			}
 			if(!array_key_exists($k,$langset)){
-				$this->error($k.' 语言未在ThinkPHP/conf/langset.php配置文件中,请配置');
+				$this->error($k.' 语言未在ThinkPHP/Conf/langset.php配置文件中,请配置');
 				return;
 			}
 		}
@@ -137,7 +137,7 @@ class LangAction extends Action{
     }
 
 	function getLangCode(){
-		$langset = require  realpath(THINK_PATH.'/conf/langset.php');
+		$langset = require  realpath(THINK_PATH.'/Conf/langset.php');
 		return $langset;
 	}
 
@@ -175,7 +175,7 @@ class LangAction extends Action{
 		$appid = I('post.appid');
 		$key = I('post.key');
 		//开启、关闭多语言
-		$path = ROOT_PATH . 'Admin/conf/lang.php';
+		$path = ROOT_PATH . 'Admin/Conf/lang.php';
 		if(!file_exists($path)){
 			file_put_contents($path , "<?php \n return " . var_export(array('LANG'=>array()), true) . ";\n?>");
 		}
@@ -262,7 +262,7 @@ class LangAction extends Action{
 				}
 			}
 			//添加系统支持语言
-			$confpath = realpath(ROOT_PATH . 'Admin/conf/lang.php');
+			$confpath = realpath(ROOT_PATH . 'Admin/Conf/lang.php');
 			$langConf = include $confpath;
 			if(!isset($langConf['LANG']['SET'][$mui])){
 				$langConf['LANG']['SET'][$mui] =  $langset[$mui]['dispname'];

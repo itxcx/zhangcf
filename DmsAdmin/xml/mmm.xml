@@ -1,0 +1,117 @@
+<con>
+<user name="会员" >
+	<levels name='会员级别'>
+		<_con lv='10' name='会员'     pvmoney='#lv10money#'  money='#lv10money#' />
+	</levels>
+	<accbank name='注册扣款'>
+		<_bank name="激活码" minval='100%' maxval='100%' />
+	</accbank>
+    <accbank name='激活码购买扣款'>
+		<_bank name="报单币" minval='100%' maxval='100%' />
+	</accbank>
+	<sale_reg lvName="会员级别" name='前台注册' byname="会员登记" user='会员'  confirm="false" fromNoName='服务中心' fromNoWhere="[服务中心]=1"  accbank="注册扣款" accstr='推荐_上级编号' accview='推荐_上级编号'>
+	</sale_reg>
+	<sale_reg lvName="会员级别" name='后台注册' byname="会员登记" user='admin' fromNoName='服务中心' fromNoWhere="[服务中心]=1">
+	</sale_reg>
+    <sale_buy  lvName="会员级别" name='申请服务中心' user='会员' confirm="false" dispWhere="[服务中心]=0">
+        <_update set="服务中心=1" />
+	</sale_buy>
+    <sale_buy  lvName="会员级别" name='激活码购买' user='会员' confirm="true" dispWhere="[服务中心]=1" setMoney='true' accbank='激活码购买扣款' accBy='[报单金额]*100'>
+        <_addval from='[报单金额]' to='激活码' bankmode='激活码购买' bankmemo='服务中心激活码购买'/>
+	</sale_buy>
+	<net_rec name='推荐'>
+		<_lock where="[登陆锁定]=1" msg="该会员已经被锁定，不能推荐会员"/>
+	</net_rec>
+	<fun_bank name='激活码'   getMoney='false'/>
+    <fun_bank name='报单币'   getMoney='false'/>
+    <fun_bank name='出局钱包' getMoney='false'/>
+    <fun_bank name='管理钱包' getMoney='false' />
+    <fun_bank name='交易钱包' getMoney='false' />
+	<fun_bank name='虚拟币'   getMoney='false'/>
+	<fun_lock name='公司会员'   />
+	<fun_val name="信誉度" mode="int(10)" default="0"/>
+	<fun_val name="出局" mode="int(10)" default="0"/>
+	<fun_val name="复投金额累计" mode="numeric(14,2)" default="0"/>
+    <fun_val name="动态奖金提现累计" mode="numeric(14,2)" default="0"/>
+    <fun_val name="提供资助时限" mode="int(11)" default="0"/><!--0123添加需求，注册和收款后计算 提供资助时限 48小时，否则冻结账号-->
+    <fun_val name="提供资助时限记录" mode="int(11)" default="0"/><!--0301添加需求，记录上一次的时限，用于撤销操作时还原-->
+	<fun_invest name="初始排队" netName='正式排队'>
+        <!--信誉度设置-->
+        <_credit minhour='0'  maxhour='#xyzszsj_1#' val='#xyzszz_1#'/>
+        <_credit minhour='#xyzszsj_2#' maxhour='0' val='-#xyzszz_2#'/>
+        <!--付款整体完成
+            where和val中使用的类型
+            P代表付款记录
+            G代表收款记录
+            M代表匹配记录
+            
+            tofrom可以为put或者get
+        -->
+        <_addval type='confirm' user='put' to='复投金额累计' where='P[序号]>=2' val='M[金额]'/>
+        <_addval type='confirm' user='put' to='交易钱包'     where='' val='M[金额]' bankmode='投资转入' bankmemo='投资完成转入'/>
+        <!--用户撤销-->
+        <_addval type='get_user_revoke' user='get' to='出局钱包' where='' val='G[已撤销金额]' bankmode='撤销提现' memo='撤销提现'/>
+    </fun_invest>
+    <fun_bankdelay name='延期排队'>
+        <_con bankmode='利息'     to='出局钱包' val='30%'  delay='10'/>
+        <_con bankmode='利息'     to='出局钱包' val='30%'  delay='20'/>
+        <_con bankmode='利息'     to='出局钱包' val='40%'  delay='30'/>
+        <_con bankmode='本金'     to='出局钱包' val='100%' delay='7'/>
+        <_con bankmode='奖金'     to='出局钱包' val='100%' delay='30'/>
+    </fun_bankdelay>
+	<tle name='销售奖金' tleMode='d' autoGive='true' secAutoGive='false'>			
+		<prize_rec name='动态管理奖' lvname='会员级别' netname='推荐' rowfrom='1' rowname='金额' where="状态=2" table='mmm匹配' timecheck='确认时间'>
+			<_con minlv='10' maxlv='10' minlayer='1' maxlayer='1' val='#dtgljbl_1#%' where='M[推荐_推荐人数]>=1'/>
+			<_con minlv='10' maxlv='10' minlayer='2' maxlayer='2' val='#dtgljbl_2#%' where='M[推荐_推荐人数]>=2'/>
+			<_con minlv='10' maxlv='10' minlayer='3' maxlayer='3' val='#dtgljbl_3#%' where='M[推荐_推荐人数]>=3'/>
+			<_con minlv='10' maxlv='10' minlayer='4' maxlayer='4' val='#dtgljbl_4#%' where='M[推荐_推荐人数]>=4'/>
+			<_con minlv='10' maxlv='10' minlayer='5' maxlayer='5' val='#dtgljbl_5#%' where='M[推荐_推荐人数]>=5'/>
+			<_con minlv='10' maxlv='10' minlayer='6' maxlayer='6' val='#dtgljbl_6#%' where='M[推荐_推荐人数]>=6'/>
+			<_con minlv='10' maxlv='10' minlayer='7' maxlayer='7' val='#dtgljbl_7#%' where='M[推荐_推荐人数]>=7'/>
+			<_con minlv='10' maxlv='10' minlayer='8' maxlayer='8' val='#dtgljbl_8#%' where='M[推荐_推荐人数]>=8'/>
+			<_con minlv='10' maxlv='10' minlayer='9' maxlayer='9' val='#dtgljbl_9#%' where='M[推荐_推荐人数]>=9'/>
+			<_con minlv='10' maxlv='10' minlayer='10' maxlayer='10' val='#dtgljbl_10#%' where='M[推荐_推荐人数]>=10'/>
+			<_addval to='延期排队' val='(100-#xnbbl#)%' bankmode='奖金' bankmemo='动态管理奖'/>
+            <_addval to='虚拟币' val='#xnbbl#%'/>
+		</prize_rec>
+		<prize_rebate name='积极打款奖' lvname='会员级别' prizemode='1' rowname='金额' rowfrom='1' where="状态=2 and (匹配时间+#jjdkjsj#*3600>=确认时间)" table='mmm匹配' timecheck='确认时间'>
+			<_con minlv='10' maxlv='10' val='#jjdkjbl#%' />
+            <_addval to='延期排队' val='(100-#xnbbl2#)%' bankmode='奖金' bankmemo='积极打款奖'/>
+            <_addval to='虚拟币'   val='#xnbbl2#%'/>
+		</prize_rebate>
+	</tle>
+</user>
+<tleset title="用户设置">
+	<table title='会员级别'>
+		<tr><td>激活会员需要激活码个数:    </td><td><input value="100"     name="lv10money" /></td></tr>
+	</table>
+	<table title="动态管理奖">
+		<tr><td>第一代拿资助金额的比例:</td><td><input value="10"  name="dtgljbl_1" />%</td></tr>
+		<tr><td>第二代拿资助金额的比例:</td><td><input value="3"  name="dtgljbl_2" />%</td></tr>
+		<tr><td>第三代拿资助金额的比例:</td><td><input value="2"  name="dtgljbl_3" />%</td></tr>
+		<tr><td>第四代拿资助金额的比例:</td><td><input value="1"  name="dtgljbl_4" />%</td></tr>
+		<tr><td>第五代拿资助金额的比例:</td><td><input value="1"  name="dtgljbl_5" />%</td></tr>
+		<tr><td>第六代拿资助金额的比例:</td><td><input value="1"  name="dtgljbl_6" />%</td></tr>
+		<tr><td>第七代拿资助金额的比例:</td><td><input value="0.5"  name="dtgljbl_7" />%</td></tr>
+		<tr><td>第八代拿资助金额的比例:</td><td><input value="0.5"  name="dtgljbl_8" />%</td></tr>
+		<tr><td>第九代拿资助金额的比例:</td><td><input value="0.5"  name="dtgljbl_9" />%</td></tr>
+		<tr><td>第十代拿资助金额的比例:</td><td><input value="0.5"  name="dtgljbl_10" />%</td></tr>
+        <tr><td>动态管理奖进入虚拟币比例:</td><td><input value="30"  name="xnbbl" />%</td></tr>
+	</table>
+	<table title="利息">
+		<tr><td>正式排队见点利息:</td><td><input value="10"  name="dttjjje" xml='false'/></td></tr>
+		<tr><td>每个点位利息封顶:</td><td><input value="500"  name="dttjjfd" xml='false'/></td></tr>
+	</table>
+    <table title="积极打款奖">
+		<tr><td>匹配完成后<input value="12" name="jjdkjsj"  xml='false' />小时内打款并且已经被审核，提供资助的人获得打款额:</td><td><input value="10"  name="jjdkjbl"/>%的积极打款奖</td></tr>
+        <tr><td>积极打款奖进入虚拟币比例:</td><td><input value="30"  name="xnbbl2" />%</td></tr>
+	</table>
+	<table title="其他">
+		<!--<tr><td>正式排队</td><td><input value="5" name="zspdcjts"  xml='false' />天后强制出局</td></tr>-->
+		<tr><td>管理钱包转账到出局钱包</td><td>冻结时间为<input value="24" name="gltocjdj"  xml='false' />小时</td></tr>
+        <tr><td>管理钱包转账到出局钱包</td><td>转账累计金额小于等于复投累计金额的百分比<input value="50" name="gltocjbfb"  xml='false' />%</td></tr>
+		<tr><td><input value="12" name="xyzszsj_1" />小时内打款信用加<input value="1" name="xyzszz_1"  /></td></tr>
+		<tr><td><input value="24" name="xyzszsj_2" />小时以后对方给你延时扣<input value="2" name="xyzszz_2"  />，超时冻结账户，信用归零</td><td>两个时间之间打款不加不减</td></tr>
+	</table>
+</tleset>
+</con>

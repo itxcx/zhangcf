@@ -607,7 +607,7 @@ function alertcheck(){
   </tr>
   </if>
   {//收货人}
-  <if condition="in_array('reciver',$show) eq true">
+  <if condition="in_array('reciver',$show) eq true and adminshow('baodan_wuliu') eq true">
   <tr>
     <td style="height:25px;vertical-align: middle;">收货人：</td>
     <td style="height:25px;text-align:left;">

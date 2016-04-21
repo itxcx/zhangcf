@@ -1,0 +1,62 @@
+<div class="pageContent">
+	<form method="post" action="__URL__/configSave" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+        <div class="pageFormContent" layoutH="56">
+            <div style="margin: 5px;"><b>金额汇总:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">{$fun:getBank}：</label>
+				<font style='font-size:20px;color:#ff0000;'><b>{$getBankSum/10000|round=###,"2"}</b></font>万
+			</p>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">未解冻出局钱包：</label>
+				<font style='font-size:20px;color:#ff0000;'><b>{$frozenSum/10000|round=###,"2"}</b></font>万(24小时释放<b>{$frozen24Hour/10000|round=###,"2"}</b>/万,7天释放<b>{$frozen7Day/10000|round=###,"2"}</b>万)
+			</p>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">交易中金额：</label>
+				<font style='font-size:20px;color:#ff0000;'><b>{$remitingSum/10000|round=###,"2"}</b></font>万
+			</p>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">申诉中金额：</label>
+				<font style='font-size:20px;color:#ff0000;'><b>{$remitAppealSum/10000|round=###,"2"}</b></font>万
+			</p>
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">已完成金额：</label>
+				<font style='font-size:20px;color:#ff0000;'><b>{$remitConfirmSum/10000|round=###,"2"}</b></font>万
+			</p>
+			<p style="width: 400px;">
+				<label style="float: left;width: 150px; text-align: right;">匹配情况：</label>
+			</p>
+            <table style='margin-left:160px'>
+            <tr>
+            <td>提供:<font style='font-size:14px;color:#66CD00;'><b>{$putSum/10000|round=###,"2"}</b></font>/万({$putRatio}%) </td>
+            <td>
+				<table style="width:250px;border:1px solid #000000;padding:1px;" CELLSPACING='1' cellPadding='1'>
+                    <tr>
+                    <td style="width:{$putRatio}%;height:24px;background-color:#66CD00"></td>
+                    <td style="width:{$getRatio}%;height:24px;background-color:#8B1A1A"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>接受:<font style='font-size:14px;color:#8B1A1A;'><b> {$getSum/10000|round=###,"2"}</b></font>/万({$getRatio}%),包含冻结中(<b>{$getFrozenSum/10000|round=###,"2"}</b>/万)</td>
+            </table>
+            </div>
+            <div style="margin: 5px;"><b>会员汇总:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">总人数：</label>
+				{$userSum}人
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">冻结人数：</label>
+				{$userfrozenSum}人
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">其他：</label>
+				还想要哪些汇总指标您在提
+			</p>
+            </div>
+        </div>
+	</form>
+</div>

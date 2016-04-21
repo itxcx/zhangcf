@@ -1,0 +1,229 @@
+@charset "utf-8";
+/*edited by ytl 20160418*/
+body {
+    color: #333;
+    background: url(../images/bg.jpg) repeat-x left top;
+}
+.center {
+    margin: 0 auto;
+    width: 990px;
+}
+.clear {
+    width: 0;
+    height: 0;
+    clear: both;
+}
+
+/*header*/
+#header .header-top {
+    height: 90px;
+    background: url(../images/header-top.jpg) no-repeat;
+}
+#header .header-top .logo {
+    float: left;
+    padding-left: 25px;
+    width: 700px;
+    line-height: 90px;
+    color: #cff;
+    font-size: 35px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-shadow: 1px 1px 3px #333;
+}
+#header .logout {
+    float: right;
+    margin: 15px;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #666;
+}
+#header .logout img {
+    width: 50px;
+    height: 50px;
+}
+#header .header-nav {
+    width: 100%;
+    height: 60px;
+    background: url(../images/banner.png) no-repeat center top;
+}
+#header .nav {
+    float: left;
+    padding: 15px 20px;
+}
+#header .nav .nav-list {
+    position: relative;
+    float: left;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+#header .nav .nav-list:hover,
+#header .nav .nav-list.active {
+    background: url(../images/nav-hover.png) no-repeat;
+}
+#header .nav-list .navkey {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #333;
+    text-decoration: none;
+}
+
+#header .nav .navul {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    background-color: #ddd;
+    padding: 10px;
+    width: 100px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+#header .navul li {
+    height: 25px;
+    line-height: 25px;
+}
+#header .navul li:hover {
+    background-color: #eee;
+}
+#header .navul a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #666;
+    text-decoration: none;
+}
+
+/*main*/
+#main .notice {
+    width: 100%;
+    height: 310px;
+    background: url(../images/notice.jpg) no-repeat;
+}
+#main .notice-news {
+    float: left;
+    padding: 20px 0;
+    margin-left: 50px;
+    width: 600px;
+}
+#main .notice-news h2 {
+    color: #333;
+    font: 900 20px/80px '微软雅黑';
+}
+#main .notice-news p {
+    width: 100%;
+    height: 60px;
+    line-height: 2em;
+    font-size: 14px;
+    overflow: hidden;
+    color: #666;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#main .notice-news .notice-more {
+    display: block;
+    margin-top: 25px;
+    width: 93px;
+    height: 26px;
+    padding: 7px 30px 0 0;
+    color: #666;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    background: url(../images/more.png) no-repeat;
+}
+#main .notice-news .notice-more:hover {
+    background: url(../images/more-hover.png) no-repeat;
+}
+
+#main .notice-list {
+    float: right;
+    margin: 41px 68px 0 0;
+    padding-top: 15px;
+    width: 232px;
+}
+#main .notice-list li {
+    padding: 0 52px 0 25px;
+    width: 155px;
+    height: 52px;
+    line-height: 52px;
+    background: url(../images/notice-list.png) no-repeat;
+    overflow: hidden;
+}
+#main .notice-list li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #052b5a;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#main .notice-list li a:hover {
+    color: #06C;
+}
+
+#main .fund {
+    width: 100%;
+    height: 235px;
+    background: url(../images/fund-bottom.jpg) no-repeat center bottom;
+    overflow: hidden;
+}
+#main .fund-ul {
+    padding: 0 40px;
+    height: 200px;
+    background: url(../images/fund.jpg) repeat-y;
+}
+#main .fund-ul li {
+    float: left;
+    padding-left: 36px;
+    width: 190px;
+    height: 200px;
+    border-left: 1px solid #ccc;
+    overflow: hidden;
+}
+#main .fund-ul li.first {
+    border: none;
+}
+#main .fund-ul h2 {
+    height: 80px;
+    line-height: 60px;
+    color: #9b1919;
+    font-size: 20px;
+    font-weight: 500;
+}
+#main .fund-ul img {
+    float: left;
+    margin-top: 5px;
+    width: 70px;
+    height: 70px;
+}
+#main .fund-ul p {
+    float: left;
+    width: 120px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 20px;
+    color: #666;
+    overflow: hidden;
+}
+
+#main .space {
+    height: 100px;
+}
+
+/*footer*/
+#footer {
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    text-align: center;
+}
+

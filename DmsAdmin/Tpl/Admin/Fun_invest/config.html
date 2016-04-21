@@ -1,0 +1,128 @@
+<div class="pageContent">
+	<form method="post" action="__URL__/configSave" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDoneReload);">
+        <div class="pageFormContent" layoutH="56">
+            <div style="margin: 5px;"><b>时间设置:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 750px;">
+				<label style="float: left;width: 150px; text-align: right;">未活动冻结时限：</label>
+				<input type="text" value="{$fun:userTimeout}"      name="userTimeout"  class="number" size='5'/>&nbsp;<span class="unit">/小时<font color='#969696'>(会员注册完成后,或者投资完成后,进行在挂单的时限,设置为0,则关闭此功能)</font></span>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">资助方确认时限：</label>
+				<input type="text" value="{$fun:remitNotTimeout}" name="remitNotTimeout"  class="number" size='5'/>&nbsp;<span class="unit">/小时<font color='#969696'>(提供资助,匹配后,打款倒计时)</font></span>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">接受方确认时限：</label>
+				<input type="text" value="{$fun:remitGiveTimeout}" name="remitGiveTimeout"  class="number" size='5'/>&nbsp;<span class="unit">/小时<font color='#969696'>(匹配打款,确认付款后,确认收款倒计时)</font></span>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">接受资助冻结时间：</label>
+				<input type="text" value="{$fun:getFrozenTime}"    name="getFrozenTime"  class="number" size='5'/>&nbsp;<span class="unit">/小时<font color='#969696'>(挂接受资助后,多少小时后才能进行匹配)</font></span>
+			</p>
+            </div>
+            <div style="margin: 5px;"><b>提供资助:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">投资报单费：</label>
+				<input type="text" value="{$fun:putFee}" size="5" name="putFee" class="number"/>/元<font color='#969696'>(每次投资,要扣除特定报单费才能挂单)</font>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">金额倍数：</label>
+				<input type="text" value="{$fun:putMultiple}" size="20" name="putMultiple" class="number"/>/元<font color='#969696'>(每次提供投资的的金额整数倍)</font>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">单次最高额度：</label>
+				<input type="text" value="{$fun:putMax}" size="20" name="putMax" class="number"/>/元<font color='#969696'></font>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">大于等于上次投资比例：</label>
+				<input type="text" value="{$fun:putGtLast}" size="5" name="putGtLast" />%<font color='#969696'>(第二次投资必须大于或等于上一次投资制定百分比,设0不限)</font>
+			</p>
+            </div>
+           <div style="margin: 5px;"><b>接受资助:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">金额倍数：</label>
+				<input type="text" value="{$fun:getMultiple}" size="20" name="getMultiple" class="number"/>/元<font color='#969696'>(每次提供投资的的金额整数倍)</font>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">单次最高额度：</label>
+				<input type="text" value="{$fun:getMax}" size="20" name="getMax" class="number"/>/元<font color='#969696'></font>
+			</p>
+            </div>
+            <div style="margin: 5px;"><b>信誉度:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">注册默认信誉值：</label>
+				<input type="text" value="{$fun:regCredit}" size="20" name="regCredit" class="number"/>
+			</p>
+            </div>
+            <div style="margin: 5px;"><b>控制调整:</b></div>
+            <div class="divider"></div>
+            <div style="clear: left;" id="hideGetMoney">
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">日匹配总金额：</label>
+				<input type="text" value="{$fun:dayRemitMax}" size="5" name="dayRemitMax" class="number"/>/万元<font color='#969696'></font> 本日已匹配：<b>{$dayRemit}</b>/元
+			</p>
+			<p style="width: 850px;">
+				<label style="float: left;width: 150px; text-align: right;">每分钟匹配次数：</label>
+				<input type="text" value="{$fun:tickRemitNum}" size="5" name="tickRemitNum" class="number"/>/次,如设置为0则关闭自动匹配
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">匹配详情显示：</label>
+				<input <if condition="$fun:dispMatchComplete eq true">checked</if> type="checkbox" value="true" size="20" name="dispMatchComplete"/>交易完成
+                <input <if condition="$fun:dispMatchCancel   eq true">checked</if> type="checkbox" value="true" size="20" name="dispMatchCancel"  />交易撤销<font color='#969696'>(在特定状态下前台可以显示匹配详情)</font>
+			</p>
+
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">提供资助期间提供资助：</label>
+				<input type="checkbox" value="true" size="20" name="putingDoPut" <if condition="$fun:putingDoPut   eq true">checked</if>/>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">接受资助期间提供资助：</label>
+				<input type="checkbox" value="true" size="20" name="getingDoPut" <if condition="$fun:getingDoPut   eq true">checked</if>/>
+			</p>
+            <!--
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">接受资助次数限制：</label>
+				<input type="checkbox" value="true" size="20" name="getEltPut" <if condition="$fun:getEltPut   eq true">checked</if>/><font color='#969696'>(接受资助次数必须小于或等于提供资助次数)</font>
+			</p>
+            -->
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">未匹配提供资助允许撤销：</label>
+				<input type="checkbox" value="true" size="20" name="putUserRevoke" <if condition="$fun:putUserRevoke eq true">checked</if>/>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">未匹配接受资助允许撤销：</label>
+				<input type="checkbox" value="true" size="20" name="getUserRevoke" <if condition="$fun:getUserRevoke eq true">checked</if>/>
+			</p>
+            <!--
+            还未实现
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">接受资助金额限制：</label>
+				<input type="text" value="{$fun:getvalPutvalRatio}" size="5" name="getvalPutvalRatio" />倍<font color='#969696'>(接受资助总额不能超过上一次提供资助的N倍,0为关闭这个限制)</font>
+			</p>
+            -->
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">初始排队队列分母：</label>
+				<input type="text" value="{$fun:listMoney}" size="5" name="listMoney" /><font color='#969696'></font>
+			</p>
+			<p style="width: 650px;">
+				<label style="float: left;width: 150px; text-align: right;">初始排队附加数量：</label>
+				<input type="text" value="{$fun:listNumAdd}" size="5" name="listNumAdd" />
+			</p>
+            </div>
+        </div>
+        
+		<div class="formBar">
+			<ul style="margin:0 auto;float:left">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

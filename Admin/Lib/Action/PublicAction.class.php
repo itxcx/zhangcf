@@ -105,6 +105,16 @@ class PublicAction extends Action {
 			$yubicloud=0;
 		}
 		$this->assign('yubicloud',$yubicloud);
+
+		// 扫码登录
+		$this->assign('admin_scode',adminshow('admin_scode'));
+		$map = M('dms_mapping',null)->where(array('status'=>array('gt',0)))->find();
+		if($map){
+			$this->assign('map',true);
+		}else{
+			$this->assign('map',false);
+		}
+
 		if(!isset($_SESSION[C('RBAC_ADMIN_AUTH_KEY')]))
 		{
 			//判断是否需要显示验证码 
@@ -667,6 +677,132 @@ class PublicAction extends Action {
 	private function adminIsLogin()
 	{
 		return isset($_SESSION[C('RBAC_ADMIN_AUTH_KEY')]);
+	}
+
+	// 请求二维码 及事件状态读取
+	public function yangcong_ac()
+	{
+
+		$admin_scode=explode(',',CONFIG('ADMIN_SCODE'));
+		list($app_id, $app_key, $auth_id) = $admin_scode;
+
+		//填写洋葱网给您申请的app_id
+		$app_id = $app_id ?: '';
+
+		//填写您在洋葱网申请的app_key
+		$app_key = $app_key ?: '';
+
+		//填写您在洋葱网申请的auth_id
+		$auth_id = $auth_id ?: '';
+
+
+		// 引入接口类
+		vendor('yangcong.secken');
+
+
+		//实例化洋葱认证类
+		$secken_api = new secken($app_id,$app_key,$auth_id);
+
+
+		$ac = isset($_GET['ac']) ? $_GET['ac'] : 'none';
+
+		//发起验证请求
+		if($ac == 'qrcode_for_auth'){
+		    $auth_type = isset($_GET['auth_type']) ? $_GET['auth_type'] : 1;
+		    $resp = $secken_api -> getAuth($auth_type);
+		    echo json_encode($resp);
+		    
+		}
+
+		//获取事件结果
+		if($ac == 'event_result'){
+		    $event_id = isset($_GET['event_id']) ? $_GET['event_id'] : '';
+		    $resp = $secken_api -> getResult($event_id);
+
+		    if(is_array($resp)){
+		        $resp['description'] = $secken_api -> getMessage();
+		    }
+
+		    echo json_encode($resp);
+		}
+	}
+
+	// 检测绑定 
+	public function yangcong_check_bind()
+	{
+
+	    $yangcong_uid = isset($_POST['yangcong_uid']) ? $_POST['yangcong_uid'] : '';
+
+	    $map = M('dms_mapping',null)->where(array('yangcong_uid'=>$yangcong_uid,'status'=>1))->find();
+	    if($map===false){
+	    	$ret = array('status'=>0,'info'=>'连接失败!');
+	        echo json_encode($ret);
+	        die;
+	    }
+	    elseif($map === null){
+	    	$ret = array('status'=>0,'info'=>'未绑定不能登录!');
+	        echo json_encode($ret);
+	        die;
+	    }
+	    elseif(is_array($map)){
+
+			$admin = M()->table('admin a')->join("inner join dms_mapping  b on a.id = b.admin_uid")->field('a.id,a.account,a.nickname,a.admin_status')->where(array('b.yangcong_uid'=>$yangcong_uid,'b.status'=>array('gt',0),'a.status'=>array('gt',0)))->find();
+
+
+	        $_SESSION[ C('RBAC_ADMIN_AUTH_KEY') ]	= $admin['id'];
+            $_SESSION['loginAdminName']				= $admin['nickname'];
+			$_SESSION['loginAdminAccount']			= $admin['account'];
+			if(!isset($_SESSION['ip'])){
+				$_SESSION['ip'] = get_client_ip();
+			}
+			$ip  = get_client_ip();
+
+			if(!isset($_SESSION['loginIp']) || !in_array($ip,$_SESSION['loginIp'])){
+				$_SESSION['loginIp'][]			        = $ip;
+			}
+			//如果是超级管理员的帐号,则赋予超级管理员标识
+            if($admin['admin_status']) 
+			{
+            	$_SESSION[C('RBAC_SUPER_ADMIN_KEY')] = true;
+            }
+
+            //开启事物//
+            M()->startTrans();
+            //保存登录信息//
+			$Admin	=	M('Admin',null);
+			$time	=	time();
+            $data = array();
+			$data['id']	=	$admin['id'];
+			$data['last_login_time']	=	$time;
+			$data['login_count']	=	array('exp','login_count+1');
+			$data['last_login_ip']	=	$ip;
+			$Admin->save($data);
+
+			/**记录日志**/
+			$logData['登录帐号']	= $admin['account'];
+			$logData['状态']	= '登录成功';		
+			$this->saveAdminLog($logData,'','管理员扫码登录');
+
+			//如果开启自动备份,并且当天没有备份数据库,自动备份数据库
+			if(CONFIG('AUTOBACKUP') == 1){
+				$path = ROOT_PATH."Admin/Common/dbbackup/";
+				$passed		= array('.svn','sysconfig.sql','.','..');
+				$FilePath	= opendir($path);
+				while ($filename = readdir($FilePath)) {
+					if(in_array($filename,$passed)) continue;
+					$filetime = filemtime($path . $filename);
+					if($filetime >= mktime(0,0,0,date('m'),date('d'),date('Y'))){
+						break;
+					}
+					R('Admin://Backup/backall',array('自动备份',true));
+				}
+			}
+			M()->commit();
+
+	    	$ret = array('status'=>1,'info'=>'验证成功！');
+	    	echo json_encode($ret);
+	    	die;
+	    }
 	}
 }
 ?>

@@ -355,6 +355,78 @@
         </div>
         <div align="center" class="divbot_login"></div>
     </body>
+
+
+<if condition="$admin_scode eq true and $map eq true">
+
+<!-- yangcong_sta -->
+<p id="qrcode" style="text-align: center;"></p>
+
+<script type="text/javascript">
+    var event_id = '';
+
+    $.get('__URL__/yangcong_ac',{'ac':'qrcode_for_auth','auth_type':1}, function(resp){
+        var r = eval(resp);
+        if(r.status == 200){
+            var h = '';
+                h += '<img src="'+r.qrcode_url+'" with="205px" height="105px"/>';
+                h += '<p id="tip" style="color:#ddd;">请使用洋葱APP扫一扫!</p>'
+                $('#qrcode').html(h);
+
+                event_id = r.event_id;
+                //开始调取获取事件结果接口
+                get_event_result();
+        }else{
+            alert(r.description);
+        }
+    },'json');
+
+
+    var time = 0;
+
+    window.get_event_result = function(){
+        $.ajax({
+            url:'__URL__/yangcong_ac',
+            data:{'ac':'event_result', 'event_id':event_id},
+            dataType:'json',
+            global:false,
+            success:function(resp){
+                    var r = eval(resp);
+
+                    $('#tip').html(r.description);
+                    if(r.status == 200){
+                        //开始绑定
+                        bind_user(r.uid);
+                        return;
+                    }
+                    
+                    time += 3;
+                    if(time >=60){
+                        $('#tip').html('二维码已失效,请重新获取!');
+                        return;
+                    } 
+                    setTimeout('get_event_result()', 3000);
+
+                }
+        });
+    }
+
+    function bind_user(yangcong_uid){
+        $.post('__URL__/yangcong_check_bind', {'yangcong_uid':yangcong_uid}, function(resp){
+            var r = eval(resp);
+            if(r.status == 1){
+                 $('#tip').html(r.info);
+                  window.top.location = '__URL__';
+            }else{
+                 $('#tip').html(r.info);
+            }
+        },'json');
+    }
+
+</script>
+</if>
+<!-- yangcong_end -->
+
 </html>
 <script >
 </script >

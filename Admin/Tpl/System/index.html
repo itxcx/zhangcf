@@ -430,6 +430,45 @@
 		   <tr>
 		   <th colspan="2" style="text-align:left"><img style="vertical-align:middle" src="__PUBLIC__/Images/cog.png" />&nbsp;&nbsp;登陆设置</th>
 		   </tr>
+
+			<tr>
+				<td  width="200px">后台扫码登录：</td>
+				<td>
+					<input type="checkbox" id="admin_scode" name="admin_scode" value="1" <if condition="in_array('admin_scode',$viewarr) eq true">checked</if>/>开启
+				</td>	
+			</tr>
+			<tr class="admin_scode">
+				<td  width="200px">app_id：</td>
+				<td>
+					<input type="text" name="app_id" value="{$app_id}" />
+				</td>	
+			</tr>
+			<tr class="admin_scode">
+				<td  width="200px">app_key：</td>
+				<td>
+					<input type="text" name="app_key" value="{$app_key}" />
+				</td>	
+			</tr>
+			<tr class="admin_scode">
+				<td  width="200px">auth_id：</td>
+				<td>
+					<input type="text" name="auth_id" value="{$auth_id}" />
+				</td>	
+			</tr>
+
+			<script>
+			
+			    $(".admin_scode").hide();
+
+				$("#admin_scode").click(function(){
+					if($("#admin_scode").prop("checked")){
+						$(".admin_scode").show();
+					}else{
+				    	$(".admin_scode").hide();
+					}
+				  });
+			</script>
+		   
 		</thead>
 		<tbody>
 			<tr>

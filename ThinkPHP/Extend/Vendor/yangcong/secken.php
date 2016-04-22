@@ -346,6 +346,7 @@ class secken {
         curl_setopt($ci, CURLOPT_TIMEOUT, 30);
         curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, false);
 
+        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
         if ( $method == 'POST' ) {
             curl_setopt($ci, CURLOPT_POST, TRUE);
             curl_setopt($ci, CURLOPT_POSTFIELDS, http_build_query($data));

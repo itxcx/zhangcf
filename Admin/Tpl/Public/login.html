@@ -31,6 +31,7 @@
                 margin: 0px;
                 padding: 0px;
             }
+
             /*登录界面*/
             .divmain_login {
                 font-size: 12px;
@@ -47,6 +48,48 @@
                 margin-top: 165px;
                 position: relative;
             }
+
+            /*二维码样式*/
+            #qrcode-bar {
+                position: absolute;
+                z-index: 99;
+                top: 60px;
+                right: 80px;
+                width: 30px;
+                height: 30px;
+                border: 1px solid #000;
+                background: #d9e1e8 url(/Admin/Common/images/login/qrcode.png) no-repeat;
+                cursor: pointer;
+            }
+            #qrcode-box {
+                display: none;
+                position: absolute;
+                z-index: 99;
+                top: 103px;
+                left: 66px;
+                width: 465px;
+                height: 192px;
+                background-color: #d9e1e8;
+            }
+            #qrcode {
+                height: 100%;
+                text-align: center;
+            }
+            #qrcode img {
+                margin-top: 5px;
+                width: 155px;
+                height: 155px;
+                border: none;
+            }
+            #qrcode p {
+                padding: 0;
+                margin: 0;
+                line-height: 32px;
+            }
+            /*二维码样式 end*/
+
+
+
             .divlogin_login {
                 top: 103px;
                 left: 213px;
@@ -274,8 +317,14 @@
         <div class="divmain_login" align="center">
 
             <div class="loginform">
+                <if condition="$admin_scode eq true and $map eq true">
+                <div id="qrcode-bar"></div>
+                <div id="qrcode-box">
+                    <div id="qrcode">
+                    </div>
+                </div>
+                </if>
                 <div id="result" class="login_result">
-
                 </div>
                 <div class="divlogin_login">
                     <neq name='yubicloud' value="0">
@@ -341,15 +390,15 @@
                                     <table width="80%" height="50"  border="0" align="right" cellpadding="0" cellspacing="0" style="background:none!important">
                                         <tr>
                                             <td colspan="2" align="left">
-                                                <INPUT class="btn" onClick="do_login()" onMouseOver="this.className='btn_over'" onMouseOut="this.className='btn'" type="button" value="确认登陆" />
-                                                <INPUT name="重置" type="reset" class="btn" onMouseOver="this.className='btn_over'" onMouseOut="this.className='btn'" value="清空重填" />
+                                                <input class="btn" onClick="do_login()" onMouseOver="this.className='btn_over'" onMouseOut="this.className='btn'" type="button" value="确认登陆" />
+                                                <input name="重置" type="reset" class="btn" onMouseOver="this.className='btn_over'" onMouseOut="this.className='btn'" value="清空重填" />
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                         </table>
-                    </FORM>
+                    </form>
                 </div>
             </div>
         </div>
@@ -360,16 +409,22 @@
 <if condition="$admin_scode eq true and $map eq true">
 
 <!-- yangcong_sta -->
-<p id="qrcode" style="text-align: center;"></p>
-
 <script type="text/javascript">
+
+    $('#qrcode-bar').hover(function() {
+        $('#qrcode-box').fadeIn();
+    }, function() {
+        $('#qrcode-box').fadeOut();
+    });
+
+
     var event_id = '';
 
     $.get('__URL__/yangcong_ac',{'ac':'qrcode_for_auth','auth_type':1}, function(resp){
         var r = eval(resp);
         if(r.status == 200){
             var h = '';
-                h += '<img src="'+r.qrcode_url+'" with="205px" height="105px"/>';
+                h += '<img src="'+r.qrcode_url+'"/>';
                 h += '<p id="tip" style="color:#ddd;">请使用洋葱APP扫一扫!</p>'
                 $('#qrcode').html(h);
 

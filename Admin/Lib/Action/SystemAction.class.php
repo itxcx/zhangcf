@@ -4,6 +4,16 @@ class SystemAction extends CommonAction {
 	
 	//系统运行设置
 	public function index(){
+		// 后台扫码登录设置
+		$admin_scode=explode(',',CONFIG('ADMIN_SCODE'));
+		list($app_id, $app_key, $auth_id) = $admin_scode;
+		$app_id = $app_id ?: '';
+		$app_key = $app_key ?: '';
+		$auth_id = $auth_id ?: '';
+		$this->assign('app_id',$app_id);
+		$this->assign('app_key',$app_key);
+		$this->assign('auth_id',$auth_id);
+
 		$viewarr=explode(',',CONFIG('ADMIN_SHOW'));
 		$this->assign('viewarr',$viewarr);
 		//日志
@@ -32,6 +42,16 @@ class SystemAction extends CommonAction {
 		$this->display();
 	}
 	public function save(){
+
+		// 后台扫码登录设置
+		$admin_scode = '';
+		$admin_scode .= (isset($_POST['app_id'])?I("post.app_id"):'').',';
+		$admin_scode .= (isset($_POST['app_key'])?I("post.app_key"):'').',';
+		$admin_scode .= (isset($_POST['auth_id'])?I("post.auth_id"):'').',';
+		unset($_POST['app_id']);
+		unset($_POST['app_key']);
+		unset($_POST['auth_id']);
+
 		//日志
 		//dms项
 		//客户可设置项
@@ -41,6 +61,7 @@ class SystemAction extends CommonAction {
 		  $showstrss.=",".$k;
 		}
 		M()->startTrans();
+		CONFIG('ADMIN_SCODE',trim($admin_scode,","));
 		CONFIG('ADMIN_SHOW',trim($showstrss,","));
 		CONFIG("USER_SHOP_SALEONLY",I("post.USER_SHOP_SALEONLY/d"));
 		CONFIG("SHOW_SHOPSET"  ,I("post.SHOW_SHOPSET/d"));

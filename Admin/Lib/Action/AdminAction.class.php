@@ -10,7 +10,9 @@ class AdminAction extends CommonAction
 			'删除管理员'=>array("class"=>"delete","href"=>"__APP__/Admin/delete/id/{tl_id}","target"=>"ajaxTodo","title"=>"确定要删除吗?"),
 			'重置权限列表'=>array("class"=>"delete","href"=>"__APP__/Admin/updateNode","target"=>"ajaxTodo","title"=>"重置权限后需取消除超管外的权限?"),
 			'后台登陆域名绑定'=>array("class"=>"edit","href"=>"__APP__/Admin/binddomain","target"=>"dialog","title"=>"确定要绑定该域名吗?"),
+			'扫码登录绑定'=>array("class"=>"add","href"=>"__APP__/Admin/yangcong_bind/id/{tl_id}","target"=>"dialog","height"=>360,"width"=>560),
         );
+        if(!adminshow('admin_scode')){unset($setButton['扫码登录绑定']);}
         $list=new TableListAction("admin"); // 实例化Model 传表名称
         $list->table("admin as a")->join("left join (select c.admin_id,d.name from role_admin c inner join role d on c.role_id=d.id ) as b on b.admin_id=a.id");
         $list->setButton = $setButton;       // 定义按钮显示
@@ -27,6 +29,157 @@ class AdminAction extends CommonAction
 		$this->assign('list',$list->getHtml());
         $this->display();
 	}
+	// 绑定请求页
+	public function yangcong_bind(){
+		$admin_id = I("get.id/s");
+		$admin = M('admin',null)->where(array('id'=>$admin_id))->find();
+		if(!$admin){
+			throw_exception(L('_OPERATION_WRONG_'));
+		}
+
+		// 查询绑定次数
+		$bind = M('dms_mapping',null)->where(array('admin_uid'=>$admin_id,'status'=>1))->select();
+		if($bind===false){
+			throw_exception(L('_OPERATION_WRONG_'));
+		}
+
+		$count = 0;
+		if(is_array($bind)){
+			$count = count($bind);
+		}
+		if($count<1) $count = 0;
+		$this->assign('count',$count);
+		$this->assign('account',$admin['account']);
+		$this->display();
+
+	}
+
+	// 表单验证
+	public function yangcong_check(){
+
+		// 验证选择的管理员密码
+		$status = I("post.status/s");
+		$account = I("post.account/s");
+		$password = I("post.password/s");
+
+		if($account=="")
+        {
+			$this->error('帐号错误！');
+		}
+        elseif ($password=="")
+        {
+			$this->error('密码必须！');
+		}
+
+		$admin = M('admin',null)->where(array('account'=>$account,'password'=>md100($password)))->find();
+		if(!$admin){
+			$this->error('密码错误');
+		}
+
+		// 解除绑定
+		if($status=='2'){
+			M()->startTrans();
+			$map = M('dms_mapping',null)->where(array('admin_uid'=>$admin['id']))->save(array('status'=>0));
+			
+			if($map===false){
+				$this->error('解绑出错！');
+				die;
+			}
+
+			if($map===0){
+				$this->error('尚未绑定！');
+				die;
+			}
+
+			M()->commit();
+
+			$this->success('解绑成功! ','','2');
+		}
+
+		$_SESSION['bind_admin_id'] = $admin['id'];
+
+		$this->success('');
+
+	}
+
+	// 请求二维码 及事件读取
+	public function yangcong_ac()
+	{
+		// 引入接口类
+		vendor('yangcong.secken');
+
+		$admin_scode=explode(',',CONFIG('ADMIN_SCODE'));
+		list($app_id, $app_key, $auth_id) = $admin_scode;
+
+		//填写洋葱网给您申请的app_id
+		$app_id = $app_id ?: '';
+
+		//填写您在洋葱网申请的app_key
+		$app_key = $app_key ?: '';
+
+		//填写您在洋葱网申请的auth_id
+		$auth_id = $auth_id ?: '';
+
+		//实例化洋葱认证类
+		$secken_api = new secken($app_id,$app_key,$auth_id);
+
+
+		$ac = isset($_GET['ac']) ? $_GET['ac'] : 'none';
+
+		//发起验证请求
+		if($ac == 'qrcode_for_auth'){
+		    $auth_type = isset($_GET['auth_type']) ? $_GET['auth_type'] : 1;
+		    $resp = $secken_api -> getAuth($auth_type);
+		    echo json_encode($resp);
+		    
+		}
+
+		//获取事件结果
+		if($ac == 'event_result'){
+		    $event_id = isset($_GET['event_id']) ? $_GET['event_id'] : '';
+		    $resp = $secken_api -> getResult($event_id);
+
+		    if(is_array($resp)){
+		        $resp['description'] = $secken_api -> getMessage();
+		    }
+
+		    echo json_encode($resp);
+		}
+
+	}
+
+	// 扫码成功后的绑定方法
+	public function yangcong_check_bind()
+	{
+	    $yangcong_uid = isset($_POST['yangcong_uid']) ? I("post.yangcong_uid/s") : '';
+	    $admin_id = $_SESSION['bind_admin_id'];
+	    unset($_SESSION['bind_admin_id']);
+
+	    /**
+	     * 请先确保您已经执行了table.sql中的语句
+	     */
+
+	    $map = M('dms_mapping',null)->where(array('yangcong_uid'=>$yangcong_uid,'status'=>1))->select();
+	    if($map===false){
+	    	$ret = array('status'=>0,'info'=>'连接数据库失败!');
+	        echo json_encode($ret);
+	    }
+	    elseif(is_array($map)){
+	    	$ret = array('status'=>0,'info'=>'该APP账号已绑定！');
+	        echo json_encode($ret);
+	    }else{
+	    	$bind = M('dms_mapping',null)->add(array('admin_uid'=>$admin_id,'yangcong_uid'=>$yangcong_uid,'bind_time'=>systemTime(),'status'=>1));
+	        if($bind){
+	            $ret = array('status'=>1,'info'=>'绑定成功！');
+	            echo json_encode($ret);
+	        }else{
+	            $ret = array('status'=>0,'info'=>'数据插入失败!');
+	            echo json_encode($ret);
+	        }
+	    }
+	}
+
+
 	function _showstatus($status){
 		if($status==0){
 			return "待审";

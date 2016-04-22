@@ -1,0 +1,122 @@
+<script language="JavaScript">
+function dialogAjaxDoneProductAdd(json)
+{
+
+	DWZ.ajaxDone(json);
+	if(!json.data.next)
+	{
+		if (json.statusCode == DWZ.statusCode.ok)
+		{
+
+			$("#bind").hide().css('background','#FFF');
+			if(json.data==2){
+				$.pdialog.closeCurrent(); //关闭添加话框
+			}else{
+				get_bind();
+			}
+			var event_id = '';
+			function get_bind(){
+				$.get('__URL__/yangcong_ac',{'ac':'qrcode_for_auth','auth_type':1}, function(resp){
+	            var r = eval(resp);
+	            if(r.status == 200){
+	                var h = '';
+	                    h += '<img src="'+r.qrcode_url+'" with="260px" height="260px"/>';
+	                    h += '<p id="tip">请使用洋葱APP扫一扫</p>'
+	                    $('#qrcode').show().html(h);
+
+	                    event_id = r.event_id;
+	                    //开始调取获取事件结果接口
+	                    get_event_result();
+	            }else{
+	                alert(r.description);
+	            }
+	        	},'json');
+				
+			}
+
+
+			var time = 0;
+
+	    	window.get_event_result = function(){
+	    		$.ajax({
+	    			url:'__URL__/yangcong_ac',
+	    			data:{'ac':'event_result', 'event_id':event_id},
+				    dataType:'json',
+				    global:false,
+	    			success:function(resp){
+				            var r = eval(resp);
+
+				            $('#tip').html(r.description);
+				            if(r.status == 200){
+				                //开始绑定
+				                bind_user(r.uid);
+				                return;
+				            }
+				            
+				            time += 3;
+				            if(time >=60){
+			                	$('#tip').html('二维码已失效,请重新申请绑定！');
+				            	return;
+				            } 
+				            setTimeout('get_event_result()', 3000);
+
+				        }
+	    		});
+	    	}
+
+		    function bind_user(yangcong_uid){
+		        $.post('__URL__/yangcong_check_bind', {'yangcong_uid':yangcong_uid}, function(resp){
+		        	var r = eval(resp);
+		            $.pdialog.closeCurrent(); //关闭添加话框
+
+		            if(r.status == 1){
+		            	alertMsg.correct(r.info);
+		            }else{
+		            	alertMsg.error(r.info);
+		            }
+
+		        },'json');
+		    }
+		}else{
+			$.pdialog.closeCurrent(); //关闭添加话框
+		}
+	}
+}
+function band(status){
+	$("#status").val(status);
+}
+</script>
+<p id="qrcode" style="text-align: center;display:none;"></p>
+<div id="bind" class="pageContent">
+<form id="form1" action="__URL__/yangcong_check" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDoneProductAdd)">
+		<input type="hidden" name="status" id="status" value="">
+        <div class="pageFormContent" layoutH="58">
+			<table cellpadding="5" cellspacing="5" style="margin-left:10px">
+				<tr>
+                    <td style="text-align:right";>当前选择账号：</td><td><input type="text" name="account" readonly value="{$account}" /></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">输入密码：</td><td><input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td style="text-align:right;">当前角色绑定APP账号：{$count}</td>
+				</tr>
+
+
+
+				<tr>
+					<td class="right"></td>
+					<td class="left"><span style="color:red;">注：取消绑定是解除角色关联的所有洋葱APP账号！！！</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="submit" type="submit" onclick='band(1)'>申请绑定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="submit" onclick='band(2)'>取消绑定</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div></li>
+			</ul>
+		</div>
+</form>
+</div>

@@ -17,6 +17,8 @@
 			如会员1能够达到3级的条件，却达不到2级的条件，则不能直直接升级为3级
 		*/
 		public $onlylevel = false;
+        //必须大于或者大于等于当前级别
+        public $mustEgt = true;// 为false时能实现降级处理
 		//开启区域选择
 		public $area=false;
 		public $lv_cache=array();
@@ -73,7 +75,8 @@
 				}
 			}
 			//记录数据
-			$this->lv_cache=M()->table("dms_会员 u")->join("inner join (select userid,min(olv) olv from dms_lvlog where time>".($caltime+86400)." and lvname='".$this->name."' group by userid ) lv on u.id=lv.userid")->getField("u.编号,lv.olv");
+            $this->lv_cache=M()->table("dms_会员 u")->join("inner join dms_lvlog lv on u.id=lv.userid inner join (select userid,max(id) id from dms_lvlog where time<".($caltime+86400)." and lvname='".$this->name."' group by userid ) c on lv.id=c.id")->getField("u.编号,lv.nlv");
+			//$this->lv_cache=M()->table("dms_会员 u")->join("inner join (select userid,min(olv) olv from dms_lvlog where time>".($caltime+86400)." and lvname='".$this->name."' group by userid ) lv on u.id=lv.userid")->getField("u.编号,lv.olv");
 			return true;
 		}
 		//获取区域代理的数字
@@ -223,13 +226,16 @@
 					{
 						$updatestr = "," . $updatestr;
 					}
-					//上一个级别
-					$lastlv=$cons[$lvkey-1]['lv'];
-					if($this->onlylevel){
-						$upwhere="{$this->name}={$lastlv}";
-					}else{
-						$upwhere="{$this->name}<={$lastlv}";
-					}
+                    $upwhere='1';
+                    if($this->mustEgt){
+                        //上一个级别
+    					$lastlv=$cons[$lvkey-1]['lv'];
+    					if($this->onlylevel){
+    						$upwhere="{$this->name}={$lastlv}";
+    					}else{
+    						$upwhere="{$this->name}<={$lastlv}";
+    					}
+                    }
 
 					//对即将自动升级的会员生成升级日志
 

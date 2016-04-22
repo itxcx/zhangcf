@@ -226,7 +226,7 @@ class ProductCategoryAction extends CommonAction
    	}
    	//保存 产品功能
    	public function productfunction_editSave(){
-		$id = I("get.id/d");
+		$id = I("post.id/d");
 		if(I("post.gongneng_name/s")==''){
 			$this->error("请填写功能名称");
 		}

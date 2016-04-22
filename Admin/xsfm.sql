@@ -494,3 +494,14 @@ COLLATE='utf8_general_ci'
 ENGINE=MyISAM
 AUTO_INCREMENT=70
 ;
+
+DROP TABLE IF EXISTS `dms_mapping`;
+CREATE TABLE `dms_mapping` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `admin_uid` int(11) NOT NULL,
+    `yangcong_uid` varchar(64) NOT NULL,
+	`bind_time` int(10) unsigned NOT NULL DEFAULT '0',
+	`status` tinyint(1) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    KEY (`admin_uid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

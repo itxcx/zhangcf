@@ -411,10 +411,8 @@
 <!-- yangcong_sta -->
 <script type="text/javascript">
 
-    $('#qrcode-bar').hover(function() {
-        $('#qrcode-box').fadeIn();
-    }, function() {
-        $('#qrcode-box').fadeOut();
+    $('#qrcode-bar').click(function() {
+        $('#qrcode-box').toggle();
     });
 
 

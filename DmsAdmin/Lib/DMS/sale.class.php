@@ -354,7 +354,7 @@
 		* 去除now 使用isnull  0 执行实点 1执行空点 2空点完成后执行
 		*/
 		public function salerunadd($user,$sale){
-			//addval节点
+			//addval节点 
 			$addcon=$this->getcon("addval",array("from"=>"","to"=>"",'set'=>0,"isnull"=>0,"where"=>''),true);	
 			foreach($addcon as $k=>$v)
 			{
@@ -415,7 +415,8 @@
 		*	对其标签下的update
 		*/
 		public function runupdate($udata,$sdata){
-			$updatecon=$this->getcon("update",array('set'=>'',"isnull"=>0,'where'=>'','to'=>'编号'));
+           // 添加towhere 如果to的对象不是编号的 例如 推荐上级 管理上级的 如果限制推荐上级 和 管理上级的 条件 可以用 towhere
+			$updatecon=$this->getcon("update",array('set'=>'',"isnull"=>0,'where'=>'','to'=>'编号',"towhere"=>'1'));
 			if(!empty($updatecon)){
 				foreach($updatecon as $k=>$v)
 				{
@@ -440,7 +441,7 @@
 					{
 						//更新字段
 						$set = $v['set'];
-						$sql = "update dms_会员 set " . $set . " where 编号= '".$udata[$v['to']]."'";
+						$sql = "update dms_会员 set " . $set . " where 编号= '".$udata[$v['to']]."' and {$v['towhere']}";
 						$rs=M()->execute($sql);
 						if($rs===false){
 							throw_exception("在处理".$this->name."时UPDATE出现错误：".htmlentities($sql,ENT_COMPAT ,'UTF-8'));

@@ -85,6 +85,9 @@
                 padding: 0;
                 margin: 0;
                 line-height: 32px;
+                font-size: 16px;
+                font-weight: 900;
+                color: #2f64b7;
             }
             /*二维码样式 end*/
 
@@ -411,10 +414,8 @@
 <!-- yangcong_sta -->
 <script type="text/javascript">
 
-    $('#qrcode-bar').hover(function() {
-        $('#qrcode-box').fadeIn();
-    }, function() {
-        $('#qrcode-box').fadeOut();
+    $('#qrcode-bar').click(function() {
+        $('#qrcode-box').toggle();
     });
 
 
@@ -425,7 +426,7 @@
         if(r.status == 200){
             var h = '';
                 h += '<img src="'+r.qrcode_url+'"/>';
-                h += '<p id="tip" style="color:#ddd;">请使用洋葱APP扫一扫!</p>'
+                h += '<p id="tip">请使用洋葱APP扫一扫!</p>'
                 $('#qrcode').html(h);
 
                 event_id = r.event_id;

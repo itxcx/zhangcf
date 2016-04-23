@@ -105,20 +105,12 @@ class AdminAction extends CommonAction
 	// 请求二维码 及事件读取
 	public function yangcong_ac()
 	{
+		$qrlogin = require(CONF_PATH.'qrlogin.php');
+		extract($qrlogin);
+
+
 		// 引入接口类
 		vendor('yangcong.secken');
-
-		$admin_scode=explode(',',CONFIG('ADMIN_SCODE'));
-		list($app_id, $app_key, $auth_id) = $admin_scode;
-
-		//填写洋葱网给您申请的app_id
-		$app_id = $app_id ?: '';
-
-		//填写您在洋葱网申请的app_key
-		$app_key = $app_key ?: '';
-
-		//填写您在洋葱网申请的auth_id
-		$auth_id = $auth_id ?: '';
 
 		//实例化洋葱认证类
 		$secken_api = new secken($app_id,$app_key,$auth_id);

@@ -446,10 +446,12 @@
             success:function(resp){
                     var r = eval(resp);
 
-                    $('#tip').html(r.description);
-                    if(r.status == 200){
-                        //开始绑定
-                        bind_user(r.uid);
+                    if(r.status == 1){
+                        $('#tip').html(r.info);
+                        window.top.location = '__URL__';
+                        return;
+                    }else if(r.status == 0){
+                        $('#tip').html(r.info);
                         return;
                     }
                     
@@ -459,22 +461,10 @@
                         return;
                     } 
                     setTimeout('get_event_result()', 3000);
-
                 }
         });
     }
 
-    function bind_user(yangcong_uid){
-        $.post('__URL__/yangcong_check_bind', {'yangcong_uid':yangcong_uid}, function(resp){
-            var r = eval(resp);
-            if(r.status == 1){
-                 $('#tip').html(r.info);
-                  window.top.location = '__URL__';
-            }else{
-                 $('#tip').html(r.info);
-            }
-        },'json');
-    }
 
 </script>
 </if>

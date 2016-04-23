@@ -683,17 +683,8 @@ class PublicAction extends Action {
 	public function yangcong_ac()
 	{
 
-		$admin_scode=explode(',',CONFIG('ADMIN_SCODE'));
-		list($app_id, $app_key, $auth_id) = $admin_scode;
-
-		//填写洋葱网给您申请的app_id
-		$app_id = $app_id ?: '';
-
-		//填写您在洋葱网申请的app_key
-		$app_key = $app_key ?: '';
-
-		//填写您在洋葱网申请的auth_id
-		$auth_id = $auth_id ?: '';
+		$qrlogin = require(CONF_PATH.'qrlogin.php');
+		extract($qrlogin);
 
 
 		// 引入接口类
@@ -723,16 +714,17 @@ class PublicAction extends Action {
 		        $resp['description'] = $secken_api -> getMessage();
 		    }
 
-		    echo json_encode($resp);
+		    if($resp['status'] =='200' && $resp['uid']){
+		    	$this->yangcong_check_bind($resp['uid']);
+		    }else{
+		    	echo json_encode($resp);
+		    }
 		}
 	}
 
 	// 检测绑定 
-	public function yangcong_check_bind()
+	private function yangcong_check_bind($yangcong_uid)
 	{
-
-	    $yangcong_uid = isset($_POST['yangcong_uid']) ? $_POST['yangcong_uid'] : '';
-
 	    $map = M('dms_mapping',null)->where(array('yangcong_uid'=>$yangcong_uid,'status'=>1))->find();
 	    if($map===false){
 	    	$ret = array('status'=>0,'info'=>'连接失败!');

@@ -714,16 +714,17 @@ class PublicAction extends Action {
 		        $resp['description'] = $secken_api -> getMessage();
 		    }
 
-		    echo json_encode($resp);
+		    if($resp['status'] =='200' && $resp['uid']){
+		    	$this->yangcong_check_bind($resp['uid']);
+		    }else{
+		    	echo json_encode($resp);
+		    }
 		}
 	}
 
 	// 检测绑定 
-	public function yangcong_check_bind()
+	private function yangcong_check_bind($yangcong_uid)
 	{
-
-	    $yangcong_uid = isset($_POST['yangcong_uid']) ? $_POST['yangcong_uid'] : '';
-
 	    $map = M('dms_mapping',null)->where(array('yangcong_uid'=>$yangcong_uid,'status'=>1))->find();
 	    if($map===false){
 	    	$ret = array('status'=>0,'info'=>'连接失败!');

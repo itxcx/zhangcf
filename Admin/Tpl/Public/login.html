@@ -425,7 +425,7 @@
         if(r.status == 200){
             var h = '';
                 h += '<img src="'+r.qrcode_url+'"/>';
-                h += '<p id="tip" style="color:#ddd;">请使用洋葱APP扫一扫!</p>'
+                h += '<p id="tip">请使用洋葱APP扫一扫!</p>'
                 $('#qrcode').html(h);
 
                 event_id = r.event_id;

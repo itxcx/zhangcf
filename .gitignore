@@ -1,5 +1,6 @@
 Admin/Conf/*
 !Admin/Conf/lang.php
+!Admin/Conf/qrlogin.php
 Admin/Runtime/*
 
 ThinkPHP/Conf/*
